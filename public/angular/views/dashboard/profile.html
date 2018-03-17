@@ -1,0 +1,101 @@
+<div id="main-controller" style="background: #fff; margin-bottom:80px;">
+  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+
+  <user-profile></user-profile>
+  
+  <section id="stats">
+    <div class="grid-container">
+      <div class="grid-15">
+        <div id="profile-menu" class="ui compact vertical labeled icon menu">
+          <a class="item active" data-tab="statistics">
+            <i class="area chart icon"></i>
+            Statistics
+          </a>
+          <a class="item" data-tab="transactions">
+            <i class="visa icon"></i>
+            Transactions
+          </a>
+          <a class="item" data-tab="earnings">
+            <i class="dollar icon"></i>
+            Earnings
+          </a>
+        </div>
+      </div>
+      <div class="grid-85">
+        <div class="ui tab active" data-tab="statistics">
+          <table class="ui inverted blue celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>No. of games played</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>Total earnings</td>
+                <td>#55000</td>
+              </tr>
+              <tr>
+                <td>Total withdrawals</td>
+                <td>#45000</td>
+              </tr>
+              <tr>
+                <td>No. of logins</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>No. of credits purchased</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>No. of withdrawals</td>
+                <td>50</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ui tab" data-tab="transactions">
+          transactions
+        </div>
+        <div class="ui tab" data-tab="earnings">
+          <table class="ui blue celled table">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Date</th>
+                <th>Position</th>
+                <th>Score</th>
+                <th>Start Time</th>
+                <th>Finish Time</th>
+                <th>Duration</th>
+                <th>Earning</th>
+              </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="n in _.range(1,16)">
+                  <td>{{ n }}</td>
+                  <td>2017-12-05 12:01:49</td>
+                  <td>41/560</td>
+                  <td>8/10</td>
+                  <td>2017-12-05 12:01:49</td>
+                  <td>2017-12-05 12:08:02</td>
+                  <td>7:46</td>
+                  <td>#1800</td>
+                </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <footer style="position: fixed; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'"></footer>
+
+</div>

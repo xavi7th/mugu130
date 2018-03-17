@@ -1,0 +1,90 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css");
+
+
+// Variables
+@import "variables";
+
+@import "./semantic/html5reset";
+@import "./semantic/semantic";
+@import "./semantic/icon";
+@import "./semantic/unsemantic-grid-responsive-tablet";
+@import "./itse-style";
+@import "./nprogress";
+@import "~textangular/dist/textAngular";
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
+  border: 2px solid $red;
+}
+
+.btn-transparent{
+  color: #fff;
+  background-color: transparent;
+  border-color: $laravel-border-color;
+}
+
+.ui-notification {
+    border-radius: $ui-notification-border-radius;
+    position: fixed;
+    z-index: 9999;
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+    // color: $btn-primary-color;
+    background: $brand-primary;
+    -webkit-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+    &.clickable {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    &.killed {
+        opacity: 0;
+        -webkit-transition: opacity ease 1s;
+        transition: opacity ease 1s;
+    }
+    & > h3 {
+        display: block;
+        margin: 10px 10px 0 10px;
+        padding: 0 0 5px 0;
+        text-align: left;
+        // font-size: $font-size-base;
+        font-weight: bold;
+        // border-bottom: 1px solid fadeout($btn-primary-color, 70%);
+    }
+    & a {
+        // color: $btn-primary-color;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    & > .message {
+        margin: 10px 10px 10px 10px;
+    }
+    &.warning {
+        // color: $btn-warning-color;
+        background: $brand-warning;
+    }
+    &.error {
+        // color: $btn-danger-color;
+        background: $brand-danger;
+    }
+    &.success {
+        // color: $btn-success-color;
+        background: $brand-success;
+    }
+    &.info {
+        // color: $btn-info-color;
+        background: $brand-info;
+    }
+}
