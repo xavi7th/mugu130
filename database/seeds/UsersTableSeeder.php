@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder{
       'created_at'=> Carbon::now()->subDays(150),
       ]);
 
-      factory(User::class, 27)->create();
+      factory(User::class, 3000)->create();
 
   }
 }

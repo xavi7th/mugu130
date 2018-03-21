@@ -42,6 +42,29 @@
           return deferred.promise;
         },
 
+        getGameState : function (url) {
+
+            return this.postRequest(url)
+                .then(function (rsp) {
+                   return rsp.data;
+                });
+        },
+
+        getUserQuestions : function (url) {
+          var deferred = $q.defer();
+
+          if (!this.getData('user_questions')) {
+            var _this = this;
+            return this.postRequest(url)
+                .then(function (rsp) {
+                  _this.storeData('user_questions', rsp.data);
+                   return _this.getData('user_questions');
+                });
+          }
+          deferred.resolve(this.getData('user_questions'));
+          return deferred.promise;
+        },
+
         getCountriesStates : function () {
           var deferred = $q.defer();
 

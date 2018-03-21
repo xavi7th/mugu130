@@ -21,20 +21,22 @@ class CreateUsersTable extends Migration
           $table->string('lastname');
           $table->string('email')->unique();
           $table->string('password');
-          $table->string('unencpass')->nullable()->default(null);
-          $table->timestamp('DOB')->nullable()->default(null);
-          $table->enum('gender', ['male', 'female'])->nullable()->default(null);
-          $table->string('town')->nullable()->default(null);
-          $table->string('state')->nullable()->default(null);
-          $table->text('address')->nullable()->default(null);
+          $table->string('unencpass')->nullable();
+          $table->timestamp('DOB')->nullable();
+          $table->enum('gender', ['male', 'female'])->nullable();
+          $table->string('town')->nullable();
+          $table->string('state')->nullable();
+          $table->text('address')->nullable();
           $table->string('status')->nullable()->default('unverified');
-          $table->string('phone1')->nullable()->default(null);
-          $table->string('phone2')->nullable()->default(null);
-          $table->string('bank')->nullable()->default(null);
-          $table->string('acct_no')->nullable()->default(null);
-          $table->string('acct_type')->nullable()->default(null);
-          $table->string('refcode')->nullable()->default(null);
-          $table->string('referral_Link')->nullable()->default(null);
+          $table->string('phone1')->nullable();
+          $table->string('phone2')->nullable();
+          $table->string('bank')->nullable();
+          $table->string('acct_no')->nullable();
+          $table->string('acct_type')->nullable();
+          $table->string('refcode')->nullable();
+          $table->string('referral_Link')->nullable();
+
+          $table->string('game_state')->nullable();
 
           $table->string('api_token')->nullable();
           $table->string('confirmation_token')->nullable();

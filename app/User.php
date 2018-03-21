@@ -13,6 +13,7 @@ use App\Message;
 use App\Confirmation;
 use App\VerifyUser;
 use App\Mail\TransactionalMail;
+use App\UserGameSession;
 use App\Referral;
 use Watson\Rememberable\Rememberable;
 use Carbon\Carbon;
@@ -52,7 +53,7 @@ class User extends Authenticatable{
         'created_at', 'expectedghdate', 'phdate'
     ];
 
-    public $rememberFor = 5;
+    // public $rememberFor = 5;
 
     protected $casts = [
          'accnum' => 'integer',
@@ -104,130 +105,78 @@ class User extends Authenticatable{
       }
     }
 
+    public function games(){
+      return $this->hasMany(UserGameSession::class);
+    }
 
-    //
-    // public function verifyUser(){
-    //    return $this->hasOne(VerifyUser::class);
-    //  }
-    //
-    // public function referrals(){
-    //  return $this->hasMany(Referral::class);
-    // }
-    //
-    // public function referrer(){
-    //  return $this->hasOne(Referral::class, 'referral_id');
-    // }
-    //
-    // public function makeDeposit () {
-    //
-    //   DB::beginTransaction();
-    //
-    //       Notice::depositMade();
-    //
-    //       $this->tracker = 'pending';
-    //       $this->save();
-    //
-    //       $package = $this->packages()->create([
-    //         'package_id' => request()->input('details.id'),
-    //         'daily_percentage' => request()->input('details.daily_percentage'),
-    //         'thisghamt' => request()->input('details.amount'),
-    //         'expectedghamt' => request()->input('details.amount') + request()->input('details.amount') * request()->input('details.daily_percentage') / 100 * request()->input('details.duration'),
-    //         'thisghdate' => Carbon::now(),
-    //         'paymentmethod' => 'bitcoin',
-    //         'expectedghdate' => Carbon::now()->addWeekDays(request()->input('details.duration')),
-    //         'ghconfirmstatus' => 'pending',
-    //         'transaction_key' => unique_random('confirmations', 'transaction_key', 20),
-    //       ]);
-    //
-    //   DB::commit();
-    //
-    //   return $package;
-    //
-    //   // Confirmation::create([
-    //   //
-    //   // ]);
-    // }
-    //
-    // public function requestBonus() {
-    //
-    //   DB::beginTransaction();
-    //
-    //       Notice::bonusRequested();
-    //
-    //
-    //       $package = $this->packages()->create([
-    //         'package_id' => 0,
-    //         'daily_percentage' => 0,
-    //         'thisghamt' => 0,
-    //         'expectedghamt' => Auth::user()->referrerbonus,
-    //         'thisghdate' => Carbon::now(),
-    //         'paymentmethod' => 'bitcoin',
-    //         'expectedghdate' => Carbon::now(),
-    //         'ghconfirmstatus' => 'payment requested',
-    //         'transaction_key' => 'bonus',
-    //       ]);
-    //
-    //       $this->tracker = 'bonus requested';
-    //       $this->referrerbonus = 0;
-    //       $this->save();
-    //
-    //
-    //   DB::commit();
-    //
-    //   return true;
-    //
-    // }
-    //
-    // public function requestPayment () {
-    //
-    //   DB::beginTransaction();
-    //
-    //     Notice::paymentRequested();
-    //     $this->tracker = 'payment pending';
-    //     $this->save();
-    //
-    //     Confirmation::find(request()->input('details.id'))->update([
-    //         'ghconfirmstatus' => 'payment requested'
-    //     ]);
-    //
-    //   DB::commit();
-    //
-    //   return true;
-    //
-    // }
-    //
-    // public function receivedPayment () {
-    //
-    //   DB::beginTransaction();
-    //
-    //       Notice::paymentReceived();
-    //       $this->tracker = 'payment received';
-    //       $this->save();
-    //
-    //     Confirmation::find(request()->input('details.id'))->update([
-    //         'ghconfirmstatus' => 'payment received',
-    //         'deleted_at' => Carbon::now()
-    //       ]);
-    //   DB::commit();
-    //
-    //   return true;
-    //
-    // }
-    //
-    // public function disputePayment () {
-    //
-    //   DB::beginTransaction();
-    //
-    //     Notice::paymentDisputed();
-    //     Confirmation::find(request()->input('details.id'))->update([
-    //         'ghconfirmstatus' => 'payment disputed'
-    //       ]);
-    //   DB::commit();
-    //
-    //   return true;
-    //
-    // }
-    //
+    public function activeGames(){
+      return $this->hasMany(UserGameSession::class)->where('ended_at', null);
+    }
+
+    public function gameStatus(){
+      if (!$this->activeGames->isEmpty() ) {
+        return ;
+      }
+    }
+
+    public function user_questions(){
+      return $this->hasMany(UserQuestion::class);
+    }
+
+    public function getUserQuestions(){
+      $active_game = Game::active();
+
+      //check for active game
+      if (!$active_game) {
+        return false;
+      }
+      //delete previous questions
+      //check if he has active questions in the current exam
+      else{
+        Auth::user()->user_questions()->where('game_id', '!=', $active_game->id)->delete();
+        $user_questions = Auth::user()->user_questions()->with('question')->where('game_id', $active_game->id)->get();
+      }
+
+      //populate 11 quuestions into the user_questions table for the user
+
+      if ( $user_questions->isEmpty() ) {
+        Auth::user()->generateQuestions($active_game->id);
+        $user_questions = Auth::user()->user_questions()->with('question')->where('game_id', $active_game->id)->get();
+      }
+
+
+      //return 10 plus the id of the bonus question
+      //OR
+      //return the 11 and hide the last one
+      return $user_questions;
+
+
+      //either send the answers along,
+      //OR
+      // Validate the answers only after choosing
+    }
+
+    public function generateQuestions($game_id){
+
+      //Read 11 questions
+      $questions = Question::inRandomOrder()->take(11)->get(['id'])->toArray();
+
+      //create it in User qusetion db
+
+      foreach ($questions as $key => $question ) {
+        $user_questions[] = [
+          'game_id' => $game_id,
+          'user_id' => auth()->id(),
+          'question_id' => $question['id'],
+          'created_at' => Carbon::now(),
+          'updated_at' => Carbon::now(),
+        ];
+      }
+
+      return UserQuestion::insert($user_questions);
+
+    }
+
     public function updateUserDetails() {
       // return request()->all();
       DB::beginTransaction();

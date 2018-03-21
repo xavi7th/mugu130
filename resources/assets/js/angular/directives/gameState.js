@@ -1,48 +1,92 @@
 // EXAMPLE uploadPostImage
-// <custom-file-upload dest="'u32/'" mdl="post.postImage" attr="postImage" altText="Post Image Upload"></custom-file-upload>
-
-// The mdl attribute is the model to use for the element and the attr is the name and the id to use. the dest folder is the folder to upload the image to in our storage directory
-// We use jQLite to set the id and the name attribute in the link method and we set the model and the destination folder in the controller
-
-// The attr attribute is used to set the name and the id attributes of the generated filefield from the template userdetails
-// The altText attr is used to set the alt attribut of the nested image used for displaying the uploaded image
-
-// // NOTE:
-
-// This directive requires the file change directive to be loaded. We use the file change directive to respond to when the user selects an image and then trigger the upload
-// This directive also requires the sendRequest directives
-// The directive passes the filename of the aved imnage on the server back to the model instance that was passed in
+// <game-state><game-state>
 
 
+var url = `
+<div id="game">
 
-// EXAMPLE templateUrl
-// <div>
-//   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">
-//   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">
-// </div>
+  <div id="card" class="ui segments" ng-if="game_state == 'loading'">
+    <!-- game load -->
+    <div class="ui segment">
+      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
+        <span>Countdown till next game</span>
+      </div>
+    </div>
+    <div class="ui segment">
+      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
+      <button>game loading</button>
+    </div>
+  </div>
 
-// EXAMPLE LARAVEL CONTROLLER TO HANDLE THE ROUTYE
-// public function handleImageUpload(){
-//
-//     // dump(request()->all());
-//
-//     $data = request('image');
-//     $foldername = request('fn');
-//
-//     list($type, $data) = explode(';', $data);
-//     list(, $data)      = explode(',', $data);
-//
-//     $data = base64_decode($data);
-//     $imageName = time().'.png';
-//     $hey = Storage::disk('public')->put($foldername.$imageName, $data);
-//
-//     return ['filename' => '/storage/'.$foldername.$imageName];
-//
-// }
+  <div id="card" class="ui segments" ng-if="game_state == 'waiting'">
+    <!-- game waiting -->
+    <div class="ui segment">
+      <div class="ui horizontal list">
+        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
+          <span style="padding-right: 10px;">Active Gamers</span>
+          <i class="users icon"></i> 2358
+        </div>
+      </div>
+    </div>
+    <div class="ui segment">
+      <countdown-timer countdown="3" finish="displayResults()"></countdown-timer>
+    </div>
+
+    <div class="ui segment">
+      <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">
+        <div class="ui red button">
+          <i class="fork icon"></i> Exam Score
+        </div>
+        <a class="ui basic red left pointing label">
+          {{ user_score }} out of 10
+        </a>
+      </div>
+      <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">
+        <div class="ui basic blue button">
+          <i class="fork icon"></i> Exam Score
+        </div>
+        <a class="ui basic left pointing blue label">
+        {{ user_score }} out of 10
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="card" class="ui segments" ng-if="game_state == 'active'">
+    <!-- game active -->
+    <div class="ui segment">
+      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
+        <span>Game in progress</span>
+      </div>
+    </div>
+    <div class="ui segment">
+      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
+      <button style="cursor: pointer" ng-click="joinGame()">Join Game</button>
+    </div>
+  </div>
+
+  <div id="card" class="ui segments" ng-if="game_state == 'paused'">
+    <!-- game paused -->
+    <div class="ui segment">
+      <div class="ui horizontal list">
+        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
+          <span style="padding-right: 10px;">Active Gamers</span>
+          <i class="users icon"></i> 2358
+        </div>
+      </div>
+    </div>
+    <div class="ui segment">
+      <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>
+      <button style="cursor: pointer">Resume Game</button>
+    </div>
+  </div>
+</div>
+
+`;
 
 
 
-angular.module('gameState', []).directive('gameState', [function () {
+angular.module('gameState', []).directive('gameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -51,45 +95,59 @@ angular.module('gameState', []).directive('gameState', [function () {
       // attr: '=',
       // altText: '='
     },
-    templateUrl:'angular/directive-templates/gameStateTemplate.php',
-    // replace: true,
+    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
+    template:url,
+    replace: true,
     link: function(scope, element, attributes){
 
-			// console.log(attributes); //literal string "{{some string}}", no interpolation
-			// console.log(element); //literal string "{{some string}}", no interpolation
-			// console.log(attributes.anotherParam); //literally "another string"
-      element.children( 'input[type="file"]' ).attr('id', attributes.attr);
-      element.children( 'input[type="file"]' ).attr('name', attributes.attr);
-      element.children( 'img' ).attr('alt', attributes.altText);
-			// attributes.$observe('myDirective', function(value){
-			// 	console.log(value);
-			// });
-      //
-			// attributes.$observe('anotherParam', function(value){
-			// 	console.log(value);
-			// });
-
 		},
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', ($scope) => {
 
-      $scope.state = 'loading';
+      if (sendRequest.getData('user_score') || $localStorage.user_score) {
+        $scope.user_score = $localStorage.user_score;
+      }
 
-      // $scope.uploadImage = function ($event, files) {
-      //   sendRequest.processImageUpload('/api/upload-image', $scope.mdl , $scope.dest, $localStorage.userToken)
-      //   .then(function (data) {
-      //     console.log(data);
-      //     if (undefined == data.filename) {
-      //       console.error('Server Route Error');
-      //     }
-      //     else{
-      //       $scope.mdl = data.filename;
-      //       $scope.$parent.filename = data.filename;
-      //       // Notification.success({ message: 'Upload Successful', positionX: 'center'});
-      //
-      //     }
-      //   });
-      // };
-      //
+      $scope.endGameReload = function () {
+        alert('The game has ended');
+        //Send a request to end the user's game and redirect to results display page
+        $scope.displayResults();
+      };
+
+      $scope.pageReload = function () {
+        location.reload();
+      };
+
+      $scope.displayResults = function () {
+        console.log('here');
+
+        $location.path('/dashboard/display-results');
+
+      };
+
+      $scope.joinGame = () => {
+
+        delete $localStorage.user_score;
+
+        sendRequest.postRequest('/user/join-game')
+                 .then (rsp => {
+
+                   if (rsp.status == 422) {
+                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
+                   }
+                   else if (rsp.status == 200) {
+                     if (rsp.data.status) {
+                       $location.path('/dashboard/game-play');
+                     }
+                   }
+                 });
+      };
+
+      sendRequest.getGameState('/user/get-game-state')
+               .then( rsp => {
+                 $scope.game_state = rsp.game_state;
+                 $scope.game_timer = rsp.game_timer;
+               });
+
     }]
   };
 }]);

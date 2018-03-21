@@ -15,18 +15,14 @@ class CreateUserQuestionsTable extends Migration
     {
         Schema::create('user_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->nullable()->default(null);
-            $table->string('game_id')->nullable()->default(null);
-            $table->string('question_id')->nullable()->default(null);
-            $table->string('question')->nullable()->default(null);
-            $table->string('option_1')->nullable()->default(null);
-            $table->string('option_2')->nullable()->default(null);
-            $table->string('option_3')->nullable()->default(null);
-            $table->string('option_4')->nullable()->default(null);
-            $table->string('correct_option')->nullable()->default(null);
-            $table->string('answered_option')->nullable()->default(null);
-            $table->string('verdict')->nullable()->default(null);
+            $table->integer('user_id');
+            $table->integer('game_id');
+            $table->integer('question_id');
+            $table->string('answered_option')->nullable();
+            $table->boolean('verdict')->default(false);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

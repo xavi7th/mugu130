@@ -66,21 +66,29 @@ Route::middleware(['before'])->group( function () {
 
 Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
-  Route::get('/get-api-key', 'HomeController@getApiKey');
+  Route::get('/get-api-key', 'DashboardController@getApiKey');
 
-  Route::post('/make-deposit', 'HomeController@makeDeposit');
+  Route::post('/make-deposit', 'DashboardController@makeDeposit');
 
-  Route::post('/request-payment', 'HomeController@requestPayment');
+  Route::post('/request-payment', 'DashboardController@requestPayment');
 
-  Route::post('/received-payment', 'HomeController@receivedPayment');
+  Route::post('/received-payment', 'DashboardController@receivedPayment');
 
-  Route::post('/dispute-payment', 'HomeController@disputePayment');
+  Route::post('/dispute-payment', 'DashboardController@disputePayment');
 
-  Route::post('/request-bonus', 'HomeController@requestBonus');
+  Route::post('/request-bonus', 'DashboardController@requestBonus');
 
-  Route::post('/update-user-details', 'HomeController@updateUserDetails');
+  Route::post('/update-user-details', 'DashboardController@updateUserDetails');
 
-  Route::post('/send-message', 'HomeController@sendMessage');
+  Route::any('/get-game-state', 'DashboardController@getGameState');
+
+  Route::post('/join-game', 'DashboardController@joinGame');
+
+  Route::any('/submit-exam', 'DashboardController@submitExam');
+
+  Route::any('/get-user-questions', 'DashboardController@getUserQuestions');
+
+  Route::post('/send-message', 'DashboardController@sendMessage');
 
 });
 
@@ -213,7 +221,7 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
 
 });
 
-// Route::get('/suspended', 'HomeController@suspended')->name('suspended');
+// Route::get('/suspended', 'DashboardController@suspended')->name('suspended');
 
 Route::middleware(['before'])->group( function () {
 

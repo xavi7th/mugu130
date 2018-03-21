@@ -3,12 +3,19 @@
                 [
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
-                  'gameState', 'userProfile', 'range'
+                  'gameState', 'gamePlay', 'userProfile', 'range'
                 ]);
 
-  dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function($rootScope, $window, Notification, sendRequest) {
+  dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
 
     //run auythentication here or failed
+
+      // sendRequest.getGameState('/user/get-game-state')
+      //          .then(function (rsp) {
+      //            console.log(rsp);
+      //            $rootScope.game_state = rsp.game_state;
+      //            $rootScope.game_timer = rsp.game_timer;
+      //          });
       $rootScope._ = _;
       $rootScope.logout = function() {
        sendRequest.postRequest('/logout')
@@ -28,50 +35,61 @@
    }]);
 
 
-   dashboard.factory('bootstrapPage', ['$timeout', 'sendRequest', ($timeout, sendRequest) => {
+  dashboard.factory('bootstrapPage', ['$timeout', 'sendRequest', ($timeout, sendRequest) => {
    	return {
-   	 profile: function (scope) {
-       sendRequest.getUserDetails('/api/get-user-details')
+      profile:  (scope) => {
+        sendRequest.getUserDetails('/api/get-user-details')
                  .then(function (rsp) {
                    scope.userdetails = rsp.userdetails;
                  });
-         scope.$on('$viewContentLoaded', function() {
+        scope.$on('$viewContentLoaded', function() {
            $timeout(function () {
              $('#profile-menu .item').tab();
              $('.dropdown_menu').dropdown();
            }, 500);
-         });
+        });
 
-   		},
-   	 dashboard: function (scope) {
-       sendRequest.getUserDetails('/api/get-user-details')
-                 .then(function (rsp) {
+      },
+      dashboard:  (scope) => {
+        sendRequest.getUserDetails('/api/get-user-details')
+                 .then( (rsp) => {
                    scope.userdetails = rsp.userdetails;
                  });
-         scope.$on('$viewContentLoaded', function() {
+        scope.$on('$viewContentLoaded', function() {
            $timeout(function () {
              $('.dropdown_menu').dropdown();
            }, 500);
          });
 
-   		},
-   	 settings: function (scope) {
-       sendRequest.getUserDetails('/api/get-user-details')
+      },
+      settings:  (scope)  => {
+        sendRequest.getUserDetails('/api/get-user-details')
                  .then(function (rsp) {
                    scope.userdetails = rsp.userdetails;
                  });
-       sendRequest.getBanks('/api/get-banks-list')
+        sendRequest.getBanks('/api/get-banks-list')
                  .then(function (rsp) {
                    scope.banks = rsp.banks;
                  });
-         scope.$on('$viewContentLoaded', function() {
+        scope.$on('$viewContentLoaded', function() {
            $timeout(function () {
              $('#edit .item').tab();
              $('.dropdown_menu').dropdown();
            }, 500);
          });
-
-   		}
+      },
+      gameplay:  (scope)  => {
+        // sendRequest.getUserDetails('/api/get-user-details')
+        //          .then(function (rsp) {
+        //            scope.userdetails = rsp.userdetails;
+        //          });
+        scope.$on('$viewContentLoaded', function() {
+           $timeout(function () {
+             $('.dropdown_menu').dropdown();
+             $('.ui.accordion').accordion();
+           }, 500);
+        });
+      }
    	};
    }]);
 
@@ -86,6 +104,7 @@
    require('./angular/directives/inputCountValidator');
    require('./angular/directives/countdownTimer');
    require('./angular/directives/gameState');
+   require('./angular/directives/gamePlay');
    require('./angular/directives/userProfile');
    // require('./angular/directives/timer');
    //

@@ -2,12 +2,9 @@
 
 // use Faker\Generator as Faker;
 use Faker\Factory as Faker;
-use App\Package;
-use App\Currency;
-use App\NewsItem;
-use App\CryptoSite;
-use App\TeamMember;
 use Carbon\Carbon;
+use App\Game;
+use App\Question;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,57 +18,49 @@ use Carbon\Carbon;
 */
 $faker = Faker::create();
 
-$factory->define(Currency::class, function () use($faker) {
+$factory->define(Question::class, function ($faker) {
 
     return [
-      'name' => $faker->currencyCode,
-      'symbol' => '$',
-
+        'question' => $faker->text,
+        'option_1' => $option1 = $faker->unique()->sentence,
+        'option_2' => $option2 = $faker->unique()->sentence,
+        'option_3' => $option3 = $faker->unique()->sentence,
+        'option_4' => $option4 = $faker->unique()->sentence,
+        'correct_option' => $faker->randomElement([$option1, $option2, $option3, $option4]),
     ];
 });
 
-$factory->define(Package::class, function () use($faker) {
 
+$factory->define(UserQuestion::class, function (Faker $faker) {
+
+    $userIDs = User::all()->pluck('id')->all();
+    $gameIDs = Game::all()->pluck('id')->all();
+    $questionIDs = Brand::all()->pluck('id')->all();
 
     return [
-      'name' => $faker->domainWord,
-      'amount' => mt_rand(10, 1000),
-      'daily_percentage' => mt_rand(5, 12),
-      'duration' => 12,
-
+        'user_id' => $faker->randomElement($userIDs),
+        'question_id' => $faker->randomElement($questionIDs),
+        'game_id' => $faker->randomElement($gameIDs),
+        'answered_option' => $faker->catchPhrase,
+        'verdict' => rand(0, 1),
+        // 'images' => '/storage/tmp/s' . $faker->randomElement($categoryIDs) .'.jpg',
+        // 'details' => $faker->realText($maxNbChars = 4200, $indexSize = 2),
     ];
 });
 
-$factory->define(NewsItem::class, function () use($faker) {
+$factory->define(UserGameSession::class, function (Faker $faker) {
 
-
-    return [
-      'title' => $faker->sentence,
-      'summary' => $faker->text,
-      'author' => $faker->name,
-      'img' => 'https://lorempixel.com/400/250/?' . rand(8899, 76575),
-      'news_date' => Carbon::now()->subDays(rand(0,30)),
-
-    ];
-});
-
-$factory->define(TeamMember::class, function () use($faker) {
+    $userIDs = User::all()->pluck('id')->all();
+    $gameIDs = Game::all()->pluck('id')->all();
+    $questionIDs = Brand::all()->pluck('id')->all();
 
     return [
-      'name' => $faker->name,
-      'position' => $faker->jobTitle,
-      'skill' => $faker->jobTitle,
-      'img' => 'https://lorempixel.com/360/350/?' . rand(28654, 56575),
-
-    ];
-});
-
-$factory->define(CryptoSite::class, function () use($faker) {
-
-    return [
-      'name' => $faker->name,
-      'url' => $faker->url,
-      'img' => 'https://lorempixel.com/360/350/?' . rand(28654, 56575),
-
+        'user_id' => $faker->randomElement($userIDs),
+        'question_id' => $faker->randomElement($questionIDs),
+        'game_id' => $faker->randomElement($gameIDs),
+        'answered_option' => $faker->catchPhrase,
+        'verdict' => rand(0, 1),
+        // 'images' => '/storage/tmp/s' . $faker->randomElement($categoryIDs) .'.jpg',
+        // 'details' => $faker->realText($maxNbChars = 4200, $indexSize = 2),
     ];
 });

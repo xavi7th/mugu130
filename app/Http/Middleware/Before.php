@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Session;
 use DB;
+use App\Game;
 
 class Before
 {
@@ -19,6 +20,49 @@ class Before
 
 	 public function handle($request, Closure $next)
     {
+			// Session::forget('GAME_ACTIVE');
+			// dd(session()->all());
+			//  dd( $request->session()->has('GAME_ACTIVE') );
+			if ( (Carbon::now()->minute > -1 && Carbon::now()->minute < 10) || (Carbon::now()->minute > 29 && Carbon::now()->minute < 40) ) {
+
+				if ( !$request->session()->has('GAME_ACTIVE') ) {
+					Game::new();
+					session(['GAME_ACTIVE' => true]);
+					session(['GAME_STATE' => 'active']);
+				}
+				if ((Carbon::now()->minute > -1 && Carbon::now()->minute < 10)) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 10, 0))]);
+
+				}
+				else if (Carbon::now()->minute > 29 && Carbon::now()->minute <= 40) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 40, 0))]);
+				}
+			} else {
+				if ( $request->session()->has('GAME_ACTIVE') ) {
+					Game::end();
+					Session::forget('GAME_ACTIVE');
+					session(['GAME_STATE' => 'loading']);
+
+				}
+				if ((Carbon::now()->minute > 10 && Carbon::now()->minute < 30)) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 30, 0))]);
+					// Game::new();
+					// session(['GAME_STATE' => 'active']);
+					// session(['GAME_STATE' => 'loading']);
+
+				}
+				else if (Carbon::now()->minute > 40 && Carbon::now()->minute <= 59) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 60, 0))]);
+					// session(['GAME_STATE' => 'loading']);
+					// Game::new();
+					// session(['GAME_STATE' => 'active']);
+
+
+				}
+
+			}
+
+			// Game::new();
 
 			// dump(storage_path('app/public/uploads'));
 			// dump(Storage::url('uploads/products')); exit;
@@ -56,11 +100,6 @@ class Before
 				{
 						return redirect()->secure($request->path());
 				}
-
-					// dump($request->session());
-				// 		Event::listen('illuminate.query', function( $query ) {
-				// 			echo '<div class="alert alert-info"><h2>'.$query.'</h2></div>'; // not working
-				// 		});
 
 		     return $next($request);
 	 }

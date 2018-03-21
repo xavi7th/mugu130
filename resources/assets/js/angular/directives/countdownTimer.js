@@ -8,15 +8,14 @@ angular.module( 'countdownTimer', [] ).directive( 'countdownTimer', ['$timeout',
     replace:true,
 		transclude:true,
 		scope: {
-			countdownAttr: '=countdown' //what unit? seconds
+			countdownAttr: '=countdown', //what unit? seconds
+			onfinish: '&finish'
 		},
 
 		template: '<div>' +
-			'<p style="  font-size: 1.6rem; margin: 0;">{{ days }} day<span data-ng-show="days > 1">s</span>, ' +
-			'{{ hours }} hour<span data-ng-show="hours > 1">s</span>, ' +
-			'{{ minutes }} minutes, ' +
-			'{{ seconds }} seconds </p>'+
-			'<ng-transclude></ng-transclude>' + 
+			'<h1 class="time">{{ minutes }}:' +
+			'{{ seconds }}</h1>'+
+			'<ng-transclude></ng-transclude>' +
 			'</div>',
 
 		link: function ( scope, elem, attrs ) {
@@ -34,10 +33,11 @@ angular.module( 'countdownTimer', [] ).directive( 'countdownTimer', ['$timeout',
 					countdown--;
 				} else if ( countdown <= 0 ) {
 					scope.stop();
-          elem.children('p').html('Your time is up!');
+          elem.children('h1').html('Your time is up!');
+					scope.onfinish();
 				}
 
-				scope.seconds = Math.floor( ( scope.millis / 1000 ) % 60 );
+				scope.seconds = twoNumbers(Math.floor( ( scope.millis / 1000 ) % 60 ));
 				scope.minutes = Math.floor( ( ( scope.millis / ( 1000 * 60 ) ) % 60 ) );
 				scope.hours = Math.floor( ( ( scope.millis / ( 1000 * 60 * 60 ) ) % 24 ) );
 				scope.days = Math.floor( ( ( scope.millis / ( 1000 * 60 * 60 ) ) / 24 ) );
@@ -67,6 +67,13 @@ angular.module( 'countdownTimer', [] ).directive( 'countdownTimer', ['$timeout',
 
 			start(); //start timer automatically
 
+			function twoNumbers(num) {
+				if (num < 10) {
+					return '0' + num;
+				}
+
+				return num;
+			}
 			//Cleanup
 			elem.on( '$destroy', function () {
 				resetInterval();

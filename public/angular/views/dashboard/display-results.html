@@ -1,0 +1,81 @@
+<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+
+  <div class="grid-container" style="margin-top:150px; padding-bottom:100px;">
+    <div class="grid-100">
+      <div class="ui red segment">
+        <div class="ui icon message">
+          <i class="newspaper icon"></i>
+          <div class="content">
+            <div class="header">
+              Results Display
+            </div>
+            <p>This is the list of participants and their scores.</p>
+          </div>
+          <div class="ui left labeled button" tabindex="-1">
+            <a class="ui basic blue label">
+              {{ '1048' | currency}}
+            </a>
+            <div class="ui icon button">
+              <i class="visa icon"></i>
+              Total Prize Money
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui segment" ng-if="loading">
+        <div class="ui active inverted dimmer">
+          <div class="ui large text loader">Loading</div>
+        </div>
+        <p style="height:200px;"></p>
+        <p></p>
+        <p></p>
+      </div>
+      <div class="ui raised segment">
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>Player Name</th>
+              <th>Position</th>
+              <th>Test Duration</th>
+              <th>Score</th>
+              <th>Reward</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="ui ribbon red label">First</div>
+                Cell
+              </td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="56">
+                <div class="ui right floated pagination menu">
+                  <a class="icon item">
+                  <i class="left chevron icon"></i>
+                </a>
+                  <a class="item">1</a>
+                  <a class="item">2</a>
+                  <a class="item">3</a>
+                  <a class="item">4</a>
+                  <a class="icon item">
+                  <i class="right chevron icon"></i>
+                </a>
+                </div>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <footer style="position: absolute; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'">
+  </footer>
+</div>

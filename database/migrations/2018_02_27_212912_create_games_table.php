@@ -15,9 +15,11 @@ class CreateGamesTable extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status')->nullable()->default('true');
-            $table->datetime('ended_at')->nullable()->default(null);
+            $table->boolean('status')->default(true);
+            $table->timestamp('ended_at')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

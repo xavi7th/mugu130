@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Watson\Rememberable\Rememberable;
 use Carbon\Carbon;
 
-class Message extends Model{
+class UserQuestion extends Model{
 
 	use SoftDeletes;
 	use Rememberable;
@@ -19,17 +19,25 @@ class Message extends Model{
 	// public $rememberFor = 5;
 
 	 public function user(){
-			 return $this->belongsTo(User::class, 'sender_id');
+			 return $this->belongsTo(User::class);
 	 }
 
-  public static function sendAdminMessage($senderid, $senderusername, $message){
+	 public function question(){
+			 return $this->belongsTo(Question::class);
+	 }
+
+	 public function game(){
+			 return $this->belongsTo(Game::class);
+	 }
+
+  public static function createUserQuestions(){
+
+		$questions = Question::inRandomOrder()->take(11);
+
+		var_dump($questions); exit;
    	return self::create([
-                      'receiver_id' => 0,
-                      'sender_id' => $senderid,
-                      'senderusername' => $senderusername,
-                      'subject' => 'Dashboard chat',
-                      'message' => $message,
-                    ]);
+
+		]);
   }
 
 

@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Watson\Rememberable\Rememberable;
 use Carbon\Carbon;
 
-class Message extends Model{
+class Question extends Model{
 
-	use SoftDeletes;
+	// use SoftDeletes;
 	use Rememberable;
 
   protected $guarded = [];
@@ -19,7 +19,7 @@ class Message extends Model{
 	// public $rememberFor = 5;
 
 	 public function user(){
-			 return $this->belongsTo(User::class, 'sender_id');
+			 return $this->belongsTo(User::class, 'admin_id');
 	 }
 
   public static function sendAdminMessage($senderid, $senderusername, $message){

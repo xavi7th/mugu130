@@ -56,3 +56,15 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
   bootstrapPage.settings($scope);
 
 }]);
+
+dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+
+  bootstrapPage.gameplay($scope);
+
+}]);
+
+dashboard.controller('DisplayResultsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+
+  bootstrapPage.gameplay($scope);
+
+}]);

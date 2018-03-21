@@ -15,14 +15,16 @@ class CreateUserGameSessionsTable extends Migration
     {
         Schema::create('user_game_sessions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->nullable()->default(null);
-            $table->string('game_id')->nullable()->default(null);
-            $table->string('status')->nullable()->default('true');
-            $table->string('duration')->nullable()->default(null);
-            $table->string('earning')->nullable()->default(null);
-            $table->string('position')->nullable()->default(null);
-            $table->string('ended_at')->nullable()->default(null);
+            $table->integer('user_id')->nullable();
+            $table->integer('game_id')->nullable();
+            $table->boolean('status')->nullable()->default(true);
+            $table->double('duration')->nullable();
+            $table->double('earning')->default(0);
+            $table->integer('position')->nullable();
+            $table->timestamp('ended_at')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

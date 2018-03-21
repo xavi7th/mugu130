@@ -17,6 +17,16 @@ dashboard.config(['$routeProvider', '$locationProvider', 'timeAgoSettings', func
      controller: 'SettingsController'
    })
 
+   .when('/dashboard/game-play', {
+     templateUrl: 'angular/views/dashboard/game-play.html',
+     controller: 'GamePlayController'
+   })
+
+   .when('/dashboard/display-results', {
+     templateUrl: 'angular/views/dashboard/display-results.html',
+     controller: 'DisplayResultsController'
+   })
+
    .otherwise({
      redirectTo: '/dashboard'
    });
