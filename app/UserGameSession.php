@@ -15,6 +15,11 @@ class UserGameSession extends Model{
 	use Rememberable;
 
   protected $guarded = [];
+
+	protected $appends = [
+		 'duration'
+	];
+
   protected $dates = ['deleted_at'];
 	// public $rememberFor = 5;
 
@@ -27,6 +32,10 @@ class UserGameSession extends Model{
 
 		]);
   }
+
+	public function getDurationAttribute() {
+		return Carbon::parse($this->created_at)->diffInMinutes(Carbon::parse($this->ended_at));
+	}
 
 
 

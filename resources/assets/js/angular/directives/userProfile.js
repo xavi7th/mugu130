@@ -1,14 +1,78 @@
 
+
+var url = `
+<section id="u_details">
+  <div class="grid-container">
+    <div class="grid-50">
+      <div class="content">
+        <h2 class="header" style="margin-bottom: 2px;">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>
+        <div class="content" style="padding-bottom: 5px;">
+          <div class="meta">
+            <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>
+          </div>
+          <div class="description">
+            {{ userdetails.address }}
+          </div>
+        </div>
+        <div class="content" style="padding-bottom: 5px;">
+          <div class="ui blue label">
+            <i class="marker icon"></i> {{ userdetails.town }}, {{ userdetails.state }}.
+          </div>
+          <div class="ui blue label">
+            <i class="mail icon"></i> {{ userdetails.email }}
+          </div>
+        </div>
+        <div class="content" style="padding-bottom: 5px;">
+          <div class="ui green label">
+            <i class="call square icon"></i> {{ userdetails.phone1 }}
+          </div>
+          <div class="ui green label">
+            <i class="call square icon"></i> {{ userdetails.phone2 }}
+          </div>
+        </div>
+        <div class="content" style="padding-bottom: 5px;">
+          <div class="ui blue image label">
+            Last seen
+            <div class="detail">2 weeks ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-50">
+      <div class="content" style="padding-bottom: 5px;">
+        <div class="ui orange image label">
+          My Bank
+          <div class="detail">{{ userdetails.bank }}</div>
+        </div>
+
+        <button class="ui compact right floated violet button" ng-click="transferEarnings()">
+          <i class="icon credit card amazon pay"></i>
+          Transfer Earnings
+        </button>
+      </div>
+      <div class="content" style="padding-bottom: 25px;">
+        <div class="ui teal image label">
+          Acct. No.
+          <div class="detail">{{ userdetails.acct_no }}</div>
+        </div>
+      </div>
+      <div class="content" style="padding-bottom: 5px;">
+        <div class="ui red image label">
+          Referral code
+          <div class="detail">{{ userdetails.refcode }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+
+
 angular.module('userProfile', []).directive('userProfile', [function () {
   return {
     restrict: 'E',
-    scope:{
-      // dest : '=',
-      // mdl:'=',
-      // attr: '=',
-      // altText: '='
-    },
-    templateUrl:'angular/directive-templates/userProfileTemplate.php',
+    // templateUrl:'angular/directive-templates/userProfileTemplate.php',
+    template:url,
     replace: true,
     link: function(scope, element, attributes){
 
@@ -27,26 +91,30 @@ angular.module('userProfile', []).directive('userProfile', [function () {
 			// });
 
 		},
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {
 
-      $scope.state = 'loading';
+      $scope.transferEarnings = () => {
+        sendRequest.postRequest('user/transfer-earnings')
+                  .then(rsp => {
+                    if (rsp.status == 200) {
+                      if (rsp.data.status == true) {
+                        Notification.success({message: 'Earnings transferred to wallet', positionX: 'center'});
+                      }
+                      else if(rsp.data.status == 'Insufficient'){
+                        Notification.error({message: 'No earnings to transfer', positionX: 'center'});
+                      }
+                    }
 
-      // $scope.uploadImage = function ($event, files) {
-      //   sendRequest.processImageUpload('/api/upload-image', $scope.mdl , $scope.dest, $localStorage.userToken)
-      //   .then(function (data) {
-      //     console.log(data);
-      //     if (undefined == data.filename) {
-      //       console.error('Server Route Error');
-      //     }
-      //     else{
-      //       $scope.mdl = data.filename;
-      //       $scope.$parent.filename = data.filename;
-      //       // Notification.success({ message: 'Upload Successful', positionX: 'center'});
-      //
-      //     }
-      //   });
-      // };
-      //
+                    sendRequest.getUserDetails('/api/get-user-details', true)
+                                .then( (rsp) => {
+                                  $scope.userdetails = rsp.userdetails;
+                                });
+                    sendRequest.getTotalEarnings('/user/get-total-earnings', true)
+                                .then(function (rsp) {
+                                  $scope.total_earnings = rsp.total_earnings;
+                                });
+                  });
+      };
     }]
   };
 }]);

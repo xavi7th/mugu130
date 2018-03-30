@@ -5,6 +5,8 @@
 
 // Variables
 @import "variables";
+@import "mixins";
+@import "layout";
 
 @import "./semantic/html5reset";
 @import "./semantic/semantic";
@@ -72,19 +74,43 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
         margin: 10px 10px 10px 10px;
     }
     &.warning {
-        // color: $btn-warning-color;
+        color: $btn-warning-color;
         background: $brand-warning;
     }
     &.error {
-        // color: $btn-danger-color;
+        color: $btn-danger-color;
         background: $brand-danger;
     }
     &.success {
-        // color: $btn-success-color;
+        color: $btn-success-color;
         background: $brand-success;
     }
     &.info {
-        // color: $btn-info-color;
+        color: $btn-info-color;
         background: $brand-info;
     }
+    &.primary {
+        color: $btn-primary-color;
+        background: $brand-primary;
+    }
+}
+
+.ui.compact.vertical.menu{
+  @include MQ(XS){
+    margin-bottom: 30px;
+    @include flex-center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  };
+}
+.ui.labeled.icon.menu{
+
+  .item{
+    @include MQ(XS){
+      float: left !important;
+    }
+  }
+
 }

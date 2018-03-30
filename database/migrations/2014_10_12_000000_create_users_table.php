@@ -36,7 +36,8 @@ class CreateUsersTable extends Migration
           $table->string('refcode')->nullable();
           $table->string('referral_Link')->nullable();
 
-          $table->string('game_state')->nullable();
+          $table->double('available_units')->default(0);
+          $table->double('units_purchased')->default(0);
 
           $table->string('api_token')->nullable();
           $table->string('confirmation_token')->nullable();

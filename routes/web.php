@@ -68,7 +68,15 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::get('/get-api-key', 'DashboardController@getApiKey');
 
+  Route::post('/get-total-earnings', 'DashboardController@getTotalEarnings');
+
+  Route::post('/transfer-earnings', 'DashboardController@transferEarnings');
+
+  Route::post('/get-profile-page-details', 'DashboardController@getProfilePageDetails');
+
   Route::post('/make-deposit', 'DashboardController@makeDeposit');
+
+  Route::post('/credit-account', 'DashboardController@creditAccount');
 
   Route::post('/request-payment', 'DashboardController@requestPayment');
 
@@ -84,9 +92,11 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/join-game', 'DashboardController@joinGame');
 
-  Route::any('/submit-exam', 'DashboardController@submitExam');
+  Route::post('/submit-exam', 'DashboardController@submitExam');
 
-  Route::any('/get-user-questions', 'DashboardController@getUserQuestions');
+  Route::any('get-exam-results', 'DashboardController@getExamResults');
+
+  Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
 
   Route::post('/send-message', 'DashboardController@sendMessage');
 

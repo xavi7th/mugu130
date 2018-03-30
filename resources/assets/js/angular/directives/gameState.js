@@ -29,7 +29,7 @@ var url = `
       </div>
     </div>
     <div class="ui segment">
-      <countdown-timer countdown="3" finish="displayResults()"></countdown-timer>
+      <countdown-timer countdown="5" finish="displayResults()"></countdown-timer>
     </div>
 
     <div class="ui segment">
@@ -86,7 +86,7 @@ var url = `
 
 
 
-angular.module('gameState', []).directive('gameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {
+angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -103,28 +103,46 @@ angular.module('gameState', []).directive('gameState', ['$location', 'Notificati
 		},
     controller: ['$scope', ($scope) => {
 
-      if (sendRequest.getData('user_score') || $localStorage.user_score) {
+      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
         $scope.user_score = $localStorage.user_score;
       }
 
+      //when the game was paused, ends the user's incomplete game and displays the results
       $scope.endGameReload = function () {
         alert('The game has ended');
         //Send a request to end the user's game and redirect to results display page
         $scope.displayResults();
       };
 
+      // handle page reload on timer countdown so that the page can get the next thing from the server
       $scope.pageReload = function () {
         location.reload();
       };
 
+      // refresh the game state and then redirect to the display results page
       $scope.displayResults = function () {
-        console.log('here');
+        NProgress.start();
 
-        $location.path('/dashboard/display-results');
+        sendRequest.getGameState('/user/get-game-state')
+                 .then( rsp => {
+                   $scope.game_state = rsp.game_state;
+                   $scope.game_timer = rsp.game_timer;
 
+                   if (rsp.game_state == 'loading') {
+                     $location.path('/dashboard/display-results');
+                   } else {
+                     // $location.url('/invalid');
+                     $route.reload();
+                   }
+                   NProgress.done();
+                 });
       };
 
+
+
       $scope.joinGame = () => {
+        NProgress.start();
+
 
         delete $localStorage.user_score;
 
@@ -139,10 +157,20 @@ angular.module('gameState', []).directive('gameState', ['$location', 'Notificati
                        $location.path('/dashboard/game-play');
                      }
                    }
+                   else if (rsp.status == 402) {
+                     Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center'});
+                   }
+                   else if (rsp.status == 403) {
+                     Notification.error({ message: 'Already in a game session.', positionX: 'center'});
+                     $location.path('/dashboard/game-play');
+
+                   }
                  });
+
+        NProgress.done();
       };
 
-      sendRequest.getGameState('/user/get-game-state')
+      sendRequest.getGameState()
                .then( rsp => {
                  $scope.game_state = rsp.game_state;
                  $scope.game_timer = rsp.game_timer;

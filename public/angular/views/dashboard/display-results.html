@@ -1,7 +1,14 @@
-<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
-  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+<style>
+  #resultWindow{
+    max-height: 55vh !important;
+    overflow-y: auto;
+  }
+</style>
 
-  <div class="grid-container" style="margin-top:150px; padding-bottom:100px;">
+<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+  <ng-include src="'angular/views/partials/menu.html?655665'"></ng-include>
+
+  <div class="grid-container" style="margin-top:70px; padding-bottom:100px;">
     <div class="grid-100">
       <div class="ui red segment">
         <div class="ui icon message">
@@ -14,7 +21,7 @@
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
-              {{ '1048' | currency}}
+              {{ total_share | currency}}
             </a>
             <div class="ui icon button">
               <i class="visa icon"></i>
@@ -31,7 +38,7 @@
         <p></p>
         <p></p>
       </div>
-      <div class="ui raised segment">
+      <div class="ui raised segment" id="resultWindow">
         <table class="ui celled table">
           <thead>
             <tr>
@@ -40,22 +47,28 @@
               <th>Test Duration</th>
               <th>Score</th>
               <th>Reward</th>
+              <th>Game ID</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr ng-repeat="result in results  | orderBy: 'position'">
               <td>
-                <div class="ui ribbon red label">First</div>
-                Cell
+                <div style="position:absolute; left:0;" class="ui ribbon blue label" ng-if="$index == 0">First</div>
+                <div style="position:absolute; left:0;" class="ui ribbon teal label" ng-if="$index == 1">Second</div>
+                <div style="position:absolute; left:0;" class="ui ribbon yellow label" ng-if="$index == 2">Third</div>
+
+                <p style="text-align:center; position:relative;"> {{ result.user.firstname }} {{ result.user.lastname }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.user.id == userdetails.id">You</a></p>
+
               </td>
-              <td>Cell</td>
-              <td>Cell</td>
-              <td>Cell</td>
-              <td>Cell</td>
+              <td class="centered">{{ result.position }}</td>
+              <td class="centered">{{ result.duration }} minutes</td>
+              <td class="centered">{{ result.score }}</td>
+              <td class="centered">{{ result.earning }}</td>
+              <td class="centered">{{ result.game_id }}</td>
             </tr>
           </tbody>
           <tfoot>
-            <tr>
+            <!-- <tr>
               <th colspan="56">
                 <div class="ui right floated pagination menu">
                   <a class="icon item">
@@ -70,7 +83,7 @@
                 </a>
                 </div>
               </th>
-            </tr>
+            </tr> -->
           </tfoot>
         </table>
       </div>

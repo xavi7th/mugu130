@@ -18,7 +18,8 @@ class CreateUserGameSessionsTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('game_id')->nullable();
             $table->boolean('status')->nullable()->default(true);
-            $table->double('duration')->nullable();
+            $table->string('payment_status')->default('unpaid');
+            $table->integer('score')->nullable();
             $table->double('earning')->default(0);
             $table->integer('position')->nullable();
             $table->timestamp('ended_at')->nullable();

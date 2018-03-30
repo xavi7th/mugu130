@@ -10,12 +10,6 @@ $navbar-default-border: $laravel-border-color;
 $panel-default-border: $laravel-border-color;
 $panel-inner-border: $laravel-border-color;
 
-// Brands
-$brand-primary: #48c7ec;
-$brand-info: #8eb4cb;
-$brand-success: #35a2aa;
-$brand-warning: #cbb956;
-$brand-danger: #bf5329;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
@@ -31,6 +25,19 @@ $navbar-default-bg: #fff;
 
 // Buttons
 $btn-default-color: $text-color;
+
+
+// Brands
+$brand-primary: #2185D0;
+$brand-info: #8eb4cb;
+$brand-success: #00B5AD;
+$brand-warning: #FBBD08;
+$brand-danger: #DB2828;
+$btn-warning-color:#FFFFFF;
+$btn-danger-color: #FFFFFF;
+$btn-success-color: #FFFFFF;
+$btn-info-color: #FFFFFF;
+$btn-primary-color: #FFFFFF;
 
 // Inputs
 $input-border: lighten($text-color, 40%);

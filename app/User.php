@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 // use App\Notice;
 use App\Message;
+use App\Earning;
 use App\Confirmation;
 use App\VerifyUser;
 use App\Mail\TransactionalMail;
+use App\Game;
+use App\Transaction;
 use App\UserGameSession;
 use App\Referral;
 use Watson\Rememberable\Rememberable;
@@ -61,7 +64,7 @@ class User extends Authenticatable{
     ];
 
     protected $appends = [
-        //  'amtwithdrawable'
+          'total_withdrawals', 'num_of_withdrawals'
     ];
 
     public function setPasswordAttribute($value){
@@ -90,19 +93,16 @@ class User extends Authenticatable{
       return $v->toIso8601String();
     }
 
-    public function getAmtwithdrawableAttribute(){
-      if ($this->tracker == 'confirmed' && $this->ghbalance < 500) {
-        return $this->phamt;
-      }
+    public function getTotalWithdrawalsAttribute(){
+      return $this->transactions()->where('trans_type', 'withdrawal')->sum('amount');
+    }
 
-      else if ($this->tracker == 'confirmed' && $this->ghbalance > 500){
-        return $this->phamt + $this->ghbalance;
+    public function getNumOfWithdrawalsAttribute(){
+      return $this->transactions()->where('trans_type', 'withdrawal')->count();
+    }
 
-      }
-
-      else {
-        return 0;
-      }
+    public function transactions(){
+      return $this->hasMany(Transaction::class);
     }
 
     public function games(){
@@ -110,17 +110,16 @@ class User extends Authenticatable{
     }
 
     public function activeGames(){
-      return $this->hasMany(UserGameSession::class)->where('ended_at', null);
-    }
-
-    public function gameStatus(){
-      if (!$this->activeGames->isEmpty() ) {
-        return ;
-      }
+      $active_game = Game::active();
+      return $this->hasOne(UserGameSession::class)->where('ended_at', null)->where('game_id', $active_game->id);
     }
 
     public function user_questions(){
       return $this->hasMany(UserQuestion::class);
+    }
+
+    public function earnings(){
+      return $this->hasMany(Earning::class);
     }
 
     public function getUserQuestions(){
@@ -186,6 +185,24 @@ class User extends Authenticatable{
       return true;
 
     }
+
+    public function addEarning($gid, $amt){
+      $this->earnings()->create([
+        'amount' => $amt,
+        'game_id' => $gid
+      ]);
+    }
+
+    public function totalEarnings(){
+      return $this->earnings()->where('transferred', false);
+    }
+
+    public function creditAccount(){
+      $this->available_units = $this->available_units + request()->input('details.amt');
+      $this->units_purchased = $this->units_purchased + request()->input('details.amt');
+      $this->save();
+    }
+
     //
     // public function sendMessage() {
     //   // return request()->all();

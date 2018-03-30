@@ -12,10 +12,10 @@
             return data[key];
         },
 
-        getUserDetails : function (url) {
+        getUserDetails : function (url, flushStore = false) {
           var deferred = $q.defer();
 
-          if (!this.getData('userdetails')) {
+          if (flushStore || !this.getData('userdetails')) {
             var _this = this;
             return this.postRequest(url)
                 .then(function (rsp) {
@@ -24,6 +24,21 @@
                 });
           }
           deferred.resolve(this.getData('userdetails'));
+          return deferred.promise;
+        },
+
+        getTotalEarnings : function (url, flushStore = false) {
+          var deferred = $q.defer();
+
+          if (flushStore || !this.getData('total_earnings')) {
+            var _this = this;
+            return this.postRequest(url)
+                .then(function (rsp) {
+                  _this.storeData('total_earnings', rsp.data);
+                   return _this.getData('total_earnings');
+                });
+          }
+          deferred.resolve(this.getData('total_earnings'));
           return deferred.promise;
         },
 
@@ -42,9 +57,9 @@
           return deferred.promise;
         },
 
-        getGameState : function (url) {
+        getGameState : function () {
 
-            return this.postRequest(url)
+            return this.postRequest('/user/get-game-state')
                 .then(function (rsp) {
                    return rsp.data;
                 });
@@ -127,3 +142,129 @@
     };
 
   }]);
+
+  angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', ($timeout, $location, Notification, sendRequest) => {
+     	return {
+        dashboard:  (scope) => {
+          sendRequest.getUserDetails('/api/get-user-details')
+          .then( (rsp) => {
+            scope.userdetails = rsp.userdetails;
+          });
+          sendRequest.getTotalEarnings('/user/get-total-earnings')
+                    .then(function (rsp) {
+                      scope.total_earnings = rsp.total_earnings;
+                    });
+          // sendRequest.postRequest('/api/get-dashboard-page-details')
+          //           .then(function (rsp) {
+          //             if (rsp.status == 200) {
+          //               $scope.packages = rsp.data.packages;
+          //               $scope.total_investments = _.sumBy(rsp.data.packages, function(o) { return o.thisghamt; });
+          //               $scope.total_returns = _.sumBy(rsp.data.packages, function(o) { return o.expectedghamt; });
+          //               $scope.payments_received = _.sumBy(rsp.data.payments_received, function(o) { return o.expectedghamt; });
+          //               $scope.notification = rsp.data.notification;
+          //               NProgress.done();
+          //             }
+          //           });
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
+            }, 500);
+          });
+
+        },
+        profile:  (scope) => {
+          sendRequest.getUserDetails('/api/get-user-details')
+                   .then(function (rsp) {
+                     scope.userdetails = rsp.userdetails;
+                   });
+          sendRequest.postRequest('/user/get-profile-page-details')
+                   .then( (rsp) => {
+                     if (rsp.status == 200) {
+                         scope.user_transactions = rsp.data.page_details.transactions;
+                         scope.user_earnings = rsp.data.page_details.earnings;
+                         scope.user_games = rsp.data.page_details.games;
+                     }
+                   });
+          sendRequest.getTotalEarnings('/user/get-total-earnings')
+                   .then(function (rsp) {
+                     scope.total_earnings = rsp.total_earnings;
+                   });
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('#profile-menu .item').tab();
+               $('.dropdown_menu').dropdown();
+             }, 500);
+          });
+
+        },
+        settings:  (scope)  => {
+          sendRequest.getUserDetails('/api/get-user-details')
+                   .then(function (rsp) {
+                     scope.userdetails = rsp.userdetails;
+                   });
+          sendRequest.getBanks('/api/get-banks-list')
+                   .then(function (rsp) {
+                     scope.banks = rsp.banks;
+                   });
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('#edit .item').tab();
+               $('.dropdown_menu').dropdown();
+             }, 500);
+           });
+        },
+        gameplay:  (scope)  => {
+          sendRequest.getUserDetails('/api/get-user-details', true)
+          .then( (rsp) => {
+            scope.userdetails = rsp.userdetails;
+          });
+          sendRequest.getTotalEarnings('/user/get-total-earnings')
+                    .then(function (rsp) {
+                      scope.total_earnings = rsp.total_earnings;
+                    });
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('.dropdown_menu').dropdown();
+               $('.ui.accordion').accordion();
+             }, 500);
+          });
+        },
+
+        results:  (scope)  => {
+          sendRequest.getUserDetails('/api/get-user-details')
+                    .then(function (rsp) {
+                      scope.userdetails = rsp.userdetails;
+                    });
+          sendRequest.postRequest('/user/get-exam-results')
+                    .then( (rsp) => {
+                      if (rsp.status == 200) {
+                        if (rsp.data.results == false) {
+                          $location.path('/dashboard');
+                          Notification.error({message: 'Error fetching results.', positionX:'center'});
+                        }
+                        if (rsp.data != 'invalid') {
+                          scope.results = rsp.data.results;
+                          scope.total_examinees = rsp.data.total_examinees;
+                          scope.total_share = rsp.data.total_share;
+                        } else {
+                          $location.path('/dashboard');
+                          Notification.error({message: 'Insufficient users for game session. Units reversed', positionX:'center'});
+                        }
+                      }
+                    });
+          sendRequest.getTotalEarnings('/user/get-total-earnings')
+                    .then(function (rsp) {
+                      scope.total_earnings = rsp.total_earnings;
+                    });
+
+
+
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('.dropdown_menu').dropdown();
+               $('.ui.accordion').accordion();
+             }, 500);
+          });
+        },
+     	};
+     }]);

@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder{
   public function run(){
     $faker = Factory::create();
     // $faker = Factory::create('en_NG');
-    User::truncate();
+    // User::truncate();
 
     User::create([
       'firstname' => $faker->firstName,
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder{
       'created_at'=> Carbon::now()->subDays(150),
       ]);
 
-      factory(User::class, 3000)->create();
+      factory(User::class, 30)->create();
 
   }
 }

@@ -1,17 +1,16 @@
-// EXAMPLE uploadPostImage
+// EXAMPLE
 // <game-play></game-play>
 
 
 var url = `
 <section id="game-play">
   <div class="ui compact menu">
-  <a class="item">
-    <i class="icon clock outline"></i> <countdown-timer countdown="600"></countdown-timer>
-  </a>
-</div>
+    <a class="item">
+      <i class="icon clock outline"></i> <countdown-timer countdown="600"></countdown-timer>
+    </a>
+  </div>
 
   <div class="ui styled fluid accordion">
-  extra {{ extra }}
 
     <div ng-repeat="q in user_questions" ng-if="$index < 10">
 
@@ -118,24 +117,24 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 
 
 
-      $scope.joinGame = () => {
-        sendRequest.postRequest('/user/join-game')
-                 .then(function (rsp) {
-                   if (rsp.status == 422) {
-                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
-                   }
-                   else if (rsp.status == 200) {
-
-                     if (rsp.data.status) {
-                       //Set the user gamestate checker to active
-                       sendRequest.storeData('usergamestate');
-
-                       //Redirect the user to the game page
-                       $location.path('/dashboard/game-play');
-                     }
-                   }
-                 });
-      };
+      // $scope.joinGame = () => {
+      //   sendRequest.postRequest('/user/join-game')
+      //            .then(function (rsp) {
+      //              if (rsp.status == 422) {
+      //                Notification.error({ message: 'No active game in progress', positionX: 'center'});
+      //              }
+      //              else if (rsp.status == 200) {
+      //
+      //                if (rsp.data.status) {
+      //                  //Set the user gamestate checker to active
+      //                  sendRequest.storeData('usergamestate');
+      //
+      //                  //Redirect the user to the game page
+      //                  $location.path('/dashboard/game-play');
+      //                }
+      //              }
+      //            });
+      // };
 
       $scope.submitExam = () => {
 
@@ -147,7 +146,6 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
                    }
                    else if (rsp.status == 200) {
                      if (rsp.data.status) {
-                       console.log(rsp);
                        sendRequest.storeData('user_score', rsp.data.user_score);
                        $localStorage.user_score = rsp.data.user_score;
                        $location.path('/dashboard');

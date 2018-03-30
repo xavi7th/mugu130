@@ -1,13 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Game;
 use App\User;
 use App\Message;
-use App\CryptoSite;
-use App\NewsItem;
 use App\Question;
-use App\TeamMember;
+use App\UserQuestion;
+use App\UserGameSession;
+
 use Faker\Factory;
+
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +22,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
         $this->call(QuestionsTableSeeder::class);
+        $this->call(GamesTableSeeder::class);
+        $this->call(UserGameSessionsTableSeeder::class);
+        $this->call(UserQuestionsTableSeeder::class);
     }
 }
 
@@ -55,15 +60,28 @@ class MessagesTableSeeder extends Seeder{
 class QuestionsTableSeeder extends Seeder{
   public function run()
      {
-         factory(Question::class, 50000)->create();
+         factory(Question::class, 1000)->create();
      }
 }
 
-
-class QuestionsTableSeeder extends Seeder{
+class GamesTableSeeder extends Seeder{
   public function run()
      {
-         factory(Question::class, 50000)->create();
+         factory(Game::class, 10)->create();
+     }
+}
+
+class UserGameSessionsTableSeeder extends Seeder{
+  public function run()
+     {
+         factory(UserGameSession::class, 100)->create();
+     }
+}
+
+class UserQuestionsTableSeeder extends Seeder{
+  public function run()
+     {
+         factory(UserQuestion::class, 1100)->create();
      }
 }
 

@@ -1,5 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css);@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin);@charset "UTF-8";
 
+.position-ref {
+  position: relative;
+}
+
+.flex-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 /* html5reset.css - 01/11/2011 */
 
 html,
@@ -40605,7 +40621,6 @@ div#main-controller #dashboard #card img {
 
 div#main-controller section#u_details {
   padding: 20px 0px;
-  height: 200px;
   background-color: #fafafa;
   border-bottom: 2px solid grey;
 }
@@ -41007,7 +41022,7 @@ textarea.ng-invalid.ng-touched {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   width: 300px;
   text-align: center;
-  background: #48c7ec;
+  background: #2185D0;
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
 }
@@ -41045,18 +41060,52 @@ textarea.ng-invalid.ng-touched {
 }
 
 .ui-notification.warning {
-  background: #cbb956;
+  color: #FFFFFF;
+  background: #FBBD08;
 }
 
 .ui-notification.error {
-  background: #bf5329;
+  color: #FFFFFF;
+  background: #DB2828;
 }
 
 .ui-notification.success {
-  background: #35a2aa;
+  color: #FFFFFF;
+  background: #00B5AD;
 }
 
 .ui-notification.info {
+  color: #FFFFFF;
   background: #8eb4cb;
+}
+
+.ui-notification.primary {
+  color: #FFFFFF;
+  background: #2185D0;
+}
+
+@media only screen and (max-width: 479px) {
+  .ui.compact.vertical.menu {
+    margin-bottom: 30px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .ui.labeled.icon.menu .item {
+    float: left !important;
+  }
 }
 

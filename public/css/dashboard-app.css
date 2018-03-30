@@ -314,7 +314,7 @@ textarea.ng-invalid.ng-touched {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   width: 300px;
   text-align: center;
-  background: #48c7ec;
+  background: #2185D0;
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
 }
@@ -352,15 +352,15 @@ textarea.ng-invalid.ng-touched {
 }
 
 .ui-notification.warning {
-  background: #cbb956;
+  background: #FBBD08;
 }
 
 .ui-notification.error {
-  background: #bf5329;
+  background: #DB2828;
 }
 
 .ui-notification.success {
-  background: #35a2aa;
+  background: #00B5AD;
 }
 
 .ui-notification.info {

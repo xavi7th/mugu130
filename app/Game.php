@@ -43,7 +43,6 @@ class Game extends Model{
 		self::where('status', true)->update([
 			'status' => false,
 			'ended_at' => Carbon::now(),
-			// 'deleted_at' => Carbon::now()
 		]);
   }
 
