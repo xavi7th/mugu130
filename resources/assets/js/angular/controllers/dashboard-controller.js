@@ -12,6 +12,8 @@ dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequ
   };
 
 
+
+
   bootstrapPage.dashboard($scope);
 
   NProgress.done();
@@ -49,6 +51,7 @@ dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendReque
   console.log(gameActive);
 
   $scope.game_timer = gameActive.game_timer;
+  $scope.total_examinees = gameActive.total_examinees;
 
   bootstrapPage.gameplay($scope);
 

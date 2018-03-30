@@ -32,10 +32,12 @@
     "angularjs-localstorage-timer": "^1.0.11",
     "autoprefixer": "^7.1.6",
     "jqueryui": "^1.11.1",
+    "laravel-echo": "^1.3.5",
     "ngstorage": "^0.3.11",
     "nprogress": "^0.2.0",
     "owl.carousel": "^2.2.0",
     "postcss-fixes": "^2.0.1",
+    "pusher-js": "^4.2.2",
     "textangular": "^1.5.16"
   }
 }

@@ -9,6 +9,11 @@ var url = `
       <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>
     </a>
   </div>
+  <div class="ui violet label" style="font-size: 13px;">
+    <span style="padding-right: 10px;">Active Gamers</span>
+    <i class="users icon"></i> {{ total_examinees }}
+
+  </div>
 
   <div class="ui styled fluid accordion">
 
@@ -109,7 +114,6 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
                   .then( rsp => {
                     $scope.user_questions = rsp;
                   });
-
 
       $scope.submitExam = () => {
 

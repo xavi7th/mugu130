@@ -3,7 +3,6 @@
 
     var data = {};
     return {
-
         storeData : function(key, value) {
             data[key] = value;
         },
@@ -58,7 +57,6 @@
         },
 
         getGameState : function () {
-
             return this.postRequest('/user/get-game-state')
                 .then(function (rsp) {
                    return rsp.data;
@@ -149,7 +147,7 @@
      	return {
         dashboard:  (scope) => {
           sendRequest.getUserDetails('/api/get-user-details')
-          .then( (rsp) => {
+            .then( (rsp) => {
             scope.userdetails = rsp.userdetails;
           });
           sendRequest.getTotalEarnings('/user/get-total-earnings')
@@ -159,18 +157,27 @@
           sendRequest.postRequest('/user/get-dashboard-page-details')
                     .then(function (rsp) {
                       if (rsp.status == 200) {
-                        scope.packages = rsp.data.packages;
-                        scope.total_investments = _.sumBy(rsp.data.packages, function(o) { return o.thisghamt; });
-                        scope.total_returns = _.sumBy(rsp.data.packages, function(o) { return o.expectedghamt; });
-                        scope.payments_received = _.sumBy(rsp.data.payments_received, function(o) { return o.expectedghamt; });
-                        scope.notification = rsp.data.notification;
-                        NProgress.done();
+                        // scope.total_investments = _.sumBy(rsp.data.packages, function(o) { return o.thisghamt; });
+                        // scope.total_returns = _.sumBy(rsp.data.packages, function(o) { return o.expectedghamt; });
+                        // scope.payments_received = _.sumBy(rsp.data.payments_received, function(o) { return o.expectedghamt; });
+                        // scope.notification = rsp.data.notification;
+                        // NProgress.done();
                       }
                     });
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
+              Echo.channel(`exam_member_count`)
+              .listen('ExamJoined', (e) => {
+                scope.total_examinees = e.total_examinees;
+              });
+
               $('.dropdown_menu').dropdown();
             }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+              Echo.leave('exam_member_count');
+            }, 0);
           });
 
         },
@@ -228,10 +235,19 @@
              $timeout(function () {
                $('.dropdown_menu').dropdown();
                $('.ui.accordion').accordion();
+
+               Echo.channel(`exam_member_count`)
+               .listen('ExamJoined', (e) => {
+                 scope.total_examinees = e.total_examinees;
+               });
              }, 500);
           });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+              Echo.leave('exam_member_count');
+            }, 0);
+          });
         },
-
         results:  (scope)  => {
           sendRequest.getUserDetails('/api/get-user-details')
                     .then(function (rsp) {

@@ -9,6 +9,9 @@ use App\CryptoSite;
 use App\Confirmation;
 use App\Mail\TransactionalMail;
 use App\User;
+use App\Game;
+use App\Events\ExamJoined;
+use App\UserGameSession;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -25,6 +28,22 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home');
+
+  Route::get('/test', function () {
+
+    //use the game id to retrieve all theuser game sessions ordered by ended_at
+    $exam_records = UserGameSession::where('game_id', 75)->oldest('ended_at')->get();
+
+    //count hom many they are.
+    $total_examinees = $exam_records->count();
+
+    event(new ExamJoined($total_examinees));
+
+    return view('welcome');
+    // Redis::set('name', 'Taylor');
+    // return dd(Redis::get('name'));
+    // return 'hello';
+  });
 
   Route::view('/contact', 'welcome');
 
@@ -78,12 +97,14 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
     if (Auth::user()->activeGames) {
       session(['GAME_STATE' => 'paused']);
     }
-
-    return [
-      // 'packages' => Auth::user()->packages,
-      // 'payments_received' => Auth::user()->payments_received,
-      // 'notification' => Message::where('sender_id', 40000)->latest()->first()
-    ];
+    // $game_id = Game::where('status', true)->value('id');
+    // $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
+    //
+    //
+    //
+    // return [
+    //   'total_examinees' =>$exam_records->count(),
+    // ];
 
   });
 
@@ -179,15 +200,6 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
       ];
     });
 
-    Route::post('/get-view-packages-page-details', function () {
-
-      return [
-        'packages' => Auth::user()->packages
-      ];
-
-    });
-
-
 
     Route::post('/get-buy-package-page-details', function () {
 
@@ -239,8 +251,6 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
     });
 
 });
-
-// Route::get('/suspended', 'DashboardController@suspended')->name('suspended');
 
 Route::middleware(['before'])->group( function () {
 
@@ -351,8 +361,6 @@ Route::group(['prefix' => 'coded', 'middleware'=>'suspended'], function () {
 });
 
 Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended');
-
-// Route::view('/coded/{subcat?}', 'admin')->where('subcat', '(.*)')->name('admin')->middleware('auth')->middleware('admin');
 
 //
 //

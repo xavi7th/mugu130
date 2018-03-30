@@ -16,6 +16,7 @@ use App\UserGameSession;
 use App\UserQuestion;
 use Carbon\Carbon;
 use DatabaseSeeder;
+use App\Events\ExamJoined;
 // Cache::flush();
 
 class DashboardController extends Controller
@@ -34,6 +35,7 @@ class DashboardController extends Controller
 
     public function index(){
         // Cache::flush();
+
         if (Auth::user()->useraccstatus == 'admin') {
           # code...
           return redirect()->route('admin');
@@ -42,14 +44,18 @@ class DashboardController extends Controller
     }
 
     public function getGameState(){
-        return [
-          'game_timer' => session('GAME_TIMER'),
-          'game_state' => session('GAME_STATE') //active, waiting (for the game to end and show result), paused, loading
-        ];
+      $game_id = Game::where('status', true)->value('id');
+      $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
+
+      return [
+        'game_timer' => session('GAME_TIMER'),
+        'game_state' => session('GAME_STATE'), //active, waiting (for the game to end and show result), paused, loading
+        'total_examinees' =>$exam_records->count(),
+      ];
+
     }
 
     public function joinGame(){
-
 
       // Get id of the current active on-going game
       $game_id = Game::where('status', true)->value('id');
@@ -65,6 +71,12 @@ class DashboardController extends Controller
         }
 
         else if (!Auth::user()->activeGames) {
+
+          //use the game id to retrieve all theuser game sessions ordered by ended_at
+          $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
+
+          //count hom many they are.
+          $total_examinees = $exam_records->count();
 
           //check user balance
           if (Auth::user()->available_units < env('GAME_CREDITS')) {
@@ -82,6 +94,9 @@ class DashboardController extends Controller
               ]);
 
             DB::commit();
+
+            event(new ExamJoined(++$total_examinees));
+
           }
 
 
@@ -381,7 +396,6 @@ class DashboardController extends Controller
     }
 
     public function getUserQuestions(){
-
         return [
           'user_questions' => Auth::user()->getUserQuestions()
         ];

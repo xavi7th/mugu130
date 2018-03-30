@@ -4,7 +4,6 @@
 
 var url = `
 <div id="game">
-
   <div id="card" class="ui segments" ng-if="game_state == 'loading'">
     <!-- game load -->
     <div class="ui segment">
@@ -24,7 +23,7 @@ var url = `
       <div class="ui horizontal list">
         <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
           <span style="padding-right: 10px;">Active Gamers</span>
-          <i class="users icon"></i> 2358
+          <i class="users icon"></i> {{ total_examinees }}
         </div>
       </div>
     </div>
@@ -58,6 +57,11 @@ var url = `
       <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
         <span>Game in progress</span>
       </div>
+      <div class="ui violet label" style="font-size: 13px;">
+        <span style="padding-right: 10px;">Active Gamers</span>
+        <i class="users icon"></i> {{ total_examinees }}
+
+      </div>
     </div>
     <div class="ui segment">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
@@ -72,6 +76,10 @@ var url = `
         <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
           <span style="padding-right: 10px;">Active Gamers</span>
           <i class="users icon"></i> 2358
+        </div>
+        <div class="ui violet label" style="font-size: 13px;">
+          <span style="padding-right: 10px;">Active Gamers</span>
+          <i class="users icon"></i> {{ total_examinees }}
         </div>
       </div>
     </div>
@@ -204,6 +212,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                .then( rsp => {
                  $scope.game_state = rsp.game_state;
                  $scope.game_timer = rsp.game_timer;
+                 $scope.total_examinees = rsp.total_examinees;
                });
 
     }]
