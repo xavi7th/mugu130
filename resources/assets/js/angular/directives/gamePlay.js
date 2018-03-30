@@ -6,7 +6,7 @@ var url = `
 <section id="game-play">
   <div class="ui compact menu">
     <a class="item">
-      <i class="icon clock outline"></i> <countdown-timer countdown="600"></countdown-timer>
+      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>
     </a>
   </div>
 
@@ -28,7 +28,7 @@ var url = `
             <label class="item" for="option1{{$index}}">
               <div class="content">
                 <div class="ui slider checkbox">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="question.ans" ng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">
+                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">
                   <label>{{ q.question.option_1 }}</label>
                 </div>
               </div>
@@ -39,7 +39,7 @@ var url = `
             <label class="item" for="option2{{$index}}">
               <div class="content">
                 <div class="ui slider checkbox">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_2" ng-model="question.ans" ng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">
+                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_2" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">
                   <label>{{ q.question.option_2 }}</label>
                 </div>
               </div>
@@ -50,7 +50,7 @@ var url = `
             <label class="item" for="option3{{$index}}">
               <div class="content">
                 <div class="ui slider checkbox">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_3" ng-model="question.ans" ng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">
+                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_3" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">
                   <label>{{ q.question.option_3 }}</label>
                 </div>
               </div>
@@ -61,16 +61,16 @@ var url = `
             <label class="item" for="option4{{$index}}">
               <div class="content">
                 <div class="ui slider checkbox">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_4" ng-model="question.ans" ng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">
+                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_4" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">
                   <label>{{ q.question.option_4 }}</label>
                 </div>
               </div>
             </label>
 
             <div class="ui buttons">
-              <button class="ui button" ng-click="requestOptions(q)" ng-disabled="options">50/50</button>
+              <button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>
               <div class="or"></div>
-              <button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="extra">SKIP QUESTION</button>
+              <button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">SKIP QUESTION</button>
             </div>
 
 
@@ -91,15 +91,9 @@ var url = `
 `;
 
 
-angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', 'Notification', 'sendRequest', function ($location, $localStorage, Notification, sendRequest) {
+angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
   return {
     restrict: 'E',
-    scope:{
-      // dest : '=',
-      // mdl:'=',
-      // attr: '=',
-      // altText: '='
-    },
     // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
     template:url,
     replace: true,
@@ -107,42 +101,27 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 
 		},
     controller: ['$scope',  ($scope) => {
-      $scope.extra = false;
-      $scope.options = false;
+      $scope.lifelines = $sessionStorage;
+      $scope.lifelines.extra = $scope.lifelines.extra || false;
+      $scope.lifelines.options = $scope.lifelines.options || false;
 
       sendRequest.getUserQuestions('/user/get-user-questions')
                   .then( rsp => {
-                    $scope.user_questions = rsp.user_questions;
+                    $scope.user_questions = rsp;
                   });
 
-
-
-      // $scope.joinGame = () => {
-      //   sendRequest.postRequest('/user/join-game')
-      //            .then(function (rsp) {
-      //              if (rsp.status == 422) {
-      //                Notification.error({ message: 'No active game in progress', positionX: 'center'});
-      //              }
-      //              else if (rsp.status == 200) {
-      //
-      //                if (rsp.data.status) {
-      //                  //Set the user gamestate checker to active
-      //                  sendRequest.storeData('usergamestate');
-      //
-      //                  //Redirect the user to the game page
-      //                  $location.path('/dashboard/game-play');
-      //                }
-      //              }
-      //            });
-      // };
 
       $scope.submitExam = () => {
 
         sendRequest.postRequest('/user/submit-exam', $scope.user_questions)
                  .then(function (rsp) {
+                   delete $sessionStorage.user_questions;
+                   delete $sessionStorage.extra;
+                   delete $sessionStorage.options;
 
                    if (rsp.status == 422) {
                      Notification.error({ message: 'No active game in progress', positionX: 'center'});
+                     $location.path('/dashboard');
                    }
                    else if (rsp.status == 200) {
                      if (rsp.data.status) {
@@ -158,7 +137,7 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       $scope.requestExtra = (q) => {
         var removedQuestion = $scope.user_questions.indexOf(q);
         $scope.user_questions.splice(removedQuestion, 1);
-        $scope.extra = true;
+        $scope.lifelines.extra = true;
       };
 
       $scope.requestOptions = (q) => {
@@ -180,8 +159,29 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
           count++;
         }
 
-        $scope.options = true;
+        $scope.lifelines.options = true;
 
+      };
+
+      $scope.displayResults = () => {
+        sendRequest.postRequest('/user/end-exam', $scope.user_questions)
+                 .then(function (rsp) {
+                   delete $sessionStorage.user_questions;
+                   delete $sessionStorage.extra;
+                   delete $sessionStorage.options;
+
+                   if (rsp.status == 422) {
+                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
+                     $location.path('/dashboard');
+                   }
+                   else if (rsp.status == 200) {
+                     if (rsp.data.status) {
+                       sendRequest.storeData('user_score', rsp.data.user_score);
+                       $localStorage.user_score = rsp.data.user_score;
+                       $location.path('/dashboard/display-results');
+                     }
+                   }
+                 });
       };
 
     }]

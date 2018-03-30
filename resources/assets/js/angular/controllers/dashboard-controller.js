@@ -43,8 +43,12 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
   NProgress.done();
 }]);
 
-dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', 'gameActive', function ($scope, Notification, sendRequest, bootstrapPage, gameActive ) {
   NProgress.start();
+
+  console.log(gameActive);
+
+  $scope.game_timer = gameActive.game_timer;
 
   bootstrapPage.gameplay($scope);
 

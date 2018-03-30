@@ -33,7 +33,7 @@ angular.module( 'countdownTimer', [] ).directive( 'countdownTimer', ['$timeout',
 					countdown--;
 				} else if ( countdown <= 0 ) {
 					scope.stop();
-          elem.children('h1').html('Your time is up!');
+          elem.children('h1').html('Time up!');
 					scope.onfinish();
 				}
 

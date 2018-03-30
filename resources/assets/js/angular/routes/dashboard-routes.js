@@ -22,10 +22,13 @@ dashboard.config(['$routeProvider', '$locationProvider', 'timeAgoSettings', func
      controller: 'GamePlayController',
      resolve: {
                 gameActive: ['$location', 'sendRequest', function($location, sendRequest) {
-                  sendRequest.getGameState()
+                  return sendRequest.getGameState()
                               .then(rsp => {
                                 if (rsp.game_state != 'active') {
                                   $location.path('/dashboard');
+                                }
+                                else{
+                                  return rsp;
                                 }
                               });
                 }]

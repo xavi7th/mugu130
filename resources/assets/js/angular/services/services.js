@@ -1,5 +1,5 @@
 
-  angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', function ($http, $q) {
+  angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$sessionStorage', function ($http, $q, $sessionStorage) {
 
     var data = {};
     return {
@@ -68,15 +68,15 @@
         getUserQuestions : function (url) {
           var deferred = $q.defer();
 
-          if (!this.getData('user_questions')) {
+          if (!$sessionStorage.user_questions) {
             var _this = this;
             return this.postRequest(url)
                 .then(function (rsp) {
-                  _this.storeData('user_questions', rsp.data);
-                   return _this.getData('user_questions');
+                  $sessionStorage.user_questions = rsp.data.user_questions;
+                  return $sessionStorage.user_questions;
                 });
           }
-          deferred.resolve(this.getData('user_questions'));
+          deferred.resolve($sessionStorage.user_questions);
           return deferred.promise;
         },
 
@@ -111,6 +111,7 @@
                   });
 
         },
+
         postRequest : function (url, data) {
 
           return $http .post(url, {details: data})
@@ -129,6 +130,7 @@
                           return err;
                         });
         },
+
         request : function (url) {
           var data = [];
           return $http.get(url)
@@ -154,17 +156,17 @@
                     .then(function (rsp) {
                       scope.total_earnings = rsp.total_earnings;
                     });
-          // sendRequest.postRequest('/api/get-dashboard-page-details')
-          //           .then(function (rsp) {
-          //             if (rsp.status == 200) {
-          //               $scope.packages = rsp.data.packages;
-          //               $scope.total_investments = _.sumBy(rsp.data.packages, function(o) { return o.thisghamt; });
-          //               $scope.total_returns = _.sumBy(rsp.data.packages, function(o) { return o.expectedghamt; });
-          //               $scope.payments_received = _.sumBy(rsp.data.payments_received, function(o) { return o.expectedghamt; });
-          //               $scope.notification = rsp.data.notification;
-          //               NProgress.done();
-          //             }
-          //           });
+          sendRequest.postRequest('/user/get-dashboard-page-details')
+                    .then(function (rsp) {
+                      if (rsp.status == 200) {
+                        scope.packages = rsp.data.packages;
+                        scope.total_investments = _.sumBy(rsp.data.packages, function(o) { return o.thisghamt; });
+                        scope.total_returns = _.sumBy(rsp.data.packages, function(o) { return o.expectedghamt; });
+                        scope.payments_received = _.sumBy(rsp.data.payments_received, function(o) { return o.expectedghamt; });
+                        scope.notification = rsp.data.notification;
+                        NProgress.done();
+                      }
+                    });
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();

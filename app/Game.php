@@ -69,4 +69,10 @@ class Game extends Model{
 
 
 
+  public static function last(){
+		return self::latest()->where('status', false)->first();
+  }
+
+
+
 }

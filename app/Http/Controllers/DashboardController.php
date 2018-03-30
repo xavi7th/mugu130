@@ -100,6 +100,12 @@ class DashboardController extends Controller
         ];
     }
 
+    public function resumeGame(){
+
+      session(['GAME_STATE' => 'active']);
+      return ['status' => true];
+    }
+
     public function submitExam(){
 
       // return Auth::user()->activeGames;
@@ -129,11 +135,54 @@ class DashboardController extends Controller
         Auth::user()->activeGames->save();
 
         // temporarily generate users for the exam
-        // $f = new DatabaseSeeder;
-        // $f->call('UserGameSessionsTableSeeder');
+        $f = new DatabaseSeeder;
+        $f->call('UserGameSessionsTableSeeder');
 
       DB::commit();
       session(['GAME_STATE' => 'waiting']);
+
+
+      //change the game state to waiting if timer is not up yet
+      return ['status' => true, 'user_score'=>$count];
+
+      // return game state
+
+    }
+
+    public function endExam(){
+
+      // return dd(Auth::user()->lastGame);
+
+      $exam = request('details');
+
+      // Get id of the current active on-going game
+      $game_id = Game::where('status', true)->value('id');
+
+      //loop through the answers and mark them and send to DB
+      DB::beginTransaction();
+        $count = 0;
+        foreach ($exam as $key => $value) {
+          $record = UserQuestion::find($value['id']);
+          $record->answered_option = $value['answered_option'];
+          if ($value['answered_option'] == $value['question']['correct_option']) {
+            $value['verdict'] = 1;
+            $record->verdict = 1;
+            $count++;
+          }
+          $record->save();
+          $ids[] = $record;
+        }
+
+        Auth::user()->lastGame->ended_at = Carbon::now();
+        Auth::user()->lastGame->score = $count;
+        Auth::user()->lastGame->save();
+
+        // temporarily generate users for the exam
+        $f = new DatabaseSeeder;
+        $f->call('UserGameSessionsTableSeeder');
+
+      DB::commit();
+      // session(['GAME_STATE' => 'loading']);
 
 
       //change the game state to waiting if timer is not up yet

@@ -74,6 +74,19 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/get-profile-page-details', 'DashboardController@getProfilePageDetails');
 
+  Route::post('/get-dashboard-page-details', function () {
+    if (Auth::user()->activeGames) {
+      session(['GAME_STATE' => 'paused']);
+    }
+
+    return [
+      // 'packages' => Auth::user()->packages,
+      // 'payments_received' => Auth::user()->payments_received,
+      // 'notification' => Message::where('sender_id', 40000)->latest()->first()
+    ];
+
+  });
+
   Route::post('/make-deposit', 'DashboardController@makeDeposit');
 
   Route::post('/credit-account', 'DashboardController@creditAccount');
@@ -92,7 +105,11 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/join-game', 'DashboardController@joinGame');
 
+  Route::post('/resume-game', 'DashboardController@resumeGame');
+
   Route::post('/submit-exam', 'DashboardController@submitExam');
+
+  Route::any('/end-exam', 'DashboardController@endExam');
 
   Route::any('get-exam-results', 'DashboardController@getExamResults');
 
@@ -170,15 +187,7 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
 
     });
 
-    Route::post('/get-dashboard-page-details', function () {
 
-      return [
-        'packages' => Auth::user()->packages,
-        'payments_received' => Auth::user()->payments_received,
-        'notification' => Message::where('sender_id', 40000)->latest()->first()
-      ];
-
-    });
 
     Route::post('/get-buy-package-page-details', function () {
 

@@ -29,7 +29,7 @@ var url = `
       </div>
     </div>
     <div class="ui segment">
-      <countdown-timer countdown="5" finish="displayResults()"></countdown-timer>
+      <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>
     </div>
 
     <div class="ui segment">
@@ -77,7 +77,7 @@ var url = `
     </div>
     <div class="ui segment">
       <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>
-      <button style="cursor: pointer">Resume Game</button>
+      <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>
     </div>
   </div>
 </div>
@@ -86,7 +86,7 @@ var url = `
 
 
 
-angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {
+angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', '$sessionStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, $sessionStorage, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -111,6 +111,36 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
       $scope.endGameReload = function () {
         alert('The game has ended');
         //Send a request to end the user's game and redirect to results display page
+        sendRequest.postRequest('/user/end-exam', $sessionStorage.user_questions)
+                 .then(function (rsp) {
+                   delete $sessionStorage.user_questions;
+                   delete $sessionStorage.extra;
+                   delete $sessionStorage.options;
+
+                   if (rsp.status == 422) {
+                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
+                     $location.path('/dashboard');
+                   }
+                   else if (rsp.status == 200) {
+                     if (rsp.data.status) {
+                       sendRequest.storeData('user_score', rsp.data.user_score);
+                       $localStorage.user_score = rsp.data.user_score;
+                       $location.path('/dashboard/display-results');
+                     }
+                   }
+                 });
+      };
+
+      //when the game was paused, take the user back to the game
+      $scope.resumeGame = function () {
+
+        sendRequest.postRequest('user/resume-game')
+                    .then(()=>{
+                      $location.path('/dashboard/game-play');
+                    });
+
+        //Send a request to resume the game and set the session back to active
+
         $scope.displayResults();
       };
 
