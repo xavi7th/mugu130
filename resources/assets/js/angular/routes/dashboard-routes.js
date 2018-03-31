@@ -1,4 +1,4 @@
-dashboard.config(['$routeProvider', '$locationProvider', 'timeAgoSettings', function ($routeProvider, $locationProvider, timeAgoSettings) {
+dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'timeAgoSettings', function ($routeProvider, $locationProvider, $localStorageProvider, timeAgoSettings) {
 
   $routeProvider
 
@@ -43,7 +43,7 @@ dashboard.config(['$routeProvider', '$locationProvider', 'timeAgoSettings', func
                    sendRequest.getGameState()
                                .then(rsp => {
                                  if (rsp.game_state != 'loading') {
-                                   $location.path('/dashboard');
+                                  //  $location.path('/dashboard');
                                  }
                                });
                  }]
@@ -55,7 +55,7 @@ dashboard.config(['$routeProvider', '$locationProvider', 'timeAgoSettings', func
    });
    $locationProvider.hashPrefix('');
    $locationProvider.html5Mode(true);
-  //  $localStorageProvider.setKeyPrefix('money-');
+   $localStorageProvider.setKeyPrefix('game-');
    timeAgoSettings.allowFuture = true;
 
 }]);

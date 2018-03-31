@@ -34,7 +34,7 @@ class User extends Authenticatable{
      * @var array
      */
     protected $guarded = [
-        'useraccstatus', 'confirmation_code', 'tracker', 'role_id',
+        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased', 'available_units'
     ];
 
     /**
@@ -183,7 +183,7 @@ class User extends Authenticatable{
     public function updateUserDetails() {
       // return request()->all();
       DB::beginTransaction();
-        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link'] ) );
+        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased'] ) );
       DB::commit();
 
       return true;
