@@ -1,4 +1,4 @@
-dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'timeAgoSettings', function ($routeProvider, $locationProvider, $localStorageProvider, timeAgoSettings) {
+dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', function ($routeProvider, $locationProvider, $localStorageProvider, NotificationProvider, timeAgoSettings) {
 
   $routeProvider
 
@@ -57,5 +57,15 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
    $locationProvider.html5Mode(true);
    $localStorageProvider.setKeyPrefix('game-');
    timeAgoSettings.allowFuture = true;
+   NotificationProvider.setOptions({
+       delay: 5000,
+       replaceMessage: true,
+      //  startTop: 20,
+      //  startRight: 10,
+      //  verticalSpacing: 20,
+      //  horizontalSpacing: 20,
+       positionX: 'center',
+      //  positionY: 'bottom'
+   });
 
 }]);

@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('user_id');
             $table->double('amount');
             $table->string('trans_type');
+            $table->string('status')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

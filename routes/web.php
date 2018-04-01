@@ -112,11 +112,11 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/credit-account', 'DashboardController@creditAccount');
 
-  Route::post('/request-payment', 'DashboardController@requestPayment');
+  Route::post('/request-withdrawal', 'DashboardController@requestWithdrawal');
 
-  Route::post('/received-payment', 'DashboardController@receivedPayment');
+  Route::post('/received-withdrawal', 'DashboardController@receivedWithdrawal');
 
-  Route::post('/dispute-payment', 'DashboardController@disputePayment');
+  Route::post('/dispute-withdrawal', 'DashboardController@disputeWithdrawal');
 
   Route::post('/request-bonus', 'DashboardController@requestBonus');
 
@@ -196,7 +196,7 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
 
     Route::post('/get-user-details', function () {
       return [
-        'userdetails' => Auth::user(), //->load('notices', 'messages'),
+        'userdetails' => Auth::user()->load('notices', 'messages'),
       ];
     });
 

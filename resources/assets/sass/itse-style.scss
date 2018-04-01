@@ -8,7 +8,7 @@ div#main-controller{
     }
     nav{
       padding-top: 15px;
-      a{
+      a.item:not(.notif){
         color: #fff;
         &:hover{
           text-decoration: underline;

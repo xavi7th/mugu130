@@ -13,7 +13,7 @@
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/css/app.css') }}"> --}}
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 		@yield('customCSS')
 

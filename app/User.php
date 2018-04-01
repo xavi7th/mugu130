@@ -113,6 +113,7 @@ class User extends Authenticatable{
       $active_game = Game::active();
       return $this->hasOne(UserGameSession::class)->where('ended_at', null)->where('game_id', optional($active_game)->id);
     }
+
     public function lastGame(){
       $last_game = Game::last();
       return $this->hasOne(UserGameSession::class)->where('game_id', optional($last_game)->id);
@@ -207,69 +208,44 @@ class User extends Authenticatable{
       $this->save();
     }
 
-    //
-    // public function sendMessage() {
-    //   // return request()->all();
-    //   DB::beginTransaction();
-    //     Message::create([
-    //       'sender_id' => Auth::id(),
-    //       'senderusername' => Auth::user()->username,
-    //       'receiver_id' => 0,
-    //       'subject' => 'Dashboard Message',
-    //       'message' => request('details'),
-    //     ]);
-    //   DB::commit();
-    //
-    //   return true;
-    //
-    // }
-    //
-    // public function notices(){
-    //   return $this->hasMany(Notice::class)->where('read', '!=', true)->latest();
-    // }
-    //
-    // /**
-    // * This method provides a one-to-many relationship between the users and the messages Table
-    // *
-    // *
-    // *
-    // * @param type var Description
-    // * @return return type
-    // */
-    // public function messages(){
-    //   return $this->hasMany(Message::class, 'receiver_id')->where('read', '!=', true)->latest();
-    // }
-    //
-    // /**
-    // * This method provides a one-to-many relationship between the users and the messages Table
-    // *
-    // *
-    // *
-    // * @param type var Description
-    // * @return return type
-    // */
-    // public function packages(){
-    //   return $this->hasMany(Confirmation::class, 'user_id');
-    // }
-    //
-    // /**
-    // * This method provides a one-to-many relationship between the users and the messages Table
-    // *
-    // *
-    // *
-    // * @param type var Description
-    // * @return return type
-    // */
-    // public function payments_received(){
-    //   return $this->hasMany(Confirmation::class, 'user_id')->where('ghconfirmstatus', 'payment received')->onlyTrashed();
-    // }
-    //
-    // public function deletable(){
-    //   if ($this->packages->isEmpty()) {
-    //     return true;
-    //   }
-    //   return false;
-    // }
+    public function debitAccount(){
+      $this->available_units = $this->available_units - request()->input('details.amt') - env('WITHDRAWAL_FEE');
+      $this->save();
+
+      Earning::adminEarning(0, env('WITHDRAWAL_FEE'));
+    }
+
+
+    public function sendMessage() {
+      // return request()->all();
+      DB::beginTransaction();
+        Message::create([
+          'sender_id' => Auth::id(),
+          'senderusername' => Auth::user()->username,
+          'receiver_id' => 0,
+          'subject' => 'Dashboard Message',
+          'message' => request('details'),
+        ]);
+      DB::commit();
+
+      return true;
+
+    }
+
+    public function notices(){
+      return $this->hasMany(Notice::class)->where('read', '!=', true)->latest();
+    }
+
+    public function messages(){
+      return $this->hasMany(Message::class, 'receiver_id')->where('read', '!=', true)->latest();
+    }
+
+    public function deletable(){
+      if ($this->earnings->isEmpty() || $this->availble_units < 10) {
+        return true;
+      }
+      return false;
+    }
 
   	/**
   	 * Overrides the inherent password reset mail sender

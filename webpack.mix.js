@@ -16,11 +16,11 @@ require('laravel-mix-purgecss');
 
  mix.js('resources/assets/js/app.js', 'public/js')
     .extract(['jquery', 'axios',  'bootstrap-sass'])
-    .js('resources/assets/js/home-app.js', 'public/js')
-    .js('resources/assets/js/admin-app.js', 'public/js')
-    .js('resources/assets/js/dashboard-app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
-    .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
+    // .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
+    .js('resources/assets/js/home-app.js', 'public/js')
+    .js('resources/assets/js/dashboard-app.js', 'public/js')
+    // .js('resources/assets/js/admin-app.js', 'public/js')
     .options({
         //  processCssUrls: false,
          fileLoaderDirs: {
@@ -38,10 +38,7 @@ require('laravel-mix-purgecss');
          jquery: ['$', 'jQuery']
      })
     .version()
-    .sourceMaps()
-    .purgeCss({
-        globs: ['/public/'],
-      });
+    .sourceMaps();
 
   mix.combine([
     'resources/assets/js/libraries/semantic.js',

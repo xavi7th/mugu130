@@ -51,9 +51,14 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
         }
     }
     &.killed {
-        opacity: 0;
+        opacity: 0 !important;
         -webkit-transition: opacity ease 1s;
         transition: opacity ease 1s;
+        pointer-events: none;
+
+        &:hover {
+          display: none;
+        }
     }
     & > h3 {
         display: block;
@@ -96,7 +101,15 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
 }
 
 .ui.compact.vertical.menu{
-  @include MQ(XS){
+  @include MQ(M){
+    margin-bottom: 30px;
+    @include flex-center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  };
+  @include MQ(S){
     margin-bottom: 30px;
     @include flex-center;
     -webkit-box-orient: horizontal;
@@ -106,11 +119,12 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
   };
 }
 .ui.labeled.icon.menu{
-
   .item{
-    @include MQ(XS){
+    @include MQ(M){
+      float: left !important;
+    }
+    @include MQ(S){
       float: left !important;
     }
   }
-
 }

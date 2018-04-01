@@ -39,7 +39,7 @@ var url = `
       </div>
     </div>
     <div class="grid-50">
-      <div class="content" style="padding-bottom: 5px;">
+      <div class="content" style="margin-bottom: 15px;">
         <div class="ui orange image label">
           My Bank
           <div class="detail">{{ userdetails.bank }}</div>
@@ -55,12 +55,18 @@ var url = `
           Acct. No.
           <div class="detail">{{ userdetails.acct_no }}</div>
         </div>
+
+        <make-withdrawal></make-withdrawal>
+
       </div>
       <div class="content" style="padding-bottom: 5px;">
         <div class="ui red image label">
           Referral code
           <div class="detail">{{ userdetails.refcode }}</div>
         </div>
+
+        <buy-units></buy-units>
+
       </div>
     </div>
   </div>

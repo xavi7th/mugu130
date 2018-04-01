@@ -4,7 +4,7 @@
 
 var url = `
 <section id="buyUnits" class="ui right floated horizontal list">
-  <div class="ui vertical animated button" tabindex="-1" ng-click="openModal()">
+  <div class="ui vertical teal compact animated button" tabindex="-1" ng-click="openModal()">
     <div class="hidden content"><i class="shop icon"></i></div>
     <div class="visible content">
       Buy Units

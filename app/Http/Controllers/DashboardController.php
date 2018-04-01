@@ -432,6 +432,29 @@ class DashboardController extends Controller
       ];
     }
 
+    public function requestWithdrawal(){
+
+      DB::beginTransaction();
+
+        //add a withdrawal request to transactions table
+        Auth::user()->transactions()->create([
+          'amount' => request()->input('details.amt'),
+          'trans_type' => 'withdrawal',
+          'status' => 'pending',
+        ]);
+
+        //add a notice for the user
+
+        //remove the units from his acc so that he cannot use it meanwhile
+        Auth::user()->debitAccount();
+
+      DB::commit();
+
+      return [
+        'status' => true
+      ];
+    }
+
     public function getProfilePageDetails(){
 
       return [

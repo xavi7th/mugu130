@@ -40513,11 +40513,11 @@ div#main-controller header#alpha nav {
   padding-top: 15px;
 }
 
-div#main-controller header#alpha nav a {
+div#main-controller header#alpha nav a.item:not(.notif) {
   color: #fff;
 }
 
-div#main-controller header#alpha nav a:hover {
+div#main-controller header#alpha nav a.item:not(.notif):hover {
   text-decoration: underline;
 }
 
@@ -41037,10 +41037,15 @@ textarea.ng-invalid.ng-touched {
 }
 
 .ui-notification.killed {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" !important;
+  opacity: 0 !important;
   -webkit-transition: opacity ease 1s;
   transition: opacity ease 1s;
+  pointer-events: none;
+}
+
+.ui-notification.killed:hover {
+  display: none;
 }
 
 .ui-notification > h3 {
@@ -41084,7 +41089,7 @@ textarea.ng-invalid.ng-touched {
   background: #2185D0;
 }
 
-@media only screen and (max-width: 479px) {
+@media only screen and (min-width: 768px) and (max-width: 1169px) {
   .ui.compact.vertical.menu {
     margin-bottom: 30px;
     -webkit-box-align: center;
@@ -41103,7 +41108,32 @@ textarea.ng-invalid.ng-touched {
   }
 }
 
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 767px) {
+  .ui.compact.vertical.menu {
+    margin-bottom: 30px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1169px) {
+  .ui.labeled.icon.menu .item {
+    float: left !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
   .ui.labeled.icon.menu .item {
     float: left !important;
   }

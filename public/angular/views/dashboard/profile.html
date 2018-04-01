@@ -53,14 +53,14 @@
               </tr>
               <tr>
                 <td>No. of withdrawals</td>
-                <td>{{userdetails.num_of_withdrawals  | currency }}</td>
+                <td>{{userdetails.num_of_withdrawals  }}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="ui tab" data-tab="transactions">
           user_transactions
-          <table class="ui blue celled table">
+          <table class="ui blue striped celled table">
             <thead>
               <tr>
                 <th>S/N</th>
@@ -71,7 +71,7 @@
             </thead>
             <tbody>
 
-                <tr ng-repeat="transaction in user_transactions">
+                <tr ng-repeat="transaction in user_transactions" ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
                   <td>{{ $index + 1 }}</td>
                   <td>{{ transaction.created_at | timeAgo}}</td>
                   <td>{{ transaction.trans_type }}</td>
