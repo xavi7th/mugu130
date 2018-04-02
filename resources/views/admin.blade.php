@@ -1,7 +1,7 @@
 @extends('layouts.admin-master')
 
 @section('contents')
-  {{-- <base href="/manager"> --}}
+  @javascript('route_root', '/'.env('ADMIN_ROUTE_PREFIX'))
 
   <div ng-view></div>
 

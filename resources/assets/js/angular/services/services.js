@@ -271,3 +271,26 @@
         },
      	};
      }]);
+
+  angular.module('bootstrapAdminPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', ($timeout, $location, Notification, sendRequest) => {
+     	return {
+        dashboard:  (scope) => {
+
+          sendRequest.postRequest(route_root + '/api/get-dashboard-page-details')
+                    .then(function (rsp) {
+                      if (rsp.status == 200) {
+                      }
+                    });
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
+            }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+            }, 0);
+          });
+
+        },
+     	};
+     }]);

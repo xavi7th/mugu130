@@ -271,7 +271,7 @@ Route::middleware(['before'])->group( function () {
 
 });
 
-Route::group(['prefix' => 'coded', 'middleware'=>'suspended'], function () {
+Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'], function () {
 
   $c = 'AdminController@';
 

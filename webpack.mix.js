@@ -20,7 +20,7 @@ require('laravel-mix-purgecss');
     // .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
     .js('resources/assets/js/home-app.js', 'public/js')
     .js('resources/assets/js/dashboard-app.js', 'public/js')
-    // .js('resources/assets/js/admin-app.js', 'public/js')
+    .js('resources/assets/js/admin-app.js', 'public/js')
     .options({
         //  processCssUrls: false,
          fileLoaderDirs: {

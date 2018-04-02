@@ -36,6 +36,17 @@ class Message extends Model{
 		return true;
   }
 
+  public static function alertAdmin(){
+   	self::create([
+                      'user_id' => 0,
+                      'sender_id' => 4888888,
+                      'senderusername' => 'Admin Route Monitor',
+                      'subject' => 'Intrusion Attempt',
+                      'message' => Auth::user()->email.' tried to access the admin section without authorisation.',
+                    ]);
+		return true;
+  }
+
 
 
 }

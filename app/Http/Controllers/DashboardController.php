@@ -35,16 +35,6 @@ class DashboardController extends Controller
         $this->middleware('suspended')->except('suspended', 'getApiKey', 'contact');
     }
 
-    public function index(){
-        // Cache::flush();
-
-        if (Auth::user()->useraccstatus == 'admin') {
-          # code...
-          return redirect()->route('admin');
-        }
-        return view('dashboard');
-    }
-
     public function getGameState(){
       $game_id = Game::where('status', true)->value('id');
       $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
