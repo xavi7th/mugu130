@@ -114,16 +114,12 @@
 
           return $http .post(url, {details: data})
                         .then(function (response) {
-
-                          $('html, body').animate({
-                            scrollTop: 0
-                          }, 700);
                           return response;
                         },
                         function (err) {
-                          $('html, body').animate({
-                            scrollTop: 0
-                          }, 700);
+                          if (err.status == 419 || err.status == 401) {
+                            location.href = '/login';
+                          }
                           console.log(err);
                           return err;
                         });
@@ -146,14 +142,7 @@
   angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', ($timeout, $location, Notification, sendRequest) => {
      	return {
         dashboard:  (scope) => {
-          sendRequest.getUserDetails('/api/get-user-details')
-            .then( (rsp) => {
-            scope.userdetails = rsp.userdetails;
-          });
-          sendRequest.getTotalEarnings('/user/get-total-earnings')
-                    .then(function (rsp) {
-                      scope.total_earnings = rsp.total_earnings;
-                    });
+
           sendRequest.postRequest('/user/get-dashboard-page-details')
                     .then(function (rsp) {
                       if (rsp.status == 200) {
@@ -166,12 +155,13 @@
                     });
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
+              $('.dropdown_menu').dropdown();
+
               Echo.channel(`exam_member_count`)
               .listen('ExamJoined', (e) => {
                 scope.total_examinees = e.total_examinees;
               });
 
-              $('.dropdown_menu').dropdown();
             }, 500);
           });
           scope.$on('$destroy', function() {
@@ -182,10 +172,6 @@
 
         },
         profile:  (scope) => {
-          sendRequest.getUserDetails('/api/get-user-details')
-                   .then(function (rsp) {
-                     scope.userdetails = rsp.userdetails;
-                   });
           sendRequest.postRequest('/user/get-profile-page-details')
                    .then( (rsp) => {
                      if (rsp.status == 200) {
@@ -193,10 +179,6 @@
                          scope.user_earnings = rsp.data.page_details.earnings;
                          scope.user_games = rsp.data.page_details.games;
                      }
-                   });
-          sendRequest.getTotalEarnings('/user/get-total-earnings')
-                   .then(function (rsp) {
-                     scope.total_earnings = rsp.total_earnings;
                    });
           scope.$on('$viewContentLoaded', function() {
              $timeout(function () {
@@ -207,10 +189,6 @@
 
         },
         settings:  (scope)  => {
-          sendRequest.getUserDetails('/api/get-user-details')
-                   .then(function (rsp) {
-                     scope.userdetails = rsp.userdetails;
-                   });
           sendRequest.getBanks('/api/get-banks-list')
                    .then(function (rsp) {
                      scope.banks = rsp.banks;
@@ -227,10 +205,6 @@
           .then( (rsp) => {
             scope.userdetails = rsp.userdetails;
           });
-          sendRequest.getTotalEarnings('/user/get-total-earnings')
-                    .then(function (rsp) {
-                      scope.total_earnings = rsp.total_earnings;
-                    });
           scope.$on('$viewContentLoaded', function() {
              $timeout(function () {
                $('.dropdown_menu').dropdown();
@@ -249,10 +223,6 @@
           });
         },
         results:  (scope)  => {
-          sendRequest.getUserDetails('/api/get-user-details')
-                    .then(function (rsp) {
-                      scope.userdetails = rsp.userdetails;
-                    });
           sendRequest.postRequest('/user/get-exam-results')
                     .then( (rsp) => {
                       if (rsp.status == 200) {
@@ -270,17 +240,32 @@
                         }
                       }
                     });
-          sendRequest.getTotalEarnings('/user/get-total-earnings')
-                    .then(function (rsp) {
-                      scope.total_earnings = rsp.total_earnings;
-                    });
 
 
 
           scope.$on('$viewContentLoaded', function() {
              $timeout(function () {
                $('.dropdown_menu').dropdown();
-               $('.ui.accordion').accordion();
+             }, 500);
+          });
+        },
+        messages:  (scope)  => {
+
+
+
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('.dropdown_menu').dropdown();
+               $('.special.cards .image').dimmer({
+                  on: 'hover'
+                });
+             }, 500);
+          });
+        },
+        notices:  (scope)  => {
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('.dropdown_menu').dropdown();
              }, 500);
           });
         },

@@ -237,7 +237,7 @@ class User extends Authenticatable{
     }
 
     public function messages(){
-      return $this->hasMany(Message::class, 'receiver_id')->where('read', '!=', true)->latest();
+      return $this->hasMany(Message::class)->orderBy('read')->latest();
     }
 
     public function deletable(){

@@ -16,6 +16,9 @@ class Notice extends Model{
 
   protected $guarded = [];
   protected $dates = ['deleted_at'];
+	protected $casts =[
+		'read' => 'boolean'
+	];
 	// public $rememberFor = 5;
 
 	 public function user(){

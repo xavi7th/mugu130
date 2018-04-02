@@ -16,20 +16,24 @@ class Message extends Model{
 
   protected $guarded = [];
   protected $dates = ['deleted_at'];
+	protected $casts =[
+		'read' => 'boolean'
+	];
 	// public $rememberFor = 5;
 
 	 public function user(){
 			 return $this->belongsTo(User::class, 'sender_id');
 	 }
 
-  public static function sendAdminMessage($senderid, $senderusername, $message){
-   	return self::create([
-                      'receiver_id' => 0,
-                      'sender_id' => $senderid,
-                      'senderusername' => $senderusername,
-                      'subject' => 'Dashboard chat',
-                      'message' => $message,
+  public static function toAdmin(){
+   	self::create([
+                      'user_id' => 0,
+                      'sender_id' => Auth::id(),
+                      'senderusername' => Auth::user()->firstname,
+                      'subject' => request()->input('details.subject'),
+                      'message' => request()->input('details.message'),
                     ]);
+		return true;
   }
 
 

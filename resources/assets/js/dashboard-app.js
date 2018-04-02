@@ -3,7 +3,7 @@
                 [
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
-                  'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'makeWithdrawal', 'bootstrapPage',
+                  'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage',
                 ]);
 
   dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -22,6 +22,17 @@
                  });
       };
 
+      $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        sendRequest.getTotalEarnings('/user/get-total-earnings')
+                  .then(function (rsp) {
+                    $rootScope.total_earnings = rsp.total_earnings;
+                  });
+        sendRequest.getUserDetails('/user/get-user-details')
+          .then( (rsp) => {
+            $rootScope.userdetails = rsp.userdetails;
+          });
+      });
+
       // $rootScope.markAsRead = function(msg) {
       //  sendRequest.postRequest('api/user/mark-as-read', msg);
       // };
@@ -39,6 +50,7 @@
   require('./angular/directives/gameState');
   require('./angular/directives/gamePlay');
   require('./angular/directives/buyUnits');
+  require('./angular/directives/sendMessage');
   require('./angular/directives/makeWithdrawal');
   require('./angular/directives/userProfile');
    // require('./angular/directives/timer');

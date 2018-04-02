@@ -66,3 +66,47 @@ dashboard.controller('DisplayResultsController', ['$scope', 'bootstrapPage', fun
   NProgress.done();
 
 }]);
+
+dashboard.controller('MessageController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest ) {
+  NProgress.start();
+  // var hello = _.dropRightWhile($scope.userdetails.messages, ['read', true]).length;
+  // console.log(hello);
+
+  $scope.markAsRead = (msg) => {
+    msg.read = true;
+    sendRequest.postRequest('/user/mark-message-as-read', msg);
+  };
+  $scope.deleteMessage = (msg) => {
+    sendRequest.postRequest('/user/delete-message', msg)
+                .then(rsp => {
+                  var removedMessage = $scope.userdetails.messages.indexOf(msg);
+                      $scope.userdetails.messages.splice(removedMessage, 1);
+                });
+  };
+
+  bootstrapPage.messages($scope);
+
+  NProgress.done();
+
+}]);
+
+dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest ) {
+  NProgress.start();
+
+  $scope.markAsRead = (notice) => {
+    notice.read = true;
+    sendRequest.postRequest('/user/mark-notice-as-read', notice);
+  };
+  $scope.deleteNotice = (notice) => {
+    sendRequest.postRequest('/user/delete-notice', notice)
+                .then(rsp => {
+                  var removedNotice = $scope.userdetails.notices.indexOf(notice);
+                      $scope.userdetails.notices.splice(removedNotice, 1);
+                });
+  };
+
+  bootstrapPage.notices($scope);
+
+  NProgress.done();
+
+}]);

@@ -91,22 +91,11 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/transfer-earnings', 'DashboardController@transferEarnings');
 
+  Route::post('/get-user-details', 'DashboardController@getUserDetails');
+
   Route::post('/get-profile-page-details', 'DashboardController@getProfilePageDetails');
 
-  Route::post('/get-dashboard-page-details', function () {
-    if (Auth::user()->activeGames) {
-      session(['GAME_STATE' => 'paused']);
-    }
-    // $game_id = Game::where('status', true)->value('id');
-    // $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
-    //
-    //
-    //
-    // return [
-    //   'total_examinees' =>$exam_records->count(),
-    // ];
-
-  });
+  Route::post('/get-dashboard-page-details', 'DashboardController@getDashboardPageDetails');
 
   Route::post('/make-deposit', 'DashboardController@makeDeposit');
 
@@ -117,8 +106,6 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
   Route::post('/received-withdrawal', 'DashboardController@receivedWithdrawal');
 
   Route::post('/dispute-withdrawal', 'DashboardController@disputeWithdrawal');
-
-  Route::post('/request-bonus', 'DashboardController@requestBonus');
 
   Route::post('/update-user-details', 'DashboardController@updateUserDetails');
 
@@ -137,6 +124,16 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
   Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
 
   Route::post('/send-message', 'DashboardController@sendMessage');
+
+  Route::post('/mark-message-as-read', 'DashboardController@markMessageAsRead');
+
+  Route::post('/delete-message', 'DashboardController@deleteMessage');
+
+  Route::post('/mark-notice-as-read', 'DashboardController@markNoticeAsRead');
+
+  Route::post('/delete-notice', 'DashboardController@deleteNotice');
+
+  // Route::post('/request-bonus', 'DashboardController@requestBonus');
 
 });
 
@@ -193,13 +190,6 @@ Route::group(['prefix' => 'api'], function () {
 });
 
 Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
-
-    Route::post('/get-user-details', function () {
-      return [
-        'userdetails' => Auth::user()->load('notices', 'messages'),
-      ];
-    });
-
 
     Route::post('/get-buy-package-page-details', function () {
 
@@ -275,7 +265,7 @@ Route::middleware(['before'])->group( function () {
 
   Auth::routes();
 
-  Route::view('/register', 'welcome')->name('login');
+  Route::view('/register', 'welcome')->name('register');
 
   Route::view('/login', 'welcome')->name('login');
 
@@ -362,44 +352,6 @@ Route::group(['prefix' => 'coded', 'middleware'=>'suspended'], function () {
 
 Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended');
 
-//
-//
-// // Client Alpha
-// Route::get('/', 'SessionsController@index')->middleware('guest');
-//
-// // Sessions controller
-// Route::get('/login', 'SessionsController@index')->name('login')->middleware('guest');
-// Route::post('/register', 'SessionsController@register');
-// Route::post('/login', 'SessionsController@store');
-// Route::get('/logout', 'SessionsController@destroy');
-//
-// // Dashboard Controller
-// Route::get('/dashboard', 'DashboardController@index')->name('home');
-//
-//
-// // Stats Controller
-// Route::get('/stats', 'StatsController@index');
-//
-// // Profile Controller
-// Route::get('/profile', 'ProfileController@index');
-// Route::get('/settings', 'ProfileController@settings');
-//
-// // Game Controller
-// Route::get('/game', 'GameController@show');
-// Route::post('/startGame', 'GameController@startGame');
-// Route::post('/endGame', 'GameController@endGame');
-// Route::post('/joinGame', 'GameController@joinGame');
-//
-// //Settings Controller
-// Route::post('/updateAccountDetails', 'SettingsController@updateAccountDetails');
-// Route::post('/updateMobileDetails', 'SettingsController@updateMobileDetails');
-// Route::post('/updateName', 'SettingsController@updateName');
-// Route::post('/updateLocation', 'SettingsController@updateLocation');
-// Route::post('/updateAddress', 'SettingsController@updateAddress');
-//
-//
-//
-// //
 // //
 // // This is the section for admin routes
 // //

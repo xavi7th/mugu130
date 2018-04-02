@@ -44,13 +44,13 @@ try {
 
 import Echo from 'laravel-echo';
 
-window.Pusher = require('pusher-js');
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: '32d8beeccf88e1862a2f',
-    cluster: 'eu',
-});
+// window.Pusher = require('pusher-js');
+//
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: '32d8beeccf88e1862a2f',
+//     cluster: 'eu',
+// });
 
 
 /**

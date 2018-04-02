@@ -12,6 +12,16 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
      controller: 'ProfileController'
    })
 
+   .when('/dashboard/messages', {
+     templateUrl: 'angular/views/dashboard/messages.html',
+     controller: 'MessageController'
+   })
+
+   .when('/dashboard/notices', {
+     templateUrl: 'angular/views/dashboard/notices.html',
+     controller: 'NoticeController'
+   })
+
    .when('/dashboard/settings', {
      templateUrl: 'angular/views/dashboard/settings.html',
      controller: 'SettingsController'

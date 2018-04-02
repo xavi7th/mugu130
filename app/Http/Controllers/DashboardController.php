@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use DatabaseSeeder;
 use Illuminate\Broadcasting\BroadcastException;
 use App\Events\ExamJoined;
+use App\Notice;
 // Cache::flush();
 
 class DashboardController extends Controller
@@ -462,6 +463,27 @@ class DashboardController extends Controller
       ];
     }
 
+    public function getDashboardPageDetails() {
+      if (Auth::user()->activeGames) {
+        session(['GAME_STATE' => 'paused']);
+      }
+      // $game_id = Game::where('status', true)->value('id');
+      // $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
+      //
+      //
+      //
+      // return [
+      //   'total_examinees' =>$exam_records->count(),
+      // ];
+
+    }
+
+    public function getUserDetails() {
+      return [
+        'userdetails' => Auth::user()->load('notices', 'messages'),
+      ];
+    }
+
     public function updateUserDetails(){
 
       $this->validate(request(), [
@@ -471,5 +493,26 @@ class DashboardController extends Controller
       return [
         'status' =>  Auth::user()->updateUserDetails(),
       ];
+    }
+
+    public function markMessageAsRead() {
+      return Message::updateOrCreate(['id' => request()->input('details.id')], request()->input('details'));
+    }
+
+    public function deleteMessage() {
+      return ['status' => Message::find(request()->input('details.id'))->delete()];
+    }
+
+    public function sendMessage() {
+      // return request()->all();
+      return ['status' => Message::toAdmin()];
+    }
+
+    public function markNoticeAsRead() {
+      return Notice::updateOrCreate(['id' => request()->input('details.id')], request()->input('details'));
+    }
+
+    public function deleteNotice() {
+      return ['status' => Notice::find(request()->input('details.id'))->delete()];
     }
 }
