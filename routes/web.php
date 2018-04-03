@@ -279,13 +279,13 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
 
+    Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
+
     Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
 
-    Route::post('/get-view-packages-page-details', $c.'getViewPackagesPageDetails');
+    Route::post('/get-all-users-details', $c.'getAllUsersDetails');
 
     Route::post('/update-user-details', $c.'updateUserDetails');
-
-    Route::post('/get-all-users-details', $c.'getAllUsersDetails');
 
     Route::get('/delete-user/{user}', $c.'deleteUser');
 
@@ -294,8 +294,6 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/admin-send-message', $c.'adminSendMessage');
 
     Route::post('/admin-send-broadcast', $c.'adminSendBroadcast');
-
-    Route::post('/get-all-donations', $c.'getAllDonations');
 
     Route::post('/get-admin-messages', $c.'getAdminMessages');
 
@@ -307,42 +305,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-admin-accounts', $c.'getAdminAccounts');
 
-    Route::post('/gh-admin-account', $c.'ghAdminAccount');
-
     Route::get('/delete-admin-account/{admin}', $c.'deleteAdminAcc');
-
-    Route::post('/admin-confirm-donation/{donation}', $c.'confirmDonation');
-
-    Route::post('/admin-paid-donation/{donation}', $c.'paidDonation');
-
-    Route::post('/admin-delete-package', $c.'deletePackage');
-
-    Route::post('/admin-edit-package', $c.'editPackage');
-
-    Route::post('/create-news-item', $c.'createNewsItem');
-
-    Route::post('/get-news-items', $c.'getNewsItems');
-
-    Route::get('/delete-news-item/{news}', $c.'deleteNewsItems');
-
-    Route::post('/edit-news-item', $c.'editNewsItem');
-
-    Route::post('/get-team-members', $c.'getTeamMembers');
-
-    Route::get('/delete-team-member/{member}', $c.'deleteTeamMember');
-
-    Route::post('/edit-team-member', $c.'editTeamMember');
-
-    Route::post('/create-team-member', $c.'createTeamMember');
-
-    Route::post('/get-crypto-sites', $c.'getCryptoSites');
-
-    Route::get('/delete-crypto-site/{site}', $c.'deleteCryptoSite');
-
-    Route::post('/edit-crypto-site', $c.'editCryptoSite');
-
-    Route::post('/create-crypto-site', $c.'createCryptoSite');
-
 
   });
 
@@ -350,25 +313,4 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
 });
 
-Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended');
-
-// //
-// // This is the section for admin routes
-// //
-// //
-//
-// // Admin Alpha
-// Route::get('/admin', 'AdminSessionsController@index')->middleware('guest');
-//
-// // Admin sessions controller
-// Route::post('/admin_login', 'AdminSessionsController@adminLogin');
-//
-// // Register Admin Controller
-// Route::get('/admin_dashboard', 'AdminController@showAdminDashboard');
-// Route::get('/reg_admin', 'AdminController@showRegisterAdmin');
-// Route::post('/reg_admin', 'AdminController@registerAdmin');
-//
-// // Questions Controller
-// Route::get('/question', 'QuestionController@index');
-// Route::get('/create_question', 'QuestionController@showCreateQuestion');
-// Route::post('/create_question', 'QuestionController@createQuestion');
+Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before');

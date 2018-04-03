@@ -141,6 +141,8 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
       //when the game was paused, take the user back to the game
       $scope.resumeGame = function () {
+        $scope.game_state = null;
+        
 
         sendRequest.postRequest('user/resume-game')
                     .then(()=>{
@@ -154,7 +156,13 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
       // handle page reload on timer countdown so that the page can get the next thing from the server
       $scope.pageReload = function () {
-        location.reload();
+        // location.reload();
+        sendRequest.getGameState()
+                 .then( rsp => {
+                   $scope.game_state = rsp.game_state;
+                   $scope.game_timer = rsp.game_timer;
+                   $scope.total_examinees = rsp.total_examinees;
+                 });
       };
 
       // refresh the game state and then redirect to the display results page
@@ -180,9 +188,12 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
       $scope.joinGame = () => {
         NProgress.start();
-
+        $scope.game_state = null;
 
         delete $localStorage.user_score;
+        delete $sessionStorage.extra;
+        delete $sessionStorage.options;
+        delete $sessionStorage.user_questions;
 
         sendRequest.postRequest('/user/join-game')
                  .then (rsp => {

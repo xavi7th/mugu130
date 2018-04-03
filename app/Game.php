@@ -27,11 +27,12 @@ class Game extends Model{
 
 		//end previous game if any
 		// IDEA: CAll Game end? so that all active usergamesessions will end too?
-		self::where('status', true)->update([
-			'status' => false,
-			'ended_at' => Carbon::now(),
-			'deleted_at' => Carbon::now()
-		]);
+		// self::where('status', true)->update([
+		// 	'status' => false,
+		// 	'ended_at' => Carbon::now(),
+		// 	'deleted_at' => Carbon::now()
+		// ]);
+		self::end();
 
 		//create new game
 		return self::create([
@@ -49,10 +50,17 @@ class Game extends Model{
 		//get the last gameid and
 		//use the game id to retrieve all theuser game sessions ordered by ended_at
 		$active_game = self::active();
+
+		if (!$active_game) {
+			return;
+		}
+
 		$exam_records = optional($active_game)->user_game_sessions;
 
 		//count hom many they are.
 		$total_examinees = optional($exam_records)->count();
+
+		// dd($total_examinees);
 
 		//If 1, void the game and return the cash
 		if ($total_examinees == 1) {
@@ -62,17 +70,23 @@ class Game extends Model{
 					$examinee->available_units = $examinee->available_units + env('GAME_CREDITS');
 					$examinee->save();
 
-					$exam_records->first()->payment_status == 'nullified';
+					$exam_records->first()->payment_status = 'nullified';
 					$exam_records->first()->save();
 
-					//delete the game to prevent reimbursing the user indefinitely
-					$active_game->delete();
+					//end OR delete the game to prevent reimbursing the user indefinitely
+					// $active_game->delete();
+					$active_game->status = false;
+					$active_game->ended_at = Carbon::now();
+					$active_game->save();
 			DB::commit();
 
 		}
 
 		else if($total_examinees == 0){
-			// return $total_examinees;
+			//end the game
+			$active_game->status = false;
+			$active_game->ended_at = Carbon::now();
+			$active_game->save();
 		}
 
 		//if more than 1, use the formula to calculate the amount they should receive

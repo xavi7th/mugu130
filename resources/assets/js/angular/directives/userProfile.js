@@ -111,7 +111,7 @@ angular.module('userProfile', []).directive('userProfile', [function () {
                       }
                     }
 
-                    sendRequest.getUserDetails('/api/get-user-details', true)
+                    sendRequest.getUserDetails('/user/get-user-details', true)
                                 .then( (rsp) => {
                                   $scope.userdetails = rsp.userdetails;
                                 });

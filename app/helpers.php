@@ -131,3 +131,30 @@ function sendmail($data){
   // Send mail
   mail($mail_to, $mail_subject, $mail_message, $header);
 }
+
+function mydd(...$args){
+    $content = "<!DOCTYPE html><html><body>";
+
+    foreach ($args as $arg) {
+        $val = (new \Symfony\Component\VarDumper\Cloner\VarCloner)->cloneVar($arg);
+        $dumper = new \Illuminate\Support\Debug\HtmlDumper;
+        $content .= $dumper->dump($val, true);
+    }
+
+    $content .= "</body></html>";
+
+    return response($content, 500)->header('Content-Type', 'text/html')->send();
+}
+
+function _dd($args){
+  http_response_code(500);
+  dd($args);
+}
+
+if (!function_exists('alt_dd')) {
+  function alt_dd(...$data)
+  {
+    header('HTTP/1.1 500 Internal Server Error');
+    call_user_func_array('dd', $data);
+  }
+}

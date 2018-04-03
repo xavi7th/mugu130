@@ -53,7 +53,7 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
                    sendRequest.getGameState()
                                .then(rsp => {
                                  if (rsp.game_state != 'loading') {
-                                  //  $location.path('/dashboard');
+                                   $location.path('/dashboard');
                                  }
                                });
                  }]
