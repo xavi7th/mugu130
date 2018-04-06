@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
           $faker = Faker\Factory::create();
 
           $table->increments('id');
-          $table->unsignedInteger('role_id')->default(0);
+          $table->unsignedInteger('role_id')->default(1);
           $table->string('firstname');
           $table->string('lastname');
           $table->string('email')->unique();

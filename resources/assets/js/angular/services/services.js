@@ -328,12 +328,11 @@
           sendRequest.postRequest(route_root + '/api/get-admins-page-details')
                     .then(function (rsp) {
                       if (rsp.status == 200) {
-                        console.log(rsp);
-                        scope.questions = rsp.data.questions;
+                        scope.admins = rsp.data.admins;
                       }
                     },
                   err => {
-                    Notification.error('Error retrieving questions from server');
+                    Notification.error('Error retrieving admins from server');
                   });
 
 

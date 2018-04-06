@@ -15,11 +15,16 @@ class Admin
 {
 	 public function handle($request, Closure $next){
 
+		//  exit;
+
 			if (Auth::user()->role_id != env('ADMIN_ROLE_ID')){
 
 		    Message::alertAdmin();
 		    Session::flush();
 				Auth::logout();
+				if (request()->isJson()) {
+          return response()->json(['status' => 'Unauthorised request' ], 403);
+        }
 		    return redirect()->route('login');
 		  }
 

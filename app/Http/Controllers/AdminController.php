@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\Question;
 use App\UserGameSession;
 
@@ -73,7 +74,7 @@ class AdminController extends Controller
 
     public function getAdminsPageDetails(){
         return [
-          'admins' => Admin::latest()->get()
+          'admins' => User::where('role_id', env('ADMIN_ROLE_ID'))->get()
         ];
     }
 
@@ -88,9 +89,15 @@ class AdminController extends Controller
     }
 
     public function deleteAdmin(){
+      if (User::adminDeletable()) {
         return [
-          'status' => Admin::find(request()->input('details.id'))->delete()
+          'status' => User::find(request()->input('details.id'))->delete()
         ];
+      }
+      else {
+        return response()->json(['status' => 'Last Admin not deletable' ], 403);
+      }
+
     }
 
     public function createAdmin(){

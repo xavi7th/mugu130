@@ -253,6 +253,13 @@ class User extends Authenticatable{
       return false;
     }
 
+    public static function adminDeletable(){
+      if (User::where('role_id', env('ADMIN_ROLE_ID'))->count() < 2) {
+        return false;
+      }
+      return true;
+    }
+
     public function isVerified(){
       return $this->verified;
     }

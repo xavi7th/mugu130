@@ -179,16 +179,17 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/delete-admin', q)
                 .then(rsp => {
-                  console.log(rsp);
                   if (rsp.status == 200) {
-                    Notification.error('Deleted');
-                    $scope.correct = null;
-                    $('.ui.modal.editAdmin').modal('hide');
+                    Notification.warning('Deleted');
                     var removed = $scope.admins.indexOf(q);
                     $scope.admins.splice(removed, 1);
-                    NProgress.done();
 
                   }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+
                 });
   };
 

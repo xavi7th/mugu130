@@ -16,11 +16,11 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('status')->default(true);
-            $table->integer('num_of_players');
-            $table->integer('max_winners');
-            $table->double('total_prize');
-            $table->integer('total_winners'); //num of those that really won
-            $table->double('amount_won'); //num of those that really won
+            $table->integer('num_of_players')->nullable();
+            $table->integer('max_winners')->nullable();
+            $table->double('total_prize')->nullable();
+            $table->integer('total_winners')->nullable(); //num of those that really won
+            $table->double('amount_won')->nullable(); //num of those that really won
             $table->timestamp('ended_at')->nullable();
 
             $table->timestamps();
