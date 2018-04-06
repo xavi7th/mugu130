@@ -2,24 +2,30 @@
 
 namespace App;
 
+use App\Game;
+use App\Notice;
+use App\Earning;
+use App\Message;
+use App\Referral;
+use App\Transaction;
+use App\Confirmation;
+use App\UserGameSession;
+
+use Carbon\Carbon;
+
+use App\Mail\TransactionalMail;
+
+use Watson\Rememberable\Rememberable;
+
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-// use App\Notice;
-use App\Message;
-use App\Earning;
-use App\Confirmation;
-use App\VerifyUser;
-use App\Mail\TransactionalMail;
-use App\Game;
-use App\Transaction;
-use App\UserGameSession;
-use App\Referral;
-use Watson\Rememberable\Rememberable;
-use Carbon\Carbon;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 // Cache::flush();
 
@@ -245,6 +251,10 @@ class User extends Authenticatable{
         return true;
       }
       return false;
+    }
+
+    public function isVerified(){
+      return $this->verified;
     }
 
   	/**

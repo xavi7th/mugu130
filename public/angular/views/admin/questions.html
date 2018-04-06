@@ -1,0 +1,260 @@
+<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+  <ng-include src="'angular/views/partials/admin-menu.html'"></ng-include>
+
+  <button class="ui orange button" ng-click="newQuestion()">New Question</button>
+
+  <section id="dashboard">
+    <div class="grid-container">
+      <div class="grid-100">
+        <div class="ui red segment">
+          <table class="ui  striped celled table">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Question</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-repeat="q in questions" ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
+                <td>{{ $index + 1 }}</td>
+                <td><span style="cursor:pointer;" ng-click="previewQuestion(q)">{{ q.question | limitTo : 100}}</span></td>
+                <td>{{ q.created_at | timeAgo}}</td>
+                <td>
+                  <div class="ui mini buttons">
+                    <button class="ui orange button" ng-click="openModal(q)">Edit</button>
+                    <div class="or"></div>
+                    <button class="ui red button" ng-click="deleteQuestion(q)">Delete</button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ui modal showQuestion transition hidden">
+    <div class="header">
+      Question Details
+    </div>
+
+    <div class="ui stacked segment">
+      <h3>Question</h3>
+      <p>{{ particular_q }}</p>
+    </div>
+
+    <div class="ui horizontal segments">
+      <div ng-class="['ui', 'segment', {'green': particular_q_option1 == particular_q_correct}]">
+        <h4>Option 1</h4>
+        <p>{{ particular_q_option1 }}</p>
+      </div>
+      <div ng-class="['ui', 'segment', {'green': particular_q_option2 == particular_q_correct}]">
+        <h4>Option 2</h4>
+        <p>{{ particular_q_option2 }}</p>
+      </div>
+      <div ng-class="['ui', 'segment', {'green': particular_q_option3 == particular_q_correct}]">
+        <h4>Option 3</h4>
+        <p>{{ particular_q_option3 }}</p>
+      </div>
+      <div ng-class="['ui', 'segment', {'green': particular_q_option4 == particular_q_correct}]">
+        <h4>Option 4</h4>
+        <p>{{ particular_q_option4 }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui modal editQuestion transition hidden">
+    <div class="header">
+      Question Details
+    </div>
+
+    <div class="ui stacked segment">
+      <form class="ui form" ng-submit="editQuestion()" name="edit">
+        <div class="field">
+          <label>Question</label>
+          <textarea ng-model="q.question" ng-required></textarea>
+        </div>
+        <div class="field">
+
+          <label>Option 1</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_1">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_1" ng-required></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="field">
+          <label>Option 2</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_2">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_2" ng-required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Option 3</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_3">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_3" ng-required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Option 4</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_4">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_4" ng-required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Correct Option</label>
+          <textarea rows="2" ng-model="q.correct_option" ng-readonly="true" ng-required></textarea>
+        </div>
+        <div class="field">
+          <button class="ui submit positive button" ng-disabled="edit.$invalid">Submit</button>
+          <div class="ui negative button" ng-click="q = null">Cancel</div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="ui modal createQuestion transition hidden">
+    <div class="header">
+      New Question
+    </div>
+
+    <div class="ui stacked segment">
+      <form class="ui form" ng-submit="createQuestion()" name="create">
+        <div class="field">
+          <label>Question</label>
+          <textarea ng-model="q.question" ng-required></textarea>
+        </div>
+        <div class="field">
+
+          <label>Option 1</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_1">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_1" ng-required></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="field">
+          <label>Option 2</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_2">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_2" ng-required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Option 3</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_3">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <textarea rows="2" ng-model="q.option_3" ng-required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Option 4</label>
+          <div class="ui horizontal segments">
+            <div class="ui segment">
+              <div class="ui left floated compact segment">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_4">
+                  <label></label>
+                </div>
+              </div>
+            </div>
+            <div class="ui segment" style="flex-basis:100% !important;">
+              <div class="ui left floated compact segment" style="display:none">
+                <div class="ui fitted toggle checkbox">
+                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_4">
+                  <label></label>
+                </div>
+              </div>
+              <textarea rows="2" ng-model="q.option_4" ng-required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Correct Option</label>
+          <textarea rows="2" ng-model="q.correct_option" ng-readonly="true" ng-required></textarea>
+        </div>
+        <div class="field">
+          <button class="ui submit positive button" ng-disabled="edit.$invalid">Submit</button>
+          <div class="ui negative button" ng-click="q = null">Cancel</div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+
+  <footer style="position: absolute; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'">
+  </footer>
+</div>

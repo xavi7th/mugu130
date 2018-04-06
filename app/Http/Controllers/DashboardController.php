@@ -304,6 +304,10 @@ class DashboardController extends Controller
 
     public function requestWithdrawal(){
 
+      if (Auth::user()) {
+        # code...
+      }
+
       DB::beginTransaction();
 
         //add a withdrawal request to transactions table

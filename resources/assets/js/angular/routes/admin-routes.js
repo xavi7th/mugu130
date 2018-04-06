@@ -7,6 +7,36 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'N
      controller: 'DashboardController'
    })
 
+   .when(route_root + '/questions', {
+     templateUrl: 'angular/views/admin/questions.html',
+     controller: 'QuestionsController'
+   })
+
+   .when(route_root + '/admins', {
+     templateUrl: 'angular/views/admin/admins.html',
+     controller: 'AdminsController'
+   })
+
+   .when(route_root + '/users', {
+     templateUrl: 'angular/views/admin/users.html',
+     controller: 'DashboardController'
+   })
+
+   .when(route_root + '/earnings', {
+     templateUrl: 'angular/views/admin/earnings.html',
+     controller: 'DashboardController'
+   })
+
+   .when(route_root + '/games', {
+     templateUrl: 'angular/views/admin/games.html',
+     controller: 'DashboardController'
+   })
+
+   .when(route_root + '/transactions', {
+     templateUrl: 'angular/views/admin/transactions.html',
+     controller: 'DashboardController'
+   })
+
    .otherwise({
      redirectTo: route_root
    });

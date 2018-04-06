@@ -201,7 +201,7 @@
            });
         },
         gameplay:  (scope)  => {
-          sendRequest.getUserDetails('/api/get-user-details', true)
+          sendRequest.getUserDetails('/user/get-user-details', true)
           .then( (rsp) => {
             scope.userdetails = rsp.userdetails;
           });
@@ -284,6 +284,65 @@
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
+              $('.shape').shape();
+
+            }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+            }, 0);
+          });
+
+        },
+
+        questions:  (scope) => {
+
+          sendRequest.postRequest(route_root + '/api/get-questions-page-details')
+                    .then(function (rsp) {
+                      if (rsp.status == 200) {
+                        scope.questions = rsp.data.questions;
+                      }
+                    },
+                  err => {
+                    Notification.error('Error retrieving questions from server');
+                  });
+
+
+
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
+              $('.shape').shape();
+
+            }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+            }, 0);
+          });
+
+        },
+
+        admins:  (scope) => {
+
+          sendRequest.postRequest(route_root + '/api/get-admins-page-details')
+                    .then(function (rsp) {
+                      if (rsp.status == 200) {
+                        console.log(rsp);
+                        scope.questions = rsp.data.questions;
+                      }
+                    },
+                  err => {
+                    Notification.error('Error retrieving questions from server');
+                  });
+
+
+
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
+              $('.shape').shape();
+
             }, 500);
           });
           scope.$on('$destroy', function() {

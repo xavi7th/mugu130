@@ -13,6 +13,7 @@ use App\Game;
 use App\Events\ExamJoined;
 use App\UserGameSession;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,22 +28,17 @@ use Illuminate\Support\Facades\Auth;
 //
 Route::middleware(['before'])->group( function () {
 
-  Route::view('/', 'welcome')->name('home');
+  Route::view('/', 'welcome')->name('home')->middleware('guest');
 
   Route::get('/test', function () {
+    return DB::table('user_game_sessions')->distinct('game_id')->toSql();
+    return UserGameSession::select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::now()->month)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first();
+    return UserGameSession::all()->keys();
+    // $grouped = UserGameSession::all()->mapToGroups(function ($item, $key) {
+    //     return [$item['game_id'] => $item];
+    // });
 
-    //use the game id to retrieve all theuser game sessions ordered by ended_at
-    $exam_records = UserGameSession::where('game_id', 75)->oldest('ended_at')->get();
-
-    //count hom many they are.
-    $total_examinees = $exam_records->count();
-
-    event(new ExamJoined($total_examinees));
-
-    return view('welcome');
-    // Redis::set('name', 'Taylor');
-    // return dd(Redis::get('name'));
-    // return 'hello';
+    return $grouped->toArray();
   });
 
   Route::view('/contact', 'welcome');
@@ -283,30 +279,57 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
 
-    Route::post('/get-all-users-details', $c.'getAllUsersDetails');
-
     Route::post('/update-user-details', $c.'updateUserDetails');
 
-    Route::get('/delete-user/{user}', $c.'deleteUser');
+    Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
 
-    Route::get('/suspend-user/{user}', $c.'suspendUser');
+    Route::post('/edit-question', $c.'editQuestion');
 
-    Route::post('/admin-send-message', $c.'adminSendMessage');
+    Route::post('/delete-question', $c.'deleteQuestion');
 
-    Route::post('/admin-send-broadcast', $c.'adminSendBroadcast');
+    Route::post('/create-question', $c.'createQuestion');
 
-    Route::post('/get-admin-messages', $c.'getAdminMessages');
+    Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
 
-    Route::get('/delete-message/{message}', $c.'deleteMessage');
+    Route::post('/edit-admin', $c.'editAdmin');
 
-    Route::get('/seen-message/{message}', $c.'seenMessage');
+    Route::post('/delete-admin', $c.'deleteAdmin');
 
-    Route::post('/create-admin-account', $c.'createAdminAccount');
+    Route::post('/create-admin', $c.'createAdmin');
 
-    Route::post('/get-admin-accounts', $c.'getAdminAccounts');
+    Route::post('/get-live-game-session', $c.'getLiveGameSession');
 
-    Route::get('/delete-admin-account/{admin}', $c.'deleteAdminAcc');
+    Route::post('/get-all-games', $c.'getAllGames');
 
+    Route::post('/get-game-records', $c.'getGameRecords');
+
+    Route::post('/get-logs-by-day', $c.'getLogsByDay');
+
+    Route::post('/get-profile-page-details', $c.'confirmWithdrawal');
+
+    Route::post('/get-all-transactions', $c.'getAllTransactions');
+
+    Route::post('/create-transaction', $c.'createTransaction');
+    
+    Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+    Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
+
+    Route::post('/get-daily-statistics', $c.'getDailyStatistics');
+
+    Route::post('/send-broadcast', $c.'sendBroadcast');
+
+    Route::post('/send-message', $c.'sendMessage');
+
+    Route::post('/get-referrals-by-user', $c.'getReferralsByUser');
+
+    Route::post('/edit-user', $c.'editUser');
+
+    Route::post('/delete-user', $c.'deleteUser');
+
+    Route::post('/suspend-user', $c.'suspendUser');
+
+    Route::post('/verify-user', $c.'verifyUser');
   });
 
   Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin');

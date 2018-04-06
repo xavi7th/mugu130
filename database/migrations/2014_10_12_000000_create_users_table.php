@@ -43,6 +43,9 @@ class CreateUsersTable extends Migration
           $table->string('api_token')->nullable();
           $table->string('confirmation_token')->nullable();
           $table->boolean('verified')->default(false);
+          $table->string('useraccstatus')->default('active');
+
+
           $table->rememberToken();
           $table->timestamps();
           $table->softDeletes();

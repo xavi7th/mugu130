@@ -47,3 +47,53 @@ border-bottom: 2px solid #fff;">
     </div>
   </div>
 </header>
+
+<section id="u_details">
+  <div class="grid-container">
+    <div class="grid-20">
+      <div class="content">
+        <h2 class="header ng-binding" style="margin-bottom: 2px;">ADMIN SECTION</h2>
+      </div>
+    </div>
+    <div class="grid-60 flex-center">
+      <div class="ui compact menu">
+        <a ng-href="{{ route_root }}/questions" class="item">
+          <i class="gamepad icon"></i>
+          Questions
+        </a>
+        <a ng-href="{{ route_root }}/admins" class="item">
+          <i class="video camera icon"></i>
+          Admins
+        </a>
+        <a ng-href="{{ route_root }}/users" class="item">
+          <i class="video play icon"></i>
+          Users
+        </a>
+        <a ng-href="{{ route_root }}/earnings" class="item">
+          <i class="video play icon"></i>
+          Earnings
+        </a>
+        <a ng-href="{{ route_root }}/games" class="item">
+          <i class="video play icon"></i>
+          Games
+        </a>
+        <a ng-href="{{ route_root }}/transactions" class="item">
+          <i class="video play icon"></i>
+          Transactions
+        </a>
+      </div>
+    </div>
+    <div class="grid-20">
+      <div class="ui mini compact right floated menu" style="margin-right:2em;">
+        <a href="/dashboard/messages" class="item notif">
+            <i class="icon mail"></i> Messages
+            <div class="floating ui red label">{{ _.dropRightWhile(userdetails.messages, ['read', true]).length }}</div>
+          </a>
+        <a href="/dashboard/notices" class="item notif">
+            <i class="icon users"></i> Notices
+            <div class="floating ui blue label">{{ _.dropRightWhile(userdetails.notices, ['read', true]).length }}</div>
+          </a>
+      </div>
+    </div>
+  </div>
+</section>

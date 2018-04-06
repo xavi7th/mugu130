@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->double('amount');
             $table->string('trans_type');
             $table->string('status')->nullable();
+            $table->string('channel')->default('online');
 
             $table->timestamps();
             $table->softDeletes();

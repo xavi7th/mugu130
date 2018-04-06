@@ -36,6 +36,17 @@ class Message extends Model{
 		return true;
   }
 
+  public static function toAll(){
+   	self::create([
+                      'user_id' => 9999999999999999, //All users will pick this
+                      'sender_id' => 0,
+                      'senderusername' => 'Admin',
+                      'subject' => request()->input('details.subject'),
+                      'message' => request()->input('details.message'),
+                    ]);
+		return true;
+  }
+
   public static function alertAdmin(){
    	self::create([
                       'user_id' => 0,

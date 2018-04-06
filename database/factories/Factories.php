@@ -39,6 +39,11 @@ $factory->define(Game::class, function ($faker) {
         'status' => 0,
         'created_at' => $created_at = Carbon::now()->subMinutes(rand(12,60)),
         'ended_at' => $created_at->addMinutes(10),
+        'num_of_players' => $numofplayers = rand(56,101),
+        'max_winners' => ceil($numofplayers/ env('PERCENT_WINNERS')),
+        'total_prize' => $totalprize = $numofplayers * (env('GAME_CREDITS') - 10),
+        'total_winners' => $totalwinners = rand(2,10),
+        'amount_won' => $totalwinners * (env('GAME_CREDITS') - 10),
     ];
 });
 
