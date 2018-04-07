@@ -19,22 +19,22 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'N
 
    .when(route_root + '/users', {
      templateUrl: 'angular/views/admin/users.html',
-     controller: 'DashboardController'
+     controller: 'UsersController'
    })
 
    .when(route_root + '/earnings', {
      templateUrl: 'angular/views/admin/earnings.html',
-     controller: 'DashboardController'
+     controller: 'EarningsController'
    })
 
    .when(route_root + '/games', {
      templateUrl: 'angular/views/admin/games.html',
-     controller: 'DashboardController'
+     controller: 'GamesController'
    })
 
    .when(route_root + '/transactions', {
      templateUrl: 'angular/views/admin/transactions.html',
-     controller: 'DashboardController'
+     controller: 'TransactionsController'
    })
 
    .otherwise({

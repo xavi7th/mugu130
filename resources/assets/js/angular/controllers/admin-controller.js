@@ -200,3 +200,106 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
 
 
 }]);
+
+admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+  NProgress.start();
+
+  $scope.previewUser = (u) => {
+    $scope.u = u;
+
+    $('.ui.modal.showUser').modal({
+      blurring: true
+    }).modal('show');
+  };
+
+  $scope.openModal = (u) => {
+    $scope.u = u;
+
+    $('.ui.modal.editUser').modal({
+      blurring: true
+    }).modal('show');
+  };
+
+  $scope.editUser = () => {
+    NProgress.start();
+
+    sendRequest.postRequest(route_root + '/api/edit-user', $scope.u)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.warning('Edited');
+                    $scope.correct = null;
+                    $scope.u = null;
+                    $('.ui.modal.editUser').modal('hide');
+                    NProgress.done();
+
+                  }
+                });
+  };
+
+
+    $scope.newUser = () => {
+      $('.ui.modal.createUser').modal({
+        blurring: true
+      }).modal('show');
+    };
+
+  $scope.deleteUser = (u) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/delete-user', u)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.warning('Deleted');
+                    var removed = $scope.users.indexOf(u);
+                    $scope.users.splice(removed, 1);
+
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  $scope.suspendUser = (u) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/suspend-user', u)
+                .then(rsp => {
+                  console.log(rsp);
+                  if (rsp.status == 200) {
+                    Notification.warning('Suspended');
+                    var removed = $scope.users.indexOf(u);
+                    $scope.users.splice(removed, 1);
+                    u.useraccstatus = 'suspended';
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  $scope.verifyUser = (u) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/verify-user', u)
+                .then(rsp => {
+                  console.log(rsp);
+                  if (rsp.status == 200) {
+                    Notification.success('Verified');
+                    u.verified = true;
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  bootstrapPage.users($scope);
+
+  NProgress.done();
+
+
+}]);

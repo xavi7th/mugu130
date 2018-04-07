@@ -340,8 +340,35 @@
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
-              $('.shape').shape();
+            }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+            }, 0);
+          });
 
+        },
+
+        users:  (scope) => {
+
+          sendRequest.postRequest(route_root + '/api/get-users-page-details')
+                    .then(function (rsp) {
+                      if (rsp.status == 200) {
+                        scope.users = rsp.data.users;
+                      }
+                    },
+                  err => {
+                    Notification.error('Error retrieving users from server');
+                  });
+
+          sendRequest.getBanks('/api/get-banks-list')
+                   .then(function (rsp) {
+                     scope.banks = rsp.banks;
+                   });
+
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
             }, 500);
           });
           scope.$on('$destroy', function() {

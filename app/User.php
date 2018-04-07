@@ -40,7 +40,7 @@ class User extends Authenticatable{
      * @var array
      */
     protected $guarded = [
-        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased', 'available_units'
+        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased', 'available_units',  'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'notices', 'messages', 'verified'
     ];
 
     /**
@@ -50,7 +50,7 @@ class User extends Authenticatable{
      */
     protected $hidden = [
         'password', 'confirmation_token', 'api_token', 'deleted_at', 'updated_at', 'remember_token', 'status',
-        'unencpass', 'verified'
+        'unencpass'
     ];
 
     /**

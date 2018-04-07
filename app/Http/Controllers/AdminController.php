@@ -37,6 +37,13 @@ class AdminController extends Controller
       ];
     }
 
+    public function getUsersPageDetails(){
+
+      return [
+        'users' => User::where('role_id', '!=', env("ADMIN_ROLE_ID"))->get()
+      ];
+    }
+
     public function updateUserDetails(){
 
       $this->validate(request(), [
@@ -234,6 +241,10 @@ class AdminController extends Controller
     }
 
     public function editUser(){
+      $this->validate(request(), [
+        'details.email' => 'required',
+        'details.phone1' => 'required'
+      ]);
       return [
         'status' => User::find(request()->input('details.id'))->update(request()->input('details'))
       ];
@@ -246,6 +257,8 @@ class AdminController extends Controller
     }
 
     public function suspendUser(){
+      User::unguard();
+      
       return [
         'status' => User::find(request()->input('details.id'))->update([
           'useraccstatus' => 'suspended'
@@ -254,10 +267,16 @@ class AdminController extends Controller
     }
 
     public function verifyUser(){
+      User::unguard();
+
+      User::find(request()->input('details.id'))->update([
+        'verified' => true
+      ]);
+
+      User::reguard();
+
       return [
-        'status' => User::find(request()->input('details.id'))->update([
-          'verified' => true
-        ])
+        'status' => true
       ];
     }
 

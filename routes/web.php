@@ -279,6 +279,10 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
 
+    Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
+
+    Route::post('/get-users-page-details', $c.'getUsersPageDetails');
+
     Route::post('/update-user-details', $c.'updateUserDetails');
 
     Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
@@ -288,8 +292,6 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/delete-question', $c.'deleteQuestion');
 
     Route::post('/create-question', $c.'createQuestion');
-
-    Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
 
     Route::post('/edit-admin', $c.'editAdmin');
 
@@ -310,7 +312,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/get-all-transactions', $c.'getAllTransactions');
 
     Route::post('/create-transaction', $c.'createTransaction');
-    
+
     Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
 
     Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
