@@ -88,6 +88,24 @@ var url = `
       <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>
     </div>
   </div>
+
+  <div id="card" class="ui segments" ng-if="game_state == 'transition'">
+    <!-- game loading network slow -->
+    <div class="ui segment">
+      <div class="ui horizontal list">
+        <div class="ui violet label" style="font-size: 13px;">
+          <span style="padding-right: 10px;">Active Gamers</span>
+          <i class="users icon"></i> {{ total_examinees }}
+        </div>
+      </div>
+    </div>
+    <div class="ui segment">
+      <div class="ui active inverted dimmer">
+        <div class="ui text loader">Loading</div>
+      </div>
+      <h1 style="min-height:150px;">Loading...</h1>
+    </div>
+  </div>
 </div>
 
 `;
@@ -142,7 +160,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
       //when the game was paused, take the user back to the game
       $scope.resumeGame = function () {
         $scope.game_state = null;
-        
+
 
         sendRequest.postRequest('user/resume-game')
                     .then(()=>{
@@ -188,7 +206,6 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
       $scope.joinGame = () => {
         NProgress.start();
-        $scope.game_state = null;
 
         delete $localStorage.user_score;
         delete $sessionStorage.extra;
@@ -203,6 +220,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                    }
                    else if (rsp.status == 200) {
                      if (rsp.data.status) {
+                       $scope.game_state = 'transition';
                        $location.path('/dashboard/game-play');
                      }
                    }
@@ -210,6 +228,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                      Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center'});
                    }
                    else if (rsp.status == 403) {
+                     $scope.game_state = 'transition';
                      Notification.error({ message: 'Already in a game session.', positionX: 'center'});
                      $location.path('/dashboard/game-play');
 

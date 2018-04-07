@@ -1,4 +1,4 @@
-admin.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+admin.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
   $scope.flipLeft = () => {
@@ -9,14 +9,14 @@ admin.controller('DashboardController', ['$scope', 'Notification', 'sendRequest'
     $('.shape').shape('flip right');
   };
 
-  bootstrapPage.dashboard($scope);
+  bootstrapAdminPage.dashboard($scope);
 
   NProgress.done();
 
 
 }]);
 
-admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
   $scope.previewQuestion = (q) => {
@@ -101,14 +101,14 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
   };
 
 
-  bootstrapPage.questions($scope);
+  bootstrapAdminPage.questions($scope);
 
   NProgress.done();
 
 
 }]);
 
-admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
   $scope.previewAdmin = (q) => {
@@ -194,14 +194,14 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
   };
 
 
-  bootstrapPage.admins($scope);
+  bootstrapAdminPage.admins($scope);
 
   NProgress.done();
 
 
 }]);
 
-admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
   $scope.previewUser = (u) => {
@@ -268,8 +268,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                   console.log(rsp);
                   if (rsp.status == 200) {
                     Notification.warning('Suspended');
-                    var removed = $scope.users.indexOf(u);
-                    $scope.users.splice(removed, 1);
                     u.useraccstatus = 'suspended';
                   }
                   else if (rsp.status == 403) {
@@ -297,7 +295,109 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
 
-  bootstrapPage.users($scope);
+  bootstrapAdminPage.users($scope);
+
+  NProgress.done();
+
+
+}]);
+
+admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
+  NProgress.start();
+
+  $scope.active = 'liveSession';
+
+  $scope.previewGame = (g) => {
+    $scope.g = g;
+
+    $('.ui.modal.showGame').modal({
+      blurring: true
+    }).modal('show');
+  };
+
+  $scope.openModal = (g) => {
+    $scope.g = g;
+
+    $('.ui.modal.editGame').modal({
+      blurring: true
+    }).modal('show');
+  };
+
+  $scope.editGame = () => {
+    NProgress.start();
+
+    sendRequest.postRequest(route_root + '/api/edit-game', $scope.g)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.warning('Edited');
+                    $scope.correct = null;
+                    $scope.g = null;
+                    $('.ui.modal.editGame').modal('hide');
+                    NProgress.done();
+
+                  }
+                });
+  };
+
+
+    $scope.newGame = () => {
+      $('.ui.modal.createGame').modal({
+        blurring: true
+      }).modal('show');
+    };
+
+  $scope.deleteGame = (g) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/delete-game', g)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.warning('Deleted');
+                    var removed = $scope.games.indexOf(g);
+                    $scope.games.splice(removed, 1);
+
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  $scope.suspendGame = (g) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/suspend-game', g)
+                .then(rsp => {
+                  console.log(rsp);
+                  if (rsp.status == 200) {
+                    Notification.warning('Suspended');
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  $scope.verifyGame = (g) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/verify-game', g)
+                .then(rsp => {
+                  console.log(rsp);
+                  if (rsp.status == 200) {
+                    Notification.success('Verified');
+                    g.verified = true;
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  bootstrapAdminPage.games($scope);
 
   NProgress.done();
 

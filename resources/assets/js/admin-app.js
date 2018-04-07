@@ -2,7 +2,7 @@
   admin = angular.module('admin',
                 [
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
-                  'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
+                  'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage', 'liveGameSession'
 
                 ]);
 
@@ -45,6 +45,7 @@
   require('./angular/directives/countdownTimer');
   require('./angular/directives/questionField');
   require('./angular/directives/sendMessage');
+  require('./angular/directives/liveGameSession');
 
 
   require('./angular/routes/admin-routes');

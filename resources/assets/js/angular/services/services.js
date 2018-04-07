@@ -272,7 +272,7 @@
      	};
      }]);
 
-  angular.module('bootstrapAdminPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', ($timeout, $location, Notification, sendRequest) => {
+  angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeout', '$location', 'Notification', 'sendRequest', ($timeout, $location, Notification, sendRequest) => {
      	return {
         dashboard:  (scope) => {
 
@@ -369,6 +369,34 @@
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
+            }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+            }, 0);
+          });
+
+        },
+
+        games:  (scope) => {
+
+          // sendRequest.postRequest(route_root + '/api/get-games-page-details')
+          //           .then(function (rsp) {
+          //             if (rsp.status == 200) {
+          //               scope.users = rsp.data.users;
+          //             }
+          //           },
+          //         err => {
+          //           Notification.error('Error retrieving users from server');
+          //         });
+
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
+              $('.ui.sticky')
+              .sticky({
+                context: '#content-context'
+              });
             }, 500);
           });
           scope.$on('$destroy', function() {
