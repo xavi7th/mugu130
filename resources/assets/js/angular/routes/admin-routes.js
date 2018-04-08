@@ -37,6 +37,11 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'N
      controller: 'TransactionsController'
    })
 
+   .when(route_root + '/messages', {
+     templateUrl: 'angular/views/admin/messages.html',
+     controller: 'MessagesController'
+   })
+
    .otherwise({
      redirectTo: route_root
    });

@@ -336,6 +336,16 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/suspend-user', $c.'suspendUser');
 
     Route::post('/verify-user', $c.'verifyUser');
+
+    Route::post('/get-all-messages', $c.'getAllMessages');
+
+
+    Route::post('/reply-message', $c.'replyMessage');
+
+    Route::post('/mark-message-as-read', $c.'markMessageAsRead');
+
+    Route::post('/delete-message', $c.'deleteMessage');
+
   });
 
   Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin');

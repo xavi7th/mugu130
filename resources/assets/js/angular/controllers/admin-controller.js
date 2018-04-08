@@ -364,3 +364,10 @@ admin.controller('TransactionsController', ['$scope', 'Notification', 'sendReque
   bootstrapAdminPage.transactions($scope);
 
 }]);
+
+admin.controller('MessagesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
+  NProgress.start();
+
+  bootstrapAdminPage.messages($scope);
+
+}]);

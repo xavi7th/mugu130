@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Game;
 use App\Earning;
+use App\Message;
 use App\Question;
 use App\Transaction;
 use App\UserGameSession;
@@ -313,5 +314,33 @@ class AdminController extends Controller
       ];
     }
 
+    public function getAllMessages(){
+      return [
+        'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->get()
+      ];
+    }
+
+    public function replyMessage(){
+
+      Message::fromAdmin();
+
+      return [
+        'status' => true
+      ];
+    }
+
+    public function markMessageAsRead(){
+      return [
+        'status' => Message::find(request()->input('details.id'))->update([
+          'read' => true
+        ])
+      ];
+    }
+
+    public function deleteMessage(){
+      return [
+        'status' => Message::find(request()->input('details.id'))->delete()
+      ];
+    }
 
 }

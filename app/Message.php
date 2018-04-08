@@ -27,9 +27,20 @@ class Message extends Model{
 
   public static function toAdmin(){
    	self::create([
-                      'user_id' => 0,
+                      'user_id' => env("ADMIN_ROLE_ID"),
                       'sender_id' => Auth::id(),
                       'senderusername' => Auth::user()->firstname,
+                      'subject' => request()->input('details.subject'),
+                      'message' => request()->input('details.message'),
+                    ]);
+		return true;
+  }
+
+  public static function fromAdmin(){
+   	self::create([
+                      'user_id' => request()->input('details.user_id'),
+                      'sender_id' => env("ADMIN_ROLE_ID"),
+                      'senderusername' => 'Admin',
                       'subject' => request()->input('details.subject'),
                       'message' => request()->input('details.message'),
                     ]);
@@ -49,7 +60,7 @@ class Message extends Model{
 
   public static function alertAdmin(){
    	self::create([
-                      'user_id' => 0,
+                      'user_id' => env("ADMIN_ROLE_ID"),
                       'sender_id' => 4888888,
                       'senderusername' => 'Admin Route Monitor',
                       'subject' => 'Intrusion Attempt',

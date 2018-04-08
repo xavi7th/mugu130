@@ -417,5 +417,19 @@
           });
 
         },
+
+        messages:  (scope) => {
+
+          scope.$on('$viewContentLoaded', function() {
+            $timeout(function () {
+              $('.dropdown_menu').dropdown();
+            }, 500);
+          });
+          scope.$on('$destroy', function() {
+            $timeout(function () {
+            }, 0);
+          });
+
+        },
      	};
      }]);
