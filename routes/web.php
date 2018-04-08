@@ -298,7 +298,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/delete-admin', $c.'deleteAdmin');
 
     Route::post('/create-admin', $c.'createAdmin');
-    
+
     Route::post('/remove-admin', $c.'removeAdmin');
 
     Route::post('/get-live-game-session', $c.'getLiveGameSession');
@@ -314,6 +314,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/get-all-transactions', $c.'getAllTransactions');
 
     Route::post('/create-transaction', $c.'createTransaction');
+
+    Route::post('/mark-transaction-as-paid', $c.'markTransactionAsPaid');
 
     Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
 

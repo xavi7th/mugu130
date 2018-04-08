@@ -341,3 +341,7 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
     }
   }
 }
+
+td[ng-click]{
+  cursor: pointer !important;
+}

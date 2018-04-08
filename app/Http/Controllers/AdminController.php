@@ -123,7 +123,7 @@ class AdminController extends Controller
 
     public function removeAdmin(){
       User::unguard();
-        
+
         return [
           'status' => User::find(request()->input('details.id'))->update([
             'role_id' => 1
@@ -208,7 +208,7 @@ class AdminController extends Controller
 
     public function getAllTransactions(){
       return [
-        'transactions' => Transaction::all()
+        'transactions' => Transaction::with('user')->get()
       ];
     }
 
@@ -230,6 +230,15 @@ class AdminController extends Controller
 
       return [
         'status' => true
+      ];
+    }
+
+    public function markTransactionAsPaid(){
+      // return request()->all();
+      return [
+        'status' => Transaction::find(request()->input('details.id'))->update([
+          'status' => 'completed'
+        ])
       ];
     }
 

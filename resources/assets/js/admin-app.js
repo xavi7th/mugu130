@@ -5,7 +5,7 @@
                 [
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
-                  'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics',
+                  'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions',
 
                 ]);
 
@@ -53,6 +53,7 @@
   require('./angular/directives/dailyGameLog');
   require('./angular/directives/dailyStatistic');
   require('./angular/directives/monthlyStatistic');
+  require('./angular/directives/viewAllTransactions');
 
 
   require('./angular/routes/admin-routes');
