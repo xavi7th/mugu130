@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ExamJoined' => [
             'App\Listeners\SendNewExamineeJoinedNotification',
         ],
+        'App\Events\NewMemberJoined' => [
+            'App\Listeners\SendNewMemberJoinedNotification',
+        ],
     ];
 
     /**

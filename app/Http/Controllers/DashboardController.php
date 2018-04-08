@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use DatabaseSeeder;
 use Illuminate\Broadcasting\BroadcastException;
 use App\Events\ExamJoined;
+use App\Events\NewMemberJoined;
 use App\Notice;
 // Cache::flush();
 
@@ -85,14 +86,14 @@ class DashboardController extends Controller
               Auth::user()->available_units -= env('GAME_CREDITS');
               Auth::user()->save();
 
-              UserGameSession::create([
+              $new_session = UserGameSession::create([
                 'user_id' => auth()->id(),
                 'game_id' => $game_id
               ]);
 
-
             try {
               event(new ExamJoined(++$total_examinees));
+              event(new NewMemberJoined($new_session));
             }
 
             catch (BroadcastException $e) {

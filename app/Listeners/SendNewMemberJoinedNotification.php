@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\ExamJoined;
+use App\Events\NewMemberJoined;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendNewExamineeJoinedNotification
+class SendNewMemberJoinedNotification
 {
     /**
      * Create the event listener.
@@ -21,11 +21,13 @@ class SendNewExamineeJoinedNotification
     /**
      * Handle the event.
      *
-     * @param  ExamJoined  $event
+     * @param  NewMemberJoined  $event
      * @return void
      */
-    public function handle(ExamJoined $event)
+    public function handle(NewMemberJoined $event)
     {
-        return $event->total_examinees;
+        //
+        return $event->new_session;
+
     }
 }
