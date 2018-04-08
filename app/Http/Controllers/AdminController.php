@@ -212,19 +212,20 @@ class AdminController extends Controller
       ];
     }
 
-    public function createTransaction($type = null, $amount, $status = null, $user_id){
+    public function createTransaction(){
 
-      $user = User::find($user_id);
+      $user = User::find(request()->input('details.id'));
 
-      $user->available_units = $user->available_units + $amount;
+      $user->available_units = $user->available_units + request()->input('details.units');
       $user->save();
 
-      $trans = Transaction::new();
+      $trans = new Transaction;
 
       $trans->trans_type = 'Admin Correction';
-      $trans->amount = $amount;
-      $trans->status = 'done';
-      $trans->user_id = $user_id;
+      $trans->channel = 'Manual';
+      $trans->amount = request()->input('details.units');
+      $trans->status = 'completed';
+      $trans->user_id = request()->input('details.id');
       $trans->save();
 
 

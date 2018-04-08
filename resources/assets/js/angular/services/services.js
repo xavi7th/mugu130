@@ -285,7 +285,7 @@
             $timeout(function () {
               $('.dropdown_menu').dropdown();
               $('.shape').shape();
-
+              NProgress.done();
             }, 500);
           });
           scope.$on('$destroy', function() {
@@ -313,7 +313,7 @@
             $timeout(function () {
               $('.dropdown_menu').dropdown();
               $('.shape').shape();
-
+              NProgress.done();
             }, 500);
           });
           scope.$on('$destroy', function() {
@@ -329,6 +329,7 @@
                     .then(function (rsp) {
                       if (rsp.status == 200) {
                         scope.admins = rsp.data.admins;
+                        NProgress.done();
                       }
                     },
                   err => {
@@ -341,6 +342,7 @@
             $timeout(function () {
               $('.dropdown_menu').dropdown();
             }, 500);
+
           });
           scope.$on('$destroy', function() {
             $timeout(function () {
@@ -355,6 +357,7 @@
                     .then(function (rsp) {
                       if (rsp.status == 200) {
                         scope.users = rsp.data.users;
+                        NProgress.done();
                       }
                     },
                   err => {
@@ -387,6 +390,7 @@
               .sticky({
                 context: '#content-context'
               });
+              NProgress.done();
             }, 500);
           });
           scope.$on('$destroy', function() {

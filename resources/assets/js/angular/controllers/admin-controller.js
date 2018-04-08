@@ -11,9 +11,6 @@ admin.controller('DashboardController', ['$scope', 'Notification', 'sendRequest'
 
   bootstrapAdminPage.dashboard($scope);
 
-  NProgress.done();
-
-
 }]);
 
 admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
@@ -102,9 +99,6 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
 
 
   bootstrapAdminPage.questions($scope);
-
-  NProgress.done();
-
 
 }]);
 
@@ -214,9 +208,6 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
 
   bootstrapAdminPage.admins($scope);
 
-  NProgress.done();
-
-
 }]);
 
 admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
@@ -226,6 +217,14 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
     $scope.u = u;
 
     $('.ui.modal.showUser').modal({
+      blurring: true
+    }).modal('show');
+  };
+
+  $scope.creditUser = (u) => {
+    $scope.u = u;
+
+    $('.ui.modal.creditUser').modal({
       blurring: true
     }).modal('show');
   };
@@ -312,6 +311,23 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
 
+  $scope.processCreditAddition = (u) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/create-transaction', u)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.success('Completed');
+                    $('.ui.modal.creditUser').modal('hide');
+                    u.units = null;
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
   $scope.makeAdmin = (u) => {
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/create-admin', u)
@@ -331,9 +347,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   bootstrapAdminPage.users($scope);
 
-  NProgress.done();
-
-
 }]);
 
 admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
@@ -343,17 +356,11 @@ admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'b
 
   bootstrapAdminPage.games($scope);
 
-  NProgress.done();
-
-
 }]);
 
 admin.controller('TransactionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
   bootstrapAdminPage.transactions($scope);
-
-  NProgress.done();
-
 
 }]);

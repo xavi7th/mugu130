@@ -19,7 +19,7 @@ var url = `
           </thead>
           <tbody>
 
-            <tr ng-repeat="trans in transactions">
+            <tr ng-repeat="trans in transactions" ng-class="{'negative' : trans.trans_type == 'Admin Correction'}">
               <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>
               <td>{{ trans.trans_type }}</td>
               <td>{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
