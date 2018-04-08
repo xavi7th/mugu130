@@ -244,12 +244,6 @@ class AdminController extends Controller
       ];
     }
 
-    public function getAllUserEarnings(){
-      return [
-        'earnings' => Earning::all()
-      ];
-    }
-
     public function sendBroadcast(){
       Message::toAll();
       return [
@@ -340,6 +334,30 @@ class AdminController extends Controller
     public function deleteMessage(){
       return [
         'status' => Message::find(request()->input('details.id'))->delete()
+      ];
+    }
+
+    public function getAllUsersEarnings(){
+      return [
+        'earnings' => Earning::with('user')->where('user_id', '!=', env('ADMIN_ROLE_ID'))->get()
+      ];
+    }
+
+    public function getAllAdminEarnings(){
+      return [
+        'earnings' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->get()
+      ];
+    }
+
+    public function getAllUserEarnings(){
+      return [
+        'earnings' => Earning::where('user_id', request()->input('details.id'))->get()
+      ];
+    }
+
+    public function getAllGameEarnings(){
+      return [
+        'earnings' => Earning::with('user')->where('game_id', request()->input('details.id'))->where('user_id', '!=', env("ADMIN_ROLE_ID"))->get()
       ];
     }
 

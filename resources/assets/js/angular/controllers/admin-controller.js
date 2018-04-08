@@ -371,3 +371,12 @@ admin.controller('MessagesController', ['$scope', 'Notification', 'sendRequest',
   bootstrapAdminPage.messages($scope);
 
 }]);
+
+admin.controller('EarningsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
+  NProgress.start();
+
+  $scope.active = 'allEarnings';
+
+  bootstrapAdminPage.games($scope);
+
+}]);

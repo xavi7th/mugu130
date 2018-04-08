@@ -16,11 +16,15 @@ class Earning extends Model{
 
   protected $guarded = [];
   protected $dates = ['deleted_at', 'ended_at'];
+	protected $casts = [
+		'transferred' => 'boolean'
+	];
 	// public $rememberFor = 5;
 	 //
-	//  public function user(){
-	// 		 return $this->belongsTo(User::class, 'sender_id');
-	//  }
+
+	 public function user(){
+			 return $this->belongsTo(User::class);
+	 }
   //
   // public static function new(){
   //
@@ -47,28 +51,5 @@ class Earning extends Model{
 			// 'deleted_at' => Carbon::now()
 		]);
   }
-  //
-  //
-  //
-  // public static function active(){
-  //
-  //
-	// 	$games = self::where('status', true)->get();
-  //
-	// 	if ($games->count() > 1) {
-	// 		return 'Too many active games';
-	// 	}
-  //
-	// 	else if ($games->count() < 1) {
-	// 		return false;
-	// 	}
-  //
-	// 	else {
-	// 		return $games[0];
-	// 	}
-  //
-  // }
-
-
 
 }

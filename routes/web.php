@@ -339,12 +339,20 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-all-messages', $c.'getAllMessages');
 
-
     Route::post('/reply-message', $c.'replyMessage');
 
     Route::post('/mark-message-as-read', $c.'markMessageAsRead');
 
     Route::post('/delete-message', $c.'deleteMessage');
+
+
+    Route::post('/get-all-users-earnings', $c.'getAllUsersEarnings');
+
+    Route::post('/get-all-admin-earnings', $c.'getAllAdminEarnings');
+
+    Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+    Route::post('/get-all-game-earnings', $c.'getAllGameEarnings');
 
   });
 
