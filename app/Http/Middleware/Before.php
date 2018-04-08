@@ -24,23 +24,23 @@ class Before
 			//  dd( $request->session()->has('GAME_ACTIVE') );
 			// Game::new();
 
-			// if ( (Carbon::now()->minute%2 == 0) ) {
-			//
-			// 	if ( !$request->session()->has('GAME_ACTIVE') ) {
-			// 		Game::new();
-			// 		session(['GAME_ACTIVE' => true]);
-			// 		session(['GAME_STATE' => 'active']);
-			// 	}
-			// 	session(['GAME_TIMER' => 60 - Carbon::now()->second ]);
-			//
-			// } else {
-			// 	if ( $request->session()->has('GAME_ACTIVE') ) {
-			// 		Game::end();
-			// 		Session::forget('GAME_ACTIVE');
-			// 	}
-			// 	session(['GAME_STATE' => 'loading']);
-			// 	session(['GAME_TIMER' => 60 - Carbon::now()->second ]);
-			// }
+			if ( (Carbon::now()->minute%2 == 0) ) {
+
+				if ( !$request->session()->has('GAME_ACTIVE') ) {
+					Game::new();
+					session(['GAME_ACTIVE' => true]);
+					session(['GAME_STATE' => 'active']);
+				}
+				session(['GAME_TIMER' => 60 - Carbon::now()->second ]);
+
+			} else {
+				if ( $request->session()->has('GAME_ACTIVE') ) {
+					Game::end();
+					Session::forget('GAME_ACTIVE');
+				}
+				session(['GAME_STATE' => 'loading']);
+				session(['GAME_TIMER' => 60 - Carbon::now()->second ]);
+			}
 
 
 

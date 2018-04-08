@@ -1,8 +1,11 @@
 
+  require('angularjs-datepicker');
+
   admin = angular.module('admin',
                 [
-                  'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
-                  'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage', 'liveGameSession'
+                  'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker',
+                  'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
+                  'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics',
 
                 ]);
 
@@ -46,6 +49,10 @@
   require('./angular/directives/questionField');
   require('./angular/directives/sendMessage');
   require('./angular/directives/liveGameSession');
+  require('./angular/directives/viewAllGames');
+  require('./angular/directives/dailyGameLog');
+  require('./angular/directives/dailyStatistic');
+  require('./angular/directives/monthlyStatistic');
 
 
   require('./angular/routes/admin-routes');

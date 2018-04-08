@@ -3,7 +3,7 @@
 
 
 var url = `
-<section class="ui segment red"  id="content-context">
+<section class="ui segment red"  id="content-context" style="  max-height: 60vh; overflow: auto;">
       <div >
         <table class="ui  striped celled table">
           <thead>
@@ -21,7 +21,7 @@ var url = `
             <tr ng-repeat="gamer in live_session">
               <td>{{ $index + 1 }}</td>
               <td>{{ gamer.user.firstname }} {{ gamer.user.lastname }}</td>
-              <td>{{ gamer.id }}</td>
+              <td>{{ gamer.game_id }}</td>
               <td>{{ gamer.created_at }}</td>
               <td>{{ gamer.ended_at }}</td>
               <td>{{ gamer.score }}</td>
@@ -53,7 +53,6 @@ angular.module('liveGameSession', []).directive('liveGameSession', ['$location',
                       $scope.live_session = rsp.data.live_session;
                     }
                   });
-
     }]
   };
 }]);

@@ -29,6 +29,7 @@
     "angular-touch": "^1.6.8",
     "angular-ui-notification": "^0.3.6",
     "angular-utils-pagination": "^0.11.1",
+    "angularjs-datepicker": "^2.1.23",
     "angularjs-localstorage-timer": "^1.0.11",
     "autoprefixer": "^7.1.6",
     "jqueryui": "^1.11.1",

@@ -305,7 +305,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
-  $scope.active = 'liveSession';
+  $scope.active = 'monthlyStatistics';
 
   $scope.previewGame = (g) => {
     $scope.g = g;

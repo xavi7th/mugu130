@@ -17,6 +17,9 @@ class Game extends Model{
 
   protected $guarded = [];
   protected $dates = ['deleted_at', 'ended_at'];
+	protected $casts = [
+			 'status' => 'boolean',
+	];
 	// public $rememberFor = 5;
 	 //
 	//  public function user(){
