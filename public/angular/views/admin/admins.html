@@ -16,15 +16,15 @@
             </thead>
             <tbody>
 
-              <tr ng-repeat="q in admins">
+              <tr ng-repeat="u in admins">
                 <td>{{ $index + 1 }}</td>
-                <td><span style="cursor:pointer;" ng-click="previewAdmin(q)">{{ q.firstname }} {{ q.lastname }}</span></td>
-                <td>{{ q.email }}</td>
+                <td><span style="cursor:pointer;" ng-click="previewAdmin(u)">{{ u.firstname }} {{ u.lastname }}</span></td>
+                <td>{{ u.email }}</td>
                 <td>
                   <div class="ui mini buttons">
-                    <button class="ui orange button" ng-click="openModal(q)">Edit</button>
+                    <button class="ui brown button" ng-click="removeAdmin(u)">Remove Admin</button>
                     <div class="or"></div>
-                    <button class="ui red button" ng-click="deleteAdmin(q)">Delete</button>
+                    <button class="ui red button" ng-click="deleteAdmin(u)">Delete</button>
                   </div>
                 </td>
               </tr>
@@ -35,7 +35,7 @@
       </div>
     </div>
   </section>
-
+<!--
   <div class="ui modal showAdmin transition hidden">
     <div class="header">
       Admin Details
@@ -226,7 +226,7 @@
       </form>
     </div>
 
-  </div>
+  </div> -->
 
 
   <footer style="position: absolute; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'">

@@ -113,14 +113,27 @@ class AdminController extends Controller
     }
 
     public function createAdmin(){
+      User::unguard();
         return [
-          'status' => Admin::create(request()->input('details'))
+          'status' => User::find(request()->input('details.id'))->update([
+            'role_id' => env('ADMIN_ROLE_ID')
+          ])
+        ];
+    }
+
+    public function removeAdmin(){
+      User::unguard();
+        
+        return [
+          'status' => User::find(request()->input('details.id'))->update([
+            'role_id' => 1
+          ])
         ];
     }
 
     public function getLiveGameSession(){
         return [
-          'live_session' => optional(Game::active())->user_game_sessions->load('user')
+          'live_session' => optional(optional(Game::active())->user_game_sessions)->load('user')
         ];
     }
 

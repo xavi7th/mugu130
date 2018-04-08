@@ -298,6 +298,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/delete-admin', $c.'deleteAdmin');
 
     Route::post('/create-admin', $c.'createAdmin');
+    
+    Route::post('/remove-admin', $c.'removeAdmin');
 
     Route::post('/get-live-game-session', $c.'getLiveGameSession');
 

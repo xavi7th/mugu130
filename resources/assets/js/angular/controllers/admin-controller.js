@@ -193,6 +193,24 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
                 });
   };
 
+  $scope.removeAdmin = (q) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/remove-admin', q)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.success('Removed');
+                    var removed = $scope.admins.indexOf(q);
+                    $scope.admins.splice(removed, 1);
+
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+
+                });
+  };
+
 
   bootstrapAdminPage.admins($scope);
 
@@ -282,10 +300,26 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/verify-user', u)
                 .then(rsp => {
-                  console.log(rsp);
                   if (rsp.status == 200) {
                     Notification.success('Verified');
                     u.verified = true;
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+
+  $scope.makeAdmin = (u) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/create-admin', u)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification('User made an admin');
+                    var removed = $scope.users.indexOf(u);
+                    $scope.users.splice(removed, 1);
                   }
                   else if (rsp.status == 403) {
                     Notification.error(rsp.data.status);
@@ -305,99 +339,19 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
 
-  $scope.active = 'monthlyStatistics';
-
-  $scope.previewGame = (g) => {
-    $scope.g = g;
-
-    $('.ui.modal.showGame').modal({
-      blurring: true
-    }).modal('show');
-  };
-
-  $scope.openModal = (g) => {
-    $scope.g = g;
-
-    $('.ui.modal.editGame').modal({
-      blurring: true
-    }).modal('show');
-  };
-
-  $scope.editGame = () => {
-    NProgress.start();
-
-    sendRequest.postRequest(route_root + '/api/edit-game', $scope.g)
-                .then(rsp => {
-                  if (rsp.status == 200) {
-                    Notification.warning('Edited');
-                    $scope.correct = null;
-                    $scope.g = null;
-                    $('.ui.modal.editGame').modal('hide');
-                    NProgress.done();
-
-                  }
-                });
-  };
-
-
-    $scope.newGame = () => {
-      $('.ui.modal.createGame').modal({
-        blurring: true
-      }).modal('show');
-    };
-
-  $scope.deleteGame = (g) => {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/delete-game', g)
-                .then(rsp => {
-                  if (rsp.status == 200) {
-                    Notification.warning('Deleted');
-                    var removed = $scope.games.indexOf(g);
-                    $scope.games.splice(removed, 1);
-
-                  }
-                  else if (rsp.status == 403) {
-                    Notification.error(rsp.data.status);
-                  }
-                  NProgress.done();
-                });
-  };
-
-
-  $scope.suspendGame = (g) => {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/suspend-game', g)
-                .then(rsp => {
-                  console.log(rsp);
-                  if (rsp.status == 200) {
-                    Notification.warning('Suspended');
-                  }
-                  else if (rsp.status == 403) {
-                    Notification.error(rsp.data.status);
-                  }
-                  NProgress.done();
-                });
-  };
-
-
-  $scope.verifyGame = (g) => {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/verify-game', g)
-                .then(rsp => {
-                  console.log(rsp);
-                  if (rsp.status == 200) {
-                    Notification.success('Verified');
-                    g.verified = true;
-                  }
-                  else if (rsp.status == 403) {
-                    Notification.error(rsp.data.status);
-                  }
-                  NProgress.done();
-                });
-  };
-
+  $scope.active = 'liveSession';
 
   bootstrapAdminPage.games($scope);
+
+  NProgress.done();
+
+
+}]);
+
+admin.controller('TransactionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
+  NProgress.start();
+
+  bootstrapAdminPage.transactions($scope);
 
   NProgress.done();
 
