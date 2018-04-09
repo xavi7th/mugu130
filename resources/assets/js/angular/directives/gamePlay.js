@@ -75,7 +75,7 @@ var url = `
             <div class="ui buttons">
               <button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>
               <div class="or"></div>
-              <button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">SKIP QUESTION</button>
+              <button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>
             </div>
 
 

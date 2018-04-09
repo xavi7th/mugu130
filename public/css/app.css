@@ -41396,3 +41396,14 @@ td[ng-click] {
   cursor: pointer !important;
 }
 
+#mini-game {
+  float: left;
+  margin-right: 5%;
+}
+
+#mini-game h1 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+

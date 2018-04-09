@@ -6,6 +6,8 @@ border-bottom: 2px solid #fff;">
     </div>
     <div class="grid-80">
       <nav>
+        <mini-game-state></mini-game-state>
+
         <div class="ui labeled button" tabindex="-1">
           <div class="ui blue button">
             <i class="heart icon"></i> Available Units
@@ -14,14 +16,14 @@ border-bottom: 2px solid #fff;">
             {{ userdetails.available_units | currency }}
           </a>
         </div>
-        <div class="ui labeled  button" tabindex="-1">
+        <!-- <div class="ui labeled  button" tabindex="-1">
           <div class="ui red button right pointing label">
             <i class="heart icon"></i> Total Earnings
           </div>
           <a class="ui basic red label">
               {{ total_earnings | currency }}
             </a>
-        </div>
+        </div> -->
 
         <div class="ui right floated horizontal list" style="line-height:40px;">
           <a class="item" href="/dashboard">Dashboard</a>

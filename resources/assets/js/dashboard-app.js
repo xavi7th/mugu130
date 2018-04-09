@@ -3,7 +3,8 @@
                 [
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
-                  'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage',
+                  'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage',
+                  'makeWithdrawal', 'bootstrapPage',
                 ]);
 
   dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -47,6 +48,7 @@
   require('./angular/directives/customFileUpload');
   require('./angular/directives/inputCountValidator');
   require('./angular/directives/countdownTimer');
+  require('./angular/directives/miniGameState');
   require('./angular/directives/gameState');
   require('./angular/directives/gamePlay');
   require('./angular/directives/buyUnits');
