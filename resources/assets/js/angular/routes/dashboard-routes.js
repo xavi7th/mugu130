@@ -1,4 +1,4 @@
-dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', function ($routeProvider, $locationProvider, $localStorageProvider, NotificationProvider, timeAgoSettings) {
+dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', '$provide', function ($routeProvider, $locationProvider, $localStorageProvider, NotificationProvider, timeAgoSettings, $provide) {
 
   $routeProvider
 
@@ -77,5 +77,35 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
        positionX: 'center',
       //  positionY: 'bottom'
    });
+
+   $provide.decorator('$locale', ['$delegate', function($delegate) {
+      $delegate.NUMBER_FORMATS = {
+        DECIMAL_SEP: '.',
+        GROUP_SEP: ',',
+        PATTERNS: [{ // Decimal Pattern
+          minInt: 1,
+          minFrac: 0,
+          maxFrac: 3,
+          posPre: '',
+          posSuf: '',
+          negPre: '-',
+          negSuf: '',
+          gSize: 3,
+          lgSize: 3
+        }, { //Currency Pattern
+          minInt: 1,
+          minFrac: 0,
+          maxFrac: 2,
+          posPre: '\u00A4',
+          posSuf: '',
+          negPre: '(\u00A4',
+          negSuf: ')',
+          gSize: 3,
+          lgSize: 3
+        }],
+        CURRENCY_SYM: '₦'
+      };
+      return $delegate;
+    }]);
 
 }]);

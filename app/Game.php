@@ -93,7 +93,7 @@ class Game extends Model{
 		}
 
 		//if more than 1, use the formula to calculate the amount they should receive
-		else if($total_examinees > 0){
+		else if($total_examinees > 1){
 
 			DB::beginTransaction();
 					// get the total amount to share, ie game credits - 5 (basic unit for participation ) - 5( for admin ) * total number of examinees
@@ -119,23 +119,25 @@ class Game extends Model{
 					$count = 0;
 					$dispensed_amount = 0;
 					$those_that_shared = 0;
+					$referral_bonus = 0;
 
 					//loop through the sessions and start to apply position from 1 - ? to all those that have 10/10, save those that did not get 10/10 into an array
 					//Also apply earnings based on formula
 					//passing by reerence to allow modification of original value.
 
 					foreach ($exam_records as $key => &$value) {
+
 						if ($value->score == env('MINIMUM_PASSING_SCORE')) {
 							$value->position = ++$count;
 
-							if ($count == 1) {
 
+							//get his earning
+							if ($count == 1) {
 								$value->earning = floor($firstprice) + env('BASIC_PARTICIPATION_REWARD');
 								$dispensed_amount += $value->earning - env('BASIC_PARTICIPATION_REWARD');
 								$those_that_shared++;
 							}
 							elseif($count <= $max_winners){
-								// give him his share
 								$value->earning = floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD');
 								$dispensed_amount += $value->earning - env('BASIC_PARTICIPATION_REWARD');
 								$those_that_shared++;
@@ -143,8 +145,16 @@ class Game extends Model{
 							elseif ($count > $max_winners) {
 								$value->earning = env('BASIC_PARTICIPATION_REWARD');
 							}
+
+							// give him his earning
 							if ($value->payment_status == 'unpaid') {
 								$value->user->addEarning($active_game->id, $value->earning);
+
+								//Give his referrer a bonus for his participation
+								if ($value->user->has_referrer()) {
+									$value->user->referrer->user->addEarning(0, env('REFERRAL_BONUS'));
+									$referral_bonus++;
+								}
 							}
 
 							$value->payment_status = 'paid';
@@ -163,6 +173,12 @@ class Game extends Model{
 
 						if ($v->payment_status == 'unpaid') {
 							$v->user->addEarning($active_game->id, $v->earning);
+
+							//Give his referrer a bonus for his participation
+							if ($value->user->has_referrer()) {
+								$value->user->referrer->user->addEarning(0, env('REFERRAL_BONUS'));
+								$referral_bonus++;
+							}
 						}
 
 						$v->payment_status = 'paid';
@@ -170,11 +186,16 @@ class Game extends Model{
 					}
 
 					//send the rest to admin acc
-					$admin_amount = ($total_stake - $dispensed_amount) + ( env('EXAM_PARTICIPATION_FEE') * $total_examinees );
+					$admin_amount = ($total_stake - $dispensed_amount) + ( env('EXAM_PARTICIPATION_FEE') * $total_examinees ) - ( env('REFERRAL_BONUS') * $referral_bonus);
 					Earning::adminEarning($active_game->id, $admin_amount);
 
 					//end the game
 					$active_game->status = false;
+					$active_game->num_of_players = $total_examinees;
+					$active_game->max_winners = $max_winners;
+					$active_game->total_prize = $total_stake;
+					$active_game->total_winners = $those_that_shared;
+					$active_game->amount_won = $dispensed_amount;
 					$active_game->ended_at = Carbon::now();
 					$active_game->save();
 

@@ -4,12 +4,14 @@ use App\Game;
 use App\User;
 use App\Message;
 use App\Question;
+use App\Referral;
 use App\UserQuestion;
 use App\UserGameSession;
 
 use Faker\Factory;
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +23,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class);
+        $this->call(ReferralsTableSeeder::class);
         $this->call(QuestionsTableSeeder::class);
         $this->call(GamesTableSeeder::class);
         $this->call(UserGameSessionsTableSeeder::class);
@@ -56,6 +59,21 @@ class MessagesTableSeeder extends Seeder{
    }
 }
 
+class ReferralsTableSeeder extends Seeder{
+   public function run(){
+
+       $faker = Factory::create();
+       // following line retrieve all the user_ids from DB
+       $users = User::all()->pluck('id')->all();
+       foreach(range(1,150) as $index){
+           Referral::create([
+							'user_id' => $faker->randomElement($users),
+							'referral_id'=> $faker->randomElement($users),
+			        'created_at'=> Carbon::now()->subDays(rand(1,200)),
+           ]);
+       }
+   }
+}
 
 class QuestionsTableSeeder extends Seeder{
   public function run()

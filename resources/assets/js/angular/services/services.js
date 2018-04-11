@@ -178,6 +178,7 @@
                          scope.user_transactions = rsp.data.page_details.transactions;
                          scope.user_earnings = rsp.data.page_details.earnings;
                          scope.user_games = rsp.data.page_details.games;
+                         scope.referrals = rsp.data.page_details.referrals;
                      }
                    });
           scope.$on('$viewContentLoaded', function() {
@@ -232,9 +233,9 @@
                         }
                         if (rsp.data != 'invalid') {
                           scope.results = rsp.data.results;
-                          scope.total_examinees = rsp.data.total_examinees;
-                          scope.total_share = rsp.data.total_share;
-                        } else {
+                          scope.user_earning = rsp.data.user_earning;
+                        }
+                        else {
                           $location.path('/dashboard');
                           Notification.error({message: 'Insufficient users for game session. Units reversed', positionX:'center'});
                         }

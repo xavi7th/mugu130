@@ -51,7 +51,7 @@ if (! function_exists('unique_random')) {
             // Generate random string of characters
 
             if ($chars == null){
-              $random = rand(110010001, 999999999);
+              $random = rand(100001, 999999999999);
             }
             else{
               $random = str_random($chars);

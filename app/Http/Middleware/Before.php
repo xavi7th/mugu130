@@ -23,6 +23,7 @@ class Before
 			// Session::forget('GAME_ACTIVE');
 			//  dd( $request->session()->has('GAME_ACTIVE') );
 			// Game::new();
+			// Game::end();
 
 			if ( (Carbon::now()->minute%2 == 0) ) {
 

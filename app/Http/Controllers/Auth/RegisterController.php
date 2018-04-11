@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:4|max:255|confirmed',
             'firstname' => 'required|string|username|max:255',
             'lastname' => 'required|string|username|max:255',
-            // 'referrer.email' => 'sometimes|string|email|max:100|exists:users,email'
+            'referrer_email' => 'required|string|email|max:100|exists:users,email'
         ]);
     }
 
@@ -90,8 +90,8 @@ class RegisterController extends Controller
           // 'confirmation_token' => $token,
         ]);
 
-        //Create a record for this referrer
-        // Referral::new(request()->input('referrer.id'), $user->id );
+        // Create a record for this referrer
+        Referral::new(request()->input('referrer_id'), $user->id );
 
       DB::commit();
 

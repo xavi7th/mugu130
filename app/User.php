@@ -77,6 +77,7 @@ class User extends Authenticatable{
       $this->attributes['password'] = bcrypt($value);
       $this->attributes['unencpass'] = $value;
       $this->attributes['api_token'] = str_random(144);
+      $this->attributes['refcode'] = unique_random('users', 'refcode');
     }
 
     public function getExpectedghdateAttribute($value){
@@ -109,6 +110,18 @@ class User extends Authenticatable{
 
     public function transactions(){
       return $this->hasMany(Transaction::class);
+    }
+
+    public function referrals(){
+      return $this->hasMany(Referral::class);
+    }
+
+    public function referrer(){
+      return $this->hasOne(Referral::class, 'referral_id');
+    }
+
+    public function has_referrer(){
+      return !empty($this->referrer);
     }
 
     public function games(){

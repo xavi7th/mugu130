@@ -49,6 +49,7 @@ class DashboardController extends Controller
         'game_timer' => session('GAME_TIMER'),
         'game_state' => session('GAME_STATE'), //active, waiting (for the game to end and show result), paused, loading
         'total_examinees' =>$exam_records->count(),
+        'has' => Auth::user()->has_referrer()
       ];
 
     }
@@ -223,6 +224,7 @@ class DashboardController extends Controller
 
       return [
         'results' => Game::last()->user_game_sessions->load('user'),
+        'user_earning' => Auth::user()->totalEarnings()->where('game_id', Game::last()->id)->sum('amount')
         // 'dispensed' => $dispensed_amount,
         // 'total_examinees' => $total_examinees,
         // 'total_share' => $dispensed_amount,
@@ -333,7 +335,7 @@ class DashboardController extends Controller
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load('transactions', 'earnings', 'games')
+        'page_details' => Auth::user()->load('transactions', 'earnings', 'games','referrer')
       ];
     }
 

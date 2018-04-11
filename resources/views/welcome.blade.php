@@ -55,7 +55,7 @@
                   </div>
                 @endif
 
-                <div class="ui tab" data-tab="register">
+                <div class="ui tab {{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }}" data-tab="register">
                   <form class="ui form" method="POST" action="/register">
 
 
@@ -64,29 +64,37 @@
                     <div class="field">
                       <div class="two fields">
                         <div class="field">
-                          <input type="text" name="firstname" placeholder="Enter Firstname">
+                          <input type="text" name="firstname" placeholder="Enter Firstname" value="{{ old('firstname') }}">
                         </div>
                         <div class="field">
-                          <input type="text" name="lastname" placeholder="Enter Lastname">
+                          <input type="text" name="lastname" placeholder="Enter Lastname" value="{{ old('lastname') }}">
                         </div>
                       </div>
                     </div>
                     <div class="field">
-                      <input type="email" name="email" placeholder="Enter Email" required>
+                      <input type="email" name="email" placeholder="Enter Email" required value="{{ old('email') }}">
                     </div>
                     <div class="field">
-                      <input type="password" name="password" placeholder="Enter Password" required>
+                      <input type="password" name="password" placeholder="Enter Password" required value="{{ old('password') }}">
                     </div>
                     <div class="field">
-                      <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
+                      <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}">
                     </div>
+                    <hr>
+                    <h3>Referrer Details</h3>
                     <div class="field">
-                      <input type="text" name="referral_Link" placeholder="Enter referral code [optional]">
+                      <input type="text" name="referrer.email" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['email'] ?? null }}">
+                      <input type="hidden" name="referrer.id" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['id'] ?? null }}">
                     </div>
                     <button type="submit" style="background-color: #135482;" class="ui fluid orange button">REGISTER</button>
                   </form>
                 </div>
-                <div class="ui tab active" data-tab="login">
+
+
+
+
+
+                <div class="ui tab {{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }}" data-tab="login">
                   <form class="ui form" method="POST" action="/login">
                     {{ csrf_field() }}
                     <h2>LOGIN</h2>

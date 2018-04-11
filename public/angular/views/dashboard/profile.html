@@ -44,8 +44,8 @@
                 <td>{{userdetails.total_withdrawals  | currency }}</td>
               </tr>
               <tr>
-                <td>No. of logins</td>
-                <td>50</td>
+                <td>No. of referrals</td>
+                <td>{{ referrals.length }}</td>
               </tr>
               <tr>
                 <td>No. of credits purchased</td>
@@ -95,7 +95,10 @@
 
                 <tr ng-repeat="earning in user_earnings">
                   <td>{{ $index + 1 }}</td>
-                  <td>{{ earning.game_id }}</td>
+                  <td>
+                    <span ng-if="earning.game_id">{{ earning.game_id }}</span>
+                    <span ng-if="!earning.game_id"> Referral Bonus </span>
+                  </td>
                   <td>{{ earning.created_at | timeAgo}}</td>
                   <td>{{ earning.amount | currency }}</td>
                 </tr>

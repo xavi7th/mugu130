@@ -30,16 +30,16 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home')->middleware('guest');
 
-  Route::get('/test', function () {
-    return DB::table('user_game_sessions')->distinct('game_id')->toSql();
-    return UserGameSession::select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::now()->month)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first();
-    return UserGameSession::all()->keys();
-    // $grouped = UserGameSession::all()->mapToGroups(function ($item, $key) {
-    //     return [$item['game_id'] => $item];
-    // });
-
-    return $grouped->toArray();
-  });
+  // Route::get('/test', function () {
+  //   return DB::table('user_game_sessions')->distinct('game_id')->toSql();
+  //   return UserGameSession::select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::now()->month)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first();
+  //   return UserGameSession::all()->keys();
+  //   // $grouped = UserGameSession::all()->mapToGroups(function ($item, $key) {
+  //   //     return [$item['game_id'] => $item];
+  //   // });
+  //
+  //   return $grouped->toArray();
+  // });
 
   Route::view('/contact', 'welcome');
 
@@ -76,6 +76,33 @@ Route::middleware(['before'])->group( function () {
     // abort(404, 'Invalid verification code.');
 
   })->name('verify.check');
+
+  //
+  // Route::get('/register/{referral_code?}', function ($referral_code = null) {
+  //
+  //   $refdetails = User::where('username', $referral_code)->first();
+  //
+  //   $refdetails = is_null($refdetails) ? collect([]) : $refdetails->only(['id', 'username', 'email']);
+  //
+  //   return view( 'auth.register', compact('refdetails'));
+  // })->middleware('guest');
+  //
+  Route::get('/ref/{referral_code}', function ($referral_code = '00000') {
+
+    $refdetails = User::where('refcode', $referral_code)->first();
+
+    // $refdetails = is_null($refdetails) ? collect(['email'=>null, 'id'=>null]) : $refdetails->only(['id', 'email']);
+
+    $refdetails = is_null($refdetails) ? abort(404) : $refdetails->only(['id', 'email']);
+
+    return view( 'welcome', compact('refdetails'));
+  })->middleware('guest')->name('referral');
+
+  Auth::routes();
+
+  Route::view('/register', 'welcome')->name('register');
+
+  Route::view('/login', 'welcome')->name('login');
 
 });
 
@@ -235,35 +262,6 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
       ];
 
     });
-
-});
-
-Route::middleware(['before'])->group( function () {
-
-  //
-  // Route::get('/register/{referral_code?}', function ($referral_code = null) {
-  //
-  //   $refdetails = User::where('username', $referral_code)->first();
-  //
-  //   $refdetails = is_null($refdetails) ? collect([]) : $refdetails->only(['id', 'username', 'email']);
-  //
-  //   return view( 'auth.register', compact('refdetails'));
-  // })->middleware('guest');
-  //
-  // Route::get('/ref/{referral_code}', function ($referral_code = '00000') {
-  //
-  //   $refdetails = User::where('username', $referral_code)->first();
-  //
-  //   $refdetails = is_null($refdetails) ? collect([]) : $refdetails->only(['id', 'username', 'email']);
-  //
-  //   return view( 'auth.register', compact('refdetails'));
-  // })->middleware('guest');
-
-  Auth::routes();
-
-  Route::view('/register', 'welcome')->name('register');
-
-  Route::view('/login', 'welcome')->name('login');
 
 });
 

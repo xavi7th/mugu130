@@ -21,11 +21,11 @@
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
-              {{ total_share | currency}}
+              {{ user_earning | currency}}
             </a>
             <div class="ui icon button">
               <i class="visa icon"></i>
-              Total Prize Money
+              User's Earning
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
                 <div style="position:absolute; left:0;" class="ui ribbon teal label" ng-if="$index == 1">Second</div>
                 <div style="position:absolute; left:0;" class="ui ribbon yellow label" ng-if="$index == 2">Third</div>
 
-                <p style="text-align:center; position:relative;"> {{ result.user.firstname }} {{ result.user.lastname }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.user.id == userdetails.id">You</a></p>
+                <p style="text-align:center; position:relative;"> {{ result.user.refcode }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.user.id == userdetails.id">You</a></p>
 
               </td>
               <td class="centered">{{ result.position }}</td>
