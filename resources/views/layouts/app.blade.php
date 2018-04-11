@@ -33,6 +33,9 @@
 	          <img src="/img/logo.png" alt="">
 	        </div>
 	        <div class="grid-50">
+						<mini-game-state style="float:right !important;">
+							<b style="margin-right:1%;">CURRENT STATUS:</b>
+						</mini-game-state>
 	        </div>
 	      </div>
 	    </header>

@@ -36,8 +36,8 @@
             <div id="form" class="ui segments">
               <div class="ui segment">
                 <div id="session-menu" class="ui two item menu">
-                  <a class="item" data-tab="register">Register</a>
-                  <a class="active item" data-tab="login">Login</a>
+                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register">Register</a>
+                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login">Login</a>
                 </div>
               </div>
 

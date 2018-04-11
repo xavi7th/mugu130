@@ -79,6 +79,11 @@ class Game extends Model{
 					//end OR delete the game to prevent reimbursing the user indefinitely
 					// $active_game->delete();
 					$active_game->status = false;
+					$active_game->num_of_players = $total_examinees;
+					$active_game->max_winners = 0;
+					$active_game->total_prize = 0;
+					$active_game->total_winners = 0;
+					$active_game->amount_won = 35;
 					$active_game->ended_at = Carbon::now();
 					$active_game->save();
 			DB::commit();

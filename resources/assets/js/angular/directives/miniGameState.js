@@ -7,7 +7,7 @@ var url = `
 
   <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'loading'">
     <div class="ui red button">
-      <i class="clock icon"></i> Loading
+      <i class="clock icon"></i> <ng-transclude></ng-transclude> Loading
     </div>
     <a class="ui basic red left pointing label">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
@@ -15,9 +15,10 @@ var url = `
   </div>
 
 
-  <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'active'">
+  <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'active'" ng-click="joinGame()">
     <div class="ui orange button">
-      <i class="gamepad icon"></i> Game On
+     <ng-transclude></ng-transclude> 
+      <i class="gamepad icon"></i>Game On
     </div>
     <a class="ui basic left pointing orange label" ng-click="joinGame()">
         <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
@@ -40,6 +41,7 @@ angular.module('miniGameState', []).directive('miniGameState', ['$location', '$r
     // templateUrl:'angular/directive-templates/gameStateTemplate.php',
     template:url,
     replace: true,
+    transclude: true,
     link: function(scope, element, attributes){
 
 		},

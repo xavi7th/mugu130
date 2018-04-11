@@ -48,7 +48,7 @@ class Before
 			// dd(Game::active());
 			// dd($request->session()->has('GAME_ACTIVE'));
 			// dd($request->session()->all());
-			// if ( (Carbon::now()->minute%10 <= 5) ) {
+			// if ( (Carbon::now()->minute%10 >= 5) ) {
 			//
 			// 	if ( !$request->session()->has('GAME_ACTIVE') && !Game::active()) {
 			// 		Game::new();

@@ -26,16 +26,15 @@ class Suspend
 
 	 public function handle($request, Closure $next)
     {
-			// dd(Auth::guard('api')->user()->useraccstatus);
-			// if($request->isJson() && Auth::guard('api')->user() && Auth::guard('api')->user()->useraccstatus == 'suspended'){
-			// 		# code...
-			// 		return response()->json([
-			// 				'message'=>'User Account Suspended'
-			// 		], 409);
-      // }
-      // if(!Auth::user()->verified){
-      //   return redirect('suspended');
-      // }
+			// dd(Auth::user()->useraccstatus);
+			if($request->isJson() && Auth::user()->useraccstatus == 'suspended'){
+					return response()->json([
+							'message'=>'User Account Suspended'
+					], 403);
+      }
+      if(Auth::user()->useraccstatus == 'suspended'){
+        return redirect('suspended');
+      }
 
 
       return $next($request);

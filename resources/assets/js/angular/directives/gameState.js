@@ -57,11 +57,6 @@ var url = `
       <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
         <span>Game in progress</span>
       </div>
-      <div class="ui violet label" style="font-size: 13px;">
-        <span style="padding-right: 10px;">Active Gamers</span>
-        <i class="users icon"></i> {{ total_examinees }}
-
-      </div>
     </div>
     <div class="ui segment">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
@@ -159,8 +154,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
       //when the game was paused, take the user back to the game
       $scope.resumeGame = function () {
-        $scope.game_state = null;
-
+        $scope.game_state = 'transition';
 
         sendRequest.postRequest('user/resume-game')
                     .then(()=>{

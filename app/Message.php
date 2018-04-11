@@ -30,8 +30,8 @@ class Message extends Model{
                       'user_id' => env("ADMIN_ROLE_ID"),
                       'sender_id' => Auth::id(),
                       'senderusername' => Auth::user()->firstname,
-                      'subject' => request()->input('details.subject'),
-                      'message' => request()->input('details.message'),
+                      'subject' => request()->input('details.subject') ?? request('subject'),
+                      'message' => request()->input('details.message') ?? request('message'),
                     ]);
 		return true;
   }

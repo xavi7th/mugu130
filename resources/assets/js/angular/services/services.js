@@ -120,6 +120,9 @@
                           if (err.status == 419 || err.status == 401) {
                             location.href = '/login';
                           }
+                          else if (err.status == 403) {
+                            location.href = '/suspended';
+                          }
                           console.log(err);
                           return err;
                         });
@@ -143,16 +146,7 @@
      	return {
         dashboard:  (scope) => {
 
-          sendRequest.postRequest('/user/get-dashboard-page-details')
-                    .then(function (rsp) {
-                      if (rsp.status == 200) {
-                        // scope.total_investments = _.sumBy(rsp.data.packages, function(o) { return o.thisghamt; });
-                        // scope.total_returns = _.sumBy(rsp.data.packages, function(o) { return o.expectedghamt; });
-                        // scope.payments_received = _.sumBy(rsp.data.payments_received, function(o) { return o.expectedghamt; });
-                        // scope.notification = rsp.data.notification;
-                        // NProgress.done();
-                      }
-                    });
+          sendRequest.postRequest('/user/get-dashboard-page-details');
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
@@ -219,6 +213,7 @@
           });
           scope.$on('$destroy', function() {
             $timeout(function () {
+              sendRequest.postRequest('/user/pause-game');
               Echo.leave('exam_member_count');
             }, 0);
           });

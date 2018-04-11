@@ -12,9 +12,9 @@ var url = `
   </div>
 
 
-  <div class="ui mini modal makeWithdrawal transition hidden">
+  <div class="ui tiny modal makeWithdrawal transition hidden">
       <div class="header">
-        Select an Amount
+        Enter an Amount
       </div>
       <div class="image content flex-center">
         <div class="ui form">
@@ -30,7 +30,8 @@ var url = `
           <div class="header">
             NOTE:
           </div>
-          <p>A minimum balance of ... </p>
+          <p> For withdrawals below 1000, a service fee of ₦50 will be deducted. </p>
+          <p> While for withdrawals above 1000, an additional service fee of ₦50 for every ₦5000 will be deducted </p>
         </div>
       </div>
       </div>

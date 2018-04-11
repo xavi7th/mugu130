@@ -34,8 +34,8 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('before');
-        $this->middleware('auth')->except('contact');
-        $this->middleware('suspended')->except('suspended', 'getApiKey', 'contact');
+        $this->middleware('auth')->except('getGameState');
+        $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState');
     }
 
     public function getGameState(){
@@ -49,7 +49,6 @@ class DashboardController extends Controller
         'game_timer' => session('GAME_TIMER'),
         'game_state' => session('GAME_STATE'), //active, waiting (for the game to end and show result), paused, loading
         'total_examinees' =>$exam_records->count(),
-        'has' => Auth::user()->has_referrer()
       ];
 
     }
@@ -124,6 +123,12 @@ class DashboardController extends Controller
           'game_timer' => 600,
           'game_state' => 'active' //active, waiting (for the game to end and show result), paused, loading
         ];
+    }
+
+    public function pauseGame(){
+
+      session(['GAME_STATE' => 'paused']);
+
     }
 
     public function resumeGame(){
@@ -311,11 +316,18 @@ class DashboardController extends Controller
         # code...
       }
 
+      if (request()->input('details.amt') <= 1000) {
+        $amount = request()->input('details.amt') - 50;
+      }
+      else{
+        $amount = request()->input('details.amt') - ((floor(request()->input('details.amt')/5000) * 50) + 50);
+      }
+
       DB::beginTransaction();
 
         //add a withdrawal request to transactions table
         Auth::user()->transactions()->create([
-          'amount' => request()->input('details.amt'),
+          'amount' => $amount,
           'trans_type' => 'withdrawal',
           'status' => 'pending',
         ]);
@@ -354,9 +366,9 @@ class DashboardController extends Controller
       //
       //
       //
-      // return [
-      //   'total_examinees' =>$exam_records->count(),
-      // ];
+      return [
+        'ststus' => true,
+      ];
 
     }
 
@@ -386,7 +398,10 @@ class DashboardController extends Controller
     }
 
     public function sendMessage() {
-      // return request()->all();
+      if (!request()->isJson()) {
+        Message::toAdmin();
+        return back()->withSuccess('Message Sent');
+      }
       return ['status' => Message::toAdmin()];
     }
 

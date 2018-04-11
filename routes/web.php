@@ -41,13 +41,18 @@ Route::middleware(['before'])->group( function () {
   //   return $grouped->toArray();
   // });
 
-  Route::view('/contact', 'welcome');
-
   Route::view('/about', 'welcome');
 
   Route::view('/faq', 'welcome');
 
-  Route::view('/suspended', 'suspended')->name('suspended')->middleware('auth','verified');
+  Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
+
+  Route::get('/suspended', function(){
+    if(Auth::user()->useraccstatus != 'suspended'){
+      return redirect('dashboard');
+    }
+    return view('suspended');
+  })->name('suspended')->middleware('auth');
 
   Route::get('/resend-verification-mail', function () {
 
@@ -106,7 +111,11 @@ Route::middleware(['before'])->group( function () {
 
 });
 
-Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
+Route::group(['prefix' => 'user'], function () {
+  Route::any('/get-game-state', 'DashboardController@getGameState');
+});
+
+Route::group(['prefix' => 'user'], function () {
 
   Route::get('/get-api-key', 'DashboardController@getApiKey');
 
@@ -132,9 +141,9 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/update-user-details', 'DashboardController@updateUserDetails');
 
-  Route::any('/get-game-state', 'DashboardController@getGameState');
-
   Route::post('/join-game', 'DashboardController@joinGame');
+
+  Route::post('/pause-game', 'DashboardController@pauseGame');
 
   Route::post('/resume-game', 'DashboardController@resumeGame');
 
@@ -146,8 +155,6 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
 
   Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
 
-  Route::post('/send-message', 'DashboardController@sendMessage');
-
   Route::post('/mark-message-as-read', 'DashboardController@markMessageAsRead');
 
   Route::post('/delete-message', 'DashboardController@deleteMessage');
@@ -155,8 +162,6 @@ Route::group(['prefix' => 'user', 'middleware'=>'suspended'], function () {
   Route::post('/mark-notice-as-read', 'DashboardController@markNoticeAsRead');
 
   Route::post('/delete-notice', 'DashboardController@deleteNotice');
-
-  // Route::post('/request-bonus', 'DashboardController@requestBonus');
 
 });
 

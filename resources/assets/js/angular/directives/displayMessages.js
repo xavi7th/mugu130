@@ -137,6 +137,7 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
         .then( rsp => {
           if (rsp.status == 200) {
             Notification.success('Sent');
+            $scope.msg_record = null;
             NProgress.done();
           }
         });

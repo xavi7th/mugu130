@@ -96,7 +96,7 @@ var url = `
 `;
 
 
-angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
