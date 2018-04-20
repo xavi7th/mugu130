@@ -2,7 +2,7 @@
 
 
 
-home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState']);
+home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay']);
 
 home.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 	$rootScope.logout = function () {
@@ -39,6 +39,7 @@ require('./angular/services/services');
 
 require('./angular/directives/countdownTimer');
 require('./angular/directives/miniGameState');
+require('./angular/directives/demoPlay');
 
 
 require('./angular/routes/home-routes');

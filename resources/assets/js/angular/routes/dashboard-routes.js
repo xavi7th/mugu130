@@ -63,6 +63,8 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
    .otherwise({
      redirectTo: '/dashboard'
    });
+
+   
    $locationProvider.hashPrefix('');
    $locationProvider.html5Mode(true);
    $localStorageProvider.setKeyPrefix('game-');

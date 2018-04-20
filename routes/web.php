@@ -1,19 +1,26 @@
 <?php
-use App\Notice;
-use App\Slide;
-use App\Package;
-use App\Message;
-use App\NewsItem;
-use App\TeamMember;
-use App\CryptoSite;
-use App\Confirmation;
-use App\Mail\TransactionalMail;
-use App\User;
+
 use App\Game;
-use App\Events\ExamJoined;
+use App\User;
+use App\Slide;
+use App\Notice;
+use App\Message;
+use App\Package;
+use App\NewsItem;
+use App\CryptoSite;
+use App\TeamMember;
+use App\Confirmation;
+use App\DemoQuestion;
+use App\DemoGameSession;
 use App\UserGameSession;
-use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
+
+use App\Mail\TransactionalMail;
+
+use App\Events\ExamJoined;
+
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +50,7 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/about', 'welcome');
 
-  Route::view('/faq', 'welcome');
+  Route::view('/demo-play', 'demo-play')->name('demo.play');
 
   Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
 
@@ -108,6 +115,86 @@ Route::middleware(['before'])->group( function () {
   Route::view('/register', 'welcome')->name('register');
 
   Route::view('/login', 'welcome')->name('login');
+
+  Route::post('/get-deno-questions', function () {
+    DemoGameSession::new();
+    return [
+              'user_questions' => DemoQuestion::inRandomOrder()->take(11)->get()
+            ];
+  });
+
+  Route::post('/submit-demo-exam', function () {
+
+    $exam = request()->input('details.answers');
+
+    //loop through the answers and mark them and send to DB
+    DB::beginTransaction();
+
+    $total_stake = (env('GAME_CREDITS') - env('BASIC_PARTICIPATION_REWARD') - env('EXAM_PARTICIPATION_FEE')) * request()->input('details.total_examinees');
+
+    //get max winners
+    $max_winners = ceil(request()->input('details.total_examinees') / env('PERCENT_WINNERS'));
+
+    //get the amount of first price
+    $sum = 0;
+    for ($i=0; $i < $max_winners; $i++) {
+      //Given a GP with CR the members of the series are x, pow(CR,1)x, pow(CR, 2)x ... pow(CR, n)x.
+      // The first term is given by the sum of the n-members of the series divided by the sum of all their coefficients
+      //This portion calculates the sum of all the coefficients
+      $sum += (pow(1.06381, $i));
+    }
+
+    // This portion gets the last member (which will be the amount to give to the highest scorer) of the series fron the firstmember using the formula
+    // nth-member = pow(CR, n-1) * firstmember
+    $firstprice = ($total_stake/$sum) * (pow(1.06381, $max_winners - 1));
+
+
+        $count = 0;
+        foreach ($exam as $key => $value) {
+            if (isset($value['answered_option']) && $value['answered_option'] == $value['correct_option']) {
+              $count++;
+            }
+        }
+
+        if ($count == 10) {
+          DemoGameSession::where('session_id', session('demo_id'))->update([
+            'score' => $count,
+            'ended_at' => Carbon::now(),
+            'position' => 1,
+            'earning' => $user_earning = $firstprice
+          ]);
+        }
+
+        else{
+          DemoGameSession::where('session_id', session('demo_id'))->update([
+            'score' => $count,
+            'ended_at' => Carbon::now(),
+            'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
+          ]);
+        }
+
+        // generate users for the exam
+        $f = new DatabaseSeeder;
+        $f->call('DemoGameSessionsTableSeeder');
+    DB::commit();
+
+    return [
+      'status' => true,
+      'results'=> DemoGameSession::where('session_id', session('demo_id'))->get(),
+      'user_earning' => $user_earning
+    ];
+
+  });
+
+  Route::any('/end-demo-exam', function () {
+    return 'demo ended';
+  });
+
+  Route::any('get-demo-exam-results', function () {
+    return 'demo results';
+  });
+
+
 
 });
 

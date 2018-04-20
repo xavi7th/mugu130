@@ -31,6 +31,14 @@
             <p>Put your IQ to the test, have fun and win some cool cash on a daily basis. Win up to N15, 000 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
 
             <h3>Everybody is a winner!!!</h3>
+
+            <a href="/demo-play" target="_blank">
+              <button class="ui labeled red icon button">
+                <i class="gamepad icon"></i>
+                Demo Game
+              </button>
+            </a>
+
           </div>
           <div class="grid-40 push-10">
             <div id="form" class="ui segments">

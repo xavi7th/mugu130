@@ -63,8 +63,14 @@
                 });
         },
 
-        getUserQuestions : function (url) {
+        getUserQuestions : function (url, flushStore = false) {
           var deferred = $q.defer();
+
+          if (flushStore) {
+            delete $sessionStorage.user_questions;
+            delete $sessionStorage.extra;
+            delete $sessionStorage.options;
+          }
 
           if (!$sessionStorage.user_questions) {
             var _this = this;

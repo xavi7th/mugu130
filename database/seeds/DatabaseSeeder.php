@@ -6,7 +6,9 @@ use App\Message;
 use App\Question;
 use App\Referral;
 use App\UserQuestion;
+use App\DemoQuestion;
 use App\UserGameSession;
+use App\DemoGameSession;
 
 use Faker\Factory;
 
@@ -24,9 +26,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
         $this->call(ReferralsTableSeeder::class);
+        $this->call(DemoQuestionsTableSeeder::class);
         $this->call(QuestionsTableSeeder::class);
         $this->call(GamesTableSeeder::class);
         $this->call(UserGameSessionsTableSeeder::class);
+        // $this->call(DemoGameSessionsTableSeeder::class);
         $this->call(UserQuestionsTableSeeder::class);
     }
 }
@@ -82,6 +86,13 @@ class QuestionsTableSeeder extends Seeder{
      }
 }
 
+class DemoQuestionsTableSeeder extends Seeder{
+  public function run()
+     {
+         factory(DemoQuestion::class, 20)->create();
+     }
+}
+
 class GamesTableSeeder extends Seeder{
   public function run()
      {
@@ -93,6 +104,13 @@ class UserGameSessionsTableSeeder extends Seeder{
   public function run()
      {
          factory(UserGameSession::class, 100)->create();
+     }
+}
+
+class DemoGameSessionsTableSeeder extends Seeder{
+  public function run()
+     {
+         factory(DemoGameSession::class, request()->input('details.total_examinees'))->create();
      }
 }
 

@@ -34,7 +34,7 @@
 	        </div>
 	        <div class="grid-50">
 						<mini-game-state style="float:right !important;">
-							<b style="margin-right:1%;">CURRENT STATUS:</b>
+							<b style="margin-right:1%;">GAME STATUS:</b>
 						</mini-game-state>
 	        </div>
 	      </div>
@@ -43,7 +43,7 @@
 			@yield('contents')
 
 
-	    <footer style="position: absolute; width: 100%; bottom: 0;">
+	    <footer style="position: fixed; width: 100%; bottom: 0;">
 	      @include('partials.footer-content')
 	    </footer>
 	  </div>

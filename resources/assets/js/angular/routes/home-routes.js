@@ -1,4 +1,3 @@
-// module.exports = function () {
   home.config(['$routeProvider', '$locationProvider', '$provide', function ($routeProvider, $locationProvider, $provide) {
    $routeProvider
 
@@ -18,10 +17,17 @@
        controller: 'RegisterController'
      })
 
+     .when('/demo-play', {
+       templateUrl: 'angular/views/demo/index.html',
+       controller: 'DemoGameController'
+     })
+
      .otherwise({
        redirectTo: '/'
      });
+
      $locationProvider.html5Mode(true);
+
      $provide.decorator('$locale', ['$delegate', function($delegate) {
         $delegate.NUMBER_FORMATS = {
           DECIMAL_SEP: '.',
@@ -52,5 +58,3 @@
         return $delegate;
       }]);
   }]);
-
-// };

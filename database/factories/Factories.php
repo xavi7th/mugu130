@@ -7,7 +7,9 @@ use App\Game;
 use App\User;
 use App\Question;
 use App\UserQuestion;
+use App\DemoQuestion;
 use App\UserGameSession;
+use App\DemoGameSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,18 @@ use App\UserGameSession;
 $faker = Faker::create();
 
 $factory->define(Question::class, function ($faker) {
+
+    return [
+        'question' => $faker->text,
+        'option_1' => $option1 = $faker->unique()->sentence,
+        'option_2' => $option2 = $faker->unique()->sentence,
+        'option_3' => $option3 = $faker->unique()->sentence,
+        'option_4' => $option4 = $faker->unique()->sentence,
+        'correct_option' => $faker->randomElement([$option1, $option2, $option3, $option4]),
+    ];
+});
+
+$factory->define(DemoQuestion::class, function ($faker) {
 
     return [
         'question' => $faker->text,
@@ -82,5 +96,20 @@ $factory->define(UserGameSession::class, function ($faker) {
         'created_at' => Carbon::parse($gameStart->created_at)->addMinutes(rand(0,2)),
         // 'images' => '/storage/tmp/s' . $faker->randomElement($categoryIDs) .'.jpg',
         // 'details' => $faker->realText($maxNbChars = 4200, $indexSize = 2),
+    ];
+});
+
+$factory->define(DemoGameSession::class, function ($faker) {
+
+    $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
+
+    return [
+        'session_id' => session('demo_id'),
+        'game_id' => 0,
+        'score' => rand(3,9),
+        'status' => 1,
+        'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
+        'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+        'earning' => 5
     ];
 });
