@@ -4,7 +4,7 @@
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
                   'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage',
-                  'makeWithdrawal', 'bootstrapPage',
+                  'makeWithdrawal', 'bootstrapPage', 'verifyAccount'
                 ]);
 
   dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -55,6 +55,7 @@
   require('./angular/directives/sendMessage');
   require('./angular/directives/makeWithdrawal');
   require('./angular/directives/userProfile');
+  require('./angular/directives/verifyAccount');
    // require('./angular/directives/timer');
    //
    //

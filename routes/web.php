@@ -190,6 +190,8 @@ Route::middleware(['before'])->group( function () {
 
 Route::group(['prefix' => 'user'], function () {
   Route::any('/get-game-state', 'DashboardController@getGameState');
+
+  Route::post('/send-verification-mail', 'DashboardController@sendVerificationMail');
 });
 
 Route::group(['prefix' => 'user'], function () {

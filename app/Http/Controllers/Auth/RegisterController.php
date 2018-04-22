@@ -75,8 +75,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
       // dd(request()->input());
-      // $token = str_random( 100 );
-      // TransactionalMail::newRegistration($token);
+      $token = str_random( 100 );
+      TransactionalMail::sendverificationMail($token);
 
       DB::beginTransaction();
 

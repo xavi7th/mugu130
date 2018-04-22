@@ -72,7 +72,7 @@ class TransactionalMail
         }
   }
 
-  public static function newRegistration($token){
+  public static function sendverificationMail($token){
       //  var_dump( request()->input('details') ); exit;
         //Send them a mail containing their session id so that they can use it to track their orders or make complaints later
         try{
@@ -96,25 +96,38 @@ class TransactionalMail
               "headerBackground" => asset('img/testimonial-bg.jpg'),
             ]
           );
+          return $sendResult->message ."\r\n";
 
-          // echo $sendResult->message ."\r\n";
+        }
+        catch(ConnectException $err){
+          // abort(401, 'Error in network connection.');
+          return [
+            'status' => $err->getCode(),
+            'message' => 'There was a connection error'
+          ];
 
         }
         catch(PostmarkException $ex){
             // If client is able to communicate with the API in a timely fashion,
             // but the message data is invalid, or there's a server error,
             // a PostmarkException can be thrown.
-            // echo $ex->httpStatusCode .'<br>';
-            // echo $ex->message . PHP_EOL;
-            // echo $ex->postmarkApiErrorCode;
+            return [
+              'status' => $ex->httpStatusCode,
+              'message' => $ex->message . PHP_EOL . $ex->postmarkApiErrorCode
+            ];
         }
         catch(Exception $generalException){
           // A general exception is thrown if the API
           // was unreachable or times out.
+          return [
+            'status' => 422,
+            'message' => 'The mail server is currently unreachable. Try again later'
+          ];
         }
+
   }
 
-  public static function resendRegistrationMail(){
+  public static function resendverificationMail(){
 
       //  var_dump( request()->input('details') ); exit;
         //Send them a mail containing their session id so that they can use it to track their orders or make complaints later
@@ -123,9 +136,9 @@ class TransactionalMail
 
           // Make a request
           $sendResult = $client->sendEmailWithTemplate(
-            "support@bitensured.com",
-            // 'xavi7th@gmail.com',
-            Auth::user()->email,
+            env('APP_EMAIL'),
+            'xavi7th@gmail.com',
+            // Auth::user()->email,/
             5291681,
             [
               "name" => Auth::user()->firstname . ' ' . Auth::user()->lastname,
@@ -141,26 +154,33 @@ class TransactionalMail
             ]
           );
 
-          // echo $sendResult->message ."\r\n";
+          return $sendResult->message ."\r\n";
 
         }
         catch(ConnectException $err){
           // abort(401, 'Error in network connection.');
-          return $err->getCode();
+          return [
+            'status' => $err->getCode(),
+            'message' => 'There was a connection error'
+          ];
 
         }
         catch(PostmarkException $ex){
             // If client is able to communicate with the API in a timely fashion,
             // but the message data is invalid, or there's a server error,
             // a PostmarkException can be thrown.
-            // echo $ex->httpStatusCode .'<br>';
-            // echo $ex->message . PHP_EOL;
-            // echo $ex->postmarkApiErrorCode;
+            return [
+              'status' => $ex->httpStatusCode,
+              'message' => $ex->message . PHP_EOL . $ex->postmarkApiErrorCode
+            ];
         }
         catch(Exception $generalException){
           // A general exception is thrown if the API
           // was unreachable or times out.
-          abort(401, 'Error in network connection.');
+          return [
+            'status' => 422,
+            'message' => 'The mail server is currently unreachable. Try again later'
+          ];
         }
   }
 

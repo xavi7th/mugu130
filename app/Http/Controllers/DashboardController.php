@@ -430,4 +430,15 @@ class DashboardController extends Controller
     public function deleteNotice() {
       return ['status' => Notice::find(request()->input('details.id'))->delete()];
     }
+
+    public function sendVerificationMail() {
+      $rsp = Auth::user()->sendVerificationMail();
+
+      if (is_array($rsp)) {
+        return response()->json(['message' => $rsp['message'] ], $rsp['status']);
+      }
+      else {
+        return ['message' => $rsp];
+      }
+    }
 }

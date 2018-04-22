@@ -276,6 +276,10 @@ class User extends Authenticatable{
       return $this->verified;
     }
 
+    public function sendVerificationMail(){
+      return TransactionalMail::sendRegistrationMail($this->email);
+    }
+
   	/**
   	 * Overrides the inherent password reset mail sender
   	 *
