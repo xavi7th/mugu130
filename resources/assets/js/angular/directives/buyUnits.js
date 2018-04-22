@@ -19,7 +19,7 @@ var url = `
       <div class="image content flex-center">
         <div class="ui form">
           <div class="inline field">
-            <input type="number" placeholder="{{ amt_per_unit  | currency }} / unit" ng-model="requested_amount">
+            <input type="number" placeholder="{{ amt_per_unit  | currency }} / unit" ng-model="requested_amount" ng-min="300">
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@ angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendReque
 		},
     controller: ['$scope',  ($scope) => {
 
-      $scope.amt_per_unit = 5;
+      $scope.amt_per_unit = 1;
 
       $scope.openModal = () => {
         $('.ui.modal.buyUnits').modal({

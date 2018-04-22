@@ -4,6 +4,13 @@
   <section id="dashboard">
     <div class="grid-container">
       <div class="grid-100">
+        <div class="ui search flex-center" style="justify-content:flex-end">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search users..." ng-model="search">
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
         <div class="ui red segment">
           <table class="ui  striped celled table">
             <thead>
@@ -16,7 +23,7 @@
             </thead>
             <tbody>
 
-              <tr ng-repeat="u in users">
+              <tr ng-repeat="u in users | filter : search">
                 <td>{{ $index + 1 }}</td>
                 <td><span style="cursor:pointer;" ng-click="previewUser(u)">{{ u.firstname }} {{ u.lastname }}</span></td>
                 <td>{{ u.email }}</td>
@@ -27,6 +34,8 @@
                     <button class="ui teal button" ng-click="suspendUser(u)" ng-show="u.useraccstatus == 'active'">Suspend</button>
                     <div class="or"></div>
                     <button class="ui purple button" ng-click="verifyUser(u)" ng-hide="u.verified">Verify</button>
+                    <div class="or"></div>
+                    <button class="ui green button" ng-click="openReferralsModal(u)">View Referrals</button>
                     <div class="or"></div>
                     <button class="ui red button" ng-click="deleteUser(u)">Delete</button>
                     <div class="or"></div>
@@ -110,6 +119,31 @@
         </div>
         <button type="submit" class="ui button green" tabindex="0">Submit</button>
       </form>
+    </div>
+
+  </div>
+
+  <div class="ui modal userReferrals transition hidden">
+    <div class="ui blue dash_header header">
+      <h1>{{ u.firstname }}'s Referrals</h1>
+    </div>
+
+    <div class="ui blue stacked segment">
+      <div class="ui cards">
+        <div class="card" style="width:280px;" ng-repeat="ref in referrals">
+          <div class="content">
+            <div class="center aligned header">{{ ref.referral.firstname }} {{ ref.referral.lastname }}</div>
+            <div class="center aligned description">
+              <p>{{ ref.referral.email }}</p>
+            </div>
+          </div>
+          <div class="extra content">
+            <div class="center aligned author">
+              <span>Date Added:</span>  {{ ref.created_at | timeAgo }}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>

@@ -203,7 +203,7 @@ class User extends Authenticatable{
     public function updateUserDetails() {
       // return request()->all();
       DB::beginTransaction();
-        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased'] ) );
+        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password'] ) );
       DB::commit();
 
       return true;
@@ -227,13 +227,12 @@ class User extends Authenticatable{
       $this->save();
     }
 
-    public function debitAccount(){
-      $this->available_units = $this->available_units - request()->input('details.amt') - env('WITHDRAWAL_FEE');
+    public function debitAccount($amount){
+      $this->available_units = $this->available_units - $amount;
       $this->save();
 
       Earning::adminEarning(0, env('WITHDRAWAL_FEE'));
     }
-
 
     public function sendMessage() {
       // return request()->all();

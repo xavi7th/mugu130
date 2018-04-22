@@ -19,7 +19,7 @@ var url = `
       <div class="image content flex-center">
         <div class="ui form">
           <div class="inline field">
-            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="100">
+            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="150">
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification'
                    console.log(rsp);
                    console.log($scope);
                    if (rsp.status == 422) {
-                     Notification.error('Error processing request');
+                     Notification.error(rsp.data.message);
                    }
                    else if (rsp.status == 200) {
                      if (rsp.data.status) {

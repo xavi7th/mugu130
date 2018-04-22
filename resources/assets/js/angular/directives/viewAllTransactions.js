@@ -4,6 +4,13 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
+      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
       <div ng-show="!transactionrecord">
         <table class="ui  striped celled table">
           <thead>
@@ -19,7 +26,7 @@ var url = `
           </thead>
           <tbody>
 
-            <tr ng-repeat="trans in transactions" ng-class="{'negative' : trans.trans_type == 'Admin Correction'}">
+            <tr ng-repeat="trans in transactions | filter : search" ng-class="{'negative' : trans.trans_type == 'Admin Correction'}">
               <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>
               <td>{{ trans.trans_type }}</td>
               <td>{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
@@ -51,6 +58,7 @@ var url = `
       </div>
 
       <div ng-show="transactionrecord" class="grid-80 prefix-10">
+
         <div class="ui teal buttons">
           <button class="ui labeled icon button" ng-click="goBack()">
             <i class="left chevron icon"></i>
@@ -177,6 +185,7 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['$lo
                   .then( rsp => {
                     if (rsp.status == 200) {
                       $scope.transactions = rsp.data.transactions;
+                      NProgress.done();
                     }
                   });
     }]

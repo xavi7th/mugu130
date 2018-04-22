@@ -7,6 +7,11 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', '$
      controller: 'DashboardController'
    })
 
+   .when(route_root + '/settings', {
+     templateUrl: 'angular/views/admin/settings.html',
+     controller: 'SettingsController'
+   })
+
    .when(route_root + '/questions', {
      templateUrl: 'angular/views/admin/questions.html',
      controller: 'QuestionsController'

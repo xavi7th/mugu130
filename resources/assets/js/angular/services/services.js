@@ -1,5 +1,4 @@
-
-  angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$sessionStorage', function ($http, $q, $sessionStorage) {
+ angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$sessionStorage', function ($http, $q, $sessionStorage) {
 
     var data = {};
     return {
@@ -309,8 +308,6 @@
                     Notification.error('Error retrieving questions from server');
                   });
 
-
-
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
@@ -318,10 +315,10 @@
               NProgress.done();
             }, 500);
           });
-          scope.$on('$destroy', function() {
-            $timeout(function () {
-            }, 0);
-          });
+          // scope.$on('$destroy', function() {
+          //   $timeout(function () {
+          //   }, 0);
+          // });
 
         },
 
@@ -414,8 +411,8 @@
             }, 500);
           });
           scope.$on('$destroy', function() {
-            $timeout(function () {
-            }, 0);
+            // $timeout(function () {
+            // }, 0);
           });
 
         },
@@ -432,6 +429,19 @@
             }, 0);
           });
 
+        },
+
+        settings:  (scope)  => {
+          sendRequest.getBanks('/api/get-banks-list')
+                   .then(function (rsp) {
+                     scope.banks = rsp.banks;
+                   });
+          scope.$on('$viewContentLoaded', function() {
+             $timeout(function () {
+               $('#edit .item').tab();
+               $('.dropdown_menu').dropdown();
+             }, 500);
+           });
         },
      	};
      }]);

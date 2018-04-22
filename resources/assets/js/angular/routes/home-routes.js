@@ -13,7 +13,7 @@
        controller: 'RegisterController'
      })
 
-     .when('/ref/:refcode', {
+     .when('/register/ref/:refcode', {
        controller: 'RegisterController'
      })
 

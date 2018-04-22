@@ -62,9 +62,12 @@
             font-weight: 100; margin-bottom: 0px;">Update Password</h1>
             <div class="ui divider"></div>
             <div class="field">
+              <input type="text" name="password" placeholder="Enter old password" required ng-model="userdetails.old_password">
+            </div>
+            <div class="field">
               <input type="text" name="password" placeholder="Provide new password" required ng-model="userdetails.password">
             </div>
-            <button class="ui blue button" type="submit">Update Password</button>
+            <button class="ui blue button" type="button" ng-click="updatePassword()">Update Password</button>
           </form>
           <div class="ui icon message">
             <i class="attention icon"></i>

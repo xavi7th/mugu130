@@ -102,18 +102,25 @@ class AdminController extends Controller
     }
 
     public function deleteAdmin(){
+      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+        return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
+      }
       if (User::adminDeletable()) {
         return [
           'status' => User::find(request()->input('details.id'))->delete()
         ];
       }
       else {
-        return response()->json(['status' => 'Last Admin not deletable' ], 403);
+        return response()->json(['message' => 'Last Admin not deletable' ], 410);
       }
 
     }
 
     public function createAdmin(){
+
+      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+        return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
+      }
       User::unguard();
         return [
           'status' => User::find(request()->input('details.id'))->update([
@@ -123,6 +130,9 @@ class AdminController extends Controller
     }
 
     public function removeAdmin(){
+      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+        return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
+      }
       User::unguard();
 
         return [
@@ -352,6 +362,13 @@ class AdminController extends Controller
     public function getAllUserEarnings(){
       return [
         'earnings' => Earning::where('user_id', request()->input('details.id'))->get()
+      ];
+    }
+
+    public function getUserReferrals(){
+      // return request()->all();
+      return [
+        'referrals' => User::find(request('details'))->referrals()->with('referral')->get()
       ];
     }
 

@@ -149,25 +149,25 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
       }).modal('show');
     };
 
-
-  $scope.createAdmin = () => {
-    NProgress.start();
-
-    sendRequest.postRequest(route_root + '/api/create-admin', $scope.q)
-                .then(rsp => {
-                  if (rsp.status == 200) {
-                    $('.ui.modal.createAdmin').modal('hide');
-                    Notification.success('Created');
-                    $scope.correct = null;
-                    $scope.q = null;
-                    console.log($scope.admins);
-                    console.log(rsp.data.status);
-                    $scope.admins.push(rsp.data.status);
-                    NProgress.done();
-
-                  }
-                });
-  };
+  //
+  // $scope.createAdmin = () => {
+  //   NProgress.start();
+  //
+  //   sendRequest.postRequest(route_root + '/api/create-admin', $scope.q)
+  //               .then(rsp => {
+  //                 if (rsp.status == 200) {
+  //                   $('.ui.modal.createAdmin').modal('hide');
+  //                   Notification.success('Created');
+  //                   $scope.correct = null;
+  //                   $scope.q = null;
+  //                   console.log($scope.admins);
+  //                   console.log(rsp.data.status);
+  //                   $scope.admins.push(rsp.data.status);
+  //                   NProgress.done();
+  //
+  //                 }
+  //               });
+  // };
 
   $scope.deleteAdmin = (q) => {
     NProgress.start();
@@ -179,8 +179,8 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
                     $scope.admins.splice(removed, 1);
 
                   }
-                  else if (rsp.status == 403) {
-                    Notification.error(rsp.data.status);
+                  else if (rsp.status == 410) {
+                    Notification.error(rsp.data.message);
                   }
                   NProgress.done();
 
@@ -197,8 +197,8 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
                     $scope.admins.splice(removed, 1);
 
                   }
-                  else if (rsp.status == 403) {
-                    Notification.error(rsp.data.status);
+                  else if (rsp.status == 410) {
+                    Notification.error(rsp.data.message);
                   }
                   NProgress.done();
 
@@ -260,6 +260,25 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
       }).modal('show');
     };
 
+  $scope.openReferralsModal = (u) => {
+
+    sendRequest.postRequest(route_root + '/api/get-user-referrals', u.id)
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    $scope.u = u;
+                    $scope.referrals = rsp.data.referrals;
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+
+    $('.ui.modal.userReferrals').modal({
+      blurring: true
+    }).modal('show');
+  };
+
   $scope.deleteUser = (u) => {
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/delete-user', u)
@@ -277,7 +296,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                 });
   };
 
-
   $scope.suspendUser = (u) => {
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/suspend-user', u)
@@ -294,7 +312,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                 });
   };
 
-
   $scope.verifyUser = (u) => {
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/verify-user', u)
@@ -309,7 +326,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                   NProgress.done();
                 });
   };
-
 
   $scope.processCreditAddition = (u) => {
     NProgress.start();
@@ -327,7 +343,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                 });
   };
 
-
   $scope.makeAdmin = (u) => {
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/create-admin', u)
@@ -337,13 +352,12 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                     var removed = $scope.users.indexOf(u);
                     $scope.users.splice(removed, 1);
                   }
-                  else if (rsp.status == 403) {
-                    Notification.error(rsp.data.status);
+                  else if (rsp.status == 410) {
+                    Notification.error(rsp.data.message);
                   }
                   NProgress.done();
                 });
   };
-
 
   bootstrapAdminPage.users($scope);
 
@@ -379,4 +393,38 @@ admin.controller('EarningsController', ['$scope', 'Notification', 'sendRequest',
 
   bootstrapAdminPage.games($scope);
 
+}]);
+
+admin.controller('SettingsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
+  NProgress.start();
+
+  $scope.updateDetails = () => {
+    sendRequest.postRequest('/user/update-user-details', $scope.userdetails)
+              .then(function (rsp) {
+                Notification.success({ message: 'Updated', positionX:'center' });
+              });
+  };
+
+  $scope.updatePassword = () => {
+    if (!$scope.userdetails.old_password || !$scope.userdetails.password) {
+      Notification.error('Old and new password required');
+      return;
+    }
+    sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password)
+              .then(function (rsp) {
+                if (rsp.status == 423) {
+                  Notification.error('Old password mismatch');
+                }
+                else if (rsp.status == 200){
+                  if (rsp.data.status) {
+                    console.log('here');
+                    $scope.updateDetails();
+                  }
+                }
+              });
+  };
+
+  bootstrapAdminPage.settings($scope);
+
+  NProgress.done();
 }]);

@@ -40,6 +40,25 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
               });
   };
 
+  $scope.updatePassword = () => {
+    if (!$scope.userdetails.old_password || !$scope.userdetails.password) {
+      Notification.error('Old and new password required');
+      return;
+    }
+    sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password)
+              .then(function (rsp) {
+                if (rsp.status == 423) {
+                  Notification.error('Old password mismatch');
+                }
+                else if (rsp.status == 200){
+                  if (rsp.data.status) {
+                    console.log('here');
+                    $scope.updateDetails();
+                  }
+                }
+              });
+  };
+
   bootstrapPage.settings($scope);
 
   NProgress.done();

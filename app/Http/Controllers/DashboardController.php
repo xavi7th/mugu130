@@ -312,8 +312,16 @@ class DashboardController extends Controller
 
     public function requestWithdrawal(){
 
-      if (Auth::user()) {
-        # code...
+      if (Auth::user()->available_units < request()->input('details.amt')) {
+        return response()->json(['message' => 'Insufficient funds' ], 422);
+      }
+
+      if (!Auth::user()->verified) {
+        return response()->json(['message' => 'User account not yet verified' ], 422);
+      }
+
+      if (Auth::user()->acct_no == null ||  Auth::user()->phone1 == null) {
+        return response()->json(['message' => 'Account profile incomplete' ], 422);
       }
 
       if (request()->input('details.amt') <= 1000) {
@@ -335,7 +343,7 @@ class DashboardController extends Controller
         //add a notice for the user
 
         //remove the units from his acc so that he cannot use it meanwhile
-        Auth::user()->debitAccount();
+        Auth::user()->debitAccount($amount);
 
       DB::commit();
 
@@ -375,6 +383,16 @@ class DashboardController extends Controller
     public function getUserDetails() {
       return [
         'userdetails' => Auth::user()->load('notices', 'messages'),
+      ];
+    }
+
+    public function confirmUserPassword(){
+      // return request()->input('details');
+      if (Auth::user()->unencpass != request()->input('details')) {
+        return response()->json(['message' => 'Old password missmatch' ], 423);
+      }
+      return [
+        'status' =>  true,
       ];
     }
 

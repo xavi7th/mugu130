@@ -48,9 +48,9 @@ Route::middleware(['before'])->group( function () {
   //   return $grouped->toArray();
   // });
 
-  Route::view('/about', 'welcome');
+  // Route::view('/about', 'welcome');
 
-  Route::view('/demo-play', 'demo-play')->name('demo.play');
+  Route::view('/demo-play', 'demo-play')->name('demo.play')->middleware('guest');
 
   Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
 
@@ -89,32 +89,22 @@ Route::middleware(['before'])->group( function () {
 
   })->name('verify.check');
 
-  //
-  // Route::get('/register/{referral_code?}', function ($referral_code = null) {
-  //
-  //   $refdetails = User::where('username', $referral_code)->first();
-  //
-  //   $refdetails = is_null($refdetails) ? collect([]) : $refdetails->only(['id', 'username', 'email']);
-  //
-  //   return view( 'auth.register', compact('refdetails'));
-  // })->middleware('guest');
-  //
-  Route::get('/ref/{referral_code}', function ($referral_code = '00000') {
+  Route::get('/register/ref/{referral_code}', function ($referral_code = '00000') {
 
     $refdetails = User::where('refcode', $referral_code)->first();
 
     // $refdetails = is_null($refdetails) ? collect(['email'=>null, 'id'=>null]) : $refdetails->only(['id', 'email']);
 
-    $refdetails = is_null($refdetails) ? abort(404) : $refdetails->only(['id', 'email']);
+    $refdetails = is_null($refdetails) ? abort(410, 'User not found') : $refdetails->only(['id', 'email']);
 
     return view( 'welcome', compact('refdetails'));
   })->middleware('guest')->name('referral');
 
   Auth::routes();
 
-  Route::view('/register', 'welcome')->name('register');
+  Route::view('/register', 'welcome')->name('register')->middleware('guest');
 
-  Route::view('/login', 'welcome')->name('login');
+  Route::view('/login', 'welcome')->name('login')->middleware('guest');
 
   Route::post('/get-deno-questions', function () {
     DemoGameSession::new();
@@ -225,6 +215,8 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/received-withdrawal', 'DashboardController@receivedWithdrawal');
 
   Route::post('/dispute-withdrawal', 'DashboardController@disputeWithdrawal');
+
+  Route::post('/confirm-user-password', 'DashboardController@confirmUserPassword');
 
   Route::post('/update-user-details', 'DashboardController@updateUserDetails');
 
@@ -363,7 +355,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
   Route::group(['prefix' => 'api'], function () use($c) {
 
-    Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
+    // Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
 
     Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
 
@@ -408,6 +400,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/mark-transaction-as-paid', $c.'markTransactionAsPaid');
 
     Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+    Route::post('/get-user-referrals', $c.'getUserReferrals');
 
     Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
 
