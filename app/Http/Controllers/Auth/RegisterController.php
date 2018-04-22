@@ -35,7 +35,8 @@ class RegisterController extends Controller
      */
     // protected $redirectTo = '/dashboard';
     protected function redirectTo(){
-        return route('dashboard');
+      session(['NEW_REG' => true]);
+        return route('register.success');
     }
 
     /**
@@ -56,13 +57,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-      // dd($data); exit;
+      // _dd($data); exit;
         return Validator::make($data, [
+            'terms' => 'required|accepted',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:4|max:255|confirmed',
             'firstname' => 'required|string|username|max:255',
             'lastname' => 'required|string|username|max:255',
-            'referrer_email' => 'required|string|email|max:100|exists:users,email'
+            'referrer_email' => 'sometimes|nullable|string|email|max:100|exists:users,email'
         ]);
     }
 
@@ -91,7 +93,9 @@ class RegisterController extends Controller
         ]);
 
         // Create a record for this referrer
-        Referral::new(request()->input('referrer_id'), $user->id );
+        if (request()->input('referrer_id')) {
+          Referral::new(request()->input('referrer_id'), $user->id );
+        }
 
       DB::commit();
 

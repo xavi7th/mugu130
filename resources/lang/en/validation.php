@@ -139,6 +139,10 @@ return [
         'bitcoinacc' => [
             'unique' => 'Bitcoin Wallet Address already in use',
         ],
+        'terms' => [
+            'required' => 'You must accept the terms and conditions',
+            'accepted' => 'You must accept the terms and conditions',
+        ],
 
     ],
 

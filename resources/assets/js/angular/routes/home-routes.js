@@ -17,6 +17,10 @@
        controller: 'RegisterController'
      })
 
+     .when('/register/success', {
+       controller: 'RegisterController'
+     })
+
      .when('/demo-play', {
        templateUrl: 'angular/views/demo/index.html',
        controller: 'DemoGameController'

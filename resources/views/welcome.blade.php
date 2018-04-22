@@ -88,12 +88,22 @@
                     <div class="field">
                       <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}">
                     </div>
+                    <div class="field">
+                      <div class="ui segment">
+                          <div class="ui toggle checkbox">
+                          <input type="checkbox" name="public" name="terms">
+                          <label>Agree to terms and conditions</label>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <hr>
                     <h3>Referrer Details</h3>
                     <div class="field">
                       <input type="text" name="referrer.email" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['email'] ?? null }}">
                       <input type="hidden" name="referrer.id" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['id'] ?? null }}">
                     </div>
+
                     <button type="submit" style="background-color: #135482;" class="ui fluid orange button">REGISTER</button>
                   </form>
                 </div>

@@ -100,6 +100,18 @@ Route::middleware(['before'])->group( function () {
     return view( 'welcome', compact('refdetails'));
   })->middleware('guest')->name('referral');
 
+  Route::get('/register/success', function () {
+
+    if (!session('NEW_REG')) {
+      return redirect()->route('register');
+    }
+
+    session()->forget('NEW_REG');
+
+    return view( 'auth.register-success');
+
+  })->middleware('guest')->name('register.success');
+
   Auth::routes();
 
   Route::view('/register', 'welcome')->name('register')->middleware('guest');
