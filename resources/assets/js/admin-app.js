@@ -6,7 +6,7 @@
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
                   'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions',
-                  'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings'
+                  'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction'
 
                 ]);
 
@@ -60,6 +60,7 @@
   require('./angular/directives/allEarnings');
   require('./angular/directives/adminEarnings');
   require('./angular/directives/gameEarnings');
+  require('./angular/directives/confirmAction');
 
 
   require('./angular/routes/admin-routes');
