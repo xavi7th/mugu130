@@ -91,12 +91,12 @@
                     <div class="field">
                       <div class="ui segment">
                           <div class="ui toggle checkbox">
-                          <input type="checkbox" name="public" name="terms">
+                          <input type="checkbox" name="terms">
                           <label>Agree to terms and conditions</label>
                         </div>
                       </div>
                     </div>
-                    
+
                     <hr>
                     <h3>Referrer Details</h3>
                     <div class="field">
@@ -104,7 +104,7 @@
                       <input type="hidden" name="referrer.id" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['id'] ?? null }}">
                     </div>
 
-                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button">REGISTER</button>
+                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action">REGISTER</button>
                   </form>
                 </div>
 
@@ -122,7 +122,7 @@
                     <div class="field">
                       <input type="password" name="password" placeholder="Enter Password" required>
                     </div>
-                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button">LOGIN</button>
+                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action">LOGIN</button>
                   </form>
                   <div id="forgot-pass" class="extra content">
                     <a href="#">forgot your password?</a>
@@ -136,16 +136,23 @@
 
       <section id="mid">
         <div class="grid-container">
-          <div class="grid-30">
+          <div class="grid-30 info">
             <h1>Tell a friend</h1>
             <p>
               Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
             </p>
           </div>
-          <div class="grid-50">
-            {{-- <img class="ui medium circular image" src="/assets/4.jpg"> --}}
-          </div>
         </div>
       </section>
 
+@endsection
+
+@section('customJS')
+  <script>
+    $('.action').click(function () {
+      $(this).addClass('loading');
+      // $(this).attr({'disabled': 'disabled'});
+      return true;
+    });
+  </script>
 @endsection

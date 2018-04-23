@@ -27,6 +27,11 @@
                  });
       };
 
+      $rootScope.closeModal = () => {
+        $('.ui.modal').modal('hide');
+      };
+
+
       $rootScope.$on("$routeChangeStart", function (event, next, current) {
         // TODO: Merge this tow to one server cal;l. Eager load the total Earning on the get user details
         sendRequest.getTotalEarnings('/user/get-total-earnings')

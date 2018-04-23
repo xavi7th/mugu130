@@ -1,8 +1,9 @@
 <div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
   <ng-include src="'angular/views/partials/menu.html'"></ng-include>
-  <div class="ui tall stacked segment" style="margin-top: 0;">
+
+  <div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
     <div class="grid-container">
-      <div class="grid-45 suffix-5">
+      <div class="mobile-grid-45 grid-45 suffix-5">
 
         <make-withdrawal></make-withdrawal>
         <div class="ui labeled  button" tabindex="-1">
@@ -15,12 +16,12 @@
         </div>
 
       </div>
-      <div class="grid-20">
+      <div class="mobile-grid-50 grid-20">
 
         <buy-units></buy-units>
 
       </div>
-      <div class="grid-20 push-10">
+      <div class="mobile-grid-50 grid-20 push-10">
 
         <verify-account></verify-account>
 

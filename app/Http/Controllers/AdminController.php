@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Game;
 use App\Earning;
@@ -80,6 +81,21 @@ class AdminController extends Controller
     }
 
     public function createQuestion(){
+      $rules = [
+              				'details.question' => 'required|string',
+              				'details.option_1' => 'required|string',
+              				'details.option_2' => 'required|string',
+              				'details.option_3' => 'required|string',
+              				'details.option_4' => 'required|string',
+              				'details.correct_option' => 'required|string',
+              			];
+
+              			$validator = Validator::make(request()->all(), $rules);
+
+              			if($validator->fails()){
+                      return response()->json(['errors' => $validator->messages() ], 422);
+              			}
+
         return [
           'status' => Question::create(request()->input('details'))
         ];

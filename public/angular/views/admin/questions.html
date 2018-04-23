@@ -164,7 +164,17 @@
     </div>
 
     <div class="ui stacked segment">
+      <div class="ui error message" ng-show="errs">
+        <i class="close icon"></i>
+        <div class="header">
+          Correct the following errors
+        </div>
+        <ul class="list">
+          <li ng-repeat="err in errs">{{ err[0] }}</li>
+        </ul>
+      </div>
       <form class="ui form" ng-submit="createQuestion()" name="create">
+
         <div class="field">
           <label>Question</label>
           <textarea ng-model="q.question" ng-required></textarea>

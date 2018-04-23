@@ -101,44 +101,29 @@ return [
     */
 
     'custom' => [
-        'details.amt' => [
-            'required' => 'The amount is required',
-            'numeric' => 'Amount is invalid. NaN error',
+        'details.question' => [
+            'required' => 'You must enter a question',
         ],
-        'details.acc' => [
-            'required' => 'You must accept the terms and conditions',
-            'accepted' => 'You must accept the terms and conditions',
-        ],
-        'details.username' => [
-            'unique' => '<br>That username has been taken',
+        'details.option_1' => [
+            'required' => 'You must enter option 1',
         ],
 
-        'details.accname' => [
-            'unique' => '<br>That account name has been taken',
+        'details.option_2' => [
+            'required' => 'You must enter option 2',
         ],
 
-        'details.email' => [
-            'unique' => '<br>That email has been taken',
+        'details.option_3' => [
+            'required' => 'You must enter option 3',
         ],
 
-        'details.phone' => [
-            'unique' => '<br>That phone number has been taken',
+        'details.option_4' => [
+            'required' => 'You must enter option 4',
         ],
 
-        'details.accnum' => [
-            'unique' => '<br>That account number has been taken',
+        'details.correct_option' => [
+            'required' => 'You must enter a correct option',
         ],
 
-        'username' => [
-            'username' => 'Username not valid'
-        ],
-
-        'phone' => [
-            'unique' => 'Phone number already in use',
-        ],
-        'bitcoinacc' => [
-            'unique' => 'Bitcoin Wallet Address already in use',
-        ],
         'terms' => [
             'required' => 'You must accept the terms and conditions',
             'accepted' => 'You must accept the terms and conditions',

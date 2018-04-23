@@ -356,4 +356,71 @@ td[ng-click]{
     margin: 0;
     padding: 0;
   }
+
+  .ui.buttons .button, .ui.buttons .or, .ui.button{
+    @include MQ(S){
+      font-size: 0.78571429rem !important;
+      padding-right: 1.2rem !important;
+
+      &.labeled{
+        margin-top: 5px;
+      }
+    };
+  }
+}
+
+div#main-controller{
+
+  @include MQ(S){
+
+    section#intro #form{
+      width: 90% !important;
+      margin-top: 15px;
+        z-index: 2;
+    }
+
+    section#mid{
+      position: relative !important;
+      height: 165vh !important;
+
+      .info{
+        position: absolute !important;
+        bottom: 20vh;
+      }
+    }
+
+    #dashboard{
+      padding-bottom: 120px;
+    }
+
+    header, .dashboard-actions{
+      .ui.button{
+        font-size: 0.78571429rem !important;
+      }
+    }
+
+    nav .right.floated{
+      float: left !important;
+    }
+
+    .ui.menu{
+      -ms-flex-wrap: wrap !important;
+          flex-wrap: wrap !important;
+      margin-bottom: 30px !important;
+      -webkit-box-pack: center !important;
+          -ms-flex-pack: center !important;
+              justify-content: center !important;
+    }
+
+    .ui.buttons{
+      -ms-flex-wrap: wrap !important;
+          flex-wrap: wrap !important;
+
+      button{
+        margin-bottom: 10px;
+      }
+    }
+
+  }
+
 }

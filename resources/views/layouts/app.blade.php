@@ -29,13 +29,15 @@
 		<div id="main-controller" >
 	    <header id="alpha">
 	      <div class="grid-container">
-	        <div class="grid-50">
+	        <div class="grid-50 mobile-grid-30">
 	          <img src="/img/logo.png" alt="">
 	        </div>
-	        <div class="grid-50">
-						<mini-game-state style="float:right !important;">
-							<b style="margin-right:1%;">GAME STATUS:</b>
-						</mini-game-state>
+	        <div class="grid-50 mobile-grid-70">
+						@if (!Route::is('demo.play'))
+							<mini-game-state class="mini" style="float:right !important;">
+								<b style="margin-right:1%;">STATUS:</b>
+							</mini-game-state>
+						@endif
 	        </div>
 	      </div>
 	    </header>
@@ -43,7 +45,7 @@
 			@yield('contents')
 
 
-	    <footer style="position: fixed; width: 100%; bottom: 0;">
+	    <footer style="position: fixed; width: 100%; bottom: 0; z-index:2;">
 	      @include('partials.footer-content')
 	    </footer>
 	  </div>

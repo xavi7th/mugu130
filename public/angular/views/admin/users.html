@@ -55,6 +55,9 @@
 
   <div class="ui modal editUser transition hidden">
     <div class="header">
+      <button class="ui large icon button close" ng-click="closeModal()">
+        <i class="reply icon"></i>
+      </button>
       User Details
     </div>
 
@@ -125,8 +128,14 @@
 
   <div class="ui modal userReferrals transition hidden">
     <div class="ui blue dash_header header">
-      <h1>{{ u.firstname }}'s Referrals</h1>
+      <h1>
+        <button class="ui large icon button close" ng-click="closeModal()">
+          <i class="reply icon"></i>
+        </button>
+        {{ u.firstname }}'s Referrals
+      </h1>
     </div>
+
 
     <div class="ui blue stacked segment">
       <div class="ui cards">
@@ -150,6 +159,9 @@
 
   <div class="ui modal creditUser transition hidden">
     <div class="header">
+      <button class="ui large icon button close" ng-click="closeModal()">
+        <i class="reply icon"></i>
+      </button>
       Add / Subtract User Units
     </div>
 

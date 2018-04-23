@@ -8,7 +8,7 @@ var url = `
 
   <div class="ui compact menu">
     <a class="item">
-      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>
+      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()" ng-if="!display_results"></countdown-timer>
     </a>
   </div>
 

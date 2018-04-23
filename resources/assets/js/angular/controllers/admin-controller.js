@@ -77,6 +77,9 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
                     NProgress.done();
 
                   }
+                  else if (rsp.status == 422) {
+                    $scope.errs = rsp.data.errors;
+                  }
                 });
   };
 

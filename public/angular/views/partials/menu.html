@@ -1,16 +1,16 @@
 <header id="alpha" style="background: #035596;
 border-bottom: 2px solid #fff;">
   <div class="grid-container">
-    <div class="grid-20">
+    <div class="grid-20 mobile-grid-20">
       <img src="/img/logo.png" alt="">
     </div>
-    <div class="grid-80">
+    <div class="grid-80 mobile-grid-80">
       <nav>
         <mini-game-state></mini-game-state>
 
         <div class="ui labeled button" tabindex="-1">
           <div class="ui blue button">
-            <i class="heart icon"></i> Available Units
+            Available Units
           </div>
           <a class="ui basic blue label">
             {{ userdetails.available_units | currency }}

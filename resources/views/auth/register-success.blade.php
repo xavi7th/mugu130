@@ -36,6 +36,48 @@
   .massive{
     margin-bottom: 45px !important;
   }
+
+  .ui.statistic .text.value{
+    font-size: 3em !important; min-height: 1.5em !important; font-weight: normal !important;
+  }
+
+  .ui.statistic .label{
+    color:#999; text-transform: none; font-size: 1.5rem !important; font-weight: normal !important;
+  }
+
+  @media (max-width:767px) {
+    .circular.segment{
+      height: 70px;
+      width: 70px;
+      margin-top: 50px !important;
+      margin-bottom: 50px !important;
+      padding-left: 18px !important;
+    }
+
+    .circular.segment h2{
+      line-height: 20px;
+    }
+
+    .statistic{
+      margin-bottom: 25px !important;
+    }
+
+    .massive{
+      margin-bottom: 25px !important;
+    }
+
+    .ui.statistic  .text.value{
+      font-size: 2rem !important;
+    }
+
+    .ui.statistic .label{
+      font-size: 1rem !important;
+    }
+
+    .ui.header > .icon{
+      font-size: 1em !important;
+    }
+  }
 </style>
 @endsection
 
@@ -56,10 +98,10 @@
 
           <div class="grid-100 flex-center">
             <div class="ui statistic">
-              <div class="text value" style="font-size: 3em !important; min-height: 1.5em !important; font-weight: normal !important;">
+              <div class="text value">
                 Congratulations
               </div>
-              <div class="label" style="color:#999; text-transform: none; font-size: 1.5rem !important; font-weight: normal !important;">
+              <div class="label">
                 You are the owner of a brand new FastPlay account.
               </div>
             </div>
