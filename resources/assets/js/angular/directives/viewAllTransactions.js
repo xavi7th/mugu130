@@ -142,7 +142,7 @@ var url = `
 `;
 
 
-angular.module('displayTransactions', []).directive('displayTransactions', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('displayTransactions', []).directive('displayTransactions', ['sendRequest', function (sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/transactionPlayTemplate.php',

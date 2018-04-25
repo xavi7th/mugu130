@@ -26,27 +26,6 @@ angular.module('questionField', []).directive('questionField', ['Notification', 
 		},
     controller: ['$scope',  ($scope) => {
 
-      // $scope.displayResults = () => {
-      //   sendRequest.postRequest('/user/end-exam', $scope.user_questions)
-      //            .then(function (rsp) {
-      //              delete $sessionStorage.user_questions;
-      //              delete $sessionStorage.extra;
-      //              delete $sessionStorage.options;
-      //
-      //              if (rsp.status == 422) {
-      //                Notification.error({ message: 'No active game in progress', positionX: 'center'});
-      //                $location.path('/dashboard');
-      //              }
-      //              else if (rsp.status == 200) {
-      //                if (rsp.data.status) {
-      //                  sendRequest.storeData('user_score', rsp.data.user_score);
-      //                  $localStorage.user_score = rsp.data.user_score;
-      //                  $location.path('/dashboard/display-results');
-      //                }
-      //              }
-      //            });
-      // };
-
     }]
   };
 }]);

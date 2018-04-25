@@ -1,4 +1,4 @@
- angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$sessionStorage', function ($http, $q, $sessionStorage) {
+ angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$localStorage', function ($http, $q, $localStorage) {
 
     var data = {};
     return {
@@ -66,20 +66,20 @@
           var deferred = $q.defer();
 
           if (flushStore) {
-            delete $sessionStorage.user_questions;
-            delete $sessionStorage.extra;
-            delete $sessionStorage.options;
+            delete $localStorage.user_questions;
+            delete $localStorage.extra;
+            delete $localStorage.options;
           }
 
-          if (!$sessionStorage.user_questions) {
+          if (!$localStorage.user_questions) {
             var _this = this;
             return this.postRequest(url)
                 .then(function (rsp) {
-                  $sessionStorage.user_questions = rsp.data.user_questions;
-                  return $sessionStorage.user_questions;
+                  $localStorage.user_questions = rsp.data.user_questions;
+                  return $localStorage.user_questions;
                 });
           }
-          deferred.resolve($sessionStorage.user_questions);
+          deferred.resolve($localStorage.user_questions);
           return deferred.promise;
         },
 

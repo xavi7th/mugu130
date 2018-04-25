@@ -106,7 +106,7 @@ var url = `
 
 
 
-angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', '$sessionStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, $sessionStorage, sendRequest) {
+angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -134,11 +134,11 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
         $scope.transition = true;
         alert('The game has ended');
         //Send a request to end the user's game and redirect to results display page
-        sendRequest.postRequest('/user/end-exam', $sessionStorage.user_questions)
+        sendRequest.postRequest('/user/end-exam', $localStorage.user_questions)
                  .then(function (rsp) {
-                   delete $sessionStorage.user_questions;
-                   delete $sessionStorage.extra;
-                   delete $sessionStorage.options;
+                   delete $localStorage.user_questions;
+                   delete $localStorage.extra;
+                   delete $localStorage.options;
 
                    if (rsp.status == 422) {
                      Notification.error({ message: 'No active game in progress', positionX: 'center'});
@@ -208,9 +208,9 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
         NProgress.start();
 
         delete $localStorage.user_score;
-        delete $sessionStorage.extra;
-        delete $sessionStorage.options;
-        delete $sessionStorage.user_questions;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+        delete $localStorage.user_questions;
 
         sendRequest.postRequest('/user/join-game')
                  .then (rsp => {

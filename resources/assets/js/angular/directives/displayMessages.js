@@ -86,7 +86,7 @@ var url = `
 `;
 
 
-angular.module('displayMessages', []).directive('displayMessages', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('displayMessages', []).directive('displayMessages', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/messagePlayTemplate.php',

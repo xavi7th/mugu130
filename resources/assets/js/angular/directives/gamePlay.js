@@ -95,7 +95,7 @@ var url = `
 `;
 
 
-angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', 'Notification', 'sendRequest', function ($location, $localStorage, Notification, sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
@@ -105,7 +105,7 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 
 		},
     controller: ['$scope',  ($scope) => {
-      $scope.lifelines = $sessionStorage;
+      $scope.lifelines = $localStorage;
       $scope.lifelines.extra = $scope.lifelines.extra || false;
       $scope.lifelines.options = $scope.lifelines.options || false;
 
@@ -118,9 +118,9 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 
         sendRequest.postRequest('/user/submit-exam', $scope.user_questions)
                  .then(function (rsp) {
-                   delete $sessionStorage.user_questions;
-                   delete $sessionStorage.extra;
-                   delete $sessionStorage.options;
+                   delete $localStorage.user_questions;
+                   delete $localStorage.extra;
+                   delete $localStorage.options;
 
                    if (rsp.status == 422) {
                      Notification.error({ message: 'No active game in progress', positionX: 'center'});
@@ -169,9 +169,9 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       $scope.displayResults = () => {
         sendRequest.postRequest('/user/end-exam', $scope.user_questions)
                  .then(function (rsp) {
-                   delete $sessionStorage.user_questions;
-                   delete $sessionStorage.extra;
-                   delete $sessionStorage.options;
+                   delete $localStorage.user_questions;
+                   delete $localStorage.extra;
+                   delete $localStorage.options;
 
                    if (rsp.status == 422) {
                      Notification.error({ message: 'No active game in progress', positionX: 'center'});

@@ -81,7 +81,7 @@ var url = `
 `;
 
 
-angular.module('gameEarnings', []).directive('gameEarnings', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('gameEarnings', []).directive('gameEarnings', ['$location','Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/earningPlayTemplate.php',

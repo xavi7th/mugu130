@@ -36,7 +36,7 @@ var url = `
 `;
 
 
-angular.module('liveGameSession', []).directive('liveGameSession', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('liveGameSession', []).directive('liveGameSession', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope: {},

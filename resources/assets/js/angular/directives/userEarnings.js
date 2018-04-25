@@ -72,10 +72,9 @@ var url = `
 `;
 
 
-angular.module('userEarnings', []).directive('userEarnings', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('userEarnings', []).directive('userEarnings', ['sendRequest', function (sendRequest) {
   return {
     restrict: 'E',
-    // templateUrl:'angular/directive-templates/earningPlayTemplate.php',
     template:url,
     replace: true,
     link: (scope, element, attributes) => {

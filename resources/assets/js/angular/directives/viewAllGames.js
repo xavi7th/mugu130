@@ -85,7 +85,7 @@ var url = `
 `;
 
 
-angular.module('viewAllGames', []).directive('viewAllGames', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
+angular.module('viewAllGames', []).directive('viewAllGames', ['sendRequest', function (sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
