@@ -28,7 +28,7 @@ $factory->define(App\User::class, function (Faker $faker) {
       'state' => $faker->state,
       'address' => $faker->address,
       'phone1' => $faker->unique()->e164PhoneNumber,
-      'phone2' => $faker->e164PhoneNumber,
+      'network' => $faker->randomElement(['mtn', 'airtel', 'etisalat', 'glo']),
       'bank' => $faker->word,
       'acct_no' => $faker->unique()->bankAccountNumber,
       'acct_type' => $faker->randomElement(['savings', 'current']),

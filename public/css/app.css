@@ -40554,6 +40554,13 @@ div#main-controller section#intro #form .ui.menu .active.item {
 
 div#main-controller section#mid {
   padding: 50px 0px 100px 0px;
+  background-color: #135482;
+  background-image: url("/img/4.jpg");
+  background-blend-mode: exclusion;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: calc(100vh - 420px);
 }
 
 div#main-controller section#mid h1 {
@@ -40568,6 +40575,7 @@ div#main-controller section#mid p {
 
 div#main-controller #dashboard {
   padding: 80px 0px 100px 0px;
+  min-height: calc(100vh - 210px);
 }
 
 div#main-controller #dashboard #card {
@@ -41422,11 +41430,20 @@ td[ng-click] {
   }
 }
 
+div#main-controller #resultWindow {
+  max-height: 55vh !important;
+  overflow-y: auto;
+}
+
 @media only screen and (max-width: 767px) {
   div#main-controller section#intro #form {
     width: 90% !important;
     margin-top: 15px;
     z-index: 2;
+  }
+
+  div#main-controller section#intro tr:nth-child(-n+3) p {
+    margin-top: 15% !important;
   }
 
   div#main-controller section#mid {
@@ -41467,5 +41484,21 @@ td[ng-click] {
   div#main-controller .ui.buttons button {
     margin-bottom: 10px;
   }
+
+  div#main-controller .ui.icon.message {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  div#main-controller #resultWindow .ui.tag.label {
+    top: -30px !important;
+  }
+}
+
+footer {
+  width: 100%;
+  background: #03A9F4;
 }
 

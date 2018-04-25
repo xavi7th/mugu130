@@ -371,12 +371,22 @@ td[ng-click]{
 
 div#main-controller{
 
+  #resultWindow{
+    max-height: 55vh !important;
+    overflow-y: auto;
+  }
+
   @include MQ(S){
 
-    section#intro #form{
-      width: 90% !important;
-      margin-top: 15px;
-        z-index: 2;
+    section#intro {
+      #form{
+        width: 90% !important;
+        margin-top: 15px;
+          z-index: 2;
+      }
+      tr:nth-child(-n+3) p {
+        margin-top: 15% !important;
+      }
     }
 
     section#mid{
@@ -421,6 +431,24 @@ div#main-controller{
       }
     }
 
+    .ui.icon.message{
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+    }
+
+    #resultWindow{
+      .ui.tag.label{
+        top: -30px !important;
+      }
+    }
+
   }
 
+}
+
+footer{
+  width: 100%;
+  background: #03A9F4;
 }

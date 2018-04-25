@@ -73,6 +73,8 @@ class Game extends Model{
 					$examinee->available_units = $examinee->available_units + env('GAME_CREDITS');
 					$examinee->save();
 
+					// exit;
+
 					$exam_records->first()->payment_status = 'nullified';
 					$exam_records->first()->save();
 

@@ -14,7 +14,7 @@
         </div>
       </div>
     </section>
-    <footer style="position: absolute; width: 100%; bottom: 0; background: #03A9F4;">
+    <footer >
       @include('layout.footer-content')
     </footer>
   </div>

@@ -36,7 +36,7 @@ class RegisterController extends Controller
     // protected $redirectTo = '/dashboard';
     protected function redirectTo(){
       session(['NEW_REG' => true]);
-        return route('register.success');
+      return route('register.success');
     }
 
     /**

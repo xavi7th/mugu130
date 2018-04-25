@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'verified' => \App\Http\Middleware\Verified::class,
         'suspended' => \App\Http\Middleware\Suspend::class,
         'admin' => \App\Http\Middleware\Admin::class,
+        'users' => \App\Http\Middleware\Users::class,
     ];
 }

@@ -55,12 +55,13 @@ div#main-controller{
 
   section#mid{
     padding: 50px 0px 100px 0px;
-    // background-color: #135482;
-    // background-image: url('/assets/4.jpg');
-    // background-blend-mode: exclusion;
-    // background-position: center;
-    // background-repeat: no-repeat;
-    // background-size: cover;
+    background-color: #135482;
+    background-image: url('/img/4.jpg');
+    background-blend-mode: exclusion;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 420px);
 
     h1{
       text-transform: uppercase;
@@ -74,6 +75,7 @@ div#main-controller{
 
   #dashboard{
     padding: 80px 0px 100px 0px;
+    min-height: calc(100vh - 210px);
     #card{
       text-align: center;
       //height: 300px;

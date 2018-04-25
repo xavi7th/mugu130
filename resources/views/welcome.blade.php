@@ -9,15 +9,14 @@
 
 @endsection --}}
 <style media="screen">
-  #main-controller{
-    min-height: 100vh;
+  /*#main-controller{
       position: relative;
       background-color: #135482;
       background-image: url(/img/4.jpg);
       background-blend-mode: exclusion;
       background-repeat: no-repeat;
       background-size: cover;
-  }
+  }*/
 </style>
 
 
@@ -91,7 +90,7 @@
                     <div class="field">
                       <div class="ui segment">
                           <div class="ui toggle checkbox">
-                          <input type="checkbox" name="terms">
+                          <input id="terms" type="checkbox" name="terms" required>
                           <label>Agree to terms and conditions</label>
                         </div>
                       </div>
@@ -149,10 +148,11 @@
 
 @section('customJS')
   <script>
-    $('.action').click(function () {
-      $(this).addClass('loading');
-      // $(this).attr({'disabled': 'disabled'});
-      return true;
-    });
+
+      $('.action').click(function () {
+        if ($('#terms:checked').length) {
+          $(this).addClass('loading');
+        }
+      });
   </script>
 @endsection

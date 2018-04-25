@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
           $table->text('address')->nullable();
           $table->string('status')->nullable()->default('unverified');
           $table->string('phone1')->nullable();
-          $table->string('phone2')->nullable();
+          $table->enum('network', ['mtn', 'airtel', 'etisalat', 'glo'])->nullable();
           $table->string('bank')->nullable();
           $table->string('acct_no')->nullable();
           $table->string('acct_type')->nullable();

@@ -4,7 +4,7 @@
 
 var url = `
 <div id="game">
-  <div id="card" class="ui segments" ng-if="game_state == 'loading'">
+  <div id="card" class="ui segments" ng-if="game_state == 'loading' && !transition">
     <!-- game load -->
     <div class="ui segment">
       <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
@@ -13,11 +13,11 @@ var url = `
     </div>
     <div class="ui segment">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
-      <button>game loading</button>
+      <button>Next game</button>
     </div>
   </div>
 
-  <div id="card" class="ui segments" ng-if="game_state == 'waiting'">
+  <div id="card" class="ui segments" ng-if="game_state == 'waiting' && !transition">
     <!-- game waiting -->
     <div class="ui segment">
       <div class="ui horizontal list">
@@ -51,7 +51,7 @@ var url = `
     </div>
   </div>
 
-  <div id="card" class="ui segments" ng-if="game_state == 'active'">
+  <div id="card" class="ui segments" ng-if="game_state == 'active' && !transition">
     <!-- game active -->
     <div class="ui segment">
       <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
@@ -60,11 +60,11 @@ var url = `
     </div>
     <div class="ui segment">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
-      <button style="cursor: pointer" ng-click="joinGame()">Join Game</button>
+      <button style="cursor: pointer" ng-click="joinGame()" ng-disabled="transition">Join Game</button>
     </div>
   </div>
 
-  <div id="card" class="ui segments" ng-if="game_state == 'paused'">
+  <div id="card" class="ui segments" ng-if="game_state == 'paused' && !transition">
     <!-- game paused -->
     <div class="ui segment">
       <div class="ui horizontal list">
@@ -84,13 +84,12 @@ var url = `
     </div>
   </div>
 
-  <div id="card" class="ui segments" ng-if="game_state == 'transition'">
+  <div id="card" class="ui segments" ng-if="transition">
     <!-- game loading network slow -->
     <div class="ui segment">
       <div class="ui horizontal list">
         <div class="ui violet label" style="font-size: 13px;">
-          <span style="padding-right: 10px;">Active Gamers</span>
-          <i class="users icon"></i> {{ total_examinees }}
+
         </div>
       </div>
     </div>
@@ -124,12 +123,15 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 		},
     controller: ['$scope', ($scope) => {
 
+      $scope.transition = true;
+
       if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
         $scope.user_score = $localStorage.user_score;
       }
 
       //when the game was paused, ends the user's incomplete game and displays the results
       $scope.endGameReload = function () {
+        $scope.transition = true;
         alert('The game has ended');
         //Send a request to end the user's game and redirect to results display page
         sendRequest.postRequest('/user/end-exam', $sessionStorage.user_questions)
@@ -154,7 +156,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
       //when the game was paused, take the user back to the game
       $scope.resumeGame = function () {
-        $scope.game_state = 'transition';
+        $scope.transition = true;
 
         sendRequest.postRequest('user/resume-game')
                     .then(()=>{
@@ -180,6 +182,8 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
       // refresh the game state and then redirect to the display results page
       $scope.displayResults = function () {
         NProgress.start();
+        $scope.transition = true;
+
 
         sendRequest.getGameState('/user/get-game-state')
                  .then( rsp => {
@@ -199,6 +203,8 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
 
       $scope.joinGame = () => {
+        $scope.transition = true;
+
         NProgress.start();
 
         delete $localStorage.user_score;
@@ -214,7 +220,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                    }
                    else if (rsp.status == 200) {
                      if (rsp.data.status) {
-                       $scope.game_state = 'transition';
+                       $scope.transition = true;
                        $location.path('/dashboard/game-play');
                      }
                    }
@@ -222,7 +228,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                      Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center'});
                    }
                    else if (rsp.status == 403) {
-                     $scope.game_state = 'transition';
+                     $scope.transition = true;
                      Notification.error({ message: 'Already in a game session.', positionX: 'center'});
                      $location.path('/dashboard/game-play');
 
@@ -237,6 +243,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                  $scope.game_state = rsp.game_state;
                  $scope.game_timer = rsp.game_timer;
                  $scope.total_examinees = rsp.total_examinees;
+                 $scope.transition = false;
                });
 
     }]

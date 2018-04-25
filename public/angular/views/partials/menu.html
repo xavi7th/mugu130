@@ -6,7 +6,7 @@ border-bottom: 2px solid #fff;">
     </div>
     <div class="grid-80 mobile-grid-80">
       <nav>
-        <mini-game-state></mini-game-state>
+        <mini-game-state ng-hide="hide"></mini-game-state>
 
         <div class="ui labeled button" tabindex="-1">
           <div class="ui blue button">
@@ -46,10 +46,10 @@ border-bottom: 2px solid #fff;">
         </div>
 
         <div class="ui mini compact right floated menu" style="margin-right:2em;">
-          <a href="/dashboard/messages" class="item notif">
+          <!-- <a href="/dashboard/messages" class="item notif">
             <i class="icon mail"></i> Messages
             <div class="floating ui red label" ng-if="_.dropRightWhile(userdetails.messages, ['read', true]).length > 0">{{ _.dropRightWhile(userdetails.messages, ['read', true]).length }}</div>
-          </a>
+          </a> -->
           <a href="/dashboard/notices" class="item notif">
             <i class="icon users"></i> Notices
             <div class="floating ui teal label" ng-if="_.dropRightWhile(userdetails.notices, ['read', true]).length > 0">{{ _.dropRightWhile(userdetails.notices, ['read', true]).length }}</div>

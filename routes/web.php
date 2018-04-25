@@ -150,34 +150,34 @@ Route::middleware(['before'])->group( function () {
     // nth-member = pow(CR, n-1) * firstmember
     $firstprice = ($total_stake/$sum) * (pow(1.06381, $max_winners - 1));
 
+    $count = 0;
+    foreach ($exam as $key => $value) {
+      if (isset($value['answered_option']) && $value['answered_option'] == $value['correct_option']) {
+        $count++;
+      }
+    }
 
-        $count = 0;
-        foreach ($exam as $key => $value) {
-            if (isset($value['answered_option']) && $value['answered_option'] == $value['correct_option']) {
-              $count++;
-            }
-        }
+    // if ($count == 10) {
+      DemoGameSession::where('session_id', session('demo_id'))->update([
+        'score' => $count,
+        'ended_at' => Carbon::now(),
+        'position' => 1,
+        'earning' => $user_earning = $firstprice + env('BASIC_PARTICIPATION_REWARD')
+      ]);
+    // }
 
-        if ($count == 10) {
-          DemoGameSession::where('session_id', session('demo_id'))->update([
-            'score' => $count,
-            'ended_at' => Carbon::now(),
-            'position' => 1,
-            'earning' => $user_earning = $firstprice
-          ]);
-        }
+    // else{
+    //   DemoGameSession::where('session_id', session('demo_id'))->update([
+    //     'score' => $count,
+    //     'ended_at' => Carbon::now(),
+    //     'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
+    //   ]);
+    // }
 
-        else{
-          DemoGameSession::where('session_id', session('demo_id'))->update([
-            'score' => $count,
-            'ended_at' => Carbon::now(),
-            'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
-          ]);
-        }
+    // generate users for the exam
+    $f = new DatabaseSeeder;
+    $f->call('DemoGameSessionsTableSeeder');
 
-        // generate users for the exam
-        $f = new DatabaseSeeder;
-        $f->call('DemoGameSessionsTableSeeder');
     DB::commit();
 
     return [
@@ -369,7 +369,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
   Route::group(['prefix' => 'api'], function () use($c) {
 
-    // Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
+    Route::post('/get-dashboard-page-details', function () {});
 
     Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
 

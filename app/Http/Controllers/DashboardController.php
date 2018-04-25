@@ -36,6 +36,7 @@ class DashboardController extends Controller
         $this->middleware('before');
         $this->middleware('auth')->except('getGameState');
         $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState');
+        $this->middleware('users')->except('suspended', 'getApiKey', 'getGameState', 'getUserDetails', 'updateUserDetails', 'getTotalEarnings');
     }
 
     public function getGameState(){
@@ -166,8 +167,8 @@ class DashboardController extends Controller
         Auth::user()->activeGames->save();
 
         // temporarily generate users for the exam
-        $f = new DatabaseSeeder;
-        $f->call('UserGameSessionsTableSeeder');
+        // $f = new DatabaseSeeder;
+        // $f->call('UserGameSessionsTableSeeder');
 
       DB::commit();
       session(['GAME_STATE' => 'waiting']);
@@ -375,14 +376,14 @@ class DashboardController extends Controller
       //
       //
       return [
-        'ststus' => true,
+        'status' => true,
       ];
 
     }
 
     public function getUserDetails() {
       return [
-        'userdetails' => Auth::user()->load('notices', 'messages'),
+        'userdetails' => Auth::user()->load('notices'),
       ];
     }
 

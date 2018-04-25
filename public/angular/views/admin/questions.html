@@ -84,10 +84,11 @@
           <label>Option 1</label>
           <div class="ui horizontal segments">
             <div class="ui segment">
+
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_1">
-                  <label></label>
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_1" ng-checked="q.correct_option == q.option_1">
+                  <label>  </label>
                 </div>
               </div>
             </div>
@@ -103,7 +104,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_2">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_2" ng-checked="q.correct_option == q.option_2">
                   <label></label>
                 </div>
               </div>
@@ -119,7 +120,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_3">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_3" ng-checked="q.correct_option == q.option_3">
                   <label></label>
                 </div>
               </div>
@@ -135,7 +136,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_4">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_4" ng-checked="q.correct_option == q.option_4">
                   <label></label>
                 </div>
               </div>
@@ -151,7 +152,9 @@
         </div>
         <div class="field">
           <button class="ui submit positive button" ng-disabled="edit.$invalid">Submit</button>
-          <div class="ui negative button" ng-click="q = null">Cancel</div>
+          <div class="ui negative button" ng-click="q = null">Reset</div>
+          <div class="ui negative button" ng-click="closeModal()">Cancel</div>
+
         </div>
       </form>
     </div>
@@ -186,7 +189,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_1">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_1">
                   <label></label>
                 </div>
               </div>
@@ -203,7 +206,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_2">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_2">
                   <label></label>
                 </div>
               </div>
@@ -219,7 +222,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_3">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_3">
                   <label></label>
                 </div>
               </div>
@@ -235,7 +238,7 @@
             <div class="ui segment">
               <div class="ui left floated compact segment">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_4">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_4">
                   <label></label>
                 </div>
               </div>
@@ -243,7 +246,7 @@
             <div class="ui segment" style="flex-basis:100% !important;">
               <div class="ui left floated compact segment" style="display:none">
                 <div class="ui fitted toggle checkbox">
-                  <input type="radio" ng-model="correct" name="correct" ng-click="q.correct_option = q.option_4">
+                  <input type="radio" name="correct" ng-click="q.correct_option = q.option_4">
                   <label></label>
                 </div>
               </div>
@@ -257,7 +260,8 @@
         </div>
         <div class="field">
           <button class="ui submit positive button" ng-disabled="edit.$invalid">Submit</button>
-          <div class="ui negative button" ng-click="q = null">Cancel</div>
+          <div class="ui negative button" ng-click="q = null">Reset</div>
+          <div class="ui negative button" ng-click="closeModal()">Cancel</div>
         </div>
       </form>
     </div>
@@ -265,6 +269,6 @@
   </div>
 
 
-  <footer style="position: absolute; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'">
+  <footer  ng-include src="'angular/views/partials/footer.html'">
   </footer>
 </div>

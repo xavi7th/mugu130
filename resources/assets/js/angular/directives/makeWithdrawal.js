@@ -7,7 +7,7 @@ var url = `
   <div class=" ui vertical animated blue compact button" tabindex="-1" ng-click="openModal()">
     <div class="hidden content"><i class="icon money bill alternate outline"></i></div>
     <div class="visible content">
-      Request Withdrawal
+      Cash Out
     </div>
   </div>
 

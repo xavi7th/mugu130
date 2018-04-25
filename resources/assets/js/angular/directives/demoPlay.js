@@ -103,7 +103,7 @@ var url = `
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
-              {{ user_earning | currency}}
+              {{ user_earning | number : 0  | currency }}
             </a>
             <div class="ui icon button">
               <i class="visa icon"></i>
@@ -144,7 +144,7 @@ var url = `
               </td>
               <td class="centered">{{ result.duration }} minutes</td>
               <td class="centered">{{ result.score }}</td>
-              <td class="centered">{{ result.earning }}</td>
+              <td class="centered">{{ result.earning | number : 0 | currency }}</td>
               <!-- <td class="centered">{{ result.game_id }}</td> -->
             </tr>
           </tbody>

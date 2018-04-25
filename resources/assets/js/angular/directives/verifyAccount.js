@@ -6,19 +6,19 @@ var url = `
 <section id="verifyAccount" class="ui right floated horizontal  list">
   <div class="ui labeled button" tabindex="-1" ng-if="userdetails.verified">
     <div class="ui green  right pointing label">
-       Acc Status
+      Verified
     </div>
     <a class="ui basic green label">
-      <i class="check icon"></i> Verified
+      <i class="thumbs up outline icon"></i>
     </a>
   </div>
 
   <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMail()" ng-if="!userdetails.verified">
     <div class="ui red  right pointing label">
-       Acc Status
+       Unverified
     </div>
     <a class="ui basic red label">
-      <i class="times icon"></i> Unverified
+      <i class="thumbs down outline icon"></i>
     </a>
   </div>
 </section>
@@ -43,7 +43,7 @@ angular.module('verifyAccount', []).directive('verifyAccount', ['Notification', 
     controller: ['$scope',  ($scope) => {
 
       $scope.sendVerificationMail = () => {
-        
+
         Notification.warning('Attempting to send verification email...');
 
         sendRequest.postRequest('/user/send-verification-mail', $scope.userdetails.email)

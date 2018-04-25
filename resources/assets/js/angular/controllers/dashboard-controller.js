@@ -1,6 +1,8 @@
 dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
   NProgress.start();
 
+  $scope.hide=true;
+
   $scope.sendMessage = function () {
     sendRequest.postRequest('/user/send-message', $scope.message)
               .then(function (rsp) {
@@ -34,9 +36,12 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
   NProgress.start();
 
   $scope.updateDetails = () => {
+    $scope.loading = true;
     sendRequest.postRequest('/user/update-user-details', $scope.userdetails)
               .then(function (rsp) {
                 Notification.success({ message: 'Updated', positionX:'center' });
+                $scope.loading = null;
+
               });
   };
 
@@ -52,8 +57,9 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
                 }
                 else if (rsp.status == 200){
                   if (rsp.data.status) {
-                    console.log('here');
                     $scope.updateDetails();
+                    $scope.logout();
+
                   }
                 }
               });
@@ -66,8 +72,6 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
 
 dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', 'gameActive', function ($scope, Notification, sendRequest, bootstrapPage, gameActive ) {
   NProgress.start();
-
-  console.log(gameActive);
 
   $scope.game_timer = gameActive.game_timer;
   $scope.total_examinees = gameActive.total_examinees;

@@ -27,7 +27,7 @@ class Before
 
 			if ( (Carbon::now()->minute%2 == 0) ) {
 
-				if ( !$request->session()->has('GAME_ACTIVE') ) {
+				if ( !$request->session()->has('GAME_ACTIVE')  && !Game::active() ) {
 					Game::new();
 					session(['GAME_ACTIVE' => true]);
 					session(['GAME_STATE' => 'active']);
@@ -35,7 +35,7 @@ class Before
 				session(['GAME_TIMER' => 60 - Carbon::now()->second ]);
 
 			} else {
-				if ( $request->session()->has('GAME_ACTIVE') ) {
+				if ( $request->session()->has('GAME_ACTIVE') || Game::active() ) {
 					Game::end();
 					Session::forget('GAME_ACTIVE');
 				}
@@ -48,7 +48,7 @@ class Before
 			// dd(Game::active());
 			// dd($request->session()->has('GAME_ACTIVE'));
 			// dd($request->session()->all());
-			// if ( (Carbon::now()->minute%10 >= 5) ) {
+			// if ( (Carbon::now()->minute%10 > 5) ) {
 			//
 			// 	if ( !$request->session()->has('GAME_ACTIVE') && !Game::active()) {
 			// 		Game::new();
@@ -73,16 +73,19 @@ class Before
 			// 	session(['GAME_TIMER' => 60 - Carbon::now()->second  + (60 * (4 - Carbon::now()->minute%5)) ]);
 			// }
 
-
-
-
-
+// dd(collect(Game::active())->isEmpty());
+// dump(session()->all());
 			// if ( (Carbon::now()->minute > -1 && Carbon::now()->minute < 10) || (Carbon::now()->minute > 29 && Carbon::now()->minute < 40) ) {
-			// 	if ( !$request->session()->has('GAME_ACTIVE') ) {
+			// 	if ( !$request->session()->has('GAME_ACTIVE') && !Game::active() ) {
 			// 		Game::new();
 			// 		session(['GAME_ACTIVE' => true]);
-			// 	}
 			// 		session(['GAME_STATE' => 'active']);
+			// 	}
+			//if (!session('GAME_STATE') == 'paused' || !session('GAME_STATE') == 'waiting') {
+				// _dd(session()->all());
+			// 	session(['GAME_STATE' => 'active']);
+			// }
+			//
 			// 	if ((Carbon::now()->minute > -1 && Carbon::now()->minute < 10)) {
 			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 10, 0))]);
 			// 	}
@@ -90,7 +93,7 @@ class Before
 			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 40, 0))]);
 			// 	}
 			// } else {
-			// 	if ( $request->session()->has('GAME_ACTIVE') ) {
+			// 	if ( $request->session()->has('GAME_ACTIVE') || collect(Game::active())->isEmpty()) {
 			// 		Game::end();
 			// 		Session::forget('GAME_ACTIVE');
 			// 		session(['GAME_STATE' => 'loading']);

@@ -402,9 +402,11 @@ admin.controller('SettingsController', ['$scope', 'Notification', 'sendRequest',
   NProgress.start();
 
   $scope.updateDetails = () => {
+    $scope.loading = true;
     sendRequest.postRequest('/user/update-user-details', $scope.userdetails)
               .then(function (rsp) {
                 Notification.success({ message: 'Updated', positionX:'center' });
+                $scope.loading = null;
               });
   };
 

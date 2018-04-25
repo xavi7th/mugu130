@@ -12,7 +12,6 @@ var url = `
   <div class="ui violet label" style="font-size: 13px;">
     <span style="padding-right: 10px;">Active Gamers</span>
     <i class="users icon"></i> {{ total_examinees }}
-
   </div>
 
   <div class="ui styled fluid accordion">

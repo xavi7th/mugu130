@@ -7,7 +7,7 @@ var url = `
   <div class="ui vertical teal compact animated button" tabindex="-1" ng-click="openModal()">
     <div class="hidden content"><i class="shop icon"></i></div>
     <div class="visible content">
-      Buy Units
+      Fund Account
     </div>
   </div>
 

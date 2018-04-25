@@ -45,7 +45,7 @@
 			@yield('contents')
 
 
-	    <footer style="position: fixed; width: 100%; bottom: 0; z-index:2;">
+	    <footer>
 	      @include('partials.footer-content')
 	    </footer>
 	  </div>
