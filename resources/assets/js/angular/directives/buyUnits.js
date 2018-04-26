@@ -14,24 +14,68 @@ var url = `
 
   <div class="ui mini modal buyUnits transition hidden">
       <div class="header">
-        Select an Amount
+        Input Amount
       </div>
       <div class="image content flex-center">
         <div class="ui form">
           <div class="inline field">
-            <input type="number" placeholder="{{ amt_per_unit  | currency }} / unit" ng-model="requested_amount" ng-min="300">
+            <input type="number" placeholder="Minimum: ₦300" ng-model="requested_amount" ng-min="300">
           </div>
         </div>
       </div>
       <div class="actions  flex-center">
         <div class="ui black left deny button">
-          Bail
+          Close
         </div>
         <div ng-class="{'ui positive right labeled icon button': true, 'disabled': !requested_amount}" ng-click="awardCredits()">
-          Yep, proceed!
+          Pay Online
           <i class="checkmark icon"></i>
         </div>
       </div>
+      <div class="ui segments" id="info-images">
+        <div class="ui segment">
+        <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>
+          <p>
+            <img src="/img/paywithcashenvoylogo.gif" alt="" />
+          </p>
+        </div>
+        <div class="ui secondary segment">
+          <p>
+            <img src="/img/cashenvoy.png" alt="" />
+          </p>
+        </div>
+        <div class="ui secondary segment" id="extra">
+          <div class="ui small header">Pay via bank Deposit or Wire transfer</div>
+          <p>
+            <b>Account Name:</b> Tcom Wireless Nigeria
+          </p>
+          <p>
+            <b>Account Number:</b> 1019040225 (United Bank for Africa)
+          </p>
+          <p>
+            <b>  Account type:</b> Current
+          </p>
+          <p>
+            <img src="/img/uba.jpg" alt="" />
+          </p>
+
+          <div class="ui positive message">
+            <div class="header">
+              NB:
+            </div>
+            <p>After payment, send your payment details to hello@fastplay24.com. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to hello@fastplay24.com.</p>
+          </div>
+
+          <div class="ui message">
+            <div class="header">
+              NB:
+            </div>
+            <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
 </section>

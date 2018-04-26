@@ -50,7 +50,6 @@ Route::middleware(['before'])->group( function () {
 
   // Route::view('/about', 'welcome');
 
-  Route::view('/demo-play', 'demo-play')->name('demo.play')->middleware('guest');
 
   Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
 
@@ -110,13 +109,15 @@ Route::middleware(['before'])->group( function () {
 
     return view( 'auth.register-success');
 
-  })->middleware('guest')->name('register.success');
+  })->name('register.success');
 
   Auth::routes();
 
   Route::view('/register', 'welcome')->name('register')->middleware('guest');
 
   Route::view('/login', 'welcome')->name('login')->middleware('guest');
+
+  Route::view('/demo-play', 'demo-play')->name('demo.play')->middleware('guest');
 
   Route::post('/get-deno-questions', function () {
     DemoGameSession::new();
@@ -157,22 +158,22 @@ Route::middleware(['before'])->group( function () {
       }
     }
 
-    // if ($count == 10) {
+    if ($count == 10) {
       DemoGameSession::where('session_id', session('demo_id'))->update([
         'score' => $count,
         'ended_at' => Carbon::now(),
         'position' => 1,
         'earning' => $user_earning = $firstprice + env('BASIC_PARTICIPATION_REWARD')
       ]);
-    // }
+    }
 
-    // else{
-    //   DemoGameSession::where('session_id', session('demo_id'))->update([
-    //     'score' => $count,
-    //     'ended_at' => Carbon::now(),
-    //     'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
-    //   ]);
-    // }
+    else{
+      DemoGameSession::where('session_id', session('demo_id'))->update([
+        'score' => $count,
+        'ended_at' => Carbon::now(),
+        'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
+      ]);
+    }
 
     // generate users for the exam
     $f = new DatabaseSeeder;
@@ -203,7 +204,7 @@ Route::middleware(['before'])->group( function () {
 Route::group(['prefix' => 'user'], function () {
   Route::any('/get-game-state', 'DashboardController@getGameState');
 
-  Route::post('/send-verification-mail', 'DashboardController@sendVerificationMail');
+  Route::post('/send-verification-mail', 'DashboardController@resendVerificationMail');
 });
 
 Route::group(['prefix' => 'user'], function () {

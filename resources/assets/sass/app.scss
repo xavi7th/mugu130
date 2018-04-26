@@ -347,6 +347,27 @@ td[ng-click]{
 }
 
 
+  .ui.button{
+    border-radius: 20px;
+  }
+
+#info-images{
+  p{
+    text-align: center;
+  }
+  img{
+    max-width: 100% !important;
+  }
+
+  #extra{
+    img{
+      width: 10%;
+    }
+    p{
+      text-align: left;
+    }
+  }
+}
 
 #mini-game{
   float: left;
@@ -376,7 +397,27 @@ div#main-controller{
     overflow-y: auto;
   }
 
+  .info{
+    p,h1{
+      text-align: center;
+    }
+
+    p{
+      font-size: 1.2em;
+    }
+
+    img{
+      max-width: 70%;
+    }
+  }
+
   @include MQ(S){
+
+    .info{
+      img{
+        display: none !important;
+      }
+    }
 
     section#intro {
       #form{
@@ -390,12 +431,9 @@ div#main-controller{
     }
 
     section#mid{
-      position: relative !important;
-      height: 165vh !important;
-
       .info{
         position: absolute !important;
-        bottom: 20vh;
+        bottom: 2vh;
       }
     }
 

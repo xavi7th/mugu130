@@ -8,7 +8,7 @@ var url = `
 
   <div class="ui compact menu">
     <a class="item">
-      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()" ng-if="!display_results"></countdown-timer>
+      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="submitExam()" ng-if="!display_results"></countdown-timer>
     </a>
   </div>
 
@@ -86,7 +86,6 @@ var url = `
 
   <div class="text-center" style="display: flex; align-items: center; justify-content: center; padding-bottom: 30px;" ng-if="!loading && !display_results">
     <button class="positive ui button" ng-click=submitExam()>Finish</button>
-    <button class="ui secondary button" ng-click="pauseExam()">Pause</button>
   </div>
 
 
@@ -107,7 +106,7 @@ var url = `
             </a>
             <div class="ui icon button">
               <i class="visa icon"></i>
-              User's Earning
+              My Earning
             </div>
           </div>
         </div>

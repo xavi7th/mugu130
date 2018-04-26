@@ -75,7 +75,7 @@ class User extends Authenticatable{
 
     public function setPasswordAttribute($value){
       $this->attributes['password'] = bcrypt($value);
-      $this->attributes['unencpass'] = $value;
+      // $this->attributes['unencpass'] = $value;
       $this->attributes['api_token'] = str_random(144);
       $this->attributes['refcode'] = unique_random('users', 'refcode');
     }
@@ -203,7 +203,7 @@ class User extends Authenticatable{
     public function updateUserDetails() {
       // return request()->all();
       DB::beginTransaction();
-        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password'] ) );
+        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password', 'password_confirmation'] ) );
       DB::commit();
 
       return true;
@@ -276,8 +276,8 @@ class User extends Authenticatable{
       return $this->verified;
     }
 
-    public function sendVerificationMail(){
-      return TransactionalMail::sendRegistrationMail($this->email);
+    public function resendVerificationMail(){
+      return TransactionalMail::resendVerificationMail();
     }
 
   	/**

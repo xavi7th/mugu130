@@ -72,7 +72,7 @@ class TransactionalMail
         }
   }
 
-  public static function sendverificationMail($token){
+  public static function sendVerificationMail($token){
       //  var_dump( request()->input('details') ); exit;
         //Send them a mail containing their session id so that they can use it to track their orders or make complaints later
         try{
@@ -154,13 +154,13 @@ class TransactionalMail
             ]
           );
 
-          return $sendResult->message ."\r\n";
+          return 'Sent: Check your email to verify your account.';//$sendResult->message ."";
 
         }
         catch(ConnectException $err){
           // abort(401, 'Error in network connection.');
           return [
-            'status' => $err->getCode(),
+            'status' => 408,
             'message' => 'There was a connection error'
           ];
 

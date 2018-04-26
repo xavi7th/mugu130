@@ -3,11 +3,15 @@
 
 
 var url = `
+
 <div id="mini-game">
+<style>
+
+</style>
 
   <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'loading'">
     <div class="ui red button">
-      <i class="clock icon"></i> <ng-transclude></ng-transclude> Loading
+      <i class="clock icon"></i> <ng-transclude></ng-transclude> Next Game
     </div>
     <a class="ui basic red left pointing label">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>

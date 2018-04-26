@@ -34,9 +34,7 @@
 	        </div>
 	        <div class="grid-50 mobile-grid-70">
 						@if (!Route::is('demo.play'))
-							<mini-game-state class="mini" style="float:right !important;">
-								<b style="margin-right:1%;">STATUS:</b>
-							</mini-game-state>
+							<mini-game-state class="mini" style="float:right !important;"></mini-game-state>
 						@endif
 	        </div>
 	      </div>

@@ -41404,6 +41404,26 @@ td[ng-click] {
   cursor: pointer !important;
 }
 
+.ui.button {
+  border-radius: 20px;
+}
+
+#info-images p {
+  text-align: center;
+}
+
+#info-images img {
+  max-width: 100% !important;
+}
+
+#info-images #extra img {
+  width: 10%;
+}
+
+#info-images #extra p {
+  text-align: left;
+}
+
 #mini-game {
   float: left;
   margin-right: 5%;
@@ -41435,7 +41455,24 @@ div#main-controller #resultWindow {
   overflow-y: auto;
 }
 
+div#main-controller .info p,
+div#main-controller .info h1 {
+  text-align: center;
+}
+
+div#main-controller .info p {
+  font-size: 1.2em;
+}
+
+div#main-controller .info img {
+  max-width: 70%;
+}
+
 @media only screen and (max-width: 767px) {
+  div#main-controller .info img {
+    display: none !important;
+  }
+
   div#main-controller section#intro #form {
     width: 90% !important;
     margin-top: 15px;
@@ -41446,14 +41483,9 @@ div#main-controller #resultWindow {
     margin-top: 15% !important;
   }
 
-  div#main-controller section#mid {
-    position: relative !important;
-    height: 165vh !important;
-  }
-
   div#main-controller section#mid .info {
     position: absolute !important;
-    bottom: 20vh;
+    bottom: 2vh;
   }
 
   div#main-controller #dashboard {

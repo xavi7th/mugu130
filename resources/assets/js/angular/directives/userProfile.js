@@ -61,8 +61,8 @@ var url = `
       </div>
       <div class="content" style="padding-bottom: 5px;">
         <div class="ui red image label">
-          Referral code
-          <div class="detail">{{ userdetails.refcode }}</div>
+          Referral link
+          <div class="detail">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
         </div>
 
         <buy-units></buy-units>

@@ -86,8 +86,6 @@ var url = `
 
     <div class="text-center" style="display: flex; align-items: center; justify-content: center;">
       <button class="positive ui button" ng-click=submitExam()>Finish</button>
-      <button class="ui secondary button" ng-click="pauseExam()">Pause</button>
-
   </div>
 
 </section>

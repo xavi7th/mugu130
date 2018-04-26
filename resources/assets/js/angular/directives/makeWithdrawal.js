@@ -24,14 +24,14 @@ var url = `
         </div>
       </div>
       <div class="image content flex-center">
-      <div class="ui icon mini message">
+      <div class="ui icon mini message positive">
         <i class="inbox icon"></i>
         <div class="content">
           <div class="header">
             NOTE:
           </div>
-          <p> For withdrawals below 1000, a service fee of ₦50 will be deducted. </p>
-          <p> While for withdrawals above 1000, an additional service fee of ₦50 for every ₦5000 will be deducted </p>
+          <p> For withdrawals below ₦1000, a service fee of ₦50 will be charged. </p>
+          <p> While an additional service fee of ₦50 will be charged for every ₦5000.</p>
         </div>
       </div>
       </div>

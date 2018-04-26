@@ -1,24 +1,16 @@
 @extends('layouts.app')
-{{--
-@section('content')
-  @auth
-    @javascript('loggedin', true)
-  @endauth
 
-  <div ng-view></div>
 
-@endsection --}}
-<style media="screen">
-  /*#main-controller{
-      position: relative;
-      background-color: #135482;
-      background-image: url(/img/4.jpg);
-      background-blend-mode: exclusion;
-      background-repeat: no-repeat;
-      background-size: cover;
-  }*/
-</style>
+@section('customJS')
+  <script>
 
+      $('.action').click(function () {
+        if ($('#terms:checked').length) {
+          $(this).addClass('loading');
+        }
+      });
+  </script>
+@endsection
 
 @section('contents')
 
@@ -32,9 +24,9 @@
             <h3>Everybody is a winner!!!</h3>
 
             <a href="/demo-play" target="_blank">
-              <button class="ui labeled red icon button">
+              <button class="ui labeled blue icon button">
                 <i class="gamepad icon"></i>
-                Demo Game
+                Play Demo
               </button>
             </a>
 
@@ -43,8 +35,8 @@
             <div id="form" class="ui segments">
               <div class="ui segment">
                 <div id="session-menu" class="ui two item menu">
-                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register">Register</a>
-                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login">Login</a>
+                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register" ng-click="height = 135">Register</a>
+                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login" ng-click="height = 90">Login</a>
                 </div>
               </div>
 
@@ -138,21 +130,25 @@
           <div class="grid-30 info">
             <h1>Tell a friend</h1>
             <p>
+              <img src="/img/fastplay24_referal_homepage.png" alt="">
+            </p>
+            <p>
               Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
             </p>
           </div>
         </div>
       </section>
+      <div ng-view></div>
 
-@endsection
 
-@section('customJS')
-  <script>
 
-      $('.action').click(function () {
-        if ($('#terms:checked').length) {
-          $(this).addClass('loading');
-        }
-      });
-  </script>
+      <style media="screen and ( max-width:767px)">
+
+          section#mid{
+            position: relative !important;
+            height: @{{height}}vh !important;
+          }
+
+      </style>
+
 @endsection

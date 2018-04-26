@@ -62,10 +62,10 @@
             font-weight: 100; margin-bottom: 0px;">Update Password</h1>
             <div class="ui divider"></div>
             <div class="field">
-              <input type="text" name="password" placeholder="Enter old password" required ng-model="userdetails.old_password">
+              <input type="password" name="password" placeholder="Enter old password" required ng-model="userdetails.old_password">
             </div>
             <div class="field">
-              <input type="text" name="password" placeholder="Provide new password" required ng-model="userdetails.password">
+              <input type="password" name="password" placeholder="Provide new password" required ng-model="userdetails.password">
             </div>
 
             <div class="field">
@@ -75,8 +75,8 @@
             <div class="ui negative message" ng-show="userdetails.password_confirmation && userdetails.password_confirmation != userdetails.password">
               <p>Passwords don't match</p>
             </div>
-            <button  ng-class="['ui', 'blue', 'button', {'loading' : loading}]" ng-disabled="loading"  type="button" ng-click="updatePassword()" ng-disabled="!userdetails.password_confirmation || userdetails.password_confirmation != userdetails.password || loading">Update Password</button>
-
+            <button ng-class="['ui', 'blue', 'button', {'loading' : loading}]" type="button" ng-click="updatePassword()" ng-disabled="!userdetails.password_confirmation || userdetails.password_confirmation != userdetails.password || loading">Update Password</button>
+          
           </form>
           <div class="ui icon message" ng-if="false">
             <i class="attention icon"></i>
@@ -178,7 +178,5 @@
       </div>
     </div>
   </section>
-  <footer style="background: #03A9F4;">
-    <footer style="position: fixed; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'"></footer>
-  </footer>
+  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Seeder;
@@ -36,7 +37,7 @@ class DashboardController extends Controller
         $this->middleware('before');
         $this->middleware('auth')->except('getGameState');
         $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState');
-        $this->middleware('users')->except('suspended', 'getApiKey', 'getGameState', 'getUserDetails', 'updateUserDetails', 'getTotalEarnings');
+        // $this->middleware('users')->except('suspended', 'getApiKey', 'getGameState', 'getUserDetails', 'updateUserDetails', 'getTotalEarnings');
     }
 
     public function getGameState(){
@@ -252,8 +253,13 @@ class DashboardController extends Controller
     public function getTotalEarnings(){
 
         //return the results ordered by position
+
+        if (true) {
+          $earnings = Auth::user()->totalEarnings->sum('amount');
+        }
+
         return [
-          'total_earnings' => Auth::user()->totalEarnings->sum('amount'),
+          'total_earnings' => $earnings,
 
         ];
 
@@ -389,9 +395,14 @@ class DashboardController extends Controller
 
     public function confirmUserPassword(){
       // return request()->input('details');
-      if (Auth::user()->unencpass != request()->input('details')) {
-        return response()->json(['message' => 'Old password missmatch' ], 423);
-      }
+
+      // if (Hash::check(request()->input('details'), Auth::user()->password)) {
+      //   return response()->json(['message' => 'Old password missmatch' ], 423);
+      // }
+
+      // if (Auth::user()->unencpass != request()->input('details')) {
+      //   return response()->json(['message' => 'Old password missmatch' ], 423);
+      // }
       return [
         'status' =>  true,
       ];
@@ -432,8 +443,8 @@ class DashboardController extends Controller
       return ['status' => Notice::find(request()->input('details.id'))->delete()];
     }
 
-    public function sendVerificationMail() {
-      $rsp = Auth::user()->sendVerificationMail();
+    public function resendVerificationMail() {
+      $rsp = Auth::user()->resendVerificationMail();
 
       if (is_array($rsp)) {
         return response()->json(['message' => $rsp['message'] ], $rsp['status']);

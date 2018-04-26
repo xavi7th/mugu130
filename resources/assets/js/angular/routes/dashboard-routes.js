@@ -4,32 +4,38 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
 
    .when('/dashboard', {
      templateUrl: 'angular/views/dashboard/index.html',
-     controller: 'DashboardController'
+     controller: 'DashboardController',
+     animation: 'slide',
    })
 
    .when('/dashboard/profile', {
      templateUrl: 'angular/views/dashboard/profile.html',
-     controller: 'ProfileController'
+     controller: 'ProfileController',
+     animation: 'slide',
    })
 
    .when('/dashboard/messages', {
      templateUrl: 'angular/views/dashboard/messages.html',
-     controller: 'MessageController'
+     controller: 'MessageController',
+     animation: 'slide',
    })
 
    .when('/dashboard/notices', {
      templateUrl: 'angular/views/dashboard/notices.html',
-     controller: 'NoticeController'
+     controller: 'NoticeController',
+     animation: 'slide',
    })
 
    .when('/dashboard/settings', {
      templateUrl: 'angular/views/dashboard/settings.html',
-     controller: 'SettingsController'
+     controller: 'SettingsController',
+     animation: 'slide',
    })
 
    .when('/dashboard/game-play', {
      templateUrl: 'angular/views/dashboard/game-play.html',
      controller: 'GamePlayController',
+     animation: 'slide',
      resolve: {
                 gameActive: ['$location', 'sendRequest', function($location, sendRequest) {
                   return sendRequest.getGameState()
@@ -64,7 +70,7 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
      redirectTo: '/dashboard'
    });
 
-   
+
    $locationProvider.hashPrefix('');
    $locationProvider.html5Mode(true);
    $localStorageProvider.setKeyPrefix('game-');

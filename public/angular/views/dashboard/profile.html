@@ -1,4 +1,4 @@
-<div id="main-controller" style="background: #fff; margin-bottom:80px;">
+<div id="main-controller" style="background: #fff;">
   <ng-include src="'angular/views/partials/menu.html'"></ng-include>
 
   <user-profile></user-profile>
@@ -23,6 +23,9 @@
       </div>
       <div class="grid-85">
         <div class="ui tab active" data-tab="statistics">
+          <div class="ui compact segment">
+            <p>Statistics</p>
+          </div>
           <table class="ui inverted blue celled table">
             <thead>
               <tr>
@@ -59,7 +62,9 @@
           </table>
         </div>
         <div class="ui tab" data-tab="transactions">
-          user_transactions
+          <div class="ui compact segment">
+            <p>Transactions</p>
+          </div>
           <table class="ui blue striped celled table">
             <thead>
               <tr>
@@ -82,6 +87,9 @@
           </table>
         </div>
         <div class="ui tab" data-tab="earnings">
+          <div class="ui compact segment">
+            <p>Earnings</p>
+          </div>
           <table class="ui blue celled table">
             <thead>
               <tr>
@@ -111,6 +119,6 @@
   </section>
 
 
-    <footer style="position: fixed; width: 100%; bottom: 0; background: #03A9F4;" ng-include src="'angular/views/partials/footer.html'"></footer>
+    <footer ng-include src="'angular/views/partials/footer.html'"></footer>
 
 </div>

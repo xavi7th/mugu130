@@ -2,23 +2,33 @@
    $routeProvider
 
      .when('/', {
-       controller: 'HomeController'
+       controller: 'HomeController',
+       template : '',
+       animation: 'slide'
      })
 
      .when('/login', {
-       controller: 'LoginController'
+       controller: 'HomeController',
+       template : '',
+
      })
 
      .when('/register', {
-       controller: 'RegisterController'
+       controller: 'RegisterController',
+       template : '',
+
      })
 
      .when('/register/ref/:refcode', {
-       controller: 'RegisterController'
+       controller: 'RegisterController',
+       template : '',
+
      })
 
      .when('/register/success', {
-       controller: 'RegisterController'
+       controller: 'RegisterController',
+       template : '',
+
      })
 
      .when('/demo-play', {

@@ -8,7 +8,7 @@ var url = `
     <!-- game load -->
     <div class="ui segment">
       <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
-        <span>Countdown till next game</span>
+        <span>Countdown to next game</span>
       </div>
     </div>
     <div class="ui segment">
