@@ -392,9 +392,27 @@ td[ng-click]{
 
 div#main-controller{
 
+  #others_intro{
+    padding: 40px 0px;
+    height: 100px;
+    background-color: #fff;
+  }
+
   #resultWindow{
     max-height: 55vh !important;
     overflow-y: auto;
+  }
+
+  #others_contents{
+      padding: 20px 0px 40px 0px;
+      // background-color: #135482;
+      background-image: url(/img/4.jpg);
+      background-blend-mode: exclusion;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: calc(100vh - 225px);
+
   }
 
   .info{
@@ -484,9 +502,9 @@ div#main-controller{
 
   }
 
-}
-
 footer{
   width: 100%;
   background: #03A9F4;
+}
+
 }

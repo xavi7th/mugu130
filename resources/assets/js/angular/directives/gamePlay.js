@@ -14,6 +14,22 @@ var url = `
     <i class="users icon"></i> {{ total_examinees }}
   </div>
 
+
+    <div class="ui compact segment" style="display:inline-block">
+      <div class="header">Lifelines</div>
+      <div class="ui compact menu">
+        <a class="item">
+          50/50
+          <div class="floating ui red label">1</div>
+        </a>
+        <a class="item" style="background:#21BA45; color: white;">
+          CHANGE QUESTION
+          <div class="floating ui teal label">1</div>
+        </a>
+      </div>
+
+    </div>
+
   <div class="ui styled fluid accordion">
 
     <div ng-repeat="q in user_questions" ng-if="$index < 10">

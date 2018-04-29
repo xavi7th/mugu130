@@ -16,6 +16,7 @@ use App\UserGameSession;
 
 use Carbon\Carbon;
 
+use App\Mail\ActivationMail;
 use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
@@ -33,6 +34,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 //
+
+// abort(404, 'User not found');
 Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home')->middleware('guest');
@@ -48,7 +51,15 @@ Route::middleware(['before'])->group( function () {
   //   return $grouped->toArray();
   // });
 
-  // Route::view('/about', 'welcome');
+  Route::view('/frequently-asked-questions', 'others-home')->name('faq');
+
+  Route::view('/support-center', 'others-home')->name('support');
+
+  Route::view('/terms-and-conditions', 'others-home')->name('terms');
+
+  Route::view('/calculator', 'others-home')->name('calculator');
+
+  Route::view('/privacy', 'others-home')->name('privacy');
 
 
   Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
@@ -61,6 +72,9 @@ Route::middleware(['before'])->group( function () {
   })->name('suspended')->middleware('auth');
 
   Route::get('/resend-verification-mail', function () {
+
+    Mail::to(Auth::user()->email)->send(new ActivationMail());
+
 
     $status = TransactionalMail::resendRegistrationMail();
 
@@ -89,6 +103,11 @@ Route::middleware(['before'])->group( function () {
   })->name('verify.check');
 
   Route::get('/register/ref/{referral_code}', function ($referral_code = '00000') {
+
+    // return (new ActivationMail())->render();
+
+    // Mail::to('xavi7th@gmail.com')->send(new ActivationMail());
+    // exit;
 
     $refdetails = User::where('refcode', $referral_code)->first();
 
@@ -459,4 +478,4 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
 });
 
-Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before');
+Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');

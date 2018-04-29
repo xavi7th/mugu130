@@ -16,60 +16,60 @@
     {{-- <link rel="stylesheet" href="{{ asset('/css/app.css') }}"> --}}
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
+		html, body {
+				background-color: #fff;
+				color: #636b6f;
+				font-family: 'Raleway', sans-serif;
+				font-weight: 100;
+				height: 100vh;
+				margin: 0;
+		}
 
-        .full-height {
-            min-height: calc(100vh - 125px);
-        }
+		.full-height {
+				min-height: calc(100vh - 125px);
+		}
 
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
+		.flex-center {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+		}
 
-        .position-ref {
-            position: relative;
-        }
+		.position-ref {
+				position: relative;
+		}
 
-        .content {
-            text-align: center;
-        }
+		.content {
+				text-align: center;
+		}
 
-        .title {
-            font-size: 36px;
-            padding: 20px;
-        }
+		.title {
+				font-size: 36px;
+				padding: 20px;
+		}
 
-        .message {
-            font-size: 26px;
-            padding: 5px;
-        }
+		.message {
+				font-size: 26px;
+				padding: 5px;
+		}
 
-        .m0{
-          margin: 0 !important;
-        }
+		.m0{
+			margin: 0 !important;
+		}
 
 
-        .tal{
-          text-align: left !important;
-        }
+		.tal{
+			text-align: left !important;
+		}
 
-        .al{
-          align-self: left;
-        }
+		.al{
+			align-self: left;
+		}
 
-        img.image{
-          margin-top: 45px;
-        }
+		img.image{
+			margin-top: 45px;
+		}
 
     </style>
 
@@ -104,16 +104,14 @@
             <div class="ui basic segment flex-center ">
               <img class="ui centered small image" src="/img/404_error_page.gif">
               <h1 class="content title">Awww!!!   </h1>
-              <p class="message m0">Hey Buddy,</p>
-              <p class="message m0">the referrer you referrenced could not be found.</p>
-              <p class="message m0">Check the referral url and try again.</p>
+              <p class="message">Hey Buddy,</p>
+              <p class="message">We hate to break to you. But this page doesn’t exist anymore. Or maybe it never existed in the first place. Sorry, but that’s all we know.</p>
               <a href="{{ route('home') }}" class="huge ui blue button" target="_self">
                 Return to our homepage
               </a>
               <p class="message m0 al">
-                Cheers,
-                <br>
-                Your buddies at FastPlay24
+                Cheers, <br>
+								Your buddies at FastPlay24
               </p>
             </div>
 

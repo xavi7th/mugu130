@@ -2,15 +2,15 @@
   <ng-include src="'angular/views/partials/menu.html'"></ng-include>
 
   <div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
+
     <div class="grid-container">
 
-      <div class="mobile-grid-50 grid-20 push-5">
+      <div class="mobile-grid-45 grid-5 prefix-5">
         <verify-account></verify-account>
       </div>
 
-      <div class="mobile-grid-45 grid-45 suffix-5">
+      <div class="mobile-grid-55 grid-20 prefix-5">
 
-        <make-withdrawal></make-withdrawal>
         <div class="ui labeled  button" tabindex="-1">
           <div class="ui purple button right pointing label">
             Total Earnings
@@ -21,6 +21,22 @@
         </div>
 
       </div>
+      <div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
+      <div class="mobile-grid-35 grid-15 ">
+
+        <make-withdrawal></make-withdrawal>
+
+      </div>
+      <div class="mobile-grid-65 grid-20">
+
+        <button class="ui compact right floated violet button" ng-click="transferEarnings()">
+          <i class="icon credit card amazon pay"></i>
+          Transfer Earnings
+        </button>
+
+      </div>
+      <div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
+
       <div class="mobile-grid-50 grid-20">
 
         <buy-units></buy-units>
@@ -28,8 +44,6 @@
       </div>
 
     </div>
-
-
 
   </div>
   <section id="dashboard">

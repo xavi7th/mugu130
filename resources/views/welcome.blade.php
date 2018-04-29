@@ -83,7 +83,7 @@
                       <div class="ui segment">
                           <div class="ui toggle checkbox">
                           <input id="terms" type="checkbox" name="terms" required>
-                          <label>Agree to terms and conditions</label>
+                          <label>Agree to<a href="{{ route('terms') }}" target="_blank"> terms and conditions</a></label>
                         </div>
                       </div>
                     </div>

@@ -95,7 +95,7 @@ class RegisterController extends Controller
 
         // Create a record for this referrer
         if (request()->input('referrer_id')) {
-          Referral::new(request()->input('referrer_id'), $user->id );
+          Referral::new($user->id, request()->input('referrer_id') );
         }
 
       DB::commit();

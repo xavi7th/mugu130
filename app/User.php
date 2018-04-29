@@ -134,6 +134,7 @@ class User extends Authenticatable{
     }
 
     public function lastGame(){
+      // dd(Game::last());
       $last_game = Game::last();
       return $this->hasOne(UserGameSession::class)->where('game_id', optional($last_game)->id);
     }

@@ -19,13 +19,13 @@ class Users
 
 			if (Auth::user()->role_id != env('USER_ROLE_ID')){
 				// exit;
+		    // Session::flush();
+				// return route('admin');
 
-		    Session::flush();
-				Auth::logout();
 				if (request()->isJson()) {
-          return response()->json(['status' => 'Unauthorised request' ], 403);
+          return response()->json(['status' => 'Unauthorised request' ], 423);
         }
-		    return redirect()->route('login');
+		    return redirect()->route('admin');
 		  }
 
 		     return $next($request);

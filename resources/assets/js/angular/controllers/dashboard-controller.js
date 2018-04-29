@@ -3,6 +3,29 @@ dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequ
 
   $scope.hide=true;
 
+  $scope.transferEarnings = () => {
+    sendRequest.postRequest('user/transfer-earnings')
+              .then(rsp => {
+                if (rsp.status == 200) {
+                  if (rsp.data.status == true) {
+                    Notification.success({message: 'Earnings transferred to wallet', positionX: 'center'});
+                  }
+                  else if(rsp.data.status == 'Insufficient'){
+                    Notification.error({message: 'No earnings to transfer', positionX: 'center'});
+                  }
+                }
+
+                sendRequest.getUserDetails('/user/get-user-details', true)
+                            .then( (rsp) => {
+                              $scope.userdetails = rsp.userdetails;
+                            });
+                sendRequest.getTotalEarnings('/user/get-total-earnings', true)
+                            .then(function (rsp) {
+                              $scope.total_earnings = rsp.total_earnings;
+                            });
+              });
+  };
+
   $scope.sendMessage = function () {
     sendRequest.postRequest('/user/send-message', $scope.message)
               .then(function (rsp) {

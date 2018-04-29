@@ -14,7 +14,7 @@
   }
 
   div#main-controller section#intro{
-    height: auto !important;
+    height: calc(100vh - 150px) !important;
     background-color: rgba(255, 255, 255, 0.9);
   }
 

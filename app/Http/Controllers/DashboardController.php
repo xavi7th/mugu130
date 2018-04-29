@@ -37,12 +37,13 @@ class DashboardController extends Controller
         $this->middleware('before');
         $this->middleware('auth')->except('getGameState');
         $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState');
-        // $this->middleware('users')->except('suspended', 'getApiKey', 'getGameState', 'getUserDetails', 'updateUserDetails', 'getTotalEarnings');
+        $this->middleware('users')->only('joinGame','pauseGame','resumeGame','submitExam','endExam','getExamResults');
     }
 
     public function getGameState(){
-      $game_id = Game::where('status', true)->value('id');
-      $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
+      // return optional(Game::active())->id;
+      // $game_id = Game::where('status', true)->value('id');
+      $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->get();
 
       // if (Auth::user()->activeGames) {
       //   session(['GAME_STATE' => 'paused']);
@@ -362,7 +363,7 @@ class DashboardController extends Controller
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load('transactions', 'earnings', 'games','referrer')
+        'page_details' => Auth::user()->load('transactions', 'earnings', 'games','referrals')
       ];
     }
 
@@ -396,9 +397,9 @@ class DashboardController extends Controller
     public function confirmUserPassword(){
       // return request()->input('details');
 
-      // if (Hash::check(request()->input('details'), Auth::user()->password)) {
-      //   return response()->json(['message' => 'Old password missmatch' ], 423);
-      // }
+      if ( ! Hash::check(request()->input('details'), Auth::user()->password)) {
+        return response()->json(['message' => 'Old password missmatch' ], 423);
+      }
 
       // if (Auth::user()->unencpass != request()->input('details')) {
       //   return response()->json(['message' => 'Old password missmatch' ], 423);

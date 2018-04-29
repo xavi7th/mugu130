@@ -1,10 +1,10 @@
 {
     "/js/vendor.js": "/js/vendor.js?id=e3498a3a72d34ddbea08",
-    "/js/admin-app.js": "/js/admin-app.js?id=85b8f80849c0ddc572ad",
+    "/js/admin-app.js": "/js/admin-app.js?id=82c94f4514a0d7de65e8",
     "/js/app.js": "/js/app.js?id=20014129fc6d6483ebb8",
-    "/css/app.css": "/css/app.css?id=f04dec33bce282f3f711",
-    "/js/dashboard-app.js": "/js/dashboard-app.js?id=9b230b28b77752dfc79d",
-    "/js/home-app.js": "/js/home-app.js?id=25ee8d2996bedccbdec7",
+    "/css/app.css": "/css/app.css?id=1443a65b5f98ee06d6f5",
+    "/js/dashboard-app.js": "/js/dashboard-app.js?id=926f9cf543a5440a8922",
+    "/js/home-app.js": "/js/home-app.js?id=1fc58a1bb5cb1d89986c",
     "/js/manifest.js": "/js/manifest.js?id=dc9b483cff9a9cbf7e20",
     "/js/libraries.js": "/js/libraries.js?id=1337de8d6f373980f745"
 }

@@ -28,11 +28,34 @@ home.factory('bootstrapPage', ['$timeout', function InboxService($timeout) {
 	return {
 	 homepage: function (scope) {
 		 scope.$parent.height = 90;
-
       scope.$on('$viewContentLoaded', function() {
       });
-
-		}
+		},
+	 terms: function (scope) {
+		 scope.title = 'Terms of Use';
+      scope.$on('$viewContentLoaded', function() {
+      });
+		},
+	 privacy: function (scope) {
+		 scope.title = 'Privacy';
+      scope.$on('$viewContentLoaded', function() {
+      });
+		},
+	 support: function (scope) {
+		 scope.$parent.height = 90;
+      scope.$on('$viewContentLoaded', function() {
+      });
+		},
+	 faq: function (scope) {
+		 scope.$parent.height = 90;
+      scope.$on('$viewContentLoaded', function() {
+      });
+		},
+	 calculator: function (scope) {
+		 scope.$parent.height = 90;
+      scope.$on('$viewContentLoaded', function() {
+      });
+		},
 	};
 }]);
 

@@ -13,6 +13,18 @@ var url = `
 
 
   <div class="ui tiny modal makeWithdrawal transition hidden">
+
+      <div class="ui icon mini message">
+        <i class="inbox icon"></i>
+        <div class="content">
+          <div class="header">
+            TRANSFER EARNINGS
+          </div>
+          <p> To cashout your earnings, first transfer it to your wallet by clicking the 'transfer earnings' button. </p>
+          <p> While an additional service fee of ₦50 will be charged for every ₦5000.</p>
+        </div>
+      </div>
+
       <div class="header">
         Enter an Amount
       </div>
@@ -23,27 +35,28 @@ var url = `
           </div>
         </div>
       </div>
-      <div class="image content flex-center">
-      <div class="ui icon mini message positive">
-        <i class="inbox icon"></i>
-        <div class="content">
-          <div class="header">
-            NOTE:
-          </div>
-          <p> For withdrawals below ₦1000, a service fee of ₦50 will be charged. </p>
-          <p> While an additional service fee of ₦50 will be charged for every ₦5000.</p>
-        </div>
-      </div>
-      </div>
       <div class="actions  flex-center">
         <div class="ui black left deny button">
-          Bail
+          Close
         </div>
         <div ng-class="{'ui positive right labeled icon button': true, 'disabled': !requested_amount}" ng-click="requestWithdrawal()">
           Yep, proceed!
           <i class="checkmark icon"></i>
         </div>
       </div>
+      <div class="image content flex-center">
+        <div class="ui icon mini message positive">
+          <i class="inbox icon"></i>
+          <div class="content">
+            <div class="header">
+              NOTE:
+            </div>
+            <p> For withdrawals below ₦1000, a service fee of ₦50 will be charged. </p>
+            <p> While an additional service fee of ₦50 will be charged for every ₦5000.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
 
 </section>
@@ -78,8 +91,6 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification'
 
         sendRequest.postRequest('/user/request-withdrawal', {'amt': $scope.requested_amount})
                  .then(function (rsp) {
-                   console.log(rsp);
-                   console.log($scope);
                    if (rsp.status == 422) {
                      Notification.error(rsp.data.message);
                    }

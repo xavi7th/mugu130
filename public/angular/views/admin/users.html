@@ -92,32 +92,7 @@
             <div class="eight wide field">
               <input type="text" name="email" placeholder="Email Address" ng-model="u.email">
             </div>
-            <div class="eight wide field">
-              <input type="text" name="address" placeholder="Contact Address" ng-model="u.address">
-            </div>
-          </div>
-        </div>
-        <h4 class="ui dividing header">Billing Information</h4>
-        <div class="three fields">
-          <div class="field">
-            <label>Account Number</label>
-            <input type="text" name="acct_no" placeholder="Enter Account Number" ng-model="u.acct_no">
-          </div>
-          <div class="field">
-            <label>Account Type</label>
-            <select id="dropdown-2" class="ui dropdown dropdown_menu" ng-model="u.acct_type">
-              <option value="">Type</option>
-              <option value="current">Current</option>
-              <option value="savings">Savings</option>
-              option
-            </select>
-          </div>
-          <div class="field">
-            <label>Bank</label>
-            <select id="dropdown-3" class="ui dropdown dropdown_menu" ng-model="u.bank">
-              <option value="">Bank</option>
-              <option ng-selected="u.bank == bank" ng-repeat="bank in banks">{{ bank }}</option>
-            </select>
+
           </div>
         </div>
         <button type="submit" class="ui button green" tabindex="0" ng-disabled="u.password_confirmation != u.password">Submit</button>

@@ -2,9 +2,16 @@
   <ng-include src="'angular/views/partials/menu.html'"></ng-include>
   <section id="profile-edit">
     <div class="grid-container">
-      <br>
-      <br>
-      <br>
+
+      <div class="ui icon message">
+        <i class="lock icon"></i>
+        <div class="content">
+          <div class="header">
+            Notice
+          </div>
+          <p>For security reasons, your profile name cannot be changed. Kindly send an email to hello@fastplay24.com to change your name if necessary.</p>
+        </div>
+      </div>
 
       <br>
       <br>
@@ -76,9 +83,9 @@
               <p>Passwords don't match</p>
             </div>
             <button ng-class="['ui', 'blue', 'button', {'loading' : loading}]" type="button" ng-click="updatePassword()" ng-disabled="!userdetails.password_confirmation || userdetails.password_confirmation != userdetails.password || loading">Update Password</button>
-          
+
           </form>
-          <div class="ui icon message" ng-if="false">
+          <div class="ui icon message">
             <i class="attention icon"></i>
             <div class="content">
               <div class="header">

@@ -12,7 +12,7 @@ var url = `
   </div>
 
 
-  <div class="ui mini modal buyUnits transition hidden">
+  <div class="ui tiny modal buyUnits transition hidden">
       <div class="header">
         Input Amount
       </div>
@@ -103,7 +103,8 @@ angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendReque
 
       $scope.openModal = () => {
         $('.ui.modal.buyUnits').modal({
-            blurring: true
+            blurring: true,
+            allowMultiple: false
           })
           .modal('show');
       };

@@ -37,7 +37,7 @@
     bootstrapPage.homepage($scope);
 
     $scope.$parent.height=135;
-    
+
     NProgress.done();
 
   }]);
@@ -47,4 +47,12 @@
     NProgress.start();
     // bootstrapPage.homepage($scope);
     NProgress.done();
+  }]);
+
+  home.controller('TermsController', ['$scope', 'sendRequest', 'bootstrapPage', function ($scope, sendRequest, bootstrapPage ) {
+
+    NProgress.start();
+    bootstrapPage.terms($scope);
+    NProgress.done();
+
   }]);

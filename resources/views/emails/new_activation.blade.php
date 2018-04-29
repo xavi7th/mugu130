@@ -51,25 +51,58 @@
 
         .message {
             font-size: 26px;
-            padding: 5px;
+            padding: 10px;
         }
 
         .m0{
           margin: 0 !important;
         }
 
-
         .tal{
           text-align: left !important;
-        }
-
-        .al{
-          align-self: left;
         }
 
         img.image{
           margin-top: 45px;
         }
+
+				div{
+					margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+				}
+				div#main-controller header#alpha {
+				  background-color: #0a314c;
+				  padding: 4px 0px;
+				}
+				.grid-container {
+				  margin-left: auto;
+				  margin-right: auto;
+				  max-width: 1200px;
+				  padding-left: 10px;
+				  padding-right: 10px;
+				}
+				html, body {
+				  background-color: #fff;
+				  color: #636b6f;
+				  font-family: 'Raleway', sans-serif;
+				  font-weight: 100;
+				  height: 100vh;
+				  margin: 0;
+					font-size: 14px;
+				}
+
+				body{
+					padding: 0px;
+overflow-x: hidden;
+min-width: 320px;
+background: #FFFFFF;
+line-height: 1.4285em;
+				}
 
     </style>
 
@@ -90,9 +123,6 @@
 	          <img src="/img/logo.png" alt="">
 	        </div>
 	        <div class="grid-50 mobile-grid-70">
-						@if (!Route::is('demo.play'))
-							<mini-game-state class="mini" style="float:right !important;"></mini-game-state>
-						@endif
 	        </div>
 	      </div>
 	    </header>
@@ -103,16 +133,17 @@
 
             <div class="ui basic segment flex-center ">
               <img class="ui centered small image" src="/img/404_error_page.gif">
+							{{-- <img class="ui centered small image" src="{{ $message->embed('/img/404_error_page.gif') }}"> --}}
               <h1 class="content title">Awww!!!   </h1>
-              <p class="message m0">Hey Buddy,</p>
-              <p class="message m0">the referrer you referrenced could not be found.</p>
-              <p class="message m0">Check the referral url and try again.</p>
+              <p class="message">Hey Buddy,</p>
+              <p class="message">We hate to break to you. But this page doesn’t exist anymore. Or maybe it never existed in the first place. Sorry, but that’s all we know.</p>
               <a href="{{ route('home') }}" class="huge ui blue button" target="_self">
                 Return to our homepage
               </a>
-              <p class="message m0 al">
+              <p class="title m0 tal">
                 Cheers,
-                <br>
+              </p>
+              <p class="title m0 tal">
                 Your buddies at FastPlay24
               </p>
             </div>

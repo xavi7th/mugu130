@@ -40680,7 +40680,7 @@ div#main-controller #drop-menu a.item {
 
 div#main-controller footer {
   padding: 20px 0px;
-  background-color: #0a314c;
+  background-color: #03A9F4;
 }
 
 div#main-controller footer a {
@@ -41450,9 +41450,25 @@ td[ng-click] {
   }
 }
 
+div#main-controller #others_intro {
+  padding: 40px 0px;
+  height: 100px;
+  background-color: #fff;
+}
+
 div#main-controller #resultWindow {
   max-height: 55vh !important;
   overflow-y: auto;
+}
+
+div#main-controller #others_contents {
+  padding: 20px 0px 40px 0px;
+  background-image: url(/img/4.jpg);
+  background-blend-mode: exclusion;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: calc(100vh - 225px);
 }
 
 div#main-controller .info p,
@@ -41529,7 +41545,7 @@ div#main-controller .info img {
   }
 }
 
-footer {
+div#main-controller footer {
   width: 100%;
   background: #03A9F4;
 }

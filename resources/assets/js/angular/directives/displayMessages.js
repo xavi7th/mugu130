@@ -51,7 +51,7 @@ var url = `
         </div>
         <div class="ui attached message">
           <div class="header">
-            Message Details {{ msg_record }}
+            Message Details
           </div>
         </div>
         <form class="ui form attached fluid segment">

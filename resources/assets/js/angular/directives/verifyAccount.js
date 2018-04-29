@@ -4,10 +4,11 @@
 
 var url = `
 <section id="verifyAccount" class="ui left floated horizontal  list">
-  <div class="ui labeled button" tabindex="-1" ng-if="userdetails.verified">
-    <div class="ui blue label" style="background-color: #03A9F4;">
-      <i class="check circle icon"></i>
-    </div>
+
+  <div class="ui circular green labels" ng-if="userdetails.verified">
+    <a class="ui label">
+      <i class="check circle icon" style="margin: 0;"></i>
+    </a>
   </div>
 
   <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMail()" ng-if="!userdetails.verified">

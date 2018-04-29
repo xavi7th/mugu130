@@ -36,6 +36,31 @@
        controller: 'DemoGameController'
      })
 
+     .when('/support-center', {
+       templateUrl: 'angular/views/home/support-center.html',
+       controller: 'SupportController'
+     })
+
+     .when('/frequently-asked-questions', {
+       templateUrl: 'angular/views/home/frequently-asked-questions.html',
+       controller: 'FAQController'
+     })
+
+     .when('/privacy', {
+       templateUrl: 'angular/views/home/privacy.html',
+       controller: 'PrivacyController'
+     })
+
+     .when('/calculator', {
+       templateUrl: 'angular/views/home/calculator.html',
+       controller: 'CalculatorController'
+     })
+
+     .when('/terms-and-conditions', {
+       templateUrl: 'angular/views/home/terms.html',
+       controller: 'TermsController'
+     })
+
      .otherwise({
        redirectTo: '/'
      });
