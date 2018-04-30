@@ -21,6 +21,7 @@ use Illuminate\Broadcasting\BroadcastException;
 use App\Events\ExamJoined;
 use App\Events\NewMemberJoined;
 use App\Notice;
+use App\Mail\TransactionalMail;
 // Cache::flush();
 
 
@@ -255,8 +256,12 @@ class DashboardController extends Controller
 
         //return the results ordered by position
 
-        if (true) {
+        if (Auth::user()->role_id == 0) {
+          $earnings = Earning::where('user_id', 0)->sum('amount');
+        }
+        else{
           $earnings = Auth::user()->totalEarnings->sum('amount');
+
         }
 
         return [
@@ -333,25 +338,19 @@ class DashboardController extends Controller
       }
 
       if (request()->input('details.amt') <= 1000) {
-        $amount = request()->input('details.amt') - 50;
+        $fee = env('TRANSACTION_FEE');
+        $amount = request()->input('details.amt') - $fee;
       }
       else{
-        $amount = request()->input('details.amt') - ((floor(request()->input('details.amt')/5000) * 50) + 50);
+        $fee = ((floor(request()->input('details.amt')/5000) * env('TRANSACTION_FEE')) + env('TRANSACTION_FEE'));
+        $amount = request()->input('details.amt') - $fee;
+
       }
 
       DB::beginTransaction();
 
-        //add a withdrawal request to transactions table
-        Auth::user()->transactions()->create([
-          'amount' => $amount,
-          'trans_type' => 'withdrawal',
-          'status' => 'pending',
-        ]);
-
-        //add a notice for the user
-
         //remove the units from his acc so that he cannot use it meanwhile
-        Auth::user()->debitAccount($amount);
+        Auth::user()->debitAccount($amount, $fee);
 
       DB::commit();
 
@@ -445,7 +444,7 @@ class DashboardController extends Controller
     }
 
     public function resendVerificationMail() {
-      $rsp = Auth::user()->resendVerificationMail();
+      $rsp = TransactionalMail::resendVerificationMail();
 
       if (is_array($rsp)) {
         return response()->json(['message' => $rsp['message'] ], $rsp['status']);

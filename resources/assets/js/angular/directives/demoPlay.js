@@ -6,30 +6,49 @@ var url = `
 
 <section id="game-play">
 
-  <div class="ui compact menu">
-    <a class="item">
-      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="submitExam()" ng-if="!display_results"></countdown-timer>
-    </a>
-  </div>
 
-  <div class="ui violet label" style="font-size: 13px;">
-    <span style="padding-right: 10px;">Active Gamers</span>
-    <i class="users icon"></i> {{ total_examinees }}
-  </div>
+<style>
+  #timer h1{
+    margin: 0 !important;
+  }
+</style>
 
-  <div class="ui compact segment" style="display:inline-block">
-    <div class="header">Lifelines</div>
-    <div class="ui compact menu">
-      <a class="item">
-        50/50
-        <div class="floating ui red label">1</div>
-      </a>
-      <a class="item" style="background:#21BA45; color: white;">
-        CHANGE QUESTION
-        <div class="floating ui teal label">1</div>
-      </a>
+
+
+
+  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);">
+    <div class="ui segment">
+      <div class="ui compact menu">
+        <a class="item" style="padding: 0 20px !important;">
+          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="submitExam()" ng-if="!display_results" id="timer"></countdown-timer>
+        </a>
+      </div>
     </div>
 
+    <div class="ui segment">
+      <div class="ui violet label" style="font-size: 13px;">
+        <span style="padding-right: 10px;">Active Gamers</span>
+        <i class="users icon"></i> {{ total_examinees }}
+      </div>
+    </div>
+
+
+    <div class="ui segment">
+      <h1 style="color: white; float: right;">Lifelines</h1>
+    </div>
+
+    <div class="ui segment">
+      <div class="ui compact menu">
+        <a class="item">
+          50/50
+          <div class="floating ui red label">1</div>
+        </a>
+        <a class="item" style="background:#21BA45; color: white;">
+          CHANGE QUESTION
+          <div class="floating ui teal label">1</div>
+        </a>
+      </div>
+    </div>
   </div>
 
   <div class="ui styled fluid accordion" ng-if="!display_results">
@@ -149,10 +168,6 @@ var url = `
           <tbody>
             <tr ng-repeat="result in results  | orderBy: ['position', '-score'] ">
               <td>
-                <div style="position:absolute; left:0;" class="ui ribbon blue label" ng-if="$index == 0">First</div>
-                <div style="position:absolute; left:0;" class="ui ribbon teal label" ng-if="$index == 1">Second</div>
-                <div style="position:absolute; left:0;" class="ui ribbon yellow label" ng-if="$index == 2">Third</div>
-
                 <p style="text-align:center; position:relative;"> {{ result.session_id | limitTo : 25 }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.game_id == 1 ">You</a></p>
 
               </td>

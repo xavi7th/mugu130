@@ -25,6 +25,12 @@
 
      })
 
+     .when('/verify-user/:token', {
+       controller: 'RegisterController',
+       template : '',
+
+     })
+
      .when('/register/success', {
        controller: 'RegisterController',
        template : '',

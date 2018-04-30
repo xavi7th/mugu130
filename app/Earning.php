@@ -43,12 +43,20 @@ class Earning extends Model{
 
 
 
-  public static function adminEarning($gid,$amt){
+  public static function adminEarning($gid, $amt){
 		self::updateOrCreate(['game_id' => $gid],[
 			'user_id' => 0,
 			'game_id' => $gid,
 			'amount' => $amt,
-			// 'deleted_at' => Carbon::now()
+		]);
+  }
+
+
+  public static function addAdminEarning($amt){
+		self::create([
+			'user_id' => 0,
+			'game_id' => 0,
+			'amount' => $amt,
 		]);
   }
 

@@ -228,11 +228,21 @@ class User extends Authenticatable{
       $this->save();
     }
 
-    public function debitAccount($amount){
-      $this->available_units = $this->available_units - $amount;
+    public function debitAccount($amount, $fee){
+
+      //add a withdrawal request to transactions table
+      Auth::user()->transactions()->create([
+        'amount' => $amount,
+        'trans_type' => 'withdrawal',
+        'status' => 'pending',
+      ]);
+
+      //add a notice for the user
+
+      $this->available_units = $this->available_units - $amount - $fee;
       $this->save();
 
-      Earning::adminEarning(0, env('WITHDRAWAL_FEE'));
+      Earning::addAdminEarning($fee);
     }
 
     public function sendMessage() {
@@ -275,10 +285,6 @@ class User extends Authenticatable{
 
     public function isVerified(){
       return $this->verified;
-    }
-
-    public function resendVerificationMail(){
-      return TransactionalMail::resendVerificationMail();
     }
 
   	/**

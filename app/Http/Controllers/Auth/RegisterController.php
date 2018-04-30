@@ -78,8 +78,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
       // dd(request()->input());
+
+      User::unguard();
+
       $token = str_random( 100 );
-      TransactionalMail::sendverificationMail($token);
+      TransactionalMail::sendverificationMail($token, request()->input('email'));
 
       DB::beginTransaction();
 
@@ -90,7 +93,7 @@ class RegisterController extends Controller
           'lastname'=> request()->input('lastname'),
 
           // 'created_at'=> Carbon::now(),
-          // 'confirmation_token' => $token,
+          'confirmation_token' => $token,
         ]);
 
         // Create a record for this referrer
@@ -99,6 +102,11 @@ class RegisterController extends Controller
         }
 
       DB::commit();
+
+      User::reguard();
+
+      // dd($user);
+
 
         return $user;
     }

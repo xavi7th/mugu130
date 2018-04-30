@@ -35,7 +35,10 @@
     },
     "autoload": {
       "files": [
-           "app/helpers.php"
+           "app/helpers.php",
+           "app/Mail/Exception.php",
+           "app/Mail/PHPMailer.php",
+           "app/Mail/SMTP.php"
        ],
         "classmap": [
             "database/seeds",

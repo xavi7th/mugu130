@@ -2,10 +2,13 @@
 
 namespace App\Mail;
 
-use Postmark\PostmarkClient;
-use Postmark\Models\PostmarkException;
+// use Postmark\PostmarkClient;
+// use Postmark\Models\PostmarkException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use GuzzleHttp\Exception\ConnectException;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
 class TransactionalMail
 {
@@ -72,117 +75,150 @@ class TransactionalMail
         }
   }
 
-  public static function sendVerificationMail($token){
-      //  var_dump( request()->input('details') ); exit;
-        //Send them a mail containing their session id so that they can use it to track their orders or make complaints later
-        try{
-          $client = new PostmarkClient(env('POSTMARK_KEY'));
+  public static function sendVerificationMail($token, $email){
 
-          // Make a request
-          $sendResult = $client->sendEmailWithTemplate(
-            "support@bitensured.com",
-            request()->input('details.email'),
-            5291681,
-            [
-              "name" => request()->input('details.firstname') . ' ' . request()->input('details.lastname'),
-              "action_url" => $token,
-              "login_url" => route('login'),
-              "username" => request()->input('details.email'),
-              "sitelogo" => asset('img/logo.png'),
-              "product_name" => env('APP_NAME'),
-              "company_name" => env('APP_NAME'),
-              "company_address" => env('APP_ADDRESS'),
-              "product_url" => route('home'),
-              "headerBackground" => asset('img/testimonial-bg.jpg'),
-            ]
-          );
-          return $sendResult->message ."\r\n";
+    // return (new ActivationMail())->render();
 
-        }
-        catch(ConnectException $err){
-          // abort(401, 'Error in network connection.');
-          return [
-            'status' => $err->getCode(),
-            'message' => 'There was a connection error'
-          ];
-
-        }
-        catch(PostmarkException $ex){
-            // If client is able to communicate with the API in a timely fashion,
-            // but the message data is invalid, or there's a server error,
-            // a PostmarkException can be thrown.
-            return [
-              'status' => $ex->httpStatusCode,
-              'message' => $ex->message . PHP_EOL . $ex->postmarkApiErrorCode
-            ];
-        }
-        catch(Exception $generalException){
-          // A general exception is thrown if the API
-          // was unreachable or times out.
-          return [
-            'status' => 422,
-            'message' => 'The mail server is currently unreachable. Try again later'
-          ];
-        }
+    Mail::to($email)->send(new ActivationMail($token));
 
   }
 
   public static function resendverificationMail(){
 
-    // https://github.com/PHPMailer/PHPMailer/blob/master/examples/smtp.phps See this link
+    return (new ReactivationMail())->render();
 
-    /**
-     * This example shows making an SMTP connection with authentication.
-     */
+    Mail::to( Auth::user()->email )->send(new ReactivationMail());
 
-    require '../PHPMailerAutoload.php';
-
-    //Create a new PHPMailer instance
-    $mail = new PHPMailer;
-    //Tell PHPMailer to use SMTP
-    $mail->isSMTP();
-    //Enable SMTP debugging
-    // 0 = off (for production use)
-    // 1 = client messages
-    // 2 = client and server messages
-    $mail->SMTPDebug = 2;
-    //Ask for HTML-friendly debug output
-    $mail->Debugoutput = 'html';
-    //Set the hostname of the mail server
-    $mail->Host = "mail.example.com";
-    //Set the SMTP port number - likely to be 25, 465 or 587
-    $mail->Port = 25;
-    //Whether to use SMTP authentication
-    $mail->SMTPAuth = true;
-    //Username to use for SMTP authentication
-    $mail->Username = "yourname@example.com";
-    //Password to use for SMTP authentication
-    $mail->Password = "yourpassword";
-    //Set who the message is to be sent from
-    $mail->setFrom('from@example.com', 'First Last');
-    //Set an alternative reply-to address
-    $mail->addReplyTo('replyto@example.com', 'First Last');
-    //Set who the message is to be sent to
-    $mail->addAddress('whoto@example.com', 'John Doe');
-    //Set the subject line
-    $mail->Subject = 'PHPMailer SMTP test';
-    //Read an HTML message body from an external file, convert referenced images to embedded,
-    //convert HTML into a basic plain-text alternative body
-    $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-    //Replace the plain text body with one created manually
-    $mail->AltBody = 'This is a plain-text message body';
-    //Attach an image file
-    $mail->addAttachment('images/phpmailer_mini.png');
-
-    //send the message, check for errors
-    if (!$mail->send()) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
-    } else {
-        echo "Message sent!";
+    if ( count(Mail::failures()) > 0) {
+      return [
+                'status' => 422,
+                'message' => 'Error sending mail'
+              ];
     }
 
+     return 'Sent: Check your email to verify your account.';//$sendResult->message ."";
 
   }
+
+
+
+
+  //
+  // public static function resendverificationMail(){
+  //
+  //   // https://github.com/PHPMailer/PHPMailer/blob/master/examples/smtp.phps See this link
+  //
+  //   /**
+  //   * This example shows making an SMTP connection with authentication.
+  //   */
+  //
+  //   require '../PHPMailerAutoload.php';
+  //
+  //   //Create a new PHPMailer instance
+  //   $mail = new PHPMailer;
+  //   //Tell PHPMailer to use SMTP
+  //   $mail->isSMTP();
+  //   //Enable SMTP debugging
+  //   // 0 = off (for production use)
+  //   // 1 = client messages
+  //   // 2 = client and server messages
+  //   $mail->SMTPDebug = 2;
+  //   //Ask for HTML-friendly debug output
+  //   $mail->Debugoutput = 'html';
+  //   //Set the hostname of the mail server
+  //   $mail->Host = "mail.example.com";
+  //   //Set the SMTP port number - likely to be 25, 465 or 587
+  //   $mail->Port = 25;
+  //   //Whether to use SMTP authentication
+  //   $mail->SMTPAuth = true;
+  //   //Username to use for SMTP authentication
+  //   $mail->Username = "yourname@example.com";
+  //   //Password to use for SMTP authentication
+  //   $mail->Password = "yourpassword";
+  //   //Set who the message is to be sent from
+  //   $mail->setFrom('from@example.com', 'First Last');
+  //   //Set an alternative reply-to address
+  //   $mail->addReplyTo('replyto@example.com', 'First Last');
+  //   //Set who the message is to be sent to
+  //   $mail->addAddress('whoto@example.com', 'John Doe');
+  //   //Set the subject line
+  //   $mail->Subject = 'PHPMailer SMTP test';
+  //   //Read an HTML message body from an external file, convert referenced images to embedded,
+  //   //convert HTML into a basic plain-text alternative body
+  //   $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+  //   //Replace the plain text body with one created manually
+  //   $mail->AltBody = 'This is a plain-text message body';
+  //   //Attach an image file
+  //   $mail->addAttachment('images/phpmailer_mini.png');
+  //
+  //   //send the message, check for errors
+  //   if (!$mail->send()) {
+  //     echo "Mailer Error: " . $mail->ErrorInfo;
+  //   } else {
+  //     echo "Message sent!";
+  //   }
+  //
+  //
+  // }
+
+
+    // public static function sendVerificationMail($token){
+    //     //  var_dump( request()->input('details') ); exit;
+    //       //Send them a mail containing their session id so that they can use it to track their orders or make complaints later
+    //       try{
+    //         $client = new PostmarkClient(env('POSTMARK_KEY'));
+    //
+    //         // Make a request
+    //         $sendResult = $client->sendEmailWithTemplate(
+    //           "support@bitensured.com",
+    //           request()->input('details.email'),
+    //           5291681,
+    //           [
+    //             "name" => request()->input('details.firstname') . ' ' . request()->input('details.lastname'),
+    //             "action_url" => $token,
+    //             "login_url" => route('login'),
+    //             "username" => request()->input('details.email'),
+    //             "sitelogo" => asset('img/logo.png'),
+    //             "product_name" => env('APP_NAME'),
+    //             "company_name" => env('APP_NAME'),
+    //             "company_address" => env('APP_ADDRESS'),
+    //             "product_url" => route('home'),
+    //             "headerBackground" => asset('img/testimonial-bg.jpg'),
+    //           ]
+    //         );
+    //         return $sendResult->message ."\r\n";
+    //
+    //       }
+    //       catch(ConnectException $err){
+    //         // abort(401, 'Error in network connection.');
+    //         return [
+    //           'status' => $err->getCode(),
+    //           'message' => 'There was a connection error'
+    //         ];
+    //
+    //       }
+    //       catch(PostmarkException $ex){
+    //           // If client is able to communicate with the API in a timely fashion,
+    //           // but the message data is invalid, or there's a server error,
+    //           // a PostmarkException can be thrown.
+    //           return [
+    //             'status' => $ex->httpStatusCode,
+    //             'message' => $ex->message . PHP_EOL . $ex->postmarkApiErrorCode
+    //           ];
+    //       }
+    //       catch(Exception $generalException){
+    //         // A general exception is thrown if the API
+    //         // was unreachable or times out.
+    //         return [
+    //           'status' => 422,
+    //           'message' => 'The mail server is currently unreachable. Try again later'
+    //         ];
+    //       }
+    //
+    // }
+
+
+
   //
   // public static function resendverificationMail(){
   //

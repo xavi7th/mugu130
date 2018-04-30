@@ -110,7 +110,74 @@ class UserGameSessionsTableSeeder extends Seeder{
 class DemoGameSessionsTableSeeder extends Seeder{
   public function run()
      {
-         factory(DemoGameSession::class, request()->input('details.total_examinees'))->create();
+       $total_stake = (env('GAME_CREDITS') - env('BASIC_PARTICIPATION_REWARD') - env('EXAM_PARTICIPATION_FEE')) * request()->input('details.total_examinees');
+       $max_winners = ceil(request()->input('details.total_examinees') / env('PERCENT_WINNERS'));
+       $sum = 0;
+       $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
+       $winners = rand(3,8);
+
+
+       for ($i=0; $i < $max_winners; $i++) {
+         $sum += (pow(1.06381, $i));
+       }
+
+       $firstprice = ($total_stake/$sum) * (pow(1.06381, $max_winners - 1));
+
+       for ($i=0; $i < $winners; $i++) {
+         DemoGameSession::create([
+           'session_id' => session('demo_id'),
+           'game_id' => 0,
+           'score' => 10,
+           'status' => 1,
+           'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
+           'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+           'earning' => floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD')
+         ]);
+
+       }
+         factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
+     }
+}
+
+class LoserDemoGameSessionsTableSeeder extends Seeder{
+  public function run()
+     {
+       $total_stake = (env('GAME_CREDITS') - env('BASIC_PARTICIPATION_REWARD') - env('EXAM_PARTICIPATION_FEE')) * request()->input('details.total_examinees');
+       $max_winners = ceil(request()->input('details.total_examinees') / env('PERCENT_WINNERS'));
+       $sum = 0;
+       $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
+       $winners = rand(3,8);
+
+
+       for ($i=0; $i < $max_winners; $i++) {
+         $sum += (pow(1.06381, $i));
+       }
+
+       $firstprice = ($total_stake/$sum) * (pow(1.06381, $max_winners - 1));
+
+       DemoGameSession::create([
+         'session_id' => session('demo_id'),
+         'game_id' => 0,
+         'score' => 10,
+         'status' => 1,
+         'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
+         'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+         'earning' => $firstprice + env('BASIC_PARTICIPATION_REWARD')
+       ]);
+
+       for ($i=0; $i < $winners; $i++) {
+         DemoGameSession::create([
+           'session_id' => session('demo_id'),
+           'game_id' => 0,
+           'score' => 10,
+           'status' => 1,
+           'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
+           'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+           'earning' => floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD')
+         ]);
+
+       }
+         factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
      }
 }
 

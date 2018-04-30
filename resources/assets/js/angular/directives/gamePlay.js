@@ -4,19 +4,38 @@
 
 var url = `
 <section id="game-play">
-  <div class="ui compact menu">
-    <a class="item">
-      <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>
-    </a>
-  </div>
-  <div class="ui violet label" style="font-size: 13px;">
-    <span style="padding-right: 10px;">Active Gamers</span>
-    <i class="users icon"></i> {{ total_examinees }}
-  </div>
 
 
-    <div class="ui compact segment" style="display:inline-block">
-      <div class="header">Lifelines</div>
+<style>
+  #timer h1{
+    margin: 0 !important;
+  }
+</style>
+
+
+
+  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);">
+    <div class="ui segment">
+      <div class="ui compact menu">
+        <a class="item" style="padding: 0 20px !important;">
+          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()" id="timer"></countdown-timer>
+        </a>
+      </div>
+    </div>
+
+    <div class="ui segment">
+      <div class="ui violet label" style="font-size: 13px;">
+        <span style="padding-right: 10px;">Active Gamers</span>
+        <i class="users icon"></i> {{ total_examinees }}
+      </div>
+    </div>
+
+
+    <div class="ui segment">
+      <h1 style="color: white; float: right;">Lifelines</h1>
+    </div>
+
+    <div class="ui segment">
       <div class="ui compact menu">
         <a class="item">
           50/50
@@ -27,8 +46,9 @@ var url = `
           <div class="floating ui teal label">1</div>
         </a>
       </div>
-
     </div>
+  </div>
+
 
   <div class="ui styled fluid accordion">
 

@@ -1,188 +1,976 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<!doctype html>
+<html>
+
 	<head>
-		<meta charset="utf-8">
-    <title>{{ env('APP_NAME') }} - @yield('title')</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="">
-    <meta name="author" content="">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>*|MC:SUBJECT|*</title>
 
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    {{-- <link rel="stylesheet" href="{{ asset('/css/app.css') }}"> --}}
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
+		<style type="text/css">
+			p {
+				margin: 10px 0;
+				padding: 0;
+			}
 
-        .full-height {
-            min-height: calc(100vh - 125px);
-        }
+			table {
+				border-collapse: collapse;
+			}
 
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				display: block;
+				margin: 0;
+				padding: 0;
+			}
 
-        .position-ref {
-            position: relative;
-        }
+			img,
+			a img {
+				border: 0;
+				height: auto;
+				outline: none;
+				text-decoration: none;
+			}
 
-        .content {
-            text-align: center;
-        }
+			body,
+			#bodyTable,
+			#bodyCell {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				width: 100%;
+			}
 
-        .title {
-            font-size: 36px;
-            padding: 20px;
-        }
+			.mcnPreviewText {
+				display: none !important;
+			}
 
-        .message {
-            font-size: 26px;
-            padding: 10px;
-        }
+			#outlook a {
+				padding: 0;
+			}
 
-        .m0{
-          margin: 0 !important;
-        }
+			img {
+				-ms-interpolation-mode: bicubic;
+			}
 
-        .tal{
-          text-align: left !important;
-        }
+			table {
+				mso-table-lspace: 0pt;
+				mso-table-rspace: 0pt;
+			}
 
-        img.image{
-          margin-top: 45px;
-        }
+			.ReadMsgBody {
+				width: 100%;
+			}
 
-				div{
-					margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
+			.ExternalClass {
+				width: 100%;
+			}
+
+			p,
+			a,
+			li,
+			td,
+			blockquote {
+				mso-line-height-rule: exactly;
+			}
+
+			a[href^=tel],
+			a[href^=sms] {
+				color: inherit;
+				cursor: default;
+				text-decoration: none;
+			}
+
+			p,
+			a,
+			li,
+			td,
+			body,
+			table,
+			blockquote {
+				-ms-text-size-adjust: 100%;
+				-webkit-text-size-adjust: 100%;
+			}
+
+			.ExternalClass,
+			.ExternalClass p,
+			.ExternalClass td,
+			.ExternalClass div,
+			.ExternalClass span,
+			.ExternalClass font {
+				line-height: 100%;
+			}
+
+			a[x-apple-data-detectors] {
+				color: inherit !important;
+				text-decoration: none !important;
+				font-size: inherit !important;
+				font-family: inherit !important;
+				font-weight: inherit !important;
+				line-height: inherit !important;
+			}
+
+			#bodyCell {
+				padding: 10px;
+			}
+
+			.templateContainer {
+				max-width: 600px !important;
+			}
+
+			a.mcnButton {
+				display: block;
+			}
+
+			.mcnImage,
+			.mcnRetinaImage {
+				vertical-align: bottom;
+			}
+
+			.mcnTextContent {
+				word-break: break-word;
+			}
+
+			.mcnTextContent img {
+				height: auto !important;
+			}
+
+			.mcnDividerBlock {
+				table-layout: fixed !important;
+			}
+
+			/*
+			@@tab Page
+			@@section Background Style
+			@@tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			*/
+
+			body,
+			#bodyTable {
+				background-color: #FFFFFF;
+			}
+
+			/*
+			@@tab Page
+			@@section Background Style
+			@@tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			*/
+
+			#bodyCell {
+				border-top: 0;
+			}
+
+			/*
+			@@tab Page
+			@@section Email Border
+			@@tip Set the border for your email.
+			*/
+
+			.templateContainer {
+				border: 0;
+			}
+
+			/*
+			@@tab Page
+			@@section Heading 1
+			@@tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+			@@style heading 1
+			*/
+
+			h1 {
+				color: #FFFFFF;
+				font-family: Georgia;
+				font-size: 28px;
+				font-style: italic;
+				font-weight: bold;
+				line-height: 125%;
+				letter-spacing: normal;
+				text-align: center;
+			}
+
+			/*
+			@@tab Page
+			@@section Heading 2
+			@@tip Set the styling for all second-level headings in your emails.
+			@@style heading 2
+			*/
+
+			h2 {
+				color: #FFFFFF;
+				font-family: Helvetica;
+				font-size: 22px;
+				font-style: normal;
+				font-weight: bold;
+				line-height: 125%;
+				letter-spacing: normal;
+				text-align: center;
+			}
+
+			/*
+			@@tab Page
+			@@section Heading 3
+			@@tip Set the styling for all third-level headings in your emails.
+			@@style heading 3
+			*/
+
+			h3 {
+				color: #FFFFFF;
+				font-family: Helvetica;
+				font-size: 20px;
+				font-style: normal;
+				font-weight: bold;
+				line-height: 125%;
+				letter-spacing: normal;
+				text-align: center;
+			}
+
+			/*
+			@@tab Page
+			@@section Heading 4
+			@@tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+			@@style heading 4
+			*/
+
+			h4 {
+				color: #FFFFFF;
+				font-family: Courier New;
+				font-size: 18px;
+				font-style: normal;
+				font-weight: normal;
+				line-height: 125%;
+				letter-spacing: normal;
+				text-align: center;
+			}
+
+			/*
+			@@tab Preheader
+			@@section Preheader Style
+			@@tip Set the background color and borders for your email's preheader area.
+			*/
+
+			#templatePreheader {
+				background-color: #FFFFFF;
+				border-top: 0;
+				border-bottom: 0;
+				padding-top: 9px;
+				padding-bottom: 9px;
+			}
+
+			/*
+			@@tab Preheader
+			@@section Preheader Text
+			@@tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+			*/
+
+			#templatePreheader .mcnTextContent,
+			#templatePreheader .mcnTextContent p {
+				color: #656565;
+				font-family: Helvetica;
+				font-size: 12px;
+				line-height: 150%;
+				text-align: center;
+			}
+
+			/*
+			@@tab Preheader
+			@@section Preheader Link
+			@@tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+			*/
+
+			#templatePreheader .mcnTextContent a,
+			#templatePreheader .mcnTextContent p a {
+				color: #656565;
+				font-weight: normal;
+				text-decoration: underline;
+			}
+
+			/*
+			@@tab Header
+			@@section Header Style
+			@@tip Set the background color and borders for your email's header area.
+			*/
+
+			#templateHeader {
+				background-color: #FFFFFF;
+				border-top: 0;
+				border-bottom: 0;
+				padding-top: 0;
+				padding-bottom: 9px;
+			}
+
+			/*
+			@@tab Header
+			@@section Header Text
+			@@tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+			*/
+
+			#templateHeader .mcnTextContent,
+			#templateHeader .mcnTextContent p {
+				color: #202020;
+				font-family: Helvetica;
+				font-size: 16px;
+				line-height: 150%;
+				text-align: left;
+			}
+
+			/*
+			@@tab Header
+			@@section Header Link
+			@@tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+			*/
+
+			#templateHeader .mcnTextContent a,
+			#templateHeader .mcnTextContent p a {
+				color: #2BAADF;
+				font-weight: normal;
+				text-decoration: underline;
+			}
+
+			/*
+			@@tab Body
+			@@section Body Style
+			@@tip Set the background color and borders for your email's body area.
+			*/
+
+			#templateBody {
+				background-color: #4caad8;
+				border-top: 0;
+				border-bottom: 0;
+				padding-top: 0;
+				padding-bottom: 36px;
+			}
+
+			/*
+			@@tab Body
+			@@section Body Text
+			@@tip Set the styling for your email's body text. Choose a size and color that is easy to read.
+			*/
+
+			#templateBody .mcnTextContent,
+			#templateBody .mcnTextContent p {
+				color: #FFFFFF;
+				font-family: Helvetica;
+				font-size: 16px;
+				line-height: 150%;
+				text-align: left;
+			}
+
+			/*
+			@@tab Body
+			@@section Body Link
+			@@tip Set the styling for your email's body links. Choose a color that helps them stand out from your text.
+			*/
+
+			#templateBody .mcnTextContent a,
+			#templateBody .mcnTextContent p a {
+				color: #FFFFFF;
+				font-weight: normal;
+				text-decoration: underline;
+			}
+
+			/*
+			@@tab Footer
+			@@section Footer Style
+			@@tip Set the background color and borders for your email's footer area.
+			*/
+
+			#templateFooter {
+				background-color: #FFFFFF;
+				border-top: 0;
+				border-bottom: 0;
+				padding-top: 9px;
+				padding-bottom: 9px;
+			}
+
+			/*
+			@@tab Footer
+			@@section Footer Text
+			@@tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+			*/
+
+			#templateFooter .mcnTextContent,
+			#templateFooter .mcnTextContent p {
+				color: #656565;
+				font-family: Helvetica;
+				font-size: 12px;
+				line-height: 150%;
+				text-align: center;
+			}
+
+			/*
+			@@tab Footer
+			@@section Footer Link
+			@@tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+			*/
+
+			#templateFooter .mcnTextContent a,
+			#templateFooter .mcnTextContent p a {
+				color: #656565;
+				font-weight: normal;
+				text-decoration: underline;
+			}
+
+			@media only screen and (min-width:768px) {
+				.templateContainer {
+					width: 600px !important;
 				}
-				div#main-controller header#alpha {
-				  background-color: #0a314c;
-				  padding: 4px 0px;
-				}
-				.grid-container {
-				  margin-left: auto;
-				  margin-right: auto;
-				  max-width: 1200px;
-				  padding-left: 10px;
-				  padding-right: 10px;
-				}
-				html, body {
-				  background-color: #fff;
-				  color: #636b6f;
-				  font-family: 'Raleway', sans-serif;
-				  font-weight: 100;
-				  height: 100vh;
-				  margin: 0;
-					font-size: 14px;
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				body,
+				table,
+				td,
+				p,
+				a,
+				li,
+				blockquote {
+					-webkit-text-size-adjust: none !important;
 				}
 
-				body{
-					padding: 0px;
-overflow-x: hidden;
-min-width: 320px;
-background: #FFFFFF;
-line-height: 1.4285em;
+			}
+
+			@media only screen and (max-width: 480px) {
+				body {
+					width: 100% !important;
+					min-width: 100% !important;
 				}
 
-    </style>
+			}
 
+			@media only screen and (max-width: 480px) {
+				#bodyCell {
+					padding-top: 10px !important;
+				}
 
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+			}
 
+			@media only screen and (max-width: 480px) {
+				.mcnRetinaImage {
+					max-width: 100% !important;
+				}
 
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImage {
+					width: 100% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnCartContainer,
+				.mcnCaptionTopContent,
+				.mcnRecContentContainer,
+				.mcnCaptionBottomContent,
+				.mcnTextContentContainer,
+				.mcnBoxedTextContentContainer,
+				.mcnImageGroupContentContainer,
+				.mcnCaptionLeftTextContentContainer,
+				.mcnCaptionRightTextContentContainer,
+				.mcnCaptionLeftImageContentContainer,
+				.mcnCaptionRightImageContentContainer,
+				.mcnImageCardLeftTextContentContainer,
+				.mcnImageCardRightTextContentContainer,
+				.mcnImageCardLeftImageContentContainer,
+				.mcnImageCardRightImageContentContainer {
+					max-width: 100% !important;
+					width: 100% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnBoxedTextContentContainer {
+					min-width: 100% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImageGroupContent {
+					padding: 9px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnCaptionLeftContentOuter .mcnTextContent,
+				.mcnCaptionRightContentOuter .mcnTextContent {
+					padding-top: 9px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImageCardTopImageContent,
+				.mcnCaptionBottomContent:last-child .mcnCaptionBottomImageContent,
+				.mcnCaptionBlockInner .mcnCaptionTopContent:last-child .mcnTextContent {
+					padding-top: 18px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImageCardBottomImageContent {
+					padding-bottom: 9px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImageGroupBlockInner {
+					padding-top: 0 !important;
+					padding-bottom: 0 !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImageGroupBlockOuter {
+					padding-top: 9px !important;
+					padding-bottom: 9px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnTextContent,
+				.mcnBoxedTextContentColumn {
+					padding-right: 18px !important;
+					padding-left: 18px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcnImageCardLeftImageContent,
+				.mcnImageCardRightImageContent {
+					padding-right: 18px !important;
+					padding-bottom: 0 !important;
+					padding-left: 18px !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				.mcpreview-image-uploader {
+					display: none !important;
+					width: 100% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Heading 1
+				@@tip Make the first-level headings larger in size for better readability on small screens.
+				*/
+				h1 {
+					font-size: 22px !important;
+					line-height: 125% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Heading 2
+				@@tip Make the second-level headings larger in size for better readability on small screens.
+				*/
+				h2 {
+					font-size: 20px !important;
+					line-height: 125% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Heading 3
+				@@tip Make the third-level headings larger in size for better readability on small screens.
+				*/
+				h3 {
+					font-size: 18px !important;
+					line-height: 125% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Heading 4
+				@@tip Make the fourth-level headings larger in size for better readability on small screens.
+				*/
+				h4 {
+					font-size: 16px !important;
+					line-height: 150% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Boxed Text
+				@@tip Make the boxed text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+				.mcnBoxedTextContentContainer .mcnTextContent,
+				.mcnBoxedTextContentContainer .mcnTextContent p {
+					font-size: 14px !important;
+					line-height: 150% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Preheader Visibility
+				@@tip Set the visibility of the email's preheader on small screens. You can hide it to save space.
+				*/
+				#templatePreheader {
+					display: block !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Preheader Text
+				@@tip Make the preheader text larger in size for better readability on small screens.
+				*/
+				#templatePreheader .mcnTextContent,
+				#templatePreheader .mcnTextContent p {
+					font-size: 14px !important;
+					line-height: 150% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Header Text
+				@@tip Make the header text larger in size for better readability on small screens.
+				*/
+				#templateHeader .mcnTextContent,
+				#templateHeader .mcnTextContent p {
+					font-size: 16px !important;
+					line-height: 150% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Body Text
+				@@tip Make the body text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+				#templateBody .mcnTextContent,
+				#templateBody .mcnTextContent p {
+					font-size: 16px !important;
+					line-height: 150% !important;
+				}
+
+			}
+
+			@media only screen and (max-width: 480px) {
+				/*
+				@@tab Mobile Styles
+				@@section Footer Text
+				@@tip Make the footer content text larger in size for better readability on small screens.
+				*/
+				#templateFooter .mcnTextContent,
+				#templateFooter .mcnTextContent p {
+					font-size: 14px !important;
+					line-height: 150% !important;
+				}
+
+			}
+		</style>
 	</head>
 
-	<body ng-app="home" ng-strict-di>
-    <base href="/" target="_self">
+	<body>
+		<center>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+				<tr>
+					<td align="center" valign="top" id="bodyCell">
 
-		<div id="main-controller">
-	    <header id="alpha">
-	      <div class="grid-container">
-	        <div class="grid-50 mobile-grid-30">
-	          <img src="/img/logo.png" alt="">
-	        </div>
-	        <div class="grid-50 mobile-grid-70">
-	        </div>
-	      </div>
-	    </header>
+						<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
+							<tr>
+								<td valign="top" id="templateHeader">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+										<tbody class="mcnImageBlockOuter">
+											<tr>
+												<td valign="top" style="padding:9px" class="mcnImageBlockInner">
+													<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+														<tbody>
+															<tr>
+																<td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
-      <div class="grid-container">
-        <div class="grid-80 push-10">
-          <div class="position-ref full-height">
+																	<a href="http://fastplay24.com/about" title="About Us" class="" target="_blank">
+																		<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
+																	</a>
 
-            <div class="ui basic segment flex-center ">
-              <img class="ui centered small image" src="/img/404_error_page.gif">
-							{{-- <img class="ui centered small image" src="{{ $message->embed('/img/404_error_page.gif') }}"> --}}
-              <h1 class="content title">Awww!!!   </h1>
-              <p class="message">Hey Buddy,</p>
-              <p class="message">We hate to break to you. But this page doesn’t exist anymore. Or maybe it never existed in the first place. Sorry, but that’s all we know.</p>
-              <a href="{{ route('home') }}" class="huge ui blue button" target="_self">
-                Return to our homepage
-              </a>
-              <p class="title m0 tal">
-                Cheers,
-              </p>
-              <p class="title m0 tal">
-                Your buddies at FastPlay24
-              </p>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-	    <footer>
-      <div class="grid-container">
-        <div class="grid-100">
-          <div class="ui right floated celled horizontal list">
-            <a class="item" target="_blank" href="#">© 2017 FastPlay24 | Tcom </a>
-            <a class="item" target="_blank" href="{{ route('terms') }}">Terms</a>
-            <a class="item" target="_blank" href="{{ route('privacy') }}">Privacy</a>
-            <a class="item" target="_blank" href="{{ route('faq') }}">Help & FAQs</a>
-            <a class="item" target="_blank" href="{{ route('support') }}">Support</a>
-            <a class="item" target="_blank" href="{{ route('calculator') }}">Calculator</a>
-          </div>
-          <div class="ui celled horizontal list">
-            <a class="item" href="#">Facebook</a>
-            <a class="item" href="#">Twitter</a>
-            <a class="item" href="#">Instagram</a>
-          </div>
-        </div>
-      </div>
-
-	    </footer>
-	  </div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top" id="templateBody">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+										<tbody class="mcnImageBlockOuter">
+											<tr>
+												<td valign="top" style="padding:0px" class="mcnImageBlockInner">
+													<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+														<tbody>
+															<tr>
+																<td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
 
-		<!-- Scripts -->
-
-    <script src="{{ asset(mix('/js/manifest.js')) }}" charset="utf-8"></script>
-    <script src="{{ asset(mix('/js/vendor.js')) }}" charset="utf-8"></script>
-    <script src="{{ asset(mix('/js/app.js')) }}" charset="utf-8"></script>
-		<script src="{{ asset(mix('/js/libraries.js')) }}" charset="utf-8"></script>
-		<script src="{{ asset(mix('/js/home-app.js')) }}" charset="utf-8"></script>
+																	<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/68ca501f-ea51-415a-8b9e-76fd143c2ebd.png" width="600" style="max-width:822px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
 
 
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+										<tbody class="mcnTextBlockOuter">
+											<tr>
+												<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
+
+													<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+														<tbody>
+															<tr>
+
+																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+																	&nbsp;
+																	<h1>Looking forward to seeing you!</h1> &nbsp;
+
+																	<h4>just a friendly reminder that you have a 2pm appointment with Sarah this Thursday</h4>
+
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width:100%;">
+										<tbody class="mcnButtonBlockOuter">
+											<tr>
+												<td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
+													<table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;background-color: #FFFFFF;">
+														<tbody>
+															<tr>
+																<td align="center" valign="middle" class="mcnButtonContent" style="font-family: Helvetica; font-size: 16px; padding: 15px;">
+																	<a class="mcnButton " title="Login to play" href="{{ route('verify.check', ['token' => $token]) }}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #333333;">PLAY GAME</a>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td align="center" valign="top">
+									<img src="https://gallery.mailchimp.com/87ce8f25ff95a7f203c76c0ab/images/8a7030a1-3d71-45ca-aa5d-e244b31efdf5.png" width="100%" height="auto" style="display:block; margin:0; padding:0;">
+								</td>
+							</tr>
+
+							{{-- FOOTER --}}
+							<tr>
+								<td valign="top" id="templateFooter">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
+										<tbody class="mcnFollowBlockOuter">
+											<tr>
+												<td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
+													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
+														<tbody>
+															<tr>
+																<td align="center" style="padding-left:9px;padding-right:9px;">
+																	<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
+																		<tbody>
+																			<tr>
+																				<td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
+																					<table align="center" border="0" cellpadding="0" cellspacing="0">
+																						<tbody>
+																							<tr>
+																								<td align="center" valign="top">
+
+
+
+																									<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																										<tbody>
+																											<tr>
+																												<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																														<tbody>
+																															<tr>
+																																<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																	<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																		<tbody>
+																																			<tr>
+
+																																				<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																					<a href="http://www.twitter.com/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																				</td>
+
+
+																																			</tr>
+																																		</tbody>
+																																	</table>
+																																</td>
+																															</tr>
+																														</tbody>
+																													</table>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+
+
+
+																									<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																										<tbody>
+																											<tr>
+																												<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																														<tbody>
+																															<tr>
+																																<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																	<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																		<tbody>
+																																			<tr>
+
+																																				<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																					<a href="http://www.facebook.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																				</td>
+
+
+																																			</tr>
+																																		</tbody>
+																																	</table>
+																																</td>
+																															</tr>
+																														</tbody>
+																													</table>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+
+
+																									<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																										<tbody>
+																											<tr>
+																												<td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																														<tbody>
+																															<tr>
+																																<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																	<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																		<tbody>
+																																			<tr>
+
+																																				<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																					<a href="http://mailchimp.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																				</td>
+
+
+																																			</tr>
+																																		</tbody>
+																																	</table>
+																																</td>
+																															</tr>
+																														</tbody>
+																													</table>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+										<tbody class="mcnTextBlockOuter">
+											<tr>
+												<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
+
+													<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+														<tbody>
+															<tr>
+
+																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+																	<em>Copyright © 2018 FastPlay24, All rights reserved.</em><br>
+																	<br>
+																	<br>
+																	<strong>Our mailing address is:</strong><br> hello@fastplay24.com
+																	<br>
+																	<br> Want to change how you receive these emails?<br> You can&nbsp;<a href="*|UNSUB|*">unsubscribe from this list</a>.<br> &nbsp;
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+		</center>
 	</body>
+
 </html>

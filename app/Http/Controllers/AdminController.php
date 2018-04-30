@@ -44,23 +44,9 @@ class AdminController extends Controller
       ];
     }
 
-    public function getUsersPageDetails(){
 
-      return [
-        'users' => User::where('role_id', '!=', env("ADMIN_ROLE_ID"))->get()
-      ];
-    }
 
-    public function updateUserDetails(){
 
-      $this->validate(request(), [
-        'details.email' => 'required',
-        'details.phone1' => 'required'
-      ]);
-      return [
-        'status' =>  Auth::user()->updateUserDetails(),
-      ];
-    }
 
     public function getQuestionsPageDetails(){
         return [
@@ -100,6 +86,12 @@ class AdminController extends Controller
           'status' => Question::create(request()->input('details'))
         ];
     }
+
+
+
+
+
+
 
     public function getAdminsPageDetails(){
         return [
@@ -157,6 +149,11 @@ class AdminController extends Controller
           ])
         ];
     }
+
+
+
+
+
 
     public function getLiveGameSession(){
         return [
@@ -225,6 +222,11 @@ class AdminController extends Controller
       ];
     }
 
+
+
+
+
+
     public function confirmWithdrawal($id){
       return [
         'status' => Transaction::find($id)->update([
@@ -270,25 +272,10 @@ class AdminController extends Controller
       ];
     }
 
-    public function sendBroadcast(){
-      Message::toAll();
-      return [
-        'status' => true
-      ];
-    }
 
-    public function sendMessage(){
-      Message::create([
-        'user_id' => request()->input('details.id'),
-        'sender_id' => 0,
-        'senderusername' => 'Admin',
-        'message' => request()->input('details.message'),
-        'subject' => request()->input('details.subject'),
-      ]);
-      return [
-        'status' => true
-      ];
-    }
+
+
+
 
     public function getReferralsByUser($id){
       return Referral::where('user_id', $id)->with('user', 'referred');
@@ -335,6 +322,30 @@ class AdminController extends Controller
       ];
     }
 
+    public function getUsersPageDetails(){
+
+      return [
+        'users' => User::where('role_id', '!=', env("ADMIN_ROLE_ID"))->get()
+      ];
+    }
+
+    public function updateUserDetails(){
+
+      $this->validate(request(), [
+        'details.email' => 'required',
+        'details.phone1' => 'required'
+      ]);
+      return [
+        'status' =>  Auth::user()->updateUserDetails(),
+      ];
+    }
+
+
+
+
+
+
+
     public function getAllMessages(){
       return [
         'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->get()
@@ -363,6 +374,28 @@ class AdminController extends Controller
         'status' => Message::find(request()->input('details.id'))->delete()
       ];
     }
+
+    public function sendBroadcast(){
+      Message::toAll();
+      return [
+        'status' => true
+      ];
+    }
+
+    public function sendMessage(){
+      Message::create([
+        'user_id' => request()->input('details.id'),
+        'sender_id' => 0,
+        'senderusername' => 'Admin',
+        'message' => request()->input('details.message'),
+        'subject' => request()->input('details.subject'),
+      ]);
+      return [
+        'status' => true
+      ];
+    }
+
+
 
     public function getAllUsersEarnings(){
       return [
