@@ -1,7 +1,8 @@
 <!doctype html>
+use Carbon\Carbon;
 <html>
 	<head>
-		
+
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -481,16 +482,16 @@
 			}</style>
 	</head>
 	<body>
-		
+
 		<center>
 			<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
 				<tr>
 					<td align="center" valign="top" id="bodyCell">
-						
+
 						<table border="0" cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td align="center" valign="top" id="templateHeader">
-							
+
 									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
 										<tr>
 											<td valign="top" class="headerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
@@ -514,35 +515,35 @@
 												</table></td>
 										</tr>
 									</table>
-									
+
 								</td>
 							</tr>
 							<tr>
 								<td align="center" valign="top" id="templateBody">
-								
+
 									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
 										<tr>
 											<td valign="top" class="bodyContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
 												<tbody class="mcnTextBlockOuter">
 													<tr>
 														<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-						
+
 															<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
 																<tbody><tr>
 
 																	<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-																		<h3>Hello idiot,</h3>
+																		<h3>Hello {{ $username }},</h3>
 																		&nbsp;
 
-																		<p>A password reset was requested&nbsp;for your fastplay24 account on 24th June 2018. If this was you, just click the link below to reset your password. If this was not done by you please contact our security breach team on sec@fastplay24.com and we will walk you through the steps to protect your account.</p>
+																		<p>A password reset was requested&nbsp;for your fastplay24 account on {{ Carbon\Carbon::now()->toDateTimeString() }}. If this was you, just click the link below to reset your password. If this was not done by you please contact our security breach team on sec@fastplay24.com and we will walk you through the steps to protect your account.</p>
 
 																		<p>We hope that our content is useful to you. If you'd like to continue hearing from us, please update your subscription settings.</p>
 
 																	</td>
 																	</tr>
 																</tbody></table>
-			
+
 														</td>
 													</tr>
 												</tbody>
@@ -557,7 +558,7 @@
 																	</td>
 																	</tr>
 																</tbody></table>
-						
+
 														</td>
 													</tr>
 												</tbody>
@@ -569,7 +570,7 @@
 																<tbody>
 																	<tr>
 																		<td align="center" valign="middle" class="mcnButtonContent" style="font-family: Helvetica; font-size: 18px; padding: 18px;">
-																			<a class="mcnButton " title="RESET PASSWORD" href="*|UPDATE_PROFILE|*" target="_self" style="font-weight: bold;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">RESET PASSWORD</a>
+																			<a class="mcnButton " title="RESET PASSWORD" href="{{ url(route('password.reset', $token)) }}" target="_self" style="font-weight: bold;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">RESET PASSWORD</a>
 																		</td>
 																	</tr>
 																</tbody>
@@ -580,19 +581,19 @@
 												</table></td>
 										</tr>
 									</table>
-							
+
 								</td>
 							</tr>
 							<tr>
 								<td align="center" valign="top" id="templateFooter">
-							
+
 									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
 										<tr>
 											<td valign="top" class="footerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
 												<tbody class="mcnTextBlockOuter">
 													<tr>
 														<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-							
+
 															<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
 																<tbody><tr>
 
@@ -610,14 +611,14 @@
 																	</td>
 																	</tr>
 																</tbody></table>
-						
+
 														</td>
 													</tr>
 												</tbody>
 												</table></td>
 										</tr>
 									</table>
-					
+
 								</td>
 							</tr>
 						</table>

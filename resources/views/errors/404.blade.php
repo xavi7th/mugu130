@@ -105,13 +105,19 @@
               <img class="ui centered small image" src="/img/404_error_page.gif">
               <h1 class="content title">Awww!!!   </h1>
               <p class="message">Hey Buddy,</p>
-              <p class="message">We hate to break to you. But this page doesn’t exist anymore. Or maybe it never existed in the first place. Sorry, but that’s all we know.</p>
+							@if ($exception->getMessage())
+								<p class="message">{{ $exception->getMessage() }}</p>
+							@else
+								<p class="message">We hate to break to you. But this page doesn’t exist anymore. Or maybe it never existed in the first place. Sorry, but that’s all we know.</p>
+							@endif
+
               <a href="{{ route('home') }}" class="huge ui blue button" target="_self">
                 Return to our homepage
               </a>
               <p class="message m0 al">
                 Cheers, <br>
 								Your buddies at FastPlay24
+
               </p>
             </div>
 

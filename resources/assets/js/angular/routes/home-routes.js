@@ -31,6 +31,12 @@
 
      })
 
+     .when('/password/reset', {
+       controller: 'RegisterController',
+       template : '',
+
+     })
+
      .when('/register/success', {
        controller: 'RegisterController',
        template : '',

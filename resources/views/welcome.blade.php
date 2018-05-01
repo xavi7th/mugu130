@@ -116,7 +116,7 @@
                     <button type="submit" style="background-color: #135482;" class="ui fluid orange button action">LOGIN</button>
                   </form>
                   <div id="forgot-pass" class="extra content">
-                    <a href="#">forgot your password?</a>
+                    <a href="{{ route('password.request') }}" target="_self">forgot your password?</a>
                   </div>
                 </div>
               </div>
