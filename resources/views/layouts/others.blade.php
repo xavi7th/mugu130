@@ -24,7 +24,6 @@
 	</head>
 
 	<body>
-    <base href="/" target="_self">
 
 		<div id="main-controller" >
 	    <header id="alpha">
@@ -33,6 +32,19 @@
 	          <img src="/img/logo.png" alt="">
 	        </div>
 	        <div class="grid-50">
+						<div class="ui right floated horizontal list" style="line-height:40px;">
+
+							<a class="item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color:white; padding-top: 15px;">
+								<i class="sign out icon" style="color:white;"></i>
+								Logout
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										{{ csrf_field() }}
+								</form>
+							</a>
+
+
+
+		        </div>
 	        </div>
 	      </div>
 	    </header>
