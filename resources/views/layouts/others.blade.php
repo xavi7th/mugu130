@@ -13,8 +13,8 @@
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    {{-- <link rel="stylesheet" href="{{ asset('/css/app.css') }}"> --}}
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+		<link rel="preload" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')
 
     <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->

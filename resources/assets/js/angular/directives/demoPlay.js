@@ -179,7 +179,6 @@ var url = `
               <td class="centered">{{ result.duration }} minutes</td>
               <td class="centered">{{ result.score }}</td>
               <td class="centered">{{ result.earning | currency : '₦' : 0 }}</td>
-              <!-- <td class="centered">{{ result.game_id }}</td> -->
             </tr>
           </tbody>
           <tfoot>
@@ -292,27 +291,6 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
 
       };
 
-      $scope.displayResults = () => {
-        sendRequest.postRequest('/user/end-exam', $scope.user_questions)
-                 .then(function (rsp) {
-                   delete $sessionStorage.user_questions;
-                   delete $sessionStorage.extra;
-                   delete $sessionStorage.options;
-
-                   if (rsp.status == 422) {
-                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
-                     $location.path('/dashboard');
-                   }
-                   else if (rsp.status == 200) {
-                     if (rsp.data.status) {
-                       sendRequest.storeData('user_score', rsp.data.user_score);
-                       $localStorage.user_score = rsp.data.user_score;
-                       $location.path('/dashboard/display-results');
-                     }
-                   }
-                 });
-      };
-
       $scope.$parent.$on('$viewContentLoaded', function() {
 
         sendRequest.getUserQuestions('/get-deno-questions', true)
@@ -322,7 +300,6 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
                     });
 
          $timeout(function () {
-           $('.dropdown_menu').dropdown();
            $('.ui.accordion').accordion();
 
          }, 500);
