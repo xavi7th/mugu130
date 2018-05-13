@@ -274,13 +274,14 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
         delete $sessionStorage.extra;
         delete $sessionStorage.options;
 
-        $scope.display_results = true;
         $scope.loading = true;
+        $scope.display_results = true;
 
         sendRequest.postRequest('/submit-demo-exam', {'total_examinees':$scope.total_examinees, 'answers':$scope.user_questions} )
                  .then(function (rsp) {
                    if (rsp.status == 200) {
                      if (rsp.data.status) {
+                       console.log(rsp.data.results);
                        $scope.results = rsp.data.results;
                        $scope.user_earning = rsp.data.user_earning;
                        $scope.loading = false;
