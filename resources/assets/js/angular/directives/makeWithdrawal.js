@@ -18,10 +18,9 @@ var url = `
         <i class="inbox icon"></i>
         <div class="content">
           <div class="header">
-            TRANSFER EARNINGS
+            TRANSFER EARNINGS FIRST
           </div>
-          <p> To cashout your earnings, first transfer it to your wallet by clicking the 'transfer earnings' button. </p>
-          <p> While an additional service fee of ₦50 will be charged for every ₦5000.</p>
+          <p> To cashout your earnings, first transfer it to your wallet by clicking the 'transfer earnings' button. Otherwise proceed.</p>
         </div>
       </div>
 

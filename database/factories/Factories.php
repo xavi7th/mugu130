@@ -31,7 +31,7 @@ $factory->define(Question::class, function ($faker) {
         'option_2' => $option2 = $faker->unique()->sentence,
         'option_3' => $option3 = $faker->unique()->sentence,
         'option_4' => $option4 = $faker->unique()->sentence,
-        'correct_option' => $faker->randomElement([$option1, $option2, $option3, $option4]),
+        'correct_option' => $faker->randomElement([$option4]),
     ];
 });
 
@@ -43,7 +43,7 @@ $factory->define(DemoQuestion::class, function ($faker) {
         'option_2' => $option2 = $faker->unique()->sentence,
         'option_3' => $option3 = $faker->unique()->sentence,
         'option_4' => $option4 = $faker->unique()->sentence,
-        'correct_option' => $faker->randomElement([$option1, $option2, $option3, $option4]),
+        'correct_option' => $faker->randomElement([$option4]),
     ];
 });
 

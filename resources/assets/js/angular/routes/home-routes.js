@@ -1,4 +1,4 @@
-  home.config(['$routeProvider', '$locationProvider', '$provide', function ($routeProvider, $locationProvider, $provide) {
+  home.config(['$routeProvider', '$locationProvider', '$provide', 'NotificationProvider', function ($routeProvider, $locationProvider, $provide, NotificationProvider) {
    $routeProvider
 
      .when('/', {
@@ -64,7 +64,7 @@
      })
 
      .when('/calculator', {
-       templateUrl: 'angular/views/home/calculator.html',
+       templateUrl: '',
        controller: 'CalculatorController'
      })
 
@@ -78,6 +78,17 @@
      });
 
      $locationProvider.html5Mode(true);
+
+     NotificationProvider.setOptions({
+         delay: 5000,
+         replaceMessage: true,
+        //  startTop: 20,
+        //  startRight: 10,
+        //  verticalSpacing: 20,
+        //  horizontalSpacing: 20,
+         positionX: 'center',
+        //  positionY: 'bottom'
+     });
 
      $provide.decorator('$locale', ['$delegate', function($delegate) {
         $delegate.NUMBER_FORMATS = {

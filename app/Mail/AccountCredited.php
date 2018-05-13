@@ -7,18 +7,21 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountCreated extends Mailable
+class AccountCredited extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    public $amt;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($amt)
     {
         //
+        $this->amt = $amt;
     }
 
     /**
@@ -28,12 +31,7 @@ class AccountCreated extends Mailable
      */
     public function build()
     {
-      return $this->view('emails.new_registration')
-              ->text('emails.new_registration_plain');
-              //
-              // $this->withSwiftMessage(function ($message) {
-              //       $message->getHeaders()
-              //               ->addTextHeader('Custom-Header', 'HeaderValue');
-              //   });
+        return $this->subject('Account Credited')
+                    ->view('emails.account_credited');
     }
 }

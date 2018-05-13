@@ -218,6 +218,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.previewUser = (u) => {
     $scope.u = u;
+    console.log('hhh');
 
     $('.ui.modal.showUser').modal({
       blurring: true
@@ -232,8 +233,11 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
     }).modal('show');
   };
 
-  $scope.openModal = (u) => {
+  $scope.openEditModal = (u) => {
     $scope.u = u;
+    $scope.earnings = _.sumBy(u.earnings, function(o) { return o.amount; });
+
+    console.log($scope.earnings);
 
     $('.ui.modal.editUser').modal({
       blurring: true
@@ -242,6 +246,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.editUser = () => {
     NProgress.start();
+
 
     sendRequest.postRequest(route_root + '/api/edit-user', $scope.u)
                 .then(rsp => {
@@ -307,6 +312,22 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                   if (rsp.status == 200) {
                     Notification.warning('Suspended');
                     u.useraccstatus = 'suspended';
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                });
+  };
+
+  $scope.activateUser = (u) => {
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/activate-user', u)
+                .then(rsp => {
+                  console.log(rsp);
+                  if (rsp.status == 200) {
+                    Notification.primary('Activated');
+                    u.useraccstatus = 'active';
                   }
                   else if (rsp.status == 403) {
                     Notification.error(rsp.data.status);

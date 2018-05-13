@@ -29,6 +29,12 @@
                 Play Demo
               </button>
             </a>
+            <a href="/calculator" target="_blank">
+              <button class="ui right labeled purple icon button">
+                View Calculator
+                <i class="calculator icon"></i>
+              </button>
+            </a>
 
           </div>
           <div class="grid-40 push-10">
@@ -74,15 +80,15 @@
                       <input type="email" name="email" placeholder="Enter Email" required value="{{ old('email') }}">
                     </div>
                     <div class="field">
-                      <input type="password" name="password" placeholder="Enter Password" required value="{{ old('password') }}">
+                      <input type="password" name="password" placeholder="Enter Password" required value="{{ old('password') }}" ng-model="password">
                     </div>
                     <div class="field">
-                      <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}">
+                      <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}" ng-model="password_confirmation">
                     </div>
                     <div class="field">
                       <div class="ui segment">
                           <div class="ui toggle checkbox">
-                          <input id="terms" type="checkbox" name="terms" required>
+                          <input id="terms" type="checkbox" name="terms" ng-model="terms" required>
                           <label>Agree to<a href="{{ route('terms') }}" target="_blank"> terms and conditions</a></label>
                         </div>
                       </div>
@@ -95,7 +101,7 @@
                       <input type="hidden" name="referrer.id" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['id'] ?? null }}">
                     </div>
 
-                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action">REGISTER</button>
+                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action" ng-class="[{'loading' : loading}]" ng-click="loading = true" ng-disabled="!terms || password_confirmation != password">REGISTER</button>
                   </form>
                 </div>
 
@@ -113,7 +119,7 @@
                     <div class="field">
                       <input type="password" name="password" placeholder="Enter Password" required>
                     </div>
-                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action">LOGIN</button>
+                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action" ng-class="[{'loading' : loading}]" ng-click="loading = true">LOGIN</button>
                   </form>
                   <div id="forgot-pass" class="extra content">
                     <a href="{{ route('password.request') }}" target="_self">forgot your password?</a>

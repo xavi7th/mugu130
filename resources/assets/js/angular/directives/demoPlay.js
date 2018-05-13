@@ -12,11 +12,16 @@ var url = `
     margin: 0 !important;
   }
 </style>
+<style media="(max-width:767px)">
+  #heading{
+    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;
+  }
+</style>
 
 
 
 
-  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);">
+  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">
     <div class="ui segment">
       <div class="ui compact menu">
         <a class="item" style="padding: 0 20px !important;">
@@ -136,7 +141,7 @@ var url = `
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
-              {{ user_earning | number : 0  | currency }}
+              {{ user_earning  | currency : '₦' : 0 }}
             </a>
             <div class="ui icon button">
               <i class="visa icon"></i>
@@ -173,7 +178,7 @@ var url = `
               </td>
               <td class="centered">{{ result.duration }} minutes</td>
               <td class="centered">{{ result.score }}</td>
-              <td class="centered">{{ result.earning | number : 0 | currency }}</td>
+              <td class="centered">{{ result.earning | currency : '₦' : 0 }}</td>
               <!-- <td class="centered">{{ result.game_id }}</td> -->
             </tr>
           </tbody>
@@ -227,10 +232,10 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
 
 
       var updateExaminees = setInterval(function () {
-        if ($scope.total_examinees < 10000) {
+        if ($scope.total_examinees < 1000) {
           //to make the increment of the users appear ransom onstead of every fixed time
           if (_.random(50) < 5) {
-            $scope.total_examinees += _.random(93);
+            $scope.total_examinees += _.random(593);
           }
         }
       }, 500);
@@ -266,6 +271,9 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
 
       $scope.submitExam = () => {
         clearInterval(updateExaminees);
+        delete $sessionStorage.user_questions;
+        delete $sessionStorage.extra;
+        delete $sessionStorage.options;
 
         $scope.display_results = true;
         $scope.loading = true;

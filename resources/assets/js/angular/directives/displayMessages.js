@@ -25,15 +25,15 @@ var url = `
               <td>{{ msg.read }}</td>
               <td>{{ msg.created_at | timeAgo }}</td>
               <td>
-                <div class="ui mini labeled button" tabindex="-1" ng-if="!msg.read">
-                  <div class="ui mini basic orange button" ng-click="markAsRead(msg)">
-                    Mark as Read
-                  </div>
-                </div>
                 <div class="ui mini labeled button" tabindex="-1">
                   <div class="ui mini red button" ng-click="deleteMessage(msg)">
                     Delete
                   </div>
+                </div>
+                <div class="ui mini labeled button" tabindex="-1" ng-if="!msg.read">
+                <div class="ui mini basic orange button" ng-click="markAsRead(msg)">
+                Mark as Read
+                </div>
                 </div>
               </td>
             </tr>
@@ -77,7 +77,7 @@ var url = `
             <textarea placeholder="Message" type="text" ng-model="msg_record.reply_message"></textarea>
           </div>
 
-          <button class="ui blue submit button" ng-click="sendMessage()" ng-disabled="!msg_record.reply_message || !msg_record.reply_subject">Submit</button>
+          <button class="ui blue submit button" ng-click="sendBroadcast()" ng-disabled="!msg_record.reply_message || !msg_record.reply_subject">Submit</button>
         </form>
       </div>
 
@@ -134,6 +134,22 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
         $scope.reply.message = $scope.msg_record.reply_message;
 
         sendRequest.postRequest(route_root + '/api/reply-message', $scope.reply)
+        .then( rsp => {
+          if (rsp.status == 200) {
+            Notification.success('Sent');
+            $scope.msg_record = null;
+            NProgress.done();
+          }
+        });
+      };
+
+      $scope.sendBroadcast = () => {
+        NProgress.start();
+        $scope.reply = {};
+        $scope.reply.subject = $scope.msg_record.reply_subject;
+        $scope.reply.message = $scope.msg_record.reply_message;
+
+        sendRequest.postRequest(route_root + '/api/send-broadcast', $scope.reply)
         .then( rsp => {
           if (rsp.status == 200) {
             Notification.success('Sent');

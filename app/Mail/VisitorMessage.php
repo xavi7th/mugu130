@@ -7,9 +7,13 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ReactivationMail extends Mailable implements ShouldQueue
+class VisitorMessage extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    public $email;
+    public $sbj;
+    public $msg;
 
     /**
      * Create a new message instance.
@@ -18,7 +22,9 @@ class ReactivationMail extends Mailable implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $this->email = request()->input('details.email');
+        $this->sbj = request()->input('details.subject');
+        $this->msg = request()->input('details.message');
     }
 
     /**
@@ -28,7 +34,7 @@ class ReactivationMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Activation Mail')
-                    ->view('emails.new_activation_alt');
+        return $this->subject('Fastplay24 Visitor Mail')
+                    ->view('emails.visitor_message');
     }
 }

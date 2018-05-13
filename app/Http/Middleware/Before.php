@@ -28,7 +28,6 @@ class Before
 			// Game::end();
 
 			if ( (Carbon::now()->minute%2 == 0) ) {
-
 				if ( !Game::active() ) {
 					Game::new();
 					session(['GAME_STATE' => 'active']);
@@ -49,22 +48,22 @@ class Before
 // Game::end();
 
 			// if ( (Carbon::now()->minute%10 > 4) ) {
-			// // if ( (Carbon::now()->minute%10 <= 4) ) {
+			// if ( (Carbon::now()->minute%10 <= 4) ) {
 			//
-			// 	if ( !$request->session()->has('GAME_ACTIVE') && !Game::active()) {
+			// 	if ( !Game::active()) {
 			// 		Game::new();
 			// 		session(['GAME_ACTIVE' => true]);
 			// 		session(['GAME_STATE' => 'active']);
 			// 	}
 			//
 			//
-			// 	if (session('GAME_STATE') != 'paused' || session('GAME_STATE') != 'waiting' ) {
+			// 	if (session('GAME_STATE') != 'paused' && session('GAME_STATE') != 'waiting' ) {
 			// 		session(['GAME_STATE' => 'active']);
 			// 	}
 			// 		session(['GAME_TIMER' => 60 - Carbon::now()->second  + (60 * (4 - Carbon::now()->minute%5)) ]);
 			//
 			// } else {
-			// 	if ( $request->session()->has('GAME_ACTIVE') || Game::active()) {
+			// 	if ( Game::active() ) {
 			// 		Game::end();
 			// 		Session::forget('GAME_ACTIVE');
 			// 	}
@@ -77,13 +76,12 @@ class Before
 // dump(session()->all());
 			// if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
 			//
-			// 	if ( !$request->session()->has('GAME_ACTIVE') && !Game::active() ) {
+			// 	if ( !Game::active() ) {
 			// 		Game::new();
-			// 		session(['GAME_ACTIVE' => true]);
 			// 		session(['GAME_STATE' => 'active']);
 			// 	}
 			//
-			// 	if (session('GAME_STATE') != 'paused' || session('GAME_STATE') != 'waiting' ) {
+			// 	if (session('GAME_STATE') != 'paused' && session('GAME_STATE') != 'waiting' ) {
 			// 		session(['GAME_STATE' => 'active']);
 			// 	}
 			//
@@ -93,22 +91,21 @@ class Before
 			// 	else if (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) {
 			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 39, 59))]);
 			// 	}
-			// } else {
+			// }
 			//
-			// 	if ( $request->session()->has('GAME_ACTIVE') || Game::active()) {
+			// else {
+			//
+			// 	if ( Game::active() ) {
 			// 		Game::end();
 			// 		Session::forget('GAME_ACTIVE');
-			// 		session(['GAME_STATE' => 'loading']);
-			//
 			// 	}
+			// 	session(['GAME_STATE' => 'loading']);
 			//
 			// 	if ((Carbon::now()->minute >= 10 && Carbon::now()->minute <= 29)) {
 			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 29, 59))]);
-			// 		session(['GAME_STATE' => 'loading']);
 			// 	}
 			// 	else if (Carbon::now()->minute >= 40 && Carbon::now()->minute <= 59) {
 			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 59, 59))]);
-			// 		session(['GAME_STATE' => 'loading']);
 			// 	}
 			//
 			// }

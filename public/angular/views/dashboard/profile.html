@@ -51,7 +51,7 @@
                 <td>{{ referrals.length }}</td>
               </tr>
               <tr>
-                <td>No. of credits purchased</td>
+                <td>Total account funding made</td>
                 <td>{{userdetails.units_purchased  | currency }}</td>
               </tr>
               <tr>
@@ -72,6 +72,8 @@
                 <th>Date</th>
                 <th>Type</th>
                 <th>Amount</th>
+                <th>Channel</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -81,6 +83,8 @@
                   <td>{{ transaction.created_at | timeAgo}}</td>
                   <td>{{ transaction.trans_type }}</td>
                   <td>{{ transaction.amount | currency }}</td>
+                  <td>{{ transaction.channel }}</td>
+                  <td>{{ transaction.status }}</td>
                 </tr>
 
             </tbody>

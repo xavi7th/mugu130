@@ -36,13 +36,13 @@
                 <div class="ui error message">
                     {{-- <i class="close icon"></i> --}}
                     <div class="header">
-                      Dear {{ Auth::user()->firstname }}, your account has been suspended by the admin for violation of our terms and conditions. To resolve the pending issue, you can take the following steps
+                      Dear {{ Auth::user()->firstname }}, your account has been suspended by the admin for violation of our terms and conditions. To resolve the pending issue, do the following
                     </div>
                     <br>
                     <ul class="list">
                       <li>Send the admin an email at hello@fastplay24.com</li>
                       <li>Make sure to include "Account Suspended" in the subject of your message</li>
-                      <li>After that an admin will contact you with the stepd required to activate your account</li>
+                      <li>After that an admin will contact you with the steps required to activate your account</li>
                     </ul>
                   </div>
               </div>

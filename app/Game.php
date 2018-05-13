@@ -153,9 +153,20 @@ class Game extends Model{
 								$value->earning = env('BASIC_PARTICIPATION_REWARD');
 							}
 
+
 							// give him his earning
+							// TODO: CHECK WHY THIS IS NOT WORKING
 							if ($value->payment_status == 'unpaid') {
 								$value->user->addEarning($active_game->id, $value->earning);
+								// _dd($value->user->earnings);
+
+								//create a transaction record
+								$value->user->transactions()->create([
+									'amount' => env('GAME_CREDITS'),
+									'trans_type' => 'game play',
+									'channel' => 'online',
+									'status' => 'completed'
+								]);
 
 								//Give his referrer a bonus for his participation
 								if ($value->user->has_referrer()) {
@@ -163,6 +174,8 @@ class Game extends Model{
 									$referral_bonus++;
 								}
 							}
+							// _dd($value);
+
 
 							$value->payment_status = 'paid';
 							$value->save();
@@ -180,10 +193,19 @@ class Game extends Model{
 
 						if ($v->payment_status == 'unpaid') {
 							$v->user->addEarning($active_game->id, $v->earning);
+							// _dd($v->user->earnings);
+
+							//create a transaction record
+							$v->user->transactions()->create([
+								'amount' => env('GAME_CREDITS'),
+								'trans_type' => 'game play',
+								'channel' => 'online',
+								'status' => 'completed'
+							]);
 
 							//Give his referrer a bonus for his participation
-							if ($value->user->has_referrer()) {
-								$value->user->referrer->user->addEarning(0, env('REFERRAL_BONUS'));
+							if ($v->user->has_referrer()) {
+								$v->user->referrer->user->addEarning(0, env('REFERRAL_BONUS'));
 								$referral_bonus++;
 							}
 						}
@@ -214,6 +236,18 @@ class Game extends Model{
   public static function active(){
 
 		$games = self::where('status', true)->get();
+
+
+		// if ( (Carbon::now()->minute%2 == 0) ) {
+		// // if ( (Carbon::now()->minute%10 > 4) ) {
+		// // if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
+		//
+		// 	$games = self::where('status', true)->remember( session('GAME_TIMER')/60 )->cacheTags('active_game')->get();
+		//
+		//
+		// } else {
+		// 	$games = self::where('status', true)->remember( session('GAME_TIMER')/60 )->cacheTags('inactive_game')->get();
+		// }
 
 		if ($games->count() > 1) {
 			return 'Too many active games';

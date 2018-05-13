@@ -17,13 +17,13 @@ use App\UserGameSession;
 use Carbon\Carbon;
 
 use App\Mail\ActivationMail;
+use App\Mail\ReactivationMail;
 use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
 
 use Illuminate\Support\Facades\Auth;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use Illuminate\Support\Facades\Cache;
 
 
 /*
@@ -42,52 +42,43 @@ use PHPMailer\PHPMailer\Exception;
 Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home')->middleware('guest');
-  //
-  // Route::get('/test', function () {
-  //   // return ['status' => $mail = new PHPMailer(true)];
-  //   return (new ActivationMail())->render();
-  //
-  //   Mail::to('xavi7th@gmail.com')->send(new ActivationMail());
-  //
-  //
-  //   // $mail = new PHPMailer(true);
-  //   //
-  //   // try {
-  //   //     //Server settings
-  //   //     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-  //   //     $mail->isSMTP();                                      // Set mailer to use SMTP
-  //   //     $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup SMTP servers
-  //   //     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-  //   //     $mail->Username = 'user@example.com';                 // SMTP username
-  //   //     $mail->Password = 'secret';                           // SMTP password
-  //   //     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-  //   //     $mail->Port = 587;                                    // TCP port to connect to
-  //   //
-  //   //     //Recipients
-  //   //     $mail->setFrom('from@example.com', 'Mailer');
-  //   //     $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
-  //   //     $mail->addAddress('ellen@example.com');               // Name is optional
-  //   //     $mail->addReplyTo('info@example.com', 'Information');
-  //   //     $mail->addCC('cc@example.com');
-  //   //     $mail->addBCC('bcc@example.com');
-  //   //
-  //   //     //Attachments
-  //   //     // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-  //   //     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-  //   //
-  //   //     //Content
-  //   //     $mail->isHTML(true);                                  // Set email format to HTML
-  //   //     $mail->Subject = 'Here is the subject';
-  //   //     $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-  //   //     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-  //   //
-  //   //     $mail->send();
-  //   //     echo 'Message has been sent';
-  //   // } catch (Exception $e) {
-  //   //     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-  //   // }
-  //
-  // });
+
+  Route::get('/test', function () {
+    // abort(404);
+    // return (new ActivationMail('87i87o8jkh'))->render();
+
+
+
+    // return dd($this->render->view('demo-play')->render());
+
+    // return dd(view('demo-play')->render());
+    // return (new ActivationMail(8779))->render();
+    // return (new ReactivationMail())->render();
+    // return Redis::keys('*');
+    Redis::set('demo-page', view('demo-play')->render());
+    // Redis::pipeline(function ($pipe) {
+    //     for ($i = 0; $i < 1000; $i++) {
+    //         $pipe->set("key:$i", $i);
+    //     }
+    // });
+    // return Redis::get('demo-page');
+     return ['status' => Redis::get('demo-page')];
+
+    try {
+        Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
+    } catch (\Swift_TransportException $e) {
+      return [ 'status' => $e->getMessage() ];
+    }
+
+
+    if ( count(Mail::failures()) > 0) {
+      return [
+        'status' => 422,
+        'message' => 'Error sending mail'
+      ];
+    }
+
+  });
 
   Route::view('/frequently-asked-questions', 'others-home')->name('faq');
 
@@ -95,7 +86,27 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/terms-and-conditions', 'others-home')->name('terms');
 
-  Route::view('/calculator', 'others-home')->name('calculator');
+  Route::any('/calculator', function () {
+    // dd(request()->method());
+
+    if (request()->method() == 'POST') {
+      # code...
+      $rules = [
+          				'nop' => 'required|numeric',
+          			];
+
+          			$validator = Validator::make(request()->all(), $rules);
+
+          			if($validator->fails()){
+          				return redirect()->route('calculator')->withInput()->withErrors($validator->messages());
+          			}
+
+      $total_players = request('nop');
+      return view('calculator', compact('total_players'));
+
+    }
+    return view('calculator');
+  })->name('calculator');
 
   Route::view('/privacy', 'others-home')->name('privacy');
 
@@ -170,6 +181,15 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/login', 'welcome')->name('login')->middleware('guest');
 
+  // Route::get('/demo-play', function () {
+  //
+  //   // return Redis::keys('*');
+  //   // return view('demo-play');
+  //
+  //   abort(404, 'Invalid verification code.');
+  //
+  // })->name('demo.play')->middleware('guest');
+
   Route::view('/demo-play', 'demo-play')->name('demo.play')->middleware('guest');
 
   Route::post('/get-deno-questions', function () {
@@ -219,7 +239,7 @@ Route::middleware(['before'])->group( function () {
             'earning' => $user_earning = $firstprice + env('BASIC_PARTICIPATION_REWARD')
           ]);
 
-          // generate users for the exam
+          // generate users for the exam random from 3 to max winnes
           $f = new DatabaseSeeder;
           $f->call('DemoGameSessionsTableSeeder');
         }
@@ -231,7 +251,7 @@ Route::middleware(['before'])->group( function () {
             'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
           ]);
 
-          // generate users for the exam
+          // generate the maxwinners dummy users for the exam
           $f = new DatabaseSeeder;
           $f->call('LoserDemoGameSessionsTableSeeder');
         }
@@ -493,6 +513,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/suspend-user', $c.'suspendUser');
 
+    Route::post('/activate-user', $c.'activateUser');
+
     Route::post('/verify-user', $c.'verifyUser');
 
     Route::post('/get-all-messages', $c.'getAllMessages');
@@ -507,6 +529,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/get-all-users-earnings', $c.'getAllUsersEarnings');
 
     Route::post('/get-all-admin-earnings', $c.'getAllAdminEarnings');
+
+    Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
 
     Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
 

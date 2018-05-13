@@ -56,5 +56,9 @@
 
 		@yield('customJS')
 
+		<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ae8ec7e8ee9e424" charset="utf-8">
+			Win up to ₦15,00 on with just ₦35 every 20minutes by answering 10 questions in 10 minutes. Visit https://fastplay24.com/register/ref/{{Auth::user()->refcode }} right now.
+		</script>
+
 	</body>
 </html>

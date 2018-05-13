@@ -114,7 +114,7 @@ class DemoGameSessionsTableSeeder extends Seeder{
        $max_winners = ceil(request()->input('details.total_examinees') / env('PERCENT_WINNERS'));
        $sum = 0;
        $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
-       $winners = rand(3,8);
+       $winners = rand(3,$max_winners);
 
 
        for ($i=0; $i < $max_winners; $i++) {
@@ -129,13 +129,16 @@ class DemoGameSessionsTableSeeder extends Seeder{
            'game_id' => 0,
            'score' => 10,
            'status' => 1,
-           'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
-           'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+           'ended_at' => Carbon::parse($time)->addMinutes(1),
+           'created_at' => Carbon::parse($time)->addMinutes(rand(-2,-1)),
            'earning' => floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD')
          ]);
 
        }
-         factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
+
+       return 'hey';
+
+      // factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
      }
 }
 
@@ -146,7 +149,7 @@ class LoserDemoGameSessionsTableSeeder extends Seeder{
        $max_winners = ceil(request()->input('details.total_examinees') / env('PERCENT_WINNERS'));
        $sum = 0;
        $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
-       $winners = rand(3,8);
+       $winners = $max_winners;
 
 
        for ($i=0; $i < $max_winners; $i++) {
@@ -160,8 +163,8 @@ class LoserDemoGameSessionsTableSeeder extends Seeder{
          'game_id' => 0,
          'score' => 10,
          'status' => 1,
-         'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
-         'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+         'ended_at' => Carbon::parse($time)->addMinutes(rand(0,1)),
+         'created_at' => Carbon::parse($time)->addMinutes(rand(-2,-1)),
          'earning' => $firstprice + env('BASIC_PARTICIPATION_REWARD')
        ]);
 
@@ -171,13 +174,14 @@ class LoserDemoGameSessionsTableSeeder extends Seeder{
            'game_id' => 0,
            'score' => 10,
            'status' => 1,
-           'ended_at' => Carbon::parse($time)->addMinutes(rand(4,10)),
-           'created_at' => Carbon::parse($time)->addMinutes(rand(-2,7)),
+           'ended_at' => Carbon::parse($time)->addMinutes(rand(1,2)),
+           'created_at' => Carbon::parse($time)->addMinutes(rand(-2,-1)),
            'earning' => floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD')
          ]);
 
        }
-         factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
+
+      // factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
      }
 }
 

@@ -32,9 +32,19 @@ var url = `
     </div>
 
     <div class="ui segment">
+
+      <div class="ui labeled button" tabindex="-1" ng-if="user_score == null">
+        <div class="ui green button">
+          <i class="fork icon"></i> Score
+        </div>
+        <a class="ui basic green left pointing label">
+          Awaiting results
+        </a>
+      </div>
+
       <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">
         <div class="ui red button">
-          <i class="fork icon"></i> Exam Score
+          <i class="fork icon"></i> Score
         </div>
         <a class="ui basic red left pointing label">
           {{ user_score }} out of 10
@@ -42,7 +52,7 @@ var url = `
       </div>
       <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">
         <div class="ui basic blue button">
-          <i class="fork icon"></i> Exam Score
+          <i class="fork icon"></i> Score
         </div>
         <a class="ui basic left pointing blue label">
         {{ user_score }} out of 10

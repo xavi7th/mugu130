@@ -155,13 +155,28 @@
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
+              $('.ui.basic.modal')
+              .modal({
+                centered: false,
+                  onHide    : function(){
+                    var remove = () => {
+                      $('.ui.basic.modal').remove();
+                    };
+                    setTimeout(remove, 1000);
+                    return false;
+                  },
+                  onApprove : function() {
+                    window.alert('Approved!');
+                  }
+                })
+                .modal('show');
 
               Echo.channel(`exam_member_count`)
               .listen('ExamJoined', (e) => {
                 scope.total_examinees = e.total_examinees;
               });
 
-            }, 500);
+            }, 1000);
           });
           scope.$on('$destroy', function() {
             $timeout(function () {
@@ -385,10 +400,10 @@
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
-              $('.ui.sticky')
-              .sticky({
-                context: '#content-context'
-              });
+              // $('.ui.sticky')
+              // .sticky({
+              //   context: '#content-context'
+              // });
               NProgress.done();
             }, 500);
           });

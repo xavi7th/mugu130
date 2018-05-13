@@ -26,9 +26,6 @@ var url = `
           <div class="ui green label">
             <i class="call square icon"></i> {{ userdetails.phone1 }}
           </div>
-          <div class="ui green label">
-            <i class="call square icon"></i> {{ userdetails.phone2 }}
-          </div>
         </div>
         <div class="content" style="padding-bottom: 5px;">
           <div class="ui blue image label">
@@ -59,13 +56,23 @@ var url = `
         <make-withdrawal></make-withdrawal>
 
       </div>
-      <div class="content" style="padding-bottom: 5px;">
-        <div class="ui red image label">
-          Referral link
-          <div class="detail">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
+      <div class="content" style="padding-bottom: 25px;">
+        <div class="ui purple image label">
+          Acct. Name.
+          <div class="detail">{{ userdetails.firstname }} {{ userdetails.lastname }}</div>
         </div>
 
         <buy-units></buy-units>
+      </div>
+      <div class="content" style="padding-bottom: 5px;">
+        <div class="ui red image label">
+          Referral link
+          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
+          <input type="text" ng-hide="true" id="hiddenref">
+        </div>
+        <div class="addthis_inline_share_toolbox_lksv">
+          Win up to ₦15,00 on with just ₦35 every 20minutes by answering 10 questions in 10 minutes. Visit https://fastplay24.com/register/ref/{{ userdetails.refcode }} right now.
+        </div>
 
       </div>
     </div>
@@ -98,6 +105,14 @@ angular.module('userProfile', []).directive('userProfile', [function () {
 
 		},
     controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {
+
+      $scope.copy = () => {
+        console.log($('#refcode'));
+        $('#hiddenref').val($('#refcode').text());
+        $('#hiddenref').select();
+        document.execCommand('Copy');
+        Notification.primary('Referral code copied');
+      };
 
       $scope.transferEarnings = () => {
         sendRequest.postRequest('user/transfer-earnings')

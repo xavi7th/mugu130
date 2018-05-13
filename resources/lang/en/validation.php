@@ -129,6 +129,11 @@ return [
             'accepted' => 'You must accept the terms and conditions',
         ],
 
+        'nop' => [
+            'required' => 'You must enter number of players',
+            'numeric' => 'Number of players must be numeric.',
+        ],
+
     ],
 
     /*

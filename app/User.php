@@ -116,6 +116,10 @@ class User extends Authenticatable{
       return $this->hasMany(Referral::class);
     }
 
+    public function referrals_count(){
+      return optional($this->referrals())->count();
+    }
+
     public function referrer(){
       return $this->hasOne(Referral::class, 'referral_id');
     }
@@ -262,11 +266,11 @@ class User extends Authenticatable{
     }
 
     public function notices(){
-      return $this->hasMany(Notice::class)->where('read', '!=', true)->latest();
+      return $this->hasMany(Notice::class)->orWhere('user_id', 0)->latest();
     }
 
     public function messages(){
-      return $this->hasMany(Message::class)->orderBy('read')->latest();
+      return $this->hasOne(Message::class, 'sender_id', 'role_id')->where('read', 0)->latest();
     }
 
     public function deletable(){

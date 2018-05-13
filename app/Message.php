@@ -48,12 +48,13 @@ class Message extends Model{
   }
 
   public static function toAll(){
-   	self::create([
-                      'user_id' => 9999999999999999, //All users will pick this
-                      'sender_id' => 0,
+   	self::updateOrCreate(['sender_id' => env('USER_ROLE_ID')],[
+                      'user_id' => 8888888, //All users will pick this
+                      'sender_id' => env('USER_ROLE_ID'),
                       'senderusername' => 'Admin',
                       'subject' => request()->input('details.subject'),
                       'message' => request()->input('details.message'),
+											'read' => 0
                     ]);
 		return true;
   }

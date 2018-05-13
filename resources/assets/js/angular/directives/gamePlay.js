@@ -11,10 +11,18 @@ var url = `
     margin: 0 !important;
   }
 </style>
+<style media="(max-width:767px)">
+  #heading{
+    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;
+  }
+  #game-play{
+    margin-top: -140px;
+  }
+</style>
 
 
 
-  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);">
+  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">
     <div class="ui segment">
       <div class="ui compact menu">
         <a class="item" style="padding: 0 20px !important;">
@@ -121,7 +129,7 @@ var url = `
     </div>
 
     <div class="text-center" style="display: flex; align-items: center; justify-content: center;">
-      <button class="positive ui button" ng-click=submitExam()>Finish</button>
+      <button ng-click="submitExam()" ng-class="['positive', 'ui', 'button', {'loading' : loading}]">Finish</button>
   </div>
 
 </section>
@@ -149,6 +157,7 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
                   });
 
       $scope.submitExam = () => {
+        $scope.loading = true;
 
         sendRequest.postRequest('/user/submit-exam', $scope.user_questions)
                  .then(function (rsp) {

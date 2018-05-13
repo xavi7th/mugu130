@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Game;
@@ -11,6 +12,7 @@ use App\Message;
 use App\Question;
 use App\Transaction;
 use App\UserGameSession;
+use App\Mail\TransactionalMail;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -242,6 +244,7 @@ class AdminController extends Controller
     }
 
     public function createTransaction(){
+      // return request()->all();
 
       $user = User::find(request()->input('details.id'));
 
@@ -250,13 +253,14 @@ class AdminController extends Controller
 
       $trans = new Transaction;
 
-      $trans->trans_type = 'Admin Correction';
-      $trans->channel = 'Manual';
+      $trans->trans_type = 'purchase';
+      $trans->channel = request()->input('details.trans_type');
       $trans->amount = request()->input('details.units');
       $trans->status = 'completed';
       $trans->user_id = request()->input('details.id');
       $trans->save();
 
+      $rsp = TransactionalMail::sendAdminCreditMail(request()->input('details.units'), request()->input('details.firstname'));
 
       return [
         'status' => true
@@ -288,7 +292,7 @@ class AdminController extends Controller
         'details.phone1' => 'required'
       ]);
       return [
-        'status' => User::find(request()->input('details.id'))->update(array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password', 'password_confirmation'] ))
+        'status' => User::find(request()->input('details.id'))->update(array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password', 'password_confirmation', 'earnings', 'referrals'] ))
       ];
     }
 
@@ -308,6 +312,16 @@ class AdminController extends Controller
       ];
     }
 
+    public function activateUser(){
+      User::unguard();
+
+      return [
+        'status' => User::find(request()->input('details.id'))->update([
+          'useraccstatus' => 'active'
+        ])
+      ];
+    }
+
     public function verifyUser(){
       User::unguard();
 
@@ -323,9 +337,8 @@ class AdminController extends Controller
     }
 
     public function getUsersPageDetails(){
-
       return [
-        'users' => User::where('role_id', '!=', env("ADMIN_ROLE_ID"))->get()
+        'users' => User::with(['earnings', 'referrals'])->where('role_id', '!=', env("ADMIN_ROLE_ID"))->get()
       ];
     }
 
@@ -348,7 +361,7 @@ class AdminController extends Controller
 
     public function getAllMessages(){
       return [
-        'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->get()
+        'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->orWhere('sender_id', env('USER_ROLE_ID'))->get()
       ];
     }
 
@@ -406,6 +419,12 @@ class AdminController extends Controller
     public function getAllAdminEarnings(){
       return [
         'earnings' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->get()
+      ];
+    }
+
+    public function withdrawAdminEarnings(){
+      return [
+        'status' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->update([ 'transferred' => true ])
       ];
     }
 

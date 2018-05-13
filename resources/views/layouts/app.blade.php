@@ -29,10 +29,10 @@
 		<div id="main-controller" >
 	    <header id="alpha">
 	      <div class="grid-container">
-	        <div class="grid-50 mobile-grid-30">
+	        <div class="grid-50 tablet-grid-50 mobile-grid-30">
 	          <img src="/img/logo.png" alt="">
 	        </div>
-	        <div class="grid-50 mobile-grid-70">
+	        <div class="grid-50 tablet-grid-50 mobile-grid-70">
 						@if (!Route::is('demo.play'))
 							<mini-game-state class="mini" style="float:right !important;"></mini-game-state>
 						@endif

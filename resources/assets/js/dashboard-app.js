@@ -11,6 +11,7 @@
 
       $rootScope._ = _;
       $rootScope.logout = function() {
+        delete localStorage['game-user_score'];
        sendRequest.postRequest('/logout')
                  .then(function (response) {
                    if (response.status == 200) {

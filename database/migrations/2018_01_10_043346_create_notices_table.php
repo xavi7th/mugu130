@@ -13,15 +13,15 @@ class CreateNoticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->text('notice');
-            $table->boolean('read')->default(false);
-
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('notices', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('user_id');
+        //     $table->text('notice');
+        //     $table->boolean('read')->default(false);
+        //
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
     }
 
     /**
@@ -31,6 +31,6 @@ class CreateNoticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notices');
+        // Schema::dropIfExists('notices');
     }
 }

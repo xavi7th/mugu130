@@ -13,14 +13,14 @@ class CreateAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('email');
-            $table->string('password');
-            $table->timestamps();
-        });
+        // Schema::create('admins', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('firstname');
+        //     $table->string('lastname');
+        //     $table->string('email');
+        //     $table->string('password');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        // Schema::dropIfExists('admins');
     }
 }

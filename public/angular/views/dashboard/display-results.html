@@ -14,11 +14,11 @@
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
-              {{ user_earning | currency}}
+              {{ user_earning | currency }}
             </a>
             <div class="ui icon button">
               <i class="visa icon"></i>
-              User's Earning
+              Your Prize
             </div>
           </div>
         </div>
@@ -54,9 +54,9 @@
           <tbody>
             <tr ng-repeat="result in results  | orderBy: 'position'">
               <td>
-                <div style="position:absolute; left:0;" class="ui ribbon blue label" ng-if="$index == 0">First</div>
+                <!-- <div style="position:absolute; left:0;" class="ui ribbon blue label" ng-if="$index == 0">First</div>
                 <div style="position:absolute; left:0;" class="ui ribbon teal label" ng-if="$index == 1">Second</div>
-                <div style="position:absolute; left:0;" class="ui ribbon yellow label" ng-if="$index == 2">Third</div>
+                <div style="position:absolute; left:0;" class="ui ribbon yellow label" ng-if="$index == 2">Third</div> -->
 
                 <p style="text-align:center; position:relative;"> {{ result.user.refcode }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.user.id == userdetails.id">You</a></p>
 
@@ -64,7 +64,7 @@
               <td class="centered">{{ result.position }}</td>
               <td class="centered">{{ result.duration }} minutes</td>
               <td class="centered">{{ result.score }}</td>
-              <td class="centered">{{ result.earning }}</td>
+              <td class="centered">{{ result.earning | currency}}</td>
               <td class="centered">{{ result.game_id }}</td>
             </tr>
           </tbody>

@@ -35,16 +35,21 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('before');
-        $this->middleware('auth')->except('getGameState');
-        $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState');
+        $this->middleware('before')->except('sendMessage');
+        $this->middleware('auth')->except('getGameState', 'sendMessage');
+        $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState', 'sendMessage');
         $this->middleware('users')->only('joinGame','pauseGame','resumeGame','submitExam','endExam','getExamResults');
     }
 
     public function getGameState(){
       // return optional(Game::active())->id;
       // $game_id = Game::where('status', true)->value('id');
-      $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->get();
+      if (!Game::active()) {
+        $exam_records = 0;
+      }
+      else{
+        $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->count();
+      }
 
       // if (Auth::user()->activeGames) {
       //   session(['GAME_STATE' => 'paused']);
@@ -52,12 +57,17 @@ class DashboardController extends Controller
       return [
         'game_timer' => session('GAME_TIMER'),
         'game_state' => session('GAME_STATE'), //active, waiting (for the game to end and show result), paused, loading
-        'total_examinees' =>$exam_records->count(),
+        'total_examinees' =>$exam_records,
       ];
 
     }
 
     public function joinGame(){
+
+      //check user balance
+      if (Auth::user()->available_units < env('GAME_CREDITS')) {
+        return response()->json(['status' => 'Insufficient balance' ], 402);
+      }
 
       // Get id of the current active on-going game
       $game_id = Game::where('status', true)->value('id');
@@ -72,20 +82,17 @@ class DashboardController extends Controller
           return response()->json(['status' => 'user already has an active game' ], 403);
         }
 
-        else if (!Auth::user()->activeGames) {
+        else {
 
-          //use the game id to retrieve all theuser game sessions ordered by ended_at
+          // TODO: REDUCE THIS CODE TO JUST COUNT THE NUM OF EXAMINEES IF THAT IS ALL WE NEED
+          //use the game id to retrieve all the user game sessions ordered by ended_at
           $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
 
           //count hom many they are.
           $total_examinees = $exam_records->count();
 
-          //check user balance
-          if (Auth::user()->available_units < env('GAME_CREDITS')) {
-            return response()->json(['status' => 'Insufficient balance' ], 402);
-          }
-          else{
-            DB::beginTransaction();
+
+          DB::beginTransaction();
 
               Auth::user()->available_units -= env('GAME_CREDITS');
               Auth::user()->save();
@@ -109,9 +116,8 @@ class DashboardController extends Controller
               // echo 'general exception';
             }
 
-            DB::commit();
+          DB::commit();
 
-          }
 
 
 
@@ -318,6 +324,15 @@ class DashboardController extends Controller
 
       DB::commit();
 
+      $rsp = TransactionalMail::sendCreditMail(request()->input('details.amt'));
+
+      if (is_array($rsp)) {
+        return response()->json(['message' => $rsp['message'] ], $rsp['status']);
+      }
+      else {
+        return ['message' => $rsp];
+      }
+
       return [
         'status' => true
       ];
@@ -354,6 +369,8 @@ class DashboardController extends Controller
 
       DB::commit();
 
+      $rsp = TransactionalMail::sendDebitRequestedMail(request()->input('details.amt'));
+
       return [
         'status' => true
       ];
@@ -389,7 +406,7 @@ class DashboardController extends Controller
 
     public function getUserDetails() {
       return [
-        'userdetails' => Auth::user()->load('notices'),
+        'userdetails' => Auth::user()->load('messages'),
       ];
     }
 
@@ -428,11 +445,18 @@ class DashboardController extends Controller
     }
 
     public function sendMessage() {
+      // return  request()->all();
       if (!request()->isJson()) {
-        Message::toAdmin();
+        $rsp = TransactionalMail::sendVisitorMessage();
+
         return back()->withSuccess('Message Sent');
       }
-      return ['status' => Message::toAdmin()];
+      $rsp = TransactionalMail::sendVisitorMessage();
+
+      return [
+        'status' => $rsp['status'],
+        'message' => $rsp['message']
+      ];
     }
 
     public function markNoticeAsRead() {

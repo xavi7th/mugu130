@@ -28,8 +28,8 @@ var url = `
 
             <tr ng-repeat="trans in transactions | filter : search" ng-class="{'negative' : trans.trans_type == 'Admin Correction'}">
               <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>
-              <td>{{ trans.trans_type }}</td>
-              <td>{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
+              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>
+              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
               <td>{{ trans.amount }}</td>
               <td>{{ trans.channel }}</td>
               <td>
@@ -88,11 +88,6 @@ var url = `
             <tr>
               <td>Phone Number</td>
               <td>{{ trans_record.user.phone1 }} </td>
-            </tr>
-
-            <tr>
-              <td>Alt Phone Number</td>
-              <td>{{ trans_record.user.phone2 }} </td>
             </tr>
 
             <tr>
@@ -167,7 +162,7 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
       };
 
       $scope.viewTransactionRecord = (transaction) => {
-        if (transaction.trans_type == 'purchase') {
+        if (transaction.trans_type != 'withdrawal') {
           return;
         }
         $scope.trans_record = transaction;

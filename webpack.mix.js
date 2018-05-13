@@ -56,7 +56,7 @@ let mix = require('laravel-mix');
              };
          }
       },
-    browser: "vivaldi",
+    // browser: "vivaldi",
     files: [
 
         //  'app/**/*.php',

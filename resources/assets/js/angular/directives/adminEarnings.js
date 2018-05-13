@@ -4,6 +4,9 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
+
+      <withdraw-admin-earnings></withdraw-admin-earnings>
+      
       <div ng-show="!earningrecord">
         <table class="ui  striped celled table">
           <thead>

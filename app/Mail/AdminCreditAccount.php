@@ -7,21 +7,23 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ActivationMail extends Mailable implements ShouldQueue
+class AdminCreditAccount extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public $amt;
+    public $username;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($amt, $username)
     {
         //
-        $this->token = $token;
+        $this->amt = $amt;
+        $this->username = $username;
     }
 
     /**
@@ -31,7 +33,7 @@ class ActivationMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Activation Mail')
-                    ->view('emails.new_activation');
+        return $this->subject('Admin Credit Account')
+                    ->view('emails.admin_credit_account');
     }
 }
