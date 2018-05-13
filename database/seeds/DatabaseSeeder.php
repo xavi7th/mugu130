@@ -148,7 +148,8 @@ class LoserDemoGameSessionsTableSeeder extends Seeder{
        $total_stake = (env('GAME_CREDITS') - env('BASIC_PARTICIPATION_REWARD') - env('EXAM_PARTICIPATION_FEE')) * request()->input('details.total_examinees');
        $max_winners = ceil(request()->input('details.total_examinees') / env('PERCENT_WINNERS'));
        $sum = 0;
-       $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
+       $time = DemoGameSession::where('session_id', session('demo_id'))->first(['created_at'])->created_at;
+      //  _dd($time);
        $winners = $max_winners;
 
 
@@ -180,8 +181,6 @@ class LoserDemoGameSessionsTableSeeder extends Seeder{
          ]);
 
        }
-
-      // factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
      }
 }
 

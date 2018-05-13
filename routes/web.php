@@ -199,7 +199,7 @@ Route::middleware(['before'])->group( function () {
             ];
   });
 
-  Route::post('/submit-demo-exam', function () {
+  Route::any('/submit-demo-exam', function () {
 
     $exam = request()->input('details.answers');
 
@@ -218,7 +218,9 @@ Route::middleware(['before'])->group( function () {
           // The first term is given by the sum of the n-members of the series divided by the sum of all their coefficients
           //This portion calculates the sum of all the coefficients
           $sum += (pow(1.06381, $i));
+          $dd[] = $sum;
         }
+
 
         // This portion gets the last member (which will be the amount to give to the highest scorer) of the series fron the firstmember using the formula
         // nth-member = pow(CR, n-1) * firstmember
@@ -255,14 +257,14 @@ Route::middleware(['before'])->group( function () {
           $f = new DatabaseSeeder;
           $f->call('LoserDemoGameSessionsTableSeeder');
         }
-
-
-
     DB::commit();
+
+    $results = DemoGameSession::where('session_id', session('demo_id'))->get();
+    $results = $results->concat(factory(DemoGameSession::class, request()->input('details.total_examinees') - $max_winners - 1)->make());
 
     return [
       'status' => true,
-      'results'=> DemoGameSession::where('session_id', session('demo_id'))->get(),
+      'results'=> $results,
       'user_earning' => $user_earning
     ];
 

@@ -171,7 +171,7 @@ var url = `
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="result in results  | orderBy: ['position', '-score'] ">
+            <tr ng-repeat="result in results  | orderBy: ['reward', '-score'] ">
               <td>
                 <p style="text-align:center; position:relative;"> {{ result.session_id | limitTo : 25 }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.game_id == 1 ">You</a></p>
 
@@ -222,7 +222,7 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
     controller: ['$scope', '$timeout', ($scope, $timeout) => {
 
       $scope.game_timer = game_timer;
-      $scope.total_examinees = _.random(10);
+      $scope.total_examinees = _.random(37);
       $scope.display_results = false;
       $scope.loading=true;
       $scope.lifelines = $sessionStorage;
@@ -231,13 +231,13 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
 
 
       var updateExaminees = setInterval(function () {
-        if ($scope.total_examinees < 1000) {
+        if ($scope.total_examinees < 10000) {
           //to make the increment of the users appear ransom onstead of every fixed time
-          if (_.random(50) < 5) {
+          if (_.random(50) < 15) {
             $scope.total_examinees += _.random(593);
           }
         }
-      }, 500);
+      }, 100);
 
       $scope.requestExtra = (q) => {
         var removedQuestion = $scope.user_questions.indexOf(q);
@@ -281,7 +281,6 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
                  .then(function (rsp) {
                    if (rsp.status == 200) {
                      if (rsp.data.status) {
-                       console.log(rsp.data.results);
                        $scope.results = rsp.data.results;
                        $scope.user_earning = rsp.data.user_earning;
                        $scope.loading = false;

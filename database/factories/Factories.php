@@ -101,7 +101,7 @@ $factory->define(UserGameSession::class, function ($faker) {
 
 $factory->define(DemoGameSession::class, function ($faker) {
 
-    $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
+    $time = DemoGameSession::where('session_id', session('demo_id'))->first(['created_at'])->created_at;
 
     return [
         'session_id' => session('demo_id'),
