@@ -4,8 +4,8 @@
 
   <section id="others_intro">
     <div class="grid-container">
-      <div class="grid-40">
-        <h1>Calculator</h1>
+      <div class="grid-100">
+        <h1>FastPlay24 Prize Calculator</h1>
       </div>
 
     </div>
@@ -13,8 +13,10 @@
 
   <section id="others_contents">
     <div class="grid-container">
-      <div class="grid-70 push-15 tablet-grid-80 tablet-push-10" style="text-align: center;">
-
+      <div class="grid-90 push-5 tablet-grid-90 tablet-push-5" style="text-align: center;">
+        <div class="ui blue segment">
+          <h4>Take a Sneak Peak into how much each player on FastPlay24 grabs</h4>
+        </div>
         <div class="ui raised segment">
 
           @if (count($errors) > 0)
@@ -46,7 +48,7 @@
                </div>
                <div class="field">
                  <div class="ui buttons">
-                   <button class="ui positive button" type="submit" name="btnsub">Submit</button>
+                   <button ng-class="['ui', 'positive', 'button', {'lading': loading}]" type="submit" name="btnsub" ng-click="loading = true">Submit</button>
                    <div class="or"></div>
                    <button class="ui button" type="button" name="btnref" onclick="location.reload()">Refresh</button>
                  </div>
@@ -147,7 +149,7 @@
                     <td>{{ $pp }}</td>
                     <td>{{ $prz[$ii] }}</td>
                   </tr>
-                
+
               <?php
                   if($pp <= $jj ){
                         $pp = $pp + 1;

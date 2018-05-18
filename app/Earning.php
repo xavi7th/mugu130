@@ -43,8 +43,8 @@ class Earning extends Model{
 
 
 
-  public static function adminEarning($gid, $amt){
-		self::updateOrCreate(['game_id' => $gid],[
+  public static function adminGameEarning($gid, $amt){
+		self::updateOrCreate(['game_id' => $gid, 'user_id' => env('ADMIN_ROLE_ID')],[
 			'user_id' => 0,
 			'game_id' => $gid,
 			'amount' => $amt,

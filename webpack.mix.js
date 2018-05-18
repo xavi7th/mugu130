@@ -12,52 +12,54 @@ let mix = require('laravel-mix');
  */
 
 
- mix.js('resources/assets/js/app.js', 'public/js')
-    .extract(['jquery', 'axios',  'bootstrap-sass'])
-    .sass('resources/assets/sass/app.scss', 'public/css')
-    // .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
-    .js('resources/assets/js/home-app.js', 'public/js')
-    .js('resources/assets/js/dashboard-app.js', 'public/js')
-    .js('resources/assets/js/admin-app.js', 'public/js')
-    .options({
-        //  processCssUrls: false,
-         fileLoaderDirs: {
-           images: 'img',
-           // fonts: 'web-fonts'
-         },
-         postCss: [
-             require( 'postcss-fixes' )(), // add fallbacks for rem units and other fixes
-             require( 'postcss-merge-rules' )(), // merge rules
-             require( 'postcss-discard-duplicates' )() // remove duplicate rules
+mix.js('resources/assets/js/app.js', 'public/js')
+	.extract(['jquery', 'axios', 'bootstrap-sass'])
+	// .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
+	.js('resources/assets/js/home-app.js', 'public/js')
+	.js('resources/assets/js/dashboard-app.js', 'public/js')
+	.js('resources/assets/js/admin-app.js', 'public/js')
+  .autoload({
+    jquery: ['$', 'jQuery']
+  })
+	.sass('resources/assets/sass/app.scss', 'public/css')
+  .sourceMaps()
+	.options({
+		//  processCssUrls: false,
+		fileLoaderDirs: {
+			images: 'img',
+			// fonts: 'web-fonts'
+		},
+		postCss: [
+             require('postcss-fixes')(), // add fallbacks for rem units and other fixes
+             require('postcss-merge-rules')(), // merge rules
+             require('postcss-discard-duplicates')() // remove duplicate rules
          ]
-    }
- )
-    .autoload({
-         jquery: ['$', 'jQuery']
-     })
-    .version()
-    .sourceMaps();
+	})
+	.version();
 
-  mix.combine([
+mix.combine([
     'resources/assets/js/libraries/semantic.js',
     'resources/assets/js/libraries/itse-master.js',
       'resources/assets/js/libraries/nprogress.js',
   ], 'public/js/libraries.js');
 
+mix.webpackConfig({
+		 devtool: 'source-map'
+ });
 
-   mix.browserSync({
-    //  proxy: "localhost:8000",
-    reloadDelay: 2000,
-    proxy: {
-         target: 'localhost:8000',
-         reqHeaders: function () {
-             return {
-                 host: "localhost:3000"
-             };
-         }
-      },
-    // browser: "vivaldi",
-    files: [
+mix.browserSync({
+	//  proxy: "localhost:8000",
+	reloadDelay: 2000,
+	proxy: {
+		target: 'localhost:8000',
+		reqHeaders: function () {
+			return {
+				host: "localhost:3000"
+			};
+		}
+	},
+	// browser: "vivaldi",
+	files: [
 
         //  'app/**/*.php',
          'resources/views/**/*.php',
@@ -68,4 +70,4 @@ let mix = require('laravel-mix');
          '!public/js/**/libraries.js',
          'public/css/**/*.css'
      ],
-   });
+});

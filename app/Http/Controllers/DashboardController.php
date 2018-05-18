@@ -22,6 +22,9 @@ use App\Events\ExamJoined;
 use App\Events\NewMemberJoined;
 use App\Notice;
 use App\Mail\TransactionalMail;
+use App\Transaction;
+use \Paystack;
+
 // Cache::flush();
 
 
@@ -263,7 +266,7 @@ class DashboardController extends Controller
         //return the results ordered by position
 
         if (Auth::user()->role_id == 0) {
-          $earnings = Earning::where('user_id', 0)->sum('amount');
+          $earnings = Earning::where('user_id', 0)->where('transferred', 0)->sum('amount');
         }
         else{
           $earnings = Auth::user()->totalEarnings->sum('amount');
@@ -309,7 +312,7 @@ class DashboardController extends Controller
         ];
     }
 
-    public function creditAccount(){
+    public function sendCreditAccountRequest(){
       // return  request()->all();
 
       DB::beginTransaction();
@@ -317,25 +320,111 @@ class DashboardController extends Controller
         //create deposit transcation record
         Auth::user()->transactions()->create([
           'amount' => request()->input('details.amt'),
-          'trans_type' => 'purchase',
+          'trans_type' => request()->input('details.trans_type'),
+          'status' => request()->input('details.status'),
         ]);
 
-        Auth::user()->creditAccount();
 
       DB::commit();
-
-      $rsp = TransactionalMail::sendCreditMail(request()->input('details.amt'));
-
-      if (is_array($rsp)) {
-        return response()->json(['message' => $rsp['message'] ], $rsp['status']);
-      }
-      else {
-        return ['message' => $rsp];
-      }
 
       return [
         'status' => true
       ];
+    }
+
+    public function creditAccount(){
+      // return  request('reference');
+
+      // Confirm that reference has not already gotten value
+      // This would have happened most times if you handle the charge.success event.
+      // If it has already gotten value by your records, you may call
+      // perform_success()
+
+      // Get this from https://github.com/yabacon/paystack-class
+      // require 'Paystack.php';
+      // if using https://github.com/yabacon/paystack-php
+      // require 'paystack/autoload.php';
+
+
+      // The PAYSTACK CLASS IS IN MY MODELS
+
+      $paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
+      $reference = request('reference');
+      // the code below throws an exception if there was a problem completing the request,
+      // else returns an object created from the json response
+      $trx = $paystack->transaction->verify([
+                                               'reference' => $reference
+                                            ]);
+
+
+      // status should be true if there was a successful call. This is not what determines if the transaction was successful. ONLY DETERMINES IF A CALL WAS MADE SUCCESSFULLY
+      if(!$trx->status){
+          exit($trx->message);
+      }
+
+
+      // functions
+      function give_value($reference, $trx){
+        // Be sure to log the reference as having gotten value
+        // write code to give value
+
+        if ($trx->status == 'success') {
+
+                // Credit the user on paystack bounceback
+            DB::beginTransaction();
+
+                Transaction::where('user_id', $trx->data->metadata->custom_fields[3]->value)->latest()->first()->update([
+                  'status' => 'completed'
+                ]);
+
+                Auth::user()->creditAccount(($trx->data->amount/100));
+
+            DB::commit();
+                // _dd($trx->data);
+
+            $rsp = TransactionalMail::sendCreditMail(($trx->data->amount/100), 'wallet funding', Auth::user()->available_units);
+            if (is_array($rsp)) {
+              return response()->json(['message' => $rsp['message'] ], $rsp['status']);
+            }
+            else {
+              return ['message' => $rsp];
+            }
+
+          // echo json_encode(['transaction'=>'updated. Value given']);
+        }
+      }
+
+      function perform_success($trx) {
+        // inline
+        echo json_encode([
+                            'verified'=>true,
+                            'status'=> $trx->data->status,
+                            'paystack message'=> $trx->message,
+
+                          ]);
+
+        // redirect to
+
+
+
+
+        // echo '<br>';
+        // echo '<pre>'; print_r($trx); echo '</pre>'; exit;
+        // standard
+        // header('Location:'.route('ordersuccessful'));
+        exit();
+      }
+
+
+
+      // full sample verify response is here: https://developers.paystack.co/docs/verifying-transactions
+      if('success' == $trx->data->status){
+        // use trx info including metadata and session info to confirm that cartid
+        // matches the one for which we accepted payment
+        give_value($reference, $trx);
+        perform_success($trx);
+      }
+
     }
 
     public function requestWithdrawal(){

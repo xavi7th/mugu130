@@ -889,20 +889,53 @@
 																				<tr>
 																					<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
 
-																						<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+																						<table align="left" border="0" cellpadding="0" cellspacing="0" style="margin-left:10%; max-width:80%; min-width:80%;" width="100%" class="mcnTextContentContainer">
 																							<tbody>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										Hello {{ $username }},
+																										<h1 style="text-align: left;">Hello {{ $username }},</h1>
 																									</td>
 																								</tr>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										Your account was just credited with ₦{{ $amt }}.
+																										<p>Your payment has been processed.</p>
+																									</td>
+																								</tr>
+																								<tr>
+																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										<p>Below are the details:</p>
+																									</td>
+																								</tr>
+																								<tr>
+																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										<ul class="mcnTextContent" style="background-color: #eee; list-style:none; padding: 25px;">
+																											<li>Amount: <strong> ₦{{ number_format($amt, 2) }}</strong></li>
+																											<li>Type: <strong> {{ $trans_type }}</strong></li>
+																											<li>Purpose: <strong> {{ $purpose }}</strong></li>
+																											<li>Transaction ID: <strong> {{ str_random(15) }}</strong></li>
+																											<li>Status: <strong> Transaction Successful</strong></li>
+																											<li>New balance: <strong> ₦{{ number_format($user_balance, 2) }}</strong></li>
+																											<li>Date and Time: <strong> {{ now() }}</strong></li>
+																										</ul>
+																									</td>
+																								</tr>
+																								<tr>
+																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																											<p>Please not that a VAT of 5% has been deducted from the payment we received.</p>
+																											<p>Please, do notify us if you encountered any problem or need any assistance with your transaction.</p>
+																											<p>If you think there is an error with this feedback, kindly send an email to <a href="mailto:hello@fastplay24.com ">hello@fastplay24.com </a> to help us resolve the issue.</p>
+																											<p>Thank you for using FastPlay24.</p>
+																									</td>
+																								</tr>
+																								<tr>
+																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																											<p>Cheers,</p>
+																											<p>FastPlay24 Billing Team</p>
 																									</td>
 																								</tr>
 																							</tbody>
 																						</table>
+
 
 																					</td>
 																				</tr>
@@ -951,6 +984,132 @@
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
 										<tr>
 											<td align="center" valign="top">
+												<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
+													<tbody class="mcnFollowBlockOuter">
+														<tr>
+															<td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
+																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
+																	<tbody>
+																		<tr>
+																			<td align="center" style="padding-left:9px;padding-right:9px;">
+																				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
+																					<tbody>
+																						<tr>
+																							<td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
+																								<table align="center" border="0" cellpadding="0" cellspacing="0">
+																									<tbody>
+																										<tr>
+																											<td align="center" valign="top">
+
+
+
+																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																													<tbody>
+																														<tr>
+																															<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																																	<tbody>
+																																		<tr>
+																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																					<tbody>
+																																						<tr>
+
+																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																								<a href="http://www.twitter.com/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							</td>
+
+
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</td>
+																																		</tr>
+																																	</tbody>
+																																</table>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+
+
+																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																													<tbody>
+																														<tr>
+																															<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																																	<tbody>
+																																		<tr>
+																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																					<tbody>
+																																						<tr>
+
+																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																								<a href="http://www.facebook.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							</td>
+
+
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</td>
+																																		</tr>
+																																	</tbody>
+																																</table>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+
+																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																													<tbody>
+																														<tr>
+																															<td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																																	<tbody>
+																																		<tr>
+																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																					<tbody>
+																																						<tr>
+
+																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																								<a href="http://mailchimp.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							</td>
+
+
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</td>
+																																		</tr>
+																																	</tbody>
+																																</table>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+																											</td>
+																										</tr>
+																									</tbody>
+																								</table>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+
+															</td>
+														</tr>
+													</tbody>
+												</table>
 												<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
 													<tr>
 														<td valign="top" class="footerContainer" style="padding-top:10px; padding-bottom:10px;">

@@ -2,12 +2,9 @@
   <ng-include src="'angular/views/partials/menu.html'"></ng-include>
 
   <div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
-    <!-- <div class="ui raised compact segment">
-      <h1>{{ userdetails.firstname }}</h1>
-    </div> -->
     <div class="grid-container">
 
-      <div class="mobile-grid-45 grid-5 prefix-5">
+      <div class="mobile-grid-45 grid-10 prefix-5">
         <verify-account></verify-account>
       </div>
 
@@ -39,7 +36,7 @@
       </div>
       <div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
 
-      <div class="mobile-grid-50 grid-20">
+      <div class="mobile-grid-50 grid-15">
 
         <buy-units></buy-units>
 
@@ -60,4 +57,20 @@
     </div>
   </section>
   <footer ng-include src="'angular/views/partials/footer.html'"></footer>
+  <div class="ui tiny modal" id="notice" ng-if="userdetails.messages">
+    <div class="header">
+      {{ userdetails.messages.subject }}
+    </div>
+    <div class="image content">
+      <div class="image">
+        <i class="archive icon"></i>
+      </div>
+      <div class="description">
+        {{ userdetails.messages.message }}
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel button">  <i class="remove icon"></i>Close</div>
+    </div>
+  </div>
 </div>

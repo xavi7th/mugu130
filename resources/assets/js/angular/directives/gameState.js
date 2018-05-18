@@ -80,10 +80,6 @@ var url = `
       <div class="ui horizontal list">
         <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
           <span style="padding-right: 10px;">Active Gamers</span>
-          <i class="users icon"></i> 2358
-        </div>
-        <div class="ui violet label" style="font-size: 13px;">
-          <span style="padding-right: 10px;">Active Gamers</span>
           <i class="users icon"></i> {{ total_examinees }}
         </div>
       </div>

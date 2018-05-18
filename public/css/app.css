@@ -41413,7 +41413,7 @@ td[ng-click] {
 }
 
 #info-images img {
-  max-width: 100% !important;
+  max-width: 65% !important;
 }
 
 #info-images #extra img {
@@ -41484,6 +41484,17 @@ div#main-controller .info img {
   max-width: 70%;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1169px) {
+  div#main-controller .ui.menu {
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 30px !important;
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   div#main-controller .info img {
     display: none !important;
@@ -41550,3 +41561,5 @@ div#main-controller footer {
   background: #03A9F4;
 }
 
+
+/*# sourceMappingURL=app.css.map*/

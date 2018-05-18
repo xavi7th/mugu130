@@ -66,6 +66,18 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
               }
    })
 
+   .when('/dashboard/order-successful', {
+     templateUrl: 'angular/views/dashboard/order-successful.html',
+    //  controller: 'DisplayResultsController',
+     resolve: {
+                 activeTransaction: ['$location', 'sendRequest', function($location, sendRequest) {
+                     if (!sendRequest.getData('activeTransaction')) {
+                       $location.path('/dashboard/profile');
+                     }
+                 }]
+              }
+   })
+
    .otherwise({
      redirectTo: '/dashboard'
    });

@@ -13,7 +13,7 @@
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-		<link rel="preload" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<link rel="stylesheet" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')
 		<style media="screen">
@@ -85,7 +85,7 @@
 			div#main-controller footer .ui.horizontal.celled.list > .item{border-left:1px solid #fff;border-right:1px solid #fff;}
 			div#main-controller footer{width:100%;background:#03A9F4;}
 			div[ng-view]{min-height: 90vh}
-			
+
 			/*! CSS Used from: Embedded */
 			div{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}
 			*,*:before,*:after{-webkit-box-sizing:inherit;box-sizing:inherit;}
@@ -139,12 +139,10 @@
     <script src="{{ asset(mix('/js/app.js')) }}" charset="utf-8"></script>
 		<script src="{{ asset(mix('/js/libraries.js')) }}" charset="utf-8"></script>
 		<script src="{{ asset(mix('/js/dashboard-app.js')) }}" charset="utf-8"></script>
+		{{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
+
 
 		@yield('customJS')
-
-		<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ae8ec7e8ee9e424" charset="utf-8">
-			Win up to ₦15,00 on with just ₦35 every 20minutes by answering 10 questions in 10 minutes. Visit https://fastplay24.com/register/ref/{{Auth::user()->refcode }} right now.
-		</script>
 
 	</body>
 </html>

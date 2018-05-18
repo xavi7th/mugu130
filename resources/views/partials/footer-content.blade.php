@@ -9,9 +9,9 @@
       <a class="item" target="_blank" href="{{ route('calculator') }}">Calculator</a>
     </div>
     <div class="ui celled horizontal list">
-      <a class="item" href="#">Facebook</a>
-      <a class="item" href="#">Twitter</a>
-      <a class="item" href="#">Instagram</a>
+      <a class="item" href="https://www.facebook.com/fastplay24/" target="_blank">Facebook</a>
+      <a class="item" href="https://www.twitter.com/fastplay24/">Twitter</a>
+      <a class="item" href="https://www.instagram.com/fastplay24/">Instagram</a>
     </div>
   </div>
 </div>

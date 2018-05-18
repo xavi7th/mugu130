@@ -56,6 +56,7 @@ class Game extends Model{
 
 		if (!$active_game) {
 			return;
+			// _dd('no active game');
 		}
 
 		$exam_records = optional($active_game)->user_game_sessions;
@@ -158,15 +159,9 @@ class Game extends Model{
 							// TODO: CHECK WHY THIS IS NOT WORKING
 							if ($value->payment_status == 'unpaid') {
 								$value->user->addEarning($active_game->id, $value->earning);
-								// _dd($value->user->earnings);
 
 								//create a transaction record
-								$value->user->transactions()->create([
-									'amount' => env('GAME_CREDITS'),
-									'trans_type' => 'game play',
-									'channel' => 'online',
-									'status' => 'completed'
-								]);
+								$value->user->receiptForGame($active_game->id);
 
 								//Give his referrer a bonus for his participation
 								if ($value->user->has_referrer()) {
@@ -196,12 +191,7 @@ class Game extends Model{
 							// _dd($v->user->earnings);
 
 							//create a transaction record
-							$v->user->transactions()->create([
-								'amount' => env('GAME_CREDITS'),
-								'trans_type' => 'game play',
-								'channel' => 'online',
-								'status' => 'completed'
-							]);
+							$v->user->receiptForGame($active_game->id);
 
 							//Give his referrer a bonus for his participation
 							if ($v->user->has_referrer()) {
@@ -216,7 +206,8 @@ class Game extends Model{
 
 					//send the rest to admin acc
 					$admin_amount = ($total_stake - $dispensed_amount) + ( env('EXAM_PARTICIPATION_FEE') * $total_examinees ) - ( env('REFERRAL_BONUS') * $referral_bonus);
-					Earning::adminEarning($active_game->id, $admin_amount);
+					Earning::adminGameEarning($active_game->id, $admin_amount);
+
 
 					//end the game
 					$active_game->status = false;

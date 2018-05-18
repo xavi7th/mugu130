@@ -890,16 +890,44 @@
 																				<tr>
 																					<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
 
-																						<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+																						<table align="left" border="0" cellpadding="0" cellspacing="0" style="margin-left:10%; max-width:80%; min-width:80%;" width="100%" class="mcnTextContentContainer">
 																							<tbody>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										Hello <strong>{{ Auth::user()->firstname }}</strong>,
+																										Hello <strong>{{ $user->firstname }}</strong>,
 																									</td>
 																								</tr>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										Your withdrawal request of ₦{{ $amt }} was just processed.
+																										Your withdrawal request has been processed successfully.
+																										<p>Below is the description:</p>
+																										<ul  class="mcnTextContent" style="background-color: #eee; list-style:none; padding: 25px;">
+																											<li>Reference: <strong> {{ str_random(15) }}</strong></li>
+																											<li>Date &amp; Time: <strong> {{ now() }}</strong></li>
+																											<li>Type: <strong> {{ $trans_type }}</strong></li>
+																											<li>Amount: <strong> {{ $amt }}</strong></li>
+																											<li>Charges: <strong> {{ $charge }}</strong></li>
+																											<li>Total: <strong> {{ $total }}</strong></li>
+																											<li>Status: <strong> Completed </strong></li>
+																											<li>Account Details: <strong> {{ $user->firstname }} {{ $user->lastname }} | {{ $user->bank }} | {{ $user->acct_no }} |  {{ $user->phone1 }}</strong></li>
+																											<li>Your current Earnings balance: <strong> {{ $user->available_units }}</strong></li>
+																										</ul>
+
+																									</td>
+																								</tr>
+																								<tr>
+																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										<p>If you do not receive the amount stated above within 24 hours, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>
+																										<p>Thank you for using FastPlay24.</p>
+																									</td>
+																								</tr>
+																								<tr>
+																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+																										<p>Cheers,</p>
+																										<p>
+																											<strong>Thank you for using FastPlay24.</strong>
+																										</p>
 																									</td>
 																								</tr>
 																							</tbody>
@@ -910,23 +938,6 @@
 																			</tbody>
 																		</table>
 
-																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width:100%;">
-																			<tbody class="mcnButtonBlockOuter">
-																				<tr>
-																					<td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-																						<table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #0E91CE;">
-																							<tbody>
-																								<tr>
-																									<td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 15px;">
-																										<a class="mcnButton " title="Login" href="{{ route('password.request') }}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Not Me</a>
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</td>
-																				</tr>
-																			</tbody>
-																		</table>
 																	</td>
 																</tr>
 															</table>
@@ -952,6 +963,132 @@
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
 										<tr>
 											<td align="center" valign="top">
+												<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
+													<tbody class="mcnFollowBlockOuter">
+														<tr>
+															<td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
+																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
+																	<tbody>
+																		<tr>
+																			<td align="center" style="padding-left:9px;padding-right:9px;">
+																				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
+																					<tbody>
+																						<tr>
+																							<td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
+																								<table align="center" border="0" cellpadding="0" cellspacing="0">
+																									<tbody>
+																										<tr>
+																											<td align="center" valign="top">
+
+
+
+																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																													<tbody>
+																														<tr>
+																															<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																																	<tbody>
+																																		<tr>
+																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																					<tbody>
+																																						<tr>
+
+																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																								<a href="http://www.twitter.com/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							</td>
+
+
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</td>
+																																		</tr>
+																																	</tbody>
+																																</table>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+
+
+																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																													<tbody>
+																														<tr>
+																															<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																																	<tbody>
+																																		<tr>
+																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																					<tbody>
+																																						<tr>
+
+																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																								<a href="http://www.facebook.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							</td>
+
+
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</td>
+																																		</tr>
+																																	</tbody>
+																																</table>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+
+																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																													<tbody>
+																														<tr>
+																															<td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																																	<tbody>
+																																		<tr>
+																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																					<tbody>
+																																						<tr>
+
+																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																								<a href="http://mailchimp.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							</td>
+
+
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</td>
+																																		</tr>
+																																	</tbody>
+																																</table>
+																															</td>
+																														</tr>
+																													</tbody>
+																												</table>
+
+																											</td>
+																										</tr>
+																									</tbody>
+																								</table>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+
+															</td>
+														</tr>
+													</tbody>
+												</table>
 												<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
 													<tr>
 														<td valign="top" class="footerContainer" style="padding-top:10px; padding-bottom:10px;">
@@ -971,7 +1108,9 @@
 																							<br>
 																							<strong>Our mailing address is:</strong><br> hello@fastplay24.com
 																							<br>
-																							<br> Want to change how you receive these emails?<br> You can <a href="https://fastplay24.com/login" target="_blank" title="Unsuscribe">delete your account</a>.
+																							<br>
+																							<br>
+																							<h1>Think - Play - Win</h1>
 																						</td>
 																					</tr>
 																				</tbody>

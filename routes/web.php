@@ -16,8 +16,7 @@ use App\UserGameSession;
 
 use Carbon\Carbon;
 
-use App\Mail\ActivationMail;
-use App\Mail\ReactivationMail;
+use App\Mail\AccountCredited;
 use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
@@ -45,7 +44,8 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/test', function () {
     // abort(404);
-    // return (new ActivationMail('87i87o8jkh'))->render();
+        return TransactionalMail::sendCreditMail(65767, '$trans_type', null, 768989);
+
 
 
 
@@ -109,7 +109,6 @@ Route::middleware(['before'])->group( function () {
   })->name('calculator');
 
   Route::view('/privacy', 'others-home')->name('privacy');
-
 
   Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
 
@@ -260,7 +259,7 @@ Route::middleware(['before'])->group( function () {
     DB::commit();
 
     $results = DemoGameSession::where('session_id', session('demo_id'))->get();
-    $results = $results->concat(factory(DemoGameSession::class, request()->input('details.total_examinees') - $max_winners - 1)->make());
+    // $results = $results->concat(factory(DemoGameSession::class, request()->input('details.total_examinees') - $max_winners - 1)->make());
 
     return [
       'status' => true,
@@ -303,6 +302,8 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/get-dashboard-page-details', 'DashboardController@getDashboardPageDetails');
 
   Route::post('/make-deposit', 'DashboardController@makeDeposit');
+
+  Route::post('/send-credit-account-request', 'DashboardController@sendCreditAccountRequest');
 
   Route::post('/credit-account', 'DashboardController@creditAccount');
 

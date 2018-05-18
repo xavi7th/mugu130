@@ -27,12 +27,16 @@ var url = `
             <i class="call square icon"></i> {{ userdetails.phone1 }}
           </div>
         </div>
-        <div class="content" style="padding-bottom: 5px;">
-          <div class="ui blue image label">
-            Last seen
-            <div class="detail">2 weeks ago</div>
-          </div>
+        <br />
+        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+          <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+          <a class="a2a_button_facebook"></a>
+          <a class="a2a_button_sms"></a>
+          <a class="a2a_button_email"></a>
+          <a class="a2a_button_whatsapp"></a>
+          <a class="a2a_button_copy_link"></a>
         </div>
+        <br />
       </div>
     </div>
     <div class="grid-50">
@@ -70,10 +74,6 @@ var url = `
           <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
           <input type="text" ng-hide="true" id="hiddenref">
         </div>
-        <div class="addthis_inline_share_toolbox_lksv">
-          Win up to ₦15,00 on with just ₦35 every 20minutes by answering 10 questions in 10 minutes. Visit https://fastplay24.com/register/ref/{{ userdetails.refcode }} right now.
-        </div>
-
       </div>
     </div>
   </div>
@@ -88,20 +88,10 @@ angular.module('userProfile', []).directive('userProfile', [function () {
     template:url,
     replace: true,
     link: function(scope, element, attributes){
-
-			// console.log(attributes); //literal string "{{some string}}", no interpolation
-			// console.log(element); //literal string "{{some string}}", no interpolation
-			// console.log(attributes.anotherParam); //literally "another string"
-      element.children( 'input[type="file"]' ).attr('id', attributes.attr);
-      element.children( 'input[type="file"]' ).attr('name', attributes.attr);
-      element.children( 'img' ).attr('alt', attributes.altText);
-			// attributes.$observe('myDirective', function(value){
-			// 	console.log(value);
-			// });
-      //
-			// attributes.$observe('anotherParam', function(value){
-			// 	console.log(value);
-			// });
+        var scriptTag = angular.element(document.createElement('script'));
+        scriptTag.attr('charset', 'utf-8');
+        scriptTag.attr('src', 'https://static.addtoany.com/menu/page.js');
+        element.append(scriptTag);
 
 		},
     controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {

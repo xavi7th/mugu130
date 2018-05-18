@@ -586,7 +586,132 @@ use Carbon\Carbon;
 							</tr>
 							<tr>
 								<td align="center" valign="top" id="templateFooter">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
+										<tbody class="mcnFollowBlockOuter">
+											<tr>
+												<td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
+													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
+														<tbody>
+															<tr>
+																<td align="center" style="padding-left:9px;padding-right:9px;">
+																	<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
+																		<tbody>
+																			<tr>
+																				<td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
+																					<table align="center" border="0" cellpadding="0" cellspacing="0">
+																						<tbody>
+																							<tr>
+																								<td align="center" valign="top">
 
+
+
+																									<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																										<tbody>
+																											<tr>
+																												<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																														<tbody>
+																															<tr>
+																																<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																	<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																		<tbody>
+																																			<tr>
+
+																																				<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																					<a href="http://www.twitter.com/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																				</td>
+
+
+																																			</tr>
+																																		</tbody>
+																																	</table>
+																																</td>
+																															</tr>
+																														</tbody>
+																													</table>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+
+
+
+																									<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																										<tbody>
+																											<tr>
+																												<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																														<tbody>
+																															<tr>
+																																<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																	<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																		<tbody>
+																																			<tr>
+
+																																				<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																					<a href="http://www.facebook.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																				</td>
+
+
+																																			</tr>
+																																		</tbody>
+																																	</table>
+																																</td>
+																															</tr>
+																														</tbody>
+																													</table>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+
+
+																									<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																										<tbody>
+																											<tr>
+																												<td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
+																													<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																														<tbody>
+																															<tr>
+																																<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																	<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																		<tbody>
+																																			<tr>
+
+																																				<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
+																																					<a href="http://mailchimp.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																				</td>
+
+
+																																			</tr>
+																																		</tbody>
+																																	</table>
+																																</td>
+																															</tr>
+																														</tbody>
+																													</table>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
 									<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
 										<tr>
 											<td valign="top" class="footerContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
@@ -604,10 +729,8 @@ use Carbon\Carbon;
 																		<strong>Our mailing address is:</strong><br>
 																		hello@fastplay24.com<br>
 																		<br>
-																		Want to change how you receive these emails?<br>
-																		You can <a href="*|UPDATE_PROFILE|*">update your preferences</a> or <a href="*|UNSUB|*">unsubscribe from this list</a>.<br>
 																		<br>
-																		&nbsp;
+																		<h1>THINK - PLAY - WIN</h1>
 																	</td>
 																	</tr>
 																</tbody></table>
@@ -615,7 +738,8 @@ use Carbon\Carbon;
 														</td>
 													</tr>
 												</tbody>
-												</table></td>
+												</table>
+											</td>
 										</tr>
 									</table>
 

@@ -3,126 +3,1751 @@ webpackJsonp([3],{
 /***/ "./resources/assets/js/angular/controllers/dashboard-controller.js":
 /***/ (function(module, exports) {
 
-eval("dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {\n  NProgress.start();\n\n  $scope.hide = true;\n\n  $scope.transferEarnings = function () {\n    sendRequest.postRequest('user/transfer-earnings').then(function (rsp) {\n      if (rsp.status == 200) {\n        if (rsp.data.status == true) {\n          Notification.success({ message: 'Earnings transferred to wallet', positionX: 'center' });\n        } else if (rsp.data.status == 'Insufficient') {\n          Notification.error({ message: 'No earnings to transfer', positionX: 'center' });\n        }\n      }\n\n      sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {\n        $scope.userdetails = rsp.userdetails;\n      });\n      sendRequest.getTotalEarnings('/user/get-total-earnings', true).then(function (rsp) {\n        $scope.total_earnings = rsp.total_earnings;\n      });\n    });\n  };\n\n  $scope.sendMessage = function () {\n    sendRequest.postRequest('/user/send-message', $scope.message).then(function (rsp) {\n      if (rsp.status == 200) {\n        NProgress.done();\n      }\n    });\n    $scope.message = null;\n  };\n\n  bootstrapPage.dashboard($scope);\n\n  NProgress.done();\n}]);\n\ndashboard.controller('ProfileController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {\n  NProgress.start();\n\n  bootstrapPage.profile($scope);\n\n  NProgress.done();\n}]);\n\ndashboard.controller('SettingsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {\n  NProgress.start();\n\n  $scope.updateDetails = function () {\n    $scope.loading = true;\n    sendRequest.postRequest('/user/update-user-details', $scope.userdetails).then(function (rsp) {\n      Notification.success({ message: 'Updated', positionX: 'center' });\n      $scope.loading = null;\n    });\n  };\n\n  $scope.updatePassword = function () {\n    if (!$scope.userdetails.old_password || !$scope.userdetails.password) {\n      Notification.error('Old and new password required');\n      return;\n    }\n    sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password).then(function (rsp) {\n      if (rsp.status == 423) {\n        Notification.error('Old password mismatch');\n      } else if (rsp.status == 200) {\n        if (rsp.data.status) {\n          $scope.updateDetails();\n          $scope.logout();\n        }\n      }\n    });\n  };\n\n  bootstrapPage.settings($scope);\n\n  NProgress.done();\n}]);\n\ndashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', 'gameActive', function ($scope, Notification, sendRequest, bootstrapPage, gameActive) {\n  NProgress.start();\n\n  $scope.game_timer = gameActive.game_timer;\n  $scope.total_examinees = gameActive.total_examinees;\n\n  bootstrapPage.gameplay($scope);\n\n  NProgress.done();\n}]);\n\ndashboard.controller('DisplayResultsController', ['$scope', 'bootstrapPage', function ($scope, bootstrapPage) {\n  NProgress.start();\n\n  bootstrapPage.results($scope);\n\n  NProgress.done();\n}]);\n\ndashboard.controller('MessageController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest) {\n  NProgress.start();\n  // var hello = _.dropRightWhile($scope.userdetails.messages, ['read', true]).length;\n  // console.log(hello);\n\n  $scope.markAsRead = function (msg) {\n    msg.read = true;\n    sendRequest.postRequest('/user/mark-message-as-read', msg);\n  };\n  $scope.deleteMessage = function (msg) {\n    sendRequest.postRequest('/user/delete-message', msg).then(function (rsp) {\n      var removedMessage = $scope.userdetails.messages.indexOf(msg);\n      $scope.userdetails.messages.splice(removedMessage, 1);\n    });\n  };\n\n  bootstrapPage.messages($scope);\n\n  NProgress.done();\n}]);\n\ndashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest) {\n  NProgress.start();\n\n  $scope.markAsRead = function (notice) {\n    notice.read = true;\n    sendRequest.postRequest('/user/mark-notice-as-read', notice);\n  };\n  $scope.deleteNotice = function (notice) {\n    sendRequest.postRequest('/user/delete-notice', notice).then(function (rsp) {\n      var removedNotice = $scope.userdetails.notices.indexOf(notice);\n      $scope.userdetails.notices.splice(removedNotice, 1);\n    });\n  };\n\n  bootstrapPage.notices($scope);\n\n  NProgress.done();\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvY29udHJvbGxlcnMvZGFzaGJvYXJkLWNvbnRyb2xsZXIuanM/YThlYiJdLCJuYW1lcyI6WyJkYXNoYm9hcmQiLCJjb250cm9sbGVyIiwiJHNjb3BlIiwiTm90aWZpY2F0aW9uIiwic2VuZFJlcXVlc3QiLCJib290c3RyYXBQYWdlIiwiTlByb2dyZXNzIiwic3RhcnQiLCJoaWRlIiwidHJhbnNmZXJFYXJuaW5ncyIsInBvc3RSZXF1ZXN0IiwidGhlbiIsInJzcCIsInN0YXR1cyIsImRhdGEiLCJzdWNjZXNzIiwibWVzc2FnZSIsInBvc2l0aW9uWCIsImVycm9yIiwiZ2V0VXNlckRldGFpbHMiLCJ1c2VyZGV0YWlscyIsImdldFRvdGFsRWFybmluZ3MiLCJ0b3RhbF9lYXJuaW5ncyIsInNlbmRNZXNzYWdlIiwiZG9uZSIsInByb2ZpbGUiLCJ1cGRhdGVEZXRhaWxzIiwibG9hZGluZyIsInVwZGF0ZVBhc3N3b3JkIiwib2xkX3Bhc3N3b3JkIiwicGFzc3dvcmQiLCJsb2dvdXQiLCJzZXR0aW5ncyIsImdhbWVBY3RpdmUiLCJnYW1lX3RpbWVyIiwidG90YWxfZXhhbWluZWVzIiwiZ2FtZXBsYXkiLCJyZXN1bHRzIiwibWFya0FzUmVhZCIsIm1zZyIsInJlYWQiLCJkZWxldGVNZXNzYWdlIiwicmVtb3ZlZE1lc3NhZ2UiLCJtZXNzYWdlcyIsImluZGV4T2YiLCJzcGxpY2UiLCJub3RpY2UiLCJkZWxldGVOb3RpY2UiLCJyZW1vdmVkTm90aWNlIiwibm90aWNlcyJdLCJtYXBwaW5ncyI6IkFBQUFBLFVBQVVDLFVBQVYsQ0FBcUIscUJBQXJCLEVBQTRDLENBQUMsUUFBRCxFQUFXLGNBQVgsRUFBMkIsYUFBM0IsRUFBMEMsZUFBMUMsRUFBMkQsVUFBVUMsTUFBVixFQUFrQkMsWUFBbEIsRUFBZ0NDLFdBQWhDLEVBQTZDQyxhQUE3QyxFQUE2RDtBQUNsS0MsWUFBVUMsS0FBVjs7QUFFQUwsU0FB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NUMsU0FBTzZDLFlBQVAsR0FBc0IsVUFBQ0QsTUFBRCxFQUFZO0FBQ2hDMUMsZ0JBQVlNLFdBQVosQ0FBd0IscUJBQXhCLEVBQStDb0MsTUFBL0MsRUFDYW5DLElBRGIsQ0FDa0IsZUFBTztBQUNYLFVBQUlxQyxnQkFBZ0I5QyxPQUFPa0IsV0FBUCxDQUFtQjZCLE9BQW5CLENBQTJCTCxPQUEzQixDQUFtQ0UsTUFBbkMsQ0FBcEI7QUFDSTVDLGFBQU9rQixXQUFQLENBQW1CNkIsT0FBbkIsQ0FBMkJKLE1BQTNCLENBQWtDRyxhQUFsQyxFQUFpRCxDQUFqRDtBQUNMLEtBSmI7QUFLRCxHQU5EOztBQVFBM0MsZ0JBQWM0QyxPQUFkLENBQXNCL0MsTUFBdEI7O0FBRUFJLFlBQVVrQixJQUFWO0FBRUQsQ0FuQndDLENBQXpDIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2NvbnRyb2xsZXJzL2Rhc2hib2FyZC1jb250cm9sbGVyLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZGFzaGJvYXJkLmNvbnRyb2xsZXIoJ0Rhc2hib2FyZENvbnRyb2xsZXInLCBbJyRzY29wZScsICdOb3RpZmljYXRpb24nLCAnc2VuZFJlcXVlc3QnLCAnYm9vdHN0cmFwUGFnZScsIGZ1bmN0aW9uICgkc2NvcGUsIE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QsIGJvb3RzdHJhcFBhZ2UgKSB7XG4gIE5Qcm9ncmVzcy5zdGFydCgpO1xuXG4gICRzY29wZS5oaWRlPXRydWU7XG5cbiAgJHNjb3BlLnRyYW5zZmVyRWFybmluZ3MgPSAoKSA9PiB7XG4gICAgc2VuZFJlcXVlc3QucG9zdFJlcXVlc3QoJ3VzZXIvdHJhbnNmZXItZWFybmluZ3MnKVxuICAgICAgICAgICAgICAudGhlbihyc3AgPT4ge1xuICAgICAgICAgICAgICAgIGlmIChyc3Auc3RhdHVzID09IDIwMCkge1xuICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnN0YXR1cyA9PSB0cnVlKSB7XG4gICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5zdWNjZXNzKHttZXNzYWdlOiAnRWFybmluZ3MgdHJhbnNmZXJyZWQgdG8gd2FsbGV0JywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgZWxzZSBpZihyc3AuZGF0YS5zdGF0dXMgPT0gJ0luc3VmZmljaWVudCcpe1xuICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3Ioe21lc3NhZ2U6ICdObyBlYXJuaW5ncyB0byB0cmFuc2ZlcicsIHBvc2l0aW9uWDogJ2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICBzZW5kUmVxdWVzdC5nZXRVc2VyRGV0YWlscygnL3VzZXIvZ2V0LXVzZXItZGV0YWlscycsIHRydWUpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgLnRoZW4oIChyc3ApID0+IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICRzY29wZS51c2VyZGV0YWlscyA9IHJzcC51c2VyZGV0YWlscztcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgICAgICBzZW5kUmVxdWVzdC5nZXRUb3RhbEVhcm5pbmdzKCcvdXNlci9nZXQtdG90YWwtZWFybmluZ3MnLCB0cnVlKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyc3ApIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICRzY29wZS50b3RhbF9lYXJuaW5ncyA9IHJzcC50b3RhbF9lYXJuaW5ncztcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgICAgfSk7XG4gIH07XG5cbiAgJHNjb3BlLnNlbmRNZXNzYWdlID0gZnVuY3Rpb24gKCkge1xuICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9zZW5kLW1lc3NhZ2UnLCAkc2NvcGUubWVzc2FnZSlcbiAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgIGlmIChyc3Auc3RhdHVzID09IDIwMCkge1xuICAgICAgICAgICAgICAgICAgTlByb2dyZXNzLmRvbmUoKTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgIH0pO1xuICAgICRzY29wZS5tZXNzYWdlPW51bGw7XG4gIH07XG5cblxuXG5cbiAgYm9vdHN0cmFwUGFnZS5kYXNoYm9hcmQoJHNjb3BlKTtcblxuICBOUHJvZ3Jlc3MuZG9uZSgpO1xuXG5cbn1dKTtcblxuZGFzaGJvYXJkLmNvbnRyb2xsZXIoJ1Byb2ZpbGVDb250cm9sbGVyJywgWyckc2NvcGUnLCAnTm90aWZpY2F0aW9uJywgJ3NlbmRSZXF1ZXN0JywgJ2Jvb3RzdHJhcFBhZ2UnLCBmdW5jdGlvbiAoJHNjb3BlLCBOb3RpZmljYXRpb24sIHNlbmRSZXF1ZXN0LCBib290c3RyYXBQYWdlICkge1xuICBOUHJvZ3Jlc3Muc3RhcnQoKTtcblxuICBib290c3RyYXBQYWdlLnByb2ZpbGUoJHNjb3BlKTtcblxuICBOUHJvZ3Jlc3MuZG9uZSgpO1xuXG59XSk7XG5cbmRhc2hib2FyZC5jb250cm9sbGVyKCdTZXR0aW5nc0NvbnRyb2xsZXInLCBbJyRzY29wZScsICdOb3RpZmljYXRpb24nLCAnc2VuZFJlcXVlc3QnLCAnYm9vdHN0cmFwUGFnZScsIGZ1bmN0aW9uICgkc2NvcGUsIE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QsIGJvb3RzdHJhcFBhZ2UgKSB7XG4gIE5Qcm9ncmVzcy5zdGFydCgpO1xuXG4gICRzY29wZS51cGRhdGVEZXRhaWxzID0gKCkgPT4ge1xuICAgICRzY29wZS5sb2FkaW5nID0gdHJ1ZTtcbiAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvdXBkYXRlLXVzZXItZGV0YWlscycsICRzY29wZS51c2VyZGV0YWlscylcbiAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5zdWNjZXNzKHsgbWVzc2FnZTogJ1VwZGF0ZWQnLCBwb3NpdGlvblg6J2NlbnRlcicgfSk7XG4gICAgICAgICAgICAgICAgJHNjb3BlLmxvYWRpbmcgPSBudWxsO1xuXG4gICAgICAgICAgICAgIH0pO1xuICB9O1xuXG4gICRzY29wZS51cGRhdGVQYXNzd29yZCA9ICgpID0+IHtcbiAgICBpZiAoISRzY29wZS51c2VyZGV0YWlscy5vbGRfcGFzc3dvcmQgfHwgISRzY29wZS51c2VyZGV0YWlscy5wYXNzd29yZCkge1xuICAgICAgTm90aWZpY2F0aW9uLmVycm9yKCdPbGQgYW5kIG5ldyBwYXNzd29yZCByZXF1aXJlZCcpO1xuICAgICAgcmV0dXJuO1xuICAgIH1cbiAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvY29uZmlybS11c2VyLXBhc3N3b3JkJywgJHNjb3BlLnVzZXJkZXRhaWxzLm9sZF9wYXNzd29yZClcbiAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgIGlmIChyc3Auc3RhdHVzID09IDQyMykge1xuICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKCdPbGQgcGFzc3dvcmQgbWlzbWF0Y2gnKTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgZWxzZSBpZiAocnNwLnN0YXR1cyA9PSAyMDApe1xuICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnN0YXR1cykge1xuICAgICAgICAgICAgICAgICAgICAkc2NvcGUudXBkYXRlRGV0YWlscygpO1xuICAgICAgICAgICAgICAgICAgICAkc2NvcGUubG9nb3V0KCk7XG5cbiAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgIH0pO1xuICB9O1xuXG4gIGJvb3RzdHJhcFBhZ2Uuc2V0dGluZ3MoJHNjb3BlKTtcblxuICBOUHJvZ3Jlc3MuZG9uZSgpO1xufV0pO1xuXG5kYXNoYm9hcmQuY29udHJvbGxlcignR2FtZVBsYXlDb250cm9sbGVyJywgWyckc2NvcGUnLCAnTm90aWZpY2F0aW9uJywgJ3NlbmRSZXF1ZXN0JywgJ2Jvb3RzdHJhcFBhZ2UnLCAnZ2FtZUFjdGl2ZScsIGZ1bmN0aW9uICgkc2NvcGUsIE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QsIGJvb3RzdHJhcFBhZ2UsIGdhbWVBY3RpdmUgKSB7XG4gIE5Qcm9ncmVzcy5zdGFydCgpO1xuXG4gICRzY29wZS5nYW1lX3RpbWVyID0gZ2FtZUFjdGl2ZS5nYW1lX3RpbWVyO1xuICAkc2NvcGUudG90YWxfZXhhbWluZWVzID0gZ2FtZUFjdGl2ZS50b3RhbF9leGFtaW5lZXM7XG5cbiAgYm9vdHN0cmFwUGFnZS5nYW1lcGxheSgkc2NvcGUpO1xuXG4gIE5Qcm9ncmVzcy5kb25lKCk7XG59XSk7XG5cbmRhc2hib2FyZC5jb250cm9sbGVyKCdEaXNwbGF5UmVzdWx0c0NvbnRyb2xsZXInLCBbJyRzY29wZScsICdib290c3RyYXBQYWdlJywgZnVuY3Rpb24gKCRzY29wZSwgYm9vdHN0cmFwUGFnZSApIHtcbiAgTlByb2dyZXNzLnN0YXJ0KCk7XG5cbiAgYm9vdHN0cmFwUGFnZS5yZXN1bHRzKCRzY29wZSk7XG5cbiAgTlByb2dyZXNzLmRvbmUoKTtcblxufV0pO1xuXG5kYXNoYm9hcmQuY29udHJvbGxlcignTWVzc2FnZUNvbnRyb2xsZXInLCBbJyRzY29wZScsICdib290c3RyYXBQYWdlJywgJ3NlbmRSZXF1ZXN0JywgZnVuY3Rpb24gKCRzY29wZSwgYm9vdHN0cmFwUGFnZSwgc2VuZFJlcXVlc3QgKSB7XG4gIE5Qcm9ncmVzcy5zdGFydCgpO1xuICAvLyB2YXIgaGVsbG8gPSBfLmRyb3BSaWdodFdoaWxlKCRzY29wZS51c2VyZGV0YWlscy5tZXNzYWdlcywgWydyZWFkJywgdHJ1ZV0pLmxlbmd0aDtcbiAgLy8gY29uc29sZS5sb2coaGVsbG8pO1xuXG4gICRzY29wZS5tYXJrQXNSZWFkID0gKG1zZykgPT4ge1xuICAgIG1zZy5yZWFkID0gdHJ1ZTtcbiAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvbWFyay1tZXNzYWdlLWFzLXJlYWQnLCBtc2cpO1xuICB9O1xuICAkc2NvcGUuZGVsZXRlTWVzc2FnZSA9IChtc2cpID0+IHtcbiAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvZGVsZXRlLW1lc3NhZ2UnLCBtc2cpXG4gICAgICAgICAgICAgICAgLnRoZW4ocnNwID0+IHtcbiAgICAgICAgICAgICAgICAgIHZhciByZW1vdmVkTWVzc2FnZSA9ICRzY29wZS51c2VyZGV0YWlscy5tZXNzYWdlcy5pbmRleE9mKG1zZyk7XG4gICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLnVzZXJkZXRhaWxzLm1lc3NhZ2VzLnNwbGljZShyZW1vdmVkTWVzc2FnZSwgMSk7XG4gICAgICAgICAgICAgICAgfSk7XG4gIH07XG5cbiAgYm9vdHN0cmFwUGFnZS5tZXNzYWdlcygkc2NvcGUpO1xuXG4gIE5Qcm9ncmVzcy5kb25lKCk7XG5cbn1dKTtcblxuZGFzaGJvYXJkLmNvbnRyb2xsZXIoJ05vdGljZUNvbnRyb2xsZXInLCBbJyRzY29wZScsICdib290c3RyYXBQYWdlJywgJ3NlbmRSZXF1ZXN0JywgZnVuY3Rpb24gKCRzY29wZSwgYm9vdHN0cmFwUGFnZSwgc2VuZFJlcXVlc3QgKSB7XG4gIE5Qcm9ncmVzcy5zdGFydCgpO1xuXG4gICRzY29wZS5tYXJrQXNSZWFkID0gKG5vdGljZSkgPT4ge1xuICAgIG5vdGljZS5yZWFkID0gdHJ1ZTtcbiAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvbWFyay1ub3RpY2UtYXMtcmVhZCcsIG5vdGljZSk7XG4gIH07XG4gICRzY29wZS5kZWxldGVOb3RpY2UgPSAobm90aWNlKSA9PiB7XG4gICAgc2VuZFJlcXVlc3QucG9zdFJlcXVlc3QoJy91c2VyL2RlbGV0ZS1ub3RpY2UnLCBub3RpY2UpXG4gICAgICAgICAgICAgICAgLnRoZW4ocnNwID0+IHtcbiAgICAgICAgICAgICAgICAgIHZhciByZW1vdmVkTm90aWNlID0gJHNjb3BlLnVzZXJkZXRhaWxzLm5vdGljZXMuaW5kZXhPZihub3RpY2UpO1xuICAgICAgICAgICAgICAgICAgICAgICRzY29wZS51c2VyZGV0YWlscy5ub3RpY2VzLnNwbGljZShyZW1vdmVkTm90aWNlLCAxKTtcbiAgICAgICAgICAgICAgICB9KTtcbiAgfTtcblxuICBib290c3RyYXBQYWdlLm5vdGljZXMoJHNjb3BlKTtcblxuICBOUHJvZ3Jlc3MuZG9uZSgpO1xuXG59XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvY29udHJvbGxlcnMvZGFzaGJvYXJkLWNvbnRyb2xsZXIuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/controllers/dashboard-controller.js\n");
+dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  $scope.hide = true;
+
+  $scope.transferEarnings = function () {
+    sendRequest.postRequest('user/transfer-earnings').then(function (rsp) {
+      if (rsp.status == 200) {
+        if (rsp.data.status == true) {
+          Notification.success({ message: 'Earnings transferred to wallet', positionX: 'center' });
+        } else if (rsp.data.status == 'Insufficient') {
+          Notification.error({ message: 'No earnings to transfer', positionX: 'center' });
+        }
+      }
+
+      sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {
+        $scope.userdetails = rsp.userdetails;
+      });
+      sendRequest.getTotalEarnings('/user/get-total-earnings', true).then(function (rsp) {
+        $scope.total_earnings = rsp.total_earnings;
+      });
+    });
+  };
+
+  $scope.sendMessage = function () {
+    sendRequest.postRequest('/user/send-message', $scope.message).then(function (rsp) {
+      if (rsp.status == 200) {
+        NProgress.done();
+      }
+    });
+    $scope.message = null;
+  };
+
+  bootstrapPage.dashboard($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('ProfileController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  bootstrapPage.profile($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  $scope.updateDetails = function () {
+    $scope.loading = true;
+    sendRequest.postRequest('/user/update-user-details', $scope.userdetails).then(function (rsp) {
+      Notification.success({ message: 'Updated', positionX: 'center' });
+      $scope.loading = null;
+    });
+  };
+
+  $scope.updatePassword = function () {
+    if (!$scope.userdetails.old_password || !$scope.userdetails.password) {
+      Notification.error('Old and new password required');
+      return;
+    }
+    sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password).then(function (rsp) {
+      if (rsp.status == 423) {
+        Notification.error('Old password mismatch');
+      } else if (rsp.status == 200) {
+        if (rsp.data.status) {
+          $scope.updateDetails();
+          $scope.logout();
+        }
+      }
+    });
+  };
+
+  bootstrapPage.settings($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', 'gameActive', function ($scope, Notification, sendRequest, bootstrapPage, gameActive) {
+  NProgress.start();
+
+  $scope.game_timer = gameActive.game_timer;
+  $scope.total_examinees = gameActive.total_examinees;
+
+  bootstrapPage.gameplay($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('DisplayResultsController', ['$scope', 'bootstrapPage', function ($scope, bootstrapPage) {
+  NProgress.start();
+
+  bootstrapPage.results($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('MessageController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest) {
+  NProgress.start();
+  // var hello = _.dropRightWhile($scope.userdetails.messages, ['read', true]).length;
+  // console.log(hello);
+
+  $scope.markAsRead = function (msg) {
+    msg.read = true;
+    sendRequest.postRequest('/user/mark-message-as-read', msg);
+  };
+  $scope.deleteMessage = function (msg) {
+    sendRequest.postRequest('/user/delete-message', msg).then(function (rsp) {
+      var removedMessage = $scope.userdetails.messages.indexOf(msg);
+      $scope.userdetails.messages.splice(removedMessage, 1);
+    });
+  };
+
+  bootstrapPage.messages($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest) {
+  NProgress.start();
+
+  $scope.markAsRead = function (notice) {
+    notice.read = true;
+    sendRequest.postRequest('/user/mark-notice-as-read', notice);
+  };
+  $scope.deleteNotice = function (notice) {
+    sendRequest.postRequest('/user/delete-notice', notice).then(function (rsp) {
+      var removedNotice = $scope.userdetails.notices.indexOf(notice);
+      $scope.userdetails.notices.splice(removedNotice, 1);
+    });
+  };
+
+  bootstrapPage.notices($scope);
+
+  NProgress.done();
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/buyUnits.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage\n// <game-play></game-play>\n\n\nvar url = '\\n<section id=\"buyUnits\" class=\"ui right floated horizontal list\">\\n  <div class=\"ui vertical teal compact animated button\" tabindex=\"-1\" ng-click=\"openModal()\">\\n    <div class=\"hidden content\"><i class=\"shop icon\"></i></div>\\n    <div class=\"visible content\">\\n      Fund Account\\n    </div>\\n  </div>\\n\\n\\n  <div class=\"ui tiny modal buyUnits transition hidden\">\\n      <div class=\"header\">\\n        Input Amount\\n      </div>\\n      <div class=\"image content flex-center\">\\n        <div class=\"ui form\">\\n          <div class=\"inline field\">\\n            <input type=\"number\" placeholder=\"Minimum: \\u20A6300\" ng-model=\"requested_amount\" ng-min=\"300\">\\n          </div>\\n        </div>\\n      </div>\\n      <div class=\"actions  flex-center\">\\n        <div class=\"ui black left deny button\">\\n          Close\\n        </div>\\n        <div ng-class=\"{\\'ui positive right labeled icon button\\': true, \\'disabled\\': !requested_amount}\" ng-click=\"awardCredits()\">\\n          Pay Online\\n          <i class=\"checkmark icon\"></i>\\n        </div>\\n      </div>\\n      <div class=\"ui segments\" id=\"info-images\">\\n        <div class=\"ui segment\">\\n        <p style=\"color:green\"><i class=\"lock icon\"></i>SSL Encryption Enabled</p>\\n          <p>\\n            <img src=\"/img/paywithcashenvoylogo.gif\" alt=\"\" />\\n          </p>\\n        </div>\\n        <div class=\"ui secondary segment\">\\n          <p>\\n            <img src=\"/img/cashenvoy.png\" alt=\"\" />\\n          </p>\\n        </div>\\n        <div class=\"ui secondary segment\" id=\"extra\">\\n          <div class=\"ui small header\">Pay via bank Deposit or Wire transfer</div>\\n          <p>\\n            <b>Account Name:</b> Tcom Wireless Nigeria\\n          </p>\\n          <p>\\n            <b>Account Number:</b> 1019040225 (United Bank for Africa)\\n          </p>\\n          <p>\\n            <b>  Account type:</b> Current\\n          </p>\\n          <p>\\n            <img src=\"/img/uba.jpg\" alt=\"\" />\\n          </p>\\n\\n          <div class=\"ui positive message\">\\n            <div class=\"header\">\\n              NB:\\n            </div>\\n            <p>After payment, send your payment details to hello@fastplay24.com. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to hello@fastplay24.com.</p>\\n          </div>\\n\\n          <div class=\"ui message\">\\n            <div class=\"header\">\\n              NB:\\n            </div>\\n            <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>\\n          </div>\\n\\n        </div>\\n      </div>\\n\\n    </div>\\n\\n</section>\\n';\n\nangular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendRequest', function (Notification, sendRequest) {\n  return {\n    restrict: 'E',\n    scope: {\n      // dest : '=',\n      // mdl:'=',\n      // attr: '=',\n      // altText: '='\n    },\n    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',\n    template: url,\n    replace: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n\n      $scope.amt_per_unit = 1;\n\n      $scope.openModal = function () {\n        $('.ui.modal.buyUnits').modal({\n          blurring: true,\n          allowMultiple: false\n        }).modal('show');\n      };\n\n      $scope.awardCredits = function () {\n\n        sendRequest.postRequest('/user/credit-account', { 'amt': $scope.requested_amount }).then(function (rsp) {\n          if (rsp.status == 422) {\n            Notification.error({ message: 'No active game in progress', positionX: 'center' });\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              Notification.primary({ message: 'Units added to account', positionX: 'center' });\n              $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;\n              $scope.requested_amount = null;\n            }\n          }\n        });\n      };\n    }]\n  };\n}]);\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(\"./node_modules/jquery/dist/jquery.js\")))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9idXlVbml0cy5qcz8wOTZiIl0sIm5hbWVzIjpbInVybCIsImFuZ3VsYXIiLCJtb2R1bGUiLCJkaXJlY3RpdmUiLCJOb3RpZmljYXRpb24iLCJzZW5kUmVxdWVzdCIsInJlc3RyaWN0Iiwic2NvcGUiLCJ0ZW1wbGF0ZSIsInJlcGxhY2UiLCJsaW5rIiwiZWxlbWVudCIsImF0dHJpYnV0ZXMiLCJjb250cm9sbGVyIiwiJHNjb3BlIiwiYW10X3Blcl91bml0Iiwib3Blbk1vZGFsIiwiJCIsIm1vZGFsIiwiYmx1cnJpbmciLCJhbGxvd011bHRpcGxlIiwiYXdhcmRDcmVkaXRzIiwicG9zdFJlcXVlc3QiLCJyZXF1ZXN0ZWRfYW1vdW50IiwidGhlbiIsInJzcCIsInN0YXR1cyIsImVycm9yIiwibWVzc2FnZSIsInBvc2l0aW9uWCIsImRhdGEiLCJwcmltYXJ5IiwiJHBhcmVudCIsInVzZXJkZXRhaWxzIiwiYXZhaWxhYmxlX3VuaXRzIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBOzs7QUFHQSxJQUFJQSxtc0ZBQUo7O0FBZ0ZBQyxRQUFRQyxNQUFSLENBQWUsVUFBZixFQUEyQixFQUEzQixFQUErQkMsU0FBL0IsQ0FBeUMsVUFBekMsRUFBcUQsQ0FBQyxjQUFELEVBQWlCLGFBQWpCLEVBQWdDLFVBQVVDLFlBQVYsRUFBd0JDLFdBQXhCLEVBQXFDO0FBQ3hILFNBQU87QUFDTEMsY0FBVSxHQURMO0FBRUxDLFdBQU07QUFDSjtBQUNBO0FBQ0E7QUFDQTtBQUpJLEtBRkQ7QUFRTDtBQUNBQyxjQUFTUixHQVRKO0FBVUxTLGFBQVMsSUFWSjtBQVdMQyxVQUFNLGNBQUNILEtBQUQsRUFBUUksT0FBUixFQUFpQkMsVUFBakIsRUFBZ0MsQ0FFdkMsQ0FiTTtBQWNMQyxnQkFBWSxDQUFDLFFBQUQsRUFBWSxVQUFDQyxNQUFELEVBQVk7O0FBRWxDQSxhQUFPQyxZQUFQLEdBQXNCLENBQXRCOztBQUVBRCxhQUFPRSxTQUFQLEdBQW1CLFlBQU07QUFDdkJDLFVBQUUsb0JBQUYsRUFBd0JDLEtBQXhCLENBQThCO0FBQzFCQyxvQkFBVSxJQURnQjtBQUUxQkMseUJBQWU7QUFGVyxTQUE5QixFQUlHRixLQUpILENBSVMsTUFKVDtBQUtELE9BTkQ7O0FBUUFKLGFBQU9PLFlBQVAsR0FBc0IsWUFBTTs7QUFFMUJoQixvQkFBWWlCLFdBQVosQ0FBd0Isc0JBQXhCLEVBQWdELEVBQUMsT0FBT1IsT0FBT1MsZ0JBQWYsRUFBaEQsRUFDVUMsSUFEVixDQUNlLFVBQVVDLEdBQVYsRUFBZTtBQUNuQixjQUFJQSxJQUFJQyxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDckJ0Qix5QkFBYXVCLEtBQWIsQ0FBbUIsRUFBRUMsU0FBUyw0QkFBWCxFQUF5Q0MsV0FBVyxRQUFwRCxFQUFuQjtBQUNELFdBRkQsTUFHSyxJQUFJSixJQUFJQyxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDMUIsZ0JBQUlELElBQUlLLElBQUosQ0FBU0osTUFBYixFQUFxQjtBQUNuQnRCLDJCQUFhMkIsT0FBYixDQUFxQixFQUFFSCxTQUFTLHdCQUFYLEVBQXFDQyxXQUFXLFFBQWhELEVBQXJCO0FBQ0FmLHFCQUFPa0IsT0FBUCxDQUFlQyxXQUFmLENBQTJCQyxlQUEzQixHQUE2Q3BCLE9BQU9rQixPQUFQLENBQWVDLFdBQWYsQ0FBMkJDLGVBQTNCLEdBQTZDcEIsT0FBT1MsZ0JBQWpHO0FBQ0FULHFCQUFPUyxnQkFBUCxHQUEwQixJQUExQjtBQUNEO0FBQ0Y7QUFDRixTQVpWO0FBY0QsT0FoQkQ7QUFrQkQsS0E5Qlc7QUFkUCxHQUFQO0FBOENELENBL0NvRCxDQUFyRCxFIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvYnV5VW5pdHMuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBFWEFNUExFIHVwbG9hZFBvc3RJbWFnZVxuLy8gPGdhbWUtcGxheT48L2dhbWUtcGxheT5cblxuXG52YXIgdXJsID0gYFxuPHNlY3Rpb24gaWQ9XCJidXlVbml0c1wiIGNsYXNzPVwidWkgcmlnaHQgZmxvYXRlZCBob3Jpem9udGFsIGxpc3RcIj5cbiAgPGRpdiBjbGFzcz1cInVpIHZlcnRpY2FsIHRlYWwgY29tcGFjdCBhbmltYXRlZCBidXR0b25cIiB0YWJpbmRleD1cIi0xXCIgbmctY2xpY2s9XCJvcGVuTW9kYWwoKVwiPlxuICAgIDxkaXYgY2xhc3M9XCJoaWRkZW4gY29udGVudFwiPjxpIGNsYXNzPVwic2hvcCBpY29uXCI+PC9pPjwvZGl2PlxuICAgIDxkaXYgY2xhc3M9XCJ2aXNpYmxlIGNvbnRlbnRcIj5cbiAgICAgIEZ1bmQgQWNjb3VudFxuICAgIDwvZGl2PlxuICA8L2Rpdj5cblxuXG4gIDxkaXYgY2xhc3M9XCJ1aSB0aW55IG1vZGFsIGJ1eVVuaXRzIHRyYW5zaXRpb24gaGlkZGVuXCI+XG4gICAgICA8ZGl2IGNsYXNzPVwiaGVhZGVyXCI+XG4gICAgICAgIElucHV0IEFtb3VudFxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwiaW1hZ2UgY29udGVudCBmbGV4LWNlbnRlclwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgZm9ybVwiPlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJpbmxpbmUgZmllbGRcIj5cbiAgICAgICAgICAgIDxpbnB1dCB0eXBlPVwibnVtYmVyXCIgcGxhY2Vob2xkZXI9XCJNaW5pbXVtOiDigqYzMDBcIiBuZy1tb2RlbD1cInJlcXVlc3RlZF9hbW91bnRcIiBuZy1taW49XCIzMDBcIj5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICAgIDxkaXYgY2xhc3M9XCJhY3Rpb25zICBmbGV4LWNlbnRlclwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgYmxhY2sgbGVmdCBkZW55IGJ1dHRvblwiPlxuICAgICAgICAgIENsb3NlXG4gICAgICAgIDwvZGl2PlxuICAgICAgICA8ZGl2IG5nLWNsYXNzPVwieyd1aSBwb3NpdGl2ZSByaWdodCBsYWJlbGVkIGljb24gYnV0dG9uJzogdHJ1ZSwgJ2Rpc2FibGVkJzogIXJlcXVlc3RlZF9hbW91bnR9XCIgbmctY2xpY2s9XCJhd2FyZENyZWRpdHMoKVwiPlxuICAgICAgICAgIFBheSBPbmxpbmVcbiAgICAgICAgICA8aSBjbGFzcz1cImNoZWNrbWFyayBpY29uXCI+PC9pPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgICAgPGRpdiBjbGFzcz1cInVpIHNlZ21lbnRzXCIgaWQ9XCJpbmZvLWltYWdlc1wiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgICA8cCBzdHlsZT1cImNvbG9yOmdyZWVuXCI+PGkgY2xhc3M9XCJsb2NrIGljb25cIj48L2k+U1NMIEVuY3J5cHRpb24gRW5hYmxlZDwvcD5cbiAgICAgICAgICA8cD5cbiAgICAgICAgICAgIDxpbWcgc3JjPVwiL2ltZy9wYXl3aXRoY2FzaGVudm95bG9nby5naWZcIiBhbHQ9XCJcIiAvPlxuICAgICAgICAgIDwvcD5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWNvbmRhcnkgc2VnbWVudFwiPlxuICAgICAgICAgIDxwPlxuICAgICAgICAgICAgPGltZyBzcmM9XCIvaW1nL2Nhc2hlbnZveS5wbmdcIiBhbHQ9XCJcIiAvPlxuICAgICAgICAgIDwvcD5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWNvbmRhcnkgc2VnbWVudFwiIGlkPVwiZXh0cmFcIj5cbiAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc21hbGwgaGVhZGVyXCI+UGF5IHZpYSBiYW5rIERlcG9zaXQgb3IgV2lyZSB0cmFuc2ZlcjwvZGl2PlxuICAgICAgICAgIDxwPlxuICAgICAgICAgICAgPGI+QWNjb3VudCBOYW1lOjwvYj4gVGNvbSBXaXJlbGVzcyBOaWdlcmlhXG4gICAgICAgICAgPC9wPlxuICAgICAgICAgIDxwPlxuICAgICAgICAgICAgPGI+QWNjb3VudCBOdW1iZXI6PC9iPiAxMDE5MDQwMjI1IChVbml0ZWQgQmFuayBmb3IgQWZyaWNhKVxuICAgICAgICAgIDwvcD5cbiAgICAgICAgICA8cD5cbiAgICAgICAgICAgIDxiPiAgQWNjb3VudCB0eXBlOjwvYj4gQ3VycmVudFxuICAgICAgICAgIDwvcD5cbiAgICAgICAgICA8cD5cbiAgICAgICAgICAgIDxpbWcgc3JjPVwiL2ltZy91YmEuanBnXCIgYWx0PVwiXCIgLz5cbiAgICAgICAgICA8L3A+XG5cbiAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgcG9zaXRpdmUgbWVzc2FnZVwiPlxuICAgICAgICAgICAgPGRpdiBjbGFzcz1cImhlYWRlclwiPlxuICAgICAgICAgICAgICBOQjpcbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPHA+QWZ0ZXIgcGF5bWVudCwgc2VuZCB5b3VyIHBheW1lbnQgZGV0YWlscyB0byBoZWxsb0BmYXN0cGxheTI0LmNvbS4gWW91ciBhY2NvdW50IHdpbGwgYmUgY3JlZGl0ZWQgYXMgc29vbiBhcyB5b3VyIHBheW1lbnQgaXMgY29uZmlybWVkLiBJZiB5b3VyIGFjY291bnQgaXMgbm90IGNyZWRpdGVkIHdpdGhpbiAyNCBob3Vycywgc2VuZCBhbiBlbWFpbCB0byBoZWxsb0BmYXN0cGxheTI0LmNvbS48L3A+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgbWVzc2FnZVwiPlxuICAgICAgICAgICAgPGRpdiBjbGFzcz1cImhlYWRlclwiPlxuICAgICAgICAgICAgICBOQjpcbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPHA+V2hlbiBtYWtpbmcgcGF5bWVudHMsIHBsZWFzZSBlbnN1cmUgeW91IGNvbmZpcm0gdGhhdCB0aGUgYWNjb3VudCBudW1iZXIgeW91IHBheSBpbnRvIG1hdGNoZXMgdGhlIG9uZSBzaG93biBhYm92ZSBhcyB3ZSB3aWxsIG5vdCBiZSBsaWFibGUgZm9yIGFueSBwYXltZW50cyBtYWRlIHRvIGEgYmFuayBhY2NvdW50IHRoYXQgaXMgbm90IG91cnMuPC9wPlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG5cbiAgICA8L2Rpdj5cblxuPC9zZWN0aW9uPlxuYDtcblxuXG5hbmd1bGFyLm1vZHVsZSgnYnV5VW5pdHMnLCBbXSkuZGlyZWN0aXZlKCdidXlVbml0cycsIFsnTm90aWZpY2F0aW9uJywgJ3NlbmRSZXF1ZXN0JywgZnVuY3Rpb24gKE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QpIHtcbiAgcmV0dXJuIHtcbiAgICByZXN0cmljdDogJ0UnLFxuICAgIHNjb3BlOntcbiAgICAgIC8vIGRlc3QgOiAnPScsXG4gICAgICAvLyBtZGw6Jz0nLFxuICAgICAgLy8gYXR0cjogJz0nLFxuICAgICAgLy8gYWx0VGV4dDogJz0nXG4gICAgfSxcbiAgICAvLyB0ZW1wbGF0ZVVybDonYW5ndWxhci9kaXJlY3RpdmUtdGVtcGxhdGVzL2dhbWVQbGF5VGVtcGxhdGUucGhwJyxcbiAgICB0ZW1wbGF0ZTp1cmwsXG4gICAgcmVwbGFjZTogdHJ1ZSxcbiAgICBsaW5rOiAoc2NvcGUsIGVsZW1lbnQsIGF0dHJpYnV0ZXMpID0+IHtcblxuXHRcdH0sXG4gICAgY29udHJvbGxlcjogWyckc2NvcGUnLCAgKCRzY29wZSkgPT4ge1xuXG4gICAgICAkc2NvcGUuYW10X3Blcl91bml0ID0gMTtcblxuICAgICAgJHNjb3BlLm9wZW5Nb2RhbCA9ICgpID0+IHtcbiAgICAgICAgJCgnLnVpLm1vZGFsLmJ1eVVuaXRzJykubW9kYWwoe1xuICAgICAgICAgICAgYmx1cnJpbmc6IHRydWUsXG4gICAgICAgICAgICBhbGxvd011bHRpcGxlOiBmYWxzZVxuICAgICAgICAgIH0pXG4gICAgICAgICAgLm1vZGFsKCdzaG93Jyk7XG4gICAgICB9O1xuXG4gICAgICAkc2NvcGUuYXdhcmRDcmVkaXRzID0gKCkgPT4ge1xuXG4gICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9jcmVkaXQtYWNjb3VudCcsIHsnYW10JzogJHNjb3BlLnJlcXVlc3RlZF9hbW91bnR9KVxuICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gNDIyKSB7XG4gICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3IoeyBtZXNzYWdlOiAnTm8gYWN0aXZlIGdhbWUgaW4gcHJvZ3Jlc3MnLCBwb3NpdGlvblg6ICdjZW50ZXInfSk7XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIGVsc2UgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICBpZiAocnNwLmRhdGEuc3RhdHVzKSB7XG4gICAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5wcmltYXJ5KHsgbWVzc2FnZTogJ1VuaXRzIGFkZGVkIHRvIGFjY291bnQnLCBwb3NpdGlvblg6ICdjZW50ZXInfSk7XG4gICAgICAgICAgICAgICAgICAgICAgICRzY29wZS4kcGFyZW50LnVzZXJkZXRhaWxzLmF2YWlsYWJsZV91bml0cyA9ICRzY29wZS4kcGFyZW50LnVzZXJkZXRhaWxzLmF2YWlsYWJsZV91bml0cyArICRzY29wZS5yZXF1ZXN0ZWRfYW1vdW50O1xuICAgICAgICAgICAgICAgICAgICAgICAkc2NvcGUucmVxdWVzdGVkX2Ftb3VudCA9IG51bGw7XG4gICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgfTtcblxuICAgIH1dXG4gIH07XG59XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9idXlVbml0cy5qcyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/buyUnits.js\n");
+/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<section id="buyUnits" class="ui right floated horizontal list">\n  <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="shop icon"></i></div>\n    <div class="visible content">\n      Fund Account\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal buyUnits transition hidden">\n      <div class="header">\n        Fund Account: Input Amount\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Minimum: \u20A6300" ng-model="requested_amount" ng-min="300">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui black left deny button">\n        Close\n        </div>\n      </div>\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n        <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p>\n\n          </p>\n        </div>\n        <div class="ui secondary segment">\n          <p>\n            <img src="/img/paystack_preview.png" alt="" />\n          </p>\n        </div>\n        <div class="ui secondary segment" id="extra">\n          <div class="ui small header">Pay via bank Deposit or Wire transfer</div>\n          <p>\n            <b>Account Name:</b> Tcom Wireless Nigeria\n          </p>\n          <p>\n            <b>Account Number:</b> 1019040225 (United Bank for Africa)\n          </p>\n          <p>\n            <b>  Account type:</b> Current\n          </p>\n          <p>\n            <img src="/img/uba.jpg" alt="" />\n          </p>\n\n          <div class="ui positive message">\n            <div class="header">\n              NB:\n            </div>\n            <p>After payment, send your payment details to hello@fastplay24.com. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to hello@fastplay24.com.</p>\n          </div>\n\n          <div class="ui message">\n            <div class="header">\n              NB:\n            </div>\n            <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>\n          </div>\n\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
+
+angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {},
+    template: url,
+    replace: true,
+    controller: ['$scope', function ($scope) {
+
+      $scope.amt_per_unit = 1;
+
+      $scope.openModal = function () {
+        $('.ui.modal.buyUnits').modal({
+          blurring: true,
+          allowMultiple: false
+        }).modal('show');
+      };
+
+      $scope.awardCredits = function () {
+
+        sendRequest.postRequest('/user/credit-account', { 'amt': $scope.requested_amount }).then(function (rsp) {
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              Notification.primary({ message: 'Units added to account', positionX: 'center' });
+              $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;
+              $scope.requested_amount = null;
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/countdownTimer.js":
 /***/ (function(module, exports) {
 
-eval("// This is a highly modified and specific version of the timer. For a more robust and better baseline see the timer setup in Evernote.\n// This is a directive that accepts countdown time in seconds and counts down those seconds till now.\n\nangular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$compile', function ($timeout, $compile) {\n\n\treturn {\n\t\trestrict: 'E',\n\t\treplace: true,\n\t\ttransclude: true,\n\t\tscope: {\n\t\t\tcountdownAttr: '=countdown', //what unit? seconds\n\t\t\tonfinish: '&finish'\n\t\t},\n\n\t\ttemplate: '<div>' + '<h1 class=\"time\">{{ minutes }}:' + '{{ seconds }}</h1>' + '<ng-transclude></ng-transclude>' + '</div>',\n\n\t\tlink: function link(scope, elem, attrs) {\n\n\t\t\t//Properties\n\t\t\tvar countdown = parseInt(scope.countdownAttr, 10);\n\n\t\t\tfunction tick() {\n\n\t\t\t\t//The default time that the timer will be reset to after count down expires.\n\t\t\t\tscope.millis = 0;\n\n\t\t\t\tif (countdown > 0) {\n\t\t\t\t\tscope.millis = countdown * 1000;\n\t\t\t\t\tcountdown--;\n\t\t\t\t} else if (countdown <= 0) {\n\t\t\t\t\tscope.stop();\n\t\t\t\t\t// elem.children('h1').html('Time up!');\n\t\t\t\t\tscope.onfinish();\n\t\t\t\t}\n\n\t\t\t\tscope.seconds = twoNumbers(Math.floor(scope.millis / 1000 % 60));\n\t\t\t\tscope.minutes = Math.floor(scope.millis / (1000 * 60) % 60);\n\t\t\t\tscope.hours = Math.floor(scope.millis / (1000 * 60 * 60) % 24);\n\t\t\t\tscope.days = Math.floor(scope.millis / (1000 * 60 * 60) / 24);\n\n\t\t\t\tscope.$apply();\n\t\t\t}\n\n\t\t\tfunction resetInterval() {\n\t\t\t\tif (scope.intervalId) {\n\t\t\t\t\tclearInterval(scope.intervalId);\n\t\t\t\t\tscope.intervalId = null;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tscope.stop = function () {\n\t\t\t\tscope.stoppedTime = new Date();\n\t\t\t\tresetInterval();\n\t\t\t\tscope.$emit('timer-stopped', { intervalId: scope.intervalId, millis: scope.millis });\n\t\t\t};\n\n\t\t\t//if not used anywhere, make it a regular function so you don't pollute the scope\n\t\t\tfunction start() {\n\t\t\t\tresetInterval();\n\t\t\t\tscope.intervalId = setInterval(tick, 1000); // make the interval fire every 1000ms = 1s\n\t\t\t}\n\n\t\t\tstart(); //start timer automatically\n\n\t\t\tfunction twoNumbers(num) {\n\t\t\t\tif (num < 10) {\n\t\t\t\t\treturn '0' + num;\n\t\t\t\t}\n\n\t\t\t\treturn num;\n\t\t\t}\n\t\t\t//Cleanup\n\t\t\telem.on('$destroy', function () {\n\t\t\t\tresetInterval();\n\t\t\t});\n\t\t}\n\t};\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9jb3VudGRvd25UaW1lci5qcz8wNzRhIl0sIm5hbWVzIjpbImFuZ3VsYXIiLCJtb2R1bGUiLCJkaXJlY3RpdmUiLCIkdGltZW91dCIsIiRjb21waWxlIiwicmVzdHJpY3QiLCJyZXBsYWNlIiwidHJhbnNjbHVkZSIsInNjb3BlIiwiY291bnRkb3duQXR0ciIsIm9uZmluaXNoIiwidGVtcGxhdGUiLCJsaW5rIiwiZWxlbSIsImF0dHJzIiwiY291bnRkb3duIiwicGFyc2VJbnQiLCJ0aWNrIiwibWlsbGlzIiwic3RvcCIsInNlY29uZHMiLCJ0d29OdW1iZXJzIiwiTWF0aCIsImZsb29yIiwibWludXRlcyIsImhvdXJzIiwiZGF5cyIsIiRhcHBseSIsInJlc2V0SW50ZXJ2YWwiLCJpbnRlcnZhbElkIiwiY2xlYXJJbnRlcnZhbCIsInN0b3BwZWRUaW1lIiwiRGF0ZSIsIiRlbWl0Iiwic3RhcnQiLCJzZXRJbnRlcnZhbCIsIm51bSIsIm9uIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBOztBQUVBQSxRQUFRQyxNQUFSLENBQWdCLGdCQUFoQixFQUFrQyxFQUFsQyxFQUF1Q0MsU0FBdkMsQ0FBa0QsZ0JBQWxELEVBQW9FLENBQUMsVUFBRCxFQUFhLFVBQWIsRUFBeUIsVUFBV0MsUUFBWCxFQUFxQkMsUUFBckIsRUFBZ0M7O0FBRTVILFFBQU87QUFDTkMsWUFBVSxHQURKO0FBRUpDLFdBQVEsSUFGSjtBQUdOQyxjQUFXLElBSEw7QUFJTkMsU0FBTztBQUNOQyxrQkFBZSxZQURULEVBQ3VCO0FBQzdCQyxhQUFVO0FBRkosR0FKRDs7QUFTTkMsWUFBVSxVQUNULGlDQURTLEdBRVQsb0JBRlMsR0FHVCxpQ0FIUyxHQUlULFFBYks7O0FBZU5DLFFBQU0sY0FBV0osS0FBWCxFQUFrQkssSUFBbEIsRUFBd0JDLEtBQXhCLEVBQWdDOztBQUVyQztBQUNBLE9BQUlDLFlBQVlDLFNBQVVSLE1BQU1DLGFBQWhCLEVBQStCLEVBQS9CLENBQWhCOztBQUVBLFlBQVNRLElBQVQsR0FBZ0I7O0FBRWY7QUFDQVQsVUFBTVUsTUFBTixHQUFlLENBQWY7O0FBRUksUUFBS0gsWUFBWSxDQUFqQixFQUFxQjtBQUN4QlAsV0FBTVUsTUFBTixHQUFlSCxZQUFZLElBQTNCO0FBQ0FBO0FBQ0EsS0FIRyxNQUdHLElBQUtBLGFBQWEsQ0FBbEIsRUFBc0I7QUFDNUJQLFdBQU1XLElBQU47QUFDSztBQUNMWCxXQUFNRSxRQUFOO0FBQ0E7O0FBRURGLFVBQU1ZLE9BQU4sR0FBZ0JDLFdBQVdDLEtBQUtDLEtBQUwsQ0FBY2YsTUFBTVUsTUFBTixHQUFlLElBQWpCLEdBQTBCLEVBQXRDLENBQVgsQ0FBaEI7QUFDQVYsVUFBTWdCLE9BQU4sR0FBZ0JGLEtBQUtDLEtBQUwsQ0FBZ0JmLE1BQU1VLE1BQU4sSUFBaUIsT0FBTyxFQUF4QixDQUFGLEdBQW1DLEVBQWpELENBQWhCO0FBQ0FWLFVBQU1pQixLQUFOLEdBQWNILEtBQUtDLEtBQUwsQ0FBZ0JmLE1BQU1VLE1BQU4sSUFBaUIsT0FBTyxFQUFQLEdBQVksRUFBN0IsQ0FBRixHQUF3QyxFQUF0RCxDQUFkO0FBQ0FWLFVBQU1rQixJQUFOLEdBQWFKLEtBQUtDLEtBQUwsQ0FBZ0JmLE1BQU1VLE1BQU4sSUFBaUIsT0FBTyxFQUFQLEdBQVksRUFBN0IsQ0FBRixHQUF3QyxFQUF0RCxDQUFiOztBQUVBVixVQUFNbUIsTUFBTjtBQUVBOztBQUVELFlBQVNDLGFBQVQsR0FBeUI7QUFDeEIsUUFBS3BCLE1BQU1xQixVQUFYLEVBQXdCO0FBQ3ZCQyxtQkFBZXRCLE1BQU1xQixVQUFyQjtBQUNBckIsV0FBTXFCLFVBQU4sR0FBbUIsSUFBbkI7QUFDQTtBQUNEOztBQUVEckIsU0FBTVcsSUFBTixHQUFhLFlBQVk7QUFDeEJYLFVBQU11QixXQUFOLEdBQW9CLElBQUlDLElBQUosRUFBcEI7QUFDQUo7QUFDSXBCLFVBQU15QixLQUFOLENBQVksZUFBWixFQUE2QixFQUFFSixZQUFZckIsTUFBTXFCLFVBQXBCLEVBQWdDWCxRQUFRVixNQUFNVSxNQUE5QyxFQUE3QjtBQUNKLElBSkQ7O0FBTUE7QUFDQSxZQUFTZ0IsS0FBVCxHQUFpQjtBQUNoQk47QUFDQXBCLFVBQU1xQixVQUFOLEdBQW1CTSxZQUFhbEIsSUFBYixFQUFtQixJQUFuQixDQUFuQixDQUZnQixDQUU2QjtBQUM3Qzs7QUFFRGlCLFdBL0NxQyxDQStDNUI7O0FBRVQsWUFBU2IsVUFBVCxDQUFvQmUsR0FBcEIsRUFBeUI7QUFDeEIsUUFBSUEsTUFBTSxFQUFWLEVBQWM7QUFDYixZQUFPLE1BQU1BLEdBQWI7QUFDQTs7QUFFRCxXQUFPQSxHQUFQO0FBQ0E7QUFDRDtBQUNBdkIsUUFBS3dCLEVBQUwsQ0FBUyxVQUFULEVBQXFCLFlBQVk7QUFDaENUO0FBQ0EsSUFGRDtBQUlBO0FBNUVLLEVBQVA7QUE4RUEsQ0FoRm1FLENBQXBFIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvY291bnRkb3duVGltZXIuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBUaGlzIGlzIGEgaGlnaGx5IG1vZGlmaWVkIGFuZCBzcGVjaWZpYyB2ZXJzaW9uIG9mIHRoZSB0aW1lci4gRm9yIGEgbW9yZSByb2J1c3QgYW5kIGJldHRlciBiYXNlbGluZSBzZWUgdGhlIHRpbWVyIHNldHVwIGluIEV2ZXJub3RlLlxuLy8gVGhpcyBpcyBhIGRpcmVjdGl2ZSB0aGF0IGFjY2VwdHMgY291bnRkb3duIHRpbWUgaW4gc2Vjb25kcyBhbmQgY291bnRzIGRvd24gdGhvc2Ugc2Vjb25kcyB0aWxsIG5vdy5cblxuYW5ndWxhci5tb2R1bGUoICdjb3VudGRvd25UaW1lcicsIFtdICkuZGlyZWN0aXZlKCAnY291bnRkb3duVGltZXInLCBbJyR0aW1lb3V0JywgJyRjb21waWxlJywgZnVuY3Rpb24gKCAkdGltZW91dCwgJGNvbXBpbGUgKSB7XG5cblx0cmV0dXJuIHtcblx0XHRyZXN0cmljdDogJ0UnLFxuICAgIHJlcGxhY2U6dHJ1ZSxcblx0XHR0cmFuc2NsdWRlOnRydWUsXG5cdFx0c2NvcGU6IHtcblx0XHRcdGNvdW50ZG93bkF0dHI6ICc9Y291bnRkb3duJywgLy93aGF0IHVuaXQ/IHNlY29uZHNcblx0XHRcdG9uZmluaXNoOiAnJmZpbmlzaCdcblx0XHR9LFxuXG5cdFx0dGVtcGxhdGU6ICc8ZGl2PicgK1xuXHRcdFx0JzxoMSBjbGFzcz1cInRpbWVcIj57eyBtaW51dGVzIH19OicgK1xuXHRcdFx0J3t7IHNlY29uZHMgfX08L2gxPicrXG5cdFx0XHQnPG5nLXRyYW5zY2x1ZGU+PC9uZy10cmFuc2NsdWRlPicgK1xuXHRcdFx0JzwvZGl2PicsXG5cblx0XHRsaW5rOiBmdW5jdGlvbiAoIHNjb3BlLCBlbGVtLCBhdHRycyApIHtcblxuXHRcdFx0Ly9Qcm9wZXJ0aWVzXG5cdFx0XHR2YXIgY291bnRkb3duID0gcGFyc2VJbnQoIHNjb3BlLmNvdW50ZG93bkF0dHIsIDEwICk7XG5cblx0XHRcdGZ1bmN0aW9uIHRpY2soKSB7XG5cblx0XHRcdFx0Ly9UaGUgZGVmYXVsdCB0aW1lIHRoYXQgdGhlIHRpbWVyIHdpbGwgYmUgcmVzZXQgdG8gYWZ0ZXIgY291bnQgZG93biBleHBpcmVzLlxuXHRcdFx0XHRzY29wZS5taWxsaXMgPSAwO1xuXG4gICAgICAgIGlmICggY291bnRkb3duID4gMCApIHtcblx0XHRcdFx0XHRzY29wZS5taWxsaXMgPSBjb3VudGRvd24gKiAxMDAwO1xuXHRcdFx0XHRcdGNvdW50ZG93bi0tO1xuXHRcdFx0XHR9IGVsc2UgaWYgKCBjb3VudGRvd24gPD0gMCApIHtcblx0XHRcdFx0XHRzY29wZS5zdG9wKCk7XG4gICAgICAgICAgLy8gZWxlbS5jaGlsZHJlbignaDEnKS5odG1sKCdUaW1lIHVwIScpO1xuXHRcdFx0XHRcdHNjb3BlLm9uZmluaXNoKCk7XG5cdFx0XHRcdH1cblxuXHRcdFx0XHRzY29wZS5zZWNvbmRzID0gdHdvTnVtYmVycyhNYXRoLmZsb29yKCAoIHNjb3BlLm1pbGxpcyAvIDEwMDAgKSAlIDYwICkpO1xuXHRcdFx0XHRzY29wZS5taW51dGVzID0gTWF0aC5mbG9vciggKCAoIHNjb3BlLm1pbGxpcyAvICggMTAwMCAqIDYwICkgKSAlIDYwICkgKTtcblx0XHRcdFx0c2NvcGUuaG91cnMgPSBNYXRoLmZsb29yKCAoICggc2NvcGUubWlsbGlzIC8gKCAxMDAwICogNjAgKiA2MCApICkgJSAyNCApICk7XG5cdFx0XHRcdHNjb3BlLmRheXMgPSBNYXRoLmZsb29yKCAoICggc2NvcGUubWlsbGlzIC8gKCAxMDAwICogNjAgKiA2MCApICkgLyAyNCApICk7XG5cblx0XHRcdFx0c2NvcGUuJGFwcGx5KCk7XG5cblx0XHRcdH1cblxuXHRcdFx0ZnVuY3Rpb24gcmVzZXRJbnRlcnZhbCgpIHtcblx0XHRcdFx0aWYgKCBzY29wZS5pbnRlcnZhbElkICkge1xuXHRcdFx0XHRcdGNsZWFySW50ZXJ2YWwoIHNjb3BlLmludGVydmFsSWQgKTtcblx0XHRcdFx0XHRzY29wZS5pbnRlcnZhbElkID0gbnVsbDtcblx0XHRcdFx0fVxuXHRcdFx0fVxuXG5cdFx0XHRzY29wZS5zdG9wID0gZnVuY3Rpb24gKCkge1xuXHRcdFx0XHRzY29wZS5zdG9wcGVkVGltZSA9IG5ldyBEYXRlKCk7XG5cdFx0XHRcdHJlc2V0SW50ZXJ2YWwoKTtcbiAgICAgICAgc2NvcGUuJGVtaXQoJ3RpbWVyLXN0b3BwZWQnLCB7IGludGVydmFsSWQ6IHNjb3BlLmludGVydmFsSWQsIG1pbGxpczogc2NvcGUubWlsbGlzIH0pO1xuXHRcdFx0fTtcblxuXHRcdFx0Ly9pZiBub3QgdXNlZCBhbnl3aGVyZSwgbWFrZSBpdCBhIHJlZ3VsYXIgZnVuY3Rpb24gc28geW91IGRvbid0IHBvbGx1dGUgdGhlIHNjb3BlXG5cdFx0XHRmdW5jdGlvbiBzdGFydCgpIHtcblx0XHRcdFx0cmVzZXRJbnRlcnZhbCgpO1xuXHRcdFx0XHRzY29wZS5pbnRlcnZhbElkID0gc2V0SW50ZXJ2YWwoIHRpY2ssIDEwMDApOyAvLyBtYWtlIHRoZSBpbnRlcnZhbCBmaXJlIGV2ZXJ5IDEwMDBtcyA9IDFzXG5cdFx0XHR9XG5cblx0XHRcdHN0YXJ0KCk7IC8vc3RhcnQgdGltZXIgYXV0b21hdGljYWxseVxuXG5cdFx0XHRmdW5jdGlvbiB0d29OdW1iZXJzKG51bSkge1xuXHRcdFx0XHRpZiAobnVtIDwgMTApIHtcblx0XHRcdFx0XHRyZXR1cm4gJzAnICsgbnVtO1xuXHRcdFx0XHR9XG5cblx0XHRcdFx0cmV0dXJuIG51bTtcblx0XHRcdH1cblx0XHRcdC8vQ2xlYW51cFxuXHRcdFx0ZWxlbS5vbiggJyRkZXN0cm95JywgZnVuY3Rpb24gKCkge1xuXHRcdFx0XHRyZXNldEludGVydmFsKCk7XG5cdFx0XHR9ICk7XG5cblx0XHR9XG5cdH07XG59XSApO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvY291bnRkb3duVGltZXIuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/countdownTimer.js\n");
+// This is a highly modified and specific version of the timer. For a more robust and better baseline see the timer setup in Evernote.
+// This is a directive that accepts countdown time in seconds and counts down those seconds till now.
+
+angular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$compile', function ($timeout, $compile) {
+
+	return {
+		restrict: 'E',
+		replace: true,
+		transclude: true,
+		scope: {
+			countdownAttr: '=countdown', //what unit? seconds
+			onfinish: '&finish'
+		},
+
+		template: '<div>' + '<h1 class="time">{{ minutes }}:' + '{{ seconds }}</h1>' + '<ng-transclude></ng-transclude>' + '</div>',
+
+		link: function link(scope, elem, attrs) {
+
+			//Properties
+			var countdown = parseInt(scope.countdownAttr, 10);
+
+			function tick() {
+
+				//The default time that the timer will be reset to after count down expires.
+				scope.millis = 0;
+
+				if (countdown > 0) {
+					scope.millis = countdown * 1000;
+					countdown--;
+				} else if (countdown <= 0) {
+					scope.stop();
+					// elem.children('h1').html('Time up!');
+					scope.onfinish();
+				}
+
+				scope.seconds = twoNumbers(Math.floor(scope.millis / 1000 % 60));
+				scope.minutes = Math.floor(scope.millis / (1000 * 60) % 60);
+				scope.hours = Math.floor(scope.millis / (1000 * 60 * 60) % 24);
+				scope.days = Math.floor(scope.millis / (1000 * 60 * 60) / 24);
+
+				scope.$apply();
+			}
+
+			function resetInterval() {
+				if (scope.intervalId) {
+					clearInterval(scope.intervalId);
+					scope.intervalId = null;
+				}
+			}
+
+			scope.stop = function () {
+				scope.stoppedTime = new Date();
+				resetInterval();
+				scope.$emit('timer-stopped', { intervalId: scope.intervalId, millis: scope.millis });
+			};
+
+			//if not used anywhere, make it a regular function so you don't pollute the scope
+			function start() {
+				resetInterval();
+				scope.intervalId = setInterval(tick, 1000); // make the interval fire every 1000ms = 1s
+			}
+
+			start(); //start timer automatically
+
+			function twoNumbers(num) {
+				if (num < 10) {
+					return '0' + num;
+				}
+
+				return num;
+			}
+			//Cleanup
+			elem.on('$destroy', function () {
+				resetInterval();
+			});
+		}
+	};
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/customFileChange.js":
 /***/ (function(module, exports) {
 
-eval("//This directive saves the selected file details on the passed variables AND then aves the base64 version of the image on the model.\n// <input type=\"file\" class=\"form-control\" file-change=\"yourHandler($event, files)\" ng-model=\"details.test3\"/>\n//\n// $scope.yourHandler = function ($event, files) {\n//   console.log($event);\n//   console.log(files);\n//   // console.log(data);\n//   console.log($scope.details.test3);\n// };\n\nangular.module('customFileChange', []).directive('fileChange', ['$parse', function ($parse) {\n\n  return {\n    require: 'ngModel',\n    restrict: 'A',\n    link: function link($scope, element, attrs, ngModel) {\n\n      // Get the function provided in the file-change attribute.\n      // Note the attribute has become an angular expression,\n      // which is what we are parsing. The provided handler is\n      // wrapped up in an outer function (attrHandler) - we'll\n      // call the provided event handler inside the handler()\n      // function below.\n      var attrHandler = $parse(attrs['fileChange']);\n\n      // This is a wrapper handler which will be attached to the\n      // HTML change event.\n      var handler = function handler(e) {\n\n        // Execute the provided handler in the directive's scope.\n        // The files variable will be available for consumption\n        // by the event handler.\n        var reader = new FileReader();\n\n        reader.onload = function (et) {\n          $scope.$apply(function () {\n\n            // $scope.details.headerImage = et.target.result;\n            ngModel.$setViewValue(et.target.result);\n            attrHandler($scope, { $event: e, files: e.target.files, data: et.target.result });\n          });\n        };\n\n        reader.readAsDataURL(e.target.files[0]);\n      };\n      $scope.$watch(function () {\n        return ngModel.$viewValue;\n      }, function (value) {\n        if (!value) {\n          element.val(\"\");\n        }\n      });\n      // Attach the handler to the HTML change event\n      element[0].addEventListener('change', handler, false);\n    }\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9jdXN0b21GaWxlQ2hhbmdlLmpzP2FhNjIiXSwibmFtZXMiOlsiYW5ndWxhciIsIm1vZHVsZSIsImRpcmVjdGl2ZSIsIiRwYXJzZSIsInJlcXVpcmUiLCJyZXN0cmljdCIsImxpbmsiLCIkc2NvcGUiLCJlbGVtZW50IiwiYXR0cnMiLCJuZ01vZGVsIiwiYXR0ckhhbmRsZXIiLCJoYW5kbGVyIiwiZSIsInJlYWRlciIsIkZpbGVSZWFkZXIiLCJvbmxvYWQiLCJldCIsIiRhcHBseSIsIiRzZXRWaWV3VmFsdWUiLCJ0YXJnZXQiLCJyZXN1bHQiLCIkZXZlbnQiLCJmaWxlcyIsImRhdGEiLCJyZWFkQXNEYXRhVVJMIiwiJHdhdGNoIiwiJHZpZXdWYWx1ZSIsInZhbHVlIiwidmFsIiwiYWRkRXZlbnRMaXN0ZW5lciJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBQSxRQUFRQyxNQUFSLENBQWUsa0JBQWYsRUFBbUMsRUFBbkMsRUFBdUNDLFNBQXZDLENBQWlELFlBQWpELEVBQStELENBQUMsUUFBRCxFQUFXLFVBQVNDLE1BQVQsRUFBaUI7O0FBRXZGLFNBQU87QUFDTEMsYUFBUyxTQURKO0FBRUxDLGNBQVUsR0FGTDtBQUdMQyxVQUFNLGNBQVVDLE1BQVYsRUFBa0JDLE9BQWxCLEVBQTJCQyxLQUEzQixFQUFrQ0MsT0FBbEMsRUFBMkM7O0FBRS9DO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLFVBQUlDLGNBQWNSLE9BQU9NLE1BQU0sWUFBTixDQUFQLENBQWxCOztBQUVBO0FBQ0E7QUFDQSxVQUFJRyxVQUFVLFNBQVZBLE9BQVUsQ0FBVUMsQ0FBVixFQUFhOztBQUd2QjtBQUNBO0FBQ0E7QUFDQSxZQUFJQyxTQUFTLElBQUlDLFVBQUosRUFBYjs7QUFFQUQsZUFBT0UsTUFBUCxHQUFnQixVQUFVQyxFQUFWLEVBQWM7QUFDNUJWLGlCQUFPVyxNQUFQLENBQWMsWUFBWTs7QUFFeEI7QUFDQVIsb0JBQVFTLGFBQVIsQ0FBc0JGLEdBQUdHLE1BQUgsQ0FBVUMsTUFBaEM7QUFDQVYsd0JBQVlKLE1BQVosRUFBb0IsRUFBRWUsUUFBUVQsQ0FBVixFQUFhVSxPQUFPVixFQUFFTyxNQUFGLENBQVNHLEtBQTdCLEVBQW9DQyxNQUFNUCxHQUFHRyxNQUFILENBQVVDLE1BQXBELEVBQXBCO0FBQ0QsV0FMRDtBQU1ELFNBUEQ7O0FBU0FQLGVBQU9XLGFBQVAsQ0FBcUJaLEVBQUVPLE1BQUYsQ0FBU0csS0FBVCxDQUFlLENBQWYsQ0FBckI7QUFDSCxPQWxCRDtBQW1CQWhCLGFBQU9tQixNQUFQLENBQWMsWUFBWTtBQUN0QixlQUFPaEIsUUFBUWlCLFVBQWY7QUFDSCxPQUZELEVBRUcsVUFBVUMsS0FBVixFQUFpQjtBQUNoQixZQUFJLENBQUNBLEtBQUwsRUFBWTtBQUNScEIsa0JBQVFxQixHQUFSLENBQVksRUFBWjtBQUNIO0FBQ0osT0FORDtBQU9BO0FBQ0FyQixjQUFRLENBQVIsRUFBV3NCLGdCQUFYLENBQTRCLFFBQTVCLEVBQXNDbEIsT0FBdEMsRUFBK0MsS0FBL0M7QUFDRDtBQTNDSSxHQUFQO0FBNkNELENBL0M0RCxDQUEvRCIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL2N1c3RvbUZpbGVDaGFuZ2UuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvL1RoaXMgZGlyZWN0aXZlIHNhdmVzIHRoZSBzZWxlY3RlZCBmaWxlIGRldGFpbHMgb24gdGhlIHBhc3NlZCB2YXJpYWJsZXMgQU5EIHRoZW4gYXZlcyB0aGUgYmFzZTY0IHZlcnNpb24gb2YgdGhlIGltYWdlIG9uIHRoZSBtb2RlbC5cbi8vIDxpbnB1dCB0eXBlPVwiZmlsZVwiIGNsYXNzPVwiZm9ybS1jb250cm9sXCIgZmlsZS1jaGFuZ2U9XCJ5b3VySGFuZGxlcigkZXZlbnQsIGZpbGVzKVwiIG5nLW1vZGVsPVwiZGV0YWlscy50ZXN0M1wiLz5cbi8vXG4vLyAkc2NvcGUueW91ckhhbmRsZXIgPSBmdW5jdGlvbiAoJGV2ZW50LCBmaWxlcykge1xuLy8gICBjb25zb2xlLmxvZygkZXZlbnQpO1xuLy8gICBjb25zb2xlLmxvZyhmaWxlcyk7XG4vLyAgIC8vIGNvbnNvbGUubG9nKGRhdGEpO1xuLy8gICBjb25zb2xlLmxvZygkc2NvcGUuZGV0YWlscy50ZXN0Myk7XG4vLyB9O1xuXG5hbmd1bGFyLm1vZHVsZSgnY3VzdG9tRmlsZUNoYW5nZScsIFtdKS5kaXJlY3RpdmUoJ2ZpbGVDaGFuZ2UnLCBbJyRwYXJzZScsIGZ1bmN0aW9uKCRwYXJzZSkge1xuXG4gICAgcmV0dXJuIHtcbiAgICAgIHJlcXVpcmU6ICduZ01vZGVsJyxcbiAgICAgIHJlc3RyaWN0OiAnQScsXG4gICAgICBsaW5rOiBmdW5jdGlvbiAoJHNjb3BlLCBlbGVtZW50LCBhdHRycywgbmdNb2RlbCkge1xuXG4gICAgICAgIC8vIEdldCB0aGUgZnVuY3Rpb24gcHJvdmlkZWQgaW4gdGhlIGZpbGUtY2hhbmdlIGF0dHJpYnV0ZS5cbiAgICAgICAgLy8gTm90ZSB0aGUgYXR0cmlidXRlIGhhcyBiZWNvbWUgYW4gYW5ndWxhciBleHByZXNzaW9uLFxuICAgICAgICAvLyB3aGljaCBpcyB3aGF0IHdlIGFyZSBwYXJzaW5nLiBUaGUgcHJvdmlkZWQgaGFuZGxlciBpc1xuICAgICAgICAvLyB3cmFwcGVkIHVwIGluIGFuIG91dGVyIGZ1bmN0aW9uIChhdHRySGFuZGxlcikgLSB3ZSdsbFxuICAgICAgICAvLyBjYWxsIHRoZSBwcm92aWRlZCBldmVudCBoYW5kbGVyIGluc2lkZSB0aGUgaGFuZGxlcigpXG4gICAgICAgIC8vIGZ1bmN0aW9uIGJlbG93LlxuICAgICAgICB2YXIgYXR0ckhhbmRsZXIgPSAkcGFyc2UoYXR0cnNbJ2ZpbGVDaGFuZ2UnXSk7XG5cbiAgICAgICAgLy8gVGhpcyBpcyBhIHdyYXBwZXIgaGFuZGxlciB3aGljaCB3aWxsIGJlIGF0dGFjaGVkIHRvIHRoZVxuICAgICAgICAvLyBIVE1MIGNoYW5nZSBldmVudC5cbiAgICAgICAgdmFyIGhhbmRsZXIgPSBmdW5jdGlvbiAoZSkge1xuXG5cbiAgICAgICAgICAgIC8vIEV4ZWN1dGUgdGhlIHByb3ZpZGVkIGhhbmRsZXIgaW4gdGhlIGRpcmVjdGl2ZSdzIHNjb3BlLlxuICAgICAgICAgICAgLy8gVGhlIGZpbGVzIHZhcmlhYmxlIHdpbGwgYmUgYXZhaWxhYmxlIGZvciBjb25zdW1wdGlvblxuICAgICAgICAgICAgLy8gYnkgdGhlIGV2ZW50IGhhbmRsZXIuXG4gICAgICAgICAgICB2YXIgcmVhZGVyID0gbmV3IEZpbGVSZWFkZXIoKTtcblxuICAgICAgICAgICAgcmVhZGVyLm9ubG9hZCA9IGZ1bmN0aW9uIChldCkge1xuICAgICAgICAgICAgICAkc2NvcGUuJGFwcGx5KGZ1bmN0aW9uICgpIHtcblxuICAgICAgICAgICAgICAgIC8vICRzY29wZS5kZXRhaWxzLmhlYWRlckltYWdlID0gZXQudGFyZ2V0LnJlc3VsdDtcbiAgICAgICAgICAgICAgICBuZ01vZGVsLiRzZXRWaWV3VmFsdWUoZXQudGFyZ2V0LnJlc3VsdCk7XG4gICAgICAgICAgICAgICAgYXR0ckhhbmRsZXIoJHNjb3BlLCB7ICRldmVudDogZSwgZmlsZXM6IGUudGFyZ2V0LmZpbGVzLCBkYXRhOiBldC50YXJnZXQucmVzdWx0fSk7XG4gICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgfTtcblxuICAgICAgICAgICAgcmVhZGVyLnJlYWRBc0RhdGFVUkwoZS50YXJnZXQuZmlsZXNbMF0pO1xuICAgICAgICB9O1xuICAgICAgICAkc2NvcGUuJHdhdGNoKGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgIHJldHVybiBuZ01vZGVsLiR2aWV3VmFsdWU7XG4gICAgICAgIH0sIGZ1bmN0aW9uICh2YWx1ZSkge1xuICAgICAgICAgICAgaWYgKCF2YWx1ZSkge1xuICAgICAgICAgICAgICAgIGVsZW1lbnQudmFsKFwiXCIpO1xuICAgICAgICAgICAgfVxuICAgICAgICB9KTtcbiAgICAgICAgLy8gQXR0YWNoIHRoZSBoYW5kbGVyIHRvIHRoZSBIVE1MIGNoYW5nZSBldmVudFxuICAgICAgICBlbGVtZW50WzBdLmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsIGhhbmRsZXIsIGZhbHNlKTtcbiAgICAgIH1cbiAgICB9O1xuICB9XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9jdXN0b21GaWxlQ2hhbmdlLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/customFileChange.js\n");
+//This directive saves the selected file details on the passed variables AND then aves the base64 version of the image on the model.
+// <input type="file" class="form-control" file-change="yourHandler($event, files)" ng-model="details.test3"/>
+//
+// $scope.yourHandler = function ($event, files) {
+//   console.log($event);
+//   console.log(files);
+//   // console.log(data);
+//   console.log($scope.details.test3);
+// };
+
+angular.module('customFileChange', []).directive('fileChange', ['$parse', function ($parse) {
+
+  return {
+    require: 'ngModel',
+    restrict: 'A',
+    link: function link($scope, element, attrs, ngModel) {
+
+      // Get the function provided in the file-change attribute.
+      // Note the attribute has become an angular expression,
+      // which is what we are parsing. The provided handler is
+      // wrapped up in an outer function (attrHandler) - we'll
+      // call the provided event handler inside the handler()
+      // function below.
+      var attrHandler = $parse(attrs['fileChange']);
+
+      // This is a wrapper handler which will be attached to the
+      // HTML change event.
+      var handler = function handler(e) {
+
+        // Execute the provided handler in the directive's scope.
+        // The files variable will be available for consumption
+        // by the event handler.
+        var reader = new FileReader();
+
+        reader.onload = function (et) {
+          $scope.$apply(function () {
+
+            // $scope.details.headerImage = et.target.result;
+            ngModel.$setViewValue(et.target.result);
+            attrHandler($scope, { $event: e, files: e.target.files, data: et.target.result });
+          });
+        };
+
+        reader.readAsDataURL(e.target.files[0]);
+      };
+      $scope.$watch(function () {
+        return ngModel.$viewValue;
+      }, function (value) {
+        if (!value) {
+          element.val("");
+        }
+      });
+      // Attach the handler to the HTML change event
+      element[0].addEventListener('change', handler, false);
+    }
+  };
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/customFileUpload.js":
 /***/ (function(module, exports) {
 
-eval("// EXAMPLE uploadPostImage\n// <custom-file-upload dest=\"'u32/'\" mdl=\"post.postImage\" attr=\"postImage\" altText=\"Post Image Upload\"></custom-file-upload>\n\n// The mdl attribute is the model to use for the element and the attr is the name and the id to use. the dest folder is the folder to upload the image to in our storage directory\n// We use jQLite to set the id and the name attribute in the link method and we set the model and the destination folder in the controller\n\n// The attr attribute is used to set the name and the id attributes of the generated filefield from the template userdetails\n// The altText attr is used to set the alt attribut of the nested image used for displaying the uploaded image\n\n// // NOTE:\n\n// This directive requires the file change directive to be loaded. We use the file change directive to respond to when the user selects an image and then trigger the upload\n// This directive also requires the sendRequest directives\n// The directive passes the filename of the aved imnage on the server back to the model instance that was passed in\n\n\n// EXAMPLE templateUrl\n// <div>\n//   <img ng-if=\"mdl\" ng-src=\"{{mdl}}\" class=\"img-responsive\" style=\"max-width:25%;\">\n//   <input type=\"file\" class=\"form-control\" file-change=\"uploadImage($event, files)\" ng-model=\"mdl\">\n// </div>\n\n// EXAMPLE LARAVEL CONTROLLER TO HANDLE THE ROUTYE\n// public function handleImageUpload(){\n//\n//     // dump(request()->all());\n//\n//     $data = request('image');\n//     $foldername = request('fn');\n//\n//     list($type, $data) = explode(';', $data);\n//     list(, $data)      = explode(',', $data);\n//\n//     $data = base64_decode($data);\n//     $imageName = time().'.png';\n//     $hey = Storage::disk('public')->put($foldername.$imageName, $data);\n//\n//     return ['filename' => '/storage/'.$foldername.$imageName];\n//\n// }\n\n\nangular.module('customFileUpload', []).directive('customFileUpload', ['$localStorage', 'sendRequest', function ($localStorage, sendRequest) {\n  return {\n    restrict: 'E',\n    scope: {\n      dest: '=',\n      mdl: '=',\n      attr: '=',\n      altText: '='\n    },\n    templateUrl: 'angular/directive-templates/customFileUploadTemplate.php',\n    replace: true,\n    link: function link(scope, element, attributes) {\n\n      // console.log(attributes); //literal string \"{{some string}}\", no interpolation\n      // console.log(element); //literal string \"{{some string}}\", no interpolation\n      // console.log(attributes.anotherParam); //literally \"another string\"\n      element.children('input[type=\"file\"]').attr('id', attributes.attr);\n      element.children('input[type=\"file\"]').attr('name', attributes.attr);\n      element.children('img').attr('alt', attributes.altText);\n      // attributes.$observe('myDirective', function(value){\n      // \tconsole.log(value);\n      // });\n      //\n      // attributes.$observe('anotherParam', function(value){\n      // \tconsole.log(value);\n      // });\n    },\n    controller: ['$scope', function ($scope) {\n      $scope.uploadImage = function ($event, files) {\n        sendRequest.processImageUpload('/api/upload-image', $scope.mdl, $scope.dest, $localStorage.userToken).then(function (data) {\n          console.log(data);\n          if (undefined == data.filename) {\n            console.error('Server Route Error');\n          } else {\n            $scope.mdl = data.filename;\n            $scope.$parent.filename = data.filename;\n            // Notification.success({ message: 'Upload Successful', positionX: 'center'});\n          }\n        });\n      };\n    }]\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9jdXN0b21GaWxlVXBsb2FkLmpzP2MwZjkiXSwibmFtZXMiOlsiYW5ndWxhciIsIm1vZHVsZSIsImRpcmVjdGl2ZSIsIiRsb2NhbFN0b3JhZ2UiLCJzZW5kUmVxdWVzdCIsInJlc3RyaWN0Iiwic2NvcGUiLCJkZXN0IiwibWRsIiwiYXR0ciIsImFsdFRleHQiLCJ0ZW1wbGF0ZVVybCIsInJlcGxhY2UiLCJsaW5rIiwiZWxlbWVudCIsImF0dHJpYnV0ZXMiLCJjaGlsZHJlbiIsImNvbnRyb2xsZXIiLCIkc2NvcGUiLCJ1cGxvYWRJbWFnZSIsIiRldmVudCIsImZpbGVzIiwicHJvY2Vzc0ltYWdlVXBsb2FkIiwidXNlclRva2VuIiwidGhlbiIsImRhdGEiLCJjb25zb2xlIiwibG9nIiwidW5kZWZpbmVkIiwiZmlsZW5hbWUiLCJlcnJvciIsIiRwYXJlbnQiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBOztBQUVBOztBQUVBO0FBQ0E7QUFDQTs7O0FBSUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUlBQSxRQUFRQyxNQUFSLENBQWUsa0JBQWYsRUFBbUMsRUFBbkMsRUFBdUNDLFNBQXZDLENBQWlELGtCQUFqRCxFQUFxRSxDQUFDLGVBQUQsRUFBa0IsYUFBbEIsRUFBaUMsVUFBVUMsYUFBVixFQUF5QkMsV0FBekIsRUFBc0M7QUFDMUksU0FBTztBQUNMQyxjQUFVLEdBREw7QUFFTEMsV0FBTTtBQUNKQyxZQUFPLEdBREg7QUFFSkMsV0FBSSxHQUZBO0FBR0pDLFlBQU0sR0FIRjtBQUlKQyxlQUFTO0FBSkwsS0FGRDtBQVFMQyxpQkFBWSwwREFSUDtBQVNMQyxhQUFTLElBVEo7QUFVTEMsVUFBTSxjQUFTUCxLQUFULEVBQWdCUSxPQUFoQixFQUF5QkMsVUFBekIsRUFBb0M7O0FBRTNDO0FBQ0E7QUFDQTtBQUNHRCxjQUFRRSxRQUFSLENBQWtCLG9CQUFsQixFQUF5Q1AsSUFBekMsQ0FBOEMsSUFBOUMsRUFBb0RNLFdBQVdOLElBQS9EO0FBQ0FLLGNBQVFFLFFBQVIsQ0FBa0Isb0JBQWxCLEVBQXlDUCxJQUF6QyxDQUE4QyxNQUE5QyxFQUFzRE0sV0FBV04sSUFBakU7QUFDQUssY0FBUUUsUUFBUixDQUFrQixLQUFsQixFQUEwQlAsSUFBMUIsQ0FBK0IsS0FBL0IsRUFBc0NNLFdBQVdMLE9BQWpEO0FBQ0g7QUFDQTtBQUNBO0FBQ0c7QUFDSDtBQUNBO0FBQ0E7QUFFQSxLQTFCTTtBQTJCTE8sZ0JBQVksQ0FBQyxRQUFELEVBQVcsVUFBVUMsTUFBVixFQUFrQjtBQUN2Q0EsYUFBT0MsV0FBUCxHQUFxQixVQUFVQyxNQUFWLEVBQWtCQyxLQUFsQixFQUF5QjtBQUM1Q2pCLG9CQUFZa0Isa0JBQVosQ0FBK0IsbUJBQS9CLEVBQW9ESixPQUFPVixHQUEzRCxFQUFpRVUsT0FBT1gsSUFBeEUsRUFBOEVKLGNBQWNvQixTQUE1RixFQUNDQyxJQURELENBQ00sVUFBVUMsSUFBVixFQUFnQjtBQUNwQkMsa0JBQVFDLEdBQVIsQ0FBWUYsSUFBWjtBQUNBLGNBQUlHLGFBQWFILEtBQUtJLFFBQXRCLEVBQWdDO0FBQzlCSCxvQkFBUUksS0FBUixDQUFjLG9CQUFkO0FBQ0QsV0FGRCxNQUdJO0FBQ0ZaLG1CQUFPVixHQUFQLEdBQWFpQixLQUFLSSxRQUFsQjtBQUNBWCxtQkFBT2EsT0FBUCxDQUFlRixRQUFmLEdBQTBCSixLQUFLSSxRQUEvQjtBQUNBO0FBRUQ7QUFDRixTQVpEO0FBYUQsT0FkRDtBQWVELEtBaEJXO0FBM0JQLEdBQVA7QUE2Q0QsQ0E5Q29FLENBQXJFIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvY3VzdG9tRmlsZVVwbG9hZC5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEVYQU1QTEUgdXBsb2FkUG9zdEltYWdlXG4vLyA8Y3VzdG9tLWZpbGUtdXBsb2FkIGRlc3Q9XCIndTMyLydcIiBtZGw9XCJwb3N0LnBvc3RJbWFnZVwiIGF0dHI9XCJwb3N0SW1hZ2VcIiBhbHRUZXh0PVwiUG9zdCBJbWFnZSBVcGxvYWRcIj48L2N1c3RvbS1maWxlLXVwbG9hZD5cblxuLy8gVGhlIG1kbCBhdHRyaWJ1dGUgaXMgdGhlIG1vZGVsIHRvIHVzZSBmb3IgdGhlIGVsZW1lbnQgYW5kIHRoZSBhdHRyIGlzIHRoZSBuYW1lIGFuZCB0aGUgaWQgdG8gdXNlLiB0aGUgZGVzdCBmb2xkZXIgaXMgdGhlIGZvbGRlciB0byB1cGxvYWQgdGhlIGltYWdlIHRvIGluIG91ciBzdG9yYWdlIGRpcmVjdG9yeVxuLy8gV2UgdXNlIGpRTGl0ZSB0byBzZXQgdGhlIGlkIGFuZCB0aGUgbmFtZSBhdHRyaWJ1dGUgaW4gdGhlIGxpbmsgbWV0aG9kIGFuZCB3ZSBzZXQgdGhlIG1vZGVsIGFuZCB0aGUgZGVzdGluYXRpb24gZm9sZGVyIGluIHRoZSBjb250cm9sbGVyXG5cbi8vIFRoZSBhdHRyIGF0dHJpYnV0ZSBpcyB1c2VkIHRvIHNldCB0aGUgbmFtZSBhbmQgdGhlIGlkIGF0dHJpYnV0ZXMgb2YgdGhlIGdlbmVyYXRlZCBmaWxlZmllbGQgZnJvbSB0aGUgdGVtcGxhdGUgdXNlcmRldGFpbHNcbi8vIFRoZSBhbHRUZXh0IGF0dHIgaXMgdXNlZCB0byBzZXQgdGhlIGFsdCBhdHRyaWJ1dCBvZiB0aGUgbmVzdGVkIGltYWdlIHVzZWQgZm9yIGRpc3BsYXlpbmcgdGhlIHVwbG9hZGVkIGltYWdlXG5cbi8vIC8vIE5PVEU6XG5cbi8vIFRoaXMgZGlyZWN0aXZlIHJlcXVpcmVzIHRoZSBmaWxlIGNoYW5nZSBkaXJlY3RpdmUgdG8gYmUgbG9hZGVkLiBXZSB1c2UgdGhlIGZpbGUgY2hhbmdlIGRpcmVjdGl2ZSB0byByZXNwb25kIHRvIHdoZW4gdGhlIHVzZXIgc2VsZWN0cyBhbiBpbWFnZSBhbmQgdGhlbiB0cmlnZ2VyIHRoZSB1cGxvYWRcbi8vIFRoaXMgZGlyZWN0aXZlIGFsc28gcmVxdWlyZXMgdGhlIHNlbmRSZXF1ZXN0IGRpcmVjdGl2ZXNcbi8vIFRoZSBkaXJlY3RpdmUgcGFzc2VzIHRoZSBmaWxlbmFtZSBvZiB0aGUgYXZlZCBpbW5hZ2Ugb24gdGhlIHNlcnZlciBiYWNrIHRvIHRoZSBtb2RlbCBpbnN0YW5jZSB0aGF0IHdhcyBwYXNzZWQgaW5cblxuXG5cbi8vIEVYQU1QTEUgdGVtcGxhdGVVcmxcbi8vIDxkaXY+XG4vLyAgIDxpbWcgbmctaWY9XCJtZGxcIiBuZy1zcmM9XCJ7e21kbH19XCIgY2xhc3M9XCJpbWctcmVzcG9uc2l2ZVwiIHN0eWxlPVwibWF4LXdpZHRoOjI1JTtcIj5cbi8vICAgPGlucHV0IHR5cGU9XCJmaWxlXCIgY2xhc3M9XCJmb3JtLWNvbnRyb2xcIiBmaWxlLWNoYW5nZT1cInVwbG9hZEltYWdlKCRldmVudCwgZmlsZXMpXCIgbmctbW9kZWw9XCJtZGxcIj5cbi8vIDwvZGl2PlxuXG4vLyBFWEFNUExFIExBUkFWRUwgQ09OVFJPTExFUiBUTyBIQU5ETEUgVEhFIFJPVVRZRVxuLy8gcHVibGljIGZ1bmN0aW9uIGhhbmRsZUltYWdlVXBsb2FkKCl7XG4vL1xuLy8gICAgIC8vIGR1bXAocmVxdWVzdCgpLT5hbGwoKSk7XG4vL1xuLy8gICAgICRkYXRhID0gcmVxdWVzdCgnaW1hZ2UnKTtcbi8vICAgICAkZm9sZGVybmFtZSA9IHJlcXVlc3QoJ2ZuJyk7XG4vL1xuLy8gICAgIGxpc3QoJHR5cGUsICRkYXRhKSA9IGV4cGxvZGUoJzsnLCAkZGF0YSk7XG4vLyAgICAgbGlzdCgsICRkYXRhKSAgICAgID0gZXhwbG9kZSgnLCcsICRkYXRhKTtcbi8vXG4vLyAgICAgJGRhdGEgPSBiYXNlNjRfZGVjb2RlKCRkYXRhKTtcbi8vICAgICAkaW1hZ2VOYW1lID0gdGltZSgpLicucG5nJztcbi8vICAgICAkaGV5ID0gU3RvcmFnZTo6ZGlzaygncHVibGljJyktPnB1dCgkZm9sZGVybmFtZS4kaW1hZ2VOYW1lLCAkZGF0YSk7XG4vL1xuLy8gICAgIHJldHVybiBbJ2ZpbGVuYW1lJyA9PiAnL3N0b3JhZ2UvJy4kZm9sZGVybmFtZS4kaW1hZ2VOYW1lXTtcbi8vXG4vLyB9XG5cblxuXG5hbmd1bGFyLm1vZHVsZSgnY3VzdG9tRmlsZVVwbG9hZCcsIFtdKS5kaXJlY3RpdmUoJ2N1c3RvbUZpbGVVcGxvYWQnLCBbJyRsb2NhbFN0b3JhZ2UnLCAnc2VuZFJlcXVlc3QnLCBmdW5jdGlvbiAoJGxvY2FsU3RvcmFnZSwgc2VuZFJlcXVlc3QpIHtcbiAgcmV0dXJuIHtcbiAgICByZXN0cmljdDogJ0UnLFxuICAgIHNjb3BlOntcbiAgICAgIGRlc3QgOiAnPScsXG4gICAgICBtZGw6Jz0nLFxuICAgICAgYXR0cjogJz0nLFxuICAgICAgYWx0VGV4dDogJz0nXG4gICAgfSxcbiAgICB0ZW1wbGF0ZVVybDonYW5ndWxhci9kaXJlY3RpdmUtdGVtcGxhdGVzL2N1c3RvbUZpbGVVcGxvYWRUZW1wbGF0ZS5waHAnLFxuICAgIHJlcGxhY2U6IHRydWUsXG4gICAgbGluazogZnVuY3Rpb24oc2NvcGUsIGVsZW1lbnQsIGF0dHJpYnV0ZXMpe1xuXG5cdFx0XHQvLyBjb25zb2xlLmxvZyhhdHRyaWJ1dGVzKTsgLy9saXRlcmFsIHN0cmluZyBcInt7c29tZSBzdHJpbmd9fVwiLCBubyBpbnRlcnBvbGF0aW9uXG5cdFx0XHQvLyBjb25zb2xlLmxvZyhlbGVtZW50KTsgLy9saXRlcmFsIHN0cmluZyBcInt7c29tZSBzdHJpbmd9fVwiLCBubyBpbnRlcnBvbGF0aW9uXG5cdFx0XHQvLyBjb25zb2xlLmxvZyhhdHRyaWJ1dGVzLmFub3RoZXJQYXJhbSk7IC8vbGl0ZXJhbGx5IFwiYW5vdGhlciBzdHJpbmdcIlxuICAgICAgZWxlbWVudC5jaGlsZHJlbiggJ2lucHV0W3R5cGU9XCJmaWxlXCJdJyApLmF0dHIoJ2lkJywgYXR0cmlidXRlcy5hdHRyKTtcbiAgICAgIGVsZW1lbnQuY2hpbGRyZW4oICdpbnB1dFt0eXBlPVwiZmlsZVwiXScgKS5hdHRyKCduYW1lJywgYXR0cmlidXRlcy5hdHRyKTtcbiAgICAgIGVsZW1lbnQuY2hpbGRyZW4oICdpbWcnICkuYXR0cignYWx0JywgYXR0cmlidXRlcy5hbHRUZXh0KTtcblx0XHRcdC8vIGF0dHJpYnV0ZXMuJG9ic2VydmUoJ215RGlyZWN0aXZlJywgZnVuY3Rpb24odmFsdWUpe1xuXHRcdFx0Ly8gXHRjb25zb2xlLmxvZyh2YWx1ZSk7XG5cdFx0XHQvLyB9KTtcbiAgICAgIC8vXG5cdFx0XHQvLyBhdHRyaWJ1dGVzLiRvYnNlcnZlKCdhbm90aGVyUGFyYW0nLCBmdW5jdGlvbih2YWx1ZSl7XG5cdFx0XHQvLyBcdGNvbnNvbGUubG9nKHZhbHVlKTtcblx0XHRcdC8vIH0pO1xuXG5cdFx0fSxcbiAgICBjb250cm9sbGVyOiBbJyRzY29wZScsIGZ1bmN0aW9uICgkc2NvcGUpIHtcbiAgICAgICRzY29wZS51cGxvYWRJbWFnZSA9IGZ1bmN0aW9uICgkZXZlbnQsIGZpbGVzKSB7XG4gICAgICAgIHNlbmRSZXF1ZXN0LnByb2Nlc3NJbWFnZVVwbG9hZCgnL2FwaS91cGxvYWQtaW1hZ2UnLCAkc2NvcGUubWRsICwgJHNjb3BlLmRlc3QsICRsb2NhbFN0b3JhZ2UudXNlclRva2VuKVxuICAgICAgICAudGhlbihmdW5jdGlvbiAoZGF0YSkge1xuICAgICAgICAgIGNvbnNvbGUubG9nKGRhdGEpO1xuICAgICAgICAgIGlmICh1bmRlZmluZWQgPT0gZGF0YS5maWxlbmFtZSkge1xuICAgICAgICAgICAgY29uc29sZS5lcnJvcignU2VydmVyIFJvdXRlIEVycm9yJyk7XG4gICAgICAgICAgfVxuICAgICAgICAgIGVsc2V7XG4gICAgICAgICAgICAkc2NvcGUubWRsID0gZGF0YS5maWxlbmFtZTtcbiAgICAgICAgICAgICRzY29wZS4kcGFyZW50LmZpbGVuYW1lID0gZGF0YS5maWxlbmFtZTtcbiAgICAgICAgICAgIC8vIE5vdGlmaWNhdGlvbi5zdWNjZXNzKHsgbWVzc2FnZTogJ1VwbG9hZCBTdWNjZXNzZnVsJywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuXG4gICAgICAgICAgfVxuICAgICAgICB9KTtcbiAgICAgIH07XG4gICAgfV1cbiAgfTtcbn1dKTtcblxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL2N1c3RvbUZpbGVVcGxvYWQuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/customFileUpload.js\n");
+// EXAMPLE uploadPostImage
+// <custom-file-upload dest="'u32/'" mdl="post.postImage" attr="postImage" altText="Post Image Upload"></custom-file-upload>
+
+// The mdl attribute is the model to use for the element and the attr is the name and the id to use. the dest folder is the folder to upload the image to in our storage directory
+// We use jQLite to set the id and the name attribute in the link method and we set the model and the destination folder in the controller
+
+// The attr attribute is used to set the name and the id attributes of the generated filefield from the template userdetails
+// The altText attr is used to set the alt attribut of the nested image used for displaying the uploaded image
+
+// // NOTE:
+
+// This directive requires the file change directive to be loaded. We use the file change directive to respond to when the user selects an image and then trigger the upload
+// This directive also requires the sendRequest directives
+// The directive passes the filename of the aved imnage on the server back to the model instance that was passed in
+
+
+// EXAMPLE templateUrl
+// <div>
+//   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">
+//   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">
+// </div>
+
+// EXAMPLE LARAVEL CONTROLLER TO HANDLE THE ROUTYE
+// public function handleImageUpload(){
+//
+//     // dump(request()->all());
+//
+//     $data = request('image');
+//     $foldername = request('fn');
+//
+//     list($type, $data) = explode(';', $data);
+//     list(, $data)      = explode(',', $data);
+//
+//     $data = base64_decode($data);
+//     $imageName = time().'.png';
+//     $hey = Storage::disk('public')->put($foldername.$imageName, $data);
+//
+//     return ['filename' => '/storage/'.$foldername.$imageName];
+//
+// }
+
+var url = '\n<div>\n   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">\n   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">\n</div>\n\n';
+
+angular.module('customFileUpload', []).directive('customFileUpload', ['$localStorage', 'sendRequest', function ($localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      dest: '=',
+      mdl: '=',
+      attr: '=',
+      altText: '='
+    },
+    template: url,
+    // templateUrl:'angular/directive-templates/customFileUploadTemplate.php',
+    replace: true,
+    link: function link(scope, element, attributes) {
+
+      // console.log(attributes); //literal string "{{some string}}", no interpolation
+      // console.log(element); //literal string "{{some string}}", no interpolation
+      // console.log(attributes.anotherParam); //literally "another string"
+      element.children('input[type="file"]').attr('id', attributes.attr);
+      element.children('input[type="file"]').attr('name', attributes.attr);
+      element.children('img').attr('alt', attributes.altText);
+      // attributes.$observe('myDirective', function(value){
+      // 	console.log(value);
+      // });
+      //
+      // attributes.$observe('anotherParam', function(value){
+      // 	console.log(value);
+      // });
+    },
+    controller: ['$scope', function ($scope) {
+      $scope.uploadImage = function ($event, files) {
+        sendRequest.processImageUpload('/api/upload-image', $scope.mdl, $scope.dest, $localStorage.userToken).then(function (data) {
+          console.log(data);
+          if (undefined == data.filename) {
+            console.error('Server Route Error');
+          } else {
+            $scope.mdl = data.filename;
+            $scope.$parent.filename = data.filename;
+            // Notification.success({ message: 'Upload Successful', positionX: 'center'});
+          }
+        });
+      };
+    }]
+  };
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/gamePlay.js":
 /***/ (function(module, exports) {
 
-eval("// EXAMPLE\n// <game-play></game-play>\n\n\nvar url = '\\n<section id=\"game-play\">\\n\\n\\n<style>\\n  #timer h1{\\n    margin: 0 !important;\\n  }\\n</style>\\n<style media=\"(max-width:767px)\">\\n  #heading{\\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\\n  }\\n  #game-play{\\n    margin-top: -140px;\\n  }\\n</style>\\n\\n\\n\\n  <div class=\"ui compact horizontal segments flex-center\" style=\"background-color: rgba(255,255,255,0.6);\" id=\"heading\">\\n    <div class=\"ui segment\">\\n      <div class=\"ui compact menu\">\\n        <a class=\"item\" style=\"padding: 0 20px !important;\">\\n          <i class=\"icon clock outline\"></i> <countdown-timer countdown=\"game_timer\" finish=\"displayResults()\" id=\"timer\"></countdown-timer>\\n        </a>\\n      </div>\\n    </div>\\n\\n    <div class=\"ui segment\">\\n      <div class=\"ui violet label\" style=\"font-size: 13px;\">\\n        <span style=\"padding-right: 10px;\">Active Gamers</span>\\n        <i class=\"users icon\"></i> {{ total_examinees }}\\n      </div>\\n    </div>\\n\\n\\n    <div class=\"ui segment\">\\n      <h1 style=\"color: white; float: right;\">Lifelines</h1>\\n    </div>\\n\\n    <div class=\"ui segment\">\\n      <div class=\"ui compact menu\">\\n        <a class=\"item\">\\n          50/50\\n          <div class=\"floating ui red label\">1</div>\\n        </a>\\n        <a class=\"item\" style=\"background:#21BA45; color: white;\">\\n          CHANGE QUESTION\\n          <div class=\"floating ui teal label\">1</div>\\n        </a>\\n      </div>\\n    </div>\\n  </div>\\n\\n\\n  <div class=\"ui styled fluid accordion\">\\n\\n    <div ng-repeat=\"q in user_questions\" ng-if=\"$index < 10\">\\n\\n      <div ng-class=\"{ \\'title\\': true, \\'active\\': $index == 0 }\">\\n        <i class=\"dropdown icon\"></i> Question {{ $index + 1}}\\n      </div>\\n\\n      <div ng-class=\"{ \\'content\\': true, \\'active\\': $index == 0 }\">\\n        <div class=\"ui stacked segment\">\\n\\n          <p id=\"question\">{{ q.question.question }}</p>\\n\\n          <div class=\"ui middle aligned selection list\">\\n\\n            <label class=\"item\" for=\"option1{{$index}}\">\\n              <div class=\"content\">\\n                <div class=\"ui slider checkbox\" ng-if=\"q.question.option_1\">\\n                  <input type=\"radio\" name=\"question{{$index + 1}}\" ng-value=\"q.question.option_1\" ng-model=\"q.answered_option\" ng-change=\"q.answered_option = q.question.option_1\" id=\"option1{{$index}}\">\\n                  <label>{{ q.question.option_1 }}</label>\\n                </div>\\n              </div>\\n            </label>\\n\\n\\n\\n            <label class=\"item\" for=\"option2{{$index}}\">\\n              <div class=\"content\">\\n                <div class=\"ui slider checkbox\" ng-if=\"q.question.option_2\">\\n                  <input type=\"radio\" name=\"question{{$index + 1}}\" ng-value=\"q.question.option_2\" ng-model=\"q.answered_option\" ng-change=\"q.answered_option = q.question.option_2\" id=\"option2{{$index}}\">\\n                  <label>{{ q.question.option_2 }}</label>\\n                </div>\\n              </div>\\n            </label>\\n\\n\\n\\n            <label class=\"item\" for=\"option3{{$index}}\">\\n              <div class=\"content\">\\n                <div class=\"ui slider checkbox\" ng-if=\"q.question.option_3\">\\n                  <input type=\"radio\" name=\"question{{$index + 1}}\" ng-value=\"q.question.option_3\" ng-model=\"q.answered_option\" ng-change=\"q.answered_option = q.question.option_3\" id=\"option3{{$index}}\">\\n                  <label>{{ q.question.option_3 }}</label>\\n                </div>\\n              </div>\\n            </label>\\n\\n\\n\\n            <label class=\"item\" for=\"option4{{$index}}\">\\n              <div class=\"content\">\\n                <div class=\"ui slider checkbox\" ng-if=\"q.question.option_4\">\\n                  <input type=\"radio\" name=\"question{{$index + 1}}\" ng-value=\"q.question.option_4\" ng-model=\"q.answered_option\" ng-change=\"q.answered_option = q.question.option_4\" id=\"option4{{$index}}\">\\n                  <label>{{ q.question.option_4 }}</label>\\n                </div>\\n              </div>\\n            </label>\\n\\n            <div class=\"ui buttons\">\\n              <button class=\"ui button\" ng-click=\"requestOptions(q)\" ng-disabled=\"lifelines.options\">50/50</button>\\n              <div class=\"or\"></div>\\n              <button class=\"ui positive button\" ng-click=\"requestExtra(q)\" ng-disabled=\"lifelines.extra\">CHANGE QUESTION</button>\\n            </div>\\n\\n\\n          </div>\\n\\n        </div>\\n      </div>\\n    </div>\\n\\n    <div class=\"text-center\" style=\"display: flex; align-items: center; justify-content: center;\">\\n      <button ng-click=\"submitExam()\" ng-class=\"[\\'positive\\', \\'ui\\', \\'button\\', {\\'loading\\' : loading}]\">Finish</button>\\n  </div>\\n\\n</section>\\n\\n';\n\nangular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', 'Notification', 'sendRequest', function ($location, $localStorage, Notification, sendRequest) {\n  return {\n    restrict: 'E',\n    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',\n    template: url,\n    replace: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n      $scope.lifelines = $localStorage;\n      $scope.lifelines.extra = $scope.lifelines.extra || false;\n      $scope.lifelines.options = $scope.lifelines.options || false;\n\n      sendRequest.getUserQuestions('/user/get-user-questions').then(function (rsp) {\n        $scope.user_questions = rsp;\n      });\n\n      $scope.submitExam = function () {\n        $scope.loading = true;\n\n        sendRequest.postRequest('/user/submit-exam', $scope.user_questions).then(function (rsp) {\n          delete $localStorage.user_questions;\n          delete $localStorage.extra;\n          delete $localStorage.options;\n\n          if (rsp.status == 422) {\n            Notification.error({ message: 'No active game in progress', positionX: 'center' });\n            $location.path('/dashboard');\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              sendRequest.storeData('user_score', rsp.data.user_score);\n              $localStorage.user_score = rsp.data.user_score;\n              $location.path('/dashboard');\n            }\n          }\n        });\n      };\n\n      $scope.requestExtra = function (q) {\n        var removedQuestion = $scope.user_questions.indexOf(q);\n        $scope.user_questions.splice(removedQuestion, 1);\n        $scope.lifelines.extra = true;\n      };\n\n      $scope.requestOptions = function (q) {\n        var count = 0;\n        if (q.question.option_1 != q.question.correct_option) {\n          q.question.option_1 = null;\n          count++;\n        }\n        if (q.question.option_2 != q.question.correct_option) {\n          q.question.option_2 = null;\n          count++;\n        }\n        if (q.question.option_3 != q.question.correct_option && count < 2) {\n          q.question.option_3 = null;\n          count++;\n        }\n        if (q.question.option_4 != q.question.correct_option && count < 2) {\n          q.question.option_4 = null;\n          count++;\n        }\n\n        $scope.lifelines.options = true;\n      };\n\n      $scope.displayResults = function () {\n        sendRequest.postRequest('/user/end-exam', $scope.user_questions).then(function (rsp) {\n          delete $localStorage.user_questions;\n          delete $localStorage.extra;\n          delete $localStorage.options;\n\n          if (rsp.status == 422) {\n            Notification.error({ message: 'No active game in progress', positionX: 'center' });\n            $location.path('/dashboard');\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              sendRequest.storeData('user_score', rsp.data.user_score);\n              $localStorage.user_score = rsp.data.user_score;\n              $location.path('/dashboard/display-results');\n            }\n          }\n        });\n      };\n    }]\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9nYW1lUGxheS5qcz85ZTAzIl0sIm5hbWVzIjpbInVybCIsImFuZ3VsYXIiLCJtb2R1bGUiLCJkaXJlY3RpdmUiLCIkbG9jYXRpb24iLCIkbG9jYWxTdG9yYWdlIiwiTm90aWZpY2F0aW9uIiwic2VuZFJlcXVlc3QiLCJyZXN0cmljdCIsInRlbXBsYXRlIiwicmVwbGFjZSIsImxpbmsiLCJzY29wZSIsImVsZW1lbnQiLCJhdHRyaWJ1dGVzIiwiY29udHJvbGxlciIsIiRzY29wZSIsImxpZmVsaW5lcyIsImV4dHJhIiwib3B0aW9ucyIsImdldFVzZXJRdWVzdGlvbnMiLCJ0aGVuIiwidXNlcl9xdWVzdGlvbnMiLCJyc3AiLCJzdWJtaXRFeGFtIiwibG9hZGluZyIsInBvc3RSZXF1ZXN0Iiwic3RhdHVzIiwiZXJyb3IiLCJtZXNzYWdlIiwicG9zaXRpb25YIiwicGF0aCIsImRhdGEiLCJzdG9yZURhdGEiLCJ1c2VyX3Njb3JlIiwicmVxdWVzdEV4dHJhIiwicSIsInJlbW92ZWRRdWVzdGlvbiIsImluZGV4T2YiLCJzcGxpY2UiLCJyZXF1ZXN0T3B0aW9ucyIsImNvdW50IiwicXVlc3Rpb24iLCJvcHRpb25fMSIsImNvcnJlY3Rfb3B0aW9uIiwib3B0aW9uXzIiLCJvcHRpb25fMyIsIm9wdGlvbl80IiwiZGlzcGxheVJlc3VsdHMiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7OztBQUdBLElBQUlBLHFrSkFBSjs7QUF1SUFDLFFBQVFDLE1BQVIsQ0FBZSxVQUFmLEVBQTJCLEVBQTNCLEVBQStCQyxTQUEvQixDQUF5QyxVQUF6QyxFQUFxRCxDQUFDLFdBQUQsRUFBYyxlQUFkLEVBQStCLGNBQS9CLEVBQStDLGFBQS9DLEVBQThELFVBQVVDLFNBQVYsRUFBcUJDLGFBQXJCLEVBQW9DQyxZQUFwQyxFQUFrREMsV0FBbEQsRUFBK0Q7QUFDaEwsU0FBTztBQUNMQyxjQUFVLEdB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QUVNLFFBQUYsQ0FBV0ssUUFBWCxHQUFzQixJQUF0QjtBQUNBTjtBQUNEOztBQUVEekIsZUFBT0MsU0FBUCxDQUFpQkUsT0FBakIsR0FBMkIsSUFBM0I7QUFFRCxPQXJCRDs7QUF1QkFILGFBQU9nQyxjQUFQLEdBQXdCLFlBQU07QUFDNUJ6QyxvQkFBWW1CLFdBQVosQ0FBd0IsZ0JBQXhCLEVBQTBDVixPQUFPTSxjQUFqRCxFQUNVRCxJQURWLENBQ2UsVUFBVUUsR0FBVixFQUFlO0FBQ25CLGlCQUFPbEIsY0FBY2lCLGNBQXJCO0FBQ0EsaUJBQU9qQixjQUFjYSxLQUFyQjtBQUNBLGlCQUFPYixjQUFjYyxPQUFyQjs7QUFFQSxjQUFJSSxJQUFJSSxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDckJyQix5QkFBYXNCLEtBQWIsQ0FBbUIsRUFBRUMsU0FBUyw0QkFBWCxFQUF5Q0MsV0FBVyxRQUFwRCxFQUFuQjtBQUNBMUIsc0JBQVUyQixJQUFWLENBQWUsWUFBZjtBQUNELFdBSEQsTUFJSyxJQUFJUixJQUFJSSxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDMUIsZ0JBQUlKLElBQUlTLElBQUosQ0FBU0wsTUFBYixFQUFxQjtBQUNuQnBCLDBCQUFZMEIsU0FBWixDQUFzQixZQUF0QixFQUFvQ1YsSUFBSVMsSUFBSixDQUFTRSxVQUE3QztBQUNBN0IsNEJBQWM2QixVQUFkLEdBQTJCWCxJQUFJUyxJQUFKLENBQVNFLFVBQXBDO0FBQ0E5Qix3QkFBVTJCLElBQVYsQ0FBZSw0QkFBZjtBQUNEO0FBQ0Y7QUFDRixTQWpCVjtBQWtCRCxPQW5CRDtBQXFCRCxLQXBGVztBQVJQLEdBQVA7QUE4RkQsQ0EvRm9ELENBQXJEIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvZ2FtZVBsYXkuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBFWEFNUExFXG4vLyA8Z2FtZS1wbGF5PjwvZ2FtZS1wbGF5PlxuXG5cbnZhciB1cmwgPSBgXG48c2VjdGlvbiBpZD1cImdhbWUtcGxheVwiPlxuXG5cbjxzdHlsZT5cbiAgI3RpbWVyIGgxe1xuICAgIG1hcmdpbjogMCAhaW1wb3J0YW50O1xuICB9XG48L3N0eWxlPlxuPHN0eWxlIG1lZGlhPVwiKG1heC13aWR0aDo3NjdweClcIj5cbiAgI2hlYWRpbmd7XG4gICAgLXdlYmtpdC1mbGV4LWRpcmVjdGlvbjogY29sdW1uOy1tcy1mbGV4LWRpcmVjdGlvbjogY29sdW1uO2ZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIH1cbiAgI2dhbWUtcGxheXtcbiAgICBtYXJnaW4tdG9wOiAtMTQwcHg7XG4gIH1cbjwvc3R5bGU+XG5cblxuXG4gIDxkaXYgY2xhc3M9XCJ1aSBjb21wYWN0IGhvcml6b250YWwgc2VnbWVudHMgZmxleC1jZW50ZXJcIiBzdHlsZT1cImJhY2tncm91bmQtY29sb3I6IHJnYmEoMjU1LDI1NSwyNTUsMC42KTtcIiBpZD1cImhlYWRpbmdcIj5cbiAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgPGRpdiBjbGFzcz1cInVpIGNvbXBhY3QgbWVudVwiPlxuICAgICAgICA8YSBjbGFzcz1cIml0ZW1cIiBzdHlsZT1cInBhZGRpbmc6IDAgMjBweCAhaW1wb3J0YW50O1wiPlxuICAgICAgICAgIDxpIGNsYXNzPVwiaWNvbiBjbG9jayBvdXRsaW5lXCI+PC9pPiA8Y291bnRkb3duLXRpbWVyIGNvdW50ZG93bj1cImdhbWVfdGltZXJcIiBmaW5pc2g9XCJkaXNwbGF5UmVzdWx0cygpXCIgaWQ9XCJ0aW1lclwiPjwvY291bnRkb3duLXRpbWVyPlxuICAgICAgICA8L2E+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cblxuICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWdtZW50XCI+XG4gICAgICA8ZGl2IGNsYXNzPVwidWkgdmlvbGV0IGxhYmVsXCIgc3R5bGU9XCJmb250LXNpemU6IDEzcHg7XCI+XG4gICAgICAgIDxzcGFuIHN0eWxlPVwicGFkZGluZy1yaWdodDogMTBweDtcIj5BY3RpdmUgR2FtZXJzPC9zcGFuPlxuICAgICAgICA8aSBjbGFzcz1cInVzZXJzIGljb25cIj48L2k+IHt7IHRvdGFsX2V4YW1pbmVlcyB9fVxuICAgICAgPC9kaXY+XG4gICAgPC9kaXY+XG5cblxuICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWdtZW50XCI+XG4gICAgICA8aDEgc3R5bGU9XCJjb2xvcjogd2hpdGU7IGZsb2F0OiByaWdodDtcIj5MaWZlbGluZXM8L2gxPlxuICAgIDwvZGl2PlxuXG4gICAgPGRpdiBjbGFzcz1cInVpIHNlZ21lbnRcIj5cbiAgICAgIDxkaXYgY2xhc3M9XCJ1aSBjb21wYWN0IG1lbnVcIj5cbiAgICAgICAgPGEgY2xhc3M9XCJpdGVtXCI+XG4gICAgICAgICAgNTAvNTBcbiAgICAgICAgICA8ZGl2IGNsYXNzPVwiZmxvYXRpbmcgdWkgcmVkIGxhYmVsXCI+MTwvZGl2PlxuICAgICAgICA8L2E+XG4gICAgICAgIDxhIGNsYXNzPVwiaXRlbVwiIHN0eWxlPVwiYmFja2dyb3VuZDojMjFCQTQ1OyBjb2xvcjogd2hpdGU7XCI+XG4gICAgICAgICAgQ0hBTkdFIFFVRVNUSU9OXG4gICAgICAgICAgPGRpdiBjbGFzcz1cImZsb2F0aW5nIHVpIHRlYWwgbGFiZWxcIj4xPC9kaXY+XG4gICAgICAgIDwvYT5cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICA8L2Rpdj5cblxuXG4gIDxkaXYgY2xhc3M9XCJ1aSBzdHlsZWQgZmx1aWQgYWNjb3JkaW9uXCI+XG5cbiAgICA8ZGl2IG5nLXJlcGVhdD1cInEgaW4gdXNlcl9xdWVzdGlvbnNcIiBuZy1pZj1cIiRpbmRleCA8IDEwXCI+XG5cbiAgICAgIDxkaXYgbmctY2xhc3M9XCJ7ICd0aXRsZSc6IHRydWUsICdhY3RpdmUnOiAkaW5kZXggPT0gMCB9XCI+XG4gICAgICAgIDxpIGNsYXNzPVwiZHJvcGRvd24gaWNvblwiPjwvaT4gUXVlc3Rpb24ge3sgJGluZGV4ICsgMX19XG4gICAgICA8L2Rpdj5cblxuICAgICAgPGRpdiBuZy1jbGFzcz1cInsgJ2NvbnRlbnQnOiB0cnVlLCAnYWN0aXZlJzogJGluZGV4ID09IDAgfVwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc3RhY2tlZCBzZWdtZW50XCI+XG5cbiAgICAgICAgICA8cCBpZD1cInF1ZXN0aW9uXCI+e3sgcS5xdWVzdGlvbi5xdWVzdGlvbiB9fTwvcD5cblxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBtaWRkbGUgYWxpZ25lZCBzZWxlY3Rpb24gbGlzdFwiPlxuXG4gICAgICAgICAgICA8bGFiZWwgY2xhc3M9XCJpdGVtXCIgZm9yPVwib3B0aW9uMXt7JGluZGV4fX1cIj5cbiAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc2xpZGVyIGNoZWNrYm94XCIgbmctaWY9XCJxLnF1ZXN0aW9uLm9wdGlvbl8xXCI+XG4gICAgICAgICAgICAgICAgICA8aW5wdXQgdHlwZT1cInJhZGlvXCIgbmFtZT1cInF1ZXN0aW9ue3skaW5kZXggKyAxfX1cIiBuZy12YWx1ZT1cInEucXVlc3Rpb24ub3B0aW9uXzFcIiBuZy1tb2RlbD1cInEuYW5zd2VyZWRfb3B0aW9uXCIgbmctY2hhbmdlPVwicS5hbnN3ZXJlZF9vcHRpb24gPSBxLnF1ZXN0aW9uLm9wdGlvbl8xXCIgaWQ9XCJvcHRpb24xe3skaW5kZXh9fVwiPlxuICAgICAgICAgICAgICAgICAgPGxhYmVsPnt7IHEucXVlc3Rpb24ub3B0aW9uXzEgfX08L2xhYmVsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvbGFiZWw+XG5cblxuXG4gICAgICAgICAgICA8bGFiZWwgY2xhc3M9XCJpdGVtXCIgZm9yPVwib3B0aW9uMnt7JGluZGV4fX1cIj5cbiAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc2xpZGVyIGNoZWNrYm94XCIgbmctaWY9XCJxLnF1ZXN0aW9uLm9wdGlvbl8yXCI+XG4gICAgICAgICAgICAgICAgICA8aW5wdXQgdHlwZT1cInJhZGlvXCIgbmFtZT1cInF1ZXN0aW9ue3skaW5kZXggKyAxfX1cIiBuZy12YWx1ZT1cInEucXVlc3Rpb24ub3B0aW9uXzJcIiBuZy1tb2RlbD1cInEuYW5zd2VyZWRfb3B0aW9uXCIgbmctY2hhbmdlPVwicS5hbnN3ZXJlZF9vcHRpb24gPSBxLnF1ZXN0aW9uLm9wdGlvbl8yXCIgaWQ9XCJvcHRpb24ye3skaW5kZXh9fVwiPlxuICAgICAgICAgICAgICAgICAgPGxhYmVsPnt7IHEucXVlc3Rpb24ub3B0aW9uXzIgfX08L2xhYmVsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvbGFiZWw+XG5cblxuXG4gICAgICAgICAgICA8bGFiZWwgY2xhc3M9XCJpdGVtXCIgZm9yPVwib3B0aW9uM3t7JGluZGV4fX1cIj5cbiAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc2xpZGVyIGNoZWNrYm94XCIgbmctaWY9XCJxLnF1ZXN0aW9uLm9wdGlvbl8zXCI+XG4gICAgICAgICAgICAgICAgICA8aW5wdXQgdHlwZT1cInJhZGlvXCIgbmFtZT1cInF1ZXN0aW9ue3skaW5kZXggKyAxfX1cIiBuZy12YWx1ZT1cInEucXVlc3Rpb24ub3B0aW9uXzNcIiBuZy1tb2RlbD1cInEuYW5zd2VyZWRfb3B0aW9uXCIgbmctY2hhbmdlPVwicS5hbnN3ZXJlZF9vcHRpb24gPSBxLnF1ZXN0aW9uLm9wdGlvbl8zXCIgaWQ9XCJvcHRpb24ze3skaW5kZXh9fVwiPlxuICAgICAgICAgICAgICAgICAgPGxhYmVsPnt7IHEucXVlc3Rpb24ub3B0aW9uXzMgfX08L2xhYmVsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvbGFiZWw+XG5cblxuXG4gICAgICAgICAgICA8bGFiZWwgY2xhc3M9XCJpdGVtXCIgZm9yPVwib3B0aW9uNHt7JGluZGV4fX1cIj5cbiAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwidWkgc2xpZGVyIGNoZWNrYm94XCIgbmctaWY9XCJxLnF1ZXN0aW9uLm9wdGlvbl80XCI+XG4gICAgICAgICAgICAgICAgICA8aW5wdXQgdHlwZT1cInJhZGlvXCIgbmFtZT1cInF1ZXN0aW9ue3skaW5kZXggKyAxfX1cIiBuZy12YWx1ZT1cInEucXVlc3Rpb24ub3B0aW9uXzRcIiBuZy1tb2RlbD1cInEuYW5zd2VyZWRfb3B0aW9uXCIgbmctY2hhbmdlPVwicS5hbnN3ZXJlZF9vcHRpb24gPSBxLnF1ZXN0aW9uLm9wdGlvbl80XCIgaWQ9XCJvcHRpb240e3skaW5kZXh9fVwiPlxuICAgICAgICAgICAgICAgICAgPGxhYmVsPnt7IHEucXVlc3Rpb24ub3B0aW9uXzQgfX08L2xhYmVsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvbGFiZWw+XG5cbiAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBidXR0b25zXCI+XG4gICAgICAgICAgICAgIDxidXR0b24gY2xhc3M9XCJ1aSBidXR0b25cIiBuZy1jbGljaz1cInJlcXVlc3RPcHRpb25zKHEpXCIgbmctZGlzYWJsZWQ9XCJsaWZlbGluZXMub3B0aW9uc1wiPjUwLzUwPC9idXR0b24+XG4gICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJvclwiPjwvZGl2PlxuICAgICAgICAgICAgICA8YnV0dG9uIGNsYXNzPVwidWkgcG9zaXRpdmUgYnV0dG9uXCIgbmctY2xpY2s9XCJyZXF1ZXN0RXh0cmEocSlcIiBuZy1kaXNhYmxlZD1cImxpZmVsaW5lcy5leHRyYVwiPkNIQU5HRSBRVUVTVElPTjwvYnV0dG9uPlxuICAgICAgICAgICAgPC9kaXY+XG5cblxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgPC9kaXY+XG5cbiAgICA8ZGl2IGNsYXNzPVwidGV4dC1jZW50ZXJcIiBzdHlsZT1cImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiBjZW50ZXI7IGp1c3RpZnktY29udGVudDogY2VudGVyO1wiPlxuICAgICAgPGJ1dHRvbiBuZy1jbGljaz1cInN1Ym1pdEV4YW0oKVwiIG5nLWNsYXNzPVwiWydwb3NpdGl2ZScsICd1aScsICdidXR0b24nLCB7J2xvYWRpbmcnIDogbG9hZGluZ31dXCI+RmluaXNoPC9idXR0b24+XG4gIDwvZGl2PlxuXG48L3NlY3Rpb24+XG5cbmA7XG5cblxuYW5ndWxhci5tb2R1bGUoJ2dhbWVQbGF5JywgW10pLmRpcmVjdGl2ZSgnZ2FtZVBsYXknLCBbJyRsb2NhdGlvbicsICckbG9jYWxTdG9yYWdlJywgJ05vdGlmaWNhdGlvbicsICdzZW5kUmVxdWVzdCcsIGZ1bmN0aW9uICgkbG9jYXRpb24sICRsb2NhbFN0b3JhZ2UsIE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QpIHtcbiAgcmV0dXJuIHtcbiAgICByZXN0cmljdDogJ0UnLFxuICAgIC8vIHRlbXBsYXRlVXJsOidhbmd1bGFyL2RpcmVjdGl2ZS10ZW1wbGF0ZXMvZ2FtZVBsYXlUZW1wbGF0ZS5waHAnLFxuICAgIHRlbXBsYXRlOnVybCxcbiAgICByZXBsYWNlOiB0cnVlLFxuICAgIGxpbms6IChzY29wZSwgZWxlbWVudCwgYXR0cmlidXRlcykgPT4ge1xuXG5cdFx0fSxcbiAgICBjb250cm9sbGVyOiBbJyRzY29wZScsICAoJHNjb3BlKSA9PiB7XG4gICAgICAkc2NvcGUubGlmZWxpbmVzID0gJGxvY2FsU3RvcmFnZTtcbiAgICAgICRzY29wZS5saWZlbGluZXMuZXh0cmEgPSAkc2NvcGUubGlmZWxpbmVzLmV4dHJhIHx8IGZhbHNlO1xuICAgICAgJHNjb3BlLmxpZmVsaW5lcy5vcHRpb25zID0gJHNjb3BlLmxpZmVsaW5lcy5vcHRpb25zIHx8IGZhbHNlO1xuXG4gICAgICBzZW5kUmVxdWVzdC5nZXRVc2VyUXVlc3Rpb25zKCcvdXNlci9nZXQtdXNlci1xdWVzdGlvbnMnKVxuICAgICAgICAgICAgICAgICAgLnRoZW4oIHJzcCA9PiB7XG4gICAgICAgICAgICAgICAgICAgICRzY29wZS51c2VyX3F1ZXN0aW9ucyA9IHJzcDtcbiAgICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAkc2NvcGUuc3VibWl0RXhhbSA9ICgpID0+IHtcbiAgICAgICAgJHNjb3BlLmxvYWRpbmcgPSB0cnVlO1xuXG4gICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9zdWJtaXQtZXhhbScsICRzY29wZS51c2VyX3F1ZXN0aW9ucylcbiAgICAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zO1xuICAgICAgICAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLmV4dHJhO1xuICAgICAgICAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLm9wdGlvbnM7XG5cbiAgICAgICAgICAgICAgICAgICBpZiAocnNwLnN0YXR1cyA9PSA0MjIpIHtcbiAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5lcnJvcih7IG1lc3NhZ2U6ICdObyBhY3RpdmUgZ2FtZSBpbiBwcm9ncmVzcycsIHBvc2l0aW9uWDogJ2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICAgICRsb2NhdGlvbi5wYXRoKCcvZGFzaGJvYXJkJyk7XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIGVsc2UgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICBpZiAocnNwLmRhdGEuc3RhdHVzKSB7XG4gICAgICAgICAgICAgICAgICAgICAgIHNlbmRSZXF1ZXN0LnN0b3JlRGF0YSgndXNlcl9zY29yZScsIHJzcC5kYXRhLnVzZXJfc2NvcmUpO1xuICAgICAgICAgICAgICAgICAgICAgICAkbG9jYWxTdG9yYWdlLnVzZXJfc2NvcmUgPSByc3AuZGF0YS51c2VyX3Njb3JlO1xuICAgICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZCcpO1xuICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgIH07XG5cbiAgICAgICRzY29wZS5yZXF1ZXN0RXh0cmEgPSAocSkgPT4ge1xuICAgICAgICB2YXIgcmVtb3ZlZFF1ZXN0aW9uID0gJHNjb3BlLnVzZXJfcXVlc3Rpb25zLmluZGV4T2YocSk7XG4gICAgICAgICRzY29wZS51c2VyX3F1ZXN0aW9ucy5zcGxpY2UocmVtb3ZlZFF1ZXN0aW9uLCAxKTtcbiAgICAgICAgJHNjb3BlLmxpZmVsaW5lcy5leHRyYSA9IHRydWU7XG4gICAgICB9O1xuXG4gICAgICAkc2NvcGUucmVxdWVzdE9wdGlvbnMgPSAocSkgPT4ge1xuICAgICAgICB2YXIgY291bnQgPSAwO1xuICAgICAgICBpZiAocS5xdWVzdGlvbi5vcHRpb25fMSAhPSBxLnF1ZXN0aW9uLmNvcnJlY3Rfb3B0aW9uKSB7XG4gICAgICAgICAgcS5xdWVzdGlvbi5vcHRpb25fMSA9IG51bGw7XG4gICAgICAgICAgY291bnQrKztcbiAgICAgICAgfVxuICAgICAgICBpZiAocS5xdWVzdGlvbi5vcHRpb25fMiAhPSBxLnF1ZXN0aW9uLmNvcnJlY3Rfb3B0aW9uKSB7XG4gICAgICAgICAgcS5xdWVzdGlvbi5vcHRpb25fMiA9IG51bGw7XG4gICAgICAgICAgY291bnQrKztcbiAgICAgICAgfVxuICAgICAgICBpZiAocS5xdWVzdGlvbi5vcHRpb25fMyAhPSBxLnF1ZXN0aW9uLmNvcnJlY3Rfb3B0aW9uICYmIGNvdW50IDwgMikge1xuICAgICAgICAgIHEucXVlc3Rpb24ub3B0aW9uXzMgPSBudWxsO1xuICAgICAgICAgIGNvdW50Kys7XG4gICAgICAgIH1cbiAgICAgICAgaWYgKHEucXVlc3Rpb24ub3B0aW9uXzQgIT0gcS5xdWVzdGlvbi5jb3JyZWN0X29wdGlvbiAmJiBjb3VudCA8IDIpIHtcbiAgICAgICAgICBxLnF1ZXN0aW9uLm9wdGlvbl80ID0gbnVsbDtcbiAgICAgICAgICBjb3VudCsrO1xuICAgICAgICB9XG5cbiAgICAgICAgJHNjb3BlLmxpZmVsaW5lcy5vcHRpb25zID0gdHJ1ZTtcblxuICAgICAgfTtcblxuICAgICAgJHNjb3BlLmRpc3BsYXlSZXN1bHRzID0gKCkgPT4ge1xuICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvZW5kLWV4YW0nLCAkc2NvcGUudXNlcl9xdWVzdGlvbnMpXG4gICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyc3ApIHtcbiAgICAgICAgICAgICAgICAgICBkZWxldGUgJGxvY2FsU3RvcmFnZS51c2VyX3F1ZXN0aW9ucztcbiAgICAgICAgICAgICAgICAgICBkZWxldGUgJGxvY2FsU3RvcmFnZS5leHRyYTtcbiAgICAgICAgICAgICAgICAgICBkZWxldGUgJGxvY2FsU3RvcmFnZS5vcHRpb25zO1xuXG4gICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gNDIyKSB7XG4gICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3IoeyBtZXNzYWdlOiAnTm8gYWN0aXZlIGdhbWUgaW4gcHJvZ3Jlc3MnLCBwb3NpdGlvblg6ICdjZW50ZXInfSk7XG4gICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZCcpO1xuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICBlbHNlIGlmIChyc3Auc3RhdHVzID09IDIwMCkge1xuICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnN0YXR1cykge1xuICAgICAgICAgICAgICAgICAgICAgICBzZW5kUmVxdWVzdC5zdG9yZURhdGEoJ3VzZXJfc2NvcmUnLCByc3AuZGF0YS51c2VyX3Njb3JlKTtcbiAgICAgICAgICAgICAgICAgICAgICAgJGxvY2FsU3RvcmFnZS51c2VyX3Njb3JlID0gcnNwLmRhdGEudXNlcl9zY29yZTtcbiAgICAgICAgICAgICAgICAgICAgICAgJGxvY2F0aW9uLnBhdGgoJy9kYXNoYm9hcmQvZGlzcGxheS1yZXN1bHRzJyk7XG4gICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICB9KTtcbiAgICAgIH07XG5cbiAgICB9XVxuICB9O1xufV0pO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvZ2FtZVBsYXkuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/gamePlay.js\n");
+// EXAMPLE
+// <game-play></game-play>
+
+
+var url = '\n<section id="game-play">\n\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n  }\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n  #game-play{\n    margin-top: -140px;\n  }\n</style>\n\n\n\n  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item" style="padding: 0 20px !important;">\n          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()" id="timer"></countdown-timer>\n        </a>\n      </div>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui violet label" style="font-size: 13px;">\n        <span style="padding-right: 10px;">Active Gamers</span>\n        <i class="users icon"></i> {{ total_examinees }}\n      </div>\n    </div>\n\n\n    <div class="ui segment">\n      <h1 style="color: white; float: right;">Lifelines</h1>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item">\n          50/50\n          <div class="floating ui red label">1</div>\n        </a>\n        <a class="item" style="background:#21BA45; color: white;">\n          CHANGE QUESTION\n          <div class="floating ui teal label">1</div>\n        </a>\n      </div>\n    </div>\n  </div>\n\n\n  <div class="ui styled fluid accordion">\n\n    <div ng-repeat="q in user_questions" ng-if="$index < 10">\n\n      <div ng-class="{ \'title\': true, \'active\': $index == 0 }">\n        <i class="dropdown icon"></i> Question {{ $index + 1}}\n      </div>\n\n      <div ng-class="{ \'content\': true, \'active\': $index == 0 }">\n        <div class="ui stacked segment">\n\n          <p id="question">{{ q.question.question }}</p>\n\n          <div class="ui middle aligned selection list">\n\n            <label class="item" for="option1{{$index}}">\n              <div class="content">\n                <div class="ui slider checkbox" ng-if="q.question.option_1">\n                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">\n                  <label>{{ q.question.option_1 }}</label>\n                </div>\n              </div>\n            </label>\n\n\n\n            <label class="item" for="option2{{$index}}">\n              <div class="content">\n                <div class="ui slider checkbox" ng-if="q.question.option_2">\n                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_2" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">\n                  <label>{{ q.question.option_2 }}</label>\n                </div>\n              </div>\n            </label>\n\n\n\n            <label class="item" for="option3{{$index}}">\n              <div class="content">\n                <div class="ui slider checkbox" ng-if="q.question.option_3">\n                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_3" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">\n                  <label>{{ q.question.option_3 }}</label>\n                </div>\n              </div>\n            </label>\n\n\n\n            <label class="item" for="option4{{$index}}">\n              <div class="content">\n                <div class="ui slider checkbox" ng-if="q.question.option_4">\n                  <input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_4" ng-model="q.answered_option" ng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">\n                  <label>{{ q.question.option_4 }}</label>\n                </div>\n              </div>\n            </label>\n\n            <div class="ui buttons">\n              <button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>\n              <div class="or"></div>\n              <button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>\n            </div>\n\n\n          </div>\n\n        </div>\n      </div>\n    </div>\n\n    <div class="text-center" style="display: flex; align-items: center; justify-content: center;">\n      <button ng-click="submitExam()" ng-class="[\'positive\', \'ui\', \'button\', {\'loading\' : loading}]">Finish</button>\n  </div>\n\n</section>\n\n';
+
+angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', 'Notification', 'sendRequest', function ($location, $localStorage, Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+      $scope.lifelines = $localStorage;
+      $scope.lifelines.extra = $scope.lifelines.extra || false;
+      $scope.lifelines.options = $scope.lifelines.options || false;
+
+      sendRequest.getUserQuestions('/user/get-user-questions').then(function (rsp) {
+        $scope.user_questions = rsp;
+      });
+
+      $scope.submitExam = function () {
+        $scope.loading = true;
+
+        sendRequest.postRequest('/user/submit-exam', $scope.user_questions).then(function (rsp) {
+          delete $localStorage.user_questions;
+          delete $localStorage.extra;
+          delete $localStorage.options;
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+            $location.path('/dashboard');
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              sendRequest.storeData('user_score', rsp.data.user_score);
+              $localStorage.user_score = rsp.data.user_score;
+              $location.path('/dashboard');
+            }
+          }
+        });
+      };
+
+      $scope.requestExtra = function (q) {
+        var removedQuestion = $scope.user_questions.indexOf(q);
+        $scope.user_questions.splice(removedQuestion, 1);
+        $scope.lifelines.extra = true;
+      };
+
+      $scope.requestOptions = function (q) {
+        var count = 0;
+        if (q.question.option_1 != q.question.correct_option) {
+          q.question.option_1 = null;
+          count++;
+        }
+        if (q.question.option_2 != q.question.correct_option) {
+          q.question.option_2 = null;
+          count++;
+        }
+        if (q.question.option_3 != q.question.correct_option && count < 2) {
+          q.question.option_3 = null;
+          count++;
+        }
+        if (q.question.option_4 != q.question.correct_option && count < 2) {
+          q.question.option_4 = null;
+          count++;
+        }
+
+        $scope.lifelines.options = true;
+      };
+
+      $scope.displayResults = function () {
+        sendRequest.postRequest('/user/end-exam', $scope.user_questions).then(function (rsp) {
+          delete $localStorage.user_questions;
+          delete $localStorage.extra;
+          delete $localStorage.options;
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+            $location.path('/dashboard');
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              sendRequest.storeData('user_score', rsp.data.user_score);
+              $localStorage.user_score = rsp.data.user_score;
+              $location.path('/dashboard/display-results');
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/gameState.js":
 /***/ (function(module, exports) {
 
-eval("// EXAMPLE uploadPostImage\n// <game-state><game-state>\n\n\nvar url = '\\n<div id=\"game\">\\n  <div id=\"card\" class=\"ui segments\" ng-if=\"game_state == \\'loading\\' && !transition\">\\n    <!-- game load -->\\n    <div class=\"ui segment\">\\n      <div class=\"ui label\" style=\"background-color: #0195d2; color: #fff; font-size: 13px;\">\\n        <span>Countdown to next game</span>\\n      </div>\\n    </div>\\n    <div class=\"ui segment\">\\n      <countdown-timer countdown=\"game_timer\" finish=\"pageReload()\"></countdown-timer>\\n      <button>Next game</button>\\n    </div>\\n  </div>\\n\\n  <div id=\"card\" class=\"ui segments\" ng-if=\"game_state == \\'waiting\\' && !transition\">\\n    <!-- game waiting -->\\n    <div class=\"ui segment\">\\n      <div class=\"ui horizontal list\">\\n        <div class=\"ui label\" style=\"background-color: #0195d2; color: #fff; font-size: 13px;\">\\n          <span style=\"padding-right: 10px;\">Active Gamers</span>\\n          <i class=\"users icon\"></i> {{ total_examinees }}\\n        </div>\\n      </div>\\n    </div>\\n    <div class=\"ui segment\">\\n      <countdown-timer countdown=\"game_timer\" finish=\"displayResults()\"></countdown-timer>\\n    </div>\\n\\n    <div class=\"ui segment\">\\n\\n      <div class=\"ui labeled button\" tabindex=\"-1\" ng-if=\"user_score == null\">\\n        <div class=\"ui green button\">\\n          <i class=\"fork icon\"></i> Score\\n        </div>\\n        <a class=\"ui basic green left pointing label\">\\n          Awaiting results\\n        </a>\\n      </div>\\n\\n      <div class=\"ui labeled button\" tabindex=\"-1\" ng-if=\"user_score < 10\">\\n        <div class=\"ui red button\">\\n          <i class=\"fork icon\"></i> Score\\n        </div>\\n        <a class=\"ui basic red left pointing label\">\\n          {{ user_score }} out of 10\\n        </a>\\n      </div>\\n      <div class=\"ui labeled button\" tabindex=\"-1\" ng-if=\"user_score > 9\">\\n        <div class=\"ui basic blue button\">\\n          <i class=\"fork icon\"></i> Score\\n        </div>\\n        <a class=\"ui basic left pointing blue label\">\\n        {{ user_score }} out of 10\\n        </a>\\n      </div>\\n    </div>\\n  </div>\\n\\n  <div id=\"card\" class=\"ui segments\" ng-if=\"game_state == \\'active\\' && !transition\">\\n    <!-- game active -->\\n    <div class=\"ui segment\">\\n      <div class=\"ui label\" style=\"background-color: #0195d2; color: #fff; font-size: 13px;\">\\n        <span>Game in progress</span>\\n      </div>\\n    </div>\\n    <div class=\"ui segment\">\\n      <countdown-timer countdown=\"game_timer\" finish=\"pageReload()\"></countdown-timer>\\n      <button style=\"cursor: pointer\" ng-click=\"joinGame()\" ng-disabled=\"transition\">Join Game</button>\\n    </div>\\n  </div>\\n\\n  <div id=\"card\" class=\"ui segments\" ng-if=\"game_state == \\'paused\\' && !transition\">\\n    <!-- game paused -->\\n    <div class=\"ui segment\">\\n      <div class=\"ui horizontal list\">\\n        <div class=\"ui label\" style=\"background-color: #0195d2; color: #fff; font-size: 13px;\">\\n          <span style=\"padding-right: 10px;\">Active Gamers</span>\\n          <i class=\"users icon\"></i> 2358\\n        </div>\\n        <div class=\"ui violet label\" style=\"font-size: 13px;\">\\n          <span style=\"padding-right: 10px;\">Active Gamers</span>\\n          <i class=\"users icon\"></i> {{ total_examinees }}\\n        </div>\\n      </div>\\n    </div>\\n    <div class=\"ui segment\">\\n      <countdown-timer countdown=\"game_timer\" finish=\"endGameReload()\"></countdown-timer>\\n      <button style=\"cursor: pointer\" ng-click=\"resumeGame()\">Resume Game</button>\\n    </div>\\n  </div>\\n\\n  <div id=\"card\" class=\"ui segments\" ng-if=\"transition\">\\n    <!-- game loading network slow -->\\n    <div class=\"ui segment\">\\n      <div class=\"ui horizontal list\">\\n        <div class=\"ui violet label\" style=\"font-size: 13px;\">\\n\\n        </div>\\n      </div>\\n    </div>\\n    <div class=\"ui segment\">\\n      <div class=\"ui active inverted dimmer\">\\n        <div class=\"ui text loader\">Loading</div>\\n      </div>\\n      <h1 style=\"min-height:150px;\">Loading...</h1>\\n    </div>\\n  </div>\\n</div>\\n\\n';\n\nangular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {\n  return {\n    restrict: 'E',\n    scope: {\n      // dest : '=',\n      // mdl:'=',\n      // attr: '=',\n      // altText: '='\n    },\n    // templateUrl:'angular/directive-templates/gameStateTemplate.php',\n    template: url,\n    replace: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n\n      $scope.transition = true;\n\n      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {\n        $scope.user_score = $localStorage.user_score;\n      }\n\n      //when the game was paused, ends the user's incomplete game and displays the results\n      $scope.endGameReload = function () {\n        $scope.transition = true;\n        alert('The game has ended');\n        //Send a request to end the user's game and redirect to results display page\n        sendRequest.postRequest('/user/end-exam', $localStorage.user_questions).then(function (rsp) {\n          delete $localStorage.user_questions;\n          delete $localStorage.extra;\n          delete $localStorage.options;\n\n          if (rsp.status == 422) {\n            Notification.error({ message: 'No active game in progress', positionX: 'center' });\n            $location.path('/dashboard');\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              sendRequest.storeData('user_score', rsp.data.user_score);\n              $localStorage.user_score = rsp.data.user_score;\n              $location.path('/dashboard/display-results');\n            }\n          }\n        });\n      };\n\n      //when the game was paused, take the user back to the game\n      $scope.resumeGame = function () {\n        $scope.transition = true;\n\n        sendRequest.postRequest('user/resume-game').then(function () {\n          $location.path('/dashboard/game-play');\n        });\n\n        //Send a request to resume the game and set the session back to active\n\n        $scope.displayResults();\n      };\n\n      // handle page reload on timer countdown so that the page can get the next thing from the server\n      $scope.pageReload = function () {\n        // location.reload();\n        sendRequest.getGameState().then(function (rsp) {\n          $scope.game_state = rsp.game_state;\n          $scope.game_timer = rsp.game_timer;\n          $scope.total_examinees = rsp.total_examinees;\n        });\n      };\n\n      // refresh the game state and then redirect to the display results page\n      $scope.displayResults = function () {\n        NProgress.start();\n        $scope.transition = true;\n\n        sendRequest.getGameState('/user/get-game-state').then(function (rsp) {\n          $scope.game_state = rsp.game_state;\n          $scope.game_timer = rsp.game_timer;\n\n          if (rsp.game_state == 'loading') {\n            $location.path('/dashboard/display-results');\n          } else {\n            // $location.url('/invalid');\n            $route.reload();\n          }\n          NProgress.done();\n        });\n      };\n\n      $scope.joinGame = function () {\n        $scope.transition = true;\n\n        NProgress.start();\n\n        delete $localStorage.user_score;\n        delete $localStorage.extra;\n        delete $localStorage.options;\n        delete $localStorage.user_questions;\n\n        sendRequest.postRequest('/user/join-game').then(function (rsp) {\n\n          if (rsp.status == 422) {\n            Notification.error({ message: 'No active game in progress', positionX: 'center' });\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              $scope.transition = true;\n              $location.path('/dashboard/game-play');\n            }\n          } else if (rsp.status == 402) {\n            $scope.transition = false;\n            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });\n          } else if (rsp.status == 403) {\n            $scope.transition = true;\n            Notification.error({ message: 'Already in a game session.', positionX: 'center' });\n            $location.path('/dashboard/game-play');\n          }\n        });\n\n        NProgress.done();\n      };\n\n      sendRequest.getGameState().then(function (rsp) {\n        $scope.game_state = rsp.game_state;\n        $scope.game_timer = rsp.game_timer;\n        $scope.total_examinees = rsp.total_examinees;\n        $scope.transition = false;\n      });\n    }]\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9nYW1lU3RhdGUuanM/MTliMiJdLCJuYW1lcyI6WyJ1cmwiLCJhbmd1bGFyIiwibW9kdWxlIiwiZGlyZWN0aXZlIiwiJGxvY2F0aW9uIiwiJHJvdXRlIiwiTm90aWZpY2F0aW9uIiwiJGxvY2FsU3RvcmFnZSIsInNlbmRSZXF1ZXN0IiwicmVzdHJpY3QiLCJzY29wZSIsInRlbXBsYXRlIiwicmVwbGFjZSIsImxpbmsiLCJlbGVtZW50IiwiYXR0cmlidXRlcyIsImNvbnRyb2xsZXIiLCIkc2NvcGUiLCJ0cmFuc2l0aW9uIiwiZ2V0RGF0YSIsImlzVW5kZWZpbmVkIiwidXNlcl9zY29yZSIsImVuZEdhbWVSZWxvYWQiLCJhbGVydCIsInBvc3RSZXF1ZXN0IiwidXNlcl9xdWVzdGlvbnMiLCJ0aGVuIiwicnNwIiwiZXh0cmEiLCJvcHRpb25zIiwic3RhdHVzIiwiZXJyb3IiLCJtZXNzYWdlIiwicG9zaXRpb25YIiwicGF0aCIsImRhdGEiLCJzdG9yZURhdGEiLCJyZXN1bWVHYW1lIiwiZGlzcGxheVJlc3VsdHMiLCJwYWdlUmVsb2FkIiwiZ2V0R2FtZVN0YXRlIiwiZ2FtZV9zdGF0ZSIsImdhbWVfdGltZXIiLCJ0b3RhbF9leGFtaW5lZXMiLCJOUHJvZ3Jlc3MiLCJzdGFydCIsInJlbG9hZCIsImRvbmUiLCJqb2luR2FtZSJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTs7O0FBR0EsSUFBSUEsczNIQUFKOztBQWtIQUMsUUFBUUMsTUFBUixDQUFlLFdBQWYsRUFBNEIsRUFBNUIsRUFBZ0NDLFNBQWhDLENBQTBDLFdBQTFDLEVBQXVELENBQUMsV0FBRCxFQUFjLFFBQWQsRUFBd0IsY0FBeEIsRUFBd0MsZUFBeEMsRUFBeUQsYUFBekQsRUFBd0UsVUFBVUMsU0FBVixFQUFxQkMsTUFBckIsRUFBNkJDLFlBQTdCLEVBQTJDQyxhQUEzQyxFQUEwREMsV0FBMUQsRUFBdUU7QUFD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Q0F2QyxrQkFBWWdDLFlBQVosR0FDVWQsSUFEVixDQUNnQixlQUFPO0FBQ1pULGVBQU93QixVQUFQLEdBQW9CZCxJQUFJYyxVQUF4QjtBQUNBeEIsZUFBT3lCLFVBQVAsR0FBb0JmLElBQUllLFVBQXhCO0FBQ0F6QixlQUFPMEIsZUFBUCxHQUF5QmhCLElBQUlnQixlQUE3QjtBQUNBMUIsZUFBT0MsVUFBUCxHQUFvQixLQUFwQjtBQUNELE9BTlY7QUFRRCxLQTlIVztBQWRQLEdBQVA7QUE4SUQsQ0EvSXNELENBQXZEIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvZ2FtZVN0YXRlLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gRVhBTVBMRSB1cGxvYWRQb3N0SW1hZ2Vcbi8vIDxnYW1lLXN0YXRlPjxnYW1lLXN0YXRlPlxuXG5cbnZhciB1cmwgPSBgXG48ZGl2IGlkPVwiZ2FtZVwiPlxuICA8ZGl2IGlkPVwiY2FyZFwiIGNsYXNzPVwidWkgc2VnbWVudHNcIiBuZy1pZj1cImdhbWVfc3RhdGUgPT0gJ2xvYWRpbmcnICYmICF0cmFuc2l0aW9uXCI+XG4gICAgPCEtLSBnYW1lIGxvYWQgLS0+XG4gICAgPGRpdiBjbGFzcz1cInVpIHNlZ21lbnRcIj5cbiAgICAgIDxkaXYgY2xhc3M9XCJ1aSBsYWJlbFwiIHN0eWxlPVwiYmFja2dyb3VuZC1jb2xvcjogIzAxOTVkMjsgY29sb3I6ICNmZmY7IGZvbnQtc2l6ZTogMTNweDtcIj5cbiAgICAgICAgPHNwYW4+Q291bnRkb3duIHRvIG5leHQgZ2FtZTwvc3Bhbj5cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWdtZW50XCI+XG4gICAgICA8Y291bnRkb3duLXRpbWVyIGNvdW50ZG93bj1cImdhbWVfdGltZXJcIiBmaW5pc2g9XCJwYWdlUmVsb2FkKClcIj48L2NvdW50ZG93bi10aW1lcj5cbiAgICAgIDxidXR0b24+TmV4dCBnYW1lPC9idXR0b24+XG4gICAgPC9kaXY+XG4gIDwvZGl2PlxuXG4gIDxkaXYgaWQ9XCJjYXJkXCIgY2xhc3M9XCJ1aSBzZWdtZW50c1wiIG5nLWlmPVwiZ2FtZV9zdGF0ZSA9PSAnd2FpdGluZycgJiYgIXRyYW5zaXRpb25cIj5cbiAgICA8IS0tIGdhbWUgd2FpdGluZyAtLT5cbiAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgPGRpdiBjbGFzcz1cInVpIGhvcml6b250YWwgbGlzdFwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgbGFiZWxcIiBzdHlsZT1cImJhY2tncm91bmQtY29sb3I6ICMwMTk1ZDI7IGNvbG9yOiAjZmZmOyBmb250LXNpemU6IDEzcHg7XCI+XG4gICAgICAgICAgPHNwYW4gc3R5bGU9XCJwYWRkaW5nLXJpZ2h0OiAxMHB4O1wiPkFjdGl2ZSBHYW1lcnM8L3NwYW4+XG4gICAgICAgICAgPGkgY2xhc3M9XCJ1c2VycyBpY29uXCI+PC9pPiB7eyB0b3RhbF9leGFtaW5lZXMgfX1cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgPGNvdW50ZG93bi10aW1lciBjb3VudGRvd249XCJnYW1lX3RpbWVyXCIgZmluaXNoPVwiZGlzcGxheVJlc3VsdHMoKVwiPjwvY291bnRkb3duLXRpbWVyPlxuICAgIDwvZGl2PlxuXG4gICAgPGRpdiBjbGFzcz1cInVpIHNlZ21lbnRcIj5cblxuICAgICAgPGRpdiBjbGFzcz1cInVpIGxhYmVsZWQgYnV0dG9uXCIgdGFiaW5kZXg9XCItMVwiIG5nLWlmPVwidXNlcl9zY29yZSA9PSBudWxsXCI+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBncmVlbiBidXR0b25cIj5cbiAgICAgICAgICA8aSBjbGFzcz1cImZvcmsgaWNvblwiPjwvaT4gU2NvcmVcbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxhIGNsYXNzPVwidWkgYmFzaWMgZ3JlZW4gbGVmdCBwb2ludGluZyBsYWJlbFwiPlxuICAgICAgICAgIEF3YWl0aW5nIHJlc3VsdHNcbiAgICAgICAgPC9hPlxuICAgICAgPC9kaXY+XG5cbiAgICAgIDxkaXYgY2xhc3M9XCJ1aSBsYWJlbGVkIGJ1dHRvblwiIHRhYmluZGV4PVwiLTFcIiBuZy1pZj1cInVzZXJfc2NvcmUgPCAxMFwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgcmVkIGJ1dHRvblwiPlxuICAgICAgICAgIDxpIGNsYXNzPVwiZm9yayBpY29uXCI+PC9pPiBTY29yZVxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGEgY2xhc3M9XCJ1aSBiYXNpYyByZWQgbGVmdCBwb2ludGluZyBsYWJlbFwiPlxuICAgICAgICAgIHt7IHVzZXJfc2NvcmUgfX0gb3V0IG9mIDEwXG4gICAgICAgIDwvYT5cbiAgICAgIDwvZGl2PlxuICAgICAgPGRpdiBjbGFzcz1cInVpIGxhYmVsZWQgYnV0dG9uXCIgdGFiaW5kZXg9XCItMVwiIG5nLWlmPVwidXNlcl9zY29yZSA+IDlcIj5cbiAgICAgICAgPGRpdiBjbGFzcz1cInVpIGJhc2ljIGJsdWUgYnV0dG9uXCI+XG4gICAgICAgICAgPGkgY2xhc3M9XCJmb3JrIGljb25cIj48L2k+IFNjb3JlXG4gICAgICAgIDwvZGl2PlxuICAgICAgICA8YSBjbGFzcz1cInVpIGJhc2ljIGxlZnQgcG9pbnRpbmcgYmx1ZSBsYWJlbFwiPlxuICAgICAgICB7eyB1c2VyX3Njb3JlIH19IG91dCBvZiAxMFxuICAgICAgICA8L2E+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgPC9kaXY+XG5cbiAgPGRpdiBpZD1cImNhcmRcIiBjbGFzcz1cInVpIHNlZ21lbnRzXCIgbmctaWY9XCJnYW1lX3N0YXRlID09ICdhY3RpdmUnICYmICF0cmFuc2l0aW9uXCI+XG4gICAgPCEtLSBnYW1lIGFjdGl2ZSAtLT5cbiAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgPGRpdiBjbGFzcz1cInVpIGxhYmVsXCIgc3R5bGU9XCJiYWNrZ3JvdW5kLWNvbG9yOiAjMDE5NWQyOyBjb2xvcjogI2ZmZjsgZm9udC1zaXplOiAxM3B4O1wiPlxuICAgICAgICA8c3Bhbj5HYW1lIGluIHByb2dyZXNzPC9zcGFuPlxuICAgICAgPC9kaXY+XG4gICAgPC9kaXY+XG4gICAgPGRpdiBjbGFzcz1cInVpIHNlZ21lbnRcIj5cbiAgICAgIDxjb3VudGRvd24tdGltZXIgY291bnRkb3duPVwiZ2FtZV90aW1lclwiIGZpbmlzaD1cInBhZ2VSZWxvYWQoKVwiPjwvY291bnRkb3duLXRpbWVyPlxuICAgICAgPGJ1dHRvbiBzdHlsZT1cImN1cnNvcjogcG9pbnRlclwiIG5nLWNsaWNrPVwiam9pbkdhbWUoKVwiIG5nLWRpc2FibGVkPVwidHJhbnNpdGlvblwiPkpvaW4gR2FtZTwvYnV0dG9uPlxuICAgIDwvZGl2PlxuICA8L2Rpdj5cblxuICA8ZGl2IGlkPVwiY2FyZFwiIGNsYXNzPVwidWkgc2VnbWVudHNcIiBuZy1pZj1cImdhbWVfc3RhdGUgPT0gJ3BhdXNlZCcgJiYgIXRyYW5zaXRpb25cIj5cbiAgICA8IS0tIGdhbWUgcGF1c2VkIC0tPlxuICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWdtZW50XCI+XG4gICAgICA8ZGl2IGNsYXNzPVwidWkgaG9yaXpvbnRhbCBsaXN0XCI+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBsYWJlbFwiIHN0eWxlPVwiYmFja2dyb3VuZC1jb2xvcjogIzAxOTVkMjsgY29sb3I6ICNmZmY7IGZvbnQtc2l6ZTogMTNweDtcIj5cbiAgICAgICAgICA8c3BhbiBzdHlsZT1cInBhZGRpbmctcmlnaHQ6IDEwcHg7XCI+QWN0aXZlIEdhbWVyczwvc3Bhbj5cbiAgICAgICAgICA8aSBjbGFzcz1cInVzZXJzIGljb25cIj48L2k+IDIzNThcbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSB2aW9sZXQgbGFiZWxcIiBzdHlsZT1cImZvbnQtc2l6ZTogMTNweDtcIj5cbiAgICAgICAgICA8c3BhbiBzdHlsZT1cInBhZGRpbmctcmlnaHQ6IDEwcHg7XCI+QWN0aXZlIEdhbWVyczwvc3Bhbj5cbiAgICAgICAgICA8aSBjbGFzcz1cInVzZXJzIGljb25cIj48L2k+IHt7IHRvdGFsX2V4YW1pbmVlcyB9fVxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICAgIDxkaXYgY2xhc3M9XCJ1aSBzZWdtZW50XCI+XG4gICAgICA8Y291bnRkb3duLXRpbWVyIGNvdW50ZG93bj1cImdhbWVfdGltZXJcIiBmaW5pc2g9XCJlbmRHYW1lUmVsb2FkKClcIj48L2NvdW50ZG93bi10aW1lcj5cbiAgICAgIDxidXR0b24gc3R5bGU9XCJjdXJzb3I6IHBvaW50ZXJcIiBuZy1jbGljaz1cInJlc3VtZUdhbWUoKVwiPlJlc3VtZSBHYW1lPC9idXR0b24+XG4gICAgPC9kaXY+XG4gIDwvZGl2PlxuXG4gIDxkaXYgaWQ9XCJjYXJkXCIgY2xhc3M9XCJ1aSBzZWdtZW50c1wiIG5nLWlmPVwidHJhbnNpdGlvblwiPlxuICAgIDwhLS0gZ2FtZSBsb2FkaW5nIG5ldHdvcmsgc2xvdyAtLT5cbiAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgPGRpdiBjbGFzcz1cInVpIGhvcml6b250YWwgbGlzdFwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgdmlvbGV0IGxhYmVsXCIgc3R5bGU9XCJmb250LXNpemU6IDEzcHg7XCI+XG5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgICA8ZGl2IGNsYXNzPVwidWkgc2VnbWVudFwiPlxuICAgICAgPGRpdiBjbGFzcz1cInVpIGFjdGl2ZSBpbnZlcnRlZCBkaW1tZXJcIj5cbiAgICAgICAgPGRpdiBjbGFzcz1cInVpIHRleHQgbG9hZGVyXCI+TG9hZGluZzwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgICA8aDEgc3R5bGU9XCJtaW4taGVpZ2h0OjE1MHB4O1wiPkxvYWRpbmcuLi48L2gxPlxuICAgIDwvZGl2PlxuICA8L2Rpdj5cbjwvZGl2PlxuXG5gO1xuXG5cblxuYW5ndWxhci5tb2R1bGUoJ2dhbWVTdGF0ZScsIFtdKS5kaXJlY3RpdmUoJ2dhbWVTdGF0ZScsIFsnJGxvY2F0aW9uJywgJyRyb3V0ZScsICdOb3RpZmljYXRpb24nLCAnJGxvY2FsU3RvcmFnZScsICdzZW5kUmVxdWVzdCcsIGZ1bmN0aW9uICgkbG9jYXRpb24sICRyb3V0ZSwgTm90aWZpY2F0aW9uLCAkbG9jYWxTdG9yYWdlLCBzZW5kUmVxdWVzdCkge1xuICByZXR1cm4ge1xuICAgIHJlc3RyaWN0OiAnRScsXG4gICAgc2NvcGU6e1xuICAgICAgLy8gZGVzdCA6ICc9JyxcbiAgICAgIC8vIG1kbDonPScsXG4gICAgICAvLyBhdHRyOiAnPScsXG4gICAgICAvLyBhbHRUZXh0OiAnPSdcbiAgICB9LFxuICAgIC8vIHRlbXBsYXRlVXJsOidhbmd1bGFyL2RpcmVjdGl2ZS10ZW1wbGF0ZXMvZ2FtZVN0YXRlVGVtcGxhdGUucGhwJyxcbiAgICB0ZW1wbGF0ZTp1cmwsXG4gICAgcmVwbGFjZTogdHJ1ZSxcbiAgICBsaW5rOiBmdW5jdGlvbihzY29wZSwgZWxlbWVudCwgYXR0cmlidXRlcyl7XG5cblx0XHR9LFxuICAgIGNvbnRyb2xsZXI6IFsnJHNjb3BlJywgKCRzY29wZSkgPT4ge1xuXG4gICAgICAkc2NvcGUudHJhbnNpdGlvbiA9IHRydWU7XG5cbiAgICAgIGlmIChzZW5kUmVxdWVzdC5nZXREYXRhKCd1c2VyX3Njb3JlJykgfHwgIWFuZ3VsYXIuaXNVbmRlZmluZWQoJGxvY2FsU3RvcmFnZS51c2VyX3Njb3JlKSkge1xuICAgICAgICAkc2NvcGUudXNlcl9zY29yZSA9ICRsb2NhbFN0b3JhZ2UudXNlcl9zY29yZTtcbiAgICAgIH1cblxuICAgICAgLy93aGVuIHRoZSBnYW1lIHdhcyBwYXVzZWQsIGVuZHMgdGhlIHVzZXIncyBpbmNvbXBsZXRlIGdhbWUgYW5kIGRpc3BsYXlzIHRoZSByZXN1bHRzXG4gICAgICAkc2NvcGUuZW5kR2FtZVJlbG9hZCA9IGZ1bmN0aW9uICgpIHtcbiAgICAgICAgJHNjb3BlLnRyYW5zaXRpb24gPSB0cnVlO1xuICAgICAgICBhbGVydCgnVGhlIGdhbWUgaGFzIGVuZGVkJyk7XG4gICAgICAgIC8vU2VuZCBhIHJlcXVlc3QgdG8gZW5kIHRoZSB1c2VyJ3MgZ2FtZSBhbmQgcmVkaXJlY3QgdG8gcmVzdWx0cyBkaXNwbGF5IHBhZ2VcbiAgICAgICAgc2VuZFJlcXVlc3QucG9zdFJlcXVlc3QoJy91c2VyL2VuZC1leGFtJywgJGxvY2FsU3RvcmFnZS51c2VyX3F1ZXN0aW9ucylcbiAgICAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zO1xuICAgICAgICAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLmV4dHJhO1xuICAgICAgICAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLm9wdGlvbnM7XG5cbiAgICAgICAgICAgICAgICAgICBpZiAocnNwLnN0YXR1cyA9PSA0MjIpIHtcbiAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5lcnJvcih7IG1lc3NhZ2U6ICdObyBhY3RpdmUgZ2FtZSBpbiBwcm9ncmVzcycsIHBvc2l0aW9uWDogJ2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICAgICRsb2NhdGlvbi5wYXRoKCcvZGFzaGJvYXJkJyk7XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIGVsc2UgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICBpZiAocnNwLmRhdGEuc3RhdHVzKSB7XG4gICAgICAgICAgICAgICAgICAgICAgIHNlbmRSZXF1ZXN0LnN0b3JlRGF0YSgndXNlcl9zY29yZScsIHJzcC5kYXRhLnVzZXJfc2NvcmUpO1xuICAgICAgICAgICAgICAgICAgICAgICAkbG9jYWxTdG9yYWdlLnVzZXJfc2NvcmUgPSByc3AuZGF0YS51c2VyX3Njb3JlO1xuICAgICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZC9kaXNwbGF5LXJlc3VsdHMnKTtcbiAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgIH0pO1xuICAgICAgfTtcblxuICAgICAgLy93aGVuIHRoZSBnYW1lIHdhcyBwYXVzZWQsIHRha2UgdGhlIHVzZXIgYmFjayB0byB0aGUgZ2FtZVxuICAgICAgJHNjb3BlLnJlc3VtZUdhbWUgPSBmdW5jdGlvbiAoKSB7XG4gICAgICAgICRzY29wZS50cmFuc2l0aW9uID0gdHJ1ZTtcblxuICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgndXNlci9yZXN1bWUtZ2FtZScpXG4gICAgICAgICAgICAgICAgICAgIC50aGVuKCgpPT57XG4gICAgICAgICAgICAgICAgICAgICAgJGxvY2F0aW9uLnBhdGgoJy9kYXNoYm9hcmQvZ2FtZS1wbGF5Jyk7XG4gICAgICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAgIC8vU2VuZCBhIHJlcXVlc3QgdG8gcmVzdW1lIHRoZSBnYW1lIGFuZCBzZXQgdGhlIHNlc3Npb24gYmFjayB0byBhY3RpdmVcblxuICAgICAgICAkc2NvcGUuZGlzcGxheVJlc3VsdHMoKTtcbiAgICAgIH07XG5cbiAgICAgIC8vIGhhbmRsZSBwYWdlIHJlbG9hZCBvbiB0aW1lciBjb3VudGRvd24gc28gdGhhdCB0aGUgcGFnZSBjYW4gZ2V0IHRoZSBuZXh0IHRoaW5nIGZyb20gdGhlIHNlcnZlclxuICAgICAgJHNjb3BlLnBhZ2VSZWxvYWQgPSBmdW5jdGlvbiAoKSB7XG4gICAgICAgIC8vIGxvY2F0aW9uLnJlbG9hZCgpO1xuICAgICAgICBzZW5kUmVxdWVzdC5nZXRHYW1lU3RhdGUoKVxuICAgICAgICAgICAgICAgICAudGhlbiggcnNwID0+IHtcbiAgICAgICAgICAgICAgICAgICAkc2NvcGUuZ2FtZV9zdGF0ZSA9IHJzcC5nYW1lX3N0YXRlO1xuICAgICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3RpbWVyID0gcnNwLmdhbWVfdGltZXI7XG4gICAgICAgICAgICAgICAgICAgJHNjb3BlLnRvdGFsX2V4YW1pbmVlcyA9IHJzcC50b3RhbF9leGFtaW5lZXM7XG4gICAgICAgICAgICAgICAgIH0pO1xuICAgICAgfTtcblxuICAgICAgLy8gcmVmcmVzaCB0aGUgZ2FtZSBzdGF0ZSBhbmQgdGhlbiByZWRpcmVjdCB0byB0aGUgZGlzcGxheSByZXN1bHRzIHBhZ2VcbiAgICAgICRzY29wZS5kaXNwbGF5UmVzdWx0cyA9IGZ1bmN0aW9uICgpIHtcbiAgICAgICAgTlByb2dyZXNzLnN0YXJ0KCk7XG4gICAgICAgICRzY29wZS50cmFuc2l0aW9uID0gdHJ1ZTtcblxuXG4gICAgICAgIHNlbmRSZXF1ZXN0LmdldEdhbWVTdGF0ZSgnL3VzZXIvZ2V0LWdhbWUtc3RhdGUnKVxuICAgICAgICAgICAgICAgICAudGhlbiggcnNwID0+IHtcbiAgICAgICAgICAgICAgICAgICAkc2NvcGUuZ2FtZV9zdGF0ZSA9IHJzcC5nYW1lX3N0YXRlO1xuICAgICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3RpbWVyID0gcnNwLmdhbWVfdGltZXI7XG5cbiAgICAgICAgICAgICAgICAgICBpZiAocnNwLmdhbWVfc3RhdGUgPT0gJ2xvYWRpbmcnKSB7XG4gICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZC9kaXNwbGF5LXJlc3VsdHMnKTtcbiAgICAgICAgICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICAgLy8gJGxvY2F0aW9uLnVybCgnL2ludmFsaWQnKTtcbiAgICAgICAgICAgICAgICAgICAgICRyb3V0ZS5yZWxvYWQoKTtcbiAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgTlByb2dyZXNzLmRvbmUoKTtcbiAgICAgICAgICAgICAgICAgfSk7XG4gICAgICB9O1xuXG5cblxuICAgICAgJHNjb3BlLmpvaW5HYW1lID0gKCkgPT4ge1xuICAgICAgICAkc2NvcGUudHJhbnNpdGlvbiA9IHRydWU7XG5cbiAgICAgICAgTlByb2dyZXNzLnN0YXJ0KCk7XG5cbiAgICAgICAgZGVsZXRlICRsb2NhbFN0b3JhZ2UudXNlcl9zY29yZTtcbiAgICAgICAgZGVsZXRlICRsb2NhbFN0b3JhZ2UuZXh0cmE7XG4gICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLm9wdGlvbnM7XG4gICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zO1xuXG4gICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9qb2luLWdhbWUnKVxuICAgICAgICAgICAgICAgICAudGhlbiAocnNwID0+IHtcblxuICAgICAgICAgICAgICAgICAgIGlmIChyc3Auc3RhdHVzID09IDQyMikge1xuICAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKHsgbWVzc2FnZTogJ05vIGFjdGl2ZSBnYW1lIGluIHByb2dyZXNzJywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICBlbHNlIGlmIChyc3Auc3RhdHVzID09IDIwMCkge1xuICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnN0YXR1cykge1xuICAgICAgICAgICAgICAgICAgICAgICAkc2NvcGUudHJhbnNpdGlvbiA9IHRydWU7XG4gICAgICAgICAgICAgICAgICAgICAgICRsb2NhdGlvbi5wYXRoKCcvZGFzaGJvYXJkL2dhbWUtcGxheScpO1xuICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICBlbHNlIGlmIChyc3Auc3RhdHVzID09IDQwMikge1xuICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLnRyYW5zaXRpb24gPSBmYWxzZTtcbiAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5lcnJvcih7IG1lc3NhZ2U6ICdJbnN1ZmZpY2llbnQgY3JlZGl0cyB0byBqb2luIGdhbWUuJywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICBlbHNlIGlmIChyc3Auc3RhdHVzID09IDQwMykge1xuICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLnRyYW5zaXRpb24gPSB0cnVlO1xuICAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKHsgbWVzc2FnZTogJ0FscmVhZHkgaW4gYSBnYW1lIHNlc3Npb24uJywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgICAgJGxvY2F0aW9uLnBhdGgoJy9kYXNoYm9hcmQvZ2FtZS1wbGF5Jyk7XG5cbiAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAgIE5Qcm9ncmVzcy5kb25lKCk7XG4gICAgICB9O1xuXG4gICAgICBzZW5kUmVxdWVzdC5nZXRHYW1lU3RhdGUoKVxuICAgICAgICAgICAgICAgLnRoZW4oIHJzcCA9PiB7XG4gICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3N0YXRlID0gcnNwLmdhbWVfc3RhdGU7XG4gICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3RpbWVyID0gcnNwLmdhbWVfdGltZXI7XG4gICAgICAgICAgICAgICAgICRzY29wZS50b3RhbF9leGFtaW5lZXMgPSByc3AudG90YWxfZXhhbWluZWVzO1xuICAgICAgICAgICAgICAgICAkc2NvcGUudHJhbnNpdGlvbiA9IGZhbHNlO1xuICAgICAgICAgICAgICAgfSk7XG5cbiAgICB9XVxuICB9O1xufV0pO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvZ2FtZVN0YXRlLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/gameState.js\n");
+// EXAMPLE uploadPostImage
+// <game-state><game-state>
+
+
+var url = '\n<div id="game">\n  <div id="card" class="ui segments" ng-if="game_state == \'loading\' && !transition">\n    <!-- game load -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Countdown to next game</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button>Next game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'waiting\' && !transition">\n    <!-- game waiting -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>\n    </div>\n\n    <div class="ui segment">\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score == null">\n        <div class="ui green button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic green left pointing label">\n          Awaiting results\n        </a>\n      </div>\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">\n        <div class="ui red button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic red left pointing label">\n          {{ user_score }} out of 10\n        </a>\n      </div>\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">\n        <div class="ui basic blue button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic left pointing blue label">\n        {{ user_score }} out of 10\n        </a>\n      </div>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'active\' && !transition">\n    <!-- game active -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Game in progress</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="joinGame()" ng-disabled="transition">Join Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'paused\' && !transition">\n    <!-- game paused -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="transition">\n    <!-- game loading network slow -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui violet label" style="font-size: 13px;">\n\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <div class="ui active inverted dimmer">\n        <div class="ui text loader">Loading</div>\n      </div>\n      <h1 style="min-height:150px;">Loading...</h1>\n    </div>\n  </div>\n</div>\n\n';
+
+angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      // dest : '=',
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.transition = true;
+
+      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
+        $scope.user_score = $localStorage.user_score;
+      }
+
+      //when the game was paused, ends the user's incomplete game and displays the results
+      $scope.endGameReload = function () {
+        $scope.transition = true;
+        alert('The game has ended');
+        //Send a request to end the user's game and redirect to results display page
+        sendRequest.postRequest('/user/end-exam', $localStorage.user_questions).then(function (rsp) {
+          delete $localStorage.user_questions;
+          delete $localStorage.extra;
+          delete $localStorage.options;
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+            $location.path('/dashboard');
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              sendRequest.storeData('user_score', rsp.data.user_score);
+              $localStorage.user_score = rsp.data.user_score;
+              $location.path('/dashboard/display-results');
+            }
+          }
+        });
+      };
+
+      //when the game was paused, take the user back to the game
+      $scope.resumeGame = function () {
+        $scope.transition = true;
+
+        sendRequest.postRequest('user/resume-game').then(function () {
+          $location.path('/dashboard/game-play');
+        });
+
+        //Send a request to resume the game and set the session back to active
+
+        $scope.displayResults();
+      };
+
+      // handle page reload on timer countdown so that the page can get the next thing from the server
+      $scope.pageReload = function () {
+        // location.reload();
+        sendRequest.getGameState().then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+          $scope.total_examinees = rsp.total_examinees;
+        });
+      };
+
+      // refresh the game state and then redirect to the display results page
+      $scope.displayResults = function () {
+        NProgress.start();
+        $scope.transition = true;
+
+        sendRequest.getGameState('/user/get-game-state').then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+
+          if (rsp.game_state == 'loading') {
+            $location.path('/dashboard/display-results');
+          } else {
+            // $location.url('/invalid');
+            $route.reload();
+          }
+          NProgress.done();
+        });
+      };
+
+      $scope.joinGame = function () {
+        $scope.transition = true;
+
+        NProgress.start();
+
+        delete $localStorage.user_score;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+        delete $localStorage.user_questions;
+
+        sendRequest.postRequest('/user/join-game').then(function (rsp) {
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              $scope.transition = true;
+              $location.path('/dashboard/game-play');
+            }
+          } else if (rsp.status == 402) {
+            $scope.transition = false;
+            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });
+          } else if (rsp.status == 403) {
+            $scope.transition = true;
+            Notification.error({ message: 'Already in a game session.', positionX: 'center' });
+            $location.path('/dashboard/game-play');
+          }
+        });
+
+        NProgress.done();
+      };
+
+      sendRequest.getGameState().then(function (rsp) {
+        $scope.game_state = rsp.game_state;
+        $scope.game_timer = rsp.game_timer;
+        $scope.total_examinees = rsp.total_examinees;
+        $scope.transition = false;
+      });
+    }]
+  };
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/inputCountValidator.js":
 /***/ (function(module, exports) {
 
-eval("//This directive is used for instance to validate whether the values entered into a numeric field == 10\n\nvar INTEGER_REGEXP = /^-?\\d+$/;\nangular.module('inputCountValidator', []).directive('count', function () {\n  return {\n    require: 'ngModel',\n    link: function link(scope, elm, attrs, ctrl) {\n      ctrl.$validators.count = function (modelValue, viewValue) {\n\n        if (ctrl.$isEmpty(modelValue)) {\n          // consider empty models to be valid\n          return true;\n        }\n\n        if (viewValue.length != attrs.count) {\n          // it is invalid\n          return false;\n        }\n\n        if (INTEGER_REGEXP.test(viewValue)) {\n          // it is valid\n          return true;\n        }\n\n        // it is invalid\n        return false;\n      };\n    }\n  };\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9pbnB1dENvdW50VmFsaWRhdG9yLmpzPzg2MjAiXSwibmFtZXMiOlsiSU5URUdFUl9SRUdFWFAiLCJhbmd1bGFyIiwibW9kdWxlIiwiZGlyZWN0aXZlIiwicmVxdWlyZSIsImxpbmsiLCJzY29wZSIsImVsbSIsImF0dHJzIiwiY3RybCIsIiR2YWxpZGF0b3JzIiwiY291bnQiLCJtb2RlbFZhbHVlIiwidmlld1ZhbHVlIiwiJGlzRW1wdHkiLCJsZW5ndGgiLCJ0ZXN0Il0sIm1hcHBpbmdzIjoiQUFBQTs7QUFFQSxJQUFJQSxpQkFBaUIsU0FBckI7QUFDQUMsUUFBUUMsTUFBUixDQUFlLHFCQUFmLEVBQXNDLEVBQXRDLEVBQTBDQyxTQUExQyxDQUFvRCxPQUFwRCxFQUE2RCxZQUFXO0FBQ3RFLFNBQU87QUFDTEMsYUFBUyxTQURKO0FBRUxDLFVBQU0sY0FBU0MsS0FBVCxFQUFnQkMsR0FBaEIsRUFBcUJDLEtBQXJCLEVBQTRCQyxJQUE1QixFQUFrQztBQUN0Q0EsV0FBS0MsV0FBTCxDQUFpQkMsS0FBakIsR0FBeUIsVUFBU0MsVUFBVCxFQUFxQkMsU0FBckIsRUFBZ0M7O0FBRXZELFlBQUlKLEtBQUtLLFFBQUwsQ0FBY0YsVUFBZCxDQUFKLEVBQStCO0FBQzdCO0FBQ0EsaUJBQU8sSUFBUDtBQUNEOztBQUVELFlBQUlDLFVBQVVFLE1BQVYsSUFBb0JQLE1BQU1HLEtBQTlCLEVBQXFDO0FBQ25DO0FBQ0EsaUJBQU8sS0FBUDtBQUNEOztBQUVELFlBQUlYLGVBQWVnQixJQUFmLENBQW9CSCxTQUFwQixDQUFKLEVBQW9DO0FBQ2xDO0FBQ0EsaUJBQU8sSUFBUDtBQUNEOztBQUVEO0FBQ0EsZUFBTyxLQUFQO0FBQ0QsT0FuQkQ7QUFvQkQ7QUF2QkksR0FBUDtBQXlCRCxDQTFCRCIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL2lucHV0Q291bnRWYWxpZGF0b3IuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvL1RoaXMgZGlyZWN0aXZlIGlzIHVzZWQgZm9yIGluc3RhbmNlIHRvIHZhbGlkYXRlIHdoZXRoZXIgdGhlIHZhbHVlcyBlbnRlcmVkIGludG8gYSBudW1lcmljIGZpZWxkID09IDEwXG5cbnZhciBJTlRFR0VSX1JFR0VYUCA9IC9eLT9cXGQrJC87XG5hbmd1bGFyLm1vZHVsZSgnaW5wdXRDb3VudFZhbGlkYXRvcicsIFtdKS5kaXJlY3RpdmUoJ2NvdW50JywgZnVuY3Rpb24oKSB7XG4gIHJldHVybiB7XG4gICAgcmVxdWlyZTogJ25nTW9kZWwnLFxuICAgIGxpbms6IGZ1bmN0aW9uKHNjb3BlLCBlbG0sIGF0dHJzLCBjdHJsKSB7XG4gICAgICBjdHJsLiR2YWxpZGF0b3JzLmNvdW50ID0gZnVuY3Rpb24obW9kZWxWYWx1ZSwgdmlld1ZhbHVlKSB7XG5cbiAgICAgICAgaWYgKGN0cmwuJGlzRW1wdHkobW9kZWxWYWx1ZSkpIHtcbiAgICAgICAgICAvLyBjb25zaWRlciBlbXB0eSBtb2RlbHMgdG8gYmUgdmFsaWRcbiAgICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgICAgfVxuXG4gICAgICAgIGlmICh2aWV3VmFsdWUubGVuZ3RoICE9IGF0dHJzLmNvdW50KSB7XG4gICAgICAgICAgLy8gaXQgaXMgaW52YWxpZFxuICAgICAgICAgIHJldHVybiBmYWxzZTtcbiAgICAgICAgfVxuXG4gICAgICAgIGlmIChJTlRFR0VSX1JFR0VYUC50ZXN0KHZpZXdWYWx1ZSkpIHtcbiAgICAgICAgICAvLyBpdCBpcyB2YWxpZFxuICAgICAgICAgIHJldHVybiB0cnVlO1xuICAgICAgICB9XG5cbiAgICAgICAgLy8gaXQgaXMgaW52YWxpZFxuICAgICAgICByZXR1cm4gZmFsc2U7XG4gICAgICB9O1xuICAgIH1cbiAgfTtcbn0pO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvaW5wdXRDb3VudFZhbGlkYXRvci5qcyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/inputCountValidator.js\n");
+//This directive is used for instance to validate whether the values entered into a numeric field == 10
+
+var INTEGER_REGEXP = /^-?\d+$/;
+angular.module('inputCountValidator', []).directive('count', function () {
+  return {
+    require: 'ngModel',
+    link: function link(scope, elm, attrs, ctrl) {
+      ctrl.$validators.count = function (modelValue, viewValue) {
+
+        if (ctrl.$isEmpty(modelValue)) {
+          // consider empty models to be valid
+          return true;
+        }
+
+        if (viewValue.length != attrs.count) {
+          // it is invalid
+          return false;
+        }
+
+        if (INTEGER_REGEXP.test(viewValue)) {
+          // it is valid
+          return true;
+        }
+
+        // it is invalid
+        return false;
+      };
+    }
+  };
+});
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/makeWithdrawal.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage\n// <game-play></game-play>\n\n\nvar url = '\\n<section id=\"makeWithdrawal\" class=\"ui right floated horizontal  list\">\\n  <div class=\" ui vertical animated blue compact button\" tabindex=\"-1\" ng-click=\"openModal()\">\\n    <div class=\"hidden content\"><i class=\"icon money bill alternate outline\"></i></div>\\n    <div class=\"visible content\">\\n      Cash Out\\n    </div>\\n  </div>\\n\\n\\n  <div class=\"ui tiny modal makeWithdrawal transition hidden\">\\n\\n      <div class=\"ui icon mini message\">\\n        <i class=\"inbox icon\"></i>\\n        <div class=\"content\">\\n          <div class=\"header\">\\n            TRANSFER EARNINGS FIRST\\n          </div>\\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \\'transfer earnings\\' button. Otherwise proceed.</p>\\n        </div>\\n      </div>\\n\\n      <div class=\"header\">\\n        Enter an Amount\\n      </div>\\n      <div class=\"image content flex-center\">\\n        <div class=\"ui form\">\\n          <div class=\"inline field\">\\n            <input type=\"number\" placeholder=\"Max {{ $parent.userdetails.available_units | currency }}\" ng-model=\"requested_amount\" ng-max=\"$parent.userdetails.available_units\" ng-min=\"150\">\\n          </div>\\n        </div>\\n      </div>\\n      <div class=\"actions  flex-center\">\\n        <div class=\"ui black left deny button\">\\n          Close\\n        </div>\\n        <div ng-class=\"{\\'ui positive right labeled icon button\\': true, \\'disabled\\': !requested_amount}\" ng-click=\"requestWithdrawal()\">\\n          Yep, proceed!\\n          <i class=\"checkmark icon\"></i>\\n        </div>\\n      </div>\\n      <div class=\"image content flex-center\">\\n        <div class=\"ui icon mini message positive\">\\n          <i class=\"inbox icon\"></i>\\n          <div class=\"content\">\\n            <div class=\"header\">\\n              NOTE:\\n            </div>\\n            <p> For withdrawals below \\u20A61000, a service fee of \\u20A650 will be charged. </p>\\n            <p> While an additional service fee of \\u20A650 will be charged for every \\u20A65000.</p>\\n          </div>\\n        </div>\\n      </div>\\n\\n    </div>\\n\\n</section>\\n';\n\nangular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification', 'sendRequest', function (Notification, sendRequest) {\n  return {\n    restrict: 'E',\n    scope: {\n      // dest : '=',\n      // mdl:'=',\n      // attr: '=',\n      // altText: '='\n    },\n    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',\n    template: url,\n    replace: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n\n      $scope.openModal = function () {\n        $('.ui.modal.makeWithdrawal').modal({\n          blurring: true\n        }).modal('show');\n      };\n\n      $scope.requestWithdrawal = function () {\n\n        sendRequest.postRequest('/user/request-withdrawal', { 'amt': $scope.requested_amount }).then(function (rsp) {\n          if (rsp.status == 422) {\n            Notification.error(rsp.data.message);\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              if ($scope.requested_amount < 1000) {\n                Notification.primary('Amount requested will be sent a recharge card to ' + $scope.$parent.userdetails.phone1);\n              } else {\n                Notification.primary({ message: 'Amount requested will be sent to account number ' + $scope.$parent.userdetails.acct_no, positionX: 'center' });\n              }\n\n              $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units - $scope.requested_amount;\n              $scope.requested_amount = null;\n            }\n          }\n        });\n      };\n    }]\n  };\n}]);\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(\"./node_modules/jquery/dist/jquery.js\")))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9tYWtlV2l0aGRyYXdhbC5qcz9hYTc5Il0sIm5hbWVzIjpbInVybCIsImFuZ3VsYXIiLCJtb2R1bGUiLCJkaXJlY3RpdmUiLCJOb3RpZmljYXRpb24iLCJzZW5kUmVxdWVzdCIsInJlc3RyaWN0Iiwic2NvcGUiLCJ0ZW1wbGF0ZSIsInJlcGxhY2UiLCJsaW5rIiwiZWxlbWVudCIsImF0dHJpYnV0ZXMiLCJjb250cm9sbGVyIiwiJHNjb3BlIiwib3Blbk1vZGFsIiwiJCIsIm1vZGFsIiwiYmx1cnJpbmciLCJyZXF1ZXN0V2l0aGRyYXdhbCIsInBvc3RSZXF1ZXN0IiwicmVxdWVzdGVkX2Ftb3VudCIsInRoZW4iLCJyc3AiLCJzdGF0dXMiLCJlcnJvciIsImRhdGEiLCJtZXNzYWdlIiwicHJpbWFyeSIsIiRwYXJlbnQiLCJ1c2VyZGV0YWlscyIsInBob25lMSIsImFjY3Rfbm8iLCJwb3NpdGlvblgiLCJhdmFpbGFibGVfdW5pdHMiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7OztBQUdBLElBQUlBLDBpRUFBSjs7QUE0REFDLFFBQVFDLE1BQVIsQ0FBZSxnQkFBZixFQUFpQyxFQUFqQyxFQUFxQ0MsU0FBckMsQ0FBK0MsZ0JBQS9DLEVBQWlFLENBQUMsY0FBRCxFQUFpQixhQUFqQixFQUFnQyxVQUFVQyxZQUFWLEVBQXdCQyxXQUF4QixFQUFxQztBQUNwSSxTQUFPO0FBQ0xDLGNBQVUsR0FETDtBQUVMQyxXQUFNO0FBQ0o7QUFDQTtBQUNBO0FBQ0E7QUFKSSxLQUZEO0FBUUw7QUFDQUMsY0FBU1IsR0FUSjtBQVVMUyxhQUFTLElBVko7QUFXTEMsVUFBTSxjQUFDSCxLQUFELEVBQVFJLE9BQVIsRUFBaUJDLFVBQWpCLEVBQWdDLENBRXZDLENBYk07QUFjTEMsZ0JBQVksQ0FBQyxRQUFELEVBQVksVUFBQ0MsTUFBRCxFQUFZOztBQUVsQ0EsYUFBT0MsU0FBUCxHQUFtQixZQUFNO0FBQ3ZCQyxVQUFFLDBCQUFGLEVBQThCQyxLQUE5QixDQUFvQztBQUNoQ0Msb0JBQVU7QUFEc0IsU0FBcEMsRUFHR0QsS0FISCxDQUdTLE1BSFQ7QUFJRCxPQUxEOztBQU9BSCxhQUFPSyxpQkFBUCxHQUEyQixZQUFNOztBQUUvQmQsb0JBQVllLFdBQVosQ0FBd0IsMEJBQXhCLEVBQW9ELEVBQUMsT0FBT04sT0FBT08sZ0JBQWYsRUFBcEQsRUFDVUMsSUFEVixDQUNlLFVBQVVDLEdBQVYsRUFBZTtBQUNuQixjQUFJQSxJQUFJQyxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDckJwQix5QkFBYXFCLEtBQWIsQ0FBbUJGLElBQUlHLElBQUosQ0FBU0MsT0FBNUI7QUFDRCxXQUZELE1BR0ssSUFBSUosSUFBSUMsTUFBSixJQUFjLEdBQWxCLEVBQXVCO0FBQzFCLGdCQUFJRCxJQUFJRyxJQUFKLENBQVNGLE1BQWIsRUFBcUI7QUFDbkIsa0JBQUlWLE9BQU9PLGdCQUFQLEdBQTBCLElBQTlCLEVBQW9DO0FBQ2xDakIsNkJBQWF3QixPQUFiLENBQXFCLHNEQUFzRGQsT0FBT2UsT0FBUCxDQUFlQyxXQUFmLENBQTJCQyxNQUF0RztBQUNELGVBRkQsTUFHSztBQUNIM0IsNkJBQWF3QixPQUFiLENBQXFCLEVBQUVELFNBQVMscURBQXFEYixPQUFPZSxPQUFQLENBQWVDLFdBQWYsQ0FBMkJFLE9BQTNGLEVBQW9HQyxXQUFXLFFBQS9HLEVBQXJCO0FBQ0Q7O0FBRURuQixxQkFBT2UsT0FBUCxDQUFlQyxXQUFmLENBQTJCSSxlQUEzQixHQUE2Q3BCLE9BQU9lLE9BQVAsQ0FBZUMsV0FBZixDQUEyQkksZUFBM0IsR0FBNkNwQixPQUFPTyxnQkFBakc7QUFDQVAscUJBQU9PLGdCQUFQLEdBQTBCLElBQTFCO0FBQ0Q7QUFDRjtBQUNGLFNBbEJWO0FBb0JELE9BdEJEO0FBd0JELEtBakNXO0FBZFAsR0FBUDtBQWlERCxDQWxEZ0UsQ0FBakUsRSIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL21ha2VXaXRoZHJhd2FsLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gRVhBTVBMRSB1cGxvYWRQb3N0SW1hZ2Vcbi8vIDxnYW1lLXBsYXk+PC9nYW1lLXBsYXk+XG5cblxudmFyIHVybCA9IGBcbjxzZWN0aW9uIGlkPVwibWFrZVdpdGhkcmF3YWxcIiBjbGFzcz1cInVpIHJpZ2h0IGZsb2F0ZWQgaG9yaXpvbnRhbCAgbGlzdFwiPlxuICA8ZGl2IGNsYXNzPVwiIHVpIHZlcnRpY2FsIGFuaW1hdGVkIGJsdWUgY29tcGFjdCBidXR0b25cIiB0YWJpbmRleD1cIi0xXCIgbmctY2xpY2s9XCJvcGVuTW9kYWwoKVwiPlxuICAgIDxkaXYgY2xhc3M9XCJoaWRkZW4gY29udGVudFwiPjxpIGNsYXNzPVwiaWNvbiBtb25leSBiaWxsIGFsdGVybmF0ZSBvdXRsaW5lXCI+PC9pPjwvZGl2PlxuICAgIDxkaXYgY2xhc3M9XCJ2aXNpYmxlIGNvbnRlbnRcIj5cbiAgICAgIENhc2ggT3V0XG4gICAgPC9kaXY+XG4gIDwvZGl2PlxuXG5cbiAgPGRpdiBjbGFzcz1cInVpIHRpbnkgbW9kYWwgbWFrZVdpdGhkcmF3YWwgdHJhbnNpdGlvbiBoaWRkZW5cIj5cblxuICAgICAgPGRpdiBjbGFzcz1cInVpIGljb24gbWluaSBtZXNzYWdlXCI+XG4gICAgICAgIDxpIGNsYXNzPVwiaW5ib3ggaWNvblwiPjwvaT5cbiAgICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIj5cbiAgICAgICAgICA8ZGl2IGNsYXNzPVwiaGVhZGVyXCI+XG4gICAgICAgICAgICBUUkFOU0ZFUiBFQVJOSU5HUyBGSVJTVFxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxwPiBUbyBjYXNob3V0IHlvdXIgZWFybmluZ3MsIGZpcnN0IHRyYW5zZmVyIGl0IHRvIHlvdXIgd2FsbGV0IGJ5IGNsaWNraW5nIHRoZSAndHJhbnNmZXIgZWFybmluZ3MnIGJ1dHRvbi4gT3RoZXJ3aXNlIHByb2NlZWQuPC9wPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuXG4gICAgICA8ZGl2IGNsYXNzPVwiaGVhZGVyXCI+XG4gICAgICAgIEVudGVyIGFuIEFtb3VudFxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwiaW1hZ2UgY29udGVudCBmbGV4LWNlbnRlclwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgZm9ybVwiPlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJpbmxpbmUgZmllbGRcIj5cbiAgICAgICAgICAgIDxpbnB1dCB0eXBlPVwibnVtYmVyXCIgcGxhY2Vob2xkZXI9XCJNYXgge3sgJHBhcmVudC51c2VyZGV0YWlscy5hdmFpbGFibGVfdW5pdHMgfCBjdXJyZW5jeSB9fVwiIG5nLW1vZGVsPVwicmVxdWVzdGVkX2Ftb3VudFwiIG5nLW1heD1cIiRwYXJlbnQudXNlcmRldGFpbHMuYXZhaWxhYmxlX3VuaXRzXCIgbmctbWluPVwiMTUwXCI+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwiYWN0aW9ucyAgZmxleC1jZW50ZXJcIj5cbiAgICAgICAgPGRpdiBjbGFzcz1cInVpIGJsYWNrIGxlZnQgZGVueSBidXR0b25cIj5cbiAgICAgICAgICBDbG9zZVxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdiBuZy1jbGFzcz1cInsndWkgcG9zaXRpdmUgcmlnaHQgbGFiZWxlZCBpY29uIGJ1dHRvbic6IHRydWUsICdkaXNhYmxlZCc6ICFyZXF1ZXN0ZWRfYW1vdW50fVwiIG5nLWNsaWNrPVwicmVxdWVzdFdpdGhkcmF3YWwoKVwiPlxuICAgICAgICAgIFllcCwgcHJvY2VlZCFcbiAgICAgICAgICA8aSBjbGFzcz1cImNoZWNrbWFyayBpY29uXCI+PC9pPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgICAgPGRpdiBjbGFzcz1cImltYWdlIGNvbnRlbnQgZmxleC1jZW50ZXJcIj5cbiAgICAgICAgPGRpdiBjbGFzcz1cInVpIGljb24gbWluaSBtZXNzYWdlIHBvc2l0aXZlXCI+XG4gICAgICAgICAgPGkgY2xhc3M9XCJpbmJveCBpY29uXCI+PC9pPlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJjb250ZW50XCI+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzPVwiaGVhZGVyXCI+XG4gICAgICAgICAgICAgIE5PVEU6XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDxwPiBGb3Igd2l0aGRyYXdhbHMgYmVsb3cg4oKmMTAwMCwgYSBzZXJ2aWNlIGZlZSBvZiDigqY1MCB3aWxsIGJlIGNoYXJnZWQuIDwvcD5cbiAgICAgICAgICAgIDxwPiBXaGlsZSBhbiBhZGRpdGlvbmFsIHNlcnZpY2UgZmVlIG9mIOKCpjUwIHdpbGwgYmUgY2hhcmdlZCBmb3IgZXZlcnkg4oKmNTAwMC48L3A+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG5cbiAgICA8L2Rpdj5cblxuPC9zZWN0aW9uPlxuYDtcblxuXG5hbmd1bGFyLm1vZHVsZSgnbWFrZVdpdGhkcmF3YWwnLCBbXSkuZGlyZWN0aXZlKCdtYWtlV2l0aGRyYXdhbCcsIFsnTm90aWZpY2F0aW9uJywgJ3NlbmRSZXF1ZXN0JywgZnVuY3Rpb24gKE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QpIHtcbiAgcmV0dXJuIHtcbiAgICByZXN0cmljdDogJ0UnLFxuICAgIHNjb3BlOntcbiAgICAgIC8vIGRlc3QgOiAnPScsXG4gICAgICAvLyBtZGw6Jz0nLFxuICAgICAgLy8gYXR0cjogJz0nLFxuICAgICAgLy8gYWx0VGV4dDogJz0nXG4gICAgfSxcbiAgICAvLyB0ZW1wbGF0ZVVybDonYW5ndWxhci9kaXJlY3RpdmUtdGVtcGxhdGVzL2dhbWVQbGF5VGVtcGxhdGUucGhwJyxcbiAgICB0ZW1wbGF0ZTp1cmwsXG4gICAgcmVwbGFjZTogdHJ1ZSxcbiAgICBsaW5rOiAoc2NvcGUsIGVsZW1lbnQsIGF0dHJpYnV0ZXMpID0+IHtcblxuXHRcdH0sXG4gICAgY29udHJvbGxlcjogWyckc2NvcGUnLCAgKCRzY29wZSkgPT4ge1xuXG4gICAgICAkc2NvcGUub3Blbk1vZGFsID0gKCkgPT4ge1xuICAgICAgICAkKCcudWkubW9kYWwubWFrZVdpdGhkcmF3YWwnKS5tb2RhbCh7XG4gICAgICAgICAgICBibHVycmluZzogdHJ1ZVxuICAgICAgICAgIH0pXG4gICAgICAgICAgLm1vZGFsKCdzaG93Jyk7XG4gICAgICB9O1xuXG4gICAgICAkc2NvcGUucmVxdWVzdFdpdGhkcmF3YWwgPSAoKSA9PiB7XG5cbiAgICAgICAgc2VuZFJlcXVlc3QucG9zdFJlcXVlc3QoJy91c2VyL3JlcXVlc3Qtd2l0aGRyYXdhbCcsIHsnYW10JzogJHNjb3BlLnJlcXVlc3RlZF9hbW91bnR9KVxuICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gNDIyKSB7XG4gICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3IocnNwLmRhdGEubWVzc2FnZSk7XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIGVsc2UgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICBpZiAocnNwLmRhdGEuc3RhdHVzKSB7XG4gICAgICAgICAgICAgICAgICAgICAgIGlmICgkc2NvcGUucmVxdWVzdGVkX2Ftb3VudCA8IDEwMDApIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24ucHJpbWFyeSgnQW1vdW50IHJlcXVlc3RlZCB3aWxsIGJlIHNlbnQgYSByZWNoYXJnZSBjYXJkIHRvICcgKyAkc2NvcGUuJHBhcmVudC51c2VyZGV0YWlscy5waG9uZTEpO1xuICAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgICAgIGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5wcmltYXJ5KHsgbWVzc2FnZTogJ0Ftb3VudCByZXF1ZXN0ZWQgd2lsbCBiZSBzZW50IHRvIGFjY291bnQgbnVtYmVyICcgKyAkc2NvcGUuJHBhcmVudC51c2VyZGV0YWlscy5hY2N0X25vLCBwb3NpdGlvblg6ICdjZW50ZXInfSk7XG4gICAgICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICAgICAkc2NvcGUuJHBhcmVudC51c2VyZGV0YWlscy5hdmFpbGFibGVfdW5pdHMgPSAkc2NvcGUuJHBhcmVudC51c2VyZGV0YWlscy5hdmFpbGFibGVfdW5pdHMgLSAkc2NvcGUucmVxdWVzdGVkX2Ftb3VudDtcbiAgICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLnJlcXVlc3RlZF9hbW91bnQgPSBudWxsO1xuICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgIH07XG5cbiAgICB9XVxuICB9O1xufV0pO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvbWFrZVdpdGhkcmF3YWwuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/makeWithdrawal.js\n");
+/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<section id="makeWithdrawal" class="ui right floated horizontal  list">\n  <div class=" ui vertical animated orange compact button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="icon money bill alternate outline"></i></div>\n    <div class="visible content">\n      Cash Out\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal makeWithdrawal transition hidden">\n\n      <div class="ui icon mini message">\n        <i class="inbox icon"></i>\n        <div class="content">\n          <div class="header">\n            TRANSFER EARNINGS FIRST\n          </div>\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \'transfer earnings\' button. Otherwise proceed.</p>\n        </div>\n      </div>\n\n      <div class="header">\n        Enter an Amount\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="150">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !requested_amount}" ng-click="requestWithdrawal()">\n          Yep, proceed!\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n      <div class="image content flex-center">\n        <div class="ui icon mini message positive">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> For withdrawals below \u20A61000, a service fee of \u20A650 will be charged. </p>\n            <p> While an additional service fee of \u20A650 will be charged for every \u20A65000.</p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
+
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      // dest : '=',
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.openModal = function () {
+        $('.ui.modal.makeWithdrawal').modal({
+          blurring: true
+        }).modal('show');
+      };
+
+      $scope.requestWithdrawal = function () {
+
+        sendRequest.postRequest('/user/request-withdrawal', { 'amt': $scope.requested_amount }).then(function (rsp) {
+          if (rsp.status == 422) {
+            Notification.error(rsp.data.message);
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              if ($scope.requested_amount < 1000) {
+                Notification.primary('Amount requested will be sent a recharge card to ' + $scope.$parent.userdetails.phone1);
+              } else {
+                Notification.primary({ message: 'Amount requested will be sent to account number ' + $scope.$parent.userdetails.acct_no, positionX: 'center' });
+              }
+
+              $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units - $scope.requested_amount;
+              $scope.requested_amount = null;
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/miniGameState.js":
 /***/ (function(module, exports) {
 
-eval("// EXAMPLE uploadPostImage\n// <game-state><game-state>\n\n\nvar url = '\\n\\n<div id=\"mini-game\">\\n<style>\\n\\n</style>\\n\\n  <div class=\"ui labeled button\" tabindex=\"-1\" ng-if=\"game_state == \\'loading\\'\">\\n    <div class=\"ui red button\">\\n      <i class=\"clock icon\"></i> <ng-transclude></ng-transclude> Next Game\\n    </div>\\n    <a class=\"ui basic red left pointing label\">\\n      <countdown-timer countdown=\"game_timer\" finish=\"pageReload()\"></countdown-timer>\\n    </a>\\n  </div>\\n\\n\\n  <div class=\"ui labeled button\" tabindex=\"-1\" ng-if=\"game_state == \\'active\\'\" ng-click=\"joinGame()\">\\n    <div class=\"ui green button\">\\n     <ng-transclude></ng-transclude>\\n      <i class=\"gamepad icon\"></i>Game On\\n    </div>\\n    <a class=\"ui basic left pointing green label\" ng-click=\"joinGame()\">\\n        <countdown-timer countdown=\"game_timer\" finish=\"pageReload()\"></countdown-timer>\\n    </a>\\n  </div>\\n\\n';\n\nangular.module('miniGameState', []).directive('miniGameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {\n  return {\n    restrict: 'E',\n    scope: {\n      // dest : '=',\n      // mdl:'=',\n      // attr: '=',\n      // altText: '='\n    },\n    // templateUrl:'angular/directive-templates/gameStateTemplate.php',\n    template: url,\n    replace: true,\n    transclude: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n\n      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {\n        $scope.user_score = $localStorage.user_score;\n      }\n\n      // handle page reload on timer countdown so that the page can get the next thing from the server\n      $scope.pageReload = function () {\n        // location.reload();\n        sendRequest.getGameState().then(function (rsp) {\n          $scope.game_state = rsp.game_state;\n          $scope.game_timer = rsp.game_timer;\n          $scope.total_examinees = rsp.total_examinees;\n        });\n      };\n\n      $scope.joinGame = function () {\n        NProgress.start();\n\n        delete $localStorage.user_score;\n        delete $localStorage.extra;\n        delete $localStorage.options;\n        delete $localStorage.user_questions;\n\n        sendRequest.postRequest('/user/join-game').then(function (rsp) {\n\n          if (rsp.status == 422) {\n            Notification.error({ message: 'No active game in progress', positionX: 'center' });\n          } else if (rsp.status == 200) {\n            if (rsp.data.status) {\n              $scope.game_state = 'transition';\n              $location.path('/dashboard/game-play');\n            }\n          } else if (rsp.status == 402) {\n            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });\n          } else if (rsp.status == 403) {\n            $scope.game_state = 'transition';\n            Notification.error({ message: 'Already in a game session.', positionX: 'center' });\n            $location.path('/dashboard/game-play');\n          }\n        });\n\n        NProgress.done();\n      };\n\n      sendRequest.getGameState().then(function (rsp) {\n        $scope.game_state = rsp.game_state;\n        $scope.game_timer = rsp.game_timer;\n        $scope.total_examinees = rsp.total_examinees;\n      });\n    }]\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9taW5pR2FtZVN0YXRlLmpzP2IyOGIiXSwibmFtZXMiOlsidXJsIiwiYW5ndWxhciIsIm1vZHVsZSIsImRpcmVjdGl2ZSIsIiRsb2NhdGlvbiIsIk5vdGlmaWNhdGlvbiIsIiRsb2NhbFN0b3JhZ2UiLCJzZW5kUmVxdWVzdCIsInJlc3RyaWN0Iiwic2NvcGUiLCJ0ZW1wbGF0ZSIsInJlcGxhY2UiLCJ0cmFuc2NsdWRlIiwibGluayIsImVsZW1lbnQiLCJhdHRyaWJ1dGVzIiwiY29udHJvbGxlciIsIiRzY29wZSIsImdldERhdGEiLCJpc1VuZGVmaW5lZCIsInVzZXJfc2NvcmUiLCJwYWdlUmVsb2FkIiwiZ2V0R2FtZVN0YXRlIiwidGhlbiIsImdhbWVfc3RhdGUiLCJyc3AiLCJnYW1lX3RpbWVyIiwidG90YWxfZXhhbWluZWVzIiwiam9pbkdhbWUiLCJOUHJvZ3Jlc3MiLCJzdGFydCIsImV4dHJhIiwib3B0aW9ucyIsInVzZXJfcXVlc3Rpb25zIiwicG9zdFJlcXVlc3QiLCJzdGF0dXMiLCJlcnJvciIsIm1lc3NhZ2UiLCJwb3NpdGlvblgiLCJkYXRhIiwicGF0aCIsImRvbmUiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7OztBQUdBLElBQUlBLHkwQkFBSjs7QUErQkFDLFFBQVFDLE1BQVIsQ0FBZSxlQUFmLEVBQWdDLEVBQWhDLEVBQW9DQyxTQUFwQyxDQUE4QyxlQUE5QyxFQUErRCxDQUFDLFdBQUQsRUFBYyxjQUFkLEVBQThCLGVBQTlCLEVBQStDLGFBQS9DLEVBQThELFVBQVVDLFNBQVYsRUFBcUJDLFlBQXJCLEVBQW1DQyxhQUFuQyxFQUFrREMsV0FBbEQsRUFBK0Q7QUFDMUwsU0FBTztBQUNMQyxjQUFVLEdBREw7QUFFTEMsV0FBTTtBQUNKO0FBQ0E7QUFDQTtBQUNBO0FBSkksS0FGRDtBQVFMO0FBQ0FDLGNBQVNWLEdBVEo7QUFVTFcsYUFBUyxJQVZKO0FBV0xDLGdCQUFZLElBWFA7QUFZTEMsVUFBTSxjQUFTSixLQUFULEVBQWdCSyxPQUFoQixFQUF5QkMsVUFBekIsRUFBb0MsQ0FFM0MsQ0FkTTtBQWVMQyxnQkFBWSxDQUFDLFFBQUQsRUFBVyxVQUFDQyxNQUFELEVBQVk7O0FBRWpDLFVBQUlWLFlBQVlXLE9BQVosQ0FBb0IsWUFBcEIsS0FBcUMsQ0FBQ2pCLFFBQVFrQixXQUFSLENBQW9CYixjQUFjYyxVQUFsQyxDQUExQyxFQUF5RjtBQUN2RkgsZUFBT0csVUFBUCxHQUFvQmQsY0FBY2MsVUFBbEM7QUFDRDs7QUFFRDtBQUNBSCxhQUFPSSxVQUFQLEdBQW9CLFlBQVk7QUFDOUI7QUFDQWQsb0JBQVllLFlBQVosR0FDVUMsSUFEVixDQUNnQixlQUFPO0FBQ1pOLGlCQUFPTyxVQUFQLEdBQW9CQyxJQUFJRCxVQUF4QjtBQUNBUCxpQkFBT1MsVUFBUCxHQUFvQkQsSUFBSUMsVUFBeEI7QUFDQVQsaUJBQU9VLGVBQVAsR0FBeUJGLElBQUlFLGVBQTdCO0FBQ0QsU0FMVjtBQU1ELE9BUkQ7O0FBVUFWLGFBQU9XLFFBQVAsR0FBa0IsWUFBTTtBQUN0QkMsa0JBQVVDLEtBQVY7O0FBRUEsZUFBT3hCLGNBQWNjLFVBQXJCO0FBQ0EsZUFBT2QsY0FBY3lCLEtBQXJCO0FBQ0EsZUFBT3pCLGNBQWMwQixPQUFyQjtBQUNBLGVBQU8xQixjQUFjMkIsY0FBckI7O0FBRUExQixvQkFBWTJCLFdBQVosQ0FBd0IsaUJBQXhCLEVBQ1VYLElBRFYsQ0FDZ0IsZUFBTzs7QUFFWixjQUFJRSxJQUFJVSxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDckI5Qix5QkFBYStCLEtBQWIsQ0FBbUIsRUFBRUMsU0FBUyw0QkFBWCxFQUF5Q0MsV0FBVyxRQUFwRCxFQUFuQjtBQUNELFdBRkQsTUFHSyxJQUFJYixJQUFJVSxNQUFKLElBQWMsR0FBbEIsRUFBdUI7QUFDMUIsZ0JBQUlWLElBQUljLElBQUosQ0FBU0osTUFBYixFQUFxQjtBQUNuQmxCLHFCQUFPTyxVQUFQLEdBQW9CLFlBQXBCO0FBQ0FwQix3QkFBVW9DLElBQVYsQ0FBZSxzQkFBZjtBQUNEO0FBQ0YsV0FMSSxNQU1BLElBQUlmLElBQUlVLE1BQUosSUFBYyxHQUFsQixFQUF1QjtBQUMxQjlCLHlCQUFhK0IsS0FBYixDQUFtQixFQUFFQyxTQUFTLG9DQUFYLEVBQWlEQyxXQUFXLFFBQTVELEVBQW5CO0FBQ0QsV0FGSSxNQUdBLElBQUliLElBQUlVLE1BQUosSUFBYyxHQUFsQixFQUF1QjtBQUMxQmxCLG1CQUFPTyxVQUFQLEdBQW9CLFlBQXBCO0FBQ0FuQix5QkFBYStCLEtBQWIsQ0FBbUIsRUFBRUMsU0FBUyw0QkFBWCxFQUF5Q0MsV0FBVyxRQUFwRCxFQUFuQjtBQUNBbEMsc0JBQVVvQyxJQUFWLENBQWUsc0JBQWY7QUFFRDtBQUNGLFNBckJWOztBQXVCQVgsa0JBQVVZLElBQVY7QUFDRCxPQWhDRDs7QUFrQ0FsQyxrQkFBWWUsWUFBWixHQUNVQyxJQURWLENBQ2dCLGVBQU87QUFDWk4sZUFBT08sVUFBUCxHQUFvQkMsSUFBSUQsVUFBeEI7QUFDQVAsZUFBT1MsVUFBUCxHQUFvQkQsSUFBSUMsVUFBeEI7QUFDQVQsZUFBT1UsZUFBUCxHQUF5QkYsSUFBSUUsZUFBN0I7QUFDRCxPQUxWO0FBT0QsS0ExRFc7QUFmUCxHQUFQO0FBMkVELENBNUU4RCxDQUEvRCIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL21pbmlHYW1lU3RhdGUuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBFWEFNUExFIHVwbG9hZFBvc3RJbWFnZVxuLy8gPGdhbWUtc3RhdGU+PGdhbWUtc3RhdGU+XG5cblxudmFyIHVybCA9IGBcblxuPGRpdiBpZD1cIm1pbmktZ2FtZVwiPlxuPHN0eWxlPlxuXG48L3N0eWxlPlxuXG4gIDxkaXYgY2xhc3M9XCJ1aSBsYWJlbGVkIGJ1dHRvblwiIHRhYmluZGV4PVwiLTFcIiBuZy1pZj1cImdhbWVfc3RhdGUgPT0gJ2xvYWRpbmcnXCI+XG4gICAgPGRpdiBjbGFzcz1cInVpIHJlZCBidXR0b25cIj5cbiAgICAgIDxpIGNsYXNzPVwiY2xvY2sgaWNvblwiPjwvaT4gPG5nLXRyYW5zY2x1ZGU+PC9uZy10cmFuc2NsdWRlPiBOZXh0IEdhbWVcbiAgICA8L2Rpdj5cbiAgICA8YSBjbGFzcz1cInVpIGJhc2ljIHJlZCBsZWZ0IHBvaW50aW5nIGxhYmVsXCI+XG4gICAgICA8Y291bnRkb3duLXRpbWVyIGNvdW50ZG93bj1cImdhbWVfdGltZXJcIiBmaW5pc2g9XCJwYWdlUmVsb2FkKClcIj48L2NvdW50ZG93bi10aW1lcj5cbiAgICA8L2E+XG4gIDwvZGl2PlxuXG5cbiAgPGRpdiBjbGFzcz1cInVpIGxhYmVsZWQgYnV0dG9uXCIgdGFiaW5kZXg9XCItMVwiIG5nLWlmPVwiZ2FtZV9zdGF0ZSA9PSAnYWN0aXZlJ1wiIG5nLWNsaWNrPVwiam9pbkdhbWUoKVwiPlxuICAgIDxkaXYgY2xhc3M9XCJ1aSBncmVlbiBidXR0b25cIj5cbiAgICAgPG5nLXRyYW5zY2x1ZGU+PC9uZy10cmFuc2NsdWRlPlxuICAgICAgPGkgY2xhc3M9XCJnYW1lcGFkIGljb25cIj48L2k+R2FtZSBPblxuICAgIDwvZGl2PlxuICAgIDxhIGNsYXNzPVwidWkgYmFzaWMgbGVmdCBwb2ludGluZyBncmVlbiBsYWJlbFwiIG5nLWNsaWNrPVwiam9pbkdhbWUoKVwiPlxuICAgICAgICA8Y291bnRkb3duLXRpbWVyIGNvdW50ZG93bj1cImdhbWVfdGltZXJcIiBmaW5pc2g9XCJwYWdlUmVsb2FkKClcIj48L2NvdW50ZG93bi10aW1lcj5cbiAgICA8L2E+XG4gIDwvZGl2PlxuXG5gO1xuXG5cblxuYW5ndWxhci5tb2R1bGUoJ21pbmlHYW1lU3RhdGUnLCBbXSkuZGlyZWN0aXZlKCdtaW5pR2FtZVN0YXRlJywgWyckbG9jYXRpb24nLCAnTm90aWZpY2F0aW9uJywgJyRsb2NhbFN0b3JhZ2UnLCAnc2VuZFJlcXVlc3QnLCBmdW5jdGlvbiAoJGxvY2F0aW9uLCBOb3RpZmljYXRpb24sICRsb2NhbFN0b3JhZ2UsIHNlbmRSZXF1ZXN0KSB7XG4gIHJldHVybiB7XG4gICAgcmVzdHJpY3Q6ICdFJyxcbiAgICBzY29wZTp7XG4gICAgICAvLyBkZXN0IDogJz0nLFxuICAgICAgLy8gbWRsOic9JyxcbiAgICAgIC8vIGF0dHI6ICc9JyxcbiAgICAgIC8vIGFsdFRleHQ6ICc9J1xuICAgIH0sXG4gICAgLy8gdGVtcGxhdGVVcmw6J2FuZ3VsYXIvZGlyZWN0aXZlLXRlbXBsYXRlcy9nYW1lU3RhdGVUZW1wbGF0ZS5waHAnLFxuICAgIHRlbXBsYXRlOnVybCxcbiAgICByZXBsYWNlOiB0cnVlLFxuICAgIHRyYW5zY2x1ZGU6IHRydWUsXG4gICAgbGluazogZnVuY3Rpb24oc2NvcGUsIGVsZW1lbnQsIGF0dHJpYnV0ZXMpe1xuXG5cdFx0fSxcbiAgICBjb250cm9sbGVyOiBbJyRzY29wZScsICgkc2NvcGUpID0+IHtcblxuICAgICAgaWYgKHNlbmRSZXF1ZXN0LmdldERhdGEoJ3VzZXJfc2NvcmUnKSB8fCAhYW5ndWxhci5pc1VuZGVmaW5lZCgkbG9jYWxTdG9yYWdlLnVzZXJfc2NvcmUpKSB7XG4gICAgICAgICRzY29wZS51c2VyX3Njb3JlID0gJGxvY2FsU3RvcmFnZS51c2VyX3Njb3JlO1xuICAgICAgfVxuXG4gICAgICAvLyBoYW5kbGUgcGFnZSByZWxvYWQgb24gdGltZXIgY291bnRkb3duIHNvIHRoYXQgdGhlIHBhZ2UgY2FuIGdldCB0aGUgbmV4dCB0aGluZyBmcm9tIHRoZSBzZXJ2ZXJcbiAgICAgICRzY29wZS5wYWdlUmVsb2FkID0gZnVuY3Rpb24gKCkge1xuICAgICAgICAvLyBsb2NhdGlvbi5yZWxvYWQoKTtcbiAgICAgICAgc2VuZFJlcXVlc3QuZ2V0R2FtZVN0YXRlKClcbiAgICAgICAgICAgICAgICAgLnRoZW4oIHJzcCA9PiB7XG4gICAgICAgICAgICAgICAgICAgJHNjb3BlLmdhbWVfc3RhdGUgPSByc3AuZ2FtZV9zdGF0ZTtcbiAgICAgICAgICAgICAgICAgICAkc2NvcGUuZ2FtZV90aW1lciA9IHJzcC5nYW1lX3RpbWVyO1xuICAgICAgICAgICAgICAgICAgICRzY29wZS50b3RhbF9leGFtaW5lZXMgPSByc3AudG90YWxfZXhhbWluZWVzO1xuICAgICAgICAgICAgICAgICB9KTtcbiAgICAgIH07XG5cbiAgICAgICRzY29wZS5qb2luR2FtZSA9ICgpID0+IHtcbiAgICAgICAgTlByb2dyZXNzLnN0YXJ0KCk7XG5cbiAgICAgICAgZGVsZXRlICRsb2NhbFN0b3JhZ2UudXNlcl9zY29yZTtcbiAgICAgICAgZGVsZXRlICRsb2NhbFN0b3JhZ2UuZXh0cmE7XG4gICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLm9wdGlvbnM7XG4gICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zO1xuXG4gICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9qb2luLWdhbWUnKVxuICAgICAgICAgICAgICAgICAudGhlbiAocnNwID0+IHtcblxuICAgICAgICAgICAgICAgICAgIGlmIChyc3Auc3RhdHVzID09IDQyMikge1xuICAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKHsgbWVzc2FnZTogJ05vIGFjdGl2ZSBnYW1lIGluIHByb2dyZXNzJywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICBlbHNlIGlmIChyc3Auc3RhdHVzID09IDIwMCkge1xuICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnN0YXR1cykge1xuICAgICAgICAgICAgICAgICAgICAgICAkc2NvcGUuZ2FtZV9zdGF0ZSA9ICd0cmFuc2l0aW9uJztcbiAgICAgICAgICAgICAgICAgICAgICAgJGxvY2F0aW9uLnBhdGgoJy9kYXNoYm9hcmQvZ2FtZS1wbGF5Jyk7XG4gICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgIGVsc2UgaWYgKHJzcC5zdGF0dXMgPT0gNDAyKSB7XG4gICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3IoeyBtZXNzYWdlOiAnSW5zdWZmaWNpZW50IGNyZWRpdHMgdG8gam9pbiBnYW1lLicsIHBvc2l0aW9uWDogJ2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgZWxzZSBpZiAocnNwLnN0YXR1cyA9PSA0MDMpIHtcbiAgICAgICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3N0YXRlID0gJ3RyYW5zaXRpb24nO1xuICAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKHsgbWVzc2FnZTogJ0FscmVhZHkgaW4gYSBnYW1lIHNlc3Npb24uJywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgICAgJGxvY2F0aW9uLnBhdGgoJy9kYXNoYm9hcmQvZ2FtZS1wbGF5Jyk7XG5cbiAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAgIE5Qcm9ncmVzcy5kb25lKCk7XG4gICAgICB9O1xuXG4gICAgICBzZW5kUmVxdWVzdC5nZXRHYW1lU3RhdGUoKVxuICAgICAgICAgICAgICAgLnRoZW4oIHJzcCA9PiB7XG4gICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3N0YXRlID0gcnNwLmdhbWVfc3RhdGU7XG4gICAgICAgICAgICAgICAgICRzY29wZS5nYW1lX3RpbWVyID0gcnNwLmdhbWVfdGltZXI7XG4gICAgICAgICAgICAgICAgICRzY29wZS50b3RhbF9leGFtaW5lZXMgPSByc3AudG90YWxfZXhhbWluZWVzO1xuICAgICAgICAgICAgICAgfSk7XG5cbiAgICB9XVxuICB9O1xufV0pO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvbWluaUdhbWVTdGF0ZS5qcyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/miniGameState.js\n");
+// EXAMPLE uploadPostImage
+// <game-state><game-state>
+
+
+var url = '\n\n<div id="mini-game">\n<style>\n\n</style>\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'loading\'">\n    <div class="ui red button">\n      <i class="clock icon"></i> <ng-transclude></ng-transclude> Next Game\n    </div>\n    <a class="ui basic red left pointing label">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'active\'" ng-click="joinGame()">\n    <div class="ui green button">\n     <ng-transclude></ng-transclude>\n      <i class="gamepad icon"></i>Game On\n    </div>\n    <a class="ui basic left pointing green label" ng-click="joinGame()">\n        <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n';
+
+angular.module('miniGameState', []).directive('miniGameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      // dest : '=',
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
+        $scope.user_score = $localStorage.user_score;
+      }
+
+      // handle page reload on timer countdown so that the page can get the next thing from the server
+      $scope.pageReload = function () {
+        // location.reload();
+        sendRequest.getGameState().then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+          $scope.total_examinees = rsp.total_examinees;
+        });
+      };
+
+      $scope.joinGame = function () {
+        NProgress.start();
+
+        delete $localStorage.user_score;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+        delete $localStorage.user_questions;
+
+        sendRequest.postRequest('/user/join-game').then(function (rsp) {
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              $scope.game_state = 'transition';
+              $location.path('/dashboard/game-play');
+            }
+          } else if (rsp.status == 402) {
+            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });
+          } else if (rsp.status == 403) {
+            $scope.game_state = 'transition';
+            Notification.error({ message: 'Already in a game session.', positionX: 'center' });
+            $location.path('/dashboard/game-play');
+          }
+        });
+
+        NProgress.done();
+      };
+
+      sendRequest.getGameState().then(function (rsp) {
+        $scope.game_state = rsp.game_state;
+        $scope.game_timer = rsp.game_timer;
+        $scope.total_examinees = rsp.total_examinees;
+      });
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/payWithPaystack.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <button ng-class="{\'ui blue right labeled icon button\': true, \'disabled\': !requested_amount}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">\n    Pay Online\n    <i class="credit card outline icon"></i>\n  </button>\n</section>\n';
+
+angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    template: url,
+    replace: true,
+    link: function link(scope, element) {
+      var scriptTag = angular.element(document.createElement('script'));
+      scriptTag.attr('charset', 'utf-8');
+      scriptTag.attr('src', 'https://js.paystack.co/v1/inline.js');
+      element.append(scriptTag);
+    },
+    controller: ['$scope', '$location', function ($scope, $location) {
+
+      $scope.saveOrderThenPayWithPaystack = function () {
+
+        $scope.awardCredits().then(function (rsp) {
+          $scope.payWithPaystack();
+        }, function (err) {
+          alert('Network Error. Please refresh the page and try again.');
+        });
+      };
+
+      $scope.payWithPaystack = function () {
+
+        $('.buyUnits.ui.modal').modal('hide');
+
+        var orderid = _.random(676764765, 544765545646456);
+        var handler = PaystackPop.setup({
+          // This assumes you already created a constant named
+          // PAYSTACK_PUBLIC_KEY with your public key from the
+          // Paystack dashboard. You can as well just paste it
+          // instead of creating the constant
+          key: PAYSTACK_PUBLIC_KEY,
+          email: $scope.$parent.userdetails.email,
+          first_name: $scope.$parent.userdetails.firstname,
+          last_name: $scope.$parent.userdetails.lastname,
+          phone: $scope.$parent.userdetails.phone1,
+          amount: $scope.requested_amount * 100,
+          ref: orderid,
+          metadata: {
+            cartid: orderid,
+            orderid: orderid,
+            custom_fields: [// to be displayed on paystack transaction page and paystack email.
+            {
+              display_name: "Paid on",
+              variable_name: "paid_on",
+              value: 'Website'
+            }, {
+              display_name: "Paid via",
+              variable_name: "paid_via",
+              value: 'Inline Popup'
+            }, {
+              display_name: "User Details",
+              variable_name: "user_details",
+              value: $scope.$parent.userdetails.firstname + ' ' + $scope.$parent.userdetails.lastname + ': ' + $scope.$parent.userdetails.phone1
+            }, {
+              display_name: "User ID",
+              variable_name: "user_id",
+              value: $scope.$parent.userdetails.id
+            }]
+          },
+          callback: function callback(response) {
+
+            // post to server to verify transaction before giving value
+            sendRequest.postRequest('/user/credit-account?reference=' + response.reference).then(function (rsp) {
+              if (rsp.status == 200) {
+                if (rsp.data.verified) {
+
+                  sendRequest.storeData('activeTransaction', true);
+
+                  Notification.primary({ message: 'Units added to account', positionX: 'center' });
+                  $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;
+                  $scope.requested_amount = null;
+                  $location.path('/dashboard/order-successful');
+                } else {
+                  Notification.error('Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.');
+                }
+              }
+            });
+          },
+          onClose: function onClose() {
+            Notification.error('Transaction cancelled by user');
+          }
+        });
+        handler.openIframe();
+      };
+
+      $scope.awardCredits = function () {
+
+        var data = {
+          'amt': $scope.requested_amount,
+          'trans_type': 'wallet funding',
+          'status': 'pending'
+        };
+
+        return sendRequest.postRequest('/user/send-credit-account-request', data).then(function (rsp) {
+          if (rsp.status == 200) {
+            if (rsp.data.status) {
+              return true;
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/sendMessage.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage\n// <game-play></game-play>\n\n\nvar url = '\\n<div class=\"ui small basic green icon buttons right floated\">\\n  <button class=\"ui button active\" ng-click=\"openModal()\">\\n    <ng-transclude></ng-transclude>\\n  </button>\\n  <div class=\"ui mini modal sendMessage transition hidden\">\\n      <div class=\"header\">\\n        Send a message\\n      </div>\\n      <div class=\"content flex-center\">\\n        <div class=\"ui form\">\\n          <div class=\"field\">\\n            <input type=\"text\" placeholder=\"Message Subject\" ng-model=\"m.subject\">\\n          </div>\\n          <div class=\"field\">\\n            <textarea placeholder=\"Message goes here\" ng-model=\"m.message\" ></textarea>\\n          </div>\\n        </div>\\n      </div>\\n      <div class=\"actions  flex-center\">\\n        <div class=\"ui black left deny button\">\\n          Bail\\n        </div>\\n        <div ng-class=\"{\\'ui positive right labeled icon button\\': true, \\'disabled\\': !m.message || !m.subject}\" ng-click=\"sendMessage()\">\\n          Send\\n          <i class=\"checkmark icon\"></i>\\n        </div>\\n      </div>\\n    </div>\\n</div>\\n';\n\nangular.module('sendMessage', []).directive('sendMessage', ['Notification', 'sendRequest', function (Notification, sendRequest) {\n  return {\n    restrict: 'E',\n    scope: {\n      msg: '='\n      // mdl:'=',\n      // attr: '=',\n      // altText: '='\n    },\n    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',\n    template: url,\n    replace: true,\n    transclude: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n\n      $scope.openModal = function () {\n        $('.ui.modal.sendMessage').modal({\n          blurring: true\n        }).modal('show');\n      };\n\n      $scope.sendMessage = function () {\n        sendRequest.postRequest('/user/send-message', $scope.m).then(function (rsp) {\n          if (rsp.data.status) {\n            Notification.primary('Message sent');\n            $scope.msg.read = true;\n            sendRequest.postRequest('/user/mark-message-as-read', $scope.msg);\n            $scope.m = null;\n          }\n        }, function (err) {\n          Notification.error('Sending Failed');\n        });\n      };\n    }]\n  };\n}]);\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(\"./node_modules/jquery/dist/jquery.js\")))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9zZW5kTWVzc2FnZS5qcz8xNzZiIl0sIm5hbWVzIjpbInVybCIsImFuZ3VsYXIiLCJtb2R1bGUiLCJkaXJlY3RpdmUiLCJOb3RpZmljYXRpb24iLCJzZW5kUmVxdWVzdCIsInJlc3RyaWN0Iiwic2NvcGUiLCJtc2ciLCJ0ZW1wbGF0ZSIsInJlcGxhY2UiLCJ0cmFuc2NsdWRlIiwibGluayIsImVsZW1lbnQiLCJhdHRyaWJ1dGVzIiwiY29udHJvbGxlciIsIiRzY29wZSIsIm9wZW5Nb2RhbCIsIiQiLCJtb2RhbCIsImJsdXJyaW5nIiwic2VuZE1lc3NhZ2UiLCJwb3N0UmVxdWVzdCIsIm0iLCJ0aGVuIiwicnNwIiwiZGF0YSIsInN0YXR1cyIsInByaW1hcnkiLCJyZWFkIiwiZXJyb3IiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7OztBQUdBLElBQUlBLCtoQ0FBSjs7QUFpQ0FDLFFBQVFDLE1BQVIsQ0FBZSxhQUFmLEVBQThCLEVBQTlCLEVBQWtDQyxTQUFsQyxDQUE0QyxhQUE1QyxFQUEyRCxDQUFDLGNBQUQsRUFBaUIsYUFBakIsRUFBZ0MsVUFBVUMsWUFBVixFQUF3QkMsV0FBeEIsRUFBcUM7QUFDOUgsU0FBTztBQUNMQyxjQUFVLEdBREw7QUFFTEMsV0FBTTtBQUNKQyxXQUFNO0FBQ047QUFDQTtBQUNBO0FBSkksS0FGRDtBQVFMO0FBQ0FDLGNBQVNULEdBVEo7QUFVTFUsYUFBUyxJQVZKO0FBV0xDLGdCQUFXLElBWE47QUFZTEMsVUFBTSxjQUFDTCxLQUFELEVBQVFNLE9BQVIsRUFBaUJDLFVBQWpCLEVBQWdDLENBRXZDLENBZE07QUFlTEMsZ0JBQVksQ0FBQyxRQUFELEVBQVksVUFBQ0MsTUFBRCxFQUFZOztBQUVsQ0EsYUFBT0MsU0FBUCxHQUFtQixZQUFNO0FBQ3ZCQyxVQUFFLHVCQUFGLEVBQTJCQyxLQUEzQixDQUFpQztBQUM3QkMsb0JBQVU7QUFEbUIsU0FBakMsRUFHR0QsS0FISCxDQUdTLE1BSFQ7QUFJRCxPQUxEOztBQU9BSCxhQUFPSyxXQUFQLEdBQXFCLFlBQU07QUFDekJoQixvQkFBWWlCLFdBQVosQ0FBd0Isb0JBQXhCLEVBQThDTixPQUFPTyxDQUFyRCxFQUNVQyxJQURWLENBQ2dCLGVBQU87QUFDWixjQUFJQyxJQUFJQyxJQUFKLENBQVNDLE1BQWIsRUFBcUI7QUFDbkJ2Qix5QkFBYXdCLE9BQWIsQ0FBcUIsY0FBckI7QUFDQVosbUJBQU9SLEdBQVAsQ0FBV3FCLElBQVgsR0FBa0IsSUFBbEI7QUFDQXhCLHdCQUFZaUIsV0FBWixDQUF3Qiw0QkFBeEIsRUFBc0ROLE9BQU9SLEdBQTdEO0FBQ0FRLG1CQUFPTyxDQUFQLEdBQVcsSUFBWDtBQUNEO0FBQ0YsU0FSVixFQVNTLGVBQU87QUFDTG5CLHVCQUFhMEIsS0FBYixDQUFtQixnQkFBbkI7QUFDRCxTQVhWO0FBWUQsT0FiRDtBQWVELEtBeEJXO0FBZlAsR0FBUDtBQXlDRCxDQTFDMEQsQ0FBM0QsRSIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL3NlbmRNZXNzYWdlLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gRVhBTVBMRSB1cGxvYWRQb3N0SW1hZ2Vcbi8vIDxnYW1lLXBsYXk+PC9nYW1lLXBsYXk+XG5cblxudmFyIHVybCA9IGBcbjxkaXYgY2xhc3M9XCJ1aSBzbWFsbCBiYXNpYyBncmVlbiBpY29uIGJ1dHRvbnMgcmlnaHQgZmxvYXRlZFwiPlxuICA8YnV0dG9uIGNsYXNzPVwidWkgYnV0dG9uIGFjdGl2ZVwiIG5nLWNsaWNrPVwib3Blbk1vZGFsKClcIj5cbiAgICA8bmctdHJhbnNjbHVkZT48L25nLXRyYW5zY2x1ZGU+XG4gIDwvYnV0dG9uPlxuICA8ZGl2IGNsYXNzPVwidWkgbWluaSBtb2RhbCBzZW5kTWVzc2FnZSB0cmFuc2l0aW9uIGhpZGRlblwiPlxuICAgICAgPGRpdiBjbGFzcz1cImhlYWRlclwiPlxuICAgICAgICBTZW5kIGEgbWVzc2FnZVxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwiY29udGVudCBmbGV4LWNlbnRlclwiPlxuICAgICAgICA8ZGl2IGNsYXNzPVwidWkgZm9ybVwiPlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJmaWVsZFwiPlxuICAgICAgICAgICAgPGlucHV0IHR5cGU9XCJ0ZXh0XCIgcGxhY2Vob2xkZXI9XCJNZXNzYWdlIFN1YmplY3RcIiBuZy1tb2RlbD1cIm0uc3ViamVjdFwiPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJmaWVsZFwiPlxuICAgICAgICAgICAgPHRleHRhcmVhIHBsYWNlaG9sZGVyPVwiTWVzc2FnZSBnb2VzIGhlcmVcIiBuZy1tb2RlbD1cIm0ubWVzc2FnZVwiID48L3RleHRhcmVhPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgICAgPGRpdiBjbGFzcz1cImFjdGlvbnMgIGZsZXgtY2VudGVyXCI+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBibGFjayBsZWZ0IGRlbnkgYnV0dG9uXCI+XG4gICAgICAgICAgQmFpbFxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdiBuZy1jbGFzcz1cInsndWkgcG9zaXRpdmUgcmlnaHQgbGFiZWxlZCBpY29uIGJ1dHRvbic6IHRydWUsICdkaXNhYmxlZCc6ICFtLm1lc3NhZ2UgfHwgIW0uc3ViamVjdH1cIiBuZy1jbGljaz1cInNlbmRNZXNzYWdlKClcIj5cbiAgICAgICAgICBTZW5kXG4gICAgICAgICAgPGkgY2xhc3M9XCJjaGVja21hcmsgaWNvblwiPjwvaT5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbjwvZGl2PlxuYDtcblxuXG5hbmd1bGFyLm1vZHVsZSgnc2VuZE1lc3NhZ2UnLCBbXSkuZGlyZWN0aXZlKCdzZW5kTWVzc2FnZScsIFsnTm90aWZpY2F0aW9uJywgJ3NlbmRSZXF1ZXN0JywgZnVuY3Rpb24gKE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QpIHtcbiAgcmV0dXJuIHtcbiAgICByZXN0cmljdDogJ0UnLFxuICAgIHNjb3BlOntcbiAgICAgIG1zZyA6ICc9JyxcbiAgICAgIC8vIG1kbDonPScsXG4gICAgICAvLyBhdHRyOiAnPScsXG4gICAgICAvLyBhbHRUZXh0OiAnPSdcbiAgICB9LFxuICAgIC8vIHRlbXBsYXRlVXJsOidhbmd1bGFyL2RpcmVjdGl2ZS10ZW1wbGF0ZXMvZ2FtZVBsYXlUZW1wbGF0ZS5waHAnLFxuICAgIHRlbXBsYXRlOnVybCxcbiAgICByZXBsYWNlOiB0cnVlLFxuICAgIHRyYW5zY2x1ZGU6dHJ1ZSxcbiAgICBsaW5rOiAoc2NvcGUsIGVsZW1lbnQsIGF0dHJpYnV0ZXMpID0+IHtcblxuXHRcdH0sXG4gICAgY29udHJvbGxlcjogWyckc2NvcGUnLCAgKCRzY29wZSkgPT4ge1xuXG4gICAgICAkc2NvcGUub3Blbk1vZGFsID0gKCkgPT4ge1xuICAgICAgICAkKCcudWkubW9kYWwuc2VuZE1lc3NhZ2UnKS5tb2RhbCh7XG4gICAgICAgICAgICBibHVycmluZzogdHJ1ZVxuICAgICAgICAgIH0pXG4gICAgICAgICAgLm1vZGFsKCdzaG93Jyk7XG4gICAgICB9O1xuXG4gICAgICAkc2NvcGUuc2VuZE1lc3NhZ2UgPSAoKSA9PiB7XG4gICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9zZW5kLW1lc3NhZ2UnLCAkc2NvcGUubSlcbiAgICAgICAgICAgICAgICAgLnRoZW4oIHJzcCA9PiB7XG4gICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnN0YXR1cykge1xuICAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLnByaW1hcnkoJ01lc3NhZ2Ugc2VudCcpO1xuICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLm1zZy5yZWFkID0gdHJ1ZTtcbiAgICAgICAgICAgICAgICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9tYXJrLW1lc3NhZ2UtYXMtcmVhZCcsICRzY29wZS5tc2cpO1xuICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLm0gPSBudWxsO1xuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgZXJyID0+IHtcbiAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3IoJ1NlbmRpbmcgRmFpbGVkJyk7XG4gICAgICAgICAgICAgICAgIH0pO1xuICAgICAgfTtcblxuICAgIH1dXG4gIH07XG59XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy9zZW5kTWVzc2FnZS5qcyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/sendMessage.js\n");
+/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<div class="ui small basic green icon buttons right floated">\n  <button class="ui button active" ng-click="openModal()">\n    <ng-transclude></ng-transclude>\n  </button>\n  <div class="ui mini modal sendMessage transition hidden">\n      <div class="header">\n        Send a message\n      </div>\n      <div class="content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="text" placeholder="Message Subject" ng-model="m.subject">\n          </div>\n          <div class="field">\n            <textarea placeholder="Message goes here" ng-model="m.message" ></textarea>\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Bail\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !m.message || !m.subject}" ng-click="sendMessage()">\n          Send\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n    </div>\n</div>\n';
+
+angular.module('sendMessage', []).directive('sendMessage', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      msg: '='
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.openModal = function () {
+        $('.ui.modal.sendMessage').modal({
+          blurring: true
+        }).modal('show');
+      };
+
+      $scope.sendMessage = function () {
+        sendRequest.postRequest('/user/send-message', $scope.m).then(function (rsp) {
+          if (rsp.data.status) {
+            Notification.primary('Message sent');
+            $scope.msg.read = true;
+            sendRequest.postRequest('/user/mark-message-as-read', $scope.msg);
+            $scope.m = null;
+          }
+        }, function (err) {
+          Notification.error('Sending Failed');
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/userProfile.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function($) {\n\nvar url = '\\n<section id=\"u_details\">\\n  <div class=\"grid-container\">\\n    <div class=\"grid-50\">\\n      <div class=\"content\">\\n        <h2 class=\"header\" style=\"margin-bottom: 2px;\">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>\\n        <div class=\"content\" style=\"padding-bottom: 5px;\">\\n          <div class=\"meta\">\\n            <span class=\"date\">Joined {{ userdetails.created_at | timeAgo }}</span>\\n          </div>\\n          <div class=\"description\">\\n            {{ userdetails.address }}\\n          </div>\\n        </div>\\n        <div class=\"content\" style=\"padding-bottom: 5px;\">\\n          <div class=\"ui blue label\">\\n            <i class=\"marker icon\"></i> {{ userdetails.town }}, {{ userdetails.state }}.\\n          </div>\\n          <div class=\"ui blue label\">\\n            <i class=\"mail icon\"></i> {{ userdetails.email }}\\n          </div>\\n        </div>\\n        <div class=\"content\" style=\"padding-bottom: 5px;\">\\n          <div class=\"ui green label\">\\n            <i class=\"call square icon\"></i> {{ userdetails.phone1 }}\\n          </div>\\n        </div>\\n        <div class=\"content\" style=\"padding-bottom: 5px;\">\\n          <div class=\"ui blue image label\">\\n            Last seen\\n            <div class=\"detail\">2 weeks ago</div>\\n          </div>\\n        </div>\\n      </div>\\n    </div>\\n    <div class=\"grid-50\">\\n      <div class=\"content\" style=\"margin-bottom: 15px;\">\\n        <div class=\"ui orange image label\">\\n          My Bank\\n          <div class=\"detail\">{{ userdetails.bank }}</div>\\n        </div>\\n\\n        <button class=\"ui compact right floated violet button\" ng-click=\"transferEarnings()\">\\n          <i class=\"icon credit card amazon pay\"></i>\\n          Transfer Earnings\\n        </button>\\n      </div>\\n      <div class=\"content\" style=\"padding-bottom: 25px;\">\\n        <div class=\"ui teal image label\">\\n          Acct. No.\\n          <div class=\"detail\">{{ userdetails.acct_no }}</div>\\n        </div>\\n\\n        <make-withdrawal></make-withdrawal>\\n\\n      </div>\\n      <div class=\"content\" style=\"padding-bottom: 25px;\">\\n        <div class=\"ui purple image label\">\\n          Acct. Name.\\n          <div class=\"detail\">{{ userdetails.firstname }} {{ userdetails.lastname }}</div>\\n        </div>\\n\\n        <buy-units></buy-units>\\n      </div>\\n      <div class=\"content\" style=\"padding-bottom: 5px;\">\\n        <div class=\"ui red image label\">\\n          Referral link\\n          <div class=\"detail\" id=\"refcode\" ng-click=\"copy()\" style=\"cursor: pointer;\" title=\"Click to copy\">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>\\n          <input type=\"text\" ng-hide=\"true\" id=\"hiddenref\">\\n        </div>\\n        <div class=\"addthis_inline_share_toolbox_lksv\">\\n          Win up to \\u20A615,00 on with just \\u20A635 every 20minutes by answering 10 questions in 10 minutes. Visit https://fastplay24.com/register/ref/{{ userdetails.refcode }} right now.\\n        </div>\\n\\n      </div>\\n    </div>\\n  </div>\\n</section>\\n';\n\nangular.module('userProfile', []).directive('userProfile', [function () {\n  return {\n    restrict: 'E',\n    // templateUrl:'angular/directive-templates/userProfileTemplate.php',\n    template: url,\n    replace: true,\n    link: function link(scope, element, attributes) {\n\n      // console.log(attributes); //literal string \"{{some string}}\", no interpolation\n      // console.log(element); //literal string \"{{some string}}\", no interpolation\n      // console.log(attributes.anotherParam); //literally \"another string\"\n      element.children('input[type=\"file\"]').attr('id', attributes.attr);\n      element.children('input[type=\"file\"]').attr('name', attributes.attr);\n      element.children('img').attr('alt', attributes.altText);\n      // attributes.$observe('myDirective', function(value){\n      // \tconsole.log(value);\n      // });\n      //\n      // attributes.$observe('anotherParam', function(value){\n      // \tconsole.log(value);\n      // });\n    },\n    controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {\n\n      $scope.copy = function () {\n        console.log($('#refcode'));\n        $('#hiddenref').val($('#refcode').text());\n        $('#hiddenref').select();\n        document.execCommand('Copy');\n        Notification.primary('Referral code copied');\n      };\n\n      $scope.transferEarnings = function () {\n        sendRequest.postRequest('user/transfer-earnings').then(function (rsp) {\n          if (rsp.status == 200) {\n            if (rsp.data.status == true) {\n              Notification.success({ message: 'Earnings transferred to wallet', positionX: 'center' });\n            } else if (rsp.data.status == 'Insufficient') {\n              Notification.error({ message: 'No earnings to transfer', positionX: 'center' });\n            }\n          }\n\n          sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {\n            $scope.userdetails = rsp.userdetails;\n          });\n          sendRequest.getTotalEarnings('/user/get-total-earnings', true).then(function (rsp) {\n            $scope.total_earnings = rsp.total_earnings;\n          });\n        });\n      };\n    }]\n  };\n}]);\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(\"./node_modules/jquery/dist/jquery.js\")))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy91c2VyUHJvZmlsZS5qcz8xM2QxIl0sIm5hbWVzIjpbInVybCIsImFuZ3VsYXIiLCJtb2R1bGUiLCJkaXJlY3RpdmUiLCJyZXN0cmljdCIsInRlbXBsYXRlIiwicmVwbGFjZSIsImxpbmsiLCJzY29wZSIsImVsZW1lbnQiLCJhdHRyaWJ1dGVzIiwiY2hpbGRyZW4iLCJhdHRyIiwiYWx0VGV4dCIsImNvbnRyb2xsZXIiLCIkc2NvcGUiLCJOb3RpZmljYXRpb24iLCJzZW5kUmVxdWVzdCIsImNvcHkiLCJjb25zb2xlIiwibG9nIiwiJCIsInZhbCIsInRleHQiLCJzZWxlY3QiLCJkb2N1bWVudCIsImV4ZWNDb21tYW5kIiwicHJpbWFyeSIsInRyYW5zZmVyRWFybmluZ3MiLCJwb3N0UmVxdWVzdCIsInRoZW4iLCJyc3AiLCJzdGF0dXMiLCJkYXRhIiwic3VjY2VzcyIsIm1lc3NhZ2UiLCJwb3NpdGlvblgiLCJlcnJvciIsImdldFVzZXJEZXRhaWxzIiwidXNlcmRldGFpbHMiLCJnZXRUb3RhbEVhcm5pbmdzIiwidG90YWxfZWFybmluZ3MiXSwibWFwcGluZ3MiOiI7O0FBRUEsSUFBSUEsbThGQUFKOztBQWlGQUMsUUFBUUMsTUFBUixDQUFlLGFBQWYsRUFBOEIsRUFBOUIsRUFBa0NDLFNBQWxDLENBQTRDLGFBQTVDLEVBQTJELENBQUMsWUFBWTtBQUN0RSxTQUFPO0FBQ0xDLGNBQVUsR0FETDtBQUVMO0FBQ0FDLGNBQVNMLEdBSEo7QUFJTE0sYUFBUyxJQUpKO0FBS0xDLFVBQU0sY0FBU0MsS0FBVCxFQUFnQkMsT0FBaEIsRUFBeUJDLFVBQXpCLEVBQW9DOztBQUUzQztBQUNBO0FBQ0E7QUFDR0QsY0FBUUUsUUFBUixDQUFrQixvQkFBbEIsRUFBeUNDLElBQXpDLENBQThDLElBQTlDLEVBQW9ERixXQUFXRSxJQUEvRDtBQUNBSCxjQUFRRSxRQUFSLENBQWtCLG9CQUFsQixFQUF5Q0MsSUFBekMsQ0FBOEMsTUFBOUMsRUFBc0RGLFdBQVdFLElBQWpFO0FBQ0FILGNBQVFFLFFBQVIsQ0FBa0IsS0FBbEIsRUFBMEJDLElBQTFCLENBQStCLEtBQS9CLEVBQXNDRixXQUFXRyxPQUFqRDtBQUNIO0FBQ0E7QUFDQTtBQUNHO0FBQ0g7QUFDQTtBQUNBO0FBRUEsS0FyQk07QUFzQkxDLGdCQUFZLENBQUMsUUFBRCxFQUFXLGNBQVgsRUFBMkIsYUFBM0IsRUFBMEMsVUFBVUMsTUFBVixFQUFrQkMsWUFBbEIsRUFBZ0NDLFdBQWhDLEVBQTZDOztBQUVqR0YsYUFBT0csSUFBUCxHQUFjLFlBQU07QUFDbEJDLGdCQUFRQyxHQUFSLENBQVlDLEVBQUUsVUFBRixDQUFaO0FBQ0FBLFVBQUUsWUFBRixFQUFnQkMsR0FBaEIsQ0FBb0JELEVBQUUsVUFBRixFQUFjRSxJQUFkLEVBQXBCO0FBQ0FGLFVBQUUsWUFBRixFQUFnQkcsTUFBaEI7QUFDQUMsaUJBQVNDLFdBQVQsQ0FBcUIsTUFBckI7QUFDQVYscUJBQWFXLE9BQWIsQ0FBcUIsc0JBQXJCO0FBQ0QsT0FORDs7QUFRQVosYUFBT2EsZ0JBQVAsR0FBMEIsWUFBTTtBQUM5Qlgsb0JBQVlZLFdBQVosQ0FBd0Isd0JBQXhCLEVBQ1dDLElBRFgsQ0FDZ0IsZUFBTztBQUNYLGNBQUlDLElBQUlDLE1BQUosSUFBYyxHQUFsQixFQUF1QjtBQUNyQixnQkFBSUQsSUFBSUUsSUFBSixDQUFTRCxNQUFULElBQW1CLElBQXZCLEVBQTZCO0FBQzNCaEIsMkJBQWFrQixPQUFiLENBQXFCLEVBQUNDLFNBQVMsZ0NBQVYsRUFBNENDLFdBQVcsUUFBdkQsRUFBckI7QUFDRCxhQUZELE1BR0ssSUFBR0wsSUFBSUUsSUFBSixDQUFTRCxNQUFULElBQW1CLGNBQXRCLEVBQXFDO0FBQ3hDaEIsMkJBQWFxQixLQUFiLENBQW1CLEVBQUNGLFNBQVMseUJBQVYsRUFBcUNDLFdBQVcsUUFBaEQsRUFBbkI7QUFDRDtBQUNGOztBQUVEbkIsc0JBQVlxQixjQUFaLENBQTJCLHdCQUEzQixFQUFxRCxJQUFyRCxFQUNhUixJQURiLENBQ21CLFVBQUNDLEdBQUQsRUFBUztBQUNkaEIsbUJBQU93QixXQUFQLEdBQXFCUixJQUFJUSxXQUF6QjtBQUNELFdBSGI7QUFJQXRCLHNCQUFZdUIsZ0JBQVosQ0FBNkIsMEJBQTdCLEVBQXlELElBQXpELEVBQ2FWLElBRGIsQ0FDa0IsVUFBVUMsR0FBVixFQUFlO0FBQ25CaEIsbUJBQU8wQixjQUFQLEdBQXdCVixJQUFJVSxjQUE1QjtBQUNELFdBSGI7QUFJRCxTQW5CWDtBQW9CRCxPQXJCRDtBQXNCRCxLQWhDVztBQXRCUCxHQUFQO0FBd0RELENBekQwRCxDQUEzRCxFIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvdXNlclByb2ZpbGUuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJcblxudmFyIHVybCA9IGBcbjxzZWN0aW9uIGlkPVwidV9kZXRhaWxzXCI+XG4gIDxkaXYgY2xhc3M9XCJncmlkLWNvbnRhaW5lclwiPlxuICAgIDxkaXYgY2xhc3M9XCJncmlkLTUwXCI+XG4gICAgICA8ZGl2IGNsYXNzPVwiY29udGVudFwiPlxuICAgICAgICA8aDIgY2xhc3M9XCJoZWFkZXJcIiBzdHlsZT1cIm1hcmdpbi1ib3R0b206IDJweDtcIj57eyB1c2VyZGV0YWlscy5maXJzdG5hbWUgfX0ge3sgdXNlcmRldGFpbHMubGFzdG5hbWUgfX08L2gyPlxuICAgICAgICA8ZGl2IGNsYXNzPVwiY29udGVudFwiIHN0eWxlPVwicGFkZGluZy1ib3R0b206IDVweDtcIj5cbiAgICAgICAgICA8ZGl2IGNsYXNzPVwibWV0YVwiPlxuICAgICAgICAgICAgPHNwYW4gY2xhc3M9XCJkYXRlXCI+Sm9pbmVkIHt7IHVzZXJkZXRhaWxzLmNyZWF0ZWRfYXQgfCB0aW1lQWdvIH19PC9zcGFuPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJkZXNjcmlwdGlvblwiPlxuICAgICAgICAgICAge3sgdXNlcmRldGFpbHMuYWRkcmVzcyB9fVxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIiBzdHlsZT1cInBhZGRpbmctYm90dG9tOiA1cHg7XCI+XG4gICAgICAgICAgPGRpdiBjbGFzcz1cInVpIGJsdWUgbGFiZWxcIj5cbiAgICAgICAgICAgIDxpIGNsYXNzPVwibWFya2VyIGljb25cIj48L2k+IHt7IHVzZXJkZXRhaWxzLnRvd24gfX0sIHt7IHVzZXJkZXRhaWxzLnN0YXRlIH19LlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBibHVlIGxhYmVsXCI+XG4gICAgICAgICAgICA8aSBjbGFzcz1cIm1haWwgaWNvblwiPjwvaT4ge3sgdXNlcmRldGFpbHMuZW1haWwgfX1cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJjb250ZW50XCIgc3R5bGU9XCJwYWRkaW5nLWJvdHRvbTogNXB4O1wiPlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBncmVlbiBsYWJlbFwiPlxuICAgICAgICAgICAgPGkgY2xhc3M9XCJjYWxsIHNxdWFyZSBpY29uXCI+PC9pPiB7eyB1c2VyZGV0YWlscy5waG9uZTEgfX1cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJjb250ZW50XCIgc3R5bGU9XCJwYWRkaW5nLWJvdHRvbTogNXB4O1wiPlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBibHVlIGltYWdlIGxhYmVsXCI+XG4gICAgICAgICAgICBMYXN0IHNlZW5cbiAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJkZXRhaWxcIj4yIHdlZWtzIGFnbzwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICAgIDxkaXYgY2xhc3M9XCJncmlkLTUwXCI+XG4gICAgICA8ZGl2IGNsYXNzPVwiY29udGVudFwiIHN0eWxlPVwibWFyZ2luLWJvdHRvbTogMTVweDtcIj5cbiAgICAgICAgPGRpdiBjbGFzcz1cInVpIG9yYW5nZSBpbWFnZSBsYWJlbFwiPlxuICAgICAgICAgIE15IEJhbmtcbiAgICAgICAgICA8ZGl2IGNsYXNzPVwiZGV0YWlsXCI+e3sgdXNlcmRldGFpbHMuYmFuayB9fTwvZGl2PlxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICA8YnV0dG9uIGNsYXNzPVwidWkgY29tcGFjdCByaWdodCBmbG9hdGVkIHZpb2xldCBidXR0b25cIiBuZy1jbGljaz1cInRyYW5zZmVyRWFybmluZ3MoKVwiPlxuICAgICAgICAgIDxpIGNsYXNzPVwiaWNvbiBjcmVkaXQgY2FyZCBhbWF6b24gcGF5XCI+PC9pPlxuICAgICAgICAgIFRyYW5zZmVyIEVhcm5pbmdzXG4gICAgICAgIDwvYnV0dG9uPlxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwiY29udGVudFwiIHN0eWxlPVwicGFkZGluZy1ib3R0b206IDI1cHg7XCI+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSB0ZWFsIGltYWdlIGxhYmVsXCI+XG4gICAgICAgICAgQWNjdC4gTm8uXG4gICAgICAgICAgPGRpdiBjbGFzcz1cImRldGFpbFwiPnt7IHVzZXJkZXRhaWxzLmFjY3Rfbm8gfX08L2Rpdj5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgPG1ha2Utd2l0aGRyYXdhbD48L21ha2Utd2l0aGRyYXdhbD5cblxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwiY29udGVudFwiIHN0eWxlPVwicGFkZGluZy1ib3R0b206IDI1cHg7XCI+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSBwdXJwbGUgaW1hZ2UgbGFiZWxcIj5cbiAgICAgICAgICBBY2N0LiBOYW1lLlxuICAgICAgICAgIDxkaXYgY2xhc3M9XCJkZXRhaWxcIj57eyB1c2VyZGV0YWlscy5maXJzdG5hbWUgfX0ge3sgdXNlcmRldGFpbHMubGFzdG5hbWUgfX08L2Rpdj5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgPGJ1eS11bml0cz48L2J1eS11bml0cz5cbiAgICAgIDwvZGl2PlxuICAgICAgPGRpdiBjbGFzcz1cImNvbnRlbnRcIiBzdHlsZT1cInBhZGRpbmctYm90dG9tOiA1cHg7XCI+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJ1aSByZWQgaW1hZ2UgbGFiZWxcIj5cbiAgICAgICAgICBSZWZlcnJhbCBsaW5rXG4gICAgICAgICAgPGRpdiBjbGFzcz1cImRldGFpbFwiIGlkPVwicmVmY29kZVwiIG5nLWNsaWNrPVwiY29weSgpXCIgc3R5bGU9XCJjdXJzb3I6IHBvaW50ZXI7XCIgdGl0bGU9XCJDbGljayB0byBjb3B5XCI+aHR0cHM6Ly9mYXN0cGxheTI0LmNvbS9yZWdpc3Rlci9yZWYve3sgdXNlcmRldGFpbHMucmVmY29kZSB9fTwvZGl2PlxuICAgICAgICAgIDxpbnB1dCB0eXBlPVwidGV4dFwiIG5nLWhpZGU9XCJ0cnVlXCIgaWQ9XCJoaWRkZW5yZWZcIj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3M9XCJhZGR0aGlzX2lubGluZV9zaGFyZV90b29sYm94X2xrc3ZcIj5cbiAgICAgICAgICBXaW4gdXAgdG8g4oKmMTUsMDAgb24gd2l0aCBqdXN0IOKCpjM1IGV2ZXJ5IDIwbWludXRlcyBieSBhbnN3ZXJpbmcgMTAgcXVlc3Rpb25zIGluIDEwIG1pbnV0ZXMuIFZpc2l0IGh0dHBzOi8vZmFzdHBsYXkyNC5jb20vcmVnaXN0ZXIvcmVmL3t7IHVzZXJkZXRhaWxzLnJlZmNvZGUgfX0gcmlnaHQgbm93LlxuICAgICAgICA8L2Rpdj5cblxuICAgICAgPC9kaXY+XG4gICAgPC9kaXY+XG4gIDwvZGl2PlxuPC9zZWN0aW9uPlxuYDtcblxuXG5hbmd1bGFyLm1vZHVsZSgndXNlclByb2ZpbGUnLCBbXSkuZGlyZWN0aXZlKCd1c2VyUHJvZmlsZScsIFtmdW5jdGlvbiAoKSB7XG4gIHJldHVybiB7XG4gICAgcmVzdHJpY3Q6ICdFJyxcbiAgICAvLyB0ZW1wbGF0ZVVybDonYW5ndWxhci9kaXJlY3RpdmUtdGVtcGxhdGVzL3VzZXJQcm9maWxlVGVtcGxhdGUucGhwJyxcbiAgICB0ZW1wbGF0ZTp1cmwsXG4gICAgcmVwbGFjZTogdHJ1ZSxcbiAgICBsaW5rOiBmdW5jdGlvbihzY29wZSwgZWxlbWVudCwgYXR0cmlidXRlcyl7XG5cblx0XHRcdC8vIGNvbnNvbGUubG9nKGF0dHJpYnV0ZXMpOyAvL2xpdGVyYWwgc3RyaW5nIFwie3tzb21lIHN0cmluZ319XCIsIG5vIGludGVycG9sYXRpb25cblx0XHRcdC8vIGNvbnNvbGUubG9nKGVsZW1lbnQpOyAvL2xpdGVyYWwgc3RyaW5nIFwie3tzb21lIHN0cmluZ319XCIsIG5vIGludGVycG9sYXRpb25cblx0XHRcdC8vIGNvbnNvbGUubG9nKGF0dHJpYnV0ZXMuYW5vdGhlclBhcmFtKTsgLy9saXRlcmFsbHkgXCJhbm90aGVyIHN0cmluZ1wiXG4gICAgICBlbGVtZW50LmNoaWxkcmVuKCAnaW5wdXRbdHlwZT1cImZpbGVcIl0nICkuYXR0cignaWQnLCBhdHRyaWJ1dGVzLmF0dHIpO1xuICAgICAgZWxlbWVudC5jaGlsZHJlbiggJ2lucHV0W3R5cGU9XCJmaWxlXCJdJyApLmF0dHIoJ25hbWUnLCBhdHRyaWJ1dGVzLmF0dHIpO1xuICAgICAgZWxlbWVudC5jaGlsZHJlbiggJ2ltZycgKS5hdHRyKCdhbHQnLCBhdHRyaWJ1dGVzLmFsdFRleHQpO1xuXHRcdFx0Ly8gYXR0cmlidXRlcy4kb2JzZXJ2ZSgnbXlEaXJlY3RpdmUnLCBmdW5jdGlvbih2YWx1ZSl7XG5cdFx0XHQvLyBcdGNvbnNvbGUubG9nKHZhbHVlKTtcblx0XHRcdC8vIH0pO1xuICAgICAgLy9cblx0XHRcdC8vIGF0dHJpYnV0ZXMuJG9ic2VydmUoJ2Fub3RoZXJQYXJhbScsIGZ1bmN0aW9uKHZhbHVlKXtcblx0XHRcdC8vIFx0Y29uc29sZS5sb2codmFsdWUpO1xuXHRcdFx0Ly8gfSk7XG5cblx0XHR9LFxuICAgIGNvbnRyb2xsZXI6IFsnJHNjb3BlJywgJ05vdGlmaWNhdGlvbicsICdzZW5kUmVxdWVzdCcsIGZ1bmN0aW9uICgkc2NvcGUsIE5vdGlmaWNhdGlvbiwgc2VuZFJlcXVlc3QpIHtcblxuICAgICAgJHNjb3BlLmNvcHkgPSAoKSA9PiB7XG4gICAgICAgIGNvbnNvbGUubG9nKCQoJyNyZWZjb2RlJykpO1xuICAgICAgICAkKCcjaGlkZGVucmVmJykudmFsKCQoJyNyZWZjb2RlJykudGV4dCgpKTtcbiAgICAgICAgJCgnI2hpZGRlbnJlZicpLnNlbGVjdCgpO1xuICAgICAgICBkb2N1bWVudC5leGVjQ29tbWFuZCgnQ29weScpO1xuICAgICAgICBOb3RpZmljYXRpb24ucHJpbWFyeSgnUmVmZXJyYWwgY29kZSBjb3BpZWQnKTtcbiAgICAgIH07XG5cbiAgICAgICRzY29wZS50cmFuc2ZlckVhcm5pbmdzID0gKCkgPT4ge1xuICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgndXNlci90cmFuc2Zlci1lYXJuaW5ncycpXG4gICAgICAgICAgICAgICAgICAudGhlbihyc3AgPT4ge1xuICAgICAgICAgICAgICAgICAgICBpZiAocnNwLnN0YXR1cyA9PSAyMDApIHtcbiAgICAgICAgICAgICAgICAgICAgICBpZiAocnNwLmRhdGEuc3RhdHVzID09IHRydWUpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5zdWNjZXNzKHttZXNzYWdlOiAnRWFybmluZ3MgdHJhbnNmZXJyZWQgdG8gd2FsbGV0JywgcG9zaXRpb25YOiAnY2VudGVyJ30pO1xuICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgICBlbHNlIGlmKHJzcC5kYXRhLnN0YXR1cyA9PSAnSW5zdWZmaWNpZW50Jyl7XG4gICAgICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3Ioe21lc3NhZ2U6ICdObyBlYXJuaW5ncyB0byB0cmFuc2ZlcicsIHBvc2l0aW9uWDogJ2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICBzZW5kUmVxdWVzdC5nZXRVc2VyRGV0YWlscygnL3VzZXIvZ2V0LXVzZXItZGV0YWlscycsIHRydWUpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKCAocnNwKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJHNjb3BlLnVzZXJkZXRhaWxzID0gcnNwLnVzZXJkZXRhaWxzO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgICAgICAgICAgc2VuZFJlcXVlc3QuZ2V0VG90YWxFYXJuaW5ncygnL3VzZXIvZ2V0LXRvdGFsLWVhcm5pbmdzJywgdHJ1ZSlcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICRzY29wZS50b3RhbF9lYXJuaW5ncyA9IHJzcC50b3RhbF9lYXJuaW5ncztcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgICB9KTtcbiAgICAgIH07XG4gICAgfV1cbiAgfTtcbn1dKTtcblxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9kaXJlY3RpdmVzL3VzZXJQcm9maWxlLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/userProfile.js\n");
+/* WEBPACK VAR INJECTION */(function($) {
+
+var url = '\n<section id="u_details">\n  <div class="grid-container">\n    <div class="grid-50">\n      <div class="content">\n        <h2 class="header" style="margin-bottom: 2px;">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="meta">\n            <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>\n          </div>\n          <div class="description">\n            {{ userdetails.address }}\n          </div>\n        </div>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="ui blue label">\n            <i class="marker icon"></i> {{ userdetails.town }}, {{ userdetails.state }}.\n          </div>\n          <div class="ui blue label">\n            <i class="mail icon"></i> {{ userdetails.email }}\n          </div>\n        </div>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="ui green label">\n            <i class="call square icon"></i> {{ userdetails.phone1 }}\n          </div>\n        </div>\n        <br />\n        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">\n          <a class="a2a_dd" href="https://www.addtoany.com/share"></a>\n          <a class="a2a_button_facebook"></a>\n          <a class="a2a_button_sms"></a>\n          <a class="a2a_button_email"></a>\n          <a class="a2a_button_whatsapp"></a>\n          <a class="a2a_button_copy_link"></a>\n        </div>\n        <br />\n      </div>\n    </div>\n    <div class="grid-50">\n      <div class="content" style="margin-bottom: 15px;">\n        <div class="ui orange image label">\n          My Bank\n          <div class="detail">{{ userdetails.bank }}</div>\n        </div>\n\n        <button class="ui compact right floated violet button" ng-click="transferEarnings()">\n          <i class="icon credit card amazon pay"></i>\n          Transfer Earnings\n        </button>\n      </div>\n      <div class="content" style="padding-bottom: 25px;">\n        <div class="ui teal image label">\n          Acct. No.\n          <div class="detail">{{ userdetails.acct_no }}</div>\n        </div>\n\n        <make-withdrawal></make-withdrawal>\n\n      </div>\n      <div class="content" style="padding-bottom: 25px;">\n        <div class="ui purple image label">\n          Acct. Name.\n          <div class="detail">{{ userdetails.firstname }} {{ userdetails.lastname }}</div>\n        </div>\n\n        <buy-units></buy-units>\n      </div>\n      <div class="content" style="padding-bottom: 5px;">\n        <div class="ui red image label">\n          Referral link\n          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>\n          <input type="text" ng-hide="true" id="hiddenref">\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n';
+
+angular.module('userProfile', []).directive('userProfile', [function () {
+  return {
+    restrict: 'E',
+    // templateUrl:'angular/directive-templates/userProfileTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {
+      var scriptTag = angular.element(document.createElement('script'));
+      scriptTag.attr('charset', 'utf-8');
+      scriptTag.attr('src', 'https://static.addtoany.com/menu/page.js');
+      element.append(scriptTag);
+    },
+    controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {
+
+      $scope.copy = function () {
+        console.log($('#refcode'));
+        $('#hiddenref').val($('#refcode').text());
+        $('#hiddenref').select();
+        document.execCommand('Copy');
+        Notification.primary('Referral code copied');
+      };
+
+      $scope.transferEarnings = function () {
+        sendRequest.postRequest('user/transfer-earnings').then(function (rsp) {
+          if (rsp.status == 200) {
+            if (rsp.data.status == true) {
+              Notification.success({ message: 'Earnings transferred to wallet', positionX: 'center' });
+            } else if (rsp.data.status == 'Insufficient') {
+              Notification.error({ message: 'No earnings to transfer', positionX: 'center' });
+            }
+          }
+
+          sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {
+            $scope.userdetails = rsp.userdetails;
+          });
+          sendRequest.getTotalEarnings('/user/get-total-earnings', true).then(function (rsp) {
+            $scope.total_earnings = rsp.total_earnings;
+          });
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/verifyAccount.js":
 /***/ (function(module, exports) {
 
-eval("// EXAMPLE uploadPostImage\n// <game-play></game-play>\n\n\nvar url = '\\n<section id=\"verifyAccount\" class=\"ui left floated horizontal  list\">\\n\\n  <div class=\"ui circular green labels\" ng-if=\"userdetails.verified\">\\n    <a class=\"ui label\">\\n      <i class=\"check circle icon\" style=\"margin: 0;\"></i>\\n    </a>\\n  </div>\\n\\n  <div class=\"ui labeled button\" tabindex=\"-1\" ng-click=\"sendVerificationMail()\" ng-if=\"!userdetails.verified\">\\n    <div class=\"ui red label right pointing\">\\n      <i class=\"exclamation triangle icon\"></i>\\n    </div>\\n    <a class=\"ui basic red label ng-binding\">Verify now</a>\\n  </div>\\n</section>\\n';\n\nangular.module('verifyAccount', []).directive('verifyAccount', ['Notification', 'sendRequest', function (Notification, sendRequest) {\n  return {\n    restrict: 'E',\n    // scope:{\n    //   // dest : '=',\n    //   // mdl:'=',\n    //   // attr: '=',\n    //   // altText: '='\n    // },\n    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',\n    template: url,\n    replace: true,\n    link: function link(scope, element, attributes) {},\n    controller: ['$scope', function ($scope) {\n\n      $scope.sendVerificationMail = function () {\n\n        Notification.warning({ message: 'Attempting to send verification email...', delay: 2000 });\n\n        sendRequest.postRequest('/user/send-verification-mail', $scope.userdetails.email).then(function (rsp) {\n          if (rsp.status == 422 || rsp.status == 408) {\n            Notification.error({ message: rsp.data.message, delay: 1500, replace: true });\n          } else if (rsp.status == 200) {\n            if (rsp.data.message) {\n              // Notification.success('Verification mail sent to ' + $scope.userdetails.email);\n              Notification.success({ message: rsp.data.message, replace: true });\n            }\n          }\n        });\n      };\n    }]\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy92ZXJpZnlBY2NvdW50LmpzP2Q3YzkiXSwibmFtZXMiOlsidXJsIiwiYW5ndWxhciIsIm1vZHVsZSIsImRpcmVjdGl2ZSIsIk5vdGlmaWNhdGlvbiIsInNlbmRSZXF1ZXN0IiwicmVzdHJpY3QiLCJ0ZW1wbGF0ZSIsInJlcGxhY2UiLCJsaW5rIiwic2NvcGUiLCJlbGVtZW50IiwiYXR0cmlidXRlcyIsImNvbnRyb2xsZXIiLCIkc2NvcGUiLCJzZW5kVmVyaWZpY2F0aW9uTWFpbCIsIndhcm5pbmciLCJtZXNzYWdlIiwiZGVsYXkiLCJwb3N0UmVxdWVzdCIsInVzZXJkZXRhaWxzIiwiZW1haWwiLCJ0aGVuIiwicnNwIiwic3RhdHVzIiwiZXJyb3IiLCJkYXRhIiwic3VjY2VzcyJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTs7O0FBR0EsSUFBSUEsc2pCQUFKOztBQW1CQUMsUUFBUUMsTUFBUixDQUFlLGVBQWYsRUFBZ0MsRUFBaEMsRUFBb0NDLFNBQXBDLENBQThDLGVBQTlDLEVBQStELENBQUMsY0FBRCxFQUFpQixhQUFqQixFQUFnQyxVQUFVQyxZQUFWLEVBQXdCQyxXQUF4QixFQUFxQztBQUNsSSxTQUFPO0FBQ0xDLGNBQVUsR0FETDtBQUVMO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0FDLGNBQVNQLEdBVEo7QUFVTFEsYUFBUyxJQVZKO0FBV0xDLFVBQU0sY0FBQ0MsS0FBRCxFQUFRQyxPQUFSLEVBQWlCQyxVQUFqQixFQUFnQyxDQUV2QyxDQWJNO0FBY0xDLGdCQUFZLENBQUMsUUFBRCxFQUFZLFVBQUNDLE1BQUQsRUFBWTs7QUFFbENBLGFBQU9DLG9CQUFQLEdBQThCLFlBQU07O0FBRWxDWCxxQkFBYVksT0FBYixDQUFxQixFQUFDQyxTQUFTLDBDQUFWLEVBQXNEQyxPQUFPLElBQTdELEVBQXJCOztBQUVBYixvQkFBWWMsV0FBWixDQUF3Qiw4QkFBeEIsRUFBd0RMLE9BQU9NLFdBQVAsQ0FBbUJDLEtBQTNFLEVBQ1VDLElBRFYsQ0FDZSxVQUFVQyxHQUFWLEVBQWU7QUFDbkIsY0FBSUEsSUFBSUMsTUFBSixJQUFjLEdBQWQsSUFBcUJELElBQUlDLE1BQUosSUFBYyxHQUF2QyxFQUE0QztBQUMxQ3BCLHlCQUFhcUIsS0FBYixDQUFtQixFQUFDUixTQUFTTSxJQUFJRyxJQUFKLENBQVNULE9BQW5CLEVBQTRCQyxPQUFRLElBQXBDLEVBQTBDVixTQUFVLElBQXBELEVBQW5CO0FBQ0QsV0FGRCxNQUdLLElBQUllLElBQUlDLE1BQUosSUFBYyxHQUFsQixFQUF1QjtBQUMxQixnQkFBSUQsSUFBSUcsSUFBSixDQUFTVCxPQUFiLEVBQXNCO0FBQ25CO0FBQ0FiLDJCQUFhdUIsT0FBYixDQUFxQixFQUFDVixTQUFTTSxJQUFJRyxJQUFKLENBQVNULE9BQW5CLEVBQTRCVCxTQUFTLElBQXJDLEVBQXJCO0FBQ0Y7QUFDRjtBQUNGLFNBWFY7QUFhRCxPQWpCRDtBQW1CRCxLQXJCVztBQWRQLEdBQVA7QUFxQ0QsQ0F0QzhELENBQS9EIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2RpcmVjdGl2ZXMvdmVyaWZ5QWNjb3VudC5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEVYQU1QTEUgdXBsb2FkUG9zdEltYWdlXG4vLyA8Z2FtZS1wbGF5PjwvZ2FtZS1wbGF5PlxuXG5cbnZhciB1cmwgPSBgXG48c2VjdGlvbiBpZD1cInZlcmlmeUFjY291bnRcIiBjbGFzcz1cInVpIGxlZnQgZmxvYXRlZCBob3Jpem9udGFsICBsaXN0XCI+XG5cbiAgPGRpdiBjbGFzcz1cInVpIGNpcmN1bGFyIGdyZWVuIGxhYmVsc1wiIG5nLWlmPVwidXNlcmRldGFpbHMudmVyaWZpZWRcIj5cbiAgICA8YSBjbGFzcz1cInVpIGxhYmVsXCI+XG4gICAgICA8aSBjbGFzcz1cImNoZWNrIGNpcmNsZSBpY29uXCIgc3R5bGU9XCJtYXJnaW46IDA7XCI+PC9pPlxuICAgIDwvYT5cbiAgPC9kaXY+XG5cbiAgPGRpdiBjbGFzcz1cInVpIGxhYmVsZWQgYnV0dG9uXCIgdGFiaW5kZXg9XCItMVwiIG5nLWNsaWNrPVwic2VuZFZlcmlmaWNhdGlvbk1haWwoKVwiIG5nLWlmPVwiIXVzZXJkZXRhaWxzLnZlcmlmaWVkXCI+XG4gICAgPGRpdiBjbGFzcz1cInVpIHJlZCBsYWJlbCByaWdodCBwb2ludGluZ1wiPlxuICAgICAgPGkgY2xhc3M9XCJleGNsYW1hdGlvbiB0cmlhbmdsZSBpY29uXCI+PC9pPlxuICAgIDwvZGl2PlxuICAgIDxhIGNsYXNzPVwidWkgYmFzaWMgcmVkIGxhYmVsIG5nLWJpbmRpbmdcIj5WZXJpZnkgbm93PC9hPlxuICA8L2Rpdj5cbjwvc2VjdGlvbj5cbmA7XG5cblxuYW5ndWxhci5tb2R1bGUoJ3ZlcmlmeUFjY291bnQnLCBbXSkuZGlyZWN0aXZlKCd2ZXJpZnlBY2NvdW50JywgWydOb3RpZmljYXRpb24nLCAnc2VuZFJlcXVlc3QnLCBmdW5jdGlvbiAoTm90aWZpY2F0aW9uLCBzZW5kUmVxdWVzdCkge1xuICByZXR1cm4ge1xuICAgIHJlc3RyaWN0OiAnRScsXG4gICAgLy8gc2NvcGU6e1xuICAgIC8vICAgLy8gZGVzdCA6ICc9JyxcbiAgICAvLyAgIC8vIG1kbDonPScsXG4gICAgLy8gICAvLyBhdHRyOiAnPScsXG4gICAgLy8gICAvLyBhbHRUZXh0OiAnPSdcbiAgICAvLyB9LFxuICAgIC8vIHRlbXBsYXRlVXJsOidhbmd1bGFyL2RpcmVjdGl2ZS10ZW1wbGF0ZXMvZ2FtZVBsYXlUZW1wbGF0ZS5waHAnLFxuICAgIHRlbXBsYXRlOnVybCxcbiAgICByZXBsYWNlOiB0cnVlLFxuICAgIGxpbms6IChzY29wZSwgZWxlbWVudCwgYXR0cmlidXRlcykgPT4ge1xuXG5cdFx0fSxcbiAgICBjb250cm9sbGVyOiBbJyRzY29wZScsICAoJHNjb3BlKSA9PiB7XG5cbiAgICAgICRzY29wZS5zZW5kVmVyaWZpY2F0aW9uTWFpbCA9ICgpID0+IHtcblxuICAgICAgICBOb3RpZmljYXRpb24ud2FybmluZyh7bWVzc2FnZTogJ0F0dGVtcHRpbmcgdG8gc2VuZCB2ZXJpZmljYXRpb24gZW1haWwuLi4nLCBkZWxheTogMjAwMH0pO1xuXG4gICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9zZW5kLXZlcmlmaWNhdGlvbi1tYWlsJywgJHNjb3BlLnVzZXJkZXRhaWxzLmVtYWlsKVxuICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gNDIyIHx8IHJzcC5zdGF0dXMgPT0gNDA4KSB7XG4gICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3Ioe21lc3NhZ2U6IHJzcC5kYXRhLm1lc3NhZ2UsIGRlbGF5IDogMTUwMCwgcmVwbGFjZSA6IHRydWV9KTtcbiAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgZWxzZSBpZiAocnNwLnN0YXR1cyA9PSAyMDApIHtcbiAgICAgICAgICAgICAgICAgICAgIGlmIChyc3AuZGF0YS5tZXNzYWdlKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAvLyBOb3RpZmljYXRpb24uc3VjY2VzcygnVmVyaWZpY2F0aW9uIG1haWwgc2VudCB0byAnICsgJHNjb3BlLnVzZXJkZXRhaWxzLmVtYWlsKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5zdWNjZXNzKHttZXNzYWdlOiByc3AuZGF0YS5tZXNzYWdlLCByZXBsYWNlOiB0cnVlfSk7XG4gICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgfTtcblxuICAgIH1dXG4gIH07XG59XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZGlyZWN0aXZlcy92ZXJpZnlBY2NvdW50LmpzIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/directives/verifyAccount.js\n");
+// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<section id="verifyAccount" class="ui left floated horizontal  list">\n\n  <div class="ui circular green labels" ng-if="userdetails.verified">\n    <a class="ui label">\n      <i class="check circle icon" style="margin: 0;"></i>\n    </a>\n  </div>\n\n  <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMail()" ng-if="!userdetails.verified">\n    <div class="ui red label right pointing">\n      <i class="exclamation triangle icon"></i>\n    </div>\n    <a class="ui basic red label ng-binding">Verify now</a>\n  </div>\n</section>\n';
+
+angular.module('verifyAccount', []).directive('verifyAccount', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    // scope:{
+    //   // dest : '=',
+    //   // mdl:'=',
+    //   // attr: '=',
+    //   // altText: '='
+    // },
+    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.sendVerificationMail = function () {
+
+        Notification.warning({ message: 'Attempting to send verification email...', delay: 2000 });
+
+        sendRequest.postRequest('/user/send-verification-mail', $scope.userdetails.email).then(function (rsp) {
+          if (rsp.status == 422 || rsp.status == 408) {
+            Notification.error({ message: rsp.data.message, delay: 1500, replace: true });
+          } else if (rsp.status == 200) {
+            if (rsp.data.message) {
+              // Notification.success('Verification mail sent to ' + $scope.userdetails.email);
+              Notification.success({ message: rsp.data.message, replace: true });
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/filters/parseHTML.js":
 /***/ (function(module, exports) {
 
-eval("\n// SAMPLE USAGE\n// <td ng-bind-html=\"post.summary | trusted | truncate:200\"></td>\n\n\nangular.module('parseHTML', []).filter('trusted', ['$sce', function ($sce) {\n\treturn function (stringToParse) {\n\t\treturn $sce.trustAsHtml(stringToParse);\n\t};\n}]);\n\n// home.filter('trusted', ['$sce', function($sce) {\n//     var div = document.createElement('div');\n//     return function(text) {\n//         div.innerHTML = text;\n//         return $sce.trustAsHtml(div.textContent);\n//     };\n// }]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZmlsdGVycy9wYXJzZUhUTUwuanM/MzAzZCJdLCJuYW1lcyI6WyJhbmd1bGFyIiwibW9kdWxlIiwiZmlsdGVyIiwiJHNjZSIsInN0cmluZ1RvUGFyc2UiLCJ0cnVzdEFzSHRtbCJdLCJtYXBwaW5ncyI6IjtBQUNBO0FBQ0E7OztBQUdBQSxRQUFRQyxNQUFSLENBQWUsV0FBZixFQUE0QixFQUE1QixFQUFnQ0MsTUFBaEMsQ0FBdUMsU0FBdkMsRUFBa0QsQ0FBQyxNQUFELEVBQVMsVUFBU0MsSUFBVCxFQUFlO0FBQ3pFLFFBQU8sVUFBU0MsYUFBVCxFQUNQO0FBQ0MsU0FBT0QsS0FBS0UsV0FBTCxDQUFpQkQsYUFBakIsQ0FBUDtBQUNBLEVBSEQ7QUFJQSxDQUxpRCxDQUFsRDs7QUFPQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiIuL3Jlc291cmNlcy9hc3NldHMvanMvYW5ndWxhci9maWx0ZXJzL3BhcnNlSFRNTC5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLy8gU0FNUExFIFVTQUdFXG4vLyA8dGQgbmctYmluZC1odG1sPVwicG9zdC5zdW1tYXJ5IHwgdHJ1c3RlZCB8IHRydW5jYXRlOjIwMFwiPjwvdGQ+XG5cblxuYW5ndWxhci5tb2R1bGUoJ3BhcnNlSFRNTCcsIFtdKS5maWx0ZXIoJ3RydXN0ZWQnLCBbJyRzY2UnLCBmdW5jdGlvbigkc2NlKSB7XG5cdHJldHVybiBmdW5jdGlvbihzdHJpbmdUb1BhcnNlKVxuXHR7XG5cdFx0cmV0dXJuICRzY2UudHJ1c3RBc0h0bWwoc3RyaW5nVG9QYXJzZSk7XG5cdH1cbn1dKTtcblxuLy8gaG9tZS5maWx0ZXIoJ3RydXN0ZWQnLCBbJyRzY2UnLCBmdW5jdGlvbigkc2NlKSB7XG4vLyAgICAgdmFyIGRpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuLy8gICAgIHJldHVybiBmdW5jdGlvbih0ZXh0KSB7XG4vLyAgICAgICAgIGRpdi5pbm5lckhUTUwgPSB0ZXh0O1xuLy8gICAgICAgICByZXR1cm4gJHNjZS50cnVzdEFzSHRtbChkaXYudGV4dENvbnRlbnQpO1xuLy8gICAgIH07XG4vLyB9XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZmlsdGVycy9wYXJzZUhUTUwuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/filters/parseHTML.js\n");
+
+// SAMPLE USAGE
+// <td ng-bind-html="post.summary | trusted | truncate:200"></td>
+
+
+angular.module('parseHTML', []).filter('trusted', ['$sce', function ($sce) {
+	return function (stringToParse) {
+		return $sce.trustAsHtml(stringToParse);
+	};
+}]);
+
+// home.filter('trusted', ['$sce', function($sce) {
+//     var div = document.createElement('div');
+//     return function(text) {
+//         div.innerHTML = text;
+//         return $sce.trustAsHtml(div.textContent);
+//     };
+// }]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/filters/rangeFilter.js":
 /***/ (function(module, exports) {
 
-eval("//n in _.range(1,16)\n//n in [] | range:20\n\nvar app = angular.module('range', []);\n\napp.filter('range', function () {\n  return function (input, total) {\n    console.log(total);\n    total = parseInt(input);\n    for (var i = 0; i < total; i++) {\n      input.push(i);\n    }return input;\n  };\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZmlsdGVycy9yYW5nZUZpbHRlci5qcz8wNjQ0Il0sIm5hbWVzIjpbImFwcCIsImFuZ3VsYXIiLCJtb2R1bGUiLCJmaWx0ZXIiLCJpbnB1dCIsInRvdGFsIiwiY29uc29sZSIsImxvZyIsInBhcnNlSW50IiwiaSIsInB1c2giXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7O0FBRUEsSUFBSUEsTUFBTUMsUUFBUUMsTUFBUixDQUFlLE9BQWYsRUFBd0IsRUFBeEIsQ0FBVjs7QUFFQUYsSUFBSUcsTUFBSixDQUFXLE9BQVgsRUFBb0IsWUFBVztBQUM3QixTQUFPLFVBQVNDLEtBQVQsRUFBZ0JDLEtBQWhCLEVBQXVCO0FBQzVCQyxZQUFRQyxHQUFSLENBQVlGLEtBQVo7QUFDQUEsWUFBUUcsU0FBU0osS0FBVCxDQUFSO0FBQ0EsU0FBSyxJQUFJSyxJQUFFLENBQVgsRUFBY0EsSUFBRUosS0FBaEIsRUFBdUJJLEdBQXZCO0FBQ0VMLFlBQU1NLElBQU4sQ0FBV0QsQ0FBWDtBQURGLEtBRUEsT0FBT0wsS0FBUDtBQUNELEdBTkQ7QUFPRCxDQVJEIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL2ZpbHRlcnMvcmFuZ2VGaWx0ZXIuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvL24gaW4gXy5yYW5nZSgxLDE2KVxuLy9uIGluIFtdIHwgcmFuZ2U6MjBcblxudmFyIGFwcCA9IGFuZ3VsYXIubW9kdWxlKCdyYW5nZScsIFtdKTtcblxuYXBwLmZpbHRlcigncmFuZ2UnLCBmdW5jdGlvbigpIHtcbiAgcmV0dXJuIGZ1bmN0aW9uKGlucHV0LCB0b3RhbCkge1xuICAgIGNvbnNvbGUubG9nKHRvdGFsKTtcbiAgICB0b3RhbCA9IHBhcnNlSW50KGlucHV0KTtcbiAgICBmb3IgKHZhciBpPTA7IGk8dG90YWw7IGkrKylcbiAgICAgIGlucHV0LnB1c2goaSk7XG4gICAgcmV0dXJuIGlucHV0O1xuICB9O1xufSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvZmlsdGVycy9yYW5nZUZpbHRlci5qcyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/filters/rangeFilter.js\n");
+//n in _.range(1,16)
+//n in [] | range:20
+
+var app = angular.module('range', []);
+
+app.filter('range', function () {
+  return function (input, total) {
+    console.log(total);
+    total = parseInt(input);
+    for (var i = 0; i < total; i++) {
+      input.push(i);
+    }return input;
+  };
+});
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/routes/dashboard-routes.js":
 /***/ (function(module, exports) {
 
-eval("dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', '$provide', function ($routeProvider, $locationProvider, $localStorageProvider, NotificationProvider, timeAgoSettings, $provide) {\n\n  $routeProvider.when('/dashboard', {\n    templateUrl: 'angular/views/dashboard/index.html',\n    controller: 'DashboardController',\n    animation: 'slide'\n  }).when('/dashboard/profile', {\n    templateUrl: 'angular/views/dashboard/profile.html',\n    controller: 'ProfileController',\n    animation: 'slide'\n  }).when('/dashboard/messages', {\n    templateUrl: 'angular/views/dashboard/messages.html',\n    controller: 'MessageController',\n    animation: 'slide'\n  }).when('/dashboard/notices', {\n    templateUrl: 'angular/views/dashboard/notices.html',\n    controller: 'NoticeController',\n    animation: 'slide'\n  }).when('/dashboard/settings', {\n    templateUrl: 'angular/views/dashboard/settings.html',\n    controller: 'SettingsController',\n    animation: 'slide'\n  }).when('/dashboard/game-play', {\n    templateUrl: 'angular/views/dashboard/game-play.html',\n    controller: 'GamePlayController',\n    animation: 'slide',\n    resolve: {\n      gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {\n        return sendRequest.getGameState().then(function (rsp) {\n          if (rsp.game_state != 'active') {\n            $location.path('/dashboard');\n          } else {\n            return rsp;\n          }\n        });\n      }]\n    }\n  }).when('/dashboard/display-results', {\n    templateUrl: 'angular/views/dashboard/display-results.html',\n    controller: 'DisplayResultsController',\n    resolve: {\n      gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {\n        sendRequest.getGameState().then(function (rsp) {\n          if (rsp.game_state != 'loading') {\n            $location.path('/dashboard');\n          }\n        });\n      }]\n    }\n  }).otherwise({\n    redirectTo: '/dashboard'\n  });\n\n  $locationProvider.hashPrefix('');\n  $locationProvider.html5Mode(true);\n  $localStorageProvider.setKeyPrefix('game-');\n  timeAgoSettings.allowFuture = true;\n  NotificationProvider.setOptions({\n    delay: 5000,\n    replaceMessage: true,\n    //  startTop: 20,\n    //  startRight: 10,\n    //  verticalSpacing: 20,\n    //  horizontalSpacing: 20,\n    positionX: 'center'\n    //  positionY: 'bottom'\n  });\n\n  $provide.decorator('$locale', ['$delegate', function ($delegate) {\n    $delegate.NUMBER_FORMATS = {\n      DECIMAL_SEP: '.',\n      GROUP_SEP: ',',\n      PATTERNS: [{ // Decimal Pattern\n        minInt: 1,\n        minFrac: 0,\n        maxFrac: 3,\n        posPre: '',\n        posSuf: '',\n        negPre: '-',\n        negSuf: '',\n        gSize: 3,\n        lgSize: 3\n      }, { //Currency Pattern\n        minInt: 1,\n        minFrac: 0,\n        maxFrac: 2,\n        posPre: '\\xA4',\n        posSuf: '',\n        negPre: '(\\xA4',\n        negSuf: ')',\n        gSize: 3,\n        lgSize: 3\n      }],\n      CURRENCY_SYM: '₦'\n    };\n    return $delegate;\n  }]);\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvcm91dGVzL2Rhc2hib2FyZC1yb3V0ZXMuanM/ODA4MSJdLCJuYW1lcyI6WyJkYXNoYm9hcmQiLCJjb25maWciLCIkcm91dGVQcm92aWRlciIsIiRsb2NhdGlvblByb3ZpZGVyIiwiJGxvY2FsU3RvcmFnZVByb3ZpZGVyIiwiTm90aWZpY2F0aW9uUHJvdmlkZXIiLCJ0aW1lQWdvU2V0dGluZ3MiLCIkcHJvdmlkZSIsIndoZW4iLCJ0ZW1wbGF0ZVVybCIsImNvbnRyb2xsZXIiLCJhbmltYXRpb24iLCJyZXNvbHZlIiwiZ2FtZUFjdGl2ZSIsIiRsb2NhdGlvbiIsInNlbmRSZXF1ZXN0IiwiZ2V0R2FtZVN0YXRlIiwidGhlbiIsInJzcCIsImdhbWVfc3RhdGUiLCJwYXRoIiwib3RoZXJ3aXNlIiwicmVkaXJlY3RUbyIsImhhc2hQcmVmaXgiLCJodG1sNU1vZGUiLCJzZXRLZXlQcmVmaXgiLCJhbGxvd0Z1dHVyZSIsInNldE9wdGlvbnMiLCJkZWxheSIsInJlcGxhY2VNZXNzYWdlIiwicG9zaXRpb25YIiwiZGVjb3JhdG9yIiwiJGRlbGVnYXRlIiwiTlVNQkVSX0ZPUk1BVFMiLCJERUNJTUFMX1NFUCIsIkdST1VQX1NFUCIsIlBBVFRFUk5TIiwibWluSW50IiwibWluRnJhYyIsIm1heEZyYWMiLCJwb3NQcmUiLCJwb3NTdWYiLCJuZWdQcmUiLCJuZWdTdWYiLCJnU2l6ZSIsImxnU2l6ZSIsIkNVUlJFTkNZX1NZTSJdLCJtYXBwaW5ncyI6IkFBQUFBLFVBQVVDLE1BQVYsQ0FBaUIsQ0FBQyxnQkFBRCxFQUFtQixtQkFBbkIsRUFBd0MsdUJBQXhDLEVBQWlFLHNCQUFqRSxFQUF5RixpQkFBekYsRUFBNEcsVUFBNUcsRUFBd0gsVUFBVUMsY0FBVixFQUEwQkMsaUJBQTFCLEVBQTZDQyxxQkFBN0MsRUFBb0VDLG9CQUFwRSxFQUEwRkMsZUFBMUYsRUFBMkdDLFFBQTNHLEVBQXFIOztBQUU1UEwsaUJBRUVNLElBRkYsQ0FFTyxZQUZQLEVBRXFCO0FBQ2xCQyxpQkFBYSxvQ0FESztBQUVsQkMsZ0JBQVkscUJBRk07QUFHbEJDLGVBQVc7QUFITyxHQUZyQixFQVFFSCxJQVJGLENBUU8sb0JBUlAsRUFRNkI7QUFDMUJDLGlCQUFhLHNDQURhO0FBRTFCQyxnQkFBWSxtQkFGYztBQUcxQkMsZUFBVztBQUhlLEdBUjdCLEVBY0VILElBZEYsQ0FjTyxxQkFkUCxFQWM4QjtBQUMzQkMsaUJBQWEsdUNBRGM7QUFFM0JDLGdCQUFZLG1CQUZlO0FBRzNCQyxlQUFXO0FBSGdCLEdBZDlCLEVBb0JFSCxJQXBCRixDQW9CTyxvQkFwQlAsRUFvQjZCO0FBQzFCQyxpQkFBYSxzQ0FEYTtBQUUxQkMsZ0JBQVksa0JBRmM7QUFHMUJDLGVBQVc7QUFIZSxHQXBCN0IsRUEwQkVILElBMUJGLENBMEJPLHFCQTFCUCxFQTBCOEI7QUFDM0JDLGlCQUFhLHVDQURjO0FBRTNCQyxnQkFBWSxvQkFGZTtBQUczQkMsZUFBVztBQUhnQixHQTFCOUIsRUFnQ0VILElBaENGLENBZ0NPLHNCQWhDUCxFQWdDK0I7QUFDNUJDLGlCQUFhLHdDQURlO0FBRTVCQyxnQkFBWSxvQkFGZ0I7QUFHNUJDLGVBQVcsT0FIaUI7QUFJNUJDLGFBQVM7QUFDRUMsa0JBQVksQ0FBQyxXQUFELEVBQWMsYUFBZCxFQUE2QixVQUFTQyxTQUFULEVBQW9CQyxXQUFwQixFQUFpQztBQUN4RSxlQUFPQSxZQUFZQyxZQUFaLEdBQ01DLElBRE4sQ0FDVyxlQUFPO0FBQ1gsY0FBSUMsSUFBSUMsVUFBSixJQUFrQixRQUF0QixFQUFnQztBQUM5Qkwsc0JBQVVNLElBQVYsQ0FBZSxZQUFmO0FBQ0QsV0FGRCxNQUdJO0FBQ0YsbUJBQU9GLEdBQVA7QUFDRDtBQUNGLFNBUk4sQ0FBUDtBQVNELE9BVlc7QUFEZDtBQUptQixHQWhDL0IsRUFtREVWLElBbkRGLENBbURPLDRCQW5EUCxFQW1EcUM7QUFDbENDLGlCQUFhLDhDQURxQjtBQUVsQ0MsZ0JBQVksMEJBRnNCO0FBR2xDRSxhQUFTO0FBQ0dDLGtCQUFZLENBQUMsV0FBRCxFQUFjLGFBQWQsRUFBNkIsVUFBU0MsU0FBVCxFQUFvQkMsV0FBcEIsRUFBaUM7QUFDeEVBLG9CQUFZQyxZQUFaLEdBQ2FDLElBRGIsQ0FDa0IsZUFBTztBQUNYLGNBQUlDLElBQUlDLFVBQUosSUFBa0IsU0FBdEIsRUFBaUM7QUFDL0JMLHNCQUFVTSxJQUFWLENBQWUsWUFBZjtBQUNEO0FBQ0YsU0FMYjtBQU1ELE9BUFc7QUFEZjtBQUh5QixHQW5EckMsRUFrRUVDLFNBbEVGLENBa0VZO0FBQ1RDLGdCQUFZO0FBREgsR0FsRVo7O0FBdUVDbkIsb0JBQWtCb0IsVUFBbEIsQ0FBNkIsRUFBN0I7QUFDQXBCLG9CQUFrQnFCLFNBQWxCLENBQTRCLElBQTVCO0FBQ0FwQix3QkFBc0JxQixZQUF0QixDQUFtQyxPQUFuQztBQUNBbkIsa0JBQWdCb0IsV0FBaEIsR0FBOEIsSUFBOUI7QUFDQXJCLHVCQUFxQnNCLFVBQXJCLENBQWdDO0FBQzVCQyxXQUFPLElBRHFCO0FBRTVCQyxvQkFBZ0IsSUFGWTtBQUc3QjtBQUNBO0FBQ0E7QUFDQTtBQUNDQyxlQUFXO0FBQ1o7QUFSNkIsR0FBaEM7O0FBV0F2QixXQUFTd0IsU0FBVCxDQUFtQixTQUFuQixFQUE4QixDQUFDLFdBQUQsRUFBYyxVQUFTQyxTQUFULEVBQW9CO0FBQzdEQSxjQUFVQyxjQUFWLEdBQTJCO0FBQ3pCQyxtQkFBYSxHQURZO0FBRXpCQyxpQkFBVyxHQUZjO0FBR3pCQyxnQkFBVSxDQUFDLEVBQUU7QUFDWEMsZ0JBQVEsQ0FEQztBQUVUQyxpQkFBUyxDQUZBO0FBR1RDLGlCQUFTLENBSEE7QUFJVEMsZ0JBQVEsRUFKQztBQUtUQyxnQkFBUSxFQUxDO0FBTVRDLGdCQUFRLEdBTkM7QUFPVEMsZ0JBQVEsRUFQQztBQVFUQyxlQUFPLENBUkU7QUFTVEMsZ0JBQVE7QUFUQyxPQUFELEVBVVAsRUFBRTtBQUNIUixnQkFBUSxDQURQO0FBRURDLGlCQUFTLENBRlI7QUFHREMsaUJBQVMsQ0FIUjtBQUlEQyxnQkFBUSxNQUpQO0FBS0RDLGdCQUFRLEVBTFA7QUFNREMsZ0JBQVEsT0FOUDtBQU9EQyxnQkFBUSxHQVBQO0FBUURDLGVBQU8sQ0FSTjtBQVNEQyxnQkFBUTtBQVRQLE9BVk8sQ0FIZTtBQXdCekJDLG9CQUFjO0FBeEJXLEtBQTNCO0FBMEJBLFdBQU9kLFNBQVA7QUFDRCxHQTVCNEIsQ0FBOUI7QUE4QkYsQ0F0SGdCLENBQWpCIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL3JvdXRlcy9kYXNoYm9hcmQtcm91dGVzLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZGFzaGJvYXJkLmNvbmZpZyhbJyRyb3V0ZVByb3ZpZGVyJywgJyRsb2NhdGlvblByb3ZpZGVyJywgJyRsb2NhbFN0b3JhZ2VQcm92aWRlcicsICdOb3RpZmljYXRpb25Qcm92aWRlcicsICd0aW1lQWdvU2V0dGluZ3MnLCAnJHByb3ZpZGUnLCBmdW5jdGlvbiAoJHJvdXRlUHJvdmlkZXIsICRsb2NhdGlvblByb3ZpZGVyLCAkbG9jYWxTdG9yYWdlUHJvdmlkZXIsIE5vdGlmaWNhdGlvblByb3ZpZGVyLCB0aW1lQWdvU2V0dGluZ3MsICRwcm92aWRlKSB7XG5cbiAgJHJvdXRlUHJvdmlkZXJcblxuICAgLndoZW4oJy9kYXNoYm9hcmQnLCB7XG4gICAgIHRlbXBsYXRlVXJsOiAnYW5ndWxhci92aWV3cy9kYXNoYm9hcmQvaW5kZXguaHRtbCcsXG4gICAgIGNvbnRyb2xsZXI6ICdEYXNoYm9hcmRDb250cm9sbGVyJyxcbiAgICAgYW5pbWF0aW9uOiAnc2xpZGUnLFxuICAgfSlcblxuICAgLndoZW4oJy9kYXNoYm9hcmQvcHJvZmlsZScsIHtcbiAgICAgdGVtcGxhdGVVcmw6ICdhbmd1bGFyL3ZpZXdzL2Rhc2hib2FyZC9wcm9maWxlLmh0bWwnLFxuICAgICBjb250cm9sbGVyOiAnUHJvZmlsZUNvbnRyb2xsZXInLFxuICAgICBhbmltYXRpb246ICdzbGlkZScsXG4gICB9KVxuXG4gICAud2hlbignL2Rhc2hib2FyZC9tZXNzYWdlcycsIHtcbiAgICAgdGVtcGxhdGVVcmw6ICdhbmd1bGFyL3ZpZXdzL2Rhc2hib2FyZC9tZXNzYWdlcy5odG1sJyxcbiAgICAgY29udHJvbGxlcjogJ01lc3NhZ2VDb250cm9sbGVyJyxcbiAgICAgYW5pbWF0aW9uOiAnc2xpZGUnLFxuICAgfSlcblxuICAgLndoZW4oJy9kYXNoYm9hcmQvbm90aWNlcycsIHtcbiAgICAgdGVtcGxhdGVVcmw6ICdhbmd1bGFyL3ZpZXdzL2Rhc2hib2FyZC9ub3RpY2VzLmh0bWwnLFxuICAgICBjb250cm9sbGVyOiAnTm90aWNlQ29udHJvbGxlcicsXG4gICAgIGFuaW1hdGlvbjogJ3NsaWRlJyxcbiAgIH0pXG5cbiAgIC53aGVuKCcvZGFzaGJvYXJkL3NldHRpbmdzJywge1xuICAgICB0ZW1wbGF0ZVVybDogJ2FuZ3VsYXIvdmlld3MvZGFzaGJvYXJkL3NldHRpbmdzLmh0bWwnLFxuICAgICBjb250cm9sbGVyOiAnU2V0dGluZ3NDb250cm9sbGVyJyxcbiAgICAgYW5pbWF0aW9uOiAnc2xpZGUnLFxuICAgfSlcblxuICAgLndoZW4oJy9kYXNoYm9hcmQvZ2FtZS1wbGF5Jywge1xuICAgICB0ZW1wbGF0ZVVybDogJ2FuZ3VsYXIvdmlld3MvZGFzaGJvYXJkL2dhbWUtcGxheS5odG1sJyxcbiAgICAgY29udHJvbGxlcjogJ0dhbWVQbGF5Q29udHJvbGxlcicsXG4gICAgIGFuaW1hdGlvbjogJ3NsaWRlJyxcbiAgICAgcmVzb2x2ZToge1xuICAgICAgICAgICAgICAgIGdhbWVBY3RpdmU6IFsnJGxvY2F0aW9uJywgJ3NlbmRSZXF1ZXN0JywgZnVuY3Rpb24oJGxvY2F0aW9uLCBzZW5kUmVxdWVzdCkge1xuICAgICAgICAgICAgICAgICAgcmV0dXJuIHNlbmRSZXF1ZXN0LmdldEdhbWVTdGF0ZSgpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAudGhlbihyc3AgPT4ge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocnNwLmdhbWVfc3RhdGUgIT0gJ2FjdGl2ZScpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZCcpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVsc2V7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJzcDtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgfV1cbiAgICAgICAgICAgICAgfVxuICAgfSlcblxuICAgLndoZW4oJy9kYXNoYm9hcmQvZGlzcGxheS1yZXN1bHRzJywge1xuICAgICB0ZW1wbGF0ZVVybDogJ2FuZ3VsYXIvdmlld3MvZGFzaGJvYXJkL2Rpc3BsYXktcmVzdWx0cy5odG1sJyxcbiAgICAgY29udHJvbGxlcjogJ0Rpc3BsYXlSZXN1bHRzQ29udHJvbGxlcicsXG4gICAgIHJlc29sdmU6IHtcbiAgICAgICAgICAgICAgICAgZ2FtZUFjdGl2ZTogWyckbG9jYXRpb24nLCAnc2VuZFJlcXVlc3QnLCBmdW5jdGlvbigkbG9jYXRpb24sIHNlbmRSZXF1ZXN0KSB7XG4gICAgICAgICAgICAgICAgICAgc2VuZFJlcXVlc3QuZ2V0R2FtZVN0YXRlKClcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAudGhlbihyc3AgPT4ge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5nYW1lX3N0YXRlICE9ICdsb2FkaW5nJykge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZCcpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICAgICB9XVxuICAgICAgICAgICAgICB9XG4gICB9KVxuXG4gICAub3RoZXJ3aXNlKHtcbiAgICAgcmVkaXJlY3RUbzogJy9kYXNoYm9hcmQnXG4gICB9KTtcblxuXG4gICAkbG9jYXRpb25Qcm92aWRlci5oYXNoUHJlZml4KCcnKTtcbiAgICRsb2NhdGlvblByb3ZpZGVyLmh0bWw1TW9kZSh0cnVlKTtcbiAgICRsb2NhbFN0b3JhZ2VQcm92aWRlci5zZXRLZXlQcmVmaXgoJ2dhbWUtJyk7XG4gICB0aW1lQWdvU2V0dGluZ3MuYWxsb3dGdXR1cmUgPSB0cnVlO1xuICAgTm90aWZpY2F0aW9uUHJvdmlkZXIuc2V0T3B0aW9ucyh7XG4gICAgICAgZGVsYXk6IDUwMDAsXG4gICAgICAgcmVwbGFjZU1lc3NhZ2U6IHRydWUsXG4gICAgICAvLyAgc3RhcnRUb3A6IDIwLFxuICAgICAgLy8gIHN0YXJ0UmlnaHQ6IDEwLFxuICAgICAgLy8gIHZlcnRpY2FsU3BhY2luZzogMjAsXG4gICAgICAvLyAgaG9yaXpvbnRhbFNwYWNpbmc6IDIwLFxuICAgICAgIHBvc2l0aW9uWDogJ2NlbnRlcicsXG4gICAgICAvLyAgcG9zaXRpb25ZOiAnYm90dG9tJ1xuICAgfSk7XG5cbiAgICRwcm92aWRlLmRlY29yYXRvcignJGxvY2FsZScsIFsnJGRlbGVnYXRlJywgZnVuY3Rpb24oJGRlbGVnYXRlKSB7XG4gICAgICAkZGVsZWdhdGUuTlVNQkVSX0ZPUk1BVFMgPSB7XG4gICAgICAgIERFQ0lNQUxfU0VQOiAnLicsXG4gICAgICAgIEdST1VQX1NFUDogJywnLFxuICAgICAgICBQQVRURVJOUzogW3sgLy8gRGVjaW1hbCBQYXR0ZXJuXG4gICAgICAgICAgbWluSW50OiAxLFxuICAgICAgICAgIG1pbkZyYWM6IDAsXG4gICAgICAgICAgbWF4RnJhYzogMyxcbiAgICAgICAgICBwb3NQcmU6ICcnLFxuICAgICAgICAgIHBvc1N1ZjogJycsXG4gICAgICAgICAgbmVnUHJlOiAnLScsXG4gICAgICAgICAgbmVnU3VmOiAnJyxcbiAgICAgICAgICBnU2l6ZTogMyxcbiAgICAgICAgICBsZ1NpemU6IDNcbiAgICAgICAgfSwgeyAvL0N1cnJlbmN5IFBhdHRlcm5cbiAgICAgICAgICBtaW5JbnQ6IDEsXG4gICAgICAgICAgbWluRnJhYzogMCxcbiAgICAgICAgICBtYXhGcmFjOiAyLFxuICAgICAgICAgIHBvc1ByZTogJ1xcdTAwQTQnLFxuICAgICAgICAgIHBvc1N1ZjogJycsXG4gICAgICAgICAgbmVnUHJlOiAnKFxcdTAwQTQnLFxuICAgICAgICAgIG5lZ1N1ZjogJyknLFxuICAgICAgICAgIGdTaXplOiAzLFxuICAgICAgICAgIGxnU2l6ZTogM1xuICAgICAgICB9XSxcbiAgICAgICAgQ1VSUkVOQ1lfU1lNOiAn4oKmJ1xuICAgICAgfTtcbiAgICAgIHJldHVybiAkZGVsZWdhdGU7XG4gICAgfV0pO1xuXG59XSk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvcm91dGVzL2Rhc2hib2FyZC1yb3V0ZXMuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/routes/dashboard-routes.js\n");
+dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', '$provide', function ($routeProvider, $locationProvider, $localStorageProvider, NotificationProvider, timeAgoSettings, $provide) {
+
+  $routeProvider.when('/dashboard', {
+    templateUrl: 'angular/views/dashboard/index.html',
+    controller: 'DashboardController',
+    animation: 'slide'
+  }).when('/dashboard/profile', {
+    templateUrl: 'angular/views/dashboard/profile.html',
+    controller: 'ProfileController',
+    animation: 'slide'
+  }).when('/dashboard/messages', {
+    templateUrl: 'angular/views/dashboard/messages.html',
+    controller: 'MessageController',
+    animation: 'slide'
+  }).when('/dashboard/notices', {
+    templateUrl: 'angular/views/dashboard/notices.html',
+    controller: 'NoticeController',
+    animation: 'slide'
+  }).when('/dashboard/settings', {
+    templateUrl: 'angular/views/dashboard/settings.html',
+    controller: 'SettingsController',
+    animation: 'slide'
+  }).when('/dashboard/game-play', {
+    templateUrl: 'angular/views/dashboard/game-play.html',
+    controller: 'GamePlayController',
+    animation: 'slide',
+    resolve: {
+      gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {
+        return sendRequest.getGameState().then(function (rsp) {
+          if (rsp.game_state != 'active') {
+            $location.path('/dashboard');
+          } else {
+            return rsp;
+          }
+        });
+      }]
+    }
+  }).when('/dashboard/display-results', {
+    templateUrl: 'angular/views/dashboard/display-results.html',
+    controller: 'DisplayResultsController',
+    resolve: {
+      gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {
+        sendRequest.getGameState().then(function (rsp) {
+          if (rsp.game_state != 'loading') {
+            $location.path('/dashboard');
+          }
+        });
+      }]
+    }
+  }).when('/dashboard/order-successful', {
+    templateUrl: 'angular/views/dashboard/order-successful.html',
+    //  controller: 'DisplayResultsController',
+    resolve: {
+      activeTransaction: ['$location', 'sendRequest', function ($location, sendRequest) {
+        if (!sendRequest.getData('activeTransaction')) {
+          $location.path('/dashboard/profile');
+        }
+      }]
+    }
+  }).otherwise({
+    redirectTo: '/dashboard'
+  });
+
+  $locationProvider.hashPrefix('');
+  $locationProvider.html5Mode(true);
+  $localStorageProvider.setKeyPrefix('game-');
+  timeAgoSettings.allowFuture = true;
+  NotificationProvider.setOptions({
+    delay: 5000,
+    replaceMessage: true,
+    //  startTop: 20,
+    //  startRight: 10,
+    //  verticalSpacing: 20,
+    //  horizontalSpacing: 20,
+    positionX: 'center'
+    //  positionY: 'bottom'
+  });
+
+  $provide.decorator('$locale', ['$delegate', function ($delegate) {
+    $delegate.NUMBER_FORMATS = {
+      DECIMAL_SEP: '.',
+      GROUP_SEP: ',',
+      PATTERNS: [{ // Decimal Pattern
+        minInt: 1,
+        minFrac: 0,
+        maxFrac: 3,
+        posPre: '',
+        posSuf: '',
+        negPre: '-',
+        negSuf: '',
+        gSize: 3,
+        lgSize: 3
+      }, { //Currency Pattern
+        minInt: 1,
+        minFrac: 0,
+        maxFrac: 2,
+        posPre: '\xA4',
+        posSuf: '',
+        negPre: '(\xA4',
+        negSuf: ')',
+        gSize: 3,
+        lgSize: 3
+      }],
+      CURRENCY_SYM: '₦'
+    };
+    return $delegate;
+  }]);
+}]);
 
 /***/ }),
 
 /***/ "./resources/assets/js/angular/services/services.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function($) {angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$localStorage', function ($http, $q, $localStorage) {\n\n  var data = {};\n  return {\n    storeData: function storeData(key, value) {\n      data[key] = value;\n    },\n\n    getData: function getData(key) {\n      return data[key];\n    },\n\n    getUserDetails: function getUserDetails(url) {\n      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n\n      var deferred = $q.defer();\n\n      if (flushStore || !this.getData('userdetails')) {\n        var _this = this;\n        return this.postRequest(url).then(function (rsp) {\n          _this.storeData('userdetails', rsp.data);\n          return _this.getData('userdetails');\n        });\n      }\n      deferred.resolve(this.getData('userdetails'));\n      return deferred.promise;\n    },\n\n    getTotalEarnings: function getTotalEarnings(url) {\n      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n\n      var deferred = $q.defer();\n\n      if (flushStore || !this.getData('total_earnings')) {\n        var _this = this;\n        return this.postRequest(url).then(function (rsp) {\n          _this.storeData('total_earnings', rsp.data);\n          return _this.getData('total_earnings');\n        });\n      }\n      deferred.resolve(this.getData('total_earnings'));\n      return deferred.promise;\n    },\n\n    getBanks: function getBanks(url) {\n      var deferred = $q.defer();\n\n      if (!this.getData('banks_list')) {\n        var _this = this;\n        return this.postRequest(url).then(function (rsp) {\n          _this.storeData('banks_list', rsp.data);\n          return _this.getData('banks_list');\n        });\n      }\n      deferred.resolve(this.getData('banks_list'));\n      return deferred.promise;\n    },\n\n    getGameState: function getGameState() {\n      return this.postRequest('/user/get-game-state').then(function (rsp) {\n        return rsp.data;\n      });\n    },\n\n    getUserQuestions: function getUserQuestions(url) {\n      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n\n      var deferred = $q.defer();\n\n      if (flushStore) {\n        delete $localStorage.user_questions;\n        delete $localStorage.extra;\n        delete $localStorage.options;\n      }\n\n      if (!$localStorage.user_questions) {\n        var _this = this;\n        return this.postRequest(url).then(function (rsp) {\n          $localStorage.user_questions = rsp.data.user_questions;\n          return $localStorage.user_questions;\n        });\n      }\n      deferred.resolve($localStorage.user_questions);\n      return deferred.promise;\n    },\n\n    getCountriesStates: function getCountriesStates() {\n      var deferred = $q.defer();\n\n      if (!this.getData('countries_states')) {\n        var _this = this;\n        return this.postRequest('/api/get-countries-state').then(function (rsp) {\n          _this.storeData('countries_states', rsp.data);\n          return _this.getData('countries_states');\n        });\n      }\n      deferred.resolve(this.getData('countries_states'));\n      return deferred.promise;\n    },\n\n    processImageUpload: function processImageUpload(url, data, foldername) {\n      //Handle image changes\n      NProgress.start();\n\n      // send the image to the server as base64 data\n      return $http.post(url, { image: data, fn: foldername }).then(function (response) {\n        NProgress.done();\n        return response.data;\n      }, function (err) {\n        console.log(err.statusText);\n      });\n    },\n\n    postRequest: function postRequest(url, data) {\n\n      return $http.post(url, { details: data }).then(function (response) {\n        return response;\n      }, function (err) {\n        if (err.status == 419 || err.status == 401) {\n          location.href = '/login';\n        } else if (err.status == 403) {\n          location.href = '/suspended';\n        }\n        console.log(err);\n        return err;\n      });\n    },\n\n    request: function request(url) {\n      var data = [];\n      return $http.get(url).then(function (response) {\n        return response.data;\n      }, function (err) {\n        console.log(err.statusText);\n      });\n    }\n  };\n}]);\n\nangular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {\n  return {\n    dashboard: function dashboard(scope) {\n\n      sendRequest.postRequest('/user/get-dashboard-page-details');\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          $('.ui.basic.modal').modal({\n            centered: false,\n            onHide: function onHide() {\n              var remove = function remove() {\n                $('.ui.basic.modal').remove();\n              };\n              setTimeout(remove, 1000);\n              return false;\n            },\n            onApprove: function onApprove() {\n              window.alert('Approved!');\n            }\n          }).modal('show');\n\n          Echo.channel('exam_member_count').listen('ExamJoined', function (e) {\n            scope.total_examinees = e.total_examinees;\n          });\n        }, 1000);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {\n          Echo.leave('exam_member_count');\n        }, 0);\n      });\n    },\n    profile: function profile(scope) {\n      sendRequest.postRequest('/user/get-profile-page-details').then(function (rsp) {\n        if (rsp.status == 200) {\n          scope.user_transactions = rsp.data.page_details.transactions;\n          scope.user_earnings = rsp.data.page_details.earnings;\n          scope.user_games = rsp.data.page_details.games;\n          scope.referrals = rsp.data.page_details.referrals;\n        }\n      });\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('#profile-menu .item').tab();\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n    },\n    settings: function settings(scope) {\n      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {\n        scope.banks = rsp.banks;\n      });\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('#edit .item').tab();\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n    },\n    gameplay: function gameplay(scope) {\n      sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {\n        scope.userdetails = rsp.userdetails;\n      });\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          $('.ui.accordion').accordion();\n\n          Echo.channel('exam_member_count').listen('ExamJoined', function (e) {\n            scope.total_examinees = e.total_examinees;\n          });\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {\n          sendRequest.postRequest('/user/pause-game');\n          Echo.leave('exam_member_count');\n        }, 0);\n      });\n    },\n    results: function results(scope) {\n      sendRequest.postRequest('/user/get-exam-results').then(function (rsp) {\n        if (rsp.status == 200) {\n          if (rsp.data.results == false) {\n            $location.path('/dashboard');\n            Notification.error({ message: 'Error fetching results.', positionX: 'center' });\n          }\n          if (rsp.data != 'invalid') {\n            scope.results = rsp.data.results;\n            scope.user_earning = rsp.data.user_earning;\n          } else {\n            $location.path('/dashboard');\n            Notification.error({ message: 'Insufficient users for game session. Units reversed', positionX: 'center' });\n          }\n        }\n      });\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n    },\n    messages: function messages(scope) {\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          $('.special.cards .image').dimmer({\n            on: 'hover'\n          });\n        }, 500);\n      });\n    },\n    notices: function notices(scope) {\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n    }\n  };\n}]);\n\nangular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {\n  return {\n    dashboard: function dashboard(scope) {\n\n      sendRequest.postRequest(route_root + '/api/get-dashboard-page-details').then(function (rsp) {\n        if (rsp.status == 200) {}\n      });\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          $('.shape').shape();\n          NProgress.done();\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {}, 0);\n      });\n    },\n\n    questions: function questions(scope) {\n\n      sendRequest.postRequest(route_root + '/api/get-questions-page-details').then(function (rsp) {\n        if (rsp.status == 200) {\n          scope.questions = rsp.data.questions;\n        }\n      }, function (err) {\n        Notification.error('Error retrieving questions from server');\n      });\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          $('.shape').shape();\n          NProgress.done();\n        }, 500);\n      });\n      // scope.$on('$destroy', function() {\n      //   $timeout(function () {\n      //   }, 0);\n      // });\n    },\n\n    admins: function admins(scope) {\n\n      sendRequest.postRequest(route_root + '/api/get-admins-page-details').then(function (rsp) {\n        if (rsp.status == 200) {\n          scope.admins = rsp.data.admins;\n          NProgress.done();\n        }\n      }, function (err) {\n        Notification.error('Error retrieving admins from server');\n      });\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {}, 0);\n      });\n    },\n\n    users: function users(scope) {\n\n      sendRequest.postRequest(route_root + '/api/get-users-page-details').then(function (rsp) {\n        if (rsp.status == 200) {\n          scope.users = rsp.data.users;\n          NProgress.done();\n        }\n      }, function (err) {\n        Notification.error('Error retrieving users from server');\n      });\n\n      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {\n        scope.banks = rsp.banks;\n      });\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {}, 0);\n      });\n    },\n\n    games: function games(scope) {\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          // $('.ui.sticky')\n          // .sticky({\n          //   context: '#content-context'\n          // });\n          NProgress.done();\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {}, 0);\n      });\n    },\n\n    transactions: function transactions(scope) {\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n          $('.ui.sticky').sticky({\n            context: '#content-context'\n          });\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        // $timeout(function () {\n        // }, 0);\n      });\n    },\n\n    messages: function messages(scope) {\n\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n      scope.$on('$destroy', function () {\n        $timeout(function () {}, 0);\n      });\n    },\n\n    settings: function settings(scope) {\n      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {\n        scope.banks = rsp.banks;\n      });\n      scope.$on('$viewContentLoaded', function () {\n        $timeout(function () {\n          $('#edit .item').tab();\n          $('.dropdown_menu').dropdown();\n        }, 500);\n      });\n    }\n  };\n}]);\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(\"./node_modules/jquery/dist/jquery.js\")))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvc2VydmljZXMvc2VydmljZXMuanM/NjE0ZCJdLCJuYW1lcyI6WyJhbmd1bGFyIiwibW9kdWxlIiwiZmFjdG9yeSIsIiRodHRwIiwiJHEiLCIkbG9jYWxTdG9yYWdlIiwiZGF0YSIsInN0b3JlRGF0YSIsImtleSIsInZhbHVlIiwiZ2V0RGF0YSIsImdldFVzZXJEZXRhaWxzIiwidXJsIiwiZmx1c2hTdG9yZSIsImRlZmVycmVkIiwiZGVmZXIiLCJfdGhpcyIsInBvc3RSZXF1ZXN0IiwidGhlbiIsInJzcCIsInJlc29sdmUiLCJwcm9taXNlIiwiZ2V0VG90YWxFYXJuaW5ncyIsImdldEJhbmtzIiwiZ2V0R2FtZVN0YXRlIiwiZ2V0VXNlclF1ZXN0aW9ucyIsInVzZXJfcXVlc3Rpb25zIiwiZXh0cmEiLCJvcHRpb25zIiwiZ2V0Q291bnRyaWVzU3RhdGVzIiwicHJvY2Vzc0ltYWdlVXBsb2FkIiwiZm9sZGVybmFtZSIsIk5Qcm9ncmVzcyIsInN0YXJ0IiwicG9zdCIsImltYWdlIiwiZm4iLCJyZXNwb25zZSIsImRvbmUiLCJlcnIiLCJjb25zb2xlIiwibG9nIiwic3RhdHVzVGV4dCIsImRldGFpbHMiLCJzdGF0dXMiLCJsb2NhdGlvbiIsImhyZWYiLCJyZXF1ZXN0IiwiZ2V0IiwiJHRpbWVvdXQiLCIkbG9jYXRpb24iLCJOb3RpZmljYXRpb24iLCJzZW5kUmVxdWVzdCIsImRhc2hib2FyZCIsInNjb3BlIiwiJG9uIiwiJCIsImRyb3Bkb3duIiwibW9kYWwiLCJjZW50ZXJlZCIsIm9uSGlkZSIsInJlbW92ZSIsInNldFRpbWVvdXQiLCJvbkFwcHJvdmUiLCJ3aW5kb3ciLCJhbGVydCIsIkVjaG8iLCJjaGFubmVsIiwibGlzdGVuIiwiZSIsInRvdGFsX2V4YW1pbmVlcyIsImxlYXZlIiwicHJvZmlsZSIsInVzZXJfdHJhbnNhY3Rpb25zIiwicGFnZV9kZXRhaWxzIiwidHJhbnNhY3Rpb25zIiwidXNlcl9lYXJuaW5ncyIsImVhcm5pbmdzIiwidXNlcl9nYW1lcyIsImdhbWVzIiwicmVmZXJyYWxzIiwidGFiIiwic2V0dGluZ3MiLCJiYW5rcyIsImdhbWVwbGF5IiwidXNlcmRldGFpbHMiLCJhY2NvcmRpb24iLCJyZXN1bHRzIiwicGF0aCIsImVycm9yIiwibWVzc2FnZSIsInBvc2l0aW9uWCIsInVzZXJfZWFybmluZyIsIm1lc3NhZ2VzIiwiZGltbWVyIiwib24iLCJub3RpY2VzIiwicm91dGVfcm9vdCIsInNoYXBlIiwicXVlc3Rpb25zIiwiYWRtaW5zIiwidXNlcnMiLCJzdGlja3kiLCJjb250ZXh0Il0sIm1hcHBpbmdzIjoiQUFBQyx5Q0FBQUEsUUFBUUMsTUFBUixDQUFlLGFBQWYsRUFBOEIsRUFBOUIsRUFBa0NDLE9BQWxDLENBQTBDLGFBQTFDLEVBQXlELENBQUMsT0FBRCxFQUFVLElBQVYsRUFBZ0IsZUFBaEIsRUFBaUMsVUFBVUMsS0FBVixFQUFpQkMsRUFBakIsRUFBcUJDLGFBQXJCLEVBQW9DOztBQUUzSCxNQUFJQyxPQUFPLEVBQVg7QUFDQSxTQUFPO0FBQ0hDLGVBQVksbUJBQVNDLEdBQVQsRUFBY0MsS0FBZCxFQUFxQjtBQUM3QkgsV0FBS0UsR0FBTCxJQUFZQyxLQUFaO0FBQ0gsS0FIRTs7QUFLSEMsYUFBVSxpQkFBU0YsR0FBVCxFQUFhO0FBQ25CLGFBQU9GLEtBQUtFLEdBQUwsQ0FBUDtBQUNILEtBUEU7O0FBU0hHLG9CQUFpQix3QkFBVUMsR0FBVixFQUFtQztBQUFBLFVBQXBCQyxVQUFvQix1RUFBUCxLQUFPOztBQUNsRCxVQUFJQyxXQUFXVixHQUFHVyxLQUFILEVBQWY7O0FBRUEsVUFBSUYsY0FBYyxDQUFDLEtBQUtILE9BQUwsQ0FBYSxhQUFiLENBQW5CLEVBQWdEO0FBQzlDLFlBQUlNLFFBQVEsSUFBWjtBQUNBLGVBQU8sS0FBS0MsV0FBTCxDQUFpQkwsR0FBakIsRUFDRk0sSUFERSxDQUNHLFVBQVVDLEdBQVYsRUFBZTtBQUNuQkgsZ0JBQU1ULFNBQU4sQ0FB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IjoiLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2FuZ3VsYXIvc2VydmljZXMvc2VydmljZXMuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIgYW5ndWxhci5tb2R1bGUoJ3NlbmRSZXF1ZXN0JywgW10pLmZhY3RvcnkoJ3NlbmRSZXF1ZXN0JywgWyckaHR0cCcsICckcScsICckbG9jYWxTdG9yYWdlJywgZnVuY3Rpb24gKCRodHRwLCAkcSwgJGxvY2FsU3RvcmFnZSkge1xuXG4gICAgdmFyIGRhdGEgPSB7fTtcbiAgICByZXR1cm4ge1xuICAgICAgICBzdG9yZURhdGEgOiBmdW5jdGlvbihrZXksIHZhbHVlKSB7XG4gICAgICAgICAgICBkYXRhW2tleV0gPSB2YWx1ZTtcbiAgICAgICAgfSxcblxuICAgICAgICBnZXREYXRhIDogZnVuY3Rpb24oa2V5KXtcbiAgICAgICAgICAgIHJldHVybiBkYXRhW2tleV07XG4gICAgICAgIH0sXG5cbiAgICAgICAgZ2V0VXNlckRldGFpbHMgOiBmdW5jdGlvbiAodXJsLCBmbHVzaFN0b3JlID0gZmFsc2UpIHtcbiAgICAgICAgICB2YXIgZGVmZXJyZWQgPSAkcS5kZWZlcigpO1xuXG4gICAgICAgICAgaWYgKGZsdXNoU3RvcmUgfHwgIXRoaXMuZ2V0RGF0YSgndXNlcmRldGFpbHMnKSkge1xuICAgICAgICAgICAgdmFyIF90aGlzID0gdGhpcztcbiAgICAgICAgICAgIHJldHVybiB0aGlzLnBvc3RSZXF1ZXN0KHVybClcbiAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICBfdGhpcy5zdG9yZURhdGEoJ3VzZXJkZXRhaWxzJywgcnNwLmRhdGEpO1xuICAgICAgICAgICAgICAgICAgIHJldHVybiBfdGhpcy5nZXREYXRhKCd1c2VyZGV0YWlscycpO1xuICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgIH1cbiAgICAgICAgICBkZWZlcnJlZC5yZXNvbHZlKHRoaXMuZ2V0RGF0YSgndXNlcmRldGFpbHMnKSk7XG4gICAgICAgICAgcmV0dXJuIGRlZmVycmVkLnByb21pc2U7XG4gICAgICAgIH0sXG5cbiAgICAgICAgZ2V0VG90YWxFYXJuaW5ncyA6IGZ1bmN0aW9uICh1cmwsIGZsdXNoU3RvcmUgPSBmYWxzZSkge1xuICAgICAgICAgIHZhciBkZWZlcnJlZCA9ICRxLmRlZmVyKCk7XG5cbiAgICAgICAgICBpZiAoZmx1c2hTdG9yZSB8fCAhdGhpcy5nZXREYXRhKCd0b3RhbF9lYXJuaW5ncycpKSB7XG4gICAgICAgICAgICB2YXIgX3RoaXMgPSB0aGlzO1xuICAgICAgICAgICAgcmV0dXJuIHRoaXMucG9zdFJlcXVlc3QodXJsKVxuICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyc3ApIHtcbiAgICAgICAgICAgICAgICAgIF90aGlzLnN0b3JlRGF0YSgndG90YWxfZWFybmluZ3MnLCByc3AuZGF0YSk7XG4gICAgICAgICAgICAgICAgICAgcmV0dXJuIF90aGlzLmdldERhdGEoJ3RvdGFsX2Vhcm5pbmdzJyk7XG4gICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgfVxuICAgICAgICAgIGRlZmVycmVkLnJlc29sdmUodGhpcy5nZXREYXRhKCd0b3RhbF9lYXJuaW5ncycpKTtcbiAgICAgICAgICByZXR1cm4gZGVmZXJyZWQucHJvbWlzZTtcbiAgICAgICAgfSxcblxuICAgICAgICBnZXRCYW5rcyA6IGZ1bmN0aW9uICh1cmwpIHtcbiAgICAgICAgICB2YXIgZGVmZXJyZWQgPSAkcS5kZWZlcigpO1xuXG4gICAgICAgICAgaWYgKCF0aGlzLmdldERhdGEoJ2JhbmtzX2xpc3QnKSkge1xuICAgICAgICAgICAgdmFyIF90aGlzID0gdGhpcztcbiAgICAgICAgICAgIHJldHVybiB0aGlzLnBvc3RSZXF1ZXN0KHVybClcbiAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICBfdGhpcy5zdG9yZURhdGEoJ2JhbmtzX2xpc3QnLCByc3AuZGF0YSk7XG4gICAgICAgICAgICAgICAgICAgcmV0dXJuIF90aGlzLmdldERhdGEoJ2JhbmtzX2xpc3QnKTtcbiAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICB9XG4gICAgICAgICAgZGVmZXJyZWQucmVzb2x2ZSh0aGlzLmdldERhdGEoJ2JhbmtzX2xpc3QnKSk7XG4gICAgICAgICAgcmV0dXJuIGRlZmVycmVkLnByb21pc2U7XG4gICAgICAgIH0sXG5cbiAgICAgICAgZ2V0R2FtZVN0YXRlIDogZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgcmV0dXJuIHRoaXMucG9zdFJlcXVlc3QoJy91c2VyL2dldC1nYW1lLXN0YXRlJylcbiAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgcmV0dXJuIHJzcC5kYXRhO1xuICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICB9LFxuXG4gICAgICAgIGdldFVzZXJRdWVzdGlvbnMgOiBmdW5jdGlvbiAodXJsLCBmbHVzaFN0b3JlID0gZmFsc2UpIHtcbiAgICAgICAgICB2YXIgZGVmZXJyZWQgPSAkcS5kZWZlcigpO1xuXG4gICAgICAgICAgaWYgKGZsdXNoU3RvcmUpIHtcbiAgICAgICAgICAgIGRlbGV0ZSAkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zO1xuICAgICAgICAgICAgZGVsZXRlICRsb2NhbFN0b3JhZ2UuZXh0cmE7XG4gICAgICAgICAgICBkZWxldGUgJGxvY2FsU3RvcmFnZS5vcHRpb25zO1xuICAgICAgICAgIH1cblxuICAgICAgICAgIGlmICghJGxvY2FsU3RvcmFnZS51c2VyX3F1ZXN0aW9ucykge1xuICAgICAgICAgICAgdmFyIF90aGlzID0gdGhpcztcbiAgICAgICAgICAgIHJldHVybiB0aGlzLnBvc3RSZXF1ZXN0KHVybClcbiAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zID0gcnNwLmRhdGEudXNlcl9xdWVzdGlvbnM7XG4gICAgICAgICAgICAgICAgICByZXR1cm4gJGxvY2FsU3RvcmFnZS51c2VyX3F1ZXN0aW9ucztcbiAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICB9XG4gICAgICAgICAgZGVmZXJyZWQucmVzb2x2ZSgkbG9jYWxTdG9yYWdlLnVzZXJfcXVlc3Rpb25zKTtcbiAgICAgICAgICByZXR1cm4gZGVmZXJyZWQucHJvbWlzZTtcbiAgICAgICAgfSxcblxuICAgICAgICBnZXRDb3VudHJpZXNTdGF0ZXMgOiBmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgdmFyIGRlZmVycmVkID0gJHEuZGVmZXIoKTtcblxuICAgICAgICAgIGlmICghdGhpcy5nZXREYXRhKCdjb3VudHJpZXNfc3RhdGVzJykpIHtcbiAgICAgICAgICAgIHZhciBfdGhpcyA9IHRoaXM7XG4gICAgICAgICAgICByZXR1cm4gdGhpcy5wb3N0UmVxdWVzdCgnL2FwaS9nZXQtY291bnRyaWVzLXN0YXRlJylcbiAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICBfdGhpcy5zdG9yZURhdGEoJ2NvdW50cmllc19zdGF0ZXMnLCByc3AuZGF0YSk7XG4gICAgICAgICAgICAgICAgICAgcmV0dXJuIF90aGlzLmdldERhdGEoJ2NvdW50cmllc19zdGF0ZXMnKTtcbiAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICB9XG4gICAgICAgICAgZGVmZXJyZWQucmVzb2x2ZSh0aGlzLmdldERhdGEoJ2NvdW50cmllc19zdGF0ZXMnKSk7XG4gICAgICAgICAgcmV0dXJuIGRlZmVycmVkLnByb21pc2U7XG4gICAgICAgIH0sXG5cbiAgICAgICAgcHJvY2Vzc0ltYWdlVXBsb2FkIDogZnVuY3Rpb24gKHVybCwgZGF0YSwgZm9sZGVybmFtZSkge1xuICAgICAgICAgIC8vSGFuZGxlIGltYWdlIGNoYW5nZXNcbiAgICAgICAgICAgIE5Qcm9ncmVzcy5zdGFydCgpO1xuXG4gICAgICAgICAgICAvLyBzZW5kIHRoZSBpbWFnZSB0byB0aGUgc2VydmVyIGFzIGJhc2U2NCBkYXRhXG4gICAgICAgICAgICByZXR1cm4gJGh0dHAgLnBvc3QodXJsLCB7aW1hZ2U6IGRhdGEsIGZuOiBmb2xkZXJuYW1lfSlcbiAgICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyZXNwb25zZSkge1xuICAgICAgICAgICAgICAgICAgICBOUHJvZ3Jlc3MuZG9uZSgpO1xuICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmVzcG9uc2UuZGF0YTtcblxuICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgIGZ1bmN0aW9uIChlcnIpIHtcbiAgICAgICAgICAgICAgICAgICAgY29uc29sZS5sb2coZXJyLnN0YXR1c1RleHQpO1xuICAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgfSxcblxuICAgICAgICBwb3N0UmVxdWVzdCA6IGZ1bmN0aW9uICh1cmwsIGRhdGEpIHtcblxuICAgICAgICAgIHJldHVybiAkaHR0cCAucG9zdCh1cmwsIHtkZXRhaWxzOiBkYXRhfSlcbiAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyZXNwb25zZSkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmVzcG9uc2U7XG4gICAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgICAgZnVuY3Rpb24gKGVycikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoZXJyLnN0YXR1cyA9PSA0MTkgfHwgZXJyLnN0YXR1cyA9PSA0MDEpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBsb2NhdGlvbi5ocmVmID0gJy9sb2dpbic7XG4gICAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgZWxzZSBpZiAoZXJyLnN0YXR1cyA9PSA0MDMpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBsb2NhdGlvbi5ocmVmID0gJy9zdXNwZW5kZWQnO1xuICAgICAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGVycik7XG4gICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBlcnI7XG4gICAgICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgfSxcblxuICAgICAgICByZXF1ZXN0IDogZnVuY3Rpb24gKHVybCkge1xuICAgICAgICAgIHZhciBkYXRhID0gW107XG4gICAgICAgICAgcmV0dXJuICRodHRwLmdldCh1cmwpXG4gICAgICAgICAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJlc3BvbnNlKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmVzcG9uc2UuZGF0YTtcbiAgICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgICAgIGZ1bmN0aW9uIChlcnIpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGVyci5zdGF0dXNUZXh0KTtcbiAgICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgfVxuICAgIH07XG5cbiAgfV0pO1xuXG4gIGFuZ3VsYXIubW9kdWxlKCdib290c3RyYXBQYWdlJywgW10pLmZhY3RvcnkoJ2Jvb3RzdHJhcFBhZ2UnLCBbJyR0aW1lb3V0JywgJyRsb2NhdGlvbicsICdOb3RpZmljYXRpb24nLCAnc2VuZFJlcXVlc3QnLCAoJHRpbWVvdXQsICRsb2NhdGlvbiwgTm90aWZpY2F0aW9uLCBzZW5kUmVxdWVzdCkgPT4ge1xuICAgICBcdHJldHVybiB7XG4gICAgICAgIGRhc2hib2FyZDogIChzY29wZSkgPT4ge1xuXG4gICAgICAgICAgc2VuZFJlcXVlc3QucG9zdFJlcXVlc3QoJy91c2VyL2dldC1kYXNoYm9hcmQtcGFnZS1kZXRhaWxzJyk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckdmlld0NvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgJCgnLmRyb3Bkb3duX21lbnUnKS5kcm9wZG93bigpO1xuICAgICAgICAgICAgICAkKCcudWkuYmFzaWMubW9kYWwnKVxuICAgICAgICAgICAgICAubW9kYWwoe1xuICAgICAgICAgICAgICAgIGNlbnRlcmVkOiBmYWxzZSxcbiAgICAgICAgICAgICAgICAgIG9uSGlkZSAgICA6IGZ1bmN0aW9uKCl7XG4gICAgICAgICAgICAgICAgICAgIHZhciByZW1vdmUgPSAoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICAgJCgnLnVpLmJhc2ljLm1vZGFsJykucmVtb3ZlKCk7XG4gICAgICAgICAgICAgICAgICAgIH07XG4gICAgICAgICAgICAgICAgICAgIHNldFRpbWVvdXQocmVtb3ZlLCAxMDAwKTtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgIG9uQXBwcm92ZSA6IGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgICAgICAgICB3aW5kb3cuYWxlcnQoJ0FwcHJvdmVkIScpO1xuICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH0pXG4gICAgICAgICAgICAgICAgLm1vZGFsKCdzaG93Jyk7XG5cbiAgICAgICAgICAgICAgRWNoby5jaGFubmVsKGBleGFtX21lbWJlcl9jb3VudGApXG4gICAgICAgICAgICAgIC5saXN0ZW4oJ0V4YW1Kb2luZWQnLCAoZSkgPT4ge1xuICAgICAgICAgICAgICAgIHNjb3BlLnRvdGFsX2V4YW1pbmVlcyA9IGUudG90YWxfZXhhbWluZWVzO1xuICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgfSwgMTAwMCk7XG4gICAgICAgICAgfSk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckZGVzdHJveScsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICBFY2hvLmxlYXZlKCdleGFtX21lbWJlcl9jb3VudCcpO1xuICAgICAgICAgICAgfSwgMCk7XG4gICAgICAgICAgfSk7XG5cbiAgICAgICAgfSxcbiAgICAgICAgcHJvZmlsZTogIChzY29wZSkgPT4ge1xuICAgICAgICAgIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCcvdXNlci9nZXQtcHJvZmlsZS1wYWdlLWRldGFpbHMnKVxuICAgICAgICAgICAgICAgICAgIC50aGVuKCAocnNwKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICBpZiAocnNwLnN0YXR1cyA9PSAyMDApIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICBzY29wZS51c2VyX3RyYW5zYWN0aW9ucyA9IHJzcC5kYXRhLnBhZ2VfZGV0YWlscy50cmFuc2FjdGlvbnM7XG4gICAgICAgICAgICAgICAgICAgICAgICAgc2NvcGUudXNlcl9lYXJuaW5ncyA9IHJzcC5kYXRhLnBhZ2VfZGV0YWlscy5lYXJuaW5ncztcbiAgICAgICAgICAgICAgICAgICAgICAgICBzY29wZS51c2VyX2dhbWVzID0gcnNwLmRhdGEucGFnZV9kZXRhaWxzLmdhbWVzO1xuICAgICAgICAgICAgICAgICAgICAgICAgIHNjb3BlLnJlZmVycmFscyA9IHJzcC5kYXRhLnBhZ2VfZGV0YWlscy5yZWZlcnJhbHM7XG4gICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckdmlld0NvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAkKCcjcHJvZmlsZS1tZW51IC5pdGVtJykudGFiKCk7XG4gICAgICAgICAgICAgICAkKCcuZHJvcGRvd25fbWVudScpLmRyb3Bkb3duKCk7XG4gICAgICAgICAgICAgfSwgNTAwKTtcbiAgICAgICAgICB9KTtcblxuICAgICAgICB9LFxuICAgICAgICBzZXR0aW5nczogIChzY29wZSkgID0+IHtcbiAgICAgICAgICBzZW5kUmVxdWVzdC5nZXRCYW5rcygnL2FwaS9nZXQtYmFua3MtbGlzdCcpXG4gICAgICAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgICAgICAgc2NvcGUuYmFua3MgPSByc3AuYmFua3M7XG4gICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckdmlld0NvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAkKCcjZWRpdCAuaXRlbScpLnRhYigpO1xuICAgICAgICAgICAgICAgJCgnLmRyb3Bkb3duX21lbnUnKS5kcm9wZG93bigpO1xuICAgICAgICAgICAgIH0sIDUwMCk7XG4gICAgICAgICAgIH0pO1xuICAgICAgICB9LFxuICAgICAgICBnYW1lcGxheTogIChzY29wZSkgID0+IHtcbiAgICAgICAgICBzZW5kUmVxdWVzdC5nZXRVc2VyRGV0YWlscygnL3VzZXIvZ2V0LXVzZXItZGV0YWlscycsIHRydWUpXG4gICAgICAgICAgLnRoZW4oIChyc3ApID0+IHtcbiAgICAgICAgICAgIHNjb3BlLnVzZXJkZXRhaWxzID0gcnNwLnVzZXJkZXRhaWxzO1xuICAgICAgICAgIH0pO1xuICAgICAgICAgIHNjb3BlLiRvbignJHZpZXdDb250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAgJCgnLmRyb3Bkb3duX21lbnUnKS5kcm9wZG93bigpO1xuICAgICAgICAgICAgICAgJCgnLnVpLmFjY29yZGlvbicpLmFjY29yZGlvbigpO1xuXG4gICAgICAgICAgICAgICBFY2hvLmNoYW5uZWwoYGV4YW1fbWVtYmVyX2NvdW50YClcbiAgICAgICAgICAgICAgIC5saXN0ZW4oJ0V4YW1Kb2luZWQnLCAoZSkgPT4ge1xuICAgICAgICAgICAgICAgICBzY29wZS50b3RhbF9leGFtaW5lZXMgPSBlLnRvdGFsX2V4YW1pbmVlcztcbiAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgIH0sIDUwMCk7XG4gICAgICAgICAgfSk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckZGVzdHJveScsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL3VzZXIvcGF1c2UtZ2FtZScpO1xuICAgICAgICAgICAgICBFY2hvLmxlYXZlKCdleGFtX21lbWJlcl9jb3VudCcpO1xuICAgICAgICAgICAgfSwgMCk7XG4gICAgICAgICAgfSk7XG4gICAgICAgIH0sXG4gICAgICAgIHJlc3VsdHM6ICAoc2NvcGUpICA9PiB7XG4gICAgICAgICAgc2VuZFJlcXVlc3QucG9zdFJlcXVlc3QoJy91c2VyL2dldC1leGFtLXJlc3VsdHMnKVxuICAgICAgICAgICAgICAgICAgICAudGhlbiggKHJzcCkgPT4ge1xuICAgICAgICAgICAgICAgICAgICAgIGlmIChyc3Auc3RhdHVzID09IDIwMCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5kYXRhLnJlc3VsdHMgPT0gZmFsc2UpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgJGxvY2F0aW9uLnBhdGgoJy9kYXNoYm9hcmQnKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKHttZXNzYWdlOiAnRXJyb3IgZmV0Y2hpbmcgcmVzdWx0cy4nLCBwb3NpdGlvblg6J2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgICAgIGlmIChyc3AuZGF0YSAhPSAnaW52YWxpZCcpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgc2NvcGUucmVzdWx0cyA9IHJzcC5kYXRhLnJlc3VsdHM7XG4gICAgICAgICAgICAgICAgICAgICAgICAgIHNjb3BlLnVzZXJfZWFybmluZyA9IHJzcC5kYXRhLnVzZXJfZWFybmluZztcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgICAgIGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAkbG9jYXRpb24ucGF0aCgnL2Rhc2hib2FyZCcpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uZXJyb3Ioe21lc3NhZ2U6ICdJbnN1ZmZpY2llbnQgdXNlcnMgZm9yIGdhbWUgc2Vzc2lvbi4gVW5pdHMgcmV2ZXJzZWQnLCBwb3NpdGlvblg6J2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgIH0pO1xuXG5cblxuICAgICAgICAgIHNjb3BlLiRvbignJHZpZXdDb250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAgJCgnLmRyb3Bkb3duX21lbnUnKS5kcm9wZG93bigpO1xuICAgICAgICAgICAgIH0sIDUwMCk7XG4gICAgICAgICAgfSk7XG4gICAgICAgIH0sXG4gICAgICAgIG1lc3NhZ2VzOiAgKHNjb3BlKSAgPT4ge1xuXG5cblxuICAgICAgICAgIHNjb3BlLiRvbignJHZpZXdDb250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAgJCgnLmRyb3Bkb3duX21lbnUnKS5kcm9wZG93bigpO1xuICAgICAgICAgICAgICAgJCgnLnNwZWNpYWwuY2FyZHMgLmltYWdlJykuZGltbWVyKHtcbiAgICAgICAgICAgICAgICAgIG9uOiAnaG92ZXInXG4gICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgfSwgNTAwKTtcbiAgICAgICAgICB9KTtcbiAgICAgICAgfSxcbiAgICAgICAgbm90aWNlczogIChzY29wZSkgID0+IHtcbiAgICAgICAgICBzY29wZS4kb24oJyR2aWV3Q29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgICQoJy5kcm9wZG93bl9tZW51JykuZHJvcGRvd24oKTtcbiAgICAgICAgICAgICB9LCA1MDApO1xuICAgICAgICAgIH0pO1xuICAgICAgICB9LFxuICAgICBcdH07XG4gICAgIH1dKTtcblxuICBhbmd1bGFyLm1vZHVsZSgnYm9vdHN0cmFwQWRtaW5QYWdlJywgW10pLmZhY3RvcnkoJ2Jvb3RzdHJhcEFkbWluUGFnZScsIFsnJHRpbWVvdXQnLCAnJGxvY2F0aW9uJywgJ05vdGlmaWNhdGlvbicsICdzZW5kUmVxdWVzdCcsICgkdGltZW91dCwgJGxvY2F0aW9uLCBOb3RpZmljYXRpb24sIHNlbmRSZXF1ZXN0KSA9PiB7XG4gICAgIFx0cmV0dXJuIHtcbiAgICAgICAgZGFzaGJvYXJkOiAgKHNjb3BlKSA9PiB7XG5cbiAgICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdChyb3V0ZV9yb290ICsgJy9hcGkvZ2V0LWRhc2hib2FyZC1wYWdlLWRldGFpbHMnKVxuICAgICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICBzY29wZS4kb24oJyR2aWV3Q29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAkKCcuZHJvcGRvd25fbWVudScpLmRyb3Bkb3duKCk7XG4gICAgICAgICAgICAgICQoJy5zaGFwZScpLnNoYXBlKCk7XG4gICAgICAgICAgICAgIE5Qcm9ncmVzcy5kb25lKCk7XG4gICAgICAgICAgICB9LCA1MDApO1xuICAgICAgICAgIH0pO1xuICAgICAgICAgIHNjb3BlLiRvbignJGRlc3Ryb3knLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgIH0sIDApO1xuICAgICAgICAgIH0pO1xuXG4gICAgICAgIH0sXG5cbiAgICAgICAgcXVlc3Rpb25zOiAgKHNjb3BlKSA9PiB7XG5cbiAgICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdChyb3V0ZV9yb290ICsgJy9hcGkvZ2V0LXF1ZXN0aW9ucy1wYWdlLWRldGFpbHMnKVxuICAgICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBzY29wZS5xdWVzdGlvbnMgPSByc3AuZGF0YS5xdWVzdGlvbnM7XG4gICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICB9LFxuICAgICAgICAgICAgICAgICAgZXJyID0+IHtcbiAgICAgICAgICAgICAgICAgICAgTm90aWZpY2F0aW9uLmVycm9yKCdFcnJvciByZXRyaWV2aW5nIHF1ZXN0aW9ucyBmcm9tIHNlcnZlcicpO1xuICAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICBzY29wZS4kb24oJyR2aWV3Q29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAkKCcuZHJvcGRvd25fbWVudScpLmRyb3Bkb3duKCk7XG4gICAgICAgICAgICAgICQoJy5zaGFwZScpLnNoYXBlKCk7XG4gICAgICAgICAgICAgIE5Qcm9ncmVzcy5kb25lKCk7XG4gICAgICAgICAgICB9LCA1MDApO1xuICAgICAgICAgIH0pO1xuICAgICAgICAgIC8vIHNjb3BlLiRvbignJGRlc3Ryb3knLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAvLyAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAvLyAgIH0sIDApO1xuICAgICAgICAgIC8vIH0pO1xuXG4gICAgICAgIH0sXG5cbiAgICAgICAgYWRtaW5zOiAgKHNjb3BlKSA9PiB7XG5cbiAgICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdChyb3V0ZV9yb290ICsgJy9hcGkvZ2V0LWFkbWlucy1wYWdlLWRldGFpbHMnKVxuICAgICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgICAgaWYgKHJzcC5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBzY29wZS5hZG1pbnMgPSByc3AuZGF0YS5hZG1pbnM7XG4gICAgICAgICAgICAgICAgICAgICAgICBOUHJvZ3Jlc3MuZG9uZSgpO1xuICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgIGVyciA9PiB7XG4gICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5lcnJvcignRXJyb3IgcmV0cmlldmluZyBhZG1pbnMgZnJvbSBzZXJ2ZXInKTtcbiAgICAgICAgICAgICAgICAgIH0pO1xuXG5cblxuICAgICAgICAgIHNjb3BlLiRvbignJHZpZXdDb250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICQoJy5kcm9wZG93bl9tZW51JykuZHJvcGRvd24oKTtcbiAgICAgICAgICAgIH0sIDUwMCk7XG5cbiAgICAgICAgICB9KTtcbiAgICAgICAgICBzY29wZS4kb24oJyRkZXN0cm95JywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICB9LCAwKTtcbiAgICAgICAgICB9KTtcblxuICAgICAgICB9LFxuXG4gICAgICAgIHVzZXJzOiAgKHNjb3BlKSA9PiB7XG5cbiAgICAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdChyb3V0ZV9yb290ICsgJy9hcGkvZ2V0LXVzZXJzLXBhZ2UtZGV0YWlscycpXG4gICAgICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyc3ApIHtcbiAgICAgICAgICAgICAgICAgICAgICBpZiAocnNwLnN0YXR1cyA9PSAyMDApIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHNjb3BlLnVzZXJzID0gcnNwLmRhdGEudXNlcnM7XG4gICAgICAgICAgICAgICAgICAgICAgICBOUHJvZ3Jlc3MuZG9uZSgpO1xuICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgfSxcbiAgICAgICAgICAgICAgICAgIGVyciA9PiB7XG4gICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5lcnJvcignRXJyb3IgcmV0cmlldmluZyB1c2VycyBmcm9tIHNlcnZlcicpO1xuICAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICBzZW5kUmVxdWVzdC5nZXRCYW5rcygnL2FwaS9nZXQtYmFua3MtbGlzdCcpXG4gICAgICAgICAgICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKHJzcCkge1xuICAgICAgICAgICAgICAgICAgICAgc2NvcGUuYmFua3MgPSByc3AuYmFua3M7XG4gICAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICBzY29wZS4kb24oJyR2aWV3Q29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAkKCcuZHJvcGRvd25fbWVudScpLmRyb3Bkb3duKCk7XG4gICAgICAgICAgICB9LCA1MDApO1xuICAgICAgICAgIH0pO1xuICAgICAgICAgIHNjb3BlLiRvbignJGRlc3Ryb3knLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgIH0sIDApO1xuICAgICAgICAgIH0pO1xuXG4gICAgICAgIH0sXG5cbiAgICAgICAgZ2FtZXM6ICAoc2NvcGUpID0+IHtcblxuICAgICAgICAgIHNjb3BlLiRvbignJHZpZXdDb250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICQoJy5kcm9wZG93bl9tZW51JykuZHJvcGRvd24oKTtcbiAgICAgICAgICAgICAgLy8gJCgnLnVpLnN0aWNreScpXG4gICAgICAgICAgICAgIC8vIC5zdGlja3koe1xuICAgICAgICAgICAgICAvLyAgIGNvbnRleHQ6ICcjY29udGVudC1jb250ZXh0J1xuICAgICAgICAgICAgICAvLyB9KTtcbiAgICAgICAgICAgICAgTlByb2dyZXNzLmRvbmUoKTtcbiAgICAgICAgICAgIH0sIDUwMCk7XG4gICAgICAgICAgfSk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckZGVzdHJveScsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgfSwgMCk7XG4gICAgICAgICAgfSk7XG5cbiAgICAgICAgfSxcblxuICAgICAgICB0cmFuc2FjdGlvbnM6ICAoc2NvcGUpID0+IHtcblxuICAgICAgICAgIHNjb3BlLiRvbignJHZpZXdDb250ZW50TG9hZGVkJywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICQoJy5kcm9wZG93bl9tZW51JykuZHJvcGRvd24oKTtcbiAgICAgICAgICAgICAgJCgnLnVpLnN0aWNreScpXG4gICAgICAgICAgICAgIC5zdGlja3koe1xuICAgICAgICAgICAgICAgIGNvbnRleHQ6ICcjY29udGVudC1jb250ZXh0J1xuICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgIH0sIDUwMCk7XG4gICAgICAgICAgfSk7XG4gICAgICAgICAgc2NvcGUuJG9uKCckZGVzdHJveScsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgLy8gJHRpbWVvdXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgLy8gfSwgMCk7XG4gICAgICAgICAgfSk7XG5cbiAgICAgICAgfSxcblxuICAgICAgICBtZXNzYWdlczogIChzY29wZSkgPT4ge1xuXG4gICAgICAgICAgc2NvcGUuJG9uKCckdmlld0NvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgJCgnLmRyb3Bkb3duX21lbnUnKS5kcm9wZG93bigpO1xuICAgICAgICAgICAgfSwgNTAwKTtcbiAgICAgICAgICB9KTtcbiAgICAgICAgICBzY29wZS4kb24oJyRkZXN0cm95JywgZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAkdGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICB9LCAwKTtcbiAgICAgICAgICB9KTtcblxuICAgICAgICB9LFxuXG4gICAgICAgIHNldHRpbmdzOiAgKHNjb3BlKSAgPT4ge1xuICAgICAgICAgIHNlbmRSZXF1ZXN0LmdldEJhbmtzKCcvYXBpL2dldC1iYW5rcy1saXN0JylcbiAgICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgICBzY29wZS5iYW5rcyA9IHJzcC5iYW5rcztcbiAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICBzY29wZS4kb24oJyR2aWV3Q29udGVudExvYWRlZCcsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgICR0aW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgICQoJyNlZGl0IC5pdGVtJykudGFiKCk7XG4gICAgICAgICAgICAgICAkKCcuZHJvcGRvd25fbWVudScpLmRyb3Bkb3duKCk7XG4gICAgICAgICAgICAgfSwgNTAwKTtcbiAgICAgICAgICAgfSk7XG4gICAgICAgIH0sXG4gICAgIFx0fTtcbiAgICAgfV0pO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9hbmd1bGFyL3NlcnZpY2VzL3NlcnZpY2VzLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/assets/js/angular/services/services.js\n");
+/* WEBPACK VAR INJECTION */(function($) {angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$localStorage', function ($http, $q, $localStorage) {
+
+  var data = {};
+  return {
+    storeData: function storeData(key, value) {
+      data[key] = value;
+    },
+
+    getData: function getData(key) {
+      return data[key];
+    },
+
+    getUserDetails: function getUserDetails(url) {
+      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var deferred = $q.defer();
+
+      if (flushStore || !this.getData('userdetails')) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          _this.storeData('userdetails', rsp.data);
+          return _this.getData('userdetails');
+        });
+      }
+      deferred.resolve(this.getData('userdetails'));
+      return deferred.promise;
+    },
+
+    getTotalEarnings: function getTotalEarnings(url) {
+      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var deferred = $q.defer();
+
+      if (flushStore || !this.getData('total_earnings')) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          _this.storeData('total_earnings', rsp.data);
+          return _this.getData('total_earnings');
+        });
+      }
+      deferred.resolve(this.getData('total_earnings'));
+      return deferred.promise;
+    },
+
+    getBanks: function getBanks(url) {
+      var deferred = $q.defer();
+
+      if (!this.getData('banks_list')) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          _this.storeData('banks_list', rsp.data);
+          return _this.getData('banks_list');
+        });
+      }
+      deferred.resolve(this.getData('banks_list'));
+      return deferred.promise;
+    },
+
+    getGameState: function getGameState() {
+      return this.postRequest('/user/get-game-state').then(function (rsp) {
+        return rsp.data;
+      });
+    },
+
+    getUserQuestions: function getUserQuestions(url) {
+      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var deferred = $q.defer();
+
+      if (flushStore) {
+        delete $localStorage.user_questions;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+      }
+
+      if (!$localStorage.user_questions) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          $localStorage.user_questions = rsp.data.user_questions;
+          return $localStorage.user_questions;
+        });
+      }
+      deferred.resolve($localStorage.user_questions);
+      return deferred.promise;
+    },
+
+    getCountriesStates: function getCountriesStates() {
+      var deferred = $q.defer();
+
+      if (!this.getData('countries_states')) {
+        var _this = this;
+        return this.postRequest('/api/get-countries-state').then(function (rsp) {
+          _this.storeData('countries_states', rsp.data);
+          return _this.getData('countries_states');
+        });
+      }
+      deferred.resolve(this.getData('countries_states'));
+      return deferred.promise;
+    },
+
+    processImageUpload: function processImageUpload(url, data, foldername) {
+      //Handle image changes
+      NProgress.start();
+
+      // send the image to the server as base64 data
+      return $http.post(url, { image: data, fn: foldername }).then(function (response) {
+        NProgress.done();
+        return response.data;
+      }, function (err) {
+        console.log(err.statusText);
+      });
+    },
+
+    postRequest: function postRequest(url, data) {
+
+      return $http.post(url, { details: data }).then(function (response) {
+        return response;
+      }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        } else if (err.status == 403) {
+          location.href = '/suspended';
+        }
+        console.log(err);
+        return err;
+      });
+    },
+
+    request: function request(url) {
+      var data = [];
+      return $http.get(url).then(function (response) {
+        return response.data;
+      }, function (err) {
+        console.log(err.statusText);
+      });
+    }
+  };
+}]);
+
+angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
+  return {
+    dashboard: function dashboard(scope) {
+
+      sendRequest.postRequest('/user/get-dashboard-page-details');
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('#notice.ui.modal').modal({
+            centered: false,
+            blurring: true,
+            onDeny: function onDeny() {
+              return true;
+            },
+            onHide: function onHide() {
+              var remove = function remove() {
+                $('#notice.ui.modal').remove();
+              };
+              setTimeout(remove, 1000);
+              // return false;
+            },
+            onApprove: function onApprove() {
+              return true;
+            }
+          }).modal('show');
+
+          Echo.channel('exam_member_count').listen('ExamJoined', function (e) {
+            scope.total_examinees = e.total_examinees;
+          });
+        }, 1000);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {
+          Echo.leave('exam_member_count');
+        }, 0);
+      });
+    },
+    profile: function profile(scope) {
+      sendRequest.postRequest('/user/get-profile-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.user_transactions = rsp.data.page_details.transactions;
+          scope.user_earnings = rsp.data.page_details.earnings;
+          scope.user_games = rsp.data.page_details.games;
+          scope.referrals = rsp.data.page_details.referrals;
+        }
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('#profile-menu .item').tab();
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    },
+    settings: function settings(scope) {
+      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
+        scope.banks = rsp.banks;
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('#edit .item').tab();
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    },
+    gameplay: function gameplay(scope) {
+      sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {
+        scope.userdetails = rsp.userdetails;
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.ui.accordion').accordion();
+
+          Echo.channel('exam_member_count').listen('ExamJoined', function (e) {
+            scope.total_examinees = e.total_examinees;
+          });
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {
+          sendRequest.postRequest('/user/pause-game');
+          Echo.leave('exam_member_count');
+        }, 0);
+      });
+    },
+    results: function results(scope) {
+      sendRequest.postRequest('/user/get-exam-results').then(function (rsp) {
+        if (rsp.status == 200) {
+          if (rsp.data.results == false) {
+            $location.path('/dashboard');
+            Notification.error({ message: 'Error fetching results.', positionX: 'center' });
+          }
+          if (rsp.data != 'invalid') {
+            scope.results = rsp.data.results;
+            scope.user_earning = rsp.data.user_earning;
+          } else {
+            $location.path('/dashboard');
+            Notification.error({ message: 'Insufficient users for game session. Units reversed', positionX: 'center' });
+          }
+        }
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    },
+    messages: function messages(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.special.cards .image').dimmer({
+            on: 'hover'
+          });
+        }, 500);
+      });
+    },
+    notices: function notices(scope) {
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    }
+  };
+}]);
+
+angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
+  return {
+    dashboard: function dashboard(scope) {
+
+      sendRequest.postRequest(route_root + '/api/get-dashboard-page-details').then(function (rsp) {
+        if (rsp.status == 200) {}
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.shape').shape();
+          NProgress.done();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    questions: function questions(scope) {
+
+      sendRequest.postRequest(route_root + '/api/get-questions-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.questions = rsp.data.questions;
+        }
+      }, function (err) {
+        Notification.error('Error retrieving questions from server');
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.shape').shape();
+          NProgress.done();
+        }, 500);
+      });
+      // scope.$on('$destroy', function() {
+      //   $timeout(function () {
+      //   }, 0);
+      // });
+    },
+
+    admins: function admins(scope) {
+
+      sendRequest.postRequest(route_root + '/api/get-admins-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.admins = rsp.data.admins;
+          NProgress.done();
+        }
+      }, function (err) {
+        Notification.error('Error retrieving admins from server');
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    users: function users(scope) {
+
+      sendRequest.postRequest(route_root + '/api/get-users-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.users = rsp.data.users;
+          NProgress.done();
+        }
+      }, function (err) {
+        Notification.error('Error retrieving users from server');
+      });
+
+      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
+        scope.banks = rsp.banks;
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    games: function games(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          // $('.ui.sticky')
+          // .sticky({
+          //   context: '#content-context'
+          // });
+          NProgress.done();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    transactions: function transactions(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.ui.sticky').sticky({
+            context: '#content-context'
+          });
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        // $timeout(function () {
+        // }, 0);
+      });
+    },
+
+    messages: function messages(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    settings: function settings(scope) {
+      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
+        scope.banks = rsp.banks;
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('#edit .item').tab();
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    }
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
 /***/ "./resources/assets/js/dashboard-app.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\ndashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount']);\n\ndashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {\n\n  $rootScope._ = _;\n  $rootScope.logout = function () {\n    delete localStorage['game-user_score'];\n    sendRequest.postRequest('/logout').then(function (response) {\n      if (response.status == 200) {\n        Notification.success({ message: 'Logout successful', positionX: 'center' });\n        $window.location.href = '/login';\n      } else {\n        Notification.error({ message: 'Logout failed! Reload page.', positionX: 'center' });\n      }\n    });\n  };\n\n  $rootScope.$on(\"$routeChangeStart\", function (event, next, current) {\n    sendRequest.getTotalEarnings('/user/get-total-earnings').then(function (rsp) {\n      $rootScope.total_earnings = rsp.total_earnings;\n    });\n    sendRequest.getUserDetails('/user/get-user-details').then(function (rsp) {\n      $rootScope.userdetails = rsp.userdetails;\n    });\n  });\n\n  // $rootScope.markAsRead = function(msg) {\n  //  sendRequest.postRequest('api/user/mark-as-read', msg);\n  // };\n}]);\n\n__webpack_require__(\"./resources/assets/js/angular/filters/parseHTML.js\");\n__webpack_require__(\"./resources/assets/js/angular/services/services.js\");\n//\n__webpack_require__(\"./resources/assets/js/angular/filters/rangeFilter.js\");\n//\n__webpack_require__(\"./resources/assets/js/angular/directives/customFileChange.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/customFileUpload.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/inputCountValidator.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/countdownTimer.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/miniGameState.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/gameState.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/gamePlay.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/buyUnits.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/sendMessage.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/makeWithdrawal.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/userProfile.js\");\n__webpack_require__(\"./resources/assets/js/angular/directives/verifyAccount.js\");\n// require('./angular/directives/timer');\n//\n//\n// require('./angular/directives/ngRepeatFinishedCallback');\n//\n\n\n__webpack_require__(\"./resources/assets/js/angular/routes/dashboard-routes.js\");\n\n__webpack_require__(\"./resources/assets/js/angular/controllers/dashboard-controller.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2Rhc2hib2FyZC1hcHAuanM/MjU2MyJdLCJuYW1lcyI6WyJkYXNoYm9hcmQiLCJhbmd1bGFyIiwibW9kdWxlIiwicnVuIiwiJHJvb3RTY29wZSIsIiR3aW5kb3ciLCJOb3RpZmljYXRpb24iLCJzZW5kUmVxdWVzdCIsIl8iLCJsb2dvdXQiLCJsb2NhbFN0b3JhZ2UiLCJwb3N0UmVxdWVzdCIsInRoZW4iLCJyZXNwb25zZSIsInN0YXR1cyIsInN1Y2Nlc3MiLCJtZXNzYWdlIiwicG9zaXRpb25YIiwibG9jYXRpb24iLCJocmVmIiwiZXJyb3IiLCIkb24iLCJldmVudCIsIm5leHQiLCJjdXJyZW50IiwiZ2V0VG90YWxFYXJuaW5ncyIsInJzcCIsInRvdGFsX2Vhcm5pbmdzIiwiZ2V0VXNlckRldGFpbHMiLCJ1c2VyZGV0YWlscyIsInJlcXVpcmUiXSwibWFwcGluZ3MiOiI7QUFDRUEsWUFBWUMsUUFBUUMsTUFBUixDQUFlLFdBQWYsRUFDRSxDQUNFLFNBREYsRUFDYSxXQURiLEVBQzBCLFdBRDFCLEVBQ3VDLGlCQUR2QyxFQUMwRCx3QkFEMUQsRUFDb0YsYUFEcEYsRUFFRSxXQUZGLEVBRWUsa0JBRmYsRUFFbUMsa0JBRm5DLEVBRXVELHFCQUZ2RCxFQUU4RSxnQkFGOUUsRUFHRSxlQUhGLEVBR21CLFdBSG5CLEVBR2dDLFVBSGhDLEVBRzRDLGFBSDVDLEVBRzJELE9BSDNELEVBR29FLFVBSHBFLEVBR2dGLGFBSGhGLEVBSUUsZ0JBSkYsRUFJb0IsZUFKcEIsRUFJcUMsZUFKckMsQ0FERixDQUFaOztBQVFBRixVQUFVRyxHQUFWLENBQWMsQ0FBQyxZQUFELEVBQWUsU0FBZixFQUEwQixjQUExQixFQUEwQyxhQUExQyxFQUF5RCxVQUFDQyxVQUFELEVBQWFDLE9BQWIsRUFBc0JDLFlBQXRCLEVBQW9DQyxXQUFwQyxFQUFvRDs7QUFFdkhILGFBQVdJLENBQVgsR0FBZUEsQ0FBZjtBQUNBSixhQUFXSyxNQUFYLEdBQW9CLFlBQVc7QUFDN0IsV0FBT0MsYUFBYSxpQkFBYixDQUFQO0FBQ0RILGdCQUFZSSxXQUFaLENBQXdCLFNBQXhCLEVBQ1dDLElBRFgsQ0FDZ0IsVUFBVUMsUUFBVixFQUFvQjtBQUN4QixVQUFJQSxTQUFTQyxNQUFULElBQW1CLEdBQXZCLEVBQTRCO0FBQzFCUixxQkFBYVMsT0FBYixDQUFxQixFQUFDQyxTQUFTLG1CQUFWLEVBQWdDQyxXQUFXLFFBQTNDLEVBQXJCO0FBQ0FaLGdCQUFRYSxRQUFSLENBQWlCQyxJQUFqQixHQUF3QixRQUF4QjtBQUNELE9BSEQsTUFJSztBQUNIYixxQkFBYWMsS0FBYixDQUFtQixFQUFDSixTQUFTLDZCQUFWLEVBQTBDQyxXQUFXLFFBQXJELEVBQW5CO0FBQ0Q7QUFDRixLQVRYO0FBVUEsR0FaRDs7QUFjQWIsYUFBV2lCLEdBQVgsQ0FBZSxtQkFBZixFQUFvQyxVQUFVQyxLQUFWLEVBQWlCQyxJQUFqQixFQUF1QkMsT0FBdkIsRUFBZ0M7QUFDbEVqQixnQkFBWWtCLGdCQUFaLENBQTZCLDBCQUE3QixFQUNXYixJQURYLENBQ2dCLFVBQVVjLEdBQVYsRUFBZTtBQUNuQnRCLGlCQUFXdUIsY0FBWCxHQUE0QkQsSUFBSUMsY0FBaEM7QUFDRCxLQUhYO0FBSUFwQixnQkFBWXFCLGNBQVosQ0FBMkIsd0JBQTNCLEVBQ0doQixJQURILENBQ1MsVUFBQ2MsR0FBRCxFQUFTO0FBQ2R0QixpQkFBV3lCLFdBQVgsR0FBeUJILElBQUlHLFdBQTdCO0FBQ0QsS0FISDtBQUlELEdBVEQ7O0FBV0E7QUFDQTtBQUNBO0FBQ0YsQ0EvQlksQ0FBZDs7QUFpQ0EsbUJBQUFDLENBQVEsb0RBQVI7QUFDQSxtQkFBQUEsQ0FBUSxvREFBUjtBQUNBO0FBQ0EsbUJBQUFBLENBQVEsc0RBQVI7QUFDQTtBQUNBLG1CQUFBQSxDQUFRLDhEQUFSO0FBQ0EsbUJBQUFBLENBQVEsOERBQVI7QUFDQSxtQkFBQUEsQ0FBUSxpRUFBUjtBQUNBLG1CQUFBQSxDQUFRLDREQUFSO0FBQ0EsbUJBQUFBLENBQVEsMkRBQVI7QUFDQSxtQkFBQUEsQ0FBUSx1REFBUjtBQUNBLG1CQUFBQSxDQUFRLHNEQUFSO0FBQ0EsbUJBQUFBLENBQVEsc0RBQVI7QUFDQSxtQkFBQUEsQ0FBUSx5REFBUjtBQUNBLG1CQUFBQSxDQUFRLDREQUFSO0FBQ0EsbUJBQUFBLENBQVEseURBQVI7QUFDQSxtQkFBQUEsQ0FBUSwyREFBUjtBQUNDO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUlELG1CQUFBQSxDQUFRLDBEQUFSOztBQUVBLG1CQUFBQSxDQUFRLG1FQUFSIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2Fzc2V0cy9qcy9kYXNoYm9hcmQtYXBwLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiXG4gIGRhc2hib2FyZCA9IGFuZ3VsYXIubW9kdWxlKCdkYXNoYm9hcmQnLFxuICAgICAgICAgICAgICAgIFtcbiAgICAgICAgICAgICAgICAgICduZ1JvdXRlJywgJ25nQW5pbWF0ZScsICduZ1N0b3JhZ2UnLCAndWktbm90aWZpY2F0aW9uJywgJ3lhcnUyMi5hbmd1bGFyLXRpbWVhZ28nLCAnc2VuZFJlcXVlc3QnLFxuICAgICAgICAgICAgICAgICAgJ3BhcnNlSFRNTCcsICdjdXN0b21GaWxlQ2hhbmdlJywgJ2N1c3RvbUZpbGVVcGxvYWQnLCAnaW5wdXRDb3VudFZhbGlkYXRvcicsICdjb3VudGRvd25UaW1lcicsXG4gICAgICAgICAgICAgICAgICAnbWluaUdhbWVTdGF0ZScsICdnYW1lU3RhdGUnLCAnZ2FtZVBsYXknLCAndXNlclByb2ZpbGUnLCAncmFuZ2UnLCAnYnV5VW5pdHMnLCAnc2VuZE1lc3NhZ2UnLFxuICAgICAgICAgICAgICAgICAgJ21ha2VXaXRoZHJhd2FsJywgJ2Jvb3RzdHJhcFBhZ2UnLCAndmVyaWZ5QWNjb3VudCdcbiAgICAgICAgICAgICAgICBdKTtcblxuICBkYXNoYm9hcmQucnVuKFsnJHJvb3RTY29wZScsICckd2luZG93JywgJ05vdGlmaWNhdGlvbicsICdzZW5kUmVxdWVzdCcsICgkcm9vdFNjb3BlLCAkd2luZG93LCBOb3RpZmljYXRpb24sIHNlbmRSZXF1ZXN0KSA9PiB7XG5cbiAgICAgICRyb290U2NvcGUuXyA9IF87XG4gICAgICAkcm9vdFNjb3BlLmxvZ291dCA9IGZ1bmN0aW9uKCkge1xuICAgICAgICBkZWxldGUgbG9jYWxTdG9yYWdlWydnYW1lLXVzZXJfc2NvcmUnXTtcbiAgICAgICBzZW5kUmVxdWVzdC5wb3N0UmVxdWVzdCgnL2xvZ291dCcpXG4gICAgICAgICAgICAgICAgIC50aGVuKGZ1bmN0aW9uIChyZXNwb25zZSkge1xuICAgICAgICAgICAgICAgICAgIGlmIChyZXNwb25zZS5zdGF0dXMgPT0gMjAwKSB7XG4gICAgICAgICAgICAgICAgICAgICBOb3RpZmljYXRpb24uc3VjY2Vzcyh7bWVzc2FnZTogJ0xvZ291dCBzdWNjZXNzZnVsJywgIHBvc2l0aW9uWDogJ2NlbnRlcid9KTtcbiAgICAgICAgICAgICAgICAgICAgICR3aW5kb3cubG9jYXRpb24uaHJlZiA9ICcvbG9naW4nO1xuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICBlbHNlIHtcbiAgICAgICAgICAgICAgICAgICAgIE5vdGlmaWNhdGlvbi5lcnJvcih7bWVzc2FnZTogJ0xvZ291dCBmYWlsZWQhIFJlbG9hZCBwYWdlLicsICBwb3NpdGlvblg6ICdjZW50ZXInfSk7XG4gICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICB9KTtcbiAgICAgIH07XG5cbiAgICAgICRyb290U2NvcGUuJG9uKFwiJHJvdXRlQ2hhbmdlU3RhcnRcIiwgZnVuY3Rpb24gKGV2ZW50LCBuZXh0LCBjdXJyZW50KSB7XG4gICAgICAgIHNlbmRSZXF1ZXN0LmdldFRvdGFsRWFybmluZ3MoJy91c2VyL2dldC10b3RhbC1lYXJuaW5ncycpXG4gICAgICAgICAgICAgICAgICAudGhlbihmdW5jdGlvbiAocnNwKSB7XG4gICAgICAgICAgICAgICAgICAgICRyb290U2NvcGUudG90YWxfZWFybmluZ3MgPSByc3AudG90YWxfZWFybmluZ3M7XG4gICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgc2VuZFJlcXVlc3QuZ2V0VXNlckRldGFpbHMoJy91c2VyL2dldC11c2VyLWRldGFpbHMnKVxuICAgICAgICAgIC50aGVuKCAocnNwKSA9PiB7XG4gICAgICAgICAgICAkcm9vdFNjb3BlLnVzZXJkZXRhaWxzID0gcnNwLnVzZXJkZXRhaWxzO1xuICAgICAgICAgIH0pO1xuICAgICAgfSk7XG5cbiAgICAgIC8vICRyb290U2NvcGUubWFya0FzUmVhZCA9IGZ1bmN0aW9uKG1zZykge1xuICAgICAgLy8gIHNlbmRSZXF1ZXN0LnBvc3RSZXF1ZXN0KCdhcGkvdXNlci9tYXJrLWFzLXJlYWQnLCBtc2cpO1xuICAgICAgLy8gfTtcbiAgIH1dKTtcblxuICByZXF1aXJlKCcuL2FuZ3VsYXIvZmlsdGVycy9wYXJzZUhUTUwnKTtcbiAgcmVxdWlyZSgnLi9hbmd1bGFyL3NlcnZpY2VzL3NlcnZpY2VzJyk7XG4gIC8vXG4gIHJlcXVpcmUoJy4vYW5ndWxhci9maWx0ZXJzL3JhbmdlRmlsdGVyJyk7XG4gIC8vXG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL2N1c3RvbUZpbGVDaGFuZ2UnKTtcbiAgcmVxdWlyZSgnLi9hbmd1bGFyL2RpcmVjdGl2ZXMvY3VzdG9tRmlsZVVwbG9hZCcpO1xuICByZXF1aXJlKCcuL2FuZ3VsYXIvZGlyZWN0aXZlcy9pbnB1dENvdW50VmFsaWRhdG9yJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL2NvdW50ZG93blRpbWVyJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL21pbmlHYW1lU3RhdGUnKTtcbiAgcmVxdWlyZSgnLi9hbmd1bGFyL2RpcmVjdGl2ZXMvZ2FtZVN0YXRlJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL2dhbWVQbGF5Jyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL2J1eVVuaXRzJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL3NlbmRNZXNzYWdlJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL21ha2VXaXRoZHJhd2FsJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL3VzZXJQcm9maWxlJyk7XG4gIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL3ZlcmlmeUFjY291bnQnKTtcbiAgIC8vIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL3RpbWVyJyk7XG4gICAvL1xuICAgLy9cbiAgIC8vIHJlcXVpcmUoJy4vYW5ndWxhci9kaXJlY3RpdmVzL25nUmVwZWF0RmluaXNoZWRDYWxsYmFjaycpO1xuICAgLy9cblxuXG5cbiAgcmVxdWlyZSgnLi9hbmd1bGFyL3JvdXRlcy9kYXNoYm9hcmQtcm91dGVzJyk7XG5cbiAgcmVxdWlyZSgnLi9hbmd1bGFyL2NvbnRyb2xsZXJzL2Rhc2hib2FyZC1jb250cm9sbGVyJyk7XG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9yZXNvdXJjZXMvYXNzZXRzL2pzL2Rhc2hib2FyZC1hcHAuanMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/assets/js/dashboard-app.js\n");
+
+dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack']);
+
+dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
+
+  $rootScope._ = _;
+  $rootScope.logout = function () {
+    delete localStorage['game-user_score'];
+    sendRequest.postRequest('/logout').then(function (response) {
+      if (response.status == 200) {
+        Notification.success({ message: 'Logout successful', positionX: 'center' });
+        $window.location.href = '/login';
+      } else {
+        Notification.error({ message: 'Logout failed! Reload page.', positionX: 'center' });
+      }
+    });
+  };
+
+  $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    sendRequest.getTotalEarnings('/user/get-total-earnings').then(function (rsp) {
+      $rootScope.total_earnings = rsp.total_earnings;
+    });
+    sendRequest.getUserDetails('/user/get-user-details').then(function (rsp) {
+      $rootScope.userdetails = rsp.userdetails;
+    });
+  });
+
+  // $rootScope.markAsRead = function(msg) {
+  //  sendRequest.postRequest('api/user/mark-as-read', msg);
+  // };
+}]);
+
+__webpack_require__("./resources/assets/js/angular/filters/parseHTML.js");
+__webpack_require__("./resources/assets/js/angular/services/services.js");
+//
+__webpack_require__("./resources/assets/js/angular/filters/rangeFilter.js");
+//
+__webpack_require__("./resources/assets/js/angular/directives/customFileChange.js");
+__webpack_require__("./resources/assets/js/angular/directives/customFileUpload.js");
+__webpack_require__("./resources/assets/js/angular/directives/inputCountValidator.js");
+__webpack_require__("./resources/assets/js/angular/directives/countdownTimer.js");
+__webpack_require__("./resources/assets/js/angular/directives/miniGameState.js");
+__webpack_require__("./resources/assets/js/angular/directives/gameState.js");
+__webpack_require__("./resources/assets/js/angular/directives/gamePlay.js");
+__webpack_require__("./resources/assets/js/angular/directives/buyUnits.js");
+__webpack_require__("./resources/assets/js/angular/directives/sendMessage.js");
+__webpack_require__("./resources/assets/js/angular/directives/makeWithdrawal.js");
+__webpack_require__("./resources/assets/js/angular/directives/userProfile.js");
+__webpack_require__("./resources/assets/js/angular/directives/verifyAccount.js");
+__webpack_require__("./resources/assets/js/angular/directives/payWithPaystack.js");
+// require('./angular/directives/timer');
+//
+//
+// require('./angular/directives/ngRepeatFinishedCallback');
+//
+
+
+__webpack_require__("./resources/assets/js/angular/routes/dashboard-routes.js");
+
+__webpack_require__("./resources/assets/js/angular/controllers/dashboard-controller.js");
 
 /***/ }),
 
@@ -135,3 +1760,4 @@ module.exports = __webpack_require__("./resources/assets/js/dashboard-app.js");
 /***/ })
 
 },[2]);
+//# sourceMappingURL=dashboard-app.js.map

@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
 use GuzzleHttp\Exception\ConnectException;
+use App\User;
 // use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
 
 class TransactionalMail
 {
   public static function sendVerificationMail($token, $email){
+
+    return (new ActivationMail($token))->render($token);
 
     Mail::to($email)->send(new ActivationMail($token));
 
@@ -22,7 +25,7 @@ class TransactionalMail
   public static function resendverificationMail(){
 
     // return (new PasswordResetMail(str_random(100)))->render();
-    return (new VisitorMessage())->render();
+    return (new ReactivationMail())->render();
 
     Mail::to( Auth::user()->email )->send(new ReactivationMail());
 
@@ -37,11 +40,11 @@ class TransactionalMail
 
   }
 
-  public static function sendCreditMail($amt){
+  public static function sendCreditMail($amt, $trans_type, $user_balance){
 
-    return (new AccountCredited($amt))->render();
+    return (new AccountCredited($amt, $trans_type, null, $user_balance))->render();
 
-    Mail::to( Auth::user()->email )->send(new AccountCredited($amt));
+    Mail::to( Auth::user()->email )->send(new AccountCredited($amt, $trans_type, null, $user_balance));
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -52,11 +55,11 @@ class TransactionalMail
 
   }
 
-  public static function sendAdminCreditMail($amt, $username){
+  public static function sendAdminCreditMail($amt, $trans_type, $purpose, $user_balance, $username){
 
-    return (new AdminCreditAccount($amt, $username))->render();
+    return (new AdminCreditAccount($amt, $trans_type, $purpose, $user_balance, $username))->render();
 
-    Mail::to( Auth::user()->email )->send(new AdminCreditAccount($amt, $username));
+    Mail::to( Auth::user()->email )->send(new AdminCreditAccount($amt, $trans_type, $purpose, $user_balance, $username));
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -69,24 +72,29 @@ class TransactionalMail
 
   public static function sendDebitRequestedMail($amt){
 
-    return (new DebitRequested($amt))->render();
-
-    Mail::to( Auth::user()->email )->send(new DebitRequested($amt));
-
-    if ( count(Mail::failures()) > 0) {
-      return [
-        'status' => 422,
-        'message' => 'Error sending mail'
-      ];
-    }
+    // return (new DebitRequested($amt))->render();
+    //
+    // Mail::to( Auth::user()->email )->send(new DebitRequested($amt));
+    //
+    // if ( count(Mail::failures()) > 0) {
+    //   return [
+    //     'status' => 422,
+    //     'message' => 'Error sending mail'
+    //   ];
+    // }
 
   }
 
-  public static function sendWithdrawalProcessedMail($amt){
 
-    return (new WithdrawalProcessed($amt))->render();
 
-    Mail::to( Auth::user()->email )->send(new WithdrawalProcessed($amt));
+
+
+
+  public static function sendWithdrawalProcessedMail(User $user, $amt, $trans_type, $charge, $total ){
+
+    return (new WithdrawalProcessed($user, $amt, $trans_type, $charge, $total))->render();
+
+    Mail::to( $user->email )->send(new WithdrawalProcessed($user, $amt, $trans_type, $charge, $total));
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -98,6 +106,8 @@ class TransactionalMail
   }
 
   public static function passwordResetMail($user, $token){
+
+    return (new PasswordResetMail($user, $token))->render();
 
     try {
       Mail::to($user->email)->send(new PasswordResetMail($user, $token));
@@ -114,6 +124,8 @@ class TransactionalMail
 
   public static function sendVisitorMessage(){
     // return _dd(request()->all());
+    return (new VisitorMessage())->render();
+
     return [
       'status' => 200,
       'message' => (new VisitorMessage())->render()

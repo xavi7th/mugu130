@@ -13,17 +13,23 @@ class AdminCreditAccount extends Mailable implements ShouldQueue
 
     public $amt;
     public $username;
+    public $trans_type;
+    public $purpose;
+    public $user_balance;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($amt, $username)
+    public function __construct($amt, $trans_type, $purpose, $user_balance, $username)
     {
         //
         $this->amt = $amt;
         $this->username = $username;
+        $this->trans_type = $trans_type;
+        $this->purpose = $purpose;
+        $this->user_balance = $user_balance;
     }
 
     /**

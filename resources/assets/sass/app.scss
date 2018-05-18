@@ -356,7 +356,7 @@ td[ng-click]{
     text-align: center;
   }
   img{
-    max-width: 100% !important;
+    max-width: 65% !important;
   }
 
   #extra{
@@ -426,6 +426,17 @@ div#main-controller{
 
     img{
       max-width: 70%;
+    }
+  }
+
+  @include MQ(M){
+    .ui.menu{
+      -ms-flex-wrap: wrap !important;
+          flex-wrap: wrap !important;
+      margin-bottom: 30px !important;
+      -webkit-box-pack: center !important;
+          -ms-flex-pack: center !important;
+              justify-content: center !important;
     }
   }
 

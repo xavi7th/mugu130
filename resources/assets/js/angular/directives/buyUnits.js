@@ -4,7 +4,7 @@
 
 var url = `
 <section id="buyUnits" class="ui right floated horizontal list">
-  <div class="ui vertical teal compact animated button" tabindex="-1" ng-click="openModal()">
+  <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">
     <div class="hidden content"><i class="shop icon"></i></div>
     <div class="visible content">
       Fund Account
@@ -14,7 +14,7 @@ var url = `
 
   <div class="ui tiny modal buyUnits transition hidden">
       <div class="header">
-        Input Amount
+        Fund Account: Input Amount
       </div>
       <div class="image content flex-center">
         <div class="ui form">
@@ -24,24 +24,21 @@ var url = `
         </div>
       </div>
       <div class="actions  flex-center">
+        <pay-with-paystack></pay-with-paystack>
         <div class="ui black left deny button">
-          Close
-        </div>
-        <div ng-class="{'ui positive right labeled icon button': true, 'disabled': !requested_amount}" ng-click="awardCredits()">
-          Pay Online
-          <i class="checkmark icon"></i>
+        Close
         </div>
       </div>
       <div class="ui segments" id="info-images">
         <div class="ui segment">
         <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>
           <p>
-            <img src="/img/paywithcashenvoylogo.gif" alt="" />
+
           </p>
         </div>
         <div class="ui secondary segment">
           <p>
-            <img src="/img/cashenvoy.png" alt="" />
+            <img src="/img/paystack_preview.png" alt="" />
           </p>
         </div>
         <div class="ui secondary segment" id="extra">
@@ -85,18 +82,9 @@ var url = `
 angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendRequest', function (Notification, sendRequest) {
   return {
     restrict: 'E',
-    scope:{
-      // dest : '=',
-      // mdl:'=',
-      // attr: '=',
-      // altText: '='
-    },
-    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    scope:{},
     template:url,
     replace: true,
-    link: (scope, element, attributes) => {
-
-		},
     controller: ['$scope',  ($scope) => {
 
       $scope.amt_per_unit = 1;

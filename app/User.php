@@ -218,7 +218,17 @@ class User extends Authenticatable{
     public function addEarning($gid, $amt){
       $this->earnings()->create([
         'amount' => $amt,
-        'game_id' => $gid
+        'game_id' => $gid,
+        'transferred' => Auth::user()->id
+      ]);
+    }
+
+    public function receiptForGame($gid){
+      $this->transactions()->create([
+        'amount' => env('GAME_CREDITS'),
+        'trans_type' => 'charges for game '. $gid,
+        'channel' => 'online',
+        'status' => 'completed'
       ]);
     }
 
@@ -226,9 +236,9 @@ class User extends Authenticatable{
       return $this->earnings()->where('transferred', false);
     }
 
-    public function creditAccount(){
-      $this->available_units = $this->available_units + request()->input('details.amt');
-      $this->units_purchased = $this->units_purchased + request()->input('details.amt');
+    public function creditAccount($amt){
+      $this->available_units = $this->available_units + $amt;
+      $this->units_purchased = $this->units_purchased + $amt;
       $this->save();
     }
 

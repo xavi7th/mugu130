@@ -152,7 +152,7 @@
 
 			body,
 			#bodyTable {
-				background-color: #FFFFFF;
+				background-color: #EEE;
 			}
 
 			/*
@@ -770,9 +770,9 @@
 																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
 																	&nbsp;
-																	<h1>Looking forward to seeing you!</h1> &nbsp;
+																	<h1>Hi {{ Auth::user()->firstname }},</h1> &nbsp;
 
-																	<h4>just a friendly reminder that you have a 2pm appointment with Sarah this Thursday</h4>
+																	<h4>Thank you for joining FastPlay24.</h4>
 
 																</td>
 															</tr>
@@ -791,11 +791,64 @@
 														<tbody>
 															<tr>
 																<td align="center" valign="middle" class="mcnButtonContent" style="font-family: Helvetica; font-size: 16px; padding: 15px;">
-																	<a class="mcnButton " title="Login to play" href="{{ route('verify.check', ['token' => $token]) }}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #333333;">PLAY GAME</a>
+																	<a class="mcnButton " title="Login to play" href="{{ route('verify.check', ['token' => $token]) }}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #333333;">Verify Account</a>
 																</td>
 															</tr>
 														</tbody>
 													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+										<tbody class="mcnTextBlockOuter">
+											<tr>
+												<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
+
+													<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+														<tbody>
+
+															<tr>
+																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																	<p>If you encounter any issue verifying your account, kindly shoot a note to hello@fastplay.com.</p>
+																</td>
+															</tr>
+															<tr>
+																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																	<p>Welcome to FastPlay24!!! </p>
+																	<p>Start your Engines!!! </p>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+										<tbody class="mcnTextBlockOuter">
+											<tr>
+												<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
+
+													<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+														<tbody>
+
+															<tr>
+																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																	<p>Cheers,</p>
+																	<p>Your buddies at FastPlay24</p>
+																</td>
+															</tr>
+															<tr>
+																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																	<h2>Think - Play - Win </h2>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
 												</td>
 											</tr>
 										</tbody>
@@ -811,6 +864,7 @@
 							{{-- FOOTER --}}
 							<tr>
 								<td valign="top" id="templateFooter">
+
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
 										<tbody class="mcnFollowBlockOuter">
 											<tr>
@@ -948,12 +1002,11 @@
 
 																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-																	<em>Copyright © 2018 FastPlay24, All rights reserved.</em><br>
+																	<em>Copyright © 2017 FastPlay24, All rights reserved.</em><br>
 																	<br>
 																	<br>
 																	<strong>Our mailing address is:</strong><br> hello@fastplay24.com
 																	<br>
-																	<br> Want to change how you receive these emails?<br> You can&nbsp;<a href="*|UNSUB|*">unsubscribe from this list</a>.<br> &nbsp;
 																</td>
 															</tr>
 														</tbody>

@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('customCSS')
+  <style media="screen">
+  div[ng-view] {
+    min-height: 0 !important;
+  }
+  </style>
+@endsection
+
 
 @section('customJS')
   <script>

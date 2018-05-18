@@ -155,18 +155,23 @@
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
-              $('.ui.basic.modal')
+              $('#notice.ui.modal')
               .modal({
                 centered: false,
+                blurring: true,
+                onDeny    : function(){
+                     return true;
+
+                   },
                   onHide    : function(){
                     var remove = () => {
-                      $('.ui.basic.modal').remove();
+                      $('#notice.ui.modal').remove();
                     };
                     setTimeout(remove, 1000);
-                    return false;
+                    // return false;
                   },
                   onApprove : function() {
-                    window.alert('Approved!');
+                    return true;
                   }
                 })
                 .modal('show');

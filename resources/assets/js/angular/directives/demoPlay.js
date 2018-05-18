@@ -173,7 +173,7 @@ var url = `
           <tbody>
             <tr ng-repeat="result in results  | orderBy: ['reward', '-score'] ">
               <td>
-                <p style="text-align:center; position:relative;"> {{ result.session_id | limitTo : 25 }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.game_id == 1 ">You</a></p>
+                <p style="text-align:center; position:relative;"> {{ result.session_id | limitTo : 10 }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.game_id == 1 ">You</a></p>
 
               </td>
               <td class="centered">{{ result.duration }} minutes</td>
@@ -203,7 +203,6 @@ var url = `
       </div>
     </div>
   </div>
-
 </section>
 
 `;

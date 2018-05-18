@@ -40,6 +40,13 @@
 //
 // }
 
+var url=`
+<div>
+   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">
+   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">
+</div>
+
+`;
 
 
 angular.module('customFileUpload', []).directive('customFileUpload', ['$localStorage', 'sendRequest', function ($localStorage, sendRequest) {
@@ -51,7 +58,8 @@ angular.module('customFileUpload', []).directive('customFileUpload', ['$localSto
       attr: '=',
       altText: '='
     },
-    templateUrl:'angular/directive-templates/customFileUploadTemplate.php',
+    template: url,
+    // templateUrl:'angular/directive-templates/customFileUploadTemplate.php',
     replace: true,
     link: function(scope, element, attributes){
 
