@@ -89,6 +89,14 @@ home.controller('SupportController', ['$scope', 'sendRequest', 'bootstrapPage', 
   NProgress.done();
 }]);
 
+home.controller('FAQController', ['$scope', 'bootstrapPage', function ($scope, bootstrapPage) {
+
+  NProgress.start();
+  $scope.title = 'Frequently Asked Questions';
+  bootstrapPage.faq($scope);
+  NProgress.done();
+}]);
+
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/countdownTimer.js":
@@ -386,6 +394,10 @@ app.filter('range', function () {
 
 home.config(['$routeProvider', '$locationProvider', '$provide', 'NotificationProvider', function ($routeProvider, $locationProvider, $provide, NotificationProvider) {
   $routeProvider.when('/', {
+    controller: 'HomeController',
+    template: '',
+    animation: 'slide'
+  }).when('/test', {
     controller: 'HomeController',
     template: '',
     animation: 'slide'
@@ -905,7 +917,7 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 /***/ "./resources/assets/js/home-app.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-// Require the stuffs that are particular to this app
+/* WEBPACK VAR INJECTION */(function($) {// Require the stuffs that are particular to this app
 
 
 home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range']);
@@ -946,12 +958,12 @@ home.factory('bootstrapPage', ['$timeout', function InboxService($timeout) {
 			scope.$on('$viewContentLoaded', function () {});
 		},
 		support: function support(scope) {
-			scope.$parent.height = 90;
 			scope.$on('$viewContentLoaded', function () {});
 		},
 		faq: function faq(scope) {
-			scope.$parent.height = 90;
-			scope.$on('$viewContentLoaded', function () {});
+			scope.$on('$viewContentLoaded', function () {
+				$('#faq').accordion();
+			});
 		},
 		calculator: function calculator(scope) {
 			scope.$parent.height = 90;
@@ -971,6 +983,7 @@ __webpack_require__("./resources/assets/js/angular/filters/rangeFilter.js");
 __webpack_require__("./resources/assets/js/angular/routes/home-routes.js");
 
 __webpack_require__("./resources/assets/js/angular/controllers/home-controller.js");
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 

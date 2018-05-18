@@ -31,13 +31,13 @@
 
             <h3>Everybody is a winner!!!</h3>
 
-            <a href="/demo-play" target="_blank">
+            <a href="/demo-play" target="_self">
               <button class="ui labeled blue icon button">
                 <i class="gamepad icon"></i>
                 Play Demo
               </button>
             </a>
-            <a href="/calculator" target="_blank">
+            <a href="/calculator" target="_self">
               <button class="ui right labeled purple icon button">
                 View Calculator
                 <i class="calculator icon"></i>

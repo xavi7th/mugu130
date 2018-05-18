@@ -94,3 +94,12 @@
     NProgress.done();
 
   }]);
+
+  home.controller('FAQController', ['$scope', 'bootstrapPage', function ($scope, bootstrapPage ) {
+
+    NProgress.start();
+      $scope.title = 'Frequently Asked Questions';
+      bootstrapPage.faq($scope);
+    NProgress.done();
+
+  }]);

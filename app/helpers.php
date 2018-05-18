@@ -1,4 +1,7 @@
 <?php
+use Illuminate\Contracts\Filesystem\FileNotFoundException as FileGetException;
+
+use League\Flysystem\FileNotFoundException as FileDownloadException;
 
 // if (env('APP_DEBUG')) ini_set('opcache.revalidate_freq', '0');
 
@@ -85,6 +88,64 @@ if (! function_exists('unique_random')) {
 
 
           return $random;
+    }
+}
+
+
+if (! function_exists('download_file')) {
+
+  /**
+   *
+   * Generate a file download response
+   * uses default filesystems disk
+   *
+   * @param     $file - The file to download
+   * @param     $name_to_use - the name the user sees (optional)
+   *
+   * @return response
+   */
+    function download_file($file, $name_to_use=null){
+        try {
+          return Storage::download($file, $name_to_use);
+        } catch (FileGetException $e) {
+          abort(404, "Requested file ({$e->getMessage()}) not found");
+        } catch (FileDownloadException $e) {
+          abort(404, $e->getMessage());
+        }
+    }
+}
+
+
+if (! function_exists('view_file_in_browser')) {
+
+  /**
+   *
+   * Generate a url redirect response that enables browser to access the file directly
+   * uses a custom filesystems disk that does not append app_url to the url method
+   * Something like this
+   *
+   *      'browser_view' => [
+   *          'driver' => 'local',
+   *          'root' => storage_path('app/public'),
+   *          'url' => '/storage',
+   *          'visibility' => 'public',
+   *      ],
+   *
+   * @param     $file - The file to download
+   *
+   *
+   *
+   * @return redirect response
+   */
+    function view_file_in_browser($file){
+
+        try {
+          return  redirect( Storage::disk('browser_view')->url($file));
+        } catch (FileGetException $e) {
+          abort(404, "Requested file ({$e->getMessage()}) not found");
+        } catch (FileDownloadException $e) {
+          abort(404, $e->getMessage());
+        }
     }
 }
 

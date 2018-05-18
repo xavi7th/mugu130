@@ -44,13 +44,12 @@ home.factory('bootstrapPage', ['$timeout', function InboxService($timeout) {
       });
 		},
 	 support: function (scope) {
-		 scope.$parent.height = 90;
       scope.$on('$viewContentLoaded', function() {
       });
 		},
 	 faq: function (scope) {
-		 scope.$parent.height = 90;
       scope.$on('$viewContentLoaded', function() {
+				$('#faq').accordion();
       });
 		},
 	 calculator: function (scope) {

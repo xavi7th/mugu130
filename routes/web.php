@@ -44,12 +44,10 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/test', function () {
     // abort(404);
-        return TransactionalMail::sendCreditMail(65767, '$trans_type', null, 768989);
+        // return TransactionalMail::sendCreditMail(65767, '$trans_type', null, 768989);
+        return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
-
-
-
-    // return dd($this->render->view('demo-play')->render());
+    return dd($this->render->view('demo-play')->render());
 
     // return dd(view('demo-play')->render());
     // return (new ActivationMail(8779))->render();
@@ -84,8 +82,6 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/support-center', 'others-home')->name('support');
 
-  Route::view('/terms-and-conditions', 'others-home')->name('terms');
-
   Route::any('/calculator', function () {
     // dd(request()->method());
 
@@ -108,7 +104,14 @@ Route::middleware(['before'])->group( function () {
     return view('calculator');
   })->name('calculator');
 
-  Route::view('/privacy', 'others-home')->name('privacy');
+  Route::get('/privacy', function () {
+    return download_file('privacy.pdf', env('PRIVACY_FILE_NAME'));
+  })->name('privacy');
+
+  Route::get('/terms&conditions', function () {
+    return view_file_in_browser('terms.pdf');
+    // return download_file('terms.pdf', env('TERMS_FILE_NAME'));
+  })->name('terms');
 
   Route::post('/send-message', 'DashboardController@sendMessage')->name('contact');
 

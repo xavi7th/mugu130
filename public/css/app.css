@@ -40501,7 +40501,8 @@ i.icon.times.rectangle.outline:before {
 }
 
 div#main-controller header#alpha {
-  background-color: #0a314c;
+  background-color: #fff;
+  border-bottom: 1px solid #8b909b;
   padding: 4px 0px;
 }
 
@@ -40684,7 +40685,7 @@ div#main-controller footer {
 }
 
 div#main-controller footer a {
-  color: #fff;
+  color: #8b909b;
 }
 
 div#main-controller footer a:hover {
@@ -40693,8 +40694,15 @@ div#main-controller footer a:hover {
 
 div#main-controller footer .ui.horizontal.celled.list .list > .item,
 div#main-controller footer .ui.horizontal.celled.list > .item {
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
+  border: none !important;
+}
+
+div#main-controller footer span.deg {
+  font-size: 21px;
+  font-size: 1.5rem;
+  color: white;
+  position: relative;
+  top: 2px;
 }
 
 div#admin-index {
@@ -41558,7 +41566,8 @@ div#main-controller .info img {
 
 div#main-controller footer {
   width: 100%;
-  background: #03A9F4;
+  background: #fff;
+  border-top: 2px solid #8b909b;
 }
 
 

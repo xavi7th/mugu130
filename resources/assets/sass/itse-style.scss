@@ -1,7 +1,8 @@
 div#main-controller{
   //min-height: 100vh;
   header#alpha{
-    background-color: #0a314c;
+    background-color: #fff;
+    border-bottom: 1px solid #8b909b;
     padding: 4px 0px;
     img{
       height: 50px;
@@ -180,15 +181,21 @@ div#main-controller{
     background-color: #03A9F4;
     //border-top: 1px solid #082a42;
     a{
-      color: #fff;
+      color: #8b909b;
       &:hover{
         text-decoration: underline;
       }
     }
 
     .ui.horizontal.celled.list .list > .item, .ui.horizontal.celled.list > .item{
-      border-left: 1px solid #fff;
-      border-right: 1px solid #fff;
+      border: none !important;
+    }
+
+    span.deg{
+      font-size: 1.5rem;
+      color: white;
+      position: relative;
+      top: 2px;
     }
   }
 
