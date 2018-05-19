@@ -109,7 +109,7 @@
                       <input type="hidden" name="referrer.id" placeholder="No referral supplied" ng-readonly="true" value="{{ $refdetails['id'] ?? null }}">
                     </div>
 
-                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action" ng-class="[{'loading' : loading}]" ng-click="loading = true" ng-disabled="!terms || password_confirmation != password">REGISTER</button>
+                    <button type="submit" class="ui fluid blue button action" ng-class="[{'loading' : loading}]" ng-click="loading = true" ng-disabled="!terms || password_confirmation != password">REGISTER</button>
                   </form>
                 </div>
 
@@ -127,7 +127,7 @@
                     <div class="field">
                       <input type="password" name="password" placeholder="Enter Password" required>
                     </div>
-                    <button type="submit" style="background-color: #135482;" class="ui fluid orange button action" ng-class="[{'loading' : loading}]" ng-click="loading = true">LOGIN</button>
+                    <button type="submit" class="ui fluid blue button action" ng-class="[{'loading' : loading}]" ng-click="loading = true">LOGIN</button>
                   </form>
                   <div id="forgot-pass" class="extra content">
                     <a href="{{ route('password.request') }}" target="_self">forgot your password?</a>

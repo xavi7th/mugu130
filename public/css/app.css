@@ -40502,8 +40502,8 @@ i.icon.times.rectangle.outline:before {
 
 div#main-controller header#alpha {
   background-color: #fff;
-  border-bottom: 1px solid #8b909b;
-  padding: 4px 0px;
+  border-bottom: 1px solid rgba(160, 205, 240, 0.55);
+  padding: 15px 0px;
 }
 
 div#main-controller header#alpha img {
@@ -40555,7 +40555,7 @@ div#main-controller section#intro #form .ui.menu .active.item {
 
 div#main-controller section#mid {
   padding: 50px 0px 100px 0px;
-  background-color: #135482;
+  background-color: #4d5961;
   background-image: url("/img/4.jpg");
   background-blend-mode: exclusion;
   background-position: center;
@@ -40682,6 +40682,7 @@ div#main-controller #drop-menu a.item {
 div#main-controller footer {
   padding: 20px 0px;
   background-color: #03A9F4;
+  border-top: 4px solid rgba(160, 205, 240, 0.55) !important;
 }
 
 div#main-controller footer a {
