@@ -18,6 +18,29 @@
       background-repeat: no-repeat;
       background-size: cover;
   }
+  .message.al {
+      font-size: 26px !important;
+      padding: 5px;
+      margin-top: 0 !important;
+  }
+
+  .header{
+    margin-bottom: 35px !important;
+  }
+
+  .header:last-of-type{
+    margin-bottom: 0 !important;
+  }
+</style>
+
+<style media="(max-width:767px)">
+    div#main-controller section#intro #form {
+    height: auto !important;
+  }
+
+  div#main-controller section#mid{
+    min-height: 105vh !important;
+  }
 </style>
 
 
@@ -36,14 +59,23 @@
                 <div class="ui error message">
                     {{-- <i class="close icon"></i> --}}
                     <div class="header">
-                      Dear {{ Auth::user()->firstname }}, your account has been suspended by the admin for violation of our terms and conditions. To resolve the pending issue, do the following
+                      Dear {{ Auth::user()->firstname }}, <br> <br> An anomaly has been detected on your account. Thus, we have suspended you from using this service.
+                    </div>
+                    <div class="header">
+                       A detailed email will be sent to you within 48 hours.
+                    </div>
+                    <div class="header">
+                       If your think this was a mistake, kindly shoot a note to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com.</a> Kindly include "Account Suspended" in the subject of your message.
+                    </div>
+                    <div class="header">
+                       Sorry for any inconveniences caused.
                     </div>
                     <br>
-                    <ul class="list">
-                      <li>Send the admin an email at hello@fastplay24.com</li>
-                      <li>Make sure to include "Account Suspended" in the subject of your message</li>
-                      <li>After that an admin will contact you with the steps required to activate your account</li>
-                    </ul>
+                    <p class="message m0 al">
+                      Cheers, <br>
+      								Your buddies at FastPlay24
+
+                    </p>
                   </div>
               </div>
 

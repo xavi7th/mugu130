@@ -44,14 +44,14 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/test', function () {
     // abort(404);
-        return TransactionalMail::sendWelcomeMail(Auth::user()->firstname, Auth::user()->email);
+        // return TransactionalMail::sendWelcomeMail(Auth::user()->firstname, Auth::user()->email);
         // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
     // return dd($this->render->view('demo-play')->render());
 
     // return dd(view('demo-play')->render());
     $user = Auth::user();
-    return view('verification_success', compact('user'));
+    return view('suspended', compact('user'));
     // return (new ActivationMail(8779))->render();
     // return (new ReactivationMail())->render();
     // return Redis::keys('*');

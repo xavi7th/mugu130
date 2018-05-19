@@ -810,7 +810,7 @@
 
 															<tr>
 																<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																	<p>If you encounter any issue verifying your account, kindly shoot a note to <a href="mailto:hello@fastplay.com.">hello@fastplay.com.</a></p>
+																	<p>If you encounter any issue verifying your account, kindly shoot a note to <a href="mailto:hello@fastplay.com.">hello@fastplay.com.</a> or use our <a href="{{ route('support') }}">contact form</a>. </p>
 																</td>
 															</tr>
 															<tr>
