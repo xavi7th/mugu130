@@ -8,22 +8,20 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 
-class ActivationMail extends Mailable implements ShouldQueue
+class WelcomeMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $token;
-    public $user;
+    public $firstname;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token, $email)
+    public function __construct($firstname)
     {
-        $this->user = User::where('email', $email)->first();
-        $this->token = $token;
+        $this->firstname = $firstname;
     }
 
     /**
@@ -35,6 +33,6 @@ class ActivationMail extends Mailable implements ShouldQueue
     {
       // dd($this->user);
         return $this->subject('Activation Mail')
-                    ->view('emails.new_activation');
+                    ->view('emails.welcome');
     }
 }

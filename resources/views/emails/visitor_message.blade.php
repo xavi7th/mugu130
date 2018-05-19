@@ -924,6 +924,17 @@
 																						</table>
 																					</td>
 																				</tr>
+																				<tr>
+																				  <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																				    {{-- <h2>Think - Play - Win </h2> --}}
+																				    <h6 style="font-style: italic;">
+																				      <strong style="text-transform: uppercase; font-style: normal;">Disclaimer:</strong> <br>
+																				        This is a mandatory/unmonitored email channel.  Please do not reply.  If you have any enquiries or complaints, shoot a note to hello@fastplay24.com and someone will contact you shortly.
+																				        Do not disclose your login details, online banking login or account information to anyone. No one at FastPlay24 or our parent company, Tcom Wireless Nigeria will request such information from you.
+																				        Please, you should never pay money or provide any form of incentive to any individual that claims to be a FastPlay24 agent or an employee of our parent company, Tcom Wireless in order to redeem your prices.  All payments are processed directly by us and users are notified via our official channels.
+																				    </h6>
+																				  </td>
+																				</tr>
 																			</tbody>
 																		</table>
 																	</td>
@@ -983,7 +994,7 @@
 																																						<tr>
 
 																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="http://www.twitter.com/" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																								<a href="{{ env('APP_TWITTER_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
 																																							</td>
 
 
@@ -1014,7 +1025,7 @@
 																																						<tr>
 
 																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="http://www.facebook.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																								<a href="{{ env('APP_FACEBOOK_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
 																																							</td>
 
 
@@ -1044,7 +1055,7 @@
 																																						<tr>
 
 																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="http://mailchimp.com" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																								<a href="{{ env('APP_INSTAGRAM_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
 																																							</td>
 
 

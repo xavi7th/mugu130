@@ -901,7 +901,7 @@
 																										A withdrawal request of ₦{{ $amt }} was just requested from yor account. Sit tight while the finance department processes your request. We will get in touch with you once we are through with the withrawal request.
 																									</td>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										In case you havent already, <a href="{{ route('faq') }}">visit our FAQ</a> and go through our withdrawal fees to familiarize yourself with them. For further info, <a href="{{ route('contact') }}">your buddies</a> are an <a href="mailto:hello@fastplay24.com">email away</a>.
+																										In case you haven't already, <a href="{{ route('faq') }}">visit our FAQ</a> and go through our withdrawal fees to familiarize yourself with them. For further info, <a href="{{ route('contact') }}">your buddies</a> are an <a href="mailto:hello@fastplay24.com">email away</a>.
 																									</td>
 																								</tr>
 																							</tbody>
@@ -915,17 +915,15 @@
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock" style="min-width:100%;">
 																			<tbody class="mcnButtonBlockOuter">
 																				<tr>
-																					<td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-																						<table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 3px;background-color: #0E91CE;">
-																							<tbody>
-																								<tr>
-																									<td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 15px;">
-																										<a class="mcnButton " title="Login" href="{{ route('password.request') }}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Not Me</a>
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</td>
+																				  <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																				    {{-- <h2>Think - Play - Win </h2> --}}
+																				    <h6 style="font-style: italic;">
+																				      <strong style="text-transform: uppercase; font-style: normal;">Disclaimer:</strong> <br>
+																				        This is a mandatory/unmonitored email channel.  Please do not reply.  If you have any enquiries or complaints, shoot a note to hello@fastplay24.com and someone will contact you shortly.
+																				        Do not disclose your login details, online banking login or account information to anyone. No one at FastPlay24 or our parent company, Tcom Wireless Nigeria will request such information from you.
+																				        Please, you should never pay money or provide any form of incentive to any individual that claims to be a FastPlay24 agent or an employee of our parent company, Tcom Wireless in order to redeem your prices.  All payments are processed directly by us and users are notified via our official channels.
+																				    </h6>
+																				  </td>
 																				</tr>
 																			</tbody>
 																		</table>

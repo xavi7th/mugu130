@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\MessageBag;
 use GuzzleHttp\Exception\ConnectException;
 use App\User;
+use App\Mail\WelcomeMail;
 // use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
 
@@ -16,9 +17,9 @@ class TransactionalMail
 {
   public static function sendVerificationMail($token, $email){
 
-    return (new ActivationMail($token))->render($token);
+    return (new ActivationMail($token, $email))->render();
 
-    Mail::to($email)->send(new ActivationMail($token));
+    Mail::to($email)->send(new ActivationMail($token, $email));
 
   }
 
@@ -40,6 +41,14 @@ class TransactionalMail
 
   }
 
+  public static function sendWelcomeMail($firstname, $email){
+
+    return (new WelcomeMail($firstname))->render();
+
+    Mail::to($email)->send(new WelcomeMail($firstname));
+
+  }
+
   public static function sendCreditMail($amt, $trans_type, $user_balance){
 
     return (new AccountCredited($amt, $trans_type, null, $user_balance))->render();
@@ -55,11 +64,11 @@ class TransactionalMail
 
   }
 
-  public static function sendAdminCreditMail($amt, $trans_type, $purpose, $user_balance, $username){
+  public static function sendAdminCreditMail($amt, $trans_type, $user_balance, $username){
 
-    return (new AdminCreditAccount($amt, $trans_type, $purpose, $user_balance, $username))->render();
+    return (new AdminCreditAccount($amt, $trans_type, $user_balance, $username))->render();
 
-    Mail::to( Auth::user()->email )->send(new AdminCreditAccount($amt, $trans_type, $purpose, $user_balance, $username));
+    Mail::to( Auth::user()->email )->send(new AdminCreditAccount($amt, $trans_type, $user_balance, $username));
 
     if ( count(Mail::failures()) > 0) {
       return [

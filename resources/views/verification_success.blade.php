@@ -1,4 +1,4 @@
-@<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 	<head>
 		<meta charset="utf-8">
@@ -26,7 +26,9 @@
 		}
 
 		.full-height {
-				min-height: calc(100vh - 125px);
+				min-height: 600px;
+				min-height: 80vh;
+				min-height: calc(100vh - 160px);
 		}
 
 		.flex-center {
@@ -90,9 +92,7 @@
 	          <img src="/img/logo.png" alt="">
 	        </div>
 	        <div class="grid-50 mobile-grid-70">
-						@if (!Route::is('demo.play'))
-							<mini-game-state class="mini" style="float:right !important;"></mini-game-state>
-						@endif
+
 	        </div>
 	      </div>
 	    </header>
@@ -104,16 +104,17 @@
             <div class="ui basic segment flex-center ">
               <img class="ui centered small image" src="/img/tick-512.png">
               <h1 class="content title">Account Verified   </h1>
-							<p class="message">{{ $user->firstname }}, thank you for verifying.</p>
+							<p class="message">{{ $user->firstname }}, your account has been verified.</p>
+							<p class="message">Start your engines.</p>
 
               <a href="{{ route('login') }}" class="huge ui blue button" target="_self">
-                Login to Account
+                SIGN IN
               </a>
-              <p class="message m0 al">
+              {{-- <p class="message m0 al">
                 Cheers, <br>
 								Your buddies at FastPlay24
 
-              </p>
+              </p> --}}
             </div>
 
           </div>

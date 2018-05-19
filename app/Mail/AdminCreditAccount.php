@@ -22,13 +22,12 @@ class AdminCreditAccount extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($amt, $trans_type, $purpose, $user_balance, $username)
+    public function __construct($amt, $trans_type, $user_balance, $username)
     {
         //
         $this->amt = $amt;
         $this->username = $username;
         $this->trans_type = $trans_type;
-        $this->purpose = $purpose;
         $this->user_balance = $user_balance;
     }
 
