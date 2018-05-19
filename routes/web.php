@@ -51,7 +51,7 @@ Route::middleware(['before'])->group( function () {
 
     // return dd(view('demo-play')->render());
     $user = Auth::user();
-    return view('suspended', compact('user'));
+    return view('auth.register-success', compact('user'));
     // return (new ActivationMail(8779))->render();
     // return (new ReactivationMail())->render();
     // return Redis::keys('*');

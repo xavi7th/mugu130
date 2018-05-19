@@ -21,8 +21,8 @@
   .circular.segment{
     height: 120px;
     width: 120px;
-    margin-top: 100px !important;
-    margin-bottom: 120px !important;
+    margin-top: 50px !important;
+    margin-bottom: 90px !important;
   }
 
   .circular.segment h2{
@@ -79,6 +79,19 @@
     }
   }
 </style>
+
+<style media="(max-width:767px)">
+  #main-controller{
+    background-position: center !important;
+  }
+  div#main-controller section#intro{
+    height: calc(100vh - 80px) !important;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  a.massive{
+    font-size: 1.2em !important;
+  }
+</style>
 @endsection
 
 
@@ -103,6 +116,11 @@
               </div>
               <div class="label">
                 You are the owner of a brand new FastPlay account.
+              </div>
+              <br>
+              <br>
+              <div class="label" style="font-size: 1.2em !important;">
+                Please check your email for the verification link. <br> If you did not receive any message, kindly check your spam first (then mark as “not spam”) or shoot a note to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>
               </div>
             </div>
           </div>
