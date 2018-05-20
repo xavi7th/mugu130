@@ -49,8 +49,8 @@
             <div id="form" class="ui segments">
               <div class="ui segment">
                 <div id="session-menu" class="ui two item menu">
-                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register" ng-click="height = 135">Register</a>
-                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login" ng-click="height = 90">Login</a>
+                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register" ng-click="height = register">Register</a>
+                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login" ng-click="height = login">Login</a>
                 </div>
               </div>
 
@@ -113,10 +113,6 @@
                   </form>
                 </div>
 
-
-
-
-
                 <div class="ui tab {{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }}" data-tab="login">
                   <form class="ui form" method="POST" action="/login">
                     {{ csrf_field() }}
@@ -158,10 +154,23 @@
 
       <style media="screen and ( max-width:767px)">
 
+        @if (Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' )
           section#mid{
             position: relative !important;
+            height: 125vh !important;
             height: @{{height}}vh !important;
           }
+
+        @else
+
+          section#mid{
+            position: relative !important;
+            height: 80vh !important;
+            height: @{{height}}vh !important;
+          }
+
+        @endif
+
 
       </style>
 

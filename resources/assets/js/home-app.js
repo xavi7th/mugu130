@@ -26,11 +26,19 @@ home.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($roo
 	};
 }]);
 
-home.factory('bootstrapPage', ['$timeout', function InboxService($timeout) {
+home.factory('bootstrapPage', ['$timeout', '$window', function ($timeout, $window) {
 	return {
 	 homepage: function (scope) {
-		 scope.$parent.height = 90;
       scope.$on('$viewContentLoaded', function() {
+				var windowWidth = $window.innerWidth;
+				if (windowWidth >= 374) {
+					scope.$parent.register = 125;
+					scope.$parent.login = 80;
+				}
+				else if (windowWidth < 374) {
+					scope.$parent.register = 120;
+					scope.$parent.login = 75;
+				}
       });
 		},
 	 terms: function (scope) {
