@@ -260,7 +260,7 @@ class AdminController extends Controller
       $trans->user_id = request()->input('details.id');
       $trans->save();
 
-      $rsp = TransactionalMail::sendAdminCreditMail(request()->input('details.units'), request()->input('details.firstname'));
+      $rsp = TransactionalMail::sendAdminCreditMail(request()->input('details.units'), request()->input('details.trans_type'), $user->available_units, request()->input('details.firstname'), $user->email);
 
       return [
         'status' => true
@@ -268,7 +268,9 @@ class AdminController extends Controller
     }
 
     public function markTransactionAsPaid(){
-      // return request()->all();
+      // return request()->input('details');
+      $user = User::find(request()->input('details.user.id'));
+      TransactionalMail::sendWithdrawalProcessedMail($user, request()->input('details.amount'), request()->input('details.trans_type'), request()->input('details.charges'), request()->input('details.amount') + request()->input('details.charges'));
       return [
         'status' => Transaction::find(request()->input('details.id'))->update([
           'status' => 'completed'

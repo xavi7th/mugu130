@@ -69,7 +69,7 @@ var url = `
         <buy-units></buy-units>
       </div>
       <div class="content" style="padding-bottom: 5px;">
-        <div class="ui red image label">
+        <div class="ui blue image label">
           Referral link
           <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
           <input type="text" ng-hide="true" id="hiddenref">

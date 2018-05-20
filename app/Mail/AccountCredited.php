@@ -13,7 +13,6 @@ class AccountCredited extends Mailable implements ShouldQueue
 
     public $amt;
     public $trans_type;
-    public $purpose;
     public $user_balance;
 
     /**
@@ -21,11 +20,10 @@ class AccountCredited extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($amt, $trans_type, $purpose, $user_balance)
+    public function __construct($amt, $trans_type, $user_balance)
     {
         $this->amt = $amt;
         $this->trans_type = $trans_type;
-        $this->purpose = $purpose;
         $this->user_balance = $user_balance;
     }
 

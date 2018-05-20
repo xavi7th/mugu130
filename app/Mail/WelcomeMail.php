@@ -32,7 +32,7 @@ class WelcomeMail extends Mailable implements ShouldQueue
     public function build()
     {
       // dd($this->user);
-        return $this->subject('Activation Mail')
+        return $this->subject('Welcome to FastPlay24')
                     ->view('emails.welcome');
     }
 }

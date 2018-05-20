@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->double('amount');
+            $table->double('charges')->nullable();
             $table->string('trans_type');
             $table->string('status')->nullable();
             $table->string('channel')->default('online');

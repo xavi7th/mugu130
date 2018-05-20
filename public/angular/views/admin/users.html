@@ -41,7 +41,7 @@
                     <div class="or"></div>
                     <button class="ui red button" confirm-action="deleteUser(u)">Delete</button>
                     <div class="or"></div>
-                    <button class="ui blue button" ng-click="creditUser(u)">Credit</button>
+                    <button ng-class="['ui blue button', {'loading' : loading}]" ng-click="creditUser(u)">Credit</button>
                     <!-- <div class="or"></div>
                     <button class="ui black button" confirm-action="makeAdmin(u)">Make Admin</button> -->
                   </div>
@@ -212,7 +212,7 @@
             </select>
           </div>
         </div>
-        <button type="submit" class="ui button green" tabindex="0" ng-click="processCreditAddition(u)">Credit</button>
+        <button type="submit" ng-class="['ui green button', {'loading' : loading}]" tabindex="0" ng-click="processCreditAddition(u)">Credit</button>
       </form>
     </div>
 

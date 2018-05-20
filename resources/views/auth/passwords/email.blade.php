@@ -8,11 +8,6 @@
   <section id="intro"  style="height: auto; padding: 10px 0;">
     <div class="grid-container">
 
-      <div class="grid-100 ui segment" style="margin: 0;">
-          <h4 class="ui header dash_header">Welcom</h4>
-          <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
-      </div>
-
       <div class="grid-40 push-30">
         <div id="form" class="ui segments"  style="height: auto; margin-top: 25%;">
           <div class="ui segment">

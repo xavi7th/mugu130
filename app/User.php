@@ -247,6 +247,7 @@ class User extends Authenticatable{
       //add a withdrawal request to transactions table
       Auth::user()->transactions()->create([
         'amount' => $amount,
+        'charges' => $fee,
         'trans_type' => 'withdrawal',
         'status' => 'pending',
       ]);

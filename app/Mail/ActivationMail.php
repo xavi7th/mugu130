@@ -20,9 +20,9 @@ class ActivationMail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($token, $email)
+    public function __construct($token, $user)
     {
-        $this->user = User::where('email', $email)->first();
+        $this->user = $user;
         $this->token = $token;
     }
 
@@ -33,7 +33,6 @@ class ActivationMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-      // dd($this->user);
         return $this->subject('Activation Mail')
                     ->view('emails.new_activation');
     }

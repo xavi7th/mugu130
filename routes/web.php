@@ -137,11 +137,12 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/register/success', function () {
 
-    if (!session('NEW_REG')) {
+
+    if (!session('NEW_USER')) {
       return redirect()->route('register');
     }
 
-    session()->forget('NEW_REG');
+    session()->forget('NEW_USER');
 
     return view( 'auth.register-success');
 
@@ -172,6 +173,8 @@ Route::middleware(['before'])->group( function () {
           $user->confirmation_token = null;
           $user->verified = true;
           $user->save();
+
+          $rsp = TransactionalMail::sendWelcomeMail($user->firstname, $user->email);
 
           return view('verification_success', compact('user'));
     }

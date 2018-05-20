@@ -38,7 +38,7 @@ class AdminCreditAccount extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Admin Credit Account')
+        return $this->subject('Account Credited')
                     ->view('emails.admin_credit_account');
     }
 }

@@ -36,7 +36,7 @@ class RegisterController extends Controller
     // protected $redirectTo = '/dashboard';
     protected function redirectTo(){
       // exit;
-      session(['NEW_REG' => true]);
+      session(['NEW_USER' => true]);
       return route('register.success');
     }
 
@@ -82,7 +82,6 @@ class RegisterController extends Controller
       User::unguard();
 
       $token = str_random( 100 );
-      TransactionalMail::sendverificationMail($token, request()->input('email'));
 
       DB::beginTransaction();
 
@@ -105,7 +104,8 @@ class RegisterController extends Controller
 
       User::reguard();
 
-      // dd($user);
+      // session(['NEW_USER' => $user]);
+      TransactionalMail::sendverificationMail($token, $user);
 
 
         return $user;

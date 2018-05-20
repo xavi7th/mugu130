@@ -19,6 +19,7 @@ var url = `
               <th>Type</th>
               <th>User</th>
               <th>Amount</th>
+              <th>Charges</th>
               <th>Channel</th>
               <th>Status</th>
               <th>Request Date</th>
@@ -30,11 +31,12 @@ var url = `
               <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
-              <td>{{ trans.amount }}</td>
+              <td>{{ trans.amount | currency }}</td>
+              <td>{{ trans.charges | currency }}</td>
               <td>{{ trans.channel }}</td>
               <td>
                 <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == 'withdrawal' && trans.status == 'pending'"">
-                  <div class="ui mini red button" ng-click="markAsPaid(trans)">
+                  <div ng-class="['ui mini red button', {'loading':loading}]" ng-click="markAsPaid(trans)">
                     <i class="tags icon"></i> Mark as Paid
                   </div>
                   <a class="ui basic red left pointing label">
@@ -151,12 +153,14 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
       $scope.transactionrecord = false;
 
       $scope.markAsPaid = (transaction) => {
-        console.log(transaction);
+        $scope.loading = true;
         sendRequest.postRequest(route_root + '/api/mark-transaction-as-paid', transaction)
                     .then( rsp => {
                       if (rsp.status == 200) {
                         transaction.status = 'Completed';
                         $scope.transactions_records = rsp.data.transactions_records;
+                        $scope.loading = false;
+
                       }
                     });
       };

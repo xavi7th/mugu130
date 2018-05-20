@@ -17,18 +17,38 @@ class TransactionalMail
 {
   public static function sendVerificationMail($token, $email){
 
-    return (new ActivationMail($token, $email))->render();
+    // return (new ActivationMail($token, $email))->render();
 
-    Mail::to($email)->send(new ActivationMail($token, $email));
+    try {
+      Mail::to($email)->send(new ActivationMail($token, $email));
+    }
+    catch (\Swift_TransportException $e) {
+      // $errors = new MessageBag(['mail_error' => ['net_err'=>$e->getMessage() ]]);
+      abort(404, 'Activation mail not sent. ' . str_limit($e->getMessage(), 52, '.') . ' Go back to home page and login with your details');
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
+
 
   }
 
   public static function resendverificationMail(){
 
     // return (new PasswordResetMail(str_random(100)))->render();
-    return (new ReactivationMail())->render();
+    // return (new ReactivationMail())->render();
 
-    Mail::to( Auth::user()->email )->send(new ReactivationMail());
+    try {
+      Mail::to( Auth::user()->email )->send(new ReactivationMail());
+    }
+    catch (\Swift_TransportException $e) {
+      abort(404, str_limit($e->getMessage(), 52, '.'));
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -43,17 +63,35 @@ class TransactionalMail
 
   public static function sendWelcomeMail($firstname, $email){
 
-    return (new WelcomeMail($firstname))->render();
+    // return (new WelcomeMail($firstname))->render();
 
-    Mail::to($email)->send(new WelcomeMail($firstname));
+    try {
+      Mail::to($email)->send(new WelcomeMail($firstname));
+    }
+    catch (\Swift_TransportException $e) {
+      abort(404, str_limit($e->getMessage(), 52, '.'));
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
 
   }
 
   public static function sendCreditMail($amt, $trans_type, $user_balance){
 
-    return (new AccountCredited($amt, $trans_type, null, $user_balance))->render();
+    // return (new AccountCredited($amt, $trans_type, $user_balance))->render();
 
-    Mail::to( Auth::user()->email )->send(new AccountCredited($amt, $trans_type, null, $user_balance));
+    try {
+      Mail::to( Auth::user()->email )->send(new AccountCredited($amt, $trans_type, $user_balance));
+    }
+    catch (\Swift_TransportException $e) {
+      abort(404, str_limit($e->getMessage(), 52, '.'));
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -64,11 +102,20 @@ class TransactionalMail
 
   }
 
-  public static function sendAdminCreditMail($amt, $trans_type, $user_balance, $username){
+  public static function sendAdminCreditMail($amt, $trans_type, $user_balance, $username, $email){
 
-    return (new AdminCreditAccount($amt, $trans_type, $user_balance, $username))->render();
+    // return (new AdminCreditAccount($amt, $trans_type, $user_balance, $username))->render();
 
-    Mail::to( Auth::user()->email )->send(new AdminCreditAccount($amt, $trans_type, $user_balance, $username));
+    try {
+      Mail::to( $email )->send(new AdminCreditAccount($amt, $trans_type, $user_balance, $username));
+    }
+    catch (\Swift_TransportException $e) {
+      abort(404, str_limit($e->getMessage(), 52, '.'));
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -101,9 +148,18 @@ class TransactionalMail
 
   public static function sendWithdrawalProcessedMail(User $user, $amt, $trans_type, $charge, $total ){
 
-    return (new WithdrawalProcessed($user, $amt, $trans_type, $charge, $total))->render();
+    // return (new WithdrawalProcessed($user, $amt, $trans_type, $charge, $total))->render();
 
-    Mail::to( $user->email )->send(new WithdrawalProcessed($user, $amt, $trans_type, $charge, $total));
+    try {
+      Mail::to( $user->email )->send(new WithdrawalProcessed($user, $amt, $trans_type, $charge, $total));
+    }
+    catch (\Swift_TransportException $e) {
+      abort(404, str_limit($e->getMessage(), 52, '.'));
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
 
     if ( count(Mail::failures()) > 0) {
       return [
@@ -116,7 +172,7 @@ class TransactionalMail
 
   public static function passwordResetMail($user, $token){
 
-    return (new PasswordResetMail($user, $token))->render();
+    // return (new PasswordResetMail($user, $token))->render();
 
     try {
       Mail::to($user->email)->send(new PasswordResetMail($user, $token));
@@ -133,14 +189,23 @@ class TransactionalMail
 
   public static function sendVisitorMessage(){
     // return _dd(request()->all());
-    return (new VisitorMessage())->render();
+    // return (new VisitorMessage())->render();
 
-    return [
-      'status' => 200,
-      'message' => (new VisitorMessage())->render()
-    ];
+    // return [
+    //   'status' => 200,
+    //   'message' => (new VisitorMessage())->render()
+    // ];
 
-    Mail::to( env('APP_EMAIL') )->replyTo(request()->input('details.email'))->send(new VisitorMessage());
+    try {
+      Mail::to( env('APP_EMAIL') )->send(new VisitorMessage());
+    }
+    catch (\Swift_TransportException $e) {
+      abort(404, str_limit($e->getMessage(), 52, '.'));
+    }
+    catch (Exception $e) {
+      dd($e);
+    }
+
 
     if ( count(Mail::failures()) > 0) {
       return [

@@ -804,9 +804,9 @@
 																					<tr>
 																						<td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
-
-																							<img align="center" alt="" src="{{ asset('img/logo.png') }}" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
-
+																							<a href="http://fastplay24.com/about" title="About Us" class="" target="_blank">
+																								<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
+																							</a>
 
 																						</td>
 																					</tr>
@@ -909,11 +909,11 @@
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 																										<ul class="mcnTextContent" style="background-color: #eee; list-style:none; padding: 25px;">
-																											<li>Amount: <strong> ₦{{ number_format($amt, 2) }}</strong></li>
+																											<li>Amount: <strong style="color:{{ $amt < 0 ? 'red' : 'green' }}"> ₦{{ number_format($amt, 2) }}</strong></li>
 																											<li>Type: <strong> {{ $trans_type }}</strong></li>
 																											<li>Transaction ID: <strong> {{ str_random(15) }}</strong></li>
 																											<li>Status: <strong> Transaction Successful</strong></li>
-																											<li>New balance: <strong> ₦{{ number_format($user_balance, 2) }}</strong></li>
+																											<li>New balance: <strong style="color:{{ $user_balance < 0 ? 'red' : 'green' }}"> ₦{{ number_format($user_balance, 2) }}</strong></li>
 																											<li>Date and Time: <strong> {{ now() }}</strong></li>
 																										</ul>
 																									</td>

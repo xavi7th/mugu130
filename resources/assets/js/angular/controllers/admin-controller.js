@@ -227,7 +227,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.creditUser = (u) => {
     $scope.u = u;
-
     $('.ui.modal.creditUser').modal({
       blurring: true
     }).modal('show');
@@ -352,6 +351,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
   $scope.processCreditAddition = (u) => {
+    $scope.loading = true;
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/create-transaction', u)
                 .then(rsp => {
@@ -364,6 +364,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                     Notification.error(rsp.data.status);
                   }
                   NProgress.done();
+                  $scope.loading = false;
                 });
   };
 

@@ -77,7 +77,7 @@
         $scope.loading = false;
 
         console.log(rsp);
-        if (rsp.status == 422) {
+        if (rsp.data.status == 422) {
           Notification.error(rsp.data.message);
         }
         else if (rsp.status == 200) {

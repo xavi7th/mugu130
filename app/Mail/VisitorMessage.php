@@ -35,6 +35,7 @@ class VisitorMessage extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->subject('Fastplay24 Visitor Mail')
-                    ->view('emails.visitor_message');
+                    ->view('emails.visitor_message')
+                    ->replyTo($this->email);
     }
 }

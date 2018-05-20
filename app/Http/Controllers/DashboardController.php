@@ -382,6 +382,7 @@ class DashboardController extends Controller
             DB::commit();
                 // _dd($trx->data);
 
+
             $rsp = TransactionalMail::sendCreditMail(($trx->data->amount/100), 'wallet funding', Auth::user()->available_units);
             if (is_array($rsp)) {
               return response()->json(['message' => $rsp['message'] ], $rsp['status']);
@@ -458,7 +459,7 @@ class DashboardController extends Controller
 
       DB::commit();
 
-      $rsp = TransactionalMail::sendDebitRequestedMail(request()->input('details.amt'));
+      // $rsp = TransactionalMail::sendDebitRequestedMail(request()->input('details.amt'));
 
       return [
         'status' => true

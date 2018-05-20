@@ -1,5 +1,5 @@
 <!doctype html>
-use Carbon\Carbon;
+
 <html>
 	<head>
 
@@ -502,9 +502,9 @@ use Carbon\Carbon;
 																<tbody><tr>
 																	<td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
-
-																		<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
-
+																		<a href="http://fastplay24.com/about" title="About Us" class="" target="_blank">
+																			<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
+																		</a>
 
 																	</td>
 																	</tr>

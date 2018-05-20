@@ -804,9 +804,9 @@
 																					<tr>
 																						<td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
-
-																							<img align="center" alt="" src="{{ asset('img/logo.png') }}" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
-
+																							<a href="http://fastplay24.com/about" title="About Us" class="" target="_blank">
+																								<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
+																							</a>
 
 																						</td>
 																					</tr>
@@ -905,12 +905,12 @@
 																											<li>Reference: <strong> {{ str_random(15) }}</strong></li>
 																											<li>Date &amp; Time: <strong> {{ now() }}</strong></li>
 																											<li>Type: <strong> {{ $trans_type }}</strong></li>
-																											<li>Amount: <strong> {{ $amt }}</strong></li>
-																											<li>Charges: <strong> {{ $charge }}</strong></li>
-																											<li>Total: <strong> {{ $total }}</strong></li>
+																											<li>Amount: <strong> ₦{{ number_format($amt,2) }}</strong></li>
+																											<li>Charges: <strong> ₦{{ number_format($charge, 2) }}</strong></li>
+																											<li>Total: <strong> ₦{{ number_format($total,2) }}</strong></li>
 																											<li>Status: <strong> Completed </strong></li>
 																											<li>Account Details: <strong> {{ $user->firstname }} {{ $user->lastname }} | {{ $user->bank }} | {{ $user->acct_no }} |  {{ $user->phone1 }}</strong></li>
-																											<li>Your current Earnings balance: <strong> {{ $user->available_units }}</strong></li>
+																											<li>Your current wallet balance: <strong> {{ $user->available_units }}</strong></li>
 																										</ul>
 
 																									</td>
