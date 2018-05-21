@@ -2,6 +2,8 @@
 use Illuminate\Contracts\Filesystem\FileNotFoundException as FileGetException;
 
 use League\Flysystem\FileNotFoundException as FileDownloadException;
+use App\DemoGameSession;
+use Carbon\Carbon;
 
 // if (env('APP_DEBUG')) ini_set('opcache.revalidate_freq', '0');
 
@@ -218,4 +220,52 @@ if (!function_exists('alt_dd')) {
     header('HTTP/1.1 500 Internal Server Error');
     call_user_func_array('dd', $data);
   }
+}
+
+
+function generateDemoUsers($firstprice, $max_winners, $win = false){
+
+    $time = DemoGameSession::where('session_id', session('game_id'))->first(['created_at']);
+    $winners = rand(3,$max_winners);
+    $rest_players = request()->input('details.total_examinees') - $winners - 1;
+
+            if (!$win) {
+              $results[] = [
+                'session_id' => session('demo_id'),
+                'game_id' => 0,
+                'score' => 10,
+                'status' => 1,
+                'ended_at' => $ended_at = Carbon::parse($time)->addMinutes(rand(0,1))->toDatetimeString(),
+                'created_at' => $created_at = Carbon::parse($time)->addMinutes(rand(-2,-1))->toDatetimeString(),
+                'duration' => Carbon::parse($created_at)->diffInMinutes(Carbon::parse($ended_at)),
+                'earning' => $firstprice + env('BASIC_PARTICIPATION_REWARD')
+              ];
+            }
+
+            for ($i=0; $i < $winners; $i++) {
+             $results[] = [
+               'session_id' => session('demo_id'),
+               'game_id' => 0,
+               'score' => 10,
+               'status' => 1,
+               'ended_at' => $ended_at = Carbon::parse($time)->addMinutes(1)->toDatetimeString(),
+               'created_at' => $created_at = Carbon::parse($time)->addMinutes(rand(-2,-1))->toDatetimeString(),
+               'duration' => Carbon::parse($created_at)->diffInMinutes(Carbon::parse($ended_at)),
+               'earning' => floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD')
+             ];
+            }
+
+            for ($i=0; $i < $rest_players; $i++) {
+             $results[] = [
+               'session_id' => session('demo_id'),
+               'game_id' => 0,
+               'score' => rand(3,9),
+               'status' => 1,
+               'ended_at' => $ended_at = Carbon::parse($time)->addMinutes(1)->toDatetimeString(),
+               'created_at' => $created_at = Carbon::parse($time)->addMinutes(rand(-2,-1))->toDatetimeString(),
+               'duration' => Carbon::parse($created_at)->diffInMinutes(Carbon::parse($ended_at)),
+               'earning' => env('BASIC_PARTICIPATION_REWARD')
+             ];
+            }
+            return $results;
 }

@@ -147,7 +147,7 @@
                   <tr>
                     <td> {{ $i }}</td>
                     <td>{{ $pp }}</td>
-                    <td>{{ $prz[$ii] }}</td>
+                    <td>₦{{ number_format($prz[$ii], 2) }}</td>
                   </tr>
 
               <?php

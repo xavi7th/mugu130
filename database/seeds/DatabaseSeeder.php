@@ -136,8 +136,6 @@ class DemoGameSessionsTableSeeder extends Seeder{
 
        }
 
-       return 'hey';
-
       // factory(DemoGameSession::class, (request()->input('details.total_examinees')) - $winners )->create();
      }
 }

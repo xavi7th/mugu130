@@ -245,12 +245,9 @@ Route::middleware(['before'])->group( function () {
             'score' => $count,
             'ended_at' => Carbon::now(),
             'position' => 1,
-            'earning' => $user_earning = $firstprice + env('BASIC_PARTICIPATION_REWARD')
+            'earning' => $user_earning = floor($firstprice) + env('BASIC_PARTICIPATION_REWARD')
           ]);
 
-          // generate users for the exam random from 3 to max winnes
-          $f = new DatabaseSeeder;
-          $f->call('DemoGameSessionsTableSeeder');
         }
 
         else{
@@ -260,14 +257,11 @@ Route::middleware(['before'])->group( function () {
             'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
           ]);
 
-          // generate the maxwinners dummy users for the exam
-          $f = new DatabaseSeeder;
-          $f->call('LoserDemoGameSessionsTableSeeder');
         }
     DB::commit();
 
     $results = DemoGameSession::where('session_id', session('demo_id'))->get();
-    // $results = $results->concat(factory(DemoGameSession::class, request()->input('details.total_examinees') - $max_winners - 1)->make());
+    $results = $results->concat(generateDemoUsers($firstprice, $max_winners, $count == 10));
 
     return [
       'status' => true,
