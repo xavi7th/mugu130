@@ -920,7 +920,7 @@
 																								</tr>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																											<p>Please not that a VAT of 5% has been deducted from the payment we received.</p>
+																											<p>Please note that a VAT of 5% has been deducted from the payment we received.</p>
 																											<p>Please, do notify us if you encountered any problem or need any assistance with your transaction.</p>
 																											<p>If you think there is an error with this feedback, kindly send an email to <a href="mailto:hello@fastplay24.com ">hello@fastplay24.com </a> to help us resolve the issue.</p>
 																											<p>Thank you for using FastPlay24.</p>

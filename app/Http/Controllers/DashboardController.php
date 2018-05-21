@@ -517,9 +517,10 @@ class DashboardController extends Controller
 
     public function updateUserDetails(){
 
+      // return request();
       $this->validate(request(), [
         'details.email' => 'required',
-        'details.phone1' => 'required'
+        // 'details.phone1' => 'required'
       ]);
       return [
         'status' =>  Auth::user()->updateUserDetails(),
