@@ -9,6 +9,11 @@
 @endsection
 
 
+@section('title')
+  Welcome
+@endsection
+
+
 @section('customJS')
   <script>
 

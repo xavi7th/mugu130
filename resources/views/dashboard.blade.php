@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+  Dashboard
+@endsection
+
 @section('customJS')
   @javascript('PAYSTACK_PUBLIC_KEY', env('PAYSTACK_PUBLIC_KEY'))
 

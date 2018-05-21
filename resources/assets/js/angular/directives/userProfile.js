@@ -27,16 +27,6 @@ var url = `
             <i class="call square icon"></i> {{ userdetails.phone1 }}
           </div>
         </div>
-        <br />
-        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-          <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-          <a class="a2a_button_facebook"></a>
-          <a class="a2a_button_sms"></a>
-          <a class="a2a_button_email"></a>
-          <a class="a2a_button_whatsapp"></a>
-          <a class="a2a_button_copy_link"></a>
-        </div>
-        <br />
       </div>
     </div>
     <div class="grid-50">
@@ -69,11 +59,34 @@ var url = `
         <buy-units></buy-units>
       </div>
       <div class="content" style="padding-bottom: 5px;">
-        <div class="ui blue image label">
-          Referral link
-          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
-          <input type="text" ng-hide="true" id="hiddenref">
+        <div class="ui compact segment">
+          <div class="ui blue image label">
+            Referral link
+            <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ userdetails.refcode }}</div>
+            <input type="text" ng-hide="true" id="hiddenref">
+          </div>
+          <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+            <br />
+            <strong style="float: left; margin-right: 15px;">INVITE SOMEONE:</strong>
+            <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ userdetails.refcode }}" target="_blank">
+              <i class="facebook f icon"></i>
+            </a>
+            <a class="ui twitter button icon" href="#" title="Tweet" ng-click="window.open('https://twitter.com/intent/tweet?text=' + 'https://fastplay24.com/register/ref/{{ userdetails.refcode }} Powered by TcomCloud');">
+              <i class="twitter icon"></i>
+            </a>
+            <a class="ui black button icon" href="mailto:?subject=&body" title="Email" ng-click="window.open('mailto:?subject=' + 'Powered by TcomCloud' + '&body=' + 'jtdcjgcjgfchfgbvc');">
+              <i class="envelope outline icon"></i>
+            </a>
+            <a class="ui green button icon">
+              <i class="whatsapp icon" href="whatsapp://send?text" title="Whatsapp" ng-click="window.open('whatsapp://send?text=' + 'Powered by TcomCloud');"></i>
+            </a>
+            <a class="ui linedin button icon" href="sms:?body" title="Sms" ng-click="window.open('sms:?body=' + 'Powered by TcomCloud');">
+              <i class="edit icon"></i>
+            </a>
+
+          </div>
         </div>
+
       </div>
     </div>
   </div>
