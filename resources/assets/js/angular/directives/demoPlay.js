@@ -160,45 +160,59 @@ var url = `
         <p></p>
       </div>
 
-      <div class="ui raised segment" id="resultWindow" ng-if="!loading">
-        <table class="ui celled table">
+      <div class="ui red segment"  ng-if="!loading">
+
+        <div class="ui raised horizontal segments" id="summary">
+          <div class="ui segment">
+            <div class="ui labeled button" tabindex="-1">
+              <div class="ui button">
+                <i class="heart icon"></i> Players
+              </div>
+              <a class="ui basic label">
+                {{ total_players }}
+              </a>
+            </div>
+          </div>
+
+          <div class="ui segment">
+            <div class="ui left labeled button" tabindex="-1">
+              <a class="ui basic right pointing label">
+                {{ max_winners }}
+              </a>
+              <div class="ui button">
+                <i class="heart icon"></i> Winners
+              </div>
+            </div>
+          </div>
+
+          <div class="ui segment">
+            <div class="ui labeled button floated right" tabindex="-1">
+              <div class="ui icon button">
+                <i class="fork icon"></i>Total Prize Money
+              </div>
+              <a class="ui basic label">
+                ₦{{ total_prize_money }}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <table class="ui  striped celled table" style="text-align: center;">
           <thead>
             <tr>
-              <th>Game ID</th>
-              <th>Test Duration</th>
+              <th>Position</th>
               <th>Score</th>
-              <th>Reward</th>
             </tr>
           </thead>
-          <tbody>
-            <tr ng-repeat="result in results  | orderBy: ['reward', '-score'] ">
-              <td>
-                <p style="text-align:center; position:relative;"> {{ result.session_id | limitTo : 10 }} <a class="ui red tag label" style="position:absolute; right:0;" ng-if="result.game_id == 1 ">You</a></p>
 
-              </td>
-              <td class="centered">{{ result.duration }} minutes</td>
-              <td class="centered">{{ result.score }}</td>
-              <td class="centered">{{ result.earning | currency : '₦' : 0 }}</td>
-            </tr>
+          <tbody>
+
+                <tr ng-repeat="result in results">
+                  <td>{{ result.position }}</td>
+                  <td>{{ result.score }}</td>
+                </tr>
+
           </tbody>
-          <tfoot>
-            <!-- <tr>
-              <th colspan="56">
-                <div class="ui right floated pagination menu">
-                  <a class="icon item">
-                  <i class="left chevron icon"></i>
-                </a>
-                  <a class="item">1</a>
-                  <a class="item">2</a>
-                  <a class="item">3</a>
-                  <a class="item">4</a>
-                  <a class="icon item">
-                  <i class="right chevron icon"></i>
-                </a>
-                </div>
-              </th>
-            </tr> -->
-          </tfoot>
         </table>
       </div>
     </div>
@@ -236,7 +250,7 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
             $scope.total_examinees += _.random(593);
           }
         }
-      }, 100);
+      }, 1500);
 
       $scope.requestExtra = (q) => {
         var removedQuestion = $scope.user_questions.indexOf(q);
@@ -282,6 +296,9 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
                      if (rsp.data.status) {
                        $scope.results = rsp.data.results;
                        $scope.user_earning = rsp.data.user_earning;
+                       $scope.max_winners = rsp.data.max_winners;
+                       $scope.total_players = rsp.data.total_players;
+                       $scope.total_prize_money = rsp.data.total_prize_money;
                        $scope.loading = false;
 
                      }

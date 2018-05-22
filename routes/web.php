@@ -254,19 +254,23 @@ Route::middleware(['before'])->group( function () {
           DemoGameSession::where('session_id', session('demo_id'))->update([
             'score' => $count,
             'ended_at' => Carbon::now(),
-            'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD')
+            'earning' => $user_earning = env('BASIC_PARTICIPATION_REWARD'),
+            'position' => $max_winners + 1
           ]);
 
         }
     DB::commit();
 
     $results = DemoGameSession::where('session_id', session('demo_id'))->get();
-    $results = $results->concat(generateDemoUsers($firstprice, $max_winners, $count == 10));
+    // $results = $results->concat(generateDemoUsers($firstprice, $max_winners, $count == 10));
 
     return [
       'status' => true,
       'results'=> $results,
-      'user_earning' => $user_earning
+      'user_earning' => $user_earning,
+      'total_players' => request()->input('details.total_examinees') ,
+      'max_winners' => $max_winners,
+      'total_prize_money' => $total_stake,
     ];
 
   });
