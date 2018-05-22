@@ -44,7 +44,7 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/test', function () {
     // abort(404);
-        return TransactionalMail::sendWelcomeMail('James', 'xavi7th@gmail.com');
+        return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
         // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
     // return dd($this->render->view('demo-play')->render());
