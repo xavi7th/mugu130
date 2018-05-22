@@ -77,8 +77,8 @@ var url = `
             <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later." title="Email">
               <i class="envelope outline icon"></i>
             </a>
-            <a class="ui green button icon">
-              <i class="whatsapp icon" href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp"></i>
+            <a class="ui green button icon" href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp">
+              <i class="whatsapp icon"></i>
             </a>
             <a class="ui linedin button icon" href="sms:?body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Sms">
               <i class="edit icon"></i>

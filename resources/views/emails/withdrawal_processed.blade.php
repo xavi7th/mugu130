@@ -873,7 +873,7 @@
 
 
 																										<img align="center" alt="" src="{{ asset('img/tick-512.png') }}" width="80" style="max-width:160px; padding-bottom: 0; display: block !important; margin:0 auto !important; vertical-align: bottom;" class="mcnImage">
-																										<img align="center" alt="" src="{{ asset('img/cashenvoy.png') }}" width="400" style="max-width:800px; padding-bottom: 0; display: block !important; margin:0 auto !important; vertical-align: bottom;" class="mcnImage">
+																										{{-- <img align="center" alt="" src="{{ asset('img/cashenvoy.png') }}" width="400" style="max-width:800px; padding-bottom: 0; display: block !important; margin:0 auto !important; vertical-align: bottom;" class="mcnImage"> --}}
 
 
 																									</td>
@@ -923,11 +923,7 @@
 																								</tr>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-
 																										<p>Cheers,</p>
-																										<p>
-																											<strong>Thank you for using FastPlay24.</strong>
-																										</p>
 																									</td>
 																								</tr>
 																								<tr>
