@@ -54,8 +54,8 @@
             <div id="form" class="ui segments">
               <div class="ui segment">
                 <div id="session-menu" class="ui two item menu">
-                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register" ng-click="height = register">Register</a>
-                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login" ng-click="height = login">Login</a>
+                  <a class="{{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }} item" data-tab="register" ng-click="height = 130">Register</a>
+                  <a class="{{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }} item" data-tab="login" ng-click="height = 85">Login</a>
                 </div>
               </div>
 
@@ -170,7 +170,7 @@
 
           section#mid{
             position: relative !important;
-            height: 80vh !important;
+            height: 85vh !important;
             height: @{{height}}vh !important;
           }
 
