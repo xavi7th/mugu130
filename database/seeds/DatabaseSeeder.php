@@ -69,7 +69,7 @@ class ReferralsTableSeeder extends Seeder{
        $faker = Factory::create();
        // following line retrieve all the user_ids from DB
        $users = User::all()->pluck('id')->all();
-       foreach(range(1,150) as $index){
+       foreach(range(1,15) as $index){
            Referral::create([
 							'user_id' => $faker->randomElement($users),
 							'referral_id'=> $faker->randomElement($users),

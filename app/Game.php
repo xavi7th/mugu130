@@ -56,7 +56,6 @@ class Game extends Model{
 
 		if (!$active_game) {
 			return;
-			// _dd('no active game');
 		}
 
 		$exam_records = optional($active_game)->user_game_sessions;
@@ -86,7 +85,7 @@ class Game extends Model{
 					$active_game->max_winners = 0;
 					$active_game->total_prize = 0;
 					$active_game->total_winners = 0;
-					$active_game->amount_won = 35;
+					$active_game->amount_won = 0;
 					$active_game->ended_at = Carbon::now();
 					$active_game->save();
 			DB::commit();
@@ -96,6 +95,11 @@ class Game extends Model{
 		else if($total_examinees == 0){
 			//end the game
 			$active_game->status = false;
+			$active_game->num_of_players = $total_examinees;
+			$active_game->max_winners = 0;
+			$active_game->total_prize = 0;
+			$active_game->total_winners = 0;
+			$active_game->amount_won = 0;
 			$active_game->ended_at = Carbon::now();
 			$active_game->save();
 		}
@@ -156,7 +160,6 @@ class Game extends Model{
 
 
 							// give him his earning
-							// TODO: CHECK WHY THIS IS NOT WORKING
 							if ($value->payment_status == 'unpaid') {
 								$value->user->addEarning($active_game->id, $value->earning);
 
@@ -169,8 +172,6 @@ class Game extends Model{
 									$referral_bonus++;
 								}
 							}
-							// _dd($value);
-
 
 							$value->payment_status = 'paid';
 							$value->save();

@@ -2,28 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Paystack;
+
+use App\Game;
+use App\User;
+use App\Notice;
+use App\Earning;
+use App\Message;
+use App\Transaction;
+use App\UserQuestion;
+use App\UserGameSession;
+
+use Carbon\Carbon;
+
+use App\Mail\TransactionalMail;
+
+use App\Events\ExamJoined;
+use App\Events\NewMemberJoined;
+
 use Illuminate\Http\Request;
+
+use Illuminate\Database\Seeder;
+
+use Illuminate\Broadcasting\BroadcastException;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Seeder;
-use App\User;
-use App\Game;
-use App\Message;
-use App\Earning;
-use App\UserGameSession;
-use App\UserQuestion;
-use Carbon\Carbon;
-use DatabaseSeeder;
-use Illuminate\Broadcasting\BroadcastException;
-use App\Events\ExamJoined;
-use App\Events\NewMemberJoined;
-use App\Notice;
-use App\Mail\TransactionalMail;
-use App\Transaction;
-use \Paystack;
 
 // Cache::flush();
 
@@ -178,10 +185,6 @@ class DashboardController extends Controller
         Auth::user()->activeGames->score = $count;
         Auth::user()->activeGames->save();
 
-        // temporarily generate users for the exam
-        // $f = new DatabaseSeeder;
-        // $f->call('UserGameSessionsTableSeeder');
-
       DB::commit();
       session(['GAME_STATE' => 'waiting']);
 
@@ -222,10 +225,6 @@ class DashboardController extends Controller
         Auth::user()->lastGame->ended_at = Carbon::now();
         Auth::user()->lastGame->score = $count;
         Auth::user()->lastGame->save();
-
-        // temporarily generate users for the exam
-        // $f = new DatabaseSeeder;
-        // $f->call('UserGameSessionsTableSeeder');
 
       DB::commit();
 
@@ -441,9 +440,8 @@ class DashboardController extends Controller
         $amount = request()->input('details.amt') - $fee;
       }
       else{
-        $fee = ((floor(request()->input('details.amt')/5000) * env('TRANSACTION_FEE')) + env('TRANSACTION_FEE'));
+        $fee = ((floor(request()->input('details.amt')/5000) * env('TRANSACTION_FEE')) + (env('TRANSACTION_FEE') * 2));
         $amount = request()->input('details.amt') - $fee;
-
       }
 
       DB::beginTransaction();

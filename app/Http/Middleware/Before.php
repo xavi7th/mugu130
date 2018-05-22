@@ -139,7 +139,7 @@ class Before
 				//
 				// if ( Game::active() ) {
 				// 	Game::end();
-				// 	Session::forget('GAME_ACTIVE');
+				// 	Session::forget('GAME_ACTIVE');®
 				// }
 				session(['GAME_STATE' => 'loading']);
 

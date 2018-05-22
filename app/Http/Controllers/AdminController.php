@@ -249,6 +249,7 @@ class AdminController extends Controller
       $user = User::find(request()->input('details.id'));
 
       $user->available_units = $user->available_units + request()->input('details.units');
+      $user->units_purchased = $user->units_purchased + request()->input('details.units');
       $user->save();
 
       $trans = new Transaction;

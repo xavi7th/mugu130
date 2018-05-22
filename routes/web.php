@@ -43,7 +43,8 @@ Route::middleware(['before'])->group( function () {
   Route::view('/', 'welcome')->name('home')->middleware('guest');
 
   Route::get('/test', function () {
-    // abort(404);
+    return $fee = ((floor(1400/5000) * 50) + (50 * 2));
+    abort(404);
         return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
         // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
