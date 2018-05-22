@@ -1087,7 +1087,7 @@
 																																						<tr>
 
 																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="{{ env('APP_INSTAGRAM_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																								<a href="{{ env('APP_INSTAGRAM_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-instagram-48.png" style="display:block;" height="24" width="24" class=""></a>
 																																							</td>
 
 
