@@ -90,20 +90,29 @@ var url = `
     </div>
   </div>
 
-  <div id="card" class="ui segments" ng-if="transition">
-    <!-- game loading network slow -->
-    <div class="ui segment">
-      <div class="ui horizontal list">
-        <div class="ui violet label" style="font-size: 13px;">
-
+  <div id="card" class="ui segments">
+    <div class="content" style="padding-bottom: 5px;">
+      <div class="ui compact segment">
+        <div class="ui blue image label">
+          Referral link
+          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}</div>
+          <input type="text" ng-hide="true" id="hiddenref">
+        </div>
+        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+          <br />
+          <strong style="margin-right: 15px; color:#555!important;"">INVITE SOMEONE AND GET PAID:</strong>
+          <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}" target="_blank">
+            <i class="facebook f icon"></i>
+          </a>
+          <a class="ui twitter button icon" ng-href="https://twitter.com/intent/tweet?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Tweet">
+            <i class="twitter icon"></i>
+          </a>
+          <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later." title="Email">
+            <i class="envelope outline icon"></i>
+          </a>
         </div>
       </div>
-    </div>
-    <div class="ui segment">
-      <div class="ui active inverted dimmer">
-        <div class="ui text loader">Loading</div>
-      </div>
-      <h1 style="min-height:150px;">Loading...</h1>
+
     </div>
   </div>
 </div>

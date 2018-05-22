@@ -67,7 +67,7 @@ var url = `
           </div>
           <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
             <br />
-            <strong style="float: left; margin-right: 15px;">INVITE SOMEONE:</strong>
+            <strong style="float: left; margin-right: 15px;>INVITE SOMEONE:</strong>
             <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ userdetails.refcode }}" target="_blank">
               <i class="facebook f icon"></i>
             </a>
@@ -77,13 +77,6 @@ var url = `
             <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later." title="Email">
               <i class="envelope outline icon"></i>
             </a>
-            <a class="ui green button icon" href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp">
-              <i class="whatsapp icon"></i>
-            </a>
-            <a class="ui linedin button icon" href="sms:?body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Sms">
-              <i class="edit icon"></i>
-            </a>
-
           </div>
         </div>
 
@@ -101,10 +94,7 @@ angular.module('userProfile', []).directive('userProfile', [function () {
     template:url,
     replace: true,
     link: function(scope, element, attributes){
-        var scriptTag = angular.element(document.createElement('script'));
-        scriptTag.attr('charset', 'utf-8');
-        scriptTag.attr('src', 'https://static.addtoany.com/menu/page.js');
-        element.append(scriptTag);
+
 
 		},
     controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {

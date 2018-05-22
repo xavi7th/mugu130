@@ -48,6 +48,7 @@
                 <i class="calculator icon"></i>
               </button>
             </a>
+            
 
           </div>
           <div class="grid-40 push-10">
