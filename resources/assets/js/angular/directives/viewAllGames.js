@@ -28,8 +28,8 @@ var url = `
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.id }}</td>
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.num_of_players }}</td>
               <td>{{ game.max_winners }}</td>
-              <td>{{ game.total_prize }}</td>
               <td>{{ game.total_winners }}</td>
+              <td>{{ game.total_prize }}</td>
               <td>{{ game.amount_won }}</td>
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.created_at }}</td>
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.ended_at }}</td>
