@@ -40629,7 +40629,7 @@ div#main-controller #dashboard #card img {
 
 div#main-controller section#u_details {
   padding: 20px 0px;
-  background-color: #fafafa;
+  background-color: rgba(0, 0, 0, 0.05);
   border-bottom: 2px solid grey;
 }
 
