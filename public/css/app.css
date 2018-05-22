@@ -40515,7 +40515,7 @@ div#main-controller header#alpha nav {
 }
 
 div#main-controller header#alpha nav a.item:not(.notif) {
-  color: #fff;
+  color: #999;
 }
 
 div#main-controller header#alpha nav a.item:not(.notif):hover {

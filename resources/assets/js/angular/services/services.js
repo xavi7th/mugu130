@@ -254,6 +254,9 @@
                         if (rsp.data != 'invalid') {
                           scope.results = rsp.data.results;
                           scope.user_earning = rsp.data.user_earning;
+                          scope.max_winners = rsp.data.max_winners;
+                          scope.total_players = rsp.data.total_players;
+                          scope.total_prize_money = rsp.data.total_prize_money;
                         }
                         else {
                           $location.path('/dashboard');

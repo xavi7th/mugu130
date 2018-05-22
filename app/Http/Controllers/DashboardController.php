@@ -240,20 +240,14 @@ class DashboardController extends Controller
         return 'invalid';
       }
 
-      return [
-        'results' => Game::last()->user_game_sessions->load('user'),
-        'user_earning' => Auth::user()->totalEarnings()->where('game_id', Game::last()->id)->sum('amount')
-        // 'dispensed' => $dispensed_amount,
-        // 'total_examinees' => $total_examinees,
-        // 'total_share' => $dispensed_amount,
-        // 'admin_amount' => $admin_amount,
-        // 'total_stake' => $total_stake,
-        // 'max_winners' => $max_winners,
-        // 'last_price' => $total_stake/$sum,
-        // 'first_price' => ($total_stake/$sum) * (pow(1.06381, $max_winners - 1)),
-        // 'those_that_shared' => $those_that_shared,
-        // 'total_earnings' => Auth::user()->totalEarnings->sum('amount'),
+      $game = Game::last();
 
+      return [
+        'results' => [Auth::user()->lastGame],
+        'user_earning' => Auth::user()->totalEarnings()->where('game_id', Game::last()->id)->sum('amount'),
+        'total_players' => $game->num_of_players,
+        'max_winners' => $game->max_winners,
+        'total_prize_money' => $game->total_prize,
       ];
       //
       //

@@ -1498,6 +1498,9 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
           if (rsp.data != 'invalid') {
             scope.results = rsp.data.results;
             scope.user_earning = rsp.data.user_earning;
+            scope.max_winners = rsp.data.max_winners;
+            scope.total_players = rsp.data.total_players;
+            scope.total_prize_money = rsp.data.total_prize_money;
           } else {
             $location.path('/dashboard');
             Notification.error({ message: 'Insufficient users for game session. Units reversed', positionX: 'center' });
