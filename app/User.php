@@ -65,8 +65,10 @@ class User extends Authenticatable{
     // public $rememberFor = 5;
 
     protected $casts = [
-         'accnum' => 'integer',
-         'verified' => 'boolean'
+         'acct_no' => 'integer',
+         'verified' => 'boolean',
+         'available_units' => 'double',
+         'units_purchased' => 'double',
     ];
 
     protected $appends = [
@@ -219,7 +221,7 @@ class User extends Authenticatable{
       $this->earnings()->create([
         'amount' => $amt,
         'game_id' => $gid,
-        'transferred' => Auth::user()->id
+        // 'transferred' => Auth::user()->id
       ]);
     }
 

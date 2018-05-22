@@ -37,7 +37,6 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
 
       $scope.payWithPaystack = () => {
 
-            $('.buyUnits.ui.modal').modal('hide');
 
             var orderid = _.random(676764765, 544765545646456);
             var handler = PaystackPop.setup({
@@ -79,6 +78,8 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
                                   ]
               },
               callback: function(response){
+                Notification.warning({message:'Acknowledging payment. Please wait...', delay:20000, replaceMessage:true});
+
 
                 // post to server to verify transaction before giving value
                 sendRequest.postRequest('/user/credit-account?reference=' + response.reference)
@@ -89,7 +90,7 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
                                sendRequest.storeData('activeTransaction', true);
 
                                Notification.primary({ message: 'Units added to account', positionX: 'center'});
-                                $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;
+                                $scope.$parent.userdetails.available_units += $scope.requested_amount;
                                 $scope.requested_amount = null;
                                $location.path('/dashboard/order-successful');
                               } else {
@@ -100,10 +101,13 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
 
               },
               onClose: function(){
+                $scope.requested_amount = null;
                 Notification.error('Transaction cancelled by user');
               }
           });
           handler.openIframe();
+          $('.buyUnits.ui.modal').modal('hide');
+          Notification.warning({message:'Contacting payment gate way. Please wait...', delay:20000, replaceMessage:true});
       };
 
       $scope.awardCredits = () => {

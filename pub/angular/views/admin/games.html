@@ -1,0 +1,38 @@
+<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+  <ng-include src="'angular/views/partials/admin-menu.html'"></ng-include>
+
+  <section id="dashboard">
+    <div class="grid-container">
+      <div class="grid-100">
+        <div class="ui sticky">
+          <div class="ui pointing menu">
+            <a ng-click="active = 'liveSession' " ng-class="['item', {'active' : active == 'liveSession' }]" >Live Session</a>
+            <a ng-click="active = 'allGames' " ng-class="['item', {'active' : active == 'allGames' }]" >All Games</a>
+            <a ng-click="active = 'gameRecord' " ng-class="['item', {'active' : active == 'gameRecord' }]" >Game Record</a>
+            <a ng-click="active = 'dailyLog' " ng-class="['item', {'active' : active == 'dailyLog' }]" >Daily Log</a>
+            <a ng-click="active = 'dailyStatistics' " ng-class="['item', {'active' : active == 'dailyStatistics' }]" >Daily Statistic</a>
+            <a ng-click="active = 'monthlyStatistics' " ng-class="['item', {'active' : active == 'monthlyStatistics' }]" >Monthly Statistic</a>
+            <div class="right menu">
+              <div class="item">
+                <div class="ui transparent icon input">
+                  <input type="text" placeholder="Search...">
+                  <i class="search link icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <live-game-session ng-if="active == 'liveSession' "></live-game-session>
+        <view-all-games ng-if="active == 'allGames' || active == 'gameRecord'" ></view-all-games>
+        <!-- <view-game-record ng-if="active == 'gameRecord' "></view-game-record> -->
+        <daily-game-log ng-if="active == 'dailyLog' "></daily-game-log>
+        <daily-statistics ng-if="active == 'dailyStatistics' "></daily-statistics>
+        <monthly-statistics ng-if="active == 'monthlyStatistics' "></monthly-statistics>
+
+      </div>
+    </div>
+  </section>
+
+  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
+</div>

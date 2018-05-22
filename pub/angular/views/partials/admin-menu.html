@@ -1,0 +1,95 @@
+<header id="alpha" style="background: #035596;
+border-bottom: 2px solid #fff;">
+  <div class="grid-container">
+    <div class="grid-35">
+      <img src="/img/logo.png" alt="">
+    </div>
+    <div class="grid-45">
+      <nav>
+        <!-- <div class="ui labeled button" tabindex="-1">
+          <div class="ui blue button">
+            <i class="heart icon"></i> Available Units
+          </div>
+          <a class="ui basic blue label">
+            {{ userdetails.available_units | currency }}
+          </a>
+        </div> -->
+        <div class="ui labeled  button" tabindex="-1">
+          <div class="ui red button right pointing label">
+            <i class="heart icon"></i> Total Earnings
+          </div>
+          <a class="ui basic red label">
+              {{ total_earnings | currency }}
+            </a>
+        </div>
+      </nav>
+
+    </div>
+    <div class="grid-20">
+      <nav>
+        <div class="ui right floated horizontal list" style="line-height:40px;">
+          <a class="item" href="/dashboard">Dashboard</a>
+
+          <a class="item" href="{{ route_root }}/settings">Profile</a>
+
+          <a class="item" href="" ng-click="logout()">Logout <i class="sign out icon" style="color:white;"></i></a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section id="u_details">
+  <div class="grid-container">
+    <div class="grid-20">
+      <div class="content">
+        <h2 class="header ng-binding" style="margin-bottom: 2px;">ADMIN SECTION</h2>
+      </div>
+    </div>
+    <div class="grid-60 flex-center">
+      <div class="ui compact menu">
+        <a ng-href="{{ route_root }}/questions" class="item">
+          <i class="tasks icon"></i>
+          Questions
+        </a>
+        <a ng-href="{{ route_root }}/admins" class="item">
+          <i class="user mdicon"></i>
+          Admins
+        </a>
+        <a ng-href="{{ route_root }}/users" class="item">
+          <i class="venus mars icon"></i>
+          Users
+        </a>
+        <a ng-href="{{ route_root }}/earnings" class="item">
+          <i class="money bill alternate outline icon"></i>
+          Earnings
+        </a>
+        <a ng-href="{{ route_root }}/games" class="item">
+          <i class="gamepad icon"></i>
+          Games
+        </a>
+        <a ng-href="{{ route_root }}/transactions" class="item">
+          <i class="file alternate outline icon"></i>
+          Transactions
+        </a>
+        <a ng-href="{{ route_root }}/messages" class="item">
+          <i class="folder open outline icon"></i>
+          Messages
+        </a>
+      </div>
+    </div>
+    <!-- <div class="grid-20">
+      <div class="ui mini compact right floated menu" style="margin-right:2em;">
+        <a href="/dashboard/messages" class="item notif">
+            <i class="icon mail"></i> Messages
+            <div class="floating ui red label">{{ _.dropRightWhile(userdetails.messages, ['read', true]).length }}</div>
+          </a>
+        <a href="/dashboard/notices" class="item notif">
+            <i class="icon users"></i> Notices
+            <div class="floating ui blue label">{{ _.dropRightWhile(userdetails.notices, ['read', true]).length }}</div>
+          </a>
+      </div>
+    </div> -->
+  </div>
+</section>

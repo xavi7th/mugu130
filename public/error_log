@@ -1,0 +1,4 @@
+[20-May-2018 15:17:17 Africa/Lagos] PHP Fatal error:  Cannot declare class DatabaseSeeder, because the name is already in use in /home/cresawjb/database/seeds/DatabaseSeeder.php on line 36
+[20-May-2018 17:20:15 Africa/Lagos] PHP Fatal error:  Cannot declare class DatabaseSeeder, because the name is already in use in /home/cresawjb/database/seeds/DatabaseSeeder.php on line 36
+[20-May-2018 20:08:58 Africa/Lagos] PHP Fatal error:  Cannot declare class DatabaseSeeder, because the name is already in use in /home/cresawjb/database/seeds/DatabaseSeeder.php on line 36
+[21-May-2018 12:27:09 Africa/Lagos] PHP Fatal error:  Cannot declare class DatabaseSeeder, because the name is already in use in /home/cresawjb/database/seeds/DatabaseSeeder.php on line 36

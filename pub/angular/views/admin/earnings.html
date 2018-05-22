@@ -1,0 +1,34 @@
+<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+  <ng-include src="'angular/views/partials/admin-menu.html'"></ng-include>
+
+  <section id="dashboard">
+    <div class="grid-container">
+      <div class="grid-100">
+        <div class="ui sticky">
+          <div class="ui pointing menu">
+            <a ng-click="active = 'allEarnings' " ng-class="['item', {'active' : active == 'allEarnings' }]" >All Earnings</a>
+            <a ng-click="active = 'adminEarnings' " ng-class="['item', {'active' : active == 'adminEarnings' }]" >Admin Earnings</a>
+            <a ng-click="active = 'userEarnings' " ng-class="['item', {'active' : active == 'userEarnings' }]" >Earnings by Users</a>
+            <a ng-click="active = 'gameEarnings' " ng-class="['item', {'active' : active == 'gameEarnings' }]" >Earnings by Game</a>
+            <div class="right menu">
+              <div class="item">
+                <div class="ui transparent icon input">
+                  <input type="text" placeholder="Search...">
+                  <i class="search link icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <all-earnings ng-if="active == 'allEarnings' "></all-earnings>
+        <admin-earnings ng-if="active == 'adminEarnings' "></admin-earnings>
+        <user-earnings ng-if="active == 'userEarnings' "></user-earnings>
+        <game-earnings ng-if="active == 'gameEarnings' "></game-earnings>
+
+      </div>
+    </div>
+  </section>
+
+  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
+</div>

@@ -107,11 +107,14 @@ class Before
 // dd(collect(Game::active())->isEmpty());
 // dump(session()->all());
 			if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
+				$f = fopen('lock', 'w') or die('Cant open file');
+				if (flock($f, LOCK_EX | LOCK_NB)) {
+					if ( !Game::active() ) {
+						Game::new();
+						session(['GAME_STATE' => 'active']);
+					}
+				};
 
-				if ( !Game::active() ) {
-					Game::new();
-					session(['GAME_STATE' => 'active']);
-				}
 
 				if (session('GAME_STATE') != 'paused' && session('GAME_STATE') != 'waiting' ) {
 					session(['GAME_STATE' => 'active']);
@@ -133,7 +136,7 @@ class Before
 						Session::forget('GAME_ACTIVE');
 					}
 				};
-				// 
+				//
 				// if ( Game::active() ) {
 				// 	Game::end();
 				// 	Session::forget('GAME_ACTIVE');
