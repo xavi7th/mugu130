@@ -71,16 +71,16 @@ var url = `
             <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ userdetails.refcode }}" target="_blank">
               <i class="facebook f icon"></i>
             </a>
-            <a class="ui twitter button icon" href="#" title="Tweet" ng-click="window.open('https://twitter.com/intent/tweet?text=' + 'https://fastplay24.com/register/ref/{{ userdetails.refcode }} Powered by TcomCloud');">
+            <a class="ui twitter button icon" ng-href="https://twitter.com/intent/tweet?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Tweet">
               <i class="twitter icon"></i>
             </a>
-            <a class="ui black button icon" href="mailto:?subject=&body" title="Email" ng-click="window.open('mailto:?subject=' + 'Powered by TcomCloud' + '&body=' + 'jtdcjgcjgfchfgbvc');">
+            <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later." title="Email">
               <i class="envelope outline icon"></i>
             </a>
             <a class="ui green button icon">
-              <i class="whatsapp icon" href="whatsapp://send?text" title="Whatsapp" ng-click="window.open('whatsapp://send?text=' + 'Powered by TcomCloud');"></i>
+              <i class="whatsapp icon" href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp"></i>
             </a>
-            <a class="ui linedin button icon" href="sms:?body" title="Sms" ng-click="window.open('sms:?body=' + 'Powered by TcomCloud');">
+            <a class="ui linedin button icon" href="sms:?body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ userdetails.refcode }} Thank me later. #fastplay24" title="Sms">
               <i class="edit icon"></i>
             </a>
 
