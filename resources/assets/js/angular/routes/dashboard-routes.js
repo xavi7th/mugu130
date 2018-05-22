@@ -1,4 +1,4 @@
-dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', '$provide', function ($routeProvider, $locationProvider, $localStorageProvider, NotificationProvider, timeAgoSettings, $provide) {
+dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', '$provide', function ($routeProvider, $locationProvider, $compileProvider, $localStorageProvider, NotificationProvider, timeAgoSettings, $provide) {
 
   $routeProvider
 
@@ -127,5 +127,7 @@ dashboard.config(['$routeProvider', '$locationProvider', '$localStorageProvider'
       };
       return $delegate;
     }]);
+
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|sms|tel|whatsapp):/);
 
 }]);
