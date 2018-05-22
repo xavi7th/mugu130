@@ -2,6 +2,17 @@
 
 @section('contents')
 
+  <style media="(max-width:767px)">
+    #summary{
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+    }
+    div#main-controller #others_intro{
+      height: 130px;
+    }
+  </style>
+
   <section id="others_intro">
     <div class="grid-container">
       <div class="grid-100">
@@ -67,7 +78,7 @@
                           $total_shared_price = 25 * $total_players;
               ?>
 
-          <div class="ui raised horizontal segments">
+          <div class="ui raised horizontal segments" id="summary">
             <div class="ui segment">
               <div class="ui labeled button" tabindex="-1">
                 <div class="ui button">
