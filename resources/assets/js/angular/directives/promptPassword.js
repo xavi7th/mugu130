@@ -18,7 +18,9 @@ angular.module('promptPassword', []).directive('promptPassword', ['Notification'
                  .then( (rsp) => {
                    if (rsp.status == 423) {
                      Notification.error('Incorrect password');
-                     $scope.logout();
+                     scope.$parent.logout();
+                     // console.log(scope.$parent);
+
                    }
                    else if (rsp.status == 200){
                      if (rsp.data.status) {
