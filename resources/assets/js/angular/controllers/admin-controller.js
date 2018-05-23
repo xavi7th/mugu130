@@ -336,6 +336,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
   $scope.verifyUser = (u) => {
+    $scope.verifying = true;
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/verify-user', u)
                 .then(rsp => {
@@ -347,6 +348,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                     Notification.error(rsp.data.status);
                   }
                   NProgress.done();
+                  $scope.verifying = false;
                 });
   };
 

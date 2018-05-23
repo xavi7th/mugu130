@@ -192,13 +192,13 @@ class AdminController extends Controller
           'new_users' => User::whereMonth('created_at', Carbon::parse(request('details'))->month)->count(),
           // 'new_referrals' => Referral::with('user')->whereMonth('created_at', Carbon::parse(request('details'))->month)->get(),
           'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::parse(request('details'))->month)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
-          'online_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'purchase')->where('channel', 'online')->count(),
-          'offline_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'purchase')->where('channel', 'offline')->count(),
+          'online_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
+          'offline_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
           'payments_by_earnings' => Earning::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('id', '!=', 0)->count(),
           'number_of_games' => Game::whereMonth('created_at', Carbon::parse(request('details'))->month)->count(),
           'total_num_of_players' => UserGameSession::whereMonth('created_at', Carbon::parse(request('details'))->month)->count(),
-          'online_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'purchase')->where('channel', 'online')->sum('amount'),
-          'offline_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'purchase')->where('channel', 'offline')->sum('amount'),
+          'online_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'online')->sum('amount'),
+          'offline_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'offline')->sum('amount'),
           'admin_payments_by_earnings' => Earning::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('id', 0)->count(),
         ]
       ];
@@ -212,12 +212,12 @@ class AdminController extends Controller
             'new_users' => User::whereDay('created_at', Carbon::parse(request('details'))->day)->count(),
             // 'new_referrals' => Referral::with('user')->whereDay('created_at', Carbon::parse(request('details'))->day)->get(),
             'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereDay('created_at', Carbon::parse(request('details'))->day)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
-            'online_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'purchase')->where('channel', 'online')->count(),
-            'offline_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'purchase')->where('channel', 'offline')->count(),
+            'online_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
+            'offline_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
             'number_of_games' => Game::whereDay('created_at', Carbon::parse(request('details'))->day)->count(),
             'total_num_of_players' => UserGameSession::whereDay('created_at', Carbon::parse(request('details'))->day)->count(),
-            'online_payments_amount' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'purchase')->where('channel', 'online')->sum('amount'),
-            'offline_payments_amount' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'purchase')->where('channel', 'offline')->sum('amount'),
+            'online_payments_amount' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'online')->sum('amount'),
+            'offline_payments_amount' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'offline')->sum('amount'),
             'payments_by_earnings' => Earning::whereDay('created_at', Carbon::parse(request('details'))->day)->where('user_id', '!=', 0)->count(),
             'admin_payments_by_earnings' => Earning::whereDay('created_at', Carbon::parse(request('details'))->day)->where('user_id', 0)->count(),
           ]
@@ -254,7 +254,7 @@ class AdminController extends Controller
 
       $trans = new Transaction;
 
-      $trans->trans_type = 'purchase';
+      $trans->trans_type = 'wallet funding';
       $trans->channel = request()->input('details.trans_type');
       $trans->amount = request()->input('details.units');
       $trans->status = 'completed';
@@ -326,13 +326,12 @@ class AdminController extends Controller
     }
 
     public function verifyUser(){
-      User::unguard();
 
-      User::find(request()->input('details.id'))->update([
-        'verified' => true
-      ]);
+      $user = User::find(request()->input('details.id'));
+      $user->verified = true;
+      $user->save();
 
-      User::reguard();
+      TransactionalMail::sendWelcomeMail($user->firstname, $user->email);
 
       return [
         'status' => true
@@ -341,7 +340,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'users' => User::with(['earnings', 'referrals'])->where('role_id', '!=', env("ADMIN_ROLE_ID"))->get()
+        'users' => User::with(['earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->get()
       ];
     }
 
@@ -386,6 +385,11 @@ class AdminController extends Controller
     }
 
     public function deleteMessage(){
+
+      if (request()->input('details.id') == env('USER_ROLE_ID')) {
+          return response()->json(['message' => 'You really don\'t want to delete this message. Trust me' ], 409);
+      }
+
       return [
         'status' => Message::find(request()->input('details.id'))->delete()
       ];
@@ -415,13 +419,16 @@ class AdminController extends Controller
 
     public function getAllUsersEarnings(){
       return [
-        'earnings' => Earning::with('user')->where('user_id', '!=', env('ADMIN_ROLE_ID'))->get()
+        'earnings' => Earning::with('user')->where('user_id', '!=', env('ADMIN_ROLE_ID'))->get(),
       ];
     }
 
     public function getAllAdminEarnings(){
       return [
-        'earnings' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->get()
+        'earnings' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->get(),
+        'total_untransferred' => Earning::with('user')->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount'),
+        'total_transferred' => Earning::with('user')->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount'),
+
       ];
     }
 

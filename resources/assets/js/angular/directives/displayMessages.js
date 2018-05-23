@@ -31,9 +31,9 @@ var url = `
                   </div>
                 </div>
                 <div class="ui mini labeled button" tabindex="-1" ng-if="!msg.read">
-                <div class="ui mini basic orange button" ng-click="markAsRead(msg)">
-                Mark as Read
-                </div>
+                  <div class="ui mini basic orange button" ng-click="markAsRead(msg)">
+                    Mark as Read
+                  </div>
                 </div>
               </td>
             </tr>
@@ -63,21 +63,17 @@ var url = `
           </div>
         </div>
 
-          <div class="field">
-            <label>Reply</label>
-          </div>
-
-          <div class="field">
+          <div class="field" ng-if="msg_record.user_id == 8888888">
             <label>Subject</label>
             <input type="text" ng-model="msg_record.reply_subject">
           </div>
 
-          <div class="field">
+          <div class="field" ng-if="msg_record.user_id == 8888888">
             <label>Message</label>
             <textarea placeholder="Message" type="text" ng-model="msg_record.reply_message"></textarea>
           </div>
 
-          <button class="ui blue submit button" ng-click="sendBroadcast()" ng-disabled="!msg_record.reply_message || !msg_record.reply_subject">Submit</button>
+          <button class="ui blue submit button" ng-click="sendBroadcast()" ng-disabled="!msg_record.reply_message || !msg_record.reply_subject" ng-if="msg_record.user_id == 8888888">Submit</button>
         </form>
       </div>
 
@@ -86,7 +82,7 @@ var url = `
 `;
 
 
-angular.module('displayMessages', []).directive('displayMessages', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
+angular.module('displayMessages', []).directive('displayMessages', ['$route', 'Notification', 'sendRequest', function ($route, Notification, sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/messagePlayTemplate.php',
@@ -100,7 +96,6 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
       $scope.messagerecord = false;
 
       $scope.markAsRead = (message) => {
-        console.log(message);
         sendRequest.postRequest(route_root + '/api/mark-message-as-read', message)
                     .then( rsp => {
                       if (rsp.status == 200) {
@@ -110,12 +105,14 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
       };
 
       $scope.deleteMessage = (message) => {
-        console.log(message);
         sendRequest.postRequest(route_root + '/api/delete-message', message)
                     .then( rsp => {
                       if (rsp.status == 200) {
                         var removed = $scope.messages.indexOf(message);
                         $scope.messages.splice(removed, 1);
+                      }
+                      else if (rsp.status == 409) {
+                        Notification.error('Can\'t delete system message.' );
                       }
                     });
       };
@@ -137,8 +134,11 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
         .then( rsp => {
           if (rsp.status == 200) {
             Notification.success('Sent');
+            console.log('hey');
             $scope.msg_record = null;
             NProgress.done();
+            $route.reload();
+
           }
         });
       };
@@ -154,6 +154,7 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
           if (rsp.status == 200) {
             Notification.success('Sent');
             $scope.msg_record = null;
+            $route.reload();
             NProgress.done();
           }
         });

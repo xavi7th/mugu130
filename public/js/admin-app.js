@@ -391,6 +391,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
   $scope.verifyUser = function (u) {
+    $scope.verifying = true;
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/verify-user', u).then(function (rsp) {
       if (rsp.status == 200) {
@@ -400,6 +401,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
         Notification.error(rsp.data.status);
       }
       NProgress.done();
+      $scope.verifying = false;
     });
   };
 
@@ -507,7 +509,7 @@ admin.controller('SettingsController', ['$scope', 'Notification', 'sendRequest',
 // <earning-play></earning-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n\n      <withdraw-admin-earnings></withdraw-admin-earnings>\n      \n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> Admin </td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id"> Withdrawal Fee </td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Player Name</th>\n              <th>Payment Status</th>\n              <th>Score</th>\n              <th>Earning</th>\n              <th>Position</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings_records">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ earning.status }}</td>\n              <td>{{ earning.earning_id }}</td>\n              <td>{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.payment_status }}</td>\n              <td>{{ earning.score }}</td>\n              <td>{{ earning.earning }}</td>\n              <td>{{ earning.position }}</td>\n              <td>{{ earning.created_at }}</td>\n              <td>{{ earning.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n\n      <withdraw-admin-earnings class="right floated"></withdraw-admin-earnings>\n      <div class="ui labeled button" tabindex="-1">\n        <div class="ui button">\n          <i class="heart icon"></i> Total Transferred\n        </div>\n        <a class="ui basic label">\n          {{ total_transferred | currency }}\n        </a>\n      </div>\n      <div class="ui left labeled button" tabindex="-1">\n        <a class="ui basic right pointing label">\n          {{ total_untransferred | currency }}\n        </a>\n        <div class="ui button">\n          <i class="heart icon"></i> Total Untransferred\n        </div>\n      </div>\n\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> Admin </td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id"> Withdrawal Fee </td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Player Name</th>\n              <th>Payment Status</th>\n              <th>Score</th>\n              <th>Earning</th>\n              <th>Position</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings_records">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ earning.status }}</td>\n              <td>{{ earning.earning_id }}</td>\n              <td>{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.payment_status }}</td>\n              <td>{{ earning.score }}</td>\n              <td>{{ earning.earning }}</td>\n              <td>{{ earning.position }}</td>\n              <td>{{ earning.created_at }}</td>\n              <td>{{ earning.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
@@ -540,6 +542,8 @@ angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'No
       sendRequest.postRequest(route_root + '/api/get-all-admin-earnings').then(function (rsp) {
         if (rsp.status == 200) {
           $scope.earnings = rsp.data.earnings;
+          $scope.total_transferred = rsp.data.total_transferred;
+          $scope.total_untransferred = rsp.data.total_untransferred;
           NProgress.done();
         }
       });
@@ -602,6 +606,8 @@ angular.module('allEarnings', []).directive('allEarnings', ['$location', 'Notifi
 
 // EXAMPLE uploadPostImage
 // <game-play></game-play>
+// <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyUser(u)" ng-hide="u.verified">Verify</button>
+
 
 angular.module('confirmAction', []).directive('confirmAction', ['Notification', 'sendRequest', function (Notification, sendRequest) {
     return {
@@ -965,9 +971,9 @@ angular.module('dailyStatistics', []).directive('dailyStatistics', ['Notificatio
 // <message-play></message-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div ng-show="!messagerecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Sender</th>\n              <th>Subject</th>\n              <th>Status</th>\n              <th>Date</th>\n              <th>Actions</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="msg in messages">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ msg.senderusername }}</td>\n              <td  ng-click="viewMessage(msg)">{{ msg.subject }}</td>\n              <td>{{ msg.read }}</td>\n              <td>{{ msg.created_at | timeAgo }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1">\n                  <div class="ui mini red button" ng-click="deleteMessage(msg)">\n                    Delete\n                  </div>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="!msg.read">\n                <div class="ui mini basic orange button" ng-click="markAsRead(msg)">\n                Mark as Read\n                </div>\n                </div>\n              </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="messagerecord" class="grid-80 prefix-10">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <div class="ui attached message">\n          <div class="header">\n            Message Details\n          </div>\n        </div>\n        <form class="ui form attached fluid segment">\n\n        <div class="ui info message">\n          <i class="close icon"></i>\n          <div class="header">\n            {{ msg_record.message }}\n          </div>\n        </div>\n\n          <div class="field">\n            <label>Reply</label>\n          </div>\n\n          <div class="field">\n            <label>Subject</label>\n            <input type="text" ng-model="msg_record.reply_subject">\n          </div>\n\n          <div class="field">\n            <label>Message</label>\n            <textarea placeholder="Message" type="text" ng-model="msg_record.reply_message"></textarea>\n          </div>\n\n          <button class="ui blue submit button" ng-click="sendBroadcast()" ng-disabled="!msg_record.reply_message || !msg_record.reply_subject">Submit</button>\n        </form>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div ng-show="!messagerecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Sender</th>\n              <th>Subject</th>\n              <th>Status</th>\n              <th>Date</th>\n              <th>Actions</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="msg in messages">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ msg.senderusername }}</td>\n              <td  ng-click="viewMessage(msg)">{{ msg.subject }}</td>\n              <td>{{ msg.read }}</td>\n              <td>{{ msg.created_at | timeAgo }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1">\n                  <div class="ui mini red button" ng-click="deleteMessage(msg)">\n                    Delete\n                  </div>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="!msg.read">\n                  <div class="ui mini basic orange button" ng-click="markAsRead(msg)">\n                    Mark as Read\n                  </div>\n                </div>\n              </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="messagerecord" class="grid-80 prefix-10">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <div class="ui attached message">\n          <div class="header">\n            Message Details\n          </div>\n        </div>\n        <form class="ui form attached fluid segment">\n\n        <div class="ui info message">\n          <i class="close icon"></i>\n          <div class="header">\n            {{ msg_record.message }}\n          </div>\n        </div>\n\n          <div class="field" ng-if="msg_record.user_id == 8888888">\n            <label>Subject</label>\n            <input type="text" ng-model="msg_record.reply_subject">\n          </div>\n\n          <div class="field" ng-if="msg_record.user_id == 8888888">\n            <label>Message</label>\n            <textarea placeholder="Message" type="text" ng-model="msg_record.reply_message"></textarea>\n          </div>\n\n          <button class="ui blue submit button" ng-click="sendBroadcast()" ng-disabled="!msg_record.reply_message || !msg_record.reply_subject" ng-if="msg_record.user_id == 8888888">Submit</button>\n        </form>\n      </div>\n\n</section>\n\n';
 
-angular.module('displayMessages', []).directive('displayMessages', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
+angular.module('displayMessages', []).directive('displayMessages', ['$route', 'Notification', 'sendRequest', function ($route, Notification, sendRequest) {
   return {
     restrict: 'E',
     // templateUrl:'angular/directive-templates/messagePlayTemplate.php',
@@ -979,7 +985,6 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
       $scope.messagerecord = false;
 
       $scope.markAsRead = function (message) {
-        console.log(message);
         sendRequest.postRequest(route_root + '/api/mark-message-as-read', message).then(function (rsp) {
           if (rsp.status == 200) {
             message.read = true;
@@ -988,11 +993,12 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
       };
 
       $scope.deleteMessage = function (message) {
-        console.log(message);
         sendRequest.postRequest(route_root + '/api/delete-message', message).then(function (rsp) {
           if (rsp.status == 200) {
             var removed = $scope.messages.indexOf(message);
             $scope.messages.splice(removed, 1);
+          } else if (rsp.status == 409) {
+            Notification.error('Can\'t delete system message.');
           }
         });
       };
@@ -1013,8 +1019,10 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
         sendRequest.postRequest(route_root + '/api/reply-message', $scope.reply).then(function (rsp) {
           if (rsp.status == 200) {
             Notification.success('Sent');
+            console.log('hey');
             $scope.msg_record = null;
             NProgress.done();
+            $route.reload();
           }
         });
       };
@@ -1029,6 +1037,7 @@ angular.module('displayMessages', []).directive('displayMessages', ['$location',
           if (rsp.status == 200) {
             Notification.success('Sent');
             $scope.msg_record = null;
+            $route.reload();
             NProgress.done();
           }
         });

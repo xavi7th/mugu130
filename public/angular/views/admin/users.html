@@ -4,6 +4,17 @@
   <section id="dashboard">
     <div class="grid-container">
       <div class="grid-100">
+        <div class="ui segment compact left floated">
+          <div class="ui horizontal statistic">
+              <div class="value">
+                {{ users.length }}
+              </div>
+              <div class="label">
+                Users
+              </div>
+            </div>
+        </div>
+          <br>
         <div class="ui search flex-center" style="justify-content:flex-end">
           <div class="ui icon input">
             <input class="prompt" type="text" placeholder="Search users..." ng-model="search">
@@ -12,6 +23,7 @@
           <div class="results"></div>
         </div>
         <div class="ui red segment">
+
           <table class="ui  striped celled table">
             <thead>
               <tr>
@@ -35,9 +47,9 @@
                     <div class="or"></div>
                     <button class="ui black button" confirm-action="activateUser(u)" ng-show="u.useraccstatus != 'active'">Activate</button>
                     <div class="or"></div>
-                    <button class="ui purple button" confirm-action="verifyUser(u)" ng-hide="u.verified">Verify</button>
+                    <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyUser(u)" ng-hide="u.verified">Verify</button>
                     <div class="or"></div>
-                    <button class="ui green button" ng-click="openReferralsModal(u)">View Referrals</button>
+                    <button ng-class="['ui green button', {'loading':loading}]" ng-click="openReferralsModal(u)">View Referrals</button>
                     <div class="or"></div>
                     <button class="ui red button" confirm-action="deleteUser(u)">Delete</button>
                     <div class="or"></div>

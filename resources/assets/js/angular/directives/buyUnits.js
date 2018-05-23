@@ -79,7 +79,7 @@ var url = `
 `;
 
 
-angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope:{},
@@ -90,10 +90,26 @@ angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendReque
       $scope.amt_per_unit = 1;
 
       $scope.openModal = () => {
-        $('.ui.modal.buyUnits').modal({
+        $('.ui.modal.buyUnits')
+          .modal({
+            allowMultiple: false,
+            centered: false,
             blurring: true,
-            allowMultiple: false
-          })
+            onDeny    : function(){
+                 return true;
+
+               },
+              onHide    : function(){
+                var remove = () => {
+                  $('.ui.modal.buyUnits').remove();
+                };
+                setTimeout(remove, 1000);
+                // return false;
+              },
+              onApprove : function() {
+                return true;
+              }
+            })
           .modal('show');
       };
 
@@ -114,6 +130,13 @@ angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendReque
                  });
 
       };
+
+      $scope.$on('$destroy', function() {
+        $timeout(function () {
+          // $('.ui.modal.buyUnits').remove();
+
+        }, 0);
+      });
 
     }]
   };

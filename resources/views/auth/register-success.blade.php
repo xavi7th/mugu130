@@ -115,7 +115,7 @@
                 Congratulations
               </div>
               <div class="label">
-                You are the owner of a brand new FastPlay account.
+                You are the owner of a brand new FastPlay24 account.
               </div>
               <br>
               <br>

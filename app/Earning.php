@@ -17,7 +17,8 @@ class Earning extends Model{
   protected $guarded = [];
   protected $dates = ['deleted_at', 'ended_at'];
 	protected $casts = [
-		'transferred' => 'boolean'
+		'transferred' => 'boolean',
+		'game_id' => 'integer'
 	];
 	// public $rememberFor = 5;
 	 //

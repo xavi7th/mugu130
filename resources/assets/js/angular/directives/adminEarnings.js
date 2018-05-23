@@ -5,8 +5,24 @@
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
 
-      <withdraw-admin-earnings></withdraw-admin-earnings>
-      
+      <withdraw-admin-earnings class="right floated"></withdraw-admin-earnings>
+      <div class="ui labeled button" tabindex="-1">
+        <div class="ui button">
+          <i class="heart icon"></i> Total Transferred
+        </div>
+        <a class="ui basic label">
+          {{ total_transferred | currency }}
+        </a>
+      </div>
+      <div class="ui left labeled button" tabindex="-1">
+        <a class="ui basic right pointing label">
+          {{ total_untransferred | currency }}
+        </a>
+        <div class="ui button">
+          <i class="heart icon"></i> Total Untransferred
+        </div>
+      </div>
+
       <div ng-show="!earningrecord">
         <table class="ui  striped celled table">
           <thead>
@@ -121,6 +137,8 @@ angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'No
                   .then( rsp => {
                     if (rsp.status == 200) {
                       $scope.earnings = rsp.data.earnings;
+                      $scope.total_transferred = rsp.data.total_transferred;
+                      $scope.total_untransferred = rsp.data.total_untransferred;
                       NProgress.done();
                     }
                   });

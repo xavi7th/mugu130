@@ -38,7 +38,7 @@ var url = `
         <div class="ui black left deny button">
           Close
         </div>
-        <div ng-class="{'ui positive right labeled icon button': true, 'disabled': !requested_amount}" ng-click="requestWithdrawal()">
+        <div ng-class="{'ui positive right labeled icon button': true, 'disabled': !requested_amount}" prompt-password="requestWithdrawal()">
           Yep, proceed!
           <i class="checkmark icon"></i>
         </div>
@@ -62,7 +62,7 @@ var url = `
 `;
 
 
-angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout','Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -80,9 +80,25 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification'
     controller: ['$scope',  ($scope) => {
 
       $scope.openModal = () => {
-        $('.ui.modal.makeWithdrawal').modal({
-            blurring: true
-          })
+        $('.ui.modal.makeWithdrawal')
+          .modal({
+            centered: false,
+            blurring: true,
+            onDeny    : function(){
+                 return true;
+
+               },
+              onHide    : function(){
+                var remove = () => {
+                  $('.ui.modal.makeWithdrawal').remove();
+                };
+                setTimeout(remove, 1000);
+                // return false;
+              },
+              onApprove : function() {
+                return true;
+              }
+            })
           .modal('show');
       };
 
@@ -109,6 +125,12 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification'
                  });
 
       };
+
+      $scope.$on('$destroy', function() {
+        $timeout(function () {
+          // $('.ui.modal.makeWithdrawal').remove();
+        }, 0);
+      });
 
     }]
   };

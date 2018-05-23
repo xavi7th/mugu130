@@ -1,4 +1,19 @@
 <div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+
+  <style>
+    #logo{
+      flex-shrink: 18;
+    }
+
+    #logo .image{
+      width: 25%;
+    }
+
+    #logo img{
+      width: 100%;
+    }
+
+  </style>
   <ng-include src="'angular/views/partials/menu.html'"></ng-include>
 
   <div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
@@ -61,9 +76,9 @@
     <div class="header">
       {{ userdetails.messages.subject }}
     </div>
-    <div class="image content">
+    <div class="image content" id="logo">
       <div class="image">
-        <i class="archive icon"></i>
+        <img src="/img/logo.png" alt="">
       </div>
       <div class="description">
         {{ userdetails.messages.message }}

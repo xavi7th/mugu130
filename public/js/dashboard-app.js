@@ -152,7 +152,7 @@ dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendReques
 
 var url = '\n<section id="buyUnits" class="ui right floated horizontal list">\n  <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="shop icon"></i></div>\n    <div class="visible content">\n      Fund Account\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal buyUnits transition hidden">\n      <div class="header">\n        Fund Account: Input Amount\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Minimum: \u20A6300" ng-model="requested_amount" ng-min="300">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui black left deny button">\n        Close\n        </div>\n      </div>\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n        <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p>\n\n          </p>\n        </div>\n        <div class="ui secondary segment">\n          <p>\n            <img src="/img/paystack_preview.png" alt="" />\n          </p>\n        </div>\n        <div class="ui secondary segment" id="extra">\n          <div class="ui small header">Pay via bank Deposit or Wire transfer</div>\n          <p>\n            <b>Account Name:</b> Tcom Wireless Nigeria\n          </p>\n          <p>\n            <b>Account Number:</b> 1019040225 (United Bank for Africa)\n          </p>\n          <p>\n            <b>  Account type:</b> Current\n          </p>\n          <p>\n            <img src="/img/uba.jpg" alt="" />\n          </p>\n\n          <div class="ui positive message">\n            <div class="header">\n              NB:\n            </div>\n            <p>After payment, send your payment details to hello@fastplay24.com. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to hello@fastplay24.com.</p>\n          </div>\n\n          <div class="ui message">\n            <div class="header">\n              NB:\n            </div>\n            <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>\n          </div>\n\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
 
-angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope: {},
@@ -164,8 +164,22 @@ angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendReque
 
       $scope.openModal = function () {
         $('.ui.modal.buyUnits').modal({
+          allowMultiple: false,
+          centered: false,
           blurring: true,
-          allowMultiple: false
+          onDeny: function onDeny() {
+            return true;
+          },
+          onHide: function onHide() {
+            var remove = function remove() {
+              $('.ui.modal.buyUnits').remove();
+            };
+            setTimeout(remove, 1000);
+            // return false;
+          },
+          onApprove: function onApprove() {
+            return true;
+          }
         }).modal('show');
       };
 
@@ -183,6 +197,13 @@ angular.module('buyUnits', []).directive('buyUnits', ['Notification', 'sendReque
           }
         });
       };
+
+      $scope.$on('$destroy', function () {
+        $timeout(function () {
+          // $('.ui.modal.buyUnits').remove();
+
+        }, 0);
+      });
     }]
   };
 }]);
@@ -535,7 +556,7 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 // <game-state><game-state>
 
 
-var url = '\n<div id="game">\n  <div id="card" class="ui segments" ng-if="game_state == \'loading\' && !transition">\n    <!-- game load -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Countdown to next game</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button>Next game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'waiting\' && !transition">\n    <!-- game waiting -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>\n    </div>\n\n    <div class="ui segment">\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score == null">\n        <div class="ui green button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic green left pointing label">\n          Awaiting results\n        </a>\n      </div>\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">\n        <div class="ui red button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic red left pointing label">\n          {{ user_score }} out of 10\n        </a>\n      </div>\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">\n        <div class="ui basic blue button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic left pointing blue label">\n        {{ user_score }} out of 10\n        </a>\n      </div>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'active\' && !transition">\n    <!-- game active -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Game in progress</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="joinGame()" ng-disabled="transition">Join Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'paused\' && !transition">\n    <!-- game paused -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments">\n    <div class="content" style="padding-bottom: 5px;">\n      <div class="ui compact segment">\n        <div class="ui blue image label">\n          Referral link\n          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}</div>\n          <input type="text" ng-hide="true" id="hiddenref">\n        </div>\n        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">\n          <br />\n          <strong style="margin-right: 15px; color:#555!important;"">INVITE SOMEONE AND GET PAID:</strong>\n          <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}" target="_blank">\n            <i class="facebook f icon"></i>\n          </a>\n          <a class="ui twitter button icon" ng-href="https://twitter.com/intent/tweet?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Tweet">\n            <i class="twitter icon"></i>\n          </a>\n          <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later." title="Email">\n            <i class="envelope outline icon"></i>\n          </a>\n          <a class="ui green button icon" ng-href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp Share">\n              <i class="whatsapp icon"></i>\n            </a>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n';
+var url = '\n<div id="game">\n  <div id="card" class="ui segments" ng-if="game_state == \'loading\' && !transition">\n    <!-- game load -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Countdown to next game</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button>Next game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'waiting\' && !transition">\n    <!-- game waiting -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>\n    </div>\n\n    <div class="ui segment">\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score == null">\n        <div class="ui green button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic green left pointing label">\n          Awaiting results\n        </a>\n      </div>\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">\n        <div class="ui red button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic red left pointing label">\n          {{ user_score }} out of 10\n        </a>\n      </div>\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">\n        <div class="ui basic blue button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic left pointing blue label">\n        {{ user_score }} out of 10\n        </a>\n      </div>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'active\' && !transition">\n    <!-- game active -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Game in progress</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="joinGame()" ng-disabled="transition">Join Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'paused\' && !transition">\n    <!-- game paused -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments">\n    <div class="content" style="padding-bottom: 5px;">\n      <div class="ui compact segment">\n        <div class="ui blue image label">\n          Referral link\n          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}</div>\n          <input type="text" ng-hide="true" id="hiddenref">\n        </div>\n        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">\n          <br />\n          <strong style="margin-right: 15px; color:#555!important;"">INVITE SOMEONE AND GET PAID:</strong>\n          <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}" target="_blank">\n            <i class="facebook f icon"></i>\n          </a>\n          <a class="ui twitter button icon" ng-href="https://twitter.com/intent/tweet?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Tweet" target="_blank">\n            <i class="twitter icon"></i>\n          </a>\n          <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later." title="Email">\n            <i class="envelope outline icon"></i>\n          </a>\n          <a class="ui green button icon" ng-href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp Share">\n              <i class="whatsapp icon"></i>\n            </a>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n';
 
 angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {
   return {
@@ -710,9 +731,9 @@ angular.module('inputCountValidator', []).directive('count', function () {
 // <game-play></game-play>
 
 
-var url = '\n<section id="makeWithdrawal" class="ui right floated horizontal  list">\n  <div class=" ui vertical animated orange compact button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="icon money bill alternate outline"></i></div>\n    <div class="visible content">\n      Cash Out\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal makeWithdrawal transition hidden">\n\n      <div class="ui icon mini message">\n        <i class="inbox icon"></i>\n        <div class="content">\n          <div class="header">\n            TRANSFER EARNINGS FIRST\n          </div>\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \'transfer earnings\' button. Otherwise proceed.</p>\n        </div>\n      </div>\n\n      <div class="header">\n        Enter an Amount\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="150">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !requested_amount}" ng-click="requestWithdrawal()">\n          Yep, proceed!\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n      <div class="image content flex-center">\n        <div class="ui icon mini message positive">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> For withdrawals below \u20A61000, a service fee of \u20A650 will be charged. </p>\n            <p> While an additional service fee of \u20A650 will be charged for every \u20A65000.</p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
+var url = '\n<section id="makeWithdrawal" class="ui right floated horizontal  list">\n  <div class=" ui vertical animated orange compact button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="icon money bill alternate outline"></i></div>\n    <div class="visible content">\n      Cash Out\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal makeWithdrawal transition hidden">\n\n      <div class="ui icon mini message">\n        <i class="inbox icon"></i>\n        <div class="content">\n          <div class="header">\n            TRANSFER EARNINGS FIRST\n          </div>\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \'transfer earnings\' button. Otherwise proceed.</p>\n        </div>\n      </div>\n\n      <div class="header">\n        Enter an Amount\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="150">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !requested_amount}" prompt-password="requestWithdrawal()">\n          Yep, proceed!\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n      <div class="image content flex-center">\n        <div class="ui icon mini message positive">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> For withdrawals below \u20A61000, a service fee of \u20A650 will be charged. </p>\n            <p> While an additional service fee of \u20A650 will be charged for every \u20A65000.</p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
 
-angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope: {
@@ -729,7 +750,21 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification'
 
       $scope.openModal = function () {
         $('.ui.modal.makeWithdrawal').modal({
-          blurring: true
+          centered: false,
+          blurring: true,
+          onDeny: function onDeny() {
+            return true;
+          },
+          onHide: function onHide() {
+            var remove = function remove() {
+              $('.ui.modal.makeWithdrawal').remove();
+            };
+            setTimeout(remove, 1000);
+            // return false;
+          },
+          onApprove: function onApprove() {
+            return true;
+          }
         }).modal('show');
       };
 
@@ -752,6 +787,12 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['Notification'
           }
         });
       };
+
+      $scope.$on('$destroy', function () {
+        $timeout(function () {
+          // $('.ui.modal.makeWithdrawal').remove();
+        }, 0);
+      });
     }]
   };
 }]);
@@ -956,6 +997,42 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
   };
 }]);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/promptPassword.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-play></game-play>
+// <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyUser(u)" ng-hide="u.verified">Verify</button>
+
+
+angular.module('promptPassword', []).directive('promptPassword', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'A',
+    transclude: true,
+    template: "<div ng-transclude></div>",
+    link: function link(scope, el, attrs) {
+
+      var msg = "Enter your password";
+      var clickAction = attrs.promptPassword;
+      el.bind('click', function (event) {
+        var pwd = window.prompt(msg);
+        sendRequest.postRequest('/user/confirm-user-password', pwd).then(function (rsp) {
+          if (rsp.status == 423) {
+            Notification.error('Incorrect password');
+            $scope.logout();
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              scope.$eval(clickAction);
+            }
+          }
+        });
+      });
+    }
+  };
+}]);
 
 /***/ }),
 
@@ -1691,7 +1768,7 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 /***/ (function(module, exports, __webpack_require__) {
 
 
-dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack']);
+dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword']);
 
 dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -1740,6 +1817,7 @@ __webpack_require__("./resources/assets/js/angular/directives/makeWithdrawal.js"
 __webpack_require__("./resources/assets/js/angular/directives/userProfile.js");
 __webpack_require__("./resources/assets/js/angular/directives/verifyAccount.js");
 __webpack_require__("./resources/assets/js/angular/directives/payWithPaystack.js");
+__webpack_require__("./resources/assets/js/angular/directives/promptPassword.js");
 // require('./angular/directives/timer');
 //
 //

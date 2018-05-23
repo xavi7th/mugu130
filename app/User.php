@@ -286,6 +286,10 @@ class User extends Authenticatable{
       return $this->hasOne(Message::class, 'sender_id', 'role_id')->where('read', 0)->latest();
     }
 
+    // public function messages(){
+    //   return Message::where('sender_id', 88888)->first();
+    // }
+
     public function deletable(){
       if ($this->earnings->isEmpty() || $this->availble_units < 10) {
         return true;

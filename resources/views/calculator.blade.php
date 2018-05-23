@@ -61,7 +61,7 @@
                  <div class="ui buttons">
                    <button ng-class="['ui', 'positive', 'button', {'lading': loading}]" type="submit" name="btnsub" ng-click="loading = true">Submit</button>
                    <div class="or"></div>
-                   <button class="ui button" type="button" name="btnref" onclick="location.reload()">Refresh</button>
+                   <a class="ui button" type="button" name="btnref" href="/calculator" target="_self">Refresh</a>
                  </div>
                </div>
              </div>
@@ -116,7 +116,6 @@
           <table class="ui  striped celled table" style="text-align: center;">
             <thead>
               <tr>
-                <th>S/N</th>
                 <th>Position</th>
                 <th>Prize</th>
               </tr>
@@ -156,7 +155,6 @@
               ?>
 
                   <tr>
-                    <td> {{ $i }}</td>
                     <td>{{ $pp }}</td>
                     <td>₦{{ number_format($prz[$ii], 2) }}</td>
                   </tr>
