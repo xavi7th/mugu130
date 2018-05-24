@@ -62,7 +62,7 @@ var url = `
 `;
 
 
-angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout','Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$route','Notification', 'sendRequest', function ($timeout, $route, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -95,6 +95,12 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout','No
                 setTimeout(remove, 1000);
                 // return false;
               },
+              // onHidden    : function(){
+              //   console.log('hidden');
+              //   $route.reload();
+              //
+              //   // return false;
+              // },
               onApprove : function() {
                 return true;
               }
@@ -126,7 +132,7 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout','No
 
       };
 
-      $scope.$on('$destroy', function() {
+      $scope.$on('$routeChangeStart', function() {
         $timeout(function () {
           // $('.ui.modal.makeWithdrawal').remove();
         }, 0);

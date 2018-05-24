@@ -5,7 +5,7 @@
 var url = `
 <section id="verifyAccount" class="ui left floated horizontal  list">
 
-  <div class="ui circular green labels" ng-if="userdetails.verified">
+  <div class="ui circular green labels" ng-if="userdetails.verified" title="Verified Account">
     <a class="ui label">
       <i class="check circle icon" style="margin: 0;"></i>
     </a>

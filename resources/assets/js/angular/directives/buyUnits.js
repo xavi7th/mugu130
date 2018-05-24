@@ -7,14 +7,14 @@ var url = `
   <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">
     <div class="hidden content"><i class="shop icon"></i></div>
     <div class="visible content">
-      Fund Account
+      Fund Wallet
     </div>
   </div>
 
 
   <div class="ui tiny modal buyUnits transition hidden">
       <div class="header">
-        Fund Account: Input Amount
+        Fund Wallet: Input Amount
       </div>
       <div class="image content flex-center">
         <div class="ui form">
