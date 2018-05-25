@@ -21,6 +21,6 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@fastplay24" />
 <meta name="twitter:url" content="{{ route('support') }}" />
-<meta name="twitter:title" content="{{ env('APP_NAME') }}" />
+<meta name="twitter:title" content="Support" />
 <meta name="twitter:description" content="Contact your buddies at {{ env('APP_NAME') }}. We love to hear from you" />
 <meta name="twitter:image" content="{{ asset('/img/twitter.jpg') }}" />

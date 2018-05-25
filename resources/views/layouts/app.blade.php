@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 	<head>
-		@if (Route::is('home') || Route::is('login') || Route::is('register') || Route::is('referral'))
+		@if (Route::is('home'))
 			@include('meta.home.index')
+		@elseif (Route::is('login'))
+			@include('meta.home.login')
+		@elseif (Route::is('register'))
+			@include('meta.home.register')
+		@elseif (Route::is('referral'))
+			@include('meta.home.register')
 		@elseif (Route::is('calculator'))
 			@include('meta.home.calculator')
 		@elseif (Route::is('demo.play'))

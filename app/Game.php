@@ -143,19 +143,19 @@ class Game extends Model{
 
 							//get his earning
 							if ($count == 1) {
-								$value->position = $count;
+								$value->position = $count++;
 								$value->earning = floor($firstprice) + env('BASIC_PARTICIPATION_REWARD');
 								$dispensed_amount += $value->earning - env('BASIC_PARTICIPATION_REWARD');
 								$those_that_shared++;
 							}
 							elseif($count < $max_winners){
-								$value->position = ++$count;
+								$value->position = $count++;
 								$value->earning = floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD');
 								$dispensed_amount += $value->earning - env('BASIC_PARTICIPATION_REWARD');
 								$those_that_shared++;
 							}
 							elseif ($count > $max_winners) {
-								$value->position = $count + 1;
+								$value->position = $count;
 								$value->earning = env('BASIC_PARTICIPATION_REWARD');
 							}
 
@@ -185,7 +185,7 @@ class Game extends Model{
 
 					//Next loop over that second array and continue to positions them and add earning of 5
 					foreach ($others as $key => &$v) {
-						$v->position = $count == 0 ? $count + 1 : $count;
+						$v->position = $count == 1 ? $count + 1 : $count;
 						$v->earning = env('BASIC_PARTICIPATION_REWARD');
 
 						if ($v->payment_status == 'unpaid') {

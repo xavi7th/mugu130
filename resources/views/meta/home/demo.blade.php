@@ -21,6 +21,6 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@fastplay24" />
 <meta name="twitter:url" content="{{ route('demo.play') }}" />
-<meta name="twitter:title" content="{{ env('APP_NAME') }}" />
+<meta name="twitter:title" content="Demo" />
 <meta name="twitter:description" content="Play the Demo to see how {{ env('APP_NAME') }} works" />
 <meta name="twitter:image" content="{{ asset('/img/twitter.jpg') }}" />
