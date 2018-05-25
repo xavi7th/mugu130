@@ -64,13 +64,13 @@ var url = `
   <div id="card" class="ui segments" ng-if="game_state == 'active' && !transition">
     <!-- game active -->
     <div class="ui segment">
-      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">
+      <div class="ui label" style="background-color: #21BA45; color: #fff; font-size: 13px;">
         <span>Game in progress</span>
       </div>
     </div>
     <div class="ui segment">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
-      <button style="cursor: pointer" ng-click="joinGame()" ng-disabled="transition">Join Game</button>
+      <button style="cursor: pointer; background-color: #21BA45;" ng-click="joinGame()" ng-disabled="transition">Join Game</button>
     </div>
   </div>
 

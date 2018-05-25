@@ -254,9 +254,9 @@
                         if (rsp.data != 'invalid') {
                           scope.results = _.parseInt(rsp.data.results);
                           scope.user_earning = _.parseInt(rsp.data.user_earning);
-                          $scope.max_winners = _.parseInt(rsp.data.max_winners);
-                          $scope.total_players = _.parseInt(rsp.data.total_players);
-                          $scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
+                          scope.max_winners = _.parseInt(rsp.data.max_winners);
+                          scope.total_players = _.parseInt(rsp.data.total_players);
+                          scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
                         }
                         else {
                           $location.path('/dashboard');
