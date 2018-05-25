@@ -1134,7 +1134,10 @@ angular.module('liveGameSession', []).directive('liveGameSession', ['$location',
       $timeout(function () {
         Echo.leave('new_member_joined');
         Echo.channel('new_member_joined').listen('NewMemberJoined', function (e) {
+          console.log('new_member_joined channel joined' + e);
+
           new_session = e.new_session;
+
           new_session.user = e.new_member;
           $scope.live_session.push(new_session);
           $scope.$apply();
@@ -1725,12 +1728,14 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
           }).modal('show');
 
           Echo.channel('exam_member_count').listen('ExamJoined', function (e) {
+            console.log('joined channel exam_member_count' + e);
             scope.total_examinees = e.total_examinees;
           });
         }, 1000);
       });
       scope.$on('$destroy', function () {
         $timeout(function () {
+          console.log('leaving channel exam_member_count');
           Echo.leave('exam_member_count');
         }, 0);
       });
@@ -1772,6 +1777,7 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
           $('.ui.accordion').accordion();
 
           Echo.channel('exam_member_count').listen('ExamJoined', function (e) {
+            console.log('joined channel exam_member_count' + e);
             scope.total_examinees = e.total_examinees;
           });
         }, 500);
@@ -1779,6 +1785,8 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
       scope.$on('$destroy', function () {
         $timeout(function () {
           sendRequest.postRequest('/user/pause-game');
+
+          console.log('leaving channel exam_member_count');
           Echo.leave('exam_member_count');
         }, 0);
       });
