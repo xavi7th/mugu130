@@ -11,6 +11,13 @@
     div#main-controller #others_intro{
       height: 130px;
     }
+      div#main-controller .ui.buttons button {
+        margin-bottom: 0;
+      }
+
+      input{
+        margin-bottom: 10px !important;
+      }
   </style>
 
   <section id="others_intro">
@@ -59,9 +66,9 @@
                </div>
                <div class="field">
                  <div class="ui buttons">
-                   <button ng-class="['ui', 'positive', 'button', {'lading': loading}]" type="submit" name="btnsub" ng-click="loading = true">Submit</button>
+                   <button ng-class="['ui', 'positive', 'button', {'loading': loading}]" type="submit" name="btnsub" ng-click="loading = true">Submit</button>
                    <div class="or"></div>
-                   <a class="ui button" type="button" name="btnref" href="/calculator" target="_self">Refresh</a>
+                   <a class="ui deny button" name="btnref" href="/calculator" target="_self">Refresh</a>
                  </div>
                </div>
              </div>

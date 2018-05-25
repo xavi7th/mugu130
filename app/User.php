@@ -69,6 +69,8 @@ class User extends Authenticatable{
          'verified' => 'boolean',
          'available_units' => 'double',
          'units_purchased' => 'double',
+         'num_of_withdrawals' => 'integer',
+         'total_withdrawals' => 'integer'
     ];
 
     protected $appends = [
