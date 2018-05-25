@@ -292,7 +292,7 @@ class AdminController extends Controller
       // return request()->all();
       $this->validate(request(), [
         'details.email' => 'required',
-        'details.phone1' => 'required'
+        // 'details.phone1' => 'required'
       ]);
       return [
         'status' => User::find(request()->input('details.id'))->update(array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password', 'password_confirmation', 'earnings', 'referrals'] ))
