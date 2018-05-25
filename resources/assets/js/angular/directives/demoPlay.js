@@ -151,7 +151,6 @@ var url = `
             <div class="header">
               Results Display
             </div>
-            <p>This is the list of participants and their scores.</p>
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
@@ -213,20 +212,12 @@ var url = `
 
         <table class="ui  striped celled table" style="text-align: center;">
           <thead>
-            <tr>
-              <th>Position</th>
-              <th>Score</th>
+            <tr ng-repeat="result in results">
+              <th>Position - {{ result.position }}</th>
+              <th>Score - {{ result.score }}</th>
             </tr>
           </thead>
 
-          <tbody>
-
-                <tr ng-repeat="result in results">
-                  <td>{{ result.position }}</td>
-                  <td>{{ result.score }}</td>
-                </tr>
-
-          </tbody>
         </table>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
-  
+
   <style media="(max-width:767px)">
     #summary{
       -webkit-flex-direction: column;
@@ -25,7 +25,6 @@
             <div class="header">
               Results Display
             </div>
-            <p>This is the list of participants and their scores.</p>
           </div>
           <div class="ui left labeled button" tabindex="-1">
             <a class="ui basic blue label">
@@ -94,23 +93,13 @@
 
           <table class="ui  striped celled table" style="text-align: center;">
             <thead>
-              <tr>
-                <th>Position</th>
-                <th>Test Duration</th>
-                <th>Score</th>
-                <th>Game ID</th>
+              <tr ng-repeat="result in results  | orderBy: 'position'">
+                <th>Position - {{ result.position }}</th>
+                <th>Test Duration - {{ result.duration }} minutes</th>
+                <th>Score - {{ result.score }}</th>
+                <th>Game ID - {{ result.game_id }}</th>
               </tr>
             </thead>
-
-            <tbody>
-                  <tr ng-repeat="result in results  | orderBy: 'position'">
-                    <td class="centered">{{ result.position }}</td>
-                    <td class="centered">{{ result.duration }} minutes</td>
-                    <td class="centered">{{ result.score }}</td>
-                    <td class="centered">{{ result.game_id }}</td>
-                  </tr>
-
-            </tbody>
           </table>
         </div>
       </div>
