@@ -52,7 +52,7 @@ window.Echo = new Echo({
     cluster: 'eu',
 });
 
- Pusher.logToConsole = true;
+ // Pusher.logToConsole = true;
 
 
 /**

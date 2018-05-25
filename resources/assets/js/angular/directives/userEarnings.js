@@ -55,7 +55,8 @@ var url = `
               <td>{{ $index + 1 }}</td>
               <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> {{ username }} </td>
               <td>{{ earning.amount }}</td>
-              <td>{{ earning.game_id }}</td>
+              <td ng-if="earning.game_id">{{ earning.game_id }}</td>
+              <td ng-if="!earning.game_id">REFERRAL BONUS</td>
               <td>
                   <span ng-if="earning.transferred">Transferred</span>
                   <span ng-if="!earning.transferred">Untransferred</span>

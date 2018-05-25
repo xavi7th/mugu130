@@ -128,7 +128,7 @@ class Game extends Model{
 					$firstprice = ($total_stake/$sum) * (pow(1.06381, $max_winners - 1));
 
 					$others = [];
-					$count = 0;
+					$count = 1;
 					$dispensed_amount = 0;
 					$those_that_shared = 0;
 					$referral_bonus = 0;
@@ -140,21 +140,22 @@ class Game extends Model{
 					foreach ($exam_records as $key => &$value) {
 
 						if ($value->score == env('MINIMUM_PASSING_SCORE')) {
-							$value->position = ++$count;
-
 
 							//get his earning
 							if ($count == 1) {
+								$value->position = $count;
 								$value->earning = floor($firstprice) + env('BASIC_PARTICIPATION_REWARD');
 								$dispensed_amount += $value->earning - env('BASIC_PARTICIPATION_REWARD');
 								$those_that_shared++;
 							}
-							elseif($count <= $max_winners){
+							elseif($count < $max_winners){
+								$value->position = ++$count;
 								$value->earning = floor($firstprice /= 1.06381) + env('BASIC_PARTICIPATION_REWARD');
 								$dispensed_amount += $value->earning - env('BASIC_PARTICIPATION_REWARD');
 								$those_that_shared++;
 							}
 							elseif ($count > $max_winners) {
+								$value->position = $count + 1;
 								$value->earning = env('BASIC_PARTICIPATION_REWARD');
 							}
 
@@ -184,7 +185,7 @@ class Game extends Model{
 
 					//Next loop over that second array and continue to positions them and add earning of 5
 					foreach ($others as $key => &$v) {
-						$v->position = ++$count;
+						$v->position = $count == 0 ? $count + 1 : $count;
 						$v->earning = env('BASIC_PARTICIPATION_REWARD');
 
 						if ($v->payment_status == 'unpaid') {

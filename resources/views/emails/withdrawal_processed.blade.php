@@ -1110,7 +1110,7 @@
 
 																						<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-																							<em>Copyright ©&nbsp; 2018 FastPlay24, All rights reserved.</em><br>
+																							<em>Copyright© 2018 FastPlay24 &amp; Tcom, All rights reserved.</em><br>
 																							<br>
 																							<br>
 																							<strong>Our mailing address is:</strong><br> hello@fastplay24.com

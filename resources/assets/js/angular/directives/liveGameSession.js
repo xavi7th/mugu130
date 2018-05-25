@@ -59,10 +59,7 @@ angular.module('liveGameSession', []).directive('liveGameSession', ['$location',
            Echo.leave('new_member_joined');
            Echo.channel(`new_member_joined`)
            .listen('NewMemberJoined', (e) => {
-             console.log('new_member_joined channel joined' + e);
-
              new_session = e.new_session;
-
              new_session.user = e.new_member;
              $scope.live_session.push(new_session);
              $scope.$apply();

@@ -34,7 +34,7 @@
             <h1>welcome to fastplay24</h1>
             <p>Put your IQ to the test, have fun and win some cool cash on a daily basis. Win up to N15, 000 with just ₦35 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
 
-            <h3>Everybody is a winner!!!</h3>
+            <h3>Think - Play - Win</h3>
 
             <a href="/demo-play" target="_self">
               <button class="ui labeled blue icon button">

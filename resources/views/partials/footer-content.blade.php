@@ -1,7 +1,7 @@
 <div class="grid-container">
   <div class="grid-100">
     <div class="ui right floated celled horizontal list">
-      <a class="item" target="_self" href="{{ route('home') }}">© 2017 FastPlay24 &amp; Tcom </a> <span class="deg">&middot;</span>
+      <a class="item" target="_self" href="{{ route('home') }}">© 2018 FastPlay24 &amp; Tcom </a> <span class="deg">&middot;</span>
       <a class="item" target="_blank" href="{{ route('terms') }}">Terms</a> <span class="deg">&middot;</span>
       <a class="item" target="_blank" href="{{ route('privacy') }}">Privacy</a> <span class="deg">&middot;</span>
       <a class="item" target="_self" href="{{ route('faq') }}">Help & FAQs</a> <span class="deg">&middot;</span>
