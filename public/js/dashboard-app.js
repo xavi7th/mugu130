@@ -172,7 +172,7 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
           },
           onHide: function onHide() {
             var remove = function remove() {
-              $('.ui.modal.buyUnits').remove();
+              // $('.ui.modal.buyUnits')[1].remove();
             };
             setTimeout(remove, 1000);
             // return false;
@@ -198,10 +198,12 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
         });
       };
 
-      $scope.$on('$destroy', function () {
+      $scope.$on('$routeChangeStart', function () {
         $timeout(function () {
-          // $('.ui.modal.buyUnits').remove();
-
+          if ($('.ui.modal.buyUnits').length > 1) {
+            //remove extras
+            $('.ui.modal.buyUnits')[1].remove();
+          }
         }, 0);
       });
     }]
@@ -757,17 +759,11 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
           },
           onHide: function onHide() {
             var remove = function remove() {
-              $('.ui.modal.makeWithdrawal').remove();
+              // $('.ui.modal.makeWithdrawal').remove();
             };
             setTimeout(remove, 1000);
             // return false;
           },
-          // onHidden    : function(){
-          //   console.log('hidden');
-          //   $route.reload();
-          //
-          //   // return false;
-          // },
           onApprove: function onApprove() {
             return true;
           }
@@ -796,7 +792,10 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
 
       $scope.$on('$routeChangeStart', function () {
         $timeout(function () {
-          // $('.ui.modal.makeWithdrawal').remove();
+          if ($('.ui.modal.makeWithdrawal').length > 1) {
+            //remove extras
+            $('.ui.modal.makeWithdrawal')[1].remove();
+          }
         }, 0);
       });
     }]

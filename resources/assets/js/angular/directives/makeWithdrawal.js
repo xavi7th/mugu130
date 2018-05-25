@@ -90,17 +90,11 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
                },
               onHide    : function(){
                 var remove = () => {
-                  $('.ui.modal.makeWithdrawal').remove();
+                  // $('.ui.modal.makeWithdrawal').remove();
                 };
                 setTimeout(remove, 1000);
                 // return false;
               },
-              // onHidden    : function(){
-              //   console.log('hidden');
-              //   $route.reload();
-              //
-              //   // return false;
-              // },
               onApprove : function() {
                 return true;
               }
@@ -134,7 +128,10 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
 
       $scope.$on('$routeChangeStart', function() {
         $timeout(function () {
-          // $('.ui.modal.makeWithdrawal').remove();
+          if ($('.ui.modal.makeWithdrawal').length > 1) {
+            //remove extras
+            $('.ui.modal.makeWithdrawal')[1].remove();
+          }
         }, 0);
       });
 

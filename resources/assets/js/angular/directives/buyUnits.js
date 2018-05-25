@@ -101,7 +101,7 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
                },
               onHide    : function(){
                 var remove = () => {
-                  $('.ui.modal.buyUnits').remove();
+                  // $('.ui.modal.buyUnits')[1].remove();
                 };
                 setTimeout(remove, 1000);
                 // return false;
@@ -131,10 +131,12 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
 
       };
 
-      $scope.$on('$destroy', function() {
+      $scope.$on('$routeChangeStart', function() {
         $timeout(function () {
-          // $('.ui.modal.buyUnits').remove();
-
+          if ($('.ui.modal.buyUnits').length > 1) {
+            //remove extras
+            $('.ui.modal.buyUnits')[1].remove();
+          }
         }, 0);
       });
 
