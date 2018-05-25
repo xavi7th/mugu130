@@ -1,4 +1,19 @@
 <div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+  
+  <style media="(max-width:767px)">
+    #summary{
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+    }
+      div#main-controller .ui.buttons button {
+        margin-bottom: 0;
+      }
+      input{
+        margin-bottom: 10px !important;
+      }
+  </style>
+
   <ng-include src="'angular/views/partials/menu.html?655665'"></ng-include>
 
   <div class="grid-container" style="min-height:calc(100vh - 225px); margin-top:70px">
