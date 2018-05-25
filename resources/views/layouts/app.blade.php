@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 	<head>
-		<title>{{ env('APP_NAME') }} - @yield('title')</title>
+		@if (Route::is('home') || Route::is('login') || Route::is('register') || Route::is('referral'))
+			@include('meta.home.index')
+		@elseif (Route::is('calculator'))
+			@include('meta.home.calculator')
+		@elseif (Route::is('demo.play'))
+			@include('meta.home.demo')
+		@elseif (Route::is('faq'))
+			@include('meta.home.help')
+		@elseif (Route::is('support'))
+			@include('meta.home.support')
+		@endif
+
 		<meta charset="utf-8">
+
+		<meta name="theme-color" content="{{ env('APP_THEME_COLOR') }}">
+		<meta name="apple-mobile-web-app-status-bar-style" content="{{ env('APP_THEME_COLOR') }}">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
 		<link rel="stylesheet" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">

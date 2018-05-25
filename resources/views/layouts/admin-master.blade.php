@@ -2,7 +2,10 @@
 <html lang="{{ app()->getLocale() }}">
 	<head>
 		<meta charset="utf-8">
-    <title>{{ env('APP_NAME') }} - Admin </title>
+    <title>TCom | {{ env('APP_NAME') }} </title>
+
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="theme-color" content="{{ env('APP_THEME_COLOR') }}">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

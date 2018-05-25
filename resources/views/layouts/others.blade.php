@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 	<head>
+		@if (Route::is('password.request'))
+			@include('meta.home.passwordreset')
+		@endif
 		<meta charset="utf-8">
-    <title>{{ env('APP_NAME') }} - @yield('title')</title>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,7 @@
 	    <header id="alpha">
 	      <div class="grid-container">
 	        <div class="grid-50 mobile-grid-50">
-	          <img src="/img/logo.png" alt="">
+	          <a href="{{ route('home') }}"><img src="/img/logo.png" alt=""></a>
 	        </div>
 	        <div class="grid-50 mobile-grid-50">
 						<div class="ui right floated horizontal list" style="line-height:40px;">
