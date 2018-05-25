@@ -18,6 +18,20 @@ var url = `
   }
 </style>
 
+<style media="(max-width:767px)">
+  #summary{
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+    div#main-controller .ui.buttons button {
+      margin-bottom: 0;
+    }
+    input{
+      margin-bottom: 10px !important;
+    }
+</style>
+
 
 
 
@@ -191,7 +205,7 @@ var url = `
                 <i class="fork icon"></i>Total Prize Money
               </div>
               <a class="ui basic label">
-                ₦{{ total_prize_money }}
+                ₦{{ total_prize_money + (5 * total_players) }}
               </a>
             </div>
           </div>
@@ -296,9 +310,9 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
                      if (rsp.data.status) {
                        $scope.results = rsp.data.results;
                        $scope.user_earning = rsp.data.user_earning;
-                       $scope.max_winners = rsp.data.max_winners;
-                       $scope.total_players = rsp.data.total_players;
-                       $scope.total_prize_money = rsp.data.total_prize_money;
+                       $scope.max_winners = _.parseInt(rsp.data.max_winners);
+                       $scope.total_players = _.parseInt(rsp.data.total_players);
+                       $scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
                        $scope.loading = false;
 
                      }

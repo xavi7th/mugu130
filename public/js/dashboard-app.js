@@ -1581,11 +1581,11 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
             Notification.error({ message: 'Error fetching results.', positionX: 'center' });
           }
           if (rsp.data != 'invalid') {
-            scope.results = rsp.data.results;
-            scope.user_earning = rsp.data.user_earning;
-            scope.max_winners = rsp.data.max_winners;
-            scope.total_players = rsp.data.total_players;
-            scope.total_prize_money = rsp.data.total_prize_money;
+            scope.results = _.parseInt(rsp.data.results);
+            scope.user_earning = _.parseInt(rsp.data.user_earning);
+            $scope.max_winners = _.parseInt(rsp.data.max_winners);
+            $scope.total_players = _.parseInt(rsp.data.total_players);
+            $scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
           } else {
             $location.path('/dashboard');
             Notification.error({ message: 'Insufficient users for game session. Units reversed', positionX: 'center' });

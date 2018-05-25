@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         //
         // Commands\Inspire::class,
         // Commands\Serve::class,
+         // 'App\Console\Command\Tasks'
     ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        // $schedule->command('tasks:all')->daily();
     }
 
     /**
