@@ -213,6 +213,30 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
 
 /***/ }),
 
+/***/ "./resources/assets/js/angular/directives/cacheBusting.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('cacheBusting', []).factory('cacheBusting', ['$injector', function ($injector) {
+  return {
+    'request': function request(config) {
+
+      console.log(config.url);
+      console.log(version_number);
+      if (config.url.indexOf('views') !== -1 || config.url.indexOf('img') !== -1) {
+        config.url = config.url + '?id=' + window.version_number; // this variable is passed here from env file using @javascript
+      }
+      return config;
+    }
+  };
+}]).config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.interceptors.push('cacheBusting');
+}]);
+
+/***/ }),
+
 /***/ "./resources/assets/js/angular/directives/countdownTimer.js":
 /***/ (function(module, exports) {
 
@@ -1774,7 +1798,7 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 /***/ (function(module, exports, __webpack_require__) {
 
 
-dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword']);
+dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting']);
 
 dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -1824,7 +1848,7 @@ __webpack_require__("./resources/assets/js/angular/directives/userProfile.js");
 __webpack_require__("./resources/assets/js/angular/directives/verifyAccount.js");
 __webpack_require__("./resources/assets/js/angular/directives/payWithPaystack.js");
 __webpack_require__("./resources/assets/js/angular/directives/promptPassword.js");
-// require('./angular/directives/timer');
+__webpack_require__("./resources/assets/js/angular/directives/cacheBusting.js");
 //
 //
 // require('./angular/directives/ngRepeatFinishedCallback');

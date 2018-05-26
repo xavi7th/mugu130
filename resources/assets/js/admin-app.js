@@ -6,8 +6,8 @@
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
                   'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions',
-                  'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings'
-
+                  'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings',
+                  'cacheBusting'
                 ]);
 
   admin.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -67,6 +67,7 @@
   require('./angular/directives/gameEarnings');
   require('./angular/directives/confirmAction');
   require('./angular/directives/withdrawAdminEarnings');
+  require('./angular/directives/cacheBusting');
 
 
   require('./angular/routes/admin-routes');

@@ -18,6 +18,9 @@
 		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')
 
+		@javascript('version_number', env('APP_VERSION_NUMBER'))
+		
+
     <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
     <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 

@@ -4,7 +4,7 @@
                   'ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest',
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
                   'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage',
-                  'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword'
+                  'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting'
                 ]);
 
   dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -59,7 +59,7 @@
   require('./angular/directives/verifyAccount');
   require('./angular/directives/payWithPaystack');
   require('./angular/directives/promptPassword');
-   // require('./angular/directives/timer');
+   require('./angular/directives/cacheBusting');
    //
    //
    // require('./angular/directives/ngRepeatFinishedCallback');

@@ -2,7 +2,8 @@
 
 
 
-home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range']);
+home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago',
+ 											'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range', 'cacheBusting']);
 
 home.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -74,6 +75,7 @@ require('./angular/services/services');
 require('./angular/directives/countdownTimer');
 require('./angular/directives/miniGameState');
 require('./angular/directives/demoPlay');
+require('./angular/directives/cacheBusting');
 
 
 require('./angular/filters/rangeFilter');

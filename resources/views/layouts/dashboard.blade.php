@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
     <title>My Account | {{ env('APP_NAME') }}</title>
-		
+
     <meta charset="utf-8">
 		<meta name="robots" content="noindex,nofollow">
 		<meta name="theme-color" content="{{ env('APP_THEME_COLOR') }}">
@@ -18,6 +18,9 @@
 		<link rel="stylesheet" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')
+
+		@javascript('version_number', env('APP_VERSION_NUMBER'))
+		
 
     <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
     <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->

@@ -99,6 +99,30 @@ home.controller('FAQController', ['$scope', 'bootstrapPage', function ($scope, b
 
 /***/ }),
 
+/***/ "./resources/assets/js/angular/directives/cacheBusting.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('cacheBusting', []).factory('cacheBusting', ['$injector', function ($injector) {
+  return {
+    'request': function request(config) {
+
+      console.log(config.url);
+      console.log(version_number);
+      if (config.url.indexOf('views') !== -1 || config.url.indexOf('img') !== -1) {
+        config.url = config.url + '?id=' + window.version_number; // this variable is passed here from env file using @javascript
+      }
+      return config;
+    }
+  };
+}]).config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.interceptors.push('cacheBusting');
+}]);
+
+/***/ }),
+
 /***/ "./resources/assets/js/angular/directives/countdownTimer.js":
 /***/ (function(module, exports) {
 
@@ -926,7 +950,7 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 /* WEBPACK VAR INJECTION */(function($) {// Require the stuffs that are particular to this app
 
 
-home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range']);
+home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range', 'cacheBusting']);
 
 home.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -991,6 +1015,7 @@ __webpack_require__("./resources/assets/js/angular/services/services.js");
 __webpack_require__("./resources/assets/js/angular/directives/countdownTimer.js");
 __webpack_require__("./resources/assets/js/angular/directives/miniGameState.js");
 __webpack_require__("./resources/assets/js/angular/directives/demoPlay.js");
+__webpack_require__("./resources/assets/js/angular/directives/cacheBusting.js");
 
 __webpack_require__("./resources/assets/js/angular/filters/rangeFilter.js");
 

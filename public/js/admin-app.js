@@ -24,7 +24,7 @@ webpackJsonp([1],{
 /* WEBPACK VAR INJECTION */(function($) {
 __webpack_require__("./node_modules/angularjs-datepicker/dist/angular-datepicker.min.js");
 
-admin = angular.module('admin', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker', 'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage', 'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions', 'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings']);
+admin = angular.module('admin', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker', 'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage', 'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions', 'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings', 'cacheBusting']);
 
 admin.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -78,6 +78,7 @@ __webpack_require__("./resources/assets/js/angular/directives/adminEarnings.js")
 __webpack_require__("./resources/assets/js/angular/directives/gameEarnings.js");
 __webpack_require__("./resources/assets/js/angular/directives/confirmAction.js");
 __webpack_require__("./resources/assets/js/angular/directives/withdrawAdminEarnings.js");
+__webpack_require__("./resources/assets/js/angular/directives/cacheBusting.js");
 
 __webpack_require__("./resources/assets/js/angular/routes/admin-routes.js");
 
@@ -597,6 +598,30 @@ angular.module('allEarnings', []).directive('allEarnings', ['$location', 'Notifi
       });
     }]
   };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/cacheBusting.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('cacheBusting', []).factory('cacheBusting', ['$injector', function ($injector) {
+  return {
+    'request': function request(config) {
+
+      console.log(config.url);
+      console.log(version_number);
+      if (config.url.indexOf('views') !== -1 || config.url.indexOf('img') !== -1) {
+        config.url = config.url + '?id=' + window.version_number; // this variable is passed here from env file using @javascript
+      }
+      return config;
+    }
+  };
+}]).config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.interceptors.push('cacheBusting');
 }]);
 
 /***/ }),
