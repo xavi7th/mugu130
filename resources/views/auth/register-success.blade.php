@@ -78,6 +78,8 @@
       font-size: 1em !important;
     }
   }
+
+
 </style>
 
 <style media="(max-width:767px)">
@@ -90,6 +92,20 @@
   }
   a.massive{
     font-size: 1.2em !important;
+  }
+</style>
+
+<style media="(max-height:590px)">
+  div#main-controller section#intro{
+    height: calc(100vh) !important;
+    padding-top: 10px;
+  }
+</style>
+
+<style media="(max-height:520px)">
+  div#main-controller section#intro{
+    height: calc(150vh) !important;
+    padding-top: 10px;
   }
 </style>
 @endsection
@@ -127,7 +143,7 @@
 
           <div class="grid-100 flex-center">
             <a href="{{ route('login') }}" class="massive blue ui button" target="_self">
-              Let's Continue
+              Proceed
             </a>
           </div>
         </div>

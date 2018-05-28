@@ -31,7 +31,8 @@ var url = `
               <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
-              <td>{{ trans.amount | currency }}</td>
+              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>
+              <td ng-if="trans.amount < 0">₦{{ trans.amount }}.00</td>
               <td>{{ trans.charges | currency }}</td>
               <td>{{ trans.channel }}</td>
               <td>

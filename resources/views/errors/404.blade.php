@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 	<head>
 		<meta charset="utf-8">
-    <title>{{ env('APP_NAME') }} - @yield('title')</title>
+    <title>Page Not Found | {{ env('APP_NAME') }}</title>
 
 		@include('meta.home.error404')
 

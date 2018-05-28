@@ -22,9 +22,9 @@
 	    }
 	  </script>
 		@javascript('version_number', env('APP_VERSION_NUMBER'))
-		
 
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+
+    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="192x192"/>
 		<link rel="stylesheet" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')

@@ -60,7 +60,7 @@ var url = `
             <div class="header">
               NB:
             </div>
-            <p>After payment, send your payment details to hello@fastplay24.com. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to hello@fastplay24.com.</p>
+            <p>After payment, send your payment details to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a> or use the <a href="/support-center" target="_blank">support form</a>.</p>
           </div>
 
           <div class="ui message">

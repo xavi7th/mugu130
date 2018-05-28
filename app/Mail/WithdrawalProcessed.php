@@ -40,7 +40,8 @@ class WithdrawalProcessed extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Withdrawal Processed')
+        return $this->from('no_reply@fastplay24.com', 'FastPlay24 Billing Team')
+                    ->subject('Withdrawal Processed')
                     ->view('emails.withdrawal_processed');
     }
 }

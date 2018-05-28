@@ -11,7 +11,7 @@
 <meta itemprop="name" content="Demo">
 <link itemprop="url" href="{{ route('demo.play') }}">
 
-<meta property="og:title" content="Demo" />
+<meta property="og:title" content="{{ env('APP_NAME') }} | Demo" />
 <meta property="og:description" content="Play the Demo to see how {{ env('APP_NAME') }} works"/>
 <meta property="og:type" content="games" />
 <meta property="og:site_name" content="{{ env('APP_NAME') }}"/>
@@ -21,6 +21,6 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@fastplay24" />
 <meta name="twitter:url" content="{{ route('demo.play') }}" />
-<meta name="twitter:title" content="Demo" />
+<meta name="twitter:title" content="{{ env('APP_NAME') }} | Demo" />
 <meta name="twitter:description" content="Play the Demo to see how {{ env('APP_NAME') }} works" />
 <meta name="twitter:image" content="{{ asset('/img/twitter.jpg') }}" />

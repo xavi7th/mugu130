@@ -958,7 +958,7 @@
 																								</tr>
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										<p>Update your profile and fund your account win a minimum of 300 naira to start winning big. </p>
+																										<p>Update your profile and fund your account with a minimum of 300 naira to start winning big. </p>
 																									</td>
 																								</tr>
 																							</tbody>

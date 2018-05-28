@@ -51,7 +51,7 @@ mix.browserSync({
 	//  proxy: "localhost:8000",
 	reloadDelay: 2000,
 	proxy: {
-		target: 'localhost:8000',
+		target: 'localhost:4000',
 		reqHeaders: function () {
 			return {
 				host: "localhost:3000"

@@ -62,7 +62,12 @@ dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendReque
     $scope.loading = true;
     sendRequest.postRequest('/user/update-user-details', $scope.userdetails)
               .then(function (rsp) {
-                Notification.success({ message: 'Updated', positionX:'center' });
+                if (rsp.status == 422) {
+                  Notification.error({ message: 'Invalid data', positionX:'center' });
+                }
+                else{
+                  Notification.success({ message: 'Updated', positionX:'center' });
+                }
                 $scope.loading = null;
 
               });

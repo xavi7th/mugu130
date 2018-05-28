@@ -34,7 +34,8 @@ class AccountCredited extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Account Credited')
+        return $this->from('no_reply@fastplay24.com', 'FastPlay24 Billing Team')
+                    ->subject('Account Credited')
                     ->view('emails.account_credited');
     }
 }

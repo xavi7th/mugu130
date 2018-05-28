@@ -12,7 +12,7 @@
 <link itemprop="url" href="{{ route('faq') }}">
 
 
-<meta property="og:title" content="Help & FAQs" />
+<meta property="og:title" content="{{ env('APP_NAME') }} | Help & FAQs" />
 <meta property="og:description" content="All you need to know about {{ env('APP_NAME') }}"/>
 <meta property="og:type" content="games" />
 <meta property="og:site_name" content="{{ env('APP_NAME') }}"/>
@@ -22,6 +22,6 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@fastplay24" />
 <meta name="twitter:url" content="{{ route('faq') }}" />
-<meta name="twitter:title" content="Help & FAQs" />
+<meta name="twitter:title" content="{{ env('APP_NAME') }} | Help & FAQs" />
 <meta name="twitter:description" content="All you need to know about {{ env('APP_NAME') }}" />
 <meta name="twitter:image" content="{{ asset('/img/twitter.jpg') }}" />

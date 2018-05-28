@@ -43,16 +43,16 @@ Route::middleware(['before'])->group( function () {
   Route::view('/', 'welcome')->name('home')->middleware('guest');
 
   Route::get('/test', function () {
-    return $fee = ((floor(1400/5000) * 50) + (50 * 2));
-    abort(404);
-        return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
+    // return $fee = ((floor(1400/5000) * 50) + (50 * 2));
+    // abort(404);
+        // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
         // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
-    // return dd($this->render->view('demo-play')->render());
+    // return view('demo-play');
 
     // return dd(view('demo-play')->render());
     $user = Auth::user();
-    return view('auth.register-success', compact('user'));
+    return view('suspended', compact('user'));
     // return (new ActivationMail(8779))->render();
     // return (new ReactivationMail())->render();
     // return Redis::keys('*');

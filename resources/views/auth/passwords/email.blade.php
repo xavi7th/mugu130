@@ -4,7 +4,34 @@
   Forgot Password
 @endsection
 
+@section('customCSS')
+  <style>
+    div#main-controller section#mid{
+      min-height: calc(100vh - 240px);
+    }
+  </style>
+  <style media="(max-height:640px)">
+    div#main-controller section#mid{
+      min-height: calc(100vh);
+    }
+
+    footer{
+      position: static !important;
+    }
+  </style>
+  <style media="(max-height:420px)">
+    div#main-controller section#mid{
+      min-height: calc(150vh);
+    }
+
+    footer{
+      position: static !important;
+    }
+  </style>
+@endsection
+
 @section('contents')
+
   <section id="intro"  style="height: auto; padding: 10px 0;">
     <div class="grid-container">
 
@@ -65,7 +92,7 @@
     </div>
   </section>
 
-  <section id="mid" style="  min-height: calc(100vh - 240px);">
+  <section id="mid">
     <div class="grid-container">
       <div class="grid-30 info">
 

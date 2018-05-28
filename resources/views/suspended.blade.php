@@ -53,7 +53,7 @@
             <div id="form" class="ui segments">
               <div class="ui segment">
                 <h2 class="ui center aligned icon header dash_header">
-                  <i class="circular users icon"></i>
+                  <i class="circular times icon negative" style="font-family:sans-serif; color:#9F3A38">X</i>
                   Account Suspended
                 </h2>
                 <div class="ui error message">

@@ -28,7 +28,7 @@
           <div class="ui compact segment">
             <p>Statistics</p>
           </div>
-          <table class="ui inverted blue celled table">
+          <table class="ui blue celled table">
             <thead>
               <tr>
                 <th>Description</th>
@@ -52,9 +52,10 @@
                 <td>No. of referrals</td>
                 <td>{{ referrals.length }}</td>
               </tr>
-              <tr>
+              <tr ng-class="{'negative': userdetails.units_purchased < 0}">
                 <td>Total account funding made</td>
-                <td>{{userdetails.units_purchased  | currency }}</td>
+                <td ng-if="userdetails.units_purchased > 0">{{ userdetails.units_purchased | currency }}</td>
+                <td ng-if="userdetails.units_purchased < 0">₦ -{{ userdetails.units_purchased }}.00</td>
               </tr>
               <tr>
                 <td>No. of withdrawals</td>
@@ -80,11 +81,12 @@
             </thead>
             <tbody>
 
-                <tr ng-repeat="transaction in user_transactions" ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
+                <tr ng-repeat="transaction in user_transactions" ng-class="{'negative': transaction.trans_type == 'withdrawal' || transaction.amount < 0}">
                   <td>{{ $index + 1 }}</td>
                   <td>{{ transaction.created_at | timeAgo}}</td>
                   <td>{{ transaction.trans_type }}</td>
-                  <td>{{ transaction.amount | currency }}</td>
+                  <td ng-if="transaction.amount > 0">{{ transaction.amount | currency }}</td>
+                  <td ng-if="transaction.amount < 0">₦ -{{ transaction.amount }}.00</td>
                   <td>{{ transaction.channel }}</td>
                   <td>{{ transaction.status }}</td>
                 </tr>
