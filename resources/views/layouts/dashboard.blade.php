@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-		<link rel="icon" type="image/png" href="{{ asset('icon.png') }}" sizes="192x192"/>
+		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="192x192"/>
 		<link rel="stylesheet" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')

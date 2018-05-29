@@ -31,7 +31,8 @@ class DebitRequested extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Withdrawal Request')
+        return $this->from('no_reply@fastplay24.com', 'FastPlay24 Billing Team')
+                    ->subject('Withdrawal Request')
                     ->view('emails.debit_requested');
     }
 }

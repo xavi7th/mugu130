@@ -55,7 +55,7 @@
               <tr ng-class="{'negative': userdetails.units_purchased < 0}">
                 <td>Total account funding made</td>
                 <td ng-if="userdetails.units_purchased > 0">{{ userdetails.units_purchased | currency }}</td>
-                <td ng-if="userdetails.units_purchased < 0">₦ -{{ userdetails.units_purchased }}.00</td>
+                <td ng-if="userdetails.units_purchased < 0">₦ {{ userdetails.units_purchased }}.00</td>
               </tr>
               <tr>
                 <td>No. of withdrawals</td>
