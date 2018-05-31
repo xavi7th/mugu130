@@ -53,6 +53,14 @@
 						@if (!Route::is('demo.play'))
 							<mini-game-state class="mini" style="float:right !important;"></mini-game-state>
 						@endif
+						@if (!Route::is('home'))
+							<a href="/" class="ui animated fade button" tabindex="-1" target="_self">
+							  <div class="visible content">  <span style="padding:0 20px;"><i class="home icon"></i> Home</span> </div>
+							  <div class="hidden content">
+							    Back to Home Page
+							  </div>
+							</a>
+						@endif
 	        </div>
 	      </div>
 	    </header>

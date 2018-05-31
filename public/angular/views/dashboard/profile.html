@@ -59,7 +59,7 @@
               </tr>
               <tr>
                 <td>No. of withdrawals</td>
-                <td>{{userdetails.num_of_withdrawals  }}</td>
+                <td>{{ userdetails.num_of_withdrawals  }}</td>
               </tr>
             </tbody>
           </table>
@@ -86,7 +86,7 @@
                   <td>{{ transaction.created_at | timeAgo}}</td>
                   <td>{{ transaction.trans_type }}</td>
                   <td ng-if="transaction.amount > 0">{{ transaction.amount | currency }}</td>
-                  <td ng-if="transaction.amount < 0">₦ -{{ transaction.amount }}.00</td>
+                  <td ng-if="transaction.amount < 0">₦ {{ transaction.amount }}.00</td>
                   <td>{{ transaction.channel }}</td>
                   <td>{{ transaction.status }}</td>
                 </tr>
