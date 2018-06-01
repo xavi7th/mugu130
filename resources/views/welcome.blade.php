@@ -75,8 +75,7 @@
                 @endif
 
                 <div class="ui tab {{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }}" data-tab="register">
-                  <form class="ui form" method="POST" action="/register">
-
+                  <form class="ui form" method="POST" action="/register" name="registerForm">
 
                     {{ csrf_field() }}
                     <h2>REGISTER</h2>
@@ -98,10 +97,13 @@
                     </div>
                     <div class="field">
                       <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}" ng-model="password_confirmation">
+                      <div class="ui negative message" ng-show="password != password_confirmation">
+                        <p>Password confirmation does not match password</p>
+                      </div>
                     </div>
                     <div class="field">
                       <div class="ui segment">
-                          <div class="ui toggle checkbox">
+                          <div class="ui checkbox">
                           <input id="terms" type="checkbox" name="terms" ng-model="terms" required>
                           <label>Agree to<a href="{{ route('terms') }}" target="_blank"> terms and conditions</a></label>
                         </div>
