@@ -155,6 +155,10 @@ class User extends Authenticatable{
       return $this->hasMany(Earning::class);
     }
 
+    public function untransferred_earnings(){
+      return $this->hasMany(Earning::class)->where('transferred', false);
+    }
+
     public function getUserQuestions(){
       $active_game = Game::active();
 

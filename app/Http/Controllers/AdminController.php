@@ -340,7 +340,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'users' => User::with(['earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->get()
+        'users' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->get()
       ];
     }
 

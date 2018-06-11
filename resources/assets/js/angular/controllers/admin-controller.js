@@ -234,7 +234,7 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.openEditModal = (u) => {
     $scope.u = u;
-    $scope.earnings = _.sumBy(u.earnings, function(o) { return o.amount; });
+    $scope.earnings = _.sumBy(u.untransferred_earnings, function(o) { return o.amount; });
 
     console.log($scope.earnings);
 

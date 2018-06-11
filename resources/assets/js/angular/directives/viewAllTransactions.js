@@ -36,7 +36,7 @@ var url = `
               <td>{{ trans.charges | currency }}</td>
               <td>{{ trans.channel }}</td>
               <td>
-                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == 'withdrawal' && trans.status == 'pending'"">
+                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == 'withdrawal' && trans.status == 'pending'">
                   <div ng-class="['ui mini red button', {'loading':loading}]" ng-click="markAsPaid(trans)">
                     <i class="tags icon"></i> Mark as Paid
                   </div>
@@ -44,11 +44,16 @@ var url = `
                     {{ trans.status }}
                   </a>
                 </div>
-                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == 'withdrawal' && trans.status != 'pending'"">
+                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == 'withdrawal' && trans.status != 'pending'">
                   <div class="ui mini basic blue button">
                     <i class="thumbs up outline icon"></i>
                   </div>
                   <a class="ui basic left pointing blue label">
+                    {{ trans.status }}
+                  </a>
+                </div>
+                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== 'withdrawal'">
+                  <a class="ui basic pointing label">
                     {{ trans.status }}
                   </a>
                 </div>
