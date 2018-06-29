@@ -27,21 +27,11 @@ class Earning extends Model{
 	 public function user(){
 			 return $this->belongsTo(User::class);
 	 }
-  //
-  // public static function new(){
-  //
-	// 	//end previous game if any
-	// 	self::where('status', true)->update([
-	// 		'status' => false,
-	// 		'ended_at' => Carbon::now(),
-	// 		'deleted_at' => Carbon::now()
-	// 	]);
-  //
-	// 	//create new game
-	// 	return self::create([
-  //
-	// 	]);
-  // }
+
+
+  public static function totalUserEarnings(){
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->sum('amount');
+  }
 
 
 
