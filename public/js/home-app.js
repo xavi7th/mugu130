@@ -949,7 +949,6 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 
 /* WEBPACK VAR INJECTION */(function($) {// Require the stuffs that are particular to this app
 
-
 home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range', 'cacheBusting']);
 
 home.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {

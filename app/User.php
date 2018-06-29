@@ -112,6 +112,10 @@ class User extends Authenticatable{
       return $this->transactions()->where('trans_type', 'withdrawal')->count();
     }
 
+    public static function totalWalletAmount(){
+      return self::where('role_id', env('USER_ROLE_ID'))->sum('available_units');
+    }
+
     public function transactions(){
       return $this->hasMany(Transaction::class);
     }

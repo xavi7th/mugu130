@@ -5281,7 +5281,7 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 /*--------------
@@ -19587,8 +19587,8 @@ Floated Menu / Item
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease, -webkit-box-shadow 0.1s ease;
   border-radius: 0.28571429rem;
-  -webkit-box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.message:first-child {
@@ -19872,8 +19872,8 @@ Floated Menu / Item
 
 .ui.positive.message,
 .ui.attached.positive.message {
-  -webkit-box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.positive.message .header {
@@ -19889,8 +19889,8 @@ Floated Menu / Item
 
 .ui.negative.message,
 .ui.attached.negative.message {
-  -webkit-box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.negative.message .header {
@@ -19906,8 +19906,8 @@ Floated Menu / Item
 
 .ui.info.message,
 .ui.attached.info.message {
-  -webkit-box-shadow: 0px 0px 0px 1px #A9D5DE inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #A9D5DE inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #A9D5DE inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #A9D5DE inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.info.message .header {
@@ -19923,8 +19923,8 @@ Floated Menu / Item
 
 .ui.warning.message,
 .ui.attached.warning.message {
-  -webkit-box-shadow: 0px 0px 0px 1px #C9BA9B inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #C9BA9B inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #C9BA9B inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #C9BA9B inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.warning.message .header {
@@ -19940,8 +19940,8 @@ Floated Menu / Item
 
 .ui.error.message,
 .ui.attached.error.message {
-  -webkit-box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.error.message .header {
@@ -19957,8 +19957,8 @@ Floated Menu / Item
 
 .ui.success.message,
 .ui.attached.success.message {
-  -webkit-box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #A3C293 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.success.message .header {
@@ -19976,8 +19976,8 @@ Floated Menu / Item
 .ui.red.message {
   background-color: #FFE8E6;
   color: #DB2828;
-  -webkit-box-shadow: 0px 0px 0px 1px #DB2828 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #DB2828 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #DB2828 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #DB2828 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.red.message .header {
@@ -19987,8 +19987,8 @@ Floated Menu / Item
 .ui.orange.message {
   background-color: #FFEDDE;
   color: #F2711C;
-  -webkit-box-shadow: 0px 0px 0px 1px #F2711C inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #F2711C inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #F2711C inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #F2711C inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.orange.message .header {
@@ -19998,8 +19998,8 @@ Floated Menu / Item
 .ui.yellow.message {
   background-color: #FFF8DB;
   color: #B58105;
-  -webkit-box-shadow: 0px 0px 0px 1px #B58105 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #B58105 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #B58105 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #B58105 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.yellow.message .header {
@@ -20009,8 +20009,8 @@ Floated Menu / Item
 .ui.olive.message {
   background-color: #FBFDEF;
   color: #8ABC1E;
-  -webkit-box-shadow: 0px 0px 0px 1px #8ABC1E inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #8ABC1E inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #8ABC1E inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #8ABC1E inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.olive.message .header {
@@ -20020,8 +20020,8 @@ Floated Menu / Item
 .ui.green.message {
   background-color: #E5F9E7;
   color: #1EBC30;
-  -webkit-box-shadow: 0px 0px 0px 1px #1EBC30 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #1EBC30 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #1EBC30 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #1EBC30 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.green.message .header {
@@ -20031,8 +20031,8 @@ Floated Menu / Item
 .ui.teal.message {
   background-color: #E1F7F7;
   color: #10A3A3;
-  -webkit-box-shadow: 0px 0px 0px 1px #10A3A3 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #10A3A3 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #10A3A3 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #10A3A3 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.teal.message .header {
@@ -20042,8 +20042,8 @@ Floated Menu / Item
 .ui.blue.message {
   background-color: #DFF0FF;
   color: #2185D0;
-  -webkit-box-shadow: 0px 0px 0px 1px #2185D0 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #2185D0 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #2185D0 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #2185D0 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.blue.message .header {
@@ -20053,8 +20053,8 @@ Floated Menu / Item
 .ui.violet.message {
   background-color: #EAE7FF;
   color: #6435C9;
-  -webkit-box-shadow: 0px 0px 0px 1px #6435C9 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #6435C9 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #6435C9 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #6435C9 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.violet.message .header {
@@ -20064,8 +20064,8 @@ Floated Menu / Item
 .ui.purple.message {
   background-color: #F6E7FF;
   color: #A333C8;
-  -webkit-box-shadow: 0px 0px 0px 1px #A333C8 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #A333C8 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #A333C8 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #A333C8 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.purple.message .header {
@@ -20075,8 +20075,8 @@ Floated Menu / Item
 .ui.pink.message {
   background-color: #FFE3FB;
   color: #E03997;
-  -webkit-box-shadow: 0px 0px 0px 1px #E03997 inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #E03997 inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #E03997 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #E03997 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.pink.message .header {
@@ -20086,8 +20086,8 @@ Floated Menu / Item
 .ui.brown.message {
   background-color: #F1E2D3;
   color: #A5673F;
-  -webkit-box-shadow: 0px 0px 0px 1px #A5673F inset, 0px 0px 0px 0px transparent;
-  box-shadow: 0px 0px 0px 1px #A5673F inset, 0px 0px 0px 0px transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #A5673F inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 1px #A5673F inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 .ui.brown.message .header {
@@ -25710,7 +25710,7 @@ body.dimmable > .dimmer {
   width: 0%;
   height: 0%;
   z-index: -100;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .ui.simple.dimmer,.dimmed.dimmable > .ui.simple.dimmer {
@@ -25765,7 +25765,7 @@ body.dimmable > .dimmer {
   transition: width 0.1s ease, -webkit-box-shadow 0.1s ease;
   transition: box-shadow 0.1s ease, width 0.1s ease;
   transition: box-shadow 0.1s ease, width 0.1s ease, -webkit-box-shadow 0.1s ease;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 /*******************************

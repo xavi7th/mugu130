@@ -261,5 +261,12 @@ class Game extends Model{
   }
 
 
+  public static function validGamesCount(){
+		return self::where('num_of_players', '>', 1)->count();
+  }
+
+
+
+
 
 }

@@ -39,16 +39,24 @@ class AdminController extends Controller
         return view('admin');
     }
 
-    public function getProfilePageDetails(){
+    public function getDashboardPageDetails(){
 
       return [
-        'page_details' => Auth::user()->load('transactions', 'earnings', 'games')
+        'total_amount_withdrawn' => Transaction::totalAmountWithdrawn(),
+        'total_number_of_withdrawal_requests' => Transaction::totalNumberOfRequests(),
+        'total_wallet_amount' => User::totalWalletAmount(),
+        'total_number_of_wallet_fundings' => Transaction::totalWalletFundingCount(),
+        'total_earnings' => Earning::totalUserEarnings(),
+        'total_games_played' => Game::validGamesCount(),
       ];
     }
 
 
-
-
+    public function getProfilePageDetails(){
+        return [
+          'questions' => Question::latest()->get()
+        ];
+    }
 
     public function getQuestionsPageDetails(){
         return [

@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([1],{
 
 /***/ "./resources/assets/js/angular/controllers/dashboard-controller.js":
 /***/ (function(module, exports) {

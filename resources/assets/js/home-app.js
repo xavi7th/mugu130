@@ -1,7 +1,5 @@
 // Require the stuffs that are particular to this app
 
-
-
 home = angular.module('home', ['ngRoute', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago',
  											'sendRequest', 'countdownTimer', 'miniGameState', 'demoPlay', 'range', 'cacheBusting']);
 

@@ -13,7 +13,7 @@ let mix = require('laravel-mix');
 
 
 mix.js('resources/assets/js/app.js', 'public/js')
-	.extract(['jquery', 'axios', 'bootstrap-sass'])
+	.extract(['jquery', 'angular', 'angular-route', 'angular-animate', 'ngStorage', 'angular-ui-notification', 'angular-timeago'])
 	// .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
 	.js('resources/assets/js/home-app.js', 'public/js')
 	.js('resources/assets/js/dashboard-app.js', 'public/js')
@@ -37,7 +37,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
 	})
 	.version();
 
-mix.combine([
+mix.scripts([
     'resources/assets/js/libraries/semantic.js',
     'resources/assets/js/libraries/itse-master.js',
       'resources/assets/js/libraries/nprogress.js',
@@ -49,9 +49,22 @@ mix.webpackConfig({
 
 mix.browserSync({
 	//  proxy: "localhost:8000",
-	reloadDelay: 2000,
+	reloadDelay: 1000,
+	// Don't show any notifications in the browser.
+	notify: false,
+	// Inject CSS changes
+	injectChanges: true,
+	ghostMode: {
+			clicks: false,
+			forms: false,
+			scroll: true
+	},
+	// Attempt to use the URL "http://my-private-site.localtunnel.me"
+	tunnel: "daniel",
+	// Will not attempt to determine your network status, assumes you're ONLINE.
+	online: false,
 	proxy: {
-		target: 'localhost:4000',
+		target: 'localhost:8000',
 		reqHeaders: function () {
 			return {
 				host: "localhost:3000"
@@ -59,15 +72,16 @@ mix.browserSync({
 		}
 	},
 	// browser: "vivaldi",
+	browser: ["google chrome", "firefox"],
 	files: [
 
         //  'app/**/*.php',
          'resources/views/**/*.php',
-         'resources/**/*.js',
+         '!resources/**/*.js',
          'public/**/*.html',
          'public/**/*.php',
-         '!public/js/**/*.js',
+         'public/js/**/*.js',
          '!public/js/**/libraries.js',
-         'public/css/**/*.css'
+         '!public/css/**/*.css'
      ],
 });
