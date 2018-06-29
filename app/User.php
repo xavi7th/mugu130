@@ -65,7 +65,7 @@ class User extends Authenticatable{
     public $rememberFor = 1;
 
     protected $casts = [
-         'acct_no' => 'integer',
+         // 'acct_no' => 'double',
          'verified' => 'boolean',
          'available_units' => 'double',
          'units_purchased' => 'double',
