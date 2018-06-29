@@ -1,8 +1,8 @@
 {
     "/js/vendor.js": "/js/vendor.js?id=f36794a7a3a56a3aec59",
     "/js/vendor.js.map": "/js/vendor.js.map?id=2ac3cf09d956bde64b8f",
-    "/js/admin-app.js": "/js/admin-app.js?id=4c575bdb47272d9c2d36",
-    "/js/admin-app.js.map": "/js/admin-app.js.map?id=844f0359a0de2984fc0b",
+    "/js/admin-app.js": "/js/admin-app.js?id=a3cf79630d7410590475",
+    "/js/admin-app.js.map": "/js/admin-app.js.map?id=f1dc0e3194e06362faef",
     "/js/dashboard-app.js": "/js/dashboard-app.js?id=121878b306974220a2e5",
     "/js/dashboard-app.js.map": "/js/dashboard-app.js.map?id=742ad95f420f87d854ef",
     "/js/app.js": "/js/app.js?id=ffbe0a100537d5eaea3a",
@@ -12,6 +12,6 @@
     "/js/home-app.js": "/js/home-app.js?id=f171c86e02f3684ff1dc",
     "/js/home-app.js.map": "/js/home-app.js.map?id=ea99f545656d53e673d3",
     "/js/manifest.js": "/js/manifest.js?id=4536bafc6b5b48e5617b",
-    "/js/manifest.js.map": "/js/manifest.js.map?id=feeb5bf7ae747c8d4cb6",
+    "/js/manifest.js.map": "/js/manifest.js.map?id=ad2f457c150a15cbf595",
     "/js/libraries.js": "/js/libraries.js?id=1337de8d6f373980f745"
 }

@@ -1485,8 +1485,8 @@ angular.module('parseHTML', []).filter('trusted', ['$sce', function ($sce) {
 admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', '$provide', 'NotificationProvider', 'timeAgoSettings', function ($routeProvider, $locationProvider, $localStorageProvider, $provide, NotificationProvider, timeAgoSettings) {
 
   $routeProvider.when(route_root, {
-    templateUrl: 'angular/views/admin/users.html',
-    controller: 'UsersController'
+    templateUrl: 'angular/views/admin/index.html',
+    controller: 'DashboardController'
   }).when(route_root + '/settings', {
     templateUrl: 'angular/views/admin/settings.html',
     controller: 'SettingsController'

@@ -459,7 +459,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
   Route::group(['prefix' => 'api'], function () use($c) {
 
-    Route::post('/get-dashboard-page-details', function () {});
+    Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
 
     Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
 

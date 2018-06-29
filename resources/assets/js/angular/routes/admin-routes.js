@@ -3,8 +3,8 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', '$
   $routeProvider
 
    .when(route_root, {
-     templateUrl: 'angular/views/admin/users.html',
-     controller: 'UsersController'
+     templateUrl: 'angular/views/admin/index.html',
+     controller: 'DashboardController'
    })
 
    .when(route_root + '/settings', {
