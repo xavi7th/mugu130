@@ -18,7 +18,7 @@
             </thead>
             <tbody>
 
-              <tr ng-repeat="q in questions" ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
+              <tr ng-repeat="q in ::questions" ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
                 <td>{{ $index + 1 }}</td>
                 <td><span style="cursor:pointer;" ng-click="previewQuestion(q)">{{ q.question | limitTo : 100}}</span></td>
                 <td>{{ q.created_at | timeAgo}}</td>

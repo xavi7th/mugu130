@@ -16,7 +16,7 @@
             </thead>
             <tbody>
 
-              <tr ng-repeat="u in admins">
+              <tr ng-repeat="u in ::admins">
                 <td>{{ $index + 1 }}</td>
                 <td><span style="cursor:pointer;" ng-click="previewAdmin(u)">{{ u.firstname }} {{ u.lastname }}</span></td>
                 <td>{{ u.email }}</td>

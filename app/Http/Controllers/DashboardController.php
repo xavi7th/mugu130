@@ -58,7 +58,7 @@ class DashboardController extends Controller
         $exam_records = 0;
       }
       else{
-        $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->count();
+        $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->remember(0.5)->count();
       }
 
       // if (Auth::user()->activeGames) {
@@ -466,13 +466,12 @@ class DashboardController extends Controller
     }
 
     public function getDashboardPageDetails() {
-      // _dd(Auth::user()->activeGames->payment_status);
-
+      
       if (Auth::user()->activeGames && session('GAME_STATE') != 'waiting') {
         session(['GAME_STATE' => 'paused']);
       }
 
-      if ( optional(Auth::user()->activeGames)->payment_status == 'unpaid' && optional(Auth::user()->activeGames)->ended_at != null) {
+      if ( optional(Auth::user()->activeGames)->ended_at != null && optional(Auth::user()->activeGames)->payment_status == 'unpaid') {
         session(['GAME_STATE' => 'waiting']);
       }
       // $game_id = Game::where('status', true)->value('id');

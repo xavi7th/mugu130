@@ -21,7 +21,7 @@ class Earning extends Model{
 		'game_id' => 'integer',
 		'amount' => 'double'
 	];
-	// public $rememberFor = 5;
+	// public $rememberFor = 1;
 	 //
 
 	 public function user(){
@@ -30,7 +30,7 @@ class Earning extends Model{
 
 
   public static function totalUserEarnings(){
-		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->sum('amount');
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->remember(10)->sum('amount');
   }
 
 

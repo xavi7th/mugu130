@@ -62,7 +62,7 @@ class User extends Authenticatable{
         'created_at', 'expectedghdate', 'phdate'
     ];
 
-    // public $rememberFor = 5;
+    public $rememberFor = 1;
 
     protected $casts = [
          'acct_no' => 'integer',
@@ -105,11 +105,11 @@ class User extends Authenticatable{
     }
 
     public function getTotalWithdrawalsAttribute(){
-      return $this->transactions()->where('trans_type', 'withdrawal')->sum('amount');
+      return $this->transactions()->where('trans_type', 'withdrawal')->remember(30)->sum('amount');
     }
 
     public function getNumOfWithdrawalsAttribute(){
-      return $this->transactions()->where('trans_type', 'withdrawal')->count();
+      return $this->transactions()->where('trans_type', 'withdrawal')->remember(30)->count();
     }
 
     public static function totalWalletAmount(){
@@ -140,9 +140,16 @@ class User extends Authenticatable{
       return $this->hasMany(UserGameSession::class);
     }
 
+    public function activeGame(){
+      return $this->hasOne(UserGameSession::class);
+    }
+
     public function activeGames(){
       $active_game = Game::active();
-      return $this->hasOne(UserGameSession::class)->where('game_id', optional($active_game)->id);
+      if (!$active_game) {
+        return new HasManyEmpty($this->newRelatedInstance(UserGameSession::class)->newQuery(), $this, '', '');;
+      }
+      return$this->activeGame()->where('game_id', optional($active_game)->id);
     }
 
     public function lastGame(){
@@ -245,7 +252,7 @@ class User extends Authenticatable{
     }
 
     public function totalEarnings(){
-      return $this->earnings()->where('transferred', false);
+      return $this->earnings()->where('transferred', false)->remember(10);
     }
 
     public function creditAccount($amt){

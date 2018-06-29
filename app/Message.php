@@ -19,7 +19,7 @@ class Message extends Model{
 	protected $casts =[
 		'read' => 'boolean'
 	];
-	// public $rememberFor = 5;
+	public $rememberFor = 120;
 
 	 public function user(){
 			 return $this->belongsTo(User::class, 'sender_id');

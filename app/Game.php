@@ -20,7 +20,7 @@ class Game extends Model{
 	protected $casts = [
 			 'status' => 'boolean',
 	];
-	// public $rememberFor = 5;
+	// public $rememberFor = 0.1;
 	 //
 	//  public function user(){
 	// 		 return $this->belongsTo(User::class, 'sender_id');
@@ -38,7 +38,7 @@ class Game extends Model{
 		self::end();
 
 		//create new game
-		return self::create([
+		return self::firstOrCreate(['status' => true],[
 
 		]);
   }
@@ -55,7 +55,15 @@ class Game extends Model{
 		$active_game = self::active();
 
 		if (!$active_game) {
+
+			// self::where('status', true)->where('created_at', '<', DB::raw('NOW() + INTERVAL 15 SECOND'))->update([
+			// 	'status' => false,
+			// 	'ended_at' => Carbon::now(),
+			// 	'deleted_at' => Carbon::now()
+			// ]);
+
 			return;
+
 		}
 
 		$exam_records = optional($active_game)->user_game_sessions;
@@ -228,7 +236,7 @@ class Game extends Model{
 
   public static function active(){
 
-		$games = self::where('status', true)->get();
+		$games = self::where('status', true)->remember(0.1)->get();
 
 
 		// if ( (Carbon::now()->minute%2 == 0) ) {
