@@ -14,17 +14,19 @@ class AccountCredited extends Mailable implements ShouldQueue
     public $amt;
     public $trans_type;
     public $user_balance;
+    public $fees;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($amt, $trans_type, $user_balance)
+    public function __construct($amt, $fees, $trans_type, $user_balance)
     {
         $this->amt = $amt;
         $this->trans_type = $trans_type;
         $this->user_balance = $user_balance;
+        $this->fees = $fees;
     }
 
     /**

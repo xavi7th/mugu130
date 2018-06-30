@@ -78,12 +78,12 @@ class TransactionalMail
 
   }
 
-  public static function sendCreditMail($amt, $trans_type, $user_balance){
+  public static function sendCreditMail($amt, $fees, $trans_type, $user_balance){
 
     // return (new AccountCredited($amt, $trans_type, $user_balance))->render();
 
     try {
-      Mail::to( Auth::user()->email )->send(new AccountCredited($amt, $trans_type, $user_balance));
+      Mail::to( Auth::user()->email )->send(new AccountCredited($amt, $fees, $trans_type, $user_balance));
     }
     catch (\Swift_TransportException $e) {
       abort(404, str_limit($e->getMessage(), 52, '.'));

@@ -50,11 +50,18 @@ var url = `
       </div>
       <div class="image content flex-center">
         <div class="ui form">
-          <div class="inline field">
+          <div class="inline field" style="text-align: center;">
             <input type="number" placeholder="Minimum: ₦500" ng-model="requested_amount" ng-min="500">
+          </div>
+          <div class="ui message">
+            <div class="header">
+              NB:
+            </div>
+            <p>This transaction will have attract a charge of 1.7%. Also, transactions ranging from ₦2,500 and above will attract an additional fixed charge of ₦100.</p>
           </div>
         </div>
       </div>
+
       <div class="actions  flex-center">
         <pay-with-paystack></pay-with-paystack>
         <div class="ui black left deny button">

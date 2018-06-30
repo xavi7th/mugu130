@@ -154,7 +154,7 @@ dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendReques
 // <game-play></game-play>
 
 
-var url = '\n<section id="buyUnits" class="ui right floated horizontal list">\n  <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="shop icon"></i></div>\n    <div class="visible content">\n      Fund Wallet\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal buyUnits transition hidden">\n      <div class="header">\n        Fund Wallet: Input Amount\n      </div>\n      <div class="ui segment" id="extra">\n        <div class="ui small header">Pay via bank Deposit or Wire transfer</div>\n        <p>\n          <b style="font-weight: 900; margin-right:5%; color:red; font-size:2em;">!</b>  Use your email as depositor\'s name or transaction description\n        </p>\n        <p>\n          <b>Account Name:</b> Tcom Wireless Nigeria\n        </p>\n        <p>\n          <b>Account Number:</b> 1019040225 (United Bank for Africa)\n        </p>\n        <p>\n          <b>  Account type:</b> Current\n        </p>\n        <p style="width: 70px;">\n          <img style="min-width: 100%;" src="/img/uba.jpg" alt="" />\n        </p>\n\n        <div class="ui positive message">\n          <div class="header">\n            NB:\n          </div>\n          <p>After payment, send your payment details to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a> or use the <a href="/support-center" target="_blank">support form</a>.</p>\n        </div>\n\n        <div class="ui message">\n          <div class="header">\n            NB:\n          </div>\n          <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>\n        </div>\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Minimum: \u20A6500" ng-model="requested_amount" ng-min="500">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui black left deny button">\n        Close\n        </div>\n      </div>\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n        <div class="ui secondary segment">\n          <p>\n            <img src="/img/paystack_preview.png" alt="" />\n          </p>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
+var url = '\n<section id="buyUnits" class="ui right floated horizontal list">\n  <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="shop icon"></i></div>\n    <div class="visible content">\n      Fund Wallet\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal buyUnits transition hidden">\n      <div class="header">\n        Fund Wallet: Input Amount\n      </div>\n      <div class="ui segment" id="extra">\n        <div class="ui small header">Pay via bank Deposit or Wire transfer</div>\n        <p>\n          <b style="font-weight: 900; margin-right:5%; color:red; font-size:2em;">!</b>  Use your email as depositor\'s name or transaction description\n        </p>\n        <p>\n          <b>Account Name:</b> Tcom Wireless Nigeria\n        </p>\n        <p>\n          <b>Account Number:</b> 1019040225 (United Bank for Africa)\n        </p>\n        <p>\n          <b>  Account type:</b> Current\n        </p>\n        <p style="width: 70px;">\n          <img style="min-width: 100%;" src="/img/uba.jpg" alt="" />\n        </p>\n\n        <div class="ui positive message">\n          <div class="header">\n            NB:\n          </div>\n          <p>After payment, send your payment details to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a> or use the <a href="/support-center" target="_blank">support form</a>.</p>\n        </div>\n\n        <div class="ui message">\n          <div class="header">\n            NB:\n          </div>\n          <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>\n        </div>\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field" style="text-align: center;">\n            <input type="number" placeholder="Minimum: \u20A6500" ng-model="requested_amount" ng-min="500">\n          </div>\n          <div class="ui message">\n            <div class="header">\n              NB:\n            </div>\n            <p>This transaction will have attract a charge of 1.7%. Also, transactions ranging from \u20A62,500 and above will attract an additional fixed charge of \u20A6100.</p>\n          </div>\n        </div>\n      </div>\n\n      <div class="actions  flex-center">\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui black left deny button">\n        Close\n        </div>\n      </div>\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n        <div class="ui secondary segment">\n          <p>\n            <img src="/img/paystack_preview.png" alt="" />\n          </p>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
 
 angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
@@ -941,6 +941,11 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
       };
 
       $scope.payWithPaystack = function () {
+        var fees = 0.017 * $scope.requested_amount;
+
+        if ($scope.requested_amount > 2500) {
+          fees = 0.017 * $scope.requested_amount + 100;
+        }
 
         var orderid = _.random(676764765, 544765545646456);
         var handler = PaystackPop.setup({
@@ -953,7 +958,7 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
           first_name: $scope.$parent.userdetails.firstname,
           last_name: $scope.$parent.userdetails.lastname,
           phone: $scope.$parent.userdetails.phone1,
-          amount: $scope.requested_amount * 100,
+          amount: ($scope.requested_amount + fees) * 100,
           ref: orderid,
           metadata: {
             cartid: orderid,
@@ -975,6 +980,10 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
               display_name: "User ID",
               variable_name: "user_id",
               value: $scope.$parent.userdetails.id
+            }, {
+              display_name: "Fees",
+              variable_name: "fees",
+              value: fees * 100
             }]
           },
           callback: function callback(response) {

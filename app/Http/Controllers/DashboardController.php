@@ -348,8 +348,7 @@ class DashboardController extends Controller
       $trx = $paystack->transaction->verify([
                                                'reference' => $reference
                                             ]);
-
-
+      // _dd($trx);
       // status should be true if there was a successful call. This is not what determines if the transaction was successful. ONLY DETERMINES IF A CALL WAS MADE SUCCESSFULLY
       if(!$trx->status){
           exit($trx->message);
@@ -370,13 +369,13 @@ class DashboardController extends Controller
                   'status' => 'completed'
                 ]);
 
-                Auth::user()->creditAccount(($trx->data->amount/100));
+                Auth::user()->creditAccount((($trx->data->amount - $trx->data->metadata->custom_fields[4]->value)/100));
 
             DB::commit();
                 // _dd($trx->data);
 
 
-            $rsp = TransactionalMail::sendCreditMail(($trx->data->amount/100), 'wallet funding', Auth::user()->available_units);
+            $rsp = TransactionalMail::sendCreditMail(($trx->data->amount/100), ($trx->data->metadata->custom_fields[4]->value/100), 'wallet funding', Auth::user()->available_units);
             if (is_array($rsp)) {
               return response()->json(['message' => $rsp['message'] ], $rsp['status']);
             }

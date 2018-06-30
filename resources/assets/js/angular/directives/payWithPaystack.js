@@ -36,6 +36,11 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
       };
 
       $scope.payWithPaystack = () => {
+            let fees = 0.017 * $scope.requested_amount;
+
+            if ($scope.requested_amount > 2500) {
+              fees = (0.017 * $scope.requested_amount) + 100;
+            }
 
 
             var orderid = _.random(676764765, 544765545646456);
@@ -49,7 +54,7 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
               first_name: $scope.$parent.userdetails.firstname,
               last_name: $scope.$parent.userdetails.lastname,
               phone: $scope.$parent.userdetails.phone1,
-              amount: $scope.requested_amount * 100,
+              amount: ($scope.requested_amount + fees) * 100,
               ref: orderid,
               metadata: {
                   cartid: orderid,
@@ -74,6 +79,11 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
                                   display_name: "User ID",
                                   variable_name: "user_id",
                                   value: $scope.$parent.userdetails.id
+                                },
+                                {
+                                  display_name: "Fees",
+                                  variable_name: "fees",
+                                  value: fees * 100
                                 }
                                   ]
               },
