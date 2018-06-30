@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use App\Confirmation;
 use Carbon\Carbon;
+use Watson\Rememberable\Rememberable;
 
 class Referral extends Model
 {
 
   use SoftDeletes;
+  use Rememberable;
 
     protected $guarded = [];
 

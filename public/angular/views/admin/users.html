@@ -7,7 +7,7 @@
         <div class="ui segment compact left floated">
           <div class="ui horizontal statistic">
               <div class="value">
-                {{ users.length }}
+                {{ total_users }}
               </div>
               <div class="label">
                 Users
@@ -34,9 +34,18 @@
               </tr>
             </thead>
             <tbody>
-
-              <tr ng-repeat="u in users | filter : search">
-                <td>{{ $index + 1 }}</td>
+              <tr ng-show="loading" class="animate fade">
+                <td colspan="4">
+                  <div class="ui segment"  style="min-height: 300px;">
+                    <div class="ui active inverted dimmer">
+                      <div class="ui text loader">Loading</div>
+                    </div>
+                    <p></p>
+                  </div>
+                </td>
+              </tr>
+              <tr ng-repeat="u in users | filter : search" ng-show="!loading" class="animate translate-in">
+                <td>{{ u.id }}</td>
                 <td><span style="cursor:pointer;" ng-click="previewUser(u)">{{ u.firstname }} {{ u.lastname }}</span></td>
                 <td>{{ u.email }}</td>
                 <td>
@@ -59,8 +68,8 @@
                   </div>
                 </td>
               </tr>
-
             </tbody>
+            <serv-side-nav url="'/api/get-users-page-details'"></serv-side-nav>
           </table>
         </div>
       </div>

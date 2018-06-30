@@ -467,7 +467,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
 
-    Route::post('/get-users-page-details', $c.'getUsersPageDetails');
+    Route::get('/get-users-page-details', $c.'getUsersPageDetails');
 
     Route::post('/update-user-details', $c.'updateUserDetails');
 

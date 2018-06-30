@@ -215,6 +215,7 @@ admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', '
 
 admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage ) {
   NProgress.start();
+  $scope.loading = true;
 
   $scope.previewUser = (u) => {
     $scope.u = u;
@@ -387,6 +388,14 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
   bootstrapAdminPage.users($scope);
+
+  $scope.test = () =>{
+    sendRequest.postRequest('http://localhost:3000/tcom01/api/get-users-page-details?page=20')
+                .then(rsp => {
+                  console.log(rsp);
+                  $scope.users = rsp.data.users.data;
+                });
+  };
 
 }]);
 

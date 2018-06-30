@@ -348,7 +348,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'users' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->get()
+        'users' => User::with(['untransferred_earnings' => function ($q) { $q->remember(10); }, 'referrals' => function ($q) { $q->remember(10); } ])->where('role_id', env("USER_ROLE_ID"))->remember('10')->paginate(30)
       ];
     }
 

@@ -1,4 +1,4 @@
-
+  require('angular-utils-pagination');
   require('angularjs-datepicker');
 
   admin = angular.module('admin',
@@ -7,7 +7,7 @@
                   'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
                   'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions',
                   'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings',
-                  'cacheBusting'
+                  'cacheBusting', 'angularUtils.directives.dirPagination', 'servSideNav'
                 ]);
 
   admin.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -68,6 +68,7 @@
   require('./angular/directives/confirmAction');
   require('./angular/directives/withdrawAdminEarnings');
   require('./angular/directives/cacheBusting');
+  require('./angular/directives/servSideNav');
 
 
   require('./angular/routes/admin-routes');

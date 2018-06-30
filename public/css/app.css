@@ -41570,5 +41570,69 @@ div#main-controller footer {
   border-top: 2px solid #8b909b;
 }
 
+.animate.fade.ng-enter {
+  -webkit-transition: 800ms linear all;
+  transition: 800ms linear all;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+}
+
+/* The finishing CSS styles for the enter animation */
+
+.animate.fade.ng-enter.ng-enter-active,.animate.fade.ng-leave {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  opacity: 1;
+}
+
+.animate.fade.ng-leave {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+
+.animate.fade.ng-leave.ng-leave-active,.animate.translate-in.ng-enter {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+}
+
+.animate.translate-in.ng-enter {
+  -webkit-transition: 800ms linear all;
+  transition: 800ms linear all;
+  -webkit-transform: translateY(30px);
+  transform: translateY(30px);
+}
+
+/* The finishing CSS styles for the enter animation */
+
+.animate.translate-in.ng-enter.ng-enter-active {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.animate.translate-in.ng-enter.ng-enter-active,.animate.translate-in.ng-leave {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  opacity: 1;
+}
+
+.animate.translate-in.ng-leave {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.animate.translate-in.ng-leave.ng-leave-active {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.animate.translate-in.ng-enter-stagger,.animate.translate-in.ng-leave-stagger {
+  -webkit-transition-delay: .1s;
+  transition-delay: .1s;
+  -webkit-transition-duration: 0;
+  transition-duration: 0;
+}
+
 
 /*# sourceMappingURL=app.css.map*/
