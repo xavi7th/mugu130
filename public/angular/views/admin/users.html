@@ -7,7 +7,7 @@
         <div class="ui segment compact left floated">
           <div class="ui horizontal statistic">
               <div class="value">
-                {{ total_users }}
+                {{ total }}
               </div>
               <div class="label">
                 Users
@@ -44,7 +44,7 @@
                   </div>
                 </td>
               </tr>
-              <tr ng-repeat="u in users | filter : search" ng-show="!loading" class="animate translate-in">
+              <tr ng-repeat="u in data | filter : search" ng-show="!loading" class="animate translate-in">
                 <td>{{ u.id }}</td>
                 <td><span style="cursor:pointer;" ng-click="previewUser(u)">{{ u.firstname }} {{ u.lastname }}</span></td>
                 <td>{{ u.email }}</td>

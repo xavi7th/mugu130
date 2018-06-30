@@ -77,21 +77,22 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
     replace: true,
     controller: ['$scope', function (scope) {
       NProgress.start();
+      scope.$parent.loading = true;
 
       sendRequest.request(route_root + scope.url)
                 .then(function (rsp) {
-                    scope.$parent.users = rsp.users.data;
-                    scope.first_page_url = rsp.users.first_page_url;
-                    scope.last_page_url = rsp.users.last_page_url;
-                    scope.prev_page_url = rsp.users.prev_page_url;
-                    scope.next_page_url = rsp.users.next_page_url;
-                    scope.current_page = rsp.users.current_page;
-                    scope.$parent.total_users = rsp.users.total;
+                    scope.$parent.data = rsp.details.data;
+                    scope.first_page_url = rsp.details.first_page_url;
+                    scope.last_page_url = rsp.details.last_page_url;
+                    scope.prev_page_url = rsp.details.prev_page_url;
+                    scope.next_page_url = rsp.details.next_page_url;
+                    scope.current_page = rsp.details.current_page;
+                    scope.$parent.total = rsp.details.total;
                     scope.$parent.loading = false;
                     NProgress.done();
                 },
               err => {
-                Notification.error('Error retrieving users from server');
+                Notification.error('Error retrieving data from server');
               });
 
       // //pass the value of the parent scope into the child scope so that it will display in the input field
@@ -105,13 +106,13 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
 
         sendRequest.request(url)
                     .then(rsp => {
-                      scope.$parent.users = rsp.users.data;
-                      scope.first_page_url = rsp.users.first_page_url;
-                      scope.last_page_url = rsp.users.last_page_url;
-                      scope.prev_page_url = rsp.users.prev_page_url;
-                      scope.next_page_url = rsp.users.next_page_url;
-                      scope.current_page = rsp.users.current_page;
-                      scope.$parent.total_users = rsp.users.total;
+                      scope.$parent.data = rsp.details.data;
+                      scope.first_page_url = rsp.details.first_page_url;
+                      scope.last_page_url = rsp.details.last_page_url;
+                      scope.prev_page_url = rsp.details.prev_page_url;
+                      scope.next_page_url = rsp.details.next_page_url;
+                      scope.current_page = rsp.details.current_page;
+                      scope.$parent.total = rsp.details.total;
                       scope.$parent.loading = false;
                       NProgress.done();
                     });
