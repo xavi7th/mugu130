@@ -653,6 +653,9 @@ home.config(['$routeProvider', '$locationProvider', '$provide', 'NotificationPro
       return $http.get(url).then(function (response) {
         return response.data;
       }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        }
         console.log(err.statusText);
       });
     }
@@ -812,14 +815,6 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 
     questions: function questions(scope) {
 
-      sendRequest.postRequest(route_root + '/api/get-questions-page-details').then(function (rsp) {
-        if (rsp.status == 200) {
-          scope.questions = rsp.data.questions;
-        }
-      }, function (err) {
-        Notification.error('Error retrieving questions from server');
-      });
-
       scope.$on('$viewContentLoaded', function () {
         $timeout(function () {
           $('.dropdown_menu').dropdown();
@@ -827,10 +822,6 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
           NProgress.done();
         }, 500);
       });
-      // scope.$on('$destroy', function() {
-      //   $timeout(function () {
-      //   }, 0);
-      // });
     },
 
     admins: function admins(scope) {

@@ -4,6 +4,17 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
+      <div class="ui segment compact left floated">
+        <div class="ui horizontal statistic">
+            <div class="value">
+              {{ total }}
+            </div>
+            <div class="label">
+              Transactions
+            </div>
+          </div>
+      </div>
+      <br>
       <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">
         <div class="ui icon input">
           <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">
@@ -11,6 +22,7 @@ var url = `
         </div>
         <div class="results"></div>
       </div>
+
       <div ng-show="!transactionrecord">
         <table class="ui  striped celled table">
           <thead>
@@ -26,9 +38,18 @@ var url = `
             </tr>
           </thead>
           <tbody>
-
-            <tr ng-repeat="trans in transactions | filter : search" ng-class="{'negative' : trans.trans_type == 'Admin Correction'}">
-              <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>
+            <tr ng-show="loading" class="animate fade">
+              <td colspan="8">
+                <div class="ui segment"  style="min-height: 300px;">
+                  <div class="ui active inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                  </div>
+                  <p></p>
+                </div>
+              </td>
+            </tr>
+            <tr ng-repeat="trans in data | filter : search" ng-class="['animate translate-in', {'negative' : trans.trans_type == 'Admin Correction'}]" ng-show="!loading">
+              <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
               <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>
@@ -62,6 +83,8 @@ var url = `
             </tr>
 
           </tbody>
+          <serv-side-nav url="'/api/get-all-transactions'"></serv-side-nav>
+
         </table>
       </div>
 
@@ -186,13 +209,6 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
 
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-transactions')
-                  .then( rsp => {
-                    if (rsp.status == 200) {
-                      $scope.transactions = rsp.data.transactions;
-                      NProgress.done();
-                    }
-                  });
     }]
   };
 }]);

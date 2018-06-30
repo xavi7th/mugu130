@@ -806,6 +806,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
 
   $scope.createQuestion = function () {
     NProgress.start();
+    $scope.creating = true;
 
     sendRequest.postRequest(route_root + '/api/create-question', $scope.q).then(function (rsp) {
       if (rsp.status == 200) {
@@ -820,6 +821,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
       } else if (rsp.status == 422) {
         $scope.errs = rsp.data.errors;
       }
+      $scope.creating = false;
     });
   };
 
@@ -2139,7 +2141,7 @@ angular.module('viewAllGames', []).directive('viewAllGames', ['sendRequest', fun
 // <transaction-play></transaction-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">\n        <div class="ui icon input">\n          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">\n          <i class="search icon"></i>\n        </div>\n        <div class="results"></div>\n      </div>\n      <div ng-show="!transactionrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Type</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Charges</th>\n              <th>Channel</th>\n              <th>Status</th>\n              <th>Request Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="trans in transactions | filter : search" ng-class="{\'negative\' : trans.trans_type == \'Admin Correction\'}">\n              <td ng-click="viewTransactionRecord(trans)">{{ $index + 1 }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>\n              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>\n              <td ng-if="trans.amount < 0">\u20A6{{ trans.amount }}.00</td>\n              <td>{{ trans.charges | currency }}</td>\n              <td>{{ trans.channel }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status == \'pending\'">\n                  <div ng-class="[\'ui mini red button\', {\'loading\':loading}]" ng-click="markAsPaid(trans)">\n                    <i class="tags icon"></i> Mark as Paid\n                  </div>\n                  <a class="ui basic red left pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status != \'pending\'">\n                  <div class="ui mini basic blue button">\n                    <i class="thumbs up outline icon"></i>\n                  </div>\n                  <a class="ui basic left pointing blue label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== \'withdrawal\'">\n                  <a class="ui basic pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n              </td>\n              <td>{{ trans.created_at | timeAgo }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="transactionrecord" class="grid-80 prefix-10">\n\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>Detail</th>\n              <th>Value</th>\n\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr>\n              <td>User Name</td>\n              <td>{{ trans_record.user.firstname }} {{ trans_record.user.lastname }} </td>\n            </tr>\n\n            <tr>\n              <td>Email</td>\n              <td>{{ trans_record.user.email }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Number</td>\n              <td>{{ trans_record.user.phone1 }} </td>\n            </tr>\n\n            <tr>\n              <td>Bank</td>\n              <td>{{ trans_record.user.bank }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Number</td>\n              <td>{{ trans_record.user.acct_no }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Type</td>\n              <td>{{ trans_record.user.acct_type }} </td>\n            </tr>\n\n            <tr>\n              <td>Requested Amount</td>\n              <td>{{ trans_record.amount }} </td>\n            </tr>\n\n            <tr>\n              <td>Request Type</td>\n              <td>\n                <span ng-if="trans_record.amount > 1000 "> Cash </span>\n                <span ng-if="trans_record.amount < 1000 "> Recharge Card </span>\n              </td>\n            </tr>\n\n            <tr>\n              <td>Balance Units</td>\n              <td>{{ trans_record.user.available_units }} </td>\n            </tr>\n\n            <tr>\n              <td>Total Purchsaed Units</td>\n              <td>{{ trans_record.user.units_purchased }} </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Transactions\n            </div>\n          </div>\n      </div>\n      <br>\n      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">\n        <div class="ui icon input">\n          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">\n          <i class="search icon"></i>\n        </div>\n        <div class="results"></div>\n      </div>\n\n      <div ng-show="!transactionrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Type</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Charges</th>\n              <th>Channel</th>\n              <th>Status</th>\n              <th>Request Date</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-show="loading" class="animate fade">\n              <td colspan="8">\n                <div class="ui segment"  style="min-height: 300px;">\n                  <div class="ui active inverted dimmer">\n                    <div class="ui text loader">Loading</div>\n                  </div>\n                  <p></p>\n                </div>\n              </td>\n            </tr>\n            <tr ng-repeat="trans in data | filter : search" ng-class="[\'animate translate-in\', {\'negative\' : trans.trans_type == \'Admin Correction\'}]" ng-show="!loading">\n              <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>\n              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>\n              <td ng-if="trans.amount < 0">\u20A6{{ trans.amount }}.00</td>\n              <td>{{ trans.charges | currency }}</td>\n              <td>{{ trans.channel }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status == \'pending\'">\n                  <div ng-class="[\'ui mini red button\', {\'loading\':loading}]" ng-click="markAsPaid(trans)">\n                    <i class="tags icon"></i> Mark as Paid\n                  </div>\n                  <a class="ui basic red left pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status != \'pending\'">\n                  <div class="ui mini basic blue button">\n                    <i class="thumbs up outline icon"></i>\n                  </div>\n                  <a class="ui basic left pointing blue label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== \'withdrawal\'">\n                  <a class="ui basic pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n              </td>\n              <td>{{ trans.created_at | timeAgo }}</td>\n            </tr>\n\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-transactions\'"></serv-side-nav>\n\n        </table>\n      </div>\n\n      <div ng-show="transactionrecord" class="grid-80 prefix-10">\n\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>Detail</th>\n              <th>Value</th>\n\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr>\n              <td>User Name</td>\n              <td>{{ trans_record.user.firstname }} {{ trans_record.user.lastname }} </td>\n            </tr>\n\n            <tr>\n              <td>Email</td>\n              <td>{{ trans_record.user.email }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Number</td>\n              <td>{{ trans_record.user.phone1 }} </td>\n            </tr>\n\n            <tr>\n              <td>Bank</td>\n              <td>{{ trans_record.user.bank }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Number</td>\n              <td>{{ trans_record.user.acct_no }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Type</td>\n              <td>{{ trans_record.user.acct_type }} </td>\n            </tr>\n\n            <tr>\n              <td>Requested Amount</td>\n              <td>{{ trans_record.amount }} </td>\n            </tr>\n\n            <tr>\n              <td>Request Type</td>\n              <td>\n                <span ng-if="trans_record.amount > 1000 "> Cash </span>\n                <span ng-if="trans_record.amount < 1000 "> Recharge Card </span>\n              </td>\n            </tr>\n\n            <tr>\n              <td>Balance Units</td>\n              <td>{{ trans_record.user.available_units }} </td>\n            </tr>\n\n            <tr>\n              <td>Total Purchsaed Units</td>\n              <td>{{ trans_record.user.units_purchased }} </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('displayTransactions', []).directive('displayTransactions', ['sendRequest', function (sendRequest) {
   return {
@@ -2176,13 +2178,6 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
         $scope.transactionrecord = false;
         // $scope.$parent.active = 'allTransactions';
       };
-
-      sendRequest.postRequest(route_root + '/api/get-all-transactions').then(function (rsp) {
-        if (rsp.status == 200) {
-          $scope.transactions = rsp.data.transactions;
-          NProgress.done();
-        }
-      });
     }]
   };
 }]);
@@ -2466,6 +2461,9 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', '$
       return $http.get(url).then(function (response) {
         return response.data;
       }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        }
         console.log(err.statusText);
       });
     }
@@ -2625,14 +2623,6 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 
     questions: function questions(scope) {
 
-      sendRequest.postRequest(route_root + '/api/get-questions-page-details').then(function (rsp) {
-        if (rsp.status == 200) {
-          scope.questions = rsp.data.questions;
-        }
-      }, function (err) {
-        Notification.error('Error retrieving questions from server');
-      });
-
       scope.$on('$viewContentLoaded', function () {
         $timeout(function () {
           $('.dropdown_menu').dropdown();
@@ -2640,10 +2630,6 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
           NProgress.done();
         }, 500);
       });
-      // scope.$on('$destroy', function() {
-      //   $timeout(function () {
-      //   }, 0);
-      // });
     },
 
     admins: function admins(scope) {

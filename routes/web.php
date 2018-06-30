@@ -471,7 +471,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/update-user-details', $c.'updateUserDetails');
 
-    Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
+    Route::get('/get-questions-page-details', $c.'getQuestionsPageDetails');
 
     Route::post('/edit-question', $c.'editQuestion');
 
@@ -497,7 +497,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-profile-page-details', $c.'confirmWithdrawal');
 
-    Route::post('/get-all-transactions', $c.'getAllTransactions');
+    Route::get('/get-all-transactions', $c.'getAllTransactions');
 
     Route::post('/create-transaction', $c.'createTransaction');
 

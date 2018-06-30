@@ -63,6 +63,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
 
   $scope.createQuestion = () => {
     NProgress.start();
+    $scope.creating = true;
 
     sendRequest.postRequest(route_root + '/api/create-question', $scope.q)
                 .then(rsp => {
@@ -80,6 +81,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
                   else if (rsp.status == 422) {
                     $scope.errs = rsp.data.errors;
                   }
+                  $scope.creating = false;
                 });
   };
 

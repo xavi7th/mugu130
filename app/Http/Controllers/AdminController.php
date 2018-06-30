@@ -60,7 +60,7 @@ class AdminController extends Controller
 
     public function getQuestionsPageDetails(){
         return [
-          'questions' => Question::latest()->get()
+          'details' => Question::latest()->remember(10)->paginate(env('ROWS_PER_PAGE'))
         ];
     }
 
@@ -248,7 +248,7 @@ class AdminController extends Controller
 
     public function getAllTransactions(){
       return [
-        'transactions' => Transaction::with('user')->get()
+        'details' => Transaction::with(['user' => function ($q) { $q->remember(10); },])->latest()->remember(10)->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 

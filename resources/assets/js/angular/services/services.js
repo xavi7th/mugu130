@@ -140,6 +140,9 @@
                         return response.data;
                       },
                       function (err) {
+                        if (err.status == 419 || err.status == 401) {
+                          location.href = '/login';
+                        }
                         console.log(err.statusText);
                       });
         }
@@ -321,16 +324,6 @@
 
         questions:  (scope) => {
 
-          sendRequest.postRequest(route_root + '/api/get-questions-page-details')
-                    .then(function (rsp) {
-                      if (rsp.status == 200) {
-                        scope.questions = rsp.data.questions;
-                      }
-                    },
-                  err => {
-                    Notification.error('Error retrieving questions from server');
-                  });
-
           scope.$on('$viewContentLoaded', function() {
             $timeout(function () {
               $('.dropdown_menu').dropdown();
@@ -338,10 +331,6 @@
               NProgress.done();
             }, 500);
           });
-          // scope.$on('$destroy', function() {
-          //   $timeout(function () {
-          //   }, 0);
-          // });
 
         },
 
