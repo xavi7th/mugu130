@@ -51,7 +51,7 @@ var url = `
       <div class="image content flex-center">
         <div class="ui form">
           <div class="inline field">
-            <input type="number" placeholder="Minimum: ₦300" ng-model="requested_amount" ng-min="300">
+            <input type="number" placeholder="Minimum: ₦500" ng-model="requested_amount" ng-min="500">
           </div>
         </div>
       </div>
