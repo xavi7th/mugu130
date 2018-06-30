@@ -258,8 +258,8 @@ class DashboardController extends Controller
 
         //return the results ordered by position
 
-        if (Auth::user()->role_id == 0) {
-          $earnings = Earning::where('user_id', 0)->where('transferred', 0)->sum('amount');
+        if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+          $earnings = Earning::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', 0)->remember(5)->sum('amount');
         }
         else{
           $earnings = Auth::user()->totalEarnings->sum('amount');
@@ -461,12 +461,12 @@ class DashboardController extends Controller
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load('transactions', 'earnings', 'games','referrals')
+        'page_details' => Auth::user()->load(['transactions', 'earnings'=> function ($q) { $q->remember(1); }, 'games' => function ($q) { $q->remember(10); },'referrals'=> function ($q) { $q->remember(240); }])
       ];
     }
 
     public function getDashboardPageDetails() {
-      
+
       if (Auth::user()->activeGames && session('GAME_STATE') != 'waiting') {
         session(['GAME_STATE' => 'paused']);
       }

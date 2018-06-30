@@ -13,6 +13,6 @@
 @section('contents')
 
 
-  <div ng-view></div>
+  <div ng-view class="animate translate-in"></div>
 
 @endsection

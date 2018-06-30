@@ -14,7 +14,7 @@ class Transaction extends Model{
 
   protected $guarded = [];
   protected $dates = ['deleted_at'];
-	// public $rememberFor = 5;
+	public $rememberFor = 5;
 
 	 public function user(){
 			 return $this->belongsTo(User::class);

@@ -962,8 +962,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
       return o.amount;
     });
 
-    console.log($scope.earnings);
-
     $('.ui.modal.editUser').modal({
       blurring: true
     }).modal('show');
@@ -971,7 +969,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.editUser = function () {
     NProgress.start();
-
     sendRequest.postRequest(route_root + '/api/edit-user', $scope.u).then(function (rsp) {
       if (rsp.status == 200) {
         Notification.warning('Edited');
@@ -1094,13 +1091,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   };
 
   bootstrapAdminPage.users($scope);
-
-  $scope.test = function () {
-    sendRequest.postRequest('http://localhost:3000/tcom01/api/get-users-page-details?page=20').then(function (rsp) {
-      console.log(rsp);
-      $scope.users = rsp.data.users.data;
-    });
-  };
 }]);
 
 admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
