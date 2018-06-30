@@ -141,6 +141,12 @@ div#main-controller{
     min-height: 400px;
   }
 
+  @media (min-width: 1025px) {
+    section#stats{
+      min-height: 65vh;
+    }
+  }
+
   section#profile-edit{
     padding: 30px 0px;
     min-height: 100vh;

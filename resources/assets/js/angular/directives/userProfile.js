@@ -10,52 +10,28 @@ var url = `
           <div class="meta">
             <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>
           </div>
-          <div class="description">
-            {{ userdetails.address }}
-          </div>
+
+        </div>
+        <div class="content" >
+
         </div>
         <div class="content" style="padding-bottom: 5px;">
-          <div class="ui blue label">
-            <i class="marker icon"></i> {{ userdetails.town }}, {{ userdetails.state }}.
-          </div>
-          <div class="ui blue label">
-            <i class="mail icon"></i> {{ userdetails.email }}
-          </div>
-        </div>
-        <div class="content" style="padding-bottom: 5px;">
-          <div class="ui green label">
-            <i class="call square icon"></i> {{ userdetails.phone1 }}
-          </div>
+
         </div>
       </div>
     </div>
     <div class="grid-50">
-      <div class="content" style="margin-bottom: 15px;">
-        <div class="ui orange image label">
-          My Bank
-          <div class="detail">{{ userdetails.bank }}</div>
-        </div>
-
+      <div class="content">
         <button class="ui compact right floated violet button" ng-click="transferEarnings()">
           <i class="icon credit card amazon pay"></i>
           Transfer Earnings
         </button>
       </div>
-      <div class="content" style="padding-bottom: 25px;">
-        <div class="ui teal image label">
-          Acct. No.
-          <div class="detail">{{ userdetails.acct_no }}</div>
-        </div>
-
-        <make-withdrawal></make-withdrawal>
+      <div class="content">
+        <make-withdrawal  style="margin-right: 3%; margin-bottom: 15px;"></make-withdrawal>
       </div>
-      <div class="content" style="padding-bottom: 25px;">
-        <div class="ui purple image label">
-          Acct. Name.
-          <div class="detail">{{ userdetails.firstname }} {{ userdetails.lastname }}</div>
-        </div>
-
-        <buy-units></buy-units>
+      <div class="content" style="margin-bottom: 15px;">
+        <buy-units  style="margin-right: 3%;"></buy-units>
       </div>
     </div>
   </div>

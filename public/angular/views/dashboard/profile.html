@@ -21,6 +21,10 @@
             <i class="dollar icon"></i>
             Earnings
           </a>
+          <a class="item" data-tab="profile">
+            <i class="user icon"></i>
+            User Details
+          </a>
         </div>
       </div>
       <div class="grid-85 tablet-grid-85">
@@ -32,35 +36,53 @@
             <thead>
               <tr>
                 <th>Description</th>
-                <th>Status</th>
+                <th>Value</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>No. of games played</td>
-                <td>{{ _.size(user_games) }}</td>
+                <td>{{ _.size(user_games) }} ( {{ _.size(_.filter(user_games, ['payment_status', 'paid'])) * 35 | currency }} ) <span style="color:red">{{  _.size(_.filter(user_games, ['payment_status', 'nullified'])) }} games nullified</span></td>
               </tr>
               <tr>
                 <td>Total earnings</td>
                 <td>{{ _.sumBy(user_earnings, 'amount') | currency }}</td>
               </tr>
               <tr>
-                <td>Total withdrawals</td>
+                <td>Untransferred earnings</td>
+                <td>{{ _.sumBy(_.filter(user_earnings, ['transferred', false]), 'amount') | currency }}</td>
+              </tr>
+              <tr>
+                <td>Transferred earnings</td>
+                <td>{{ _.sumBy(_.filter(user_earnings, ['transferred', true]), 'amount') | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total amount withdrwan</td>
                 <td>{{userdetails.total_withdrawals  | currency }}</td>
+              </tr>
+              <tr>
+                <td>No. of withdrawal requests</td>
+                <td>{{ userdetails.num_of_withdrawals  }}</td>
               </tr>
               <tr>
                 <td>No. of referrals</td>
                 <td>{{ referrals.length }}</td>
               </tr>
+              <tr>
+                <td>Total Referral Bonus</td>
+                <td>{{ _.sumBy(_.filter(user_earnings, ['amount', 1]), 'amount') | currency }}</td>
+              </tr>
               <tr ng-class="{'negative': userdetails.units_purchased < 0}">
                 <td>Total account funding made</td>
-                <td ng-if="userdetails.units_purchased > 0">{{ userdetails.units_purchased | currency }}</td>
-                <td ng-if="userdetails.units_purchased < 0">₦ {{ userdetails.units_purchased }}.00</td>
+                <!-- <td ng-if="userdetails.units_purchased > 0">{{ userdetails.units_purchased | currency }}</td>
+                <td ng-if="userdetails.units_purchased < 0">₦ {{ userdetails.units_purchased }}.00</td> -->
+                <td>{{ _.sumBy(_.filter(user_transactions, { 'status': 'completed', 'trans_type': 'wallet funding' }), 'amount') | currency }}</td>
               </tr>
-              <tr>
-                <td>No. of withdrawals</td>
-                <td>{{ userdetails.num_of_withdrawals  }}</td>
+              <tr ng-class="{'negative': userdetails.units_purchased < 0}">
+                <td>Total no. of account funding</td>
+                <td>{{ _.size(_.filter(user_transactions, { 'status': 'completed', 'trans_type': 'wallet funding' })) }}</td>
               </tr>
+
             </tbody>
           </table>
         </div>
@@ -118,6 +140,54 @@
                   <td>{{ earning.created_at | timeAgo}}</td>
                   <td>{{ earning.amount | currency }}</td>
                 </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="ui tab" data-tab="profile">
+          <div class="ui compact segment">
+            <p>User Details</p>
+          </div>
+          <table class="ui blue celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>E-mail</td>
+                <td>{{ userdetails.email || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Phone Number</td>
+                <td>{{ userdetails.phone1 || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Phone Network</td>
+                <td>{{ userdetails.network || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td>{{ userdetails.address || 'N/A'  }}, {{ userdetails.town }}, {{ userdetails.state }}</td>
+              </tr>
+              <tr>
+                <td>My bank</td>
+                <td>{{ userdetails.bank || 'N/A'  }}</td>
+              </tr>
+              <tr>
+                <td>Account Name</td>
+                <td>{{ userdetails.firstname }} {{ userdetails.lastname }}</td>
+              </tr>
+              <tr>
+                <td>Account Number</td>
+                <td>{{ userdetails.acct_no || 'N/A'  }}</td>
+              </tr>
+              <tr>
+                <td>Account Type</td>
+                <td>{{ userdetails.acct_type || 'N/A'  }}</td>
+              </tr>
 
             </tbody>
           </table>

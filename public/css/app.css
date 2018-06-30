@@ -40647,6 +40647,12 @@ div#main-controller section#stats {
   min-height: 400px;
 }
 
+@media (min-width: 1025px) {
+  div#main-controller section#stats {
+    min-height: 65vh;
+  }
+}
+
 div#main-controller section#profile-edit {
   padding: 30px 0px;
   min-height: 100vh;

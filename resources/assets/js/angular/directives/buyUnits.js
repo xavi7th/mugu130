@@ -19,6 +19,9 @@ var url = `
       <div class="ui segment" id="extra">
         <div class="ui small header">Pay via bank Deposit or Wire transfer</div>
         <p>
+          <b style="font-weight: 900; margin-right:5%; color:red; font-size:2em;">!</b>  Use your email as depositor's name or transaction description
+        </p>
+        <p>
           <b>Account Name:</b> Tcom Wireless Nigeria
         </p>
         <p>
