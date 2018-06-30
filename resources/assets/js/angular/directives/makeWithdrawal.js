@@ -30,7 +30,7 @@ var url = `
       <div class="image content flex-center">
         <div class="ui form">
           <div class="inline field">
-            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="150">
+            <input type="number" placeholder="Max {{ $parent.userdetails.available_units | currency }}" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="170">
           </div>
         </div>
       </div>
@@ -50,8 +50,8 @@ var url = `
             <div class="header">
               NOTE:
             </div>
-            <p> For withdrawals below ₦1000, a service fee of ₦50 will be charged. </p>
-            <p> While an additional service fee of ₦50 will be charged for every ₦5000.</p>
+            <p> For withdrawals below ₦1000, a service fee of ₦70 will be charged. </p>
+            <p> While an additional service fee of ₦70 will be charged for every ₦5000.</p>
           </div>
         </div>
       </div>
