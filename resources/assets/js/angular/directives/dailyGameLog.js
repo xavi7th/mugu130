@@ -46,8 +46,10 @@ var url = `
           <thead>
             <tr>
               <th colspan="10">
-                <div class="ui right floated pagination menu">
+                <div class="ui segment compact left floated">
                   <a class="icon item positive">CHOOSE A GAME SESSION TO VIEW DETAILS</a>
+                </div>
+                <div class="ui right floated pagination menu">
                   <a class="item" ng-repeat="(key, value) in daily_log" ng-click="setKey(key)">{{ key }}</a>
                 </div>
               </th>
@@ -84,9 +86,10 @@ var url = `
           <tfoot>
             <tr>
               <th colspan="10">
+              <div class="ui segment compact left floated">
+                <a class="icon item">CHOOSE A GAME SESSION TO VIEW DETAILS</a>
+              </div>
                 <div class="ui right floated pagination menu">
-                  <a class="icon item">CHOOSE A GAME SESSION TO VIEW DETAILS</a>
-
                   <a class="item" ng-repeat="(key, value) in daily_log" ng-click="setKey(key)">{{ key }}</a>
                 </div>
               </th>

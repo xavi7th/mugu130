@@ -4,6 +4,17 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
+      <div class="ui segment compact left floated">
+        <div class="ui horizontal statistic">
+            <div class="value">
+              {{ total }}
+            </div>
+            <div class="label">
+              Earnings
+            </div>
+          </div>
+      </div>
+      <br>
       <div ng-show="!gamerecord">
         <table class="ui  striped celled table">
           <thead>
@@ -21,8 +32,17 @@ var url = `
             </tr>
           </thead>
           <tbody>
-
-            <tr ng-repeat="game in games">
+            <tr ng-show="loading" class="animate fade">
+              <td colspan="10">
+                <div class="ui segment"  style="min-height: 300px;">
+                  <div class="ui active inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                  </div>
+                  <p></p>
+                </div>
+              </td>
+            </tr>
+            <tr ng-repeat="game in  data | filter : search" class="animate translate-in" ng-show="!loading" >
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ $index + 1 }}</td>
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.status ? 'active' : 'ended' }}</td>
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.id }}</td>
@@ -36,16 +56,17 @@ var url = `
             </tr>
 
           </tbody>
+          <serv-side-nav url="'/api/get-all-games'"></serv-side-nav>
         </table>
       </div>
 
       <div ng-show="gamerecord">
-      <div class="ui teal buttons">
-        <button class="ui labeled icon button" ng-click="goBack()">
-          <i class="left chevron icon"></i>
-          Go Back
-        </button>
-      </div>
+        <div class="ui teal buttons">
+          <button class="ui labeled icon button" ng-click="goBack()">
+            <i class="left chevron icon"></i>
+            Go Back
+          </button>
+        </div>
         <table class="ui  striped celled table">
           <thead>
             <tr>
@@ -114,12 +135,12 @@ angular.module('viewAllGames', []).directive('viewAllGames', ['sendRequest', fun
 
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-games')
-                  .then( rsp => {
-                    if (rsp.status == 200) {
-                      $scope.games = rsp.data.games;
-                    }
-                  });
+      // sendRequest.postRequest(route_root + '/api/get-all-games')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.games = rsp.data.games;
+      //               }
+      //             });
     }]
   };
 }]);

@@ -58,7 +58,7 @@ var url = `
             </tr>
             <tr>
               <td>New Referrals</td>
-              <td>{{ stats.new_referrals }} </td>
+              <td>{{ stats.new_referrals || 'N/A' }} </td>
             </tr>
             <tr>
               <td>Top Gamer</td>

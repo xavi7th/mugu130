@@ -26,8 +26,17 @@ var url = `
           </tr>
         </thead>
         <tbody>
-
-          <tr ng-repeat="u in data | filter : search" class="animate translate-in">
+          <tr ng-show="loading" class="animate fade">
+            <td colspan="4">
+              <div class="ui segment"  style="min-height: 300px;">
+                <div class="ui active inverted dimmer">
+                  <div class="ui text loader">Loading</div>
+                </div>
+                <p></p>
+              </div>
+            </td>
+          </tr>
+          <tr ng-repeat="u in data | filter : search" class="animate translate-in" ng-show="!loading" >
             <td>{{ $index + 1 }}</td>
             <td>{{ u.firstname }} {{ u.lastname }}</td>
             <td>{{ u.email }}</td>

@@ -198,17 +198,17 @@ class AdminController extends Controller
     public function getMonthlyStatistics(){
       return [
         'stats' => [
-          'new_users' => User::whereMonth('created_at', Carbon::parse(request('details'))->month)->count(),
+          'new_users' => User::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->count(),
           // 'new_referrals' => Referral::with('user')->whereMonth('created_at', Carbon::parse(request('details'))->month)->get(),
-          'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::parse(request('details'))->month)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
-          'online_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
-          'offline_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
-          'payments_by_earnings' => Earning::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('id', '!=', 0)->count(),
-          'number_of_games' => Game::whereMonth('created_at', Carbon::parse(request('details'))->month)->count(),
-          'total_num_of_players' => UserGameSession::whereMonth('created_at', Carbon::parse(request('details'))->month)->count(),
-          'online_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'online')->sum('amount'),
-          'offline_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('trans_type', 'wallet funding')->where('channel', 'offline')->sum('amount'),
-          'admin_payments_by_earnings' => Earning::whereMonth('created_at', Carbon::parse(request('details'))->month)->where('id', 0)->count(),
+          'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
+          'online_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
+          'offline_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
+          'payments_by_earnings' => Earning::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('id', '!=', 0)->count(),
+          'number_of_games' => Game::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->count(),
+          'total_num_of_players' => UserGameSession::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->count(),
+          'online_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('trans_type', 'wallet funding')->where('channel', 'online')->sum('amount'),
+          'offline_payments_amount' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('trans_type', 'wallet funding')->where('channel', 'offline')->sum('amount'),
+          'admin_payments_by_earnings' => Earning::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('id', 0)->count(),
         ]
       ];
     }
@@ -218,17 +218,18 @@ class AdminController extends Controller
       return [
           'stats' => [
             'date' => Carbon::parse(request('details'))->day,
-            'new_users' => User::whereDay('created_at', Carbon::parse(request('details'))->day)->count(),
+            // 'new_users' => User::whereDay('created_at', Carbon::parse(request('details'))->day)->whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->count(),
+            'new_users' => User::whereDate('created_at', Carbon::parse(request('details')))->count(),
             // 'new_referrals' => Referral::with('user')->whereDay('created_at', Carbon::parse(request('details'))->day)->get(),
-            'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereDay('created_at', Carbon::parse(request('details'))->day)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
+            'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereDate('created_at', Carbon::parse(request('details')))->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
             'online_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
             'offline_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
             'number_of_games' => Game::whereDay('created_at', Carbon::parse(request('details'))->day)->count(),
-            'total_num_of_players' => UserGameSession::whereDay('created_at', Carbon::parse(request('details'))->day)->count(),
-            'online_payments_amount' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'online')->sum('amount'),
-            'offline_payments_amount' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'offline')->sum('amount'),
-            'payments_by_earnings' => Earning::whereDay('created_at', Carbon::parse(request('details'))->day)->where('user_id', '!=', 0)->count(),
-            'admin_payments_by_earnings' => Earning::whereDay('created_at', Carbon::parse(request('details'))->day)->where('user_id', 0)->count(),
+            'total_num_of_players' => UserGameSession::whereDate('created_at', Carbon::parse(request('details')))->count(),
+            'online_payments_amount' => Transaction::whereDate('created_at', Carbon::parse(request('details')))->where('trans_type', 'wallet funding')->where('channel', 'online')->sum('amount'),
+            'offline_payments_amount' => Transaction::whereDate('created_at', Carbon::parse(request('details')))->where('trans_type', 'wallet funding')->where('channel', 'offline')->sum('amount'),
+            'payments_by_earnings' => Earning::whereDate('created_at', Carbon::parse(request('details')))->where('user_id', '!=', 0)->count(),
+            'admin_payments_by_earnings' => Earning::whereDate('created_at', Carbon::parse(request('details')))->where('user_id', 0)->count(),
           ]
       ];
     }
