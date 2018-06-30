@@ -16,6 +16,35 @@ var url = `
       <div class="header">
         Fund Wallet: Input Amount
       </div>
+      <div class="ui segment" id="extra">
+        <div class="ui small header">Pay via bank Deposit or Wire transfer</div>
+        <p>
+          <b>Account Name:</b> Tcom Wireless Nigeria
+        </p>
+        <p>
+          <b>Account Number:</b> 1019040225 (United Bank for Africa)
+        </p>
+        <p>
+          <b>  Account type:</b> Current
+        </p>
+        <p style="width: 70px;">
+          <img style="min-width: 100%;" src="/img/uba.jpg" alt="" />
+        </p>
+
+        <div class="ui positive message">
+          <div class="header">
+            NB:
+          </div>
+          <p>After payment, send your payment details to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a> or use the <a href="/support-center" target="_blank">support form</a>.</p>
+        </div>
+
+        <div class="ui message">
+          <div class="header">
+            NB:
+          </div>
+          <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>
+        </div>
+      </div>
       <div class="image content flex-center">
         <div class="ui form">
           <div class="inline field">
@@ -31,45 +60,13 @@ var url = `
       </div>
       <div class="ui segments" id="info-images">
         <div class="ui segment">
-        <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>
-          <p>
-
-          </p>
+          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>
+          <p></p>
         </div>
         <div class="ui secondary segment">
           <p>
             <img src="/img/paystack_preview.png" alt="" />
           </p>
-        </div>
-        <div class="ui secondary segment" id="extra">
-          <div class="ui small header">Pay via bank Deposit or Wire transfer</div>
-          <p>
-            <b>Account Name:</b> Tcom Wireless Nigeria
-          </p>
-          <p>
-            <b>Account Number:</b> 1019040225 (United Bank for Africa)
-          </p>
-          <p>
-            <b>  Account type:</b> Current
-          </p>
-          <p>
-            <img src="/img/uba.jpg" alt="" />
-          </p>
-
-          <div class="ui positive message">
-            <div class="header">
-              NB:
-            </div>
-            <p>After payment, send your payment details to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. Your account will be credited as soon as your payment is confirmed. If your account is not credited within 24 hours, send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a> or use the <a href="/support-center" target="_blank">support form</a>.</p>
-          </div>
-
-          <div class="ui message">
-            <div class="header">
-              NB:
-            </div>
-            <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>
-          </div>
-
         </div>
       </div>
 
