@@ -4,6 +4,17 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
+      <div class="ui segment compact left floated">
+        <div class="ui horizontal statistic">
+            <div class="value">
+              {{ total }}
+            </div>
+            <div class="label">
+              Games
+            </div>
+          </div>
+      </div>
+      <br>
       <div ng-show="!earningrecord">
         <table class="ui  striped celled table">
           <thead>
@@ -22,20 +33,21 @@ var url = `
           </thead>
           <tbody>
 
-            <tr ng-repeat="game in games">
+            <tr ng-repeat="game in data | filter : search" class="animate translate-in">
               <td>{{ $index + 1 }}</td>
               <td ng-click="viewEarnings(game)">{{ game.status }}</td>
-              <td>{{ game.id }}</td>
+              <td ng-click="viewEarnings(game)">{{ game.id }}</td>
               <td>{{ game.num_of_players }}</td>
               <td>{{ game.max_winners }}</td>
-              <td>{{ game.total_prize }}</td>
               <td>{{ game.total_winners }}</td>
+              <td>{{ game.total_prize }}</td>
               <td>{{ game.amount_won }}</td>
               <td>{{ game.created_at }}</td>
               <td>{{ game.ended_at }}</td>
             </tr>
 
           </tbody>
+          <serv-side-nav url="'/api/get-all-games'"></serv-side-nav>
         </table>
       </table>
       </div>
@@ -98,12 +110,16 @@ angular.module('gameEarnings', []).directive('gameEarnings', ['$location','Notif
 
       $scope.viewEarnings = (game) => {
         // $scope.username = u.firstname + ' ' + u.lastname;
-        sendRequest.postRequest(route_root + '/api/get-all-game-earnings', game)
+        sendRequest.request(route_root + '/api/get-all-game-earnings?game='+game.id)
                     .then( rsp => {
-                      if (rsp.status == 200) {
-                        $scope.earningrecord = true;
-                        $scope.earnings = rsp.data.earnings;
-                      }
+                      console.log(rsp.earnings);
+                        if (undefined !== rsp.earnings) {
+                          $scope.earningrecord = true;
+                          $scope.earnings = rsp.earnings;
+                        }
+                        else {
+                          Notification.error('Error fetching details');
+                        }
                     });
       };
 
@@ -112,13 +128,13 @@ angular.module('gameEarnings', []).directive('gameEarnings', ['$location','Notif
 
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-games')
-                  .then( rsp => {
-                    if (rsp.status == 200) {
-                      $scope.games = rsp.data.games;
-                      NProgress.done();
-                    }
-                  });
+      // sendRequest.postRequest(route_root + '/api/get-all-games')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.games = rsp.data.games;
+      //                 NProgress.done();
+      //               }
+      //             });
 
     }]
   };

@@ -173,7 +173,8 @@ class AdminController extends Controller
 
     public function getAllGames(){
       return [
-        'games' => Game::all()
+        'details' => Game::latest()->remember(10)->paginate(env('ROWS_PER_PAGE')),
+
       ];
     }
 
@@ -348,7 +349,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'details' => User::with(['untransferred_earnings' => function ($q) { $q->remember(10); }, 'referrals' => function ($q) { $q->remember(10); } ])->where('role_id', env("USER_ROLE_ID"))->remember('10')->paginate(20)
+        'details' => User::with(['untransferred_earnings' => function ($q) { $q->remember(10); }, 'referrals' => function ($q) { $q->remember(10); } ])->where('role_id', env("USER_ROLE_ID"))->latest()->remember('10')->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -427,16 +428,17 @@ class AdminController extends Controller
 
     public function getAllUsersEarnings(){
       return [
-        'earnings' => Earning::with('user')->where('user_id', '!=', env('ADMIN_ROLE_ID'))->get(),
+        'details' => Earning::with(['user' => function ($q) { $q->remember(10); }])->where('user_id', '!=', env('ADMIN_ROLE_ID'))->latest()->remember(10)->paginate(env('ROWS_PER_PAGE')),
       ];
     }
 
     public function getAllAdminEarnings(){
       return [
-        'earnings' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->get(),
-        'total_untransferred' => Earning::with('user')->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount'),
-        'total_transferred' => Earning::with('user')->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount'),
-
+        'details' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->latest()->remember(10)->paginate(env('ROWS_PER_PAGE')),
+        'extras' => [
+          'total_transferred' => Earning::with(['user' => function ($q) { $q->remember(10); }])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->remember(10)->sum('amount'),
+          'total_untransferred' => Earning::with(['user' => function ($q) { $q->remember(10); }])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->remember(10)->sum('amount'),
+        ]
       ];
     }
 
@@ -460,8 +462,9 @@ class AdminController extends Controller
     }
 
     public function getAllGameEarnings(){
+      // return request()->all();
       return [
-        'earnings' => Earning::with('user')->where('game_id', request()->input('details.id'))->where('user_id', '!=', env("ADMIN_ROLE_ID"))->get()
+        'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', env("ADMIN_ROLE_ID"))->get()
       ];
     }
 

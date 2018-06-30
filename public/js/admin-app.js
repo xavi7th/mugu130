@@ -1164,7 +1164,7 @@ admin.controller('SettingsController', ['$scope', 'Notification', 'sendRequest',
 // <earning-play></earning-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n\n      <withdraw-admin-earnings class="right floated"></withdraw-admin-earnings>\n      <div class="ui labeled button" tabindex="-1">\n        <div class="ui button">\n          <i class="heart icon"></i> Total Transferred\n        </div>\n        <a class="ui basic label">\n          {{ total_transferred | currency }}\n        </a>\n      </div>\n      <div class="ui left labeled button" tabindex="-1">\n        <a class="ui basic right pointing label">\n          {{ total_untransferred | currency }}\n        </a>\n        <div class="ui button">\n          <i class="heart icon"></i> Total Untransferred\n        </div>\n      </div>\n\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> Admin </td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id"> Withdrawal Fee </td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Player Name</th>\n              <th>Payment Status</th>\n              <th>Score</th>\n              <th>Earning</th>\n              <th>Position</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings_records">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ earning.status }}</td>\n              <td>{{ earning.earning_id }}</td>\n              <td>{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.payment_status }}</td>\n              <td>{{ earning.score }}</td>\n              <td>{{ earning.earning }}</td>\n              <td>{{ earning.position }}</td>\n              <td>{{ earning.created_at }}</td>\n              <td>{{ earning.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Earnings\n            </div>\n          </div>\n      </div>\n      <br>\n      <withdraw-admin-earnings class="right floated"></withdraw-admin-earnings>\n      <div class="ui labeled button" tabindex="-1">\n        <div class="ui button">\n          <i class="heart icon"></i> Total Transferred\n        </div>\n        <a class="ui basic label">\n          {{ extras.total_transferred | currency }}\n        </a>\n      </div>\n      <div class="ui left labeled button" tabindex="-1">\n        <a class="ui basic right pointing label">\n          {{ extras.total_untransferred | currency }}\n        </a>\n        <div class="ui button">\n          <i class="heart icon"></i> Total Untransferred\n        </div>\n      </div>\n\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in data | filter : search" class="animate translate-in">\n              <td>{{ earning.id }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> Admin </td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id"> Withdrawal Fee </td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-admin-earnings\'"></serv-side-nav>\n        </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Player Name</th>\n              <th>Payment Status</th>\n              <th>Score</th>\n              <th>Earning</th>\n              <th>Position</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings_records">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ earning.status }}</td>\n              <td>{{ earning.earning_id }}</td>\n              <td>{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.payment_status }}</td>\n              <td>{{ earning.score }}</td>\n              <td>{{ earning.earning }}</td>\n              <td>{{ earning.position }}</td>\n              <td>{{ earning.created_at }}</td>\n              <td>{{ earning.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
@@ -1194,14 +1194,15 @@ angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'No
         $scope.$parent.active = 'allGames';
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-admin-earnings').then(function (rsp) {
-        if (rsp.status == 200) {
-          $scope.earnings = rsp.data.earnings;
-          $scope.total_transferred = rsp.data.total_transferred;
-          $scope.total_untransferred = rsp.data.total_untransferred;
-          NProgress.done();
-        }
-      });
+      // sendRequest.postRequest(route_root + '/api/get-all-admin-earnings')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.earnings = rsp.data.earnings;
+      //                 $scope.total_transferred = rsp.data.total_transferred;
+      //                 $scope.total_untransferred = rsp.data.total_untransferred;
+      //                 NProgress.done();
+      //               }
+      //             });
     }]
   };
 }]);
@@ -1215,7 +1216,7 @@ angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'No
 // <earning-play></earning-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;">{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id">REFERRAL BONUS</td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Player Name</th>\n              <th>Payment Status</th>\n              <th>Score</th>\n              <th>Earning</th>\n              <th>Position</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings_records">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ earning.status }}</td>\n              <td>{{ earning.earning_id }}</td>\n              <td>{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.payment_status }}</td>\n              <td>{{ earning.score }}</td>\n              <td>{{ earning.earning }}</td>\n              <td>{{ earning.position }}</td>\n              <td>{{ earning.created_at }}</td>\n              <td>{{ earning.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Earnings\n            </div>\n          </div>\n      </div>\n      <br>\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in data | filter : search" class="animate translate-in">\n              <td>{{ earning.id }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;">{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id">REFERRAL BONUS</td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-users-earnings\'"></serv-side-nav>\n        </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Player Name</th>\n              <th>Payment Status</th>\n              <th>Score</th>\n              <th>Earning</th>\n              <th>Position</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings_records">\n              <td>{{ $index + 1 }}</td>\n              <td>{{ earning.status }}</td>\n              <td>{{ earning.earning_id }}</td>\n              <td>{{ earning.user.firstname }} {{ earning.user.lastname }}</td>\n              <td>{{ earning.payment_status }}</td>\n              <td>{{ earning.score }}</td>\n              <td>{{ earning.earning }}</td>\n              <td>{{ earning.position }}</td>\n              <td>{{ earning.created_at }}</td>\n              <td>{{ earning.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('allEarnings', []).directive('allEarnings', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
@@ -1244,12 +1245,13 @@ angular.module('allEarnings', []).directive('allEarnings', ['$location', 'Notifi
         $scope.$parent.active = 'allGames';
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-users-earnings').then(function (rsp) {
-        if (rsp.status == 200) {
-          $scope.earnings = rsp.data.earnings;
-          NProgress.done();
-        }
-      });
+      // sendRequest.postRequest(route_root + '/api/get-all-users-earnings')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.earnings = rsp.data.earnings;
+      //                 NProgress.done();
+      //               }
+      //             });
     }]
   };
 }]);
@@ -1742,7 +1744,7 @@ angular.module('displayMessages', []).directive('displayMessages', ['$route', 'N
 // <earning-play></earning-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Number of Players</th>\n              <th>Max Winners</th>\n              <th>Total Winners</th>\n              <th>Total Prize</th>\n              <th>Amount Won</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="game in games">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewEarnings(game)">{{ game.status }}</td>\n              <td>{{ game.id }}</td>\n              <td>{{ game.num_of_players }}</td>\n              <td>{{ game.max_winners }}</td>\n              <td>{{ game.total_prize }}</td>\n              <td>{{ game.total_winners }}</td>\n              <td>{{ game.amount_won }}</td>\n              <td>{{ game.created_at }}</td>\n              <td>{{ game.ended_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> {{ earning.user.firstname }} {{ earning.user.lastname }} </td>\n              <td>{{ earning.amount }}</td>\n              <td>{{ earning.game_id }}</td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Games\n            </div>\n          </div>\n      </div>\n      <br>\n      <div ng-show="!earningrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Status</th>\n              <th>Session</th>\n              <th>Number of Players</th>\n              <th>Max Winners</th>\n              <th>Total Winners</th>\n              <th>Total Prize</th>\n              <th>Amount Won</th>\n              <th>Started At</th>\n              <th>Finished At</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="game in data | filter : search" class="animate translate-in">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewEarnings(game)">{{ game.status }}</td>\n              <td ng-click="viewEarnings(game)">{{ game.id }}</td>\n              <td>{{ game.num_of_players }}</td>\n              <td>{{ game.max_winners }}</td>\n              <td>{{ game.total_winners }}</td>\n              <td>{{ game.total_prize }}</td>\n              <td>{{ game.amount_won }}</td>\n              <td>{{ game.created_at }}</td>\n              <td>{{ game.ended_at }}</td>\n            </tr>\n\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-games\'"></serv-side-nav>\n        </table>\n      </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> {{ earning.user.firstname }} {{ earning.user.lastname }} </td>\n              <td>{{ earning.amount }}</td>\n              <td>{{ earning.game_id }}</td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('gameEarnings', []).directive('gameEarnings', ['$location', 'Notification', 'sendRequest', function ($location, Notification, sendRequest) {
   return {
@@ -1759,10 +1761,13 @@ angular.module('gameEarnings', []).directive('gameEarnings', ['$location', 'Noti
 
       $scope.viewEarnings = function (game) {
         // $scope.username = u.firstname + ' ' + u.lastname;
-        sendRequest.postRequest(route_root + '/api/get-all-game-earnings', game).then(function (rsp) {
-          if (rsp.status == 200) {
+        sendRequest.request(route_root + '/api/get-all-game-earnings?game=' + game.id).then(function (rsp) {
+          console.log(rsp.earnings);
+          if (undefined !== rsp.earnings) {
             $scope.earningrecord = true;
-            $scope.earnings = rsp.data.earnings;
+            $scope.earnings = rsp.earnings;
+          } else {
+            Notification.error('Error fetching details');
           }
         });
       };
@@ -1771,12 +1776,13 @@ angular.module('gameEarnings', []).directive('gameEarnings', ['$location', 'Noti
         $scope.earningrecord = false;
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-games').then(function (rsp) {
-        if (rsp.status == 200) {
-          $scope.games = rsp.data.games;
-          NProgress.done();
-        }
-      });
+      // sendRequest.postRequest(route_root + '/api/get-all-games')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.games = rsp.data.games;
+      //                 NProgress.done();
+      //               }
+      //             });
     }]
   };
 }]);
@@ -1997,6 +2003,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
         scope.next_page_url = rsp.details.next_page_url;
         scope.current_page = rsp.details.current_page;
         scope.$parent.total = rsp.details.total;
+        scope.$parent.extras = rsp.extras;
         scope.$parent.loading = false;
         NProgress.done();
       }, function (err) {
@@ -2020,6 +2027,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
           scope.next_page_url = rsp.details.next_page_url;
           scope.current_page = rsp.details.current_page;
           scope.$parent.total = rsp.details.total;
+          scope.$parent.extras = rsp.extras;
           scope.$parent.loading = false;
           NProgress.done();
         });
@@ -2037,7 +2045,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
 // <earning-play></earning-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div ng-show="!earningrecord">\n      <table class="ui  striped celled table">\n        <thead>\n          <tr>\n            <th>S/N</th>\n            <th>Name</th>\n            <th>Email</th>\n            <th>Actions</th>\n          </tr>\n        </thead>\n        <tbody>\n\n          <tr ng-repeat="u in users">\n            <td>{{ $index + 1 }}</td>\n            <td>{{ u.firstname }} {{ u.lastname }}</td>\n            <td>{{ u.email }}</td>\n            <td>\n              <div class="ui mini buttons">\n                <button class="ui purple button" ng-click="viewEarnings(u)">View Earnings</button>\n              </div>\n            </td>\n          </tr>\n\n        </tbody>\n      </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> {{ username }} </td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id">REFERRAL BONUS</td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n    <div class="ui segment compact left floated">\n      <div class="ui horizontal statistic">\n          <div class="value">\n            {{ total }}\n          </div>\n          <div class="label">\n            Earnings\n          </div>\n        </div>\n    </div>\n    <br>\n    <div ng-show="!earningrecord">\n      <table class="ui  striped celled table">\n        <thead>\n          <tr>\n            <th>S/N</th>\n            <th>Name</th>\n            <th>Email</th>\n            <th>Actions</th>\n          </tr>\n        </thead>\n        <tbody>\n\n          <tr ng-repeat="u in data | filter : search" class="animate translate-in">\n            <td>{{ $index + 1 }}</td>\n            <td>{{ u.firstname }} {{ u.lastname }}</td>\n            <td>{{ u.email }}</td>\n            <td>\n              <div class="ui mini buttons">\n                <button class="ui purple button" ng-click="viewEarnings(u)">View Earnings</button>\n              </div>\n            </td>\n          </tr>\n\n        </tbody>\n        <serv-side-nav url="\'/api/get-users-page-details\'"></serv-side-nav>\n      </table>\n      </div>\n\n      <div ng-show="earningrecord">\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Session</th>\n              <th>Status</th>\n              <th>Date</th>\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr ng-repeat="earning in earnings">\n              <td>{{ $index + 1 }}</td>\n              <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> {{ username }} </td>\n              <td>{{ earning.amount }}</td>\n              <td ng-if="earning.game_id">{{ earning.game_id }}</td>\n              <td ng-if="!earning.game_id">REFERRAL BONUS</td>\n              <td>\n                  <span ng-if="earning.transferred">Transferred</span>\n                  <span ng-if="!earning.transferred">Untransferred</span>\n              </td>\n              <td>{{ earning.created_at }}</td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('userEarnings', []).directive('userEarnings', ['sendRequest', function (sendRequest) {
   return {
@@ -2066,12 +2074,13 @@ angular.module('userEarnings', []).directive('userEarnings', ['sendRequest', fun
         $scope.earningrecord = false;
       };
 
-      sendRequest.postRequest(route_root + '/api/get-users-page-details').then(function (rsp) {
-        if (rsp.status == 200) {
-          $scope.users = rsp.data.users;
-          NProgress.done();
-        }
-      });
+      // sendRequest.postRequest(route_root + '/api/get-users-page-details')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.users = rsp.data.users;
+      //                 NProgress.done();
+      //               }
+      //             });
     }]
   };
 }]);

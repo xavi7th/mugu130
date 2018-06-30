@@ -4,7 +4,18 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
-      <div ng-show="!earningrecord">
+    <div class="ui segment compact left floated">
+      <div class="ui horizontal statistic">
+          <div class="value">
+            {{ total }}
+          </div>
+          <div class="label">
+            Earnings
+          </div>
+        </div>
+    </div>
+    <br>
+    <div ng-show="!earningrecord">
       <table class="ui  striped celled table">
         <thead>
           <tr>
@@ -16,7 +27,7 @@ var url = `
         </thead>
         <tbody>
 
-          <tr ng-repeat="u in users">
+          <tr ng-repeat="u in data | filter : search" class="animate translate-in">
             <td>{{ $index + 1 }}</td>
             <td>{{ u.firstname }} {{ u.lastname }}</td>
             <td>{{ u.email }}</td>
@@ -28,6 +39,7 @@ var url = `
           </tr>
 
         </tbody>
+        <serv-side-nav url="'/api/get-users-page-details'"></serv-side-nav>
       </table>
       </div>
 
@@ -104,13 +116,13 @@ angular.module('userEarnings', []).directive('userEarnings', ['sendRequest', fun
 
       };
 
-      sendRequest.postRequest(route_root + '/api/get-users-page-details')
-                  .then( rsp => {
-                    if (rsp.status == 200) {
-                      $scope.users = rsp.data.users;
-                      NProgress.done();
-                    }
-                  });
+      // sendRequest.postRequest(route_root + '/api/get-users-page-details')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.users = rsp.data.users;
+      //                 NProgress.done();
+      //               }
+      //             });
 
     }]
   };

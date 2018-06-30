@@ -4,19 +4,29 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
-
+      <div class="ui segment compact left floated">
+        <div class="ui horizontal statistic">
+            <div class="value">
+              {{ total }}
+            </div>
+            <div class="label">
+              Earnings
+            </div>
+          </div>
+      </div>
+      <br>
       <withdraw-admin-earnings class="right floated"></withdraw-admin-earnings>
       <div class="ui labeled button" tabindex="-1">
         <div class="ui button">
           <i class="heart icon"></i> Total Transferred
         </div>
         <a class="ui basic label">
-          {{ total_transferred | currency }}
+          {{ extras.total_transferred | currency }}
         </a>
       </div>
       <div class="ui left labeled button" tabindex="-1">
         <a class="ui basic right pointing label">
-          {{ total_untransferred | currency }}
+          {{ extras.total_untransferred | currency }}
         </a>
         <div class="ui button">
           <i class="heart icon"></i> Total Untransferred
@@ -37,8 +47,8 @@ var url = `
           </thead>
           <tbody>
 
-            <tr ng-repeat="earning in earnings">
-              <td>{{ $index + 1 }}</td>
+            <tr ng-repeat="earning in data | filter : search" class="animate translate-in">
+              <td>{{ earning.id }}</td>
               <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> Admin </td>
               <td>{{ earning.amount }}</td>
               <td ng-if="earning.game_id">{{ earning.game_id }}</td>
@@ -51,6 +61,7 @@ var url = `
             </tr>
 
           </tbody>
+          <serv-side-nav url="'/api/get-all-admin-earnings'"></serv-side-nav>
         </table>
       </div>
 
@@ -133,15 +144,15 @@ angular.module('adminEarnings', []).directive('adminEarnings', ['$location', 'No
 
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-admin-earnings')
-                  .then( rsp => {
-                    if (rsp.status == 200) {
-                      $scope.earnings = rsp.data.earnings;
-                      $scope.total_transferred = rsp.data.total_transferred;
-                      $scope.total_untransferred = rsp.data.total_untransferred;
-                      NProgress.done();
-                    }
-                  });
+      // sendRequest.postRequest(route_root + '/api/get-all-admin-earnings')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.earnings = rsp.data.earnings;
+      //                 $scope.total_transferred = rsp.data.total_transferred;
+      //                 $scope.total_untransferred = rsp.data.total_untransferred;
+      //                 NProgress.done();
+      //               }
+      //             });
 
     }]
   };

@@ -489,7 +489,7 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-live-game-session', $c.'getLiveGameSession');
 
-    Route::post('/get-all-games', $c.'getAllGames');
+    Route::get('/get-all-games', $c.'getAllGames');
 
     Route::post('/get-game-records', $c.'getGameRecords');
 
@@ -536,15 +536,15 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/delete-message', $c.'deleteMessage');
 
 
-    Route::post('/get-all-users-earnings', $c.'getAllUsersEarnings');
+    Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
 
-    Route::post('/get-all-admin-earnings', $c.'getAllAdminEarnings');
+    Route::get('/get-all-admin-earnings', $c.'getAllAdminEarnings');
 
     Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
 
-    Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
+    Route::get('/get-all-user-earnings', $c.'getAllUserEarnings');
 
-    Route::post('/get-all-game-earnings', $c.'getAllGameEarnings');
+    Route::get('/get-all-game-earnings', $c.'getAllGameEarnings');
 
   });
 

@@ -88,6 +88,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
                     scope.next_page_url = rsp.details.next_page_url;
                     scope.current_page = rsp.details.current_page;
                     scope.$parent.total = rsp.details.total;
+                    scope.$parent.extras = rsp.extras;
                     scope.$parent.loading = false;
                     NProgress.done();
                 },
@@ -113,6 +114,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
                       scope.next_page_url = rsp.details.next_page_url;
                       scope.current_page = rsp.details.current_page;
                       scope.$parent.total = rsp.details.total;
+                      scope.$parent.extras = rsp.extras;
                       scope.$parent.loading = false;
                       NProgress.done();
                     });

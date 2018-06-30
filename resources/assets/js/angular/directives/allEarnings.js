@@ -4,6 +4,17 @@
 
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
+      <div class="ui segment compact left floated">
+        <div class="ui horizontal statistic">
+            <div class="value">
+              {{ total }}
+            </div>
+            <div class="label">
+              Earnings
+            </div>
+          </div>
+      </div>
+      <br>
       <div ng-show="!earningrecord">
         <table class="ui  striped celled table">
           <thead>
@@ -18,8 +29,8 @@ var url = `
           </thead>
           <tbody>
 
-            <tr ng-repeat="earning in earnings">
-              <td>{{ $index + 1 }}</td>
+            <tr ng-repeat="earning in data | filter : search" class="animate translate-in">
+              <td>{{ earning.id }}</td>
               <td ng-click="viewGameRecord(earning)" style="cursor:pointer;">{{ earning.user.firstname }} {{ earning.user.lastname }}</td>
               <td>{{ earning.amount }}</td>
               <td ng-if="earning.game_id">{{ earning.game_id }}</td>
@@ -32,6 +43,7 @@ var url = `
             </tr>
 
           </tbody>
+          <serv-side-nav url="'/api/get-all-users-earnings'"></serv-side-nav>
         </table>
       </div>
 
@@ -113,13 +125,13 @@ angular.module('allEarnings', []).directive('allEarnings', ['$location', 'Notifi
 
       };
 
-      sendRequest.postRequest(route_root + '/api/get-all-users-earnings')
-                  .then( rsp => {
-                    if (rsp.status == 200) {
-                      $scope.earnings = rsp.data.earnings;
-                      NProgress.done();
-                    }
-                  });
+      // sendRequest.postRequest(route_root + '/api/get-all-users-earnings')
+      //             .then( rsp => {
+      //               if (rsp.status == 200) {
+      //                 $scope.earnings = rsp.data.earnings;
+      //                 NProgress.done();
+      //               }
+      //             });
 
     }]
   };
