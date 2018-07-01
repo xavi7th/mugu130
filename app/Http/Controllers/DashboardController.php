@@ -190,7 +190,10 @@ class DashboardController extends Controller
 
 
       //change the game state to waiting if timer is not up yet
-      return ['status' => true, 'user_score'=>$count];
+      return [
+        'status' => true,
+        'user_score'=>$count
+      ];
 
       // return game state
 
@@ -247,6 +250,7 @@ class DashboardController extends Controller
         'total_players' => $game->num_of_players,
         'max_winners' => $game->max_winners,
         'total_prize_money' => $game->total_prize,
+        'user_questions' => Auth::user()->load('user_questions.question')
       ];
       //
       //

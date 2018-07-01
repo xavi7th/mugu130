@@ -93,13 +93,35 @@
 
           <table class="ui  striped celled table" style="text-align: center;">
             <thead>
-              <tr ng-repeat="result in results  | orderBy: 'position'">
+              <tr ng-repeat="result in ::results  | orderBy: 'position'">
                 <th>Position - {{ result.position }}</th>
                 <th>Test Duration - {{ result.duration }} minutes</th>
                 <th>Score - {{ result.score }}</th>
                 <th>Game ID - {{ result.game_id }}</th>
               </tr>
             </thead>
+          </table>
+
+          <table class="ui red fixed single line striped celled table" style="text-align: center;">
+            <thead>
+              <tr>
+                <th colspan="3">Exam Summary</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answered Option</th>
+                <th>Verdict</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="que in user_questions">
+                <th>{{ que.question.question }}</th>
+                <th>{{ que.answered_option || 'N/A' }}</th>
+                <th>{{ que.verdict == 0 ? 'Failed' : 'Correct' }}</th>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
