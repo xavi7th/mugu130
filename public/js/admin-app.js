@@ -787,6 +787,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
 
   $scope.editQuestion = function () {
     NProgress.start();
+    $scope.creating = true;
 
     sendRequest.postRequest(route_root + '/api/edit-question', $scope.q).then(function (rsp) {
       if (rsp.status == 200) {
@@ -794,6 +795,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
         $scope.correct = null;
         $scope.q = null;
         $('.ui.modal.editQuestion').modal('hide');
+        $scope.creating = false;
         NProgress.done();
       }
     });

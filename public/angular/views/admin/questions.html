@@ -175,7 +175,7 @@
           <textarea rows="2" ng-model="q.correct_option" ng-readonly="true" ng-required></textarea>
         </div>
         <div class="field">
-          <button class="ui submit positive button" ng-disabled="edit.$invalid">Submit</button>
+          <button ng-class="['ui submit positive button', {'loading': creating}]" ng-disabled="edit.$invalid">Submit</button>
           <div class="ui negative button" ng-click="q = null">Reset</div>
           <div class="ui negative button" ng-click="closeModal()">Cancel</div>
 

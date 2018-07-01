@@ -554,4 +554,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
 });
 
+Route::get('/dashboard/game-play', function () {
+  return redirect('/dashboard');
+});
+
 Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
