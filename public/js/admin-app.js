@@ -2265,7 +2265,7 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
 // <game-play></game-play>
 
 
-var url = '\n<section id="withdrawAdminEarnings" class="ui left floated horizontal  list" style="margin-bottom: 45px;">\n\n  <button class="ui compact right floated violet button" ng-click="transferEarnings()">\n    <i class="icon credit card amazon pay"></i>\n    Withdraw Admin Earnings\n  </button>\n\n\n</section>\n';
+var url = '\n<section id="withdrawAdminEarnings" class="ui left floated horizontal  list" style="margin-bottom: 45px;">\n\n  <button class="ui compact right floated violet button" confirm-action="transferEarnings()">\n    <i class="icon credit card amazon pay"></i>\n    Withdraw Admin Earnings\n  </button>\n\n\n</section>\n';
 
 angular.module('withdrawAdminEarnings', []).directive('withdrawAdminEarnings', ['$route', 'Notification', 'sendRequest', function ($route, Notification, sendRequest) {
   return {

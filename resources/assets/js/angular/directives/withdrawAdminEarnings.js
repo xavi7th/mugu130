@@ -5,7 +5,7 @@
 var url = `
 <section id="withdrawAdminEarnings" class="ui left floated horizontal  list" style="margin-bottom: 45px;">
 
-  <button class="ui compact right floated violet button" ng-click="transferEarnings()">
+  <button class="ui compact right floated violet button" confirm-action="transferEarnings()">
     <i class="icon credit card amazon pay"></i>
     Withdraw Admin Earnings
   </button>
