@@ -558,4 +558,8 @@ Route::get('/dashboard/game-play', function () {
   return redirect('/dashboard');
 });
 
+Route::get('/dashboard/display-results', function () {
+  return redirect('/dashboard');
+});
+
 Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
