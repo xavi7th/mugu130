@@ -74,7 +74,7 @@ class User extends Authenticatable{
     ];
 
     protected $appends = [
-          'total_withdrawals', 'num_of_withdrawals'
+          'total_withdrawals', 'num_of_withdrawals', 'total_untransferred_earnings', 'total_transferred_earnings'
     ];
 
     public function setPasswordAttribute($value){
@@ -110,6 +110,14 @@ class User extends Authenticatable{
 
     public function getNumOfWithdrawalsAttribute(){
       return $this->transactions()->where('trans_type', 'withdrawal')->remember(30)->count();
+    }
+
+    public function getTotalUntransferredEarningsAttribute(){
+      return $this->hasMany(Earning::class)->where('transferred', false)->remember(30)->sum('amount');
+    }
+
+    public function getTotalTransferredEarningsAttribute(){
+      return $this->hasMany(Earning::class)->where('transferred', true)->remember(30)->sum('amount');
     }
 
     public static function totalWalletAmount(){

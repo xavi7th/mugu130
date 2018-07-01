@@ -19,15 +19,17 @@ var url = `
       <table class="ui  striped celled table">
         <thead>
           <tr>
-            <th>S/N</th>
+            <th>User ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Total Transferred</th>
+            <th>Total Untransferred</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-show="loading" class="animate fade">
-            <td colspan="4">
+            <td colspan="6">
               <div class="ui segment"  style="min-height: 300px;">
                 <div class="ui active inverted dimmer">
                   <div class="ui text loader">Loading</div>
@@ -37,9 +39,11 @@ var url = `
             </td>
           </tr>
           <tr ng-repeat="u in data | filter : search" class="animate translate-in" ng-show="!loading" >
-            <td>{{ $index + 1 }}</td>
+            <td>{{ u.id }}</td>
             <td>{{ u.firstname }} {{ u.lastname }}</td>
             <td>{{ u.email }}</td>
+            <td>{{ u.total_transferred_earnings | currency }}</td>
+            <td>{{ u.total_untransferred_earnings| currency  }}</td>
             <td>
               <div class="ui mini buttons">
                 <button class="ui purple button" ng-click="viewEarnings(u)">View Earnings</button>
@@ -48,7 +52,7 @@ var url = `
           </tr>
 
         </tbody>
-        <serv-side-nav url="'/api/get-users-page-details'"></serv-side-nav>
+        <serv-side-nav url="'/api/get-earnings-by-users-page-details'"></serv-side-nav>
       </table>
       </div>
 
@@ -112,7 +116,7 @@ angular.module('userEarnings', []).directive('userEarnings', ['sendRequest', fun
         $scope.username = u.firstname + ' ' + u.lastname;
         sendRequest.postRequest(route_root + '/api/get-all-user-earnings', u)
                     .then( rsp => {
-                      console.log(rsp);
+                      console.log(rsp.data);
                       if (rsp.status == 200) {
                         $scope.earningrecord = true;
                         $scope.earnings = rsp.data.earnings;
@@ -124,14 +128,6 @@ angular.module('userEarnings', []).directive('userEarnings', ['sendRequest', fun
         $scope.earningrecord = false;
 
       };
-
-      // sendRequest.postRequest(route_root + '/api/get-users-page-details')
-      //             .then( rsp => {
-      //               if (rsp.status == 200) {
-      //                 $scope.users = rsp.data.users;
-      //                 NProgress.done();
-      //               }
-      //             });
 
     }]
   };

@@ -481,6 +481,12 @@ class AdminController extends Controller
       ];
     }
 
+    public function getEarningsByUsersPageDetails(){
+      Cache::flush();
+      return [
+        'details' => User::with(['earnings' => function ($q) { $q->remember(10); } ])->where('role_id', env("USER_ROLE_ID"))->latest()->remember('10')->paginate(env('ROWS_PER_PAGE'))
+      ];
+    }
     public function getAllUserEarnings(){
       return [
         'earnings' => Earning::where('user_id', request()->input('details.id'))->get()

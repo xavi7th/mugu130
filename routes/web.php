@@ -538,6 +538,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
 
+    Route::get('/get-earnings-by-users-page-details', $c.'getEarningsByUsersPageDetails');
+
     Route::get('/get-all-admin-earnings', $c.'getAllAdminEarnings');
 
     Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
