@@ -50,7 +50,7 @@ let url = `
           <i class="left chevron icon"></i>
           &nbsp;&nbsp;&nbsp; Previous Page
         </a>
-        <a class="item">Current Page: {{ current_page }}</a>
+        <a class="item">Current Page: {{ current_page }} of {{ last_page }}</a>
         <a class="icon item"  ng-click="reveal(next_page_url)" ng-disabled="!next_page_url">
           Next Page &nbsp;&nbsp;&nbsp;
           <i class="right chevron icon"></i>
@@ -87,6 +87,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
                     scope.prev_page_url = rsp.details.prev_page_url;
                     scope.next_page_url = rsp.details.next_page_url;
                     scope.current_page = rsp.details.current_page;
+                    scope.last_page = rsp.details.last_page;
                     scope.$parent.total = rsp.details.total;
                     scope.$parent.extras = rsp.extras;
                     scope.$parent.loading = false;

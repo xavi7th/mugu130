@@ -909,8 +909,9 @@
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 																										<ul class="mcnTextContent" style="background-color: #eee; list-style:none; padding: 25px;">
-																											<li>Amount: <strong> ₦{{ number_format($amt, 2) }}</strong></li>
-																											<li>Fees: <strong> ₦{{ number_format($fees, 2) }}</strong></li>
+																											<li>Amount: <strong> ₦{{ number_format(($amt - $fees), 2) }}</strong></li>
+																											<li>Transaction Charges: <strong> ₦{{ number_format($fees, 2) }}</strong></li>
+																											<li>Total Amount: <strong> ₦{{ number_format($amt, 2) }}</strong></li>
 																											<li>Type: <strong> {{ $trans_type }}</strong></li>
 																											<li>Transaction ID: <strong> {{ str_random(15) }}</strong></li>
 																											<li>Status: <strong> Transaction Successful</strong></li>

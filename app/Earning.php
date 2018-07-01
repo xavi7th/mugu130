@@ -30,10 +30,41 @@ class Earning extends Model{
 
 
   public static function totalUserEarnings(){
-		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->remember(10)->sum('amount');
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->remember(10)->sum('amount'); //10
   }
 
 
+  public static function totalUserUntransferredEarnings(){
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->where('transferred', false)->remember(120)->sum('amount'); //120
+  }
+
+
+  public static function totalUserTransferredEarnings(){
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->where('transferred', true)->remember(120)->sum('amount'); //120
+  }
+
+
+  public static function totalAdminEarnings(){
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->remember(120)->sum('amount'); //120
+  }
+
+
+  public static function totalAdminUntransferredEarnings(){
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->remember(120)->sum('amount'); //120
+  }
+
+
+  public static function totalAdminTransferredEarnings(){
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->remember(120)->sum('amount'); //120
+  }
+
+	public static function totalAdminMonthEarnings(){
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->remember(120)->sum('amount'); //120
+	}
+
+	public static function totalAdminPrevMonthEarnings(){
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->whereMonth('created_at', Carbon::now()->subMonth()->month)->whereYear('created_at', Carbon::now()->year)->remember(120)->sum('amount'); //120
+	}
 
   public static function adminGameEarning($gid, $amt){
 		self::updateOrCreate(['game_id' => $gid, 'user_id' => env('ADMIN_ROLE_ID')],[

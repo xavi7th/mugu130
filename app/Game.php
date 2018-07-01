@@ -270,7 +270,12 @@ class Game extends Model{
 
 
   public static function validGamesCount(){
-		return self::where('num_of_players', '>', 1)->count();
+		return self::where('num_of_players', '>', 1)->remember(10)->count(); //10
+  }
+
+
+  public static function totalUsersInAllGames(){
+		return self::remember(10)->sum('num_of_players'); //10
   }
 
 

@@ -679,7 +679,7 @@ module.exports = 'angularUtils.directives.dirPagination';
 /* WEBPACK VAR INJECTION */(function($) {__webpack_require__("./node_modules/angular-utils-pagination/index.js");
 __webpack_require__("./node_modules/angularjs-datepicker/dist/angular-datepicker.min.js");
 
-admin = angular.module('admin', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker', 'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage', 'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions', 'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings', 'cacheBusting', 'angularUtils.directives.dirPagination', 'servSideNav']);
+admin = angular.module('admin', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', '720kb.datepicker', 'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage', 'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions', 'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings', 'cacheBusting', 'angularUtils.directives.dirPagination', 'servSideNav', 'miniGameState']);
 
 admin.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -735,6 +735,7 @@ __webpack_require__("./resources/assets/js/angular/directives/confirmAction.js")
 __webpack_require__("./resources/assets/js/angular/directives/withdrawAdminEarnings.js");
 __webpack_require__("./resources/assets/js/angular/directives/cacheBusting.js");
 __webpack_require__("./resources/assets/js/angular/directives/servSideNav.js");
+__webpack_require__("./resources/assets/js/angular/directives/miniGameState.js");
 
 __webpack_require__("./resources/assets/js/angular/routes/admin-routes.js");
 
@@ -1831,6 +1832,85 @@ angular.module('liveGameSession', []).directive('liveGameSession', ['$location',
 
 /***/ }),
 
+/***/ "./resources/assets/js/angular/directives/miniGameState.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-state><game-state>
+
+
+var url = '\n\n<div id="mini-game">\n<style>\n\n</style>\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'loading\'">\n    <div class="ui red button">\n      <i class="clock icon"></i> <ng-transclude></ng-transclude> Next Game\n    </div>\n    <a class="ui basic red left pointing label">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'active\'" ng-click="joinGame()">\n    <div class="ui green button">\n     <ng-transclude></ng-transclude>\n      <i class="gamepad icon"></i>Game On\n    </div>\n    <a class="ui basic left pointing green label" ng-click="joinGame()">\n        <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n';
+
+angular.module('miniGameState', []).directive('miniGameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      // dest : '=',
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
+        $scope.user_score = $localStorage.user_score;
+      }
+
+      // handle page reload on timer countdown so that the page can get the next thing from the server
+      $scope.pageReload = function () {
+        // location.reload();
+        sendRequest.getGameState().then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+          $scope.total_examinees = rsp.total_examinees;
+        });
+      };
+
+      $scope.joinGame = function () {
+        NProgress.start();
+
+        delete $localStorage.user_score;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+        delete $localStorage.user_questions;
+
+        sendRequest.postRequest('/user/join-game').then(function (rsp) {
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              $scope.game_state = 'transition';
+              $location.path('/dashboard/game-play');
+            }
+          } else if (rsp.status == 402) {
+            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });
+          } else if (rsp.status == 403) {
+            $scope.game_state = 'transition';
+            Notification.error({ message: 'Already in a game session.', positionX: 'center' });
+            $location.path('/dashboard/game-play');
+          }
+        });
+
+        NProgress.done();
+      };
+
+      sendRequest.getGameState().then(function (rsp) {
+        $scope.game_state = rsp.game_state;
+        $scope.game_timer = rsp.game_timer;
+        $scope.total_examinees = rsp.total_examinees;
+      });
+    }]
+  };
+}]);
+
+/***/ }),
+
 /***/ "./resources/assets/js/angular/directives/monthlyStatistic.js":
 /***/ (function(module, exports) {
 
@@ -1982,7 +2062,7 @@ angular.module('sendMessage', []).directive('sendMessage', ['Notification', 'sen
 // </div>
 
 
-var url = '\n<tfoot>\n  <style>\n    tfoot{\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n  </style>\n  {{ extras }}\n  <tr>\n    <th colspan="3">\n      <div class="ui right floated pagination menu">\n        <a class="icon item" ng-click="reveal(first_page_url)" ng-disabled="!first_page_url">\n          <i class="left chevron icon"></i>\n          <i class="left chevron icon"></i>\n          &nbsp;&nbsp;&nbsp; First Page\n        </a>\n        <a class="icon item" ng-click="reveal(prev_page_url)" ng-disabled="!prev_page_url">\n          <i class="left chevron icon"></i>\n          &nbsp;&nbsp;&nbsp; Previous Page\n        </a>\n        <a class="item">Current Page: {{ current_page }}</a>\n        <a class="icon item"  ng-click="reveal(next_page_url)" ng-disabled="!next_page_url">\n          Next Page &nbsp;&nbsp;&nbsp;\n          <i class="right chevron icon"></i>\n        </a>\n        <a class="icon item"  ng-click="reveal(last_page_url)" ng-disabled="!last_page_url">\n          Last Page &nbsp;&nbsp;&nbsp;\n          <i class="right chevron icon"></i>\n          <i class="right chevron icon"></i>\n        </a>\n      </div>\n    </th>\n  </tr>\n</tfoot>\n';
+var url = '\n<tfoot>\n  <style>\n    tfoot{\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n  </style>\n  {{ extras }}\n  <tr>\n    <th colspan="3">\n      <div class="ui right floated pagination menu">\n        <a class="icon item" ng-click="reveal(first_page_url)" ng-disabled="!first_page_url">\n          <i class="left chevron icon"></i>\n          <i class="left chevron icon"></i>\n          &nbsp;&nbsp;&nbsp; First Page\n        </a>\n        <a class="icon item" ng-click="reveal(prev_page_url)" ng-disabled="!prev_page_url">\n          <i class="left chevron icon"></i>\n          &nbsp;&nbsp;&nbsp; Previous Page\n        </a>\n        <a class="item">Current Page: {{ current_page }} of {{ last_page }}</a>\n        <a class="icon item"  ng-click="reveal(next_page_url)" ng-disabled="!next_page_url">\n          Next Page &nbsp;&nbsp;&nbsp;\n          <i class="right chevron icon"></i>\n        </a>\n        <a class="icon item"  ng-click="reveal(last_page_url)" ng-disabled="!last_page_url">\n          Last Page &nbsp;&nbsp;&nbsp;\n          <i class="right chevron icon"></i>\n          <i class="right chevron icon"></i>\n        </a>\n      </div>\n    </th>\n  </tr>\n</tfoot>\n';
 
 angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', function (sendRequest) {
   return {
@@ -2004,6 +2084,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
         scope.prev_page_url = rsp.details.prev_page_url;
         scope.next_page_url = rsp.details.next_page_url;
         scope.current_page = rsp.details.current_page;
+        scope.last_page = rsp.details.last_page;
         scope.$parent.total = rsp.details.total;
         scope.$parent.extras = rsp.extras;
         scope.$parent.loading = false;
@@ -2142,7 +2223,7 @@ angular.module('viewAllGames', []).directive('viewAllGames', ['sendRequest', fun
 // <transaction-play></transaction-play>
 
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Transactions\n            </div>\n          </div>\n      </div>\n      <br>\n      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">\n        <div class="ui icon input">\n          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">\n          <i class="search icon"></i>\n        </div>\n        <div class="results"></div>\n      </div>\n\n      <div ng-show="!transactionrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Type</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Charges</th>\n              <th>Channel</th>\n              <th>Status</th>\n              <th>Request Date</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-show="loading" class="animate fade">\n              <td colspan="8">\n                <div class="ui segment"  style="min-height: 300px;">\n                  <div class="ui active inverted dimmer">\n                    <div class="ui text loader">Loading</div>\n                  </div>\n                  <p></p>\n                </div>\n              </td>\n            </tr>\n            <tr ng-repeat="trans in data | filter : search" ng-class="[\'animate translate-in\', {\'negative\' : trans.trans_type == \'Admin Correction\'}]" ng-show="!loading">\n              <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>\n              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>\n              <td ng-if="trans.amount < 0">\u20A6{{ trans.amount }}.00</td>\n              <td>{{ trans.charges | currency }}</td>\n              <td>{{ trans.channel }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status == \'pending\'">\n                  <div ng-class="[\'ui mini red button\', {\'loading\':loading}]" ng-click="markAsPaid(trans)">\n                    <i class="tags icon"></i> Mark as Paid\n                  </div>\n                  <a class="ui basic red left pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status != \'pending\'">\n                  <div class="ui mini basic blue button">\n                    <i class="thumbs up outline icon"></i>\n                  </div>\n                  <a class="ui basic left pointing blue label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== \'withdrawal\'">\n                  <a class="ui basic pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n              </td>\n              <td>{{ trans.created_at | timeAgo }}</td>\n            </tr>\n\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-transactions\'"></serv-side-nav>\n\n        </table>\n      </div>\n\n      <div ng-show="transactionrecord" class="grid-80 prefix-10">\n\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>Detail</th>\n              <th>Value</th>\n\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr>\n              <td>User Name</td>\n              <td>{{ trans_record.user.firstname }} {{ trans_record.user.lastname }} </td>\n            </tr>\n\n            <tr>\n              <td>Email</td>\n              <td>{{ trans_record.user.email }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Number</td>\n              <td>{{ trans_record.user.phone1 }} </td>\n            </tr>\n\n            <tr>\n              <td>Bank</td>\n              <td>{{ trans_record.user.bank }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Number</td>\n              <td>{{ trans_record.user.acct_no }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Type</td>\n              <td>{{ trans_record.user.acct_type }} </td>\n            </tr>\n\n            <tr>\n              <td>Requested Amount</td>\n              <td>{{ trans_record.amount }} </td>\n            </tr>\n\n            <tr>\n              <td>Request Type</td>\n              <td>\n                <span ng-if="trans_record.amount > 1000 "> Cash </span>\n                <span ng-if="trans_record.amount < 1000 "> Recharge Card </span>\n              </td>\n            </tr>\n\n            <tr>\n              <td>Balance Units</td>\n              <td>{{ trans_record.user.available_units }} </td>\n            </tr>\n\n            <tr>\n              <td>Total Purchsaed Units</td>\n              <td>{{ trans_record.user.units_purchased }} </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Transactions\n            </div>\n          </div>\n      </div>\n      <br>\n      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">\n        <div class="ui icon input">\n          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">\n          <i class="search icon"></i>\n        </div>\n        <div class="results"></div>\n      </div>\n\n      <div ng-show="!transactionrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Type</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Charges</th>\n              <th>Channel</th>\n              <th>Status</th>\n              <th>Request Date</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-show="loading" class="animate fade">\n              <td colspan="8">\n                <div class="ui segment"  style="min-height: 300px;">\n                  <div class="ui active inverted dimmer">\n                    <div class="ui text loader">Loading</div>\n                  </div>\n                  <p></p>\n                </div>\n              </td>\n            </tr>\n            <tr ng-repeat="trans in data | filter : search" ng-class="[\'animate translate-in\', {\'negative\' : trans.trans_type == \'Admin Correction\'}]" ng-show="!loading">\n              <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>\n              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>\n              <td ng-if="trans.amount < 0">\u20A6{{ trans.amount }}.00</td>\n              <td>{{ trans.charges | currency }}</td>\n              <td>{{ trans.channel }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status == \'pending\'">\n                  <div ng-class="[\'ui mini red button\', {\'loading\':loading}]" ng-click="markAsPaid(trans)">\n                    <i class="tags icon"></i> Mark as Paid\n                  </div>\n                  <a class="ui basic red left pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status != \'pending\'">\n                  <div class="ui mini basic blue button">\n                    <i class="thumbs up outline icon"></i>\n                  </div>\n                  <a class="ui basic left pointing blue label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== \'withdrawal\'">\n                  <a class="ui basic pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n              </td>\n              <td>{{ trans.created_at | timeAgo }}</td>\n            </tr>\n\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-transactions\'"></serv-side-nav>\n\n        </table>\n      </div>\n\n      <div ng-show="transactionrecord" class="grid-80 prefix-10">\n\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>Detail</th>\n              <th>Value</th>\n\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr>\n              <td>User Name</td>\n              <td>{{ trans_record.user.firstname }} {{ trans_record.user.lastname }} </td>\n            </tr>\n\n            <tr>\n              <td>Email</td>\n              <td>{{ trans_record.user.email }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Number</td>\n              <td>{{ trans_record.user.phone1 }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Network</td>\n              <td>{{ trans_record.user.network | uppercase }} </td>\n            </tr>\n\n            <tr>\n              <td>Bank</td>\n              <td>{{ trans_record.user.bank }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Number</td>\n              <td>{{ trans_record.user.acct_no }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Type</td>\n              <td>{{ trans_record.user.acct_type }} </td>\n            </tr>\n\n            <tr>\n              <td>Requested Amount</td>\n              <td>{{ trans_record.amount }} </td>\n            </tr>\n\n            <tr>\n              <td>Request Type</td>\n              <td>\n                <span ng-if="trans_record.amount > 1000 "> Cash </span>\n                <span ng-if="trans_record.amount < 1000 "> Recharge Card </span>\n              </td>\n            </tr>\n\n            <tr>\n              <td>Balance Units</td>\n              <td>{{ trans_record.user.available_units }} </td>\n            </tr>\n\n            <tr>\n              <td>Total Purchsaed Units</td>\n              <td>{{ trans_record.user.units_purchased }} </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('displayTransactions', []).directive('displayTransactions', ['sendRequest', function (sendRequest) {
   return {
@@ -2608,12 +2689,15 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
     dashboard: function dashboard(scope) {
 
       sendRequest.postRequest(route_root + '/api/get-dashboard-page-details').then(function (rsp) {
-        if (rsp.status == 200) {}
+        if (rsp.status == 200) {
+          scope.details = rsp.data.details;
+        }
       });
       scope.$on('$viewContentLoaded', function () {
         $timeout(function () {
           $('.dropdown_menu').dropdown();
           $('.shape').shape();
+          $('#profile-menu .item').tab();
           NProgress.done();
         }, 500);
       });

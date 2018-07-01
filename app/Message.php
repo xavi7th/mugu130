@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class Message extends Model{
 
-	use SoftDeletes;
+	// use SoftDeletes;
 	use Rememberable;
 
   protected $guarded = [];
@@ -69,7 +69,6 @@ class Message extends Model{
                     ]);
 		return true;
   }
-
 
 
 }

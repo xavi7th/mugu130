@@ -1662,12 +1662,15 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
     dashboard: function dashboard(scope) {
 
       sendRequest.postRequest(route_root + '/api/get-dashboard-page-details').then(function (rsp) {
-        if (rsp.status == 200) {}
+        if (rsp.status == 200) {
+          scope.details = rsp.data.details;
+        }
       });
       scope.$on('$viewContentLoaded', function () {
         $timeout(function () {
           $('.dropdown_menu').dropdown();
           $('.shape').shape();
+          $('#profile-menu .item').tab();
           NProgress.done();
         }, 500);
       });

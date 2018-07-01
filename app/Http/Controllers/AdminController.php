@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Game;
 use App\Earning;
 use App\Message;
 use App\Question;
+use App\Referral;
 use App\Transaction;
 use App\UserGameSession;
 use App\Mail\TransactionalMail;
@@ -40,14 +42,44 @@ class AdminController extends Controller
     }
 
     public function getDashboardPageDetails(){
-
-      return [
-        'total_amount_withdrawn' => Transaction::totalAmountWithdrawn(),
-        'total_number_of_withdrawal_requests' => Transaction::totalNumberOfRequests(),
-        'total_wallet_amount' => User::totalWalletAmount(),
-        'total_number_of_wallet_fundings' => Transaction::totalWalletFundingCount(),
-        'total_earnings' => Earning::totalUserEarnings(),
-        'total_games_played' => Game::validGamesCount(),
+      // Cache::flush();
+      return  [
+        'details' => [
+                    'num_of_admins' => User::remember(120)->where('role_id', env('ADMIN_ROLE_ID'))->count(),
+                    'num_of_questions' => Question::remember(120)->count(),
+                    'num_of_messages' => Message::where('read', false)->remember(30)->count(),
+                    'admin_message_status' => Message::remember(30)->find(1)->read,
+                    'total_referrals' => Referral::remember(120)->count('referral_id'),
+                    'total_referrers' => Referral::distinct()->remember(240)->count('user_id'),
+                    'top_referrer' => Referral::select(DB::raw('count(referral_id) as referral_count, user_id'))->groupBy('user_id')->orderBy('referral_count', 'DESC')->remember(240)->first()->load(['user' => function ($q) { $q->remember(240); }]),
+                    'active_subscribers' => User::where('available_units', '>', 35)->remember(120)->count(),
+                    'verified_accounts' => User::where('verified', true)->remember(240)->count(),
+                    'suspended_accounts' => User::where('useraccstatus', 'suspended')->remember(240)->count(),
+                    'total_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->remember(120)->count(),
+                    'total_pending_withdrawals' => Transaction::totalNumberOfRequests(),
+                    'no_of_cash_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->remember(120)->count(),
+                    'no_of_airtime_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->remember(120)->count(),
+                    'total_cash_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->remember(120)->sum('amount'),
+                    'total_airtime_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->remember(120)->sum('amount'),
+                    'total_amount_withdrawn' => Transaction::totalAmountWithdrawn(),
+                    'total_wallet_amount' => User::totalWalletAmount(),
+                    'total_wallet_funding' => Transaction::totalWalletFundingAmount(),
+                    'total_number_of_wallet_funding' => Transaction::totalWalletFundingCount(),
+                    'total_number_of_online_wallet_fundings' => Transaction::totalOnlineWalletFundingCount(),
+                    'total_number_of_offline_wallet_fundings' => Transaction::totalOfflineWalletFundingCount(),
+                    'total_all_time_user_earnings' => Earning::totalUserEarnings(),
+                    'total_user_untransferred_earnings' => Earning::totalUserUntransferredEarnings(),
+                    'total_user_transferred_earnings' => Earning::totalUserTransferredEarnings(),
+                    'total_all_time_admin_earnings' => Earning::totalAdminEarnings(),
+                    'total_admin_untransferred_earnings' => Earning::totalAdminUntransferredEarnings(),
+                    'total_admin_transferred_earnings' => Earning::totalAdminTransferredEarnings(),
+                    'admin_month_earnings' => Earning::totalAdminMonthEarnings(),
+                    'admin_previous_month_earnings' => Earning::totalAdminPrevMonthEarnings(),
+                    'total_valid_games_played' => Game::validGamesCount(),
+                    'total_users_in_all_games' => Game::totalUsersInAllGames(),
+                    'top_player' => UserGameSession::remember(60)->groupBy('user_id')->orderBy('games_count', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user' => function ($q) { $q->remember(240); }]),
+                    'top_winner' => UserGameSession::remember(60)->groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user' => function ($q) { $q->remember(240); }]),
+                ]
       ];
     }
 

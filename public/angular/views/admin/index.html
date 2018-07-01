@@ -1,244 +1,301 @@
 <div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
   <ng-include src="'angular/views/partials/admin-menu.html'"></ng-include>
 
+<style media="screen">
+
+  #dashboard{
+    padding-top: 30px !important;
+  }
+  [name="ppleshape"]{
+    width: 100% !important;
+  }
+  [name="ppleshape"] *{
+    width: 100% !important;
+  }
+  [name="ppleshape"] i{
+    padding-top: 20px !important;
+  }
+  [name="ppleshape"] .label{
+    padding-bottom: 20px !important;
+  }
+  #details-section{
+    background-color: #fdfdfd;
+    margin-top: 45px;
+    padding: 45px 20px;
+  }
+</style>
 
   <section id="dashboard">
     <div class="grid-container">
       <div class="grid-100 grid-parent">
         <div class="grid-25">
-          <div class="ui segment compact">
-            <div class="ui statistic">
-              <div class="value">
-                5,550
-              </div>
-              <div class="label">
-                signups this week
-              </div>
-            </div>
-          </div>
-          <div class="ui segment compact">
-            <div class="ui statistic">
-              <div class="value">
-                5,550
-              </div>
-              <div class="label">
-                signups this week
-              </div>
-            </div>
-          </div>
-          <div class="ui segment compact">
-            <div class="ui statistic">
-              <div class="value">
-                5,550
-              </div>
-              <div class="label">
-                signups this week
-              </div>
-            </div>
-          </div>
-          <div class="ui segment compact">
-            <div class="ui statistic">
-              <div class="value">
-                5,550
-              </div>
-              <div class="label">
-                signups this week
-              </div>
-            </div>
-          </div>
-          <div class="ui segment compact">
-            <div class="ui statistic">
-              <div class="value">
-                5,550
-              </div>
-              <div class="label">
-                signups this week
+          <div class="ui people shape" name="ppleshape">
+            <div class="sides">
+              <div class="side active">
+                <div class="ui card" style="width:100%;">
+
+                  <div class="ui statistic">
+                    <div class="value">
+                    <i class="user secret icon" style="color: #03A9F4; text-shadow:1px 1px 2px #999;"></i><span style="color: #03A9F4; text-shadow:1px 1px 2px #999;">{{ details.num_of_admins }}</span>
+                    </div>
+                    <div class="label">
+                      Admin(s)
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="grid-25">
-          <div class="ui people shape">
+          <div class="ui people shape" name="ppleshape">
             <div class="sides">
-
               <div class="side active">
                 <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
+
                   <div class="ui statistic">
                     <div class="value">
-                      <img src="/img/avatar.png" class="ui circular inline image"> 42
+                      <i class="question circle icon"></i> {{ details.num_of_questions }}
                     </div>
                     <div class="label">
-                      Team Members
+                      Questions
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="side">
-                <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
-                    <div class="value">
-                      5,550
-                    </div>
-                    <div class="label">
-                      signups this week
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="side">
-                <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
-                    <div class="value">
-                      <i class="cart arrow down icon"></i> 5000
-                    </div>
-                    <div class="label">
-                      units purchased
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
-
-          </div>
-          <div class="ui ignored icon direction buttons" style="width:100%;">
-            <div class="ui icon button" ng-click="flipLeft()"><i class="left long arrow icon"></i> Previous </div>
-            <div class="ui icon button" ng-click="flipRight()">Next <i class="right long arrow icon"></i></div>
           </div>
         </div>
         <div class="grid-25">
-          <div class="ui people shape">
+          <div class="ui people shape" name="ppleshape">
             <div class="sides">
-
               <div class="side active">
                 <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
+
+                  <div class="ui statistic" style="color: red">
                     <div class="value">
-                      <img src="/img/avatar.png" class="ui circular inline image"> 42
+                      <i class="info circle icon" style="color: red" ng-if="details.num_of_messages != 0"></i> <span style="color: red" ng-if="details.num_of_messages != 0">{{ details.num_of_messages }}</span>
+                      <i class="thumbs up icon" ng-if="details.num_of_messages == 0"></i> <span ng-if="details.num_of_messages == 0">{{ details.num_of_messages }}</span>
                     </div>
                     <div class="label">
-                      Team Members
+                      INTRUSION
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="side">
-                <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
-                    <div class="value">
-                      5,550
-                    </div>
-                    <div class="label">
-                      signups this week
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="side">
-                <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
-                    <div class="value">
-                      <i class="cart arrow down icon"></i> 5000
-                    </div>
-                    <div class="label">
-                      units purchased
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
-
-          </div>
-          <div class="ui ignored icon direction buttons" style="width:100%;">
-            <div class="ui icon button" ng-click="flipLeft()"><i class="left long arrow icon"></i> Previous </div>
-            <div class="ui icon button" ng-click="flipRight()">Next <i class="right long arrow icon"></i></div>
           </div>
         </div>
         <div class="grid-25">
-          <div class="ui people shape">
+          <div class="ui people shape" name="ppleshape">
             <div class="sides">
-
               <div class="side active">
                 <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
+
                   <div class="ui statistic">
                     <div class="value">
-                      <img src="/img/avatar.png" class="ui circular inline image"> 42
+                      <i class="toggle on icon" ng-if="!details.admin_message_status" style="color: green"></i> <span ng-if="!details.admin_message_status" style="color: green">LIVE</span>
+                      <i class="toggle off icon" ng-if="details.admin_message_status" style="color: red"></i> <span ng-if="details.admin_message_status" style="color: red">OFF</span>
                     </div>
                     <div class="label">
-                      Team Members
+                      Admin Message
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="side">
-                <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
-                    <div class="value">
-                      5,550
-                    </div>
-                    <div class="label">
-                      signups this week
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="side">
-                <div class="ui card" style="width:100%;">
-                  <div class="image">
-                    <img src="/img/4.jpg">
-                  </div>
-                  <div class="ui statistic">
-                    <div class="value">
-                      <i class="cart arrow down icon"></i> 5000
-                    </div>
-                    <div class="label">
-                      units purchased
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
-
-          </div>
-          <div class="ui ignored icon direction buttons" style="width:100%;">
-            <div class="ui icon button" ng-click="flipLeft()"><i class="left long arrow icon"></i> Previous </div>
-            <div class="ui icon button" ng-click="flipRight()">Next <i class="right long arrow icon"></i></div>
           </div>
         </div>
       </div>
     </div>
+    <div class="grid-container" id="details-section">
+      <div class="grid-15 tablet-grid-15">
+        <div id="profile-menu" class="ui compact vertical labeled icon menu">
+          <a class="item active" data-tab="users">
+            <i class="area chart icon"></i>
+            Users
+          </a>
+          <a class="item" data-tab="transactions">
+            <i class="visa icon"></i>
+            User Transactions
+          </a>
+          <a class="item" data-tab="earnings">
+            <i class="dollar icon"></i>
+            Earnings
+          </a>
+          <a class="item" data-tab="games">
+            <i class="user icon"></i>
+            Games
+          </a>
+        </div>
+      </div>
+      <div class="grid-85 tablet-grid-85">
+        <div class="ui tab active" data-tab="users">
+
+          <table class="ui blue striped celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Referrals</td>
+                <td>{{ details.total_referrals }}</td>
+              </tr>
+              <tr>
+                <td>Total Referrers</td>
+                <td>{{ details.total_referrers }}</td>
+              </tr>
+              <tr>
+                <td>Top Referrer</td>
+                <td>{{ details.top_referrer.user.firstname }} ({{ details.top_referrer.referral_count }} referrals)</td>
+              </tr>
+              <tr>
+                <td>Active Subscribers</td>
+                <td>{{ details.active_subscribers }}</td>
+              </tr>
+              <tr>
+                <td>Verified Accounts</td>
+                <td>{{ details.verified_accounts }}</td>
+              </tr>
+              <tr>
+                <td>Suspended Accounts</td>
+                <td>{{ details.suspended_accounts }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ui tab" data-tab="transactions">
+          <table class="ui blue striped celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Approved Withdrawals</td>
+                <td>{{ details.total_approved_withdrawals }}</td>
+              </tr>
+              <tr>
+                <td>Pending Withdrawals</td>
+                <td>{{ details.total_pending_withdrawals }}</td>
+              </tr>
+              <tr>
+                <td>No of Withdrawals Cash vs Airtime</td>
+                <td>{{ details.no_of_cash_approved_withdrawals }} vs {{ details.no_of_airtime_approved_withdrawals }}</td>
+              </tr>
+              <tr>
+                <td>Withdrawn Amount Cash vs Airtime</td>
+                <td>{{ details.total_cash_approved_withdrawals_amount | currency }} &nbsp; vs &npsb; {{ details.total_airtime_approved_withdrawals_amount | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total Amount Withdrawn</td>
+                <td>{{ details.total_amount_withdrawn | currency  }}</td>
+              </tr>
+              <tr>
+                <td>Total Wallet Amount</td>
+                <td>{{ details.total_wallet_amount | currency  }}</td>
+              </tr>
+              <tr>
+                <td>Total Wallet Funding</td>
+                <td>{{ details.total_wallet_funding | currency  }}</td>
+              </tr>
+              <tr>
+                <td>Total no. of User Wallet Funding</td>
+                <td>{{ details.total_number_of_wallet_funding }}</td>
+              </tr>
+              <tr>
+                <td>Num of Online Funding</td>
+                <td>{{ details.total_number_of_online_wallet_fundings }}</td>
+              </tr>
+              <tr>
+                <td>Num of Offline Funding</td>
+                <td>{{ details.total_number_of_offline_wallet_fundings }}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="ui tab" data-tab="earnings">
+          <table class="ui blue striped celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total User all time earnings</td>
+                <td>{{ details.total_all_time_user_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total User Untransferred</td>
+                <td>{{ details.total_user_untransferred_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total User Transferred</td>
+                <td>{{ details.total_user_transferred_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total Admin all time earnings</td>
+                <td>{{ details.total_all_time_admin_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total Admin Unransferred</td>
+                <td>{{ details.total_admin_untransferred_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Total Admin Transferred</td>
+                <td>{{ details.total_admin_transferred_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Admin Earning for the month</td>
+                <td>{{ details.admin_month_earnings | currency }}</td>
+              </tr>
+              <tr>
+                <td>Admin Earning for previous month</td>
+                <td>{{ details.admin_previous_month_earnings | currency }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ui tab" data-tab="games">
+          <table class="ui blue celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Valid Games Played</td>
+                <td>{{ details.total_valid_games_played }}</td>
+              </tr>
+              <tr>
+                <td>Users in all games</td>
+                <td>{{ details.total_users_in_all_games }}</td>
+              </tr>
+              <tr>
+                <td>Top Player</td>
+                <td>{{ details.top_player.user.firstname }} ({{ details.top_player.games_count }} games played)</td>
+              </tr>
+              <tr>
+                <td>Top Winner</td>
+                <td>{{ details.top_winner.user.firstname }} ({{ details.top_winner.user_earnings | currency }} earned)</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <footer ng-include src="'angular/views/partials/footer.html'"></footer>

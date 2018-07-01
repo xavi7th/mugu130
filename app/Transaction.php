@@ -14,23 +14,33 @@ class Transaction extends Model{
 
   protected $guarded = [];
   protected $dates = ['deleted_at'];
-	public $rememberFor = 5;
+	public $rememberFor = 5; //5
 
 	 public function user(){
 			 return $this->belongsTo(User::class);
 	 }
 
 	 public static function totalAmountWithdrawn(){
-			 return self::where('trans_type', 'withdrawal')->where('status', 'completed')->get();
+			 return self::where('trans_type', 'withdrawal')->where('status', 'completed')->remember(240)->sum('amount'); //240
 	 }
 
 	 public static function totalNumberOfRequests(){
-			 return self::where('trans_type', 'withdrawal')->where('status', 'pending')->count();
+			 return self::where('trans_type', 'withdrawal')->where('status', 'pending')->remember(240)->count(); //240
 	 }
 
 	 public static function totalWalletFundingCount(){
-		 // return self::where('trans_type', 'wallet funding')->where('status', 'completed')->sum('amount');
-		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->count();
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->remember(240)->count(); //240
+	 }
+
+	 public static function totalOnlineWalletFundingCount(){
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'online')->remember(240)->count(); //240
+	 }
+
+	 public static function totalOfflineWalletFundingCount(){
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'bank deposit')->remember(240)->count(); //240
+	 }
+	 public static function totalWalletFundingAmount(){
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->remember(240)->sum('amount'); //240
 	 }
 
 }

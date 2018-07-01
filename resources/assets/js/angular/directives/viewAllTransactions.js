@@ -122,6 +122,11 @@ var url = `
             </tr>
 
             <tr>
+              <td>Phone Network</td>
+              <td>{{ trans_record.user.network | uppercase }} </td>
+            </tr>
+
+            <tr>
               <td>Bank</td>
               <td>{{ trans_record.user.bank }} </td>
             </tr>

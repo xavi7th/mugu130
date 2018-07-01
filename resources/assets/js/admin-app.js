@@ -7,7 +7,7 @@
                   'parseHTML', 'customFileChange', 'customFileUpload', 'countdownTimer', 'sendMessage', 'bootstrapAdminPage',
                   'liveGameSession', 'viewAllGames', 'dailyGameLog', 'dailyStatistics', 'monthlyStatistics', 'displayTransactions',
                   'displayMessages', 'userEarnings', 'allEarnings', 'adminEarnings', 'gameEarnings', 'confirmAction', 'withdrawAdminEarnings',
-                  'cacheBusting', 'angularUtils.directives.dirPagination', 'servSideNav'
+                  'cacheBusting', 'angularUtils.directives.dirPagination', 'servSideNav', 'miniGameState'
                 ]);
 
   admin.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -69,6 +69,7 @@
   require('./angular/directives/withdrawAdminEarnings');
   require('./angular/directives/cacheBusting');
   require('./angular/directives/servSideNav');
+  require('./angular/directives/miniGameState');
 
 
   require('./angular/routes/admin-routes');
