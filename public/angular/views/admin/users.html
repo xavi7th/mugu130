@@ -120,10 +120,14 @@
               <input type="number" name="available_units" placeholder="Wallet Balance" ng-model="u.available_units" ng-readonly="true">
             </div>
           </div>
-          <div class="two fields">
+          <div class="three fields">
             <div class="field">
-              <label>Earnings Balance</label>
-              <input type="number" name="earnings" placeholder="Earnings Balance" ng-model="earnings" ng-readonly="true">
+              <label>Transferred Earnings</label>
+              <input type="number" name="transferred_earnings" placeholder="Transferred Earnings" ng-model="u.total_transferred_earnings" ng-readonly="true">
+            </div>
+            <div class="field">
+              <label>Untransferred Earnings Balance</label>
+              <input type="number" name="untransferred_earnings" placeholder="Untransferred Earnings" ng-model="u.total_untransferred_earnings" ng-readonly="true">
             </div>
             <div class="field">
               <label>Number of Referrals</label>
