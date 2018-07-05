@@ -237,7 +237,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.openEditModal = (u) => {
     $scope.u = u;
-    $scope.earnings = _.sumBy(u.untransferred_earnings, function(o) { return o.amount; });
 
     $('.ui.modal.editUser').modal({
       blurring: true

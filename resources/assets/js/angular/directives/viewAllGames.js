@@ -10,7 +10,7 @@ var url = `
               {{ total }}
             </div>
             <div class="label">
-              Earnings
+              Games
             </div>
           </div>
       </div>

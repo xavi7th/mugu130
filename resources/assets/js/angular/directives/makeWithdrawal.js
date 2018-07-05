@@ -43,7 +43,7 @@ var url = `
           <i class="checkmark icon"></i>
         </div>
       </div>
-      <div class="image content flex-center">
+      <div class="image content" style="flex-direction:column;">
         <div class="ui icon mini message positive">
           <i class="inbox icon"></i>
           <div class="content">
@@ -52,6 +52,16 @@ var url = `
             </div>
             <p> For withdrawals below ₦1000, a service fee of ₦70 will be charged. </p>
             <p> While an additional service fee of ₦70 will be charged for every ₦5000.</p>
+          </div>
+        </div>
+        <div class="ui icon mini message">
+          <i class="inbox icon"></i>
+          <div class="content">
+            <div class="header">
+              NOTE:
+            </div>
+            <p> Withdrawals below ₦1000 will be sent to your registered phone number as credit. </p>
+            <p> While withdrawals above ₦1000 will be sent to your registered bank account.</p>
           </div>
         </div>
       </div>

@@ -9,7 +9,11 @@
     <div class="grid-container">
       <div class="grid-15 tablet-grid-15">
         <div id="profile-menu" class="ui compact vertical labeled icon menu">
-          <a class="item active" data-tab="statistics">
+          <a class="item active" data-tab="profile">
+            <i class="user icon"></i>
+            User Details
+          </a>
+          <a class="item" data-tab="statistics">
             <i class="area chart icon"></i>
             Statistics
           </a>
@@ -21,14 +25,59 @@
             <i class="dollar icon"></i>
             Earnings
           </a>
-          <a class="item" data-tab="profile">
-            <i class="user icon"></i>
-            User Details
-          </a>
+
         </div>
       </div>
       <div class="grid-85 tablet-grid-85">
-        <div class="ui tab active" data-tab="statistics">
+        <div class="ui active tab" data-tab="profile">
+          <div class="ui compact segment">
+            <p>User Details</p>
+          </div>
+          <table class="ui blue celled table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>E-mail</td>
+                <td>{{ userdetails.email || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Phone Number</td>
+                <td>{{ userdetails.phone1 || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td>Phone Network</td>
+                <td>{{ userdetails.network || 'N/A' | uppercase }}</td>
+              </tr>
+              <tr>
+                <td>Address</td>
+                <td>{{ userdetails.address || 'N/A'  }}, {{ userdetails.town }}, {{ userdetails.state }}</td>
+              </tr>
+              <tr>
+                <td>My bank</td>
+                <td>{{ userdetails.bank || 'N/A'  }}</td>
+              </tr>
+              <tr>
+                <td>Account Name</td>
+                <td>{{ userdetails.firstname }} {{ userdetails.lastname }}</td>
+              </tr>
+              <tr>
+                <td>Account Number</td>
+                <td>{{ userdetails.acct_no || 'N/A'  }}</td>
+              </tr>
+              <tr>
+                <td>Account Type</td>
+                <td>{{ userdetails.acct_type || 'N/A'  }}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="ui tab " data-tab="statistics">
           <div class="ui compact segment">
             <p>Statistics</p>
           </div>
@@ -73,13 +122,13 @@
                 <td>{{ _.sumBy(_.filter(user_earnings, ['amount', 1]), 'amount') | currency }}</td>
               </tr>
               <tr ng-class="{'negative': userdetails.units_purchased < 0}">
-                <td>Total account funding made</td>
+                <td>Total wallet funding made</td>
                 <!-- <td ng-if="userdetails.units_purchased > 0">{{ userdetails.units_purchased | currency }}</td>
                 <td ng-if="userdetails.units_purchased < 0">₦ {{ userdetails.units_purchased }}.00</td> -->
                 <td>{{ _.sumBy(_.filter(user_transactions, { 'status': 'completed', 'trans_type': 'wallet funding' }), 'amount') | currency }}</td>
               </tr>
               <tr ng-class="{'negative': userdetails.units_purchased < 0}">
-                <td>Total no. of account funding</td>
+                <td>Total no. of wallet funding</td>
                 <td>{{ _.size(_.filter(user_transactions, { 'status': 'completed', 'trans_type': 'wallet funding' })) }}</td>
               </tr>
 
@@ -144,54 +193,7 @@
             </tbody>
           </table>
         </div>
-        <div class="ui tab" data-tab="profile">
-          <div class="ui compact segment">
-            <p>User Details</p>
-          </div>
-          <table class="ui blue celled table">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>E-mail</td>
-                <td>{{ userdetails.email || 'N/A' }}</td>
-              </tr>
-              <tr>
-                <td>Phone Number</td>
-                <td>{{ userdetails.phone1 || 'N/A' }}</td>
-              </tr>
-              <tr>
-                <td>Phone Network</td>
-                <td>{{ userdetails.network || 'N/A' | uppercase }}</td>
-              </tr>
-              <tr>
-                <td>Address</td>
-                <td>{{ userdetails.address || 'N/A'  }}, {{ userdetails.town }}, {{ userdetails.state }}</td>
-              </tr>
-              <tr>
-                <td>My bank</td>
-                <td>{{ userdetails.bank || 'N/A'  }}</td>
-              </tr>
-              <tr>
-                <td>Account Name</td>
-                <td>{{ userdetails.firstname }} {{ userdetails.lastname }}</td>
-              </tr>
-              <tr>
-                <td>Account Number</td>
-                <td>{{ userdetails.acct_no || 'N/A'  }}</td>
-              </tr>
-              <tr>
-                <td>Account Type</td>
-                <td>{{ userdetails.acct_type || 'N/A'  }}</td>
-              </tr>
 
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   </section>
