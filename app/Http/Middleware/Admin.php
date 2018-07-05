@@ -43,6 +43,9 @@ class Admin
 			if ($request->session()->get('IDLE_TIME') > 60 * env('ADMIN_MAX_IDLE_TIME') ) {
 					session(['ADMIN_ERROR' => 'Account logged out automatically after 5 mins. Relogin to continue.']);
 					Auth::logout();
+					if (request()->ajax()) {
+						return response()->json(['status' => 'Account logged out automatically after 5 mins. Relogin to continue.' ], 401);
+					}
 					return redirect()->route('login');
 			}
 

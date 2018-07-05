@@ -849,26 +849,6 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
     },
 
     users: function users(scope) {
-
-      // sendRequest.postRequest(route_root + '/api/get-users-page-details')
-      //           .then(function (rsp) {
-      //             if (rsp.status == 200) {
-      //               scope.extras = {};
-      //               scope.users = rsp.data.users.data;
-      //               scope.extras.first_page_url = rsp.data.users.first_page_url;
-      //               scope.extras.last_page_url = rsp.data.users.last_page_url;
-      //               scope.extras.prev_page_url = rsp.data.users.prev_page_url;
-      //               scope.extras.next_page_url = rsp.data.users.next_page_url;
-      //               scope.total_users = rsp.data.users.total;
-      //               NProgress.done();
-      //               console.log(scope.extras);
-      //               scope.loading = false;
-      //             }
-      //           },
-      //         err => {
-      //           Notification.error('Error retrieving users from server');
-      //         });
-
       sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
         scope.banks = rsp.banks;
       });
