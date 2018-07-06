@@ -740,9 +740,14 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
           });
         }, 500);
       });
-      scope.$on('$destroy', function () {
+      scope.$on('$locationChangeStart', function (e) {
+        e.preventDefault();
         $timeout(function () {
           sendRequest.postRequest('/user/pause-game');
+        }, 0);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {
           Echo.leave('exam_member_count');
         }, 0);
       });
