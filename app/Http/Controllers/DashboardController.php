@@ -152,7 +152,6 @@ class DashboardController extends Controller
     }
 
     public function resumeGame(){
-
       session(['GAME_STATE' => 'active']);
       return ['status' => true];
     }

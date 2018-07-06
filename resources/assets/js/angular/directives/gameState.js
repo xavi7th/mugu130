@@ -185,7 +185,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
         //Send a request to resume the game and set the session back to active
 
-        $scope.displayResults();
+        // $scope.displayResults();
       };
 
       // handle page reload on timer countdown so that the page can get the next thing from the server

@@ -639,7 +639,7 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
 
         //Send a request to resume the game and set the session back to active
 
-        $scope.displayResults();
+        // $scope.displayResults();
       };
 
       // handle page reload on timer countdown so that the page can get the next thing from the server
@@ -1603,9 +1603,14 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
           });
         }, 500);
       });
-      scope.$on('$destroy', function () {
+      scope.$on('$locationChangeStart', function (e) {
+        e.preventDefault();
         $timeout(function () {
           sendRequest.postRequest('/user/pause-game');
+        }, 0);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {
           Echo.leave('exam_member_count');
         }, 0);
       });
