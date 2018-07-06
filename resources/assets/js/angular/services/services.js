@@ -240,7 +240,9 @@
              }, 500);
           });
           scope.$on('$locationChangeStart', function(e) {
-            e.preventDefault();
+            if (!sendRequest.getData('prevent')) {
+              e.preventDefault();
+            }
             $timeout(function () {
               sendRequest.postRequest('/user/pause-game');
             }, 0);

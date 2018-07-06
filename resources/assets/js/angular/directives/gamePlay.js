@@ -158,6 +158,7 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 
       $scope.submitExam = () => {
         $scope.loading = true;
+        sendRequest.storeData('prevent', true);
 
         sendRequest.postRequest('/user/submit-exam', $scope.user_questions)
                  .then(function (rsp) {
