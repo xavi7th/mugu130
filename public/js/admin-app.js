@@ -787,6 +787,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
 
   $scope.editQuestion = function () {
     NProgress.start();
+    $scope.creating = true;
 
     sendRequest.postRequest(route_root + '/api/edit-question', $scope.q).then(function (rsp) {
       if (rsp.status == 200) {
@@ -794,6 +795,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
         $scope.correct = null;
         $scope.q = null;
         $('.ui.modal.editQuestion').modal('hide');
+        $scope.creating = false;
         NProgress.done();
       }
     });
@@ -2635,6 +2637,7 @@ angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$loca
           }
           if (rsp.data != 'invalid') {
             scope.results = rsp.data.results;
+            scope.user_questions = rsp.data.user_questions.user_questions;
             scope.user_earning = _.parseInt(rsp.data.user_earning);
             scope.max_winners = _.parseInt(rsp.data.max_winners);
             scope.total_players = _.parseInt(rsp.data.total_players);

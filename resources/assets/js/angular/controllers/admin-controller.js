@@ -39,6 +39,7 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
 
   $scope.editQuestion = () => {
     NProgress.start();
+    $scope.creating = true;
 
     sendRequest.postRequest(route_root + '/api/edit-question', $scope.q)
                 .then(rsp => {
@@ -47,8 +48,8 @@ admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest'
                     $scope.correct = null;
                     $scope.q = null;
                     $('.ui.modal.editQuestion').modal('hide');
+                    $scope.creating = false;
                     NProgress.done();
-
                   }
                 });
   };

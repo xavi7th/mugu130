@@ -9,6 +9,7 @@ use App\Message;
 use App\Referral;
 use App\Transaction;
 use App\Confirmation;
+use App\UserQuestion;
 use App\UserGameSession;
 
 use Carbon\Carbon;
