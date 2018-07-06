@@ -122,7 +122,7 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
                    else if (rsp.status == 200) {
                      if (rsp.data.status) {
                        if ($scope.requested_amount < 1000) {
-                         Notification.primary('Amount requested will be sent a recharge card to ' + $scope.$parent.userdetails.phone1);
+                         Notification.primary('Amount requested will be sent as airtime to ' + $scope.$parent.userdetails.phone1);
                        }
                        else {
                          Notification.primary({ message: 'Amount requested will be sent to account number ' + $scope.$parent.userdetails.acct_no, positionX: 'center'});

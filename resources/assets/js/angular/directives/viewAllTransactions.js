@@ -38,16 +38,6 @@ var url = `
             </tr>
           </thead>
           <tbody>
-            <tr ng-show="loading" class="animate fade">
-              <td colspan="8">
-                <div class="ui segment"  style="min-height: 300px;">
-                  <div class="ui active inverted dimmer">
-                    <div class="ui text loader">Loading</div>
-                  </div>
-                  <p></p>
-                </div>
-              </td>
-            </tr>
             <tr ng-repeat="trans in data | filter : search" ng-class="['animate translate-in', {'negative' : trans.trans_type == 'Admin Correction'}]" ng-show="!loading">
               <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>
@@ -81,11 +71,17 @@ var url = `
               </td>
               <td>{{ trans.created_at | timeAgo }}</td>
             </tr>
-
           </tbody>
-          <serv-side-nav url="'/api/get-all-transactions'"></serv-side-nav>
-
+          <serv-side-nav url="'/api/get-all-transactions'" style="display:table-footer-group;"></serv-side-nav>
         </table>
+        <div ng-show="loading" class="animate fade">
+          <div class="ui segment"  style="min-height: 300px;">
+            <div class="ui active inverted dimmer">
+              <div class="ui text loader">Loading</div>
+            </div>
+            <p></p>
+          </div>
+        </div>
       </div>
 
       <div ng-show="transactionrecord" class="grid-80 prefix-10">

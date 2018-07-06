@@ -16,6 +16,15 @@
   justify-content: center;
 }
 
+@media only screen and (max-width: 767px) {
+  .flex-center.stack.small {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
 /* html5reset.css - 01/11/2011 */
 
 html,
@@ -41383,6 +41392,15 @@ textarea.ng-invalid.ng-touched {
   }
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1169px) and (max-width: 767px) {
+  .ui.compact.vertical.menu.stack.small {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .ui.compact.vertical.menu {
     margin-bottom: 30px;
@@ -41399,6 +41417,15 @@ textarea.ng-invalid.ng-touched {
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
+  }
+}
+
+@media only screen and (max-width: 767px) and (max-width: 767px) {
+  .ui.compact.vertical.menu.stack.small {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
 }
 
@@ -41638,6 +41665,16 @@ div#main-controller footer {
   transition-delay: .1s;
   -webkit-transition-duration: 0;
   transition-duration: 0;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
 }
 
 

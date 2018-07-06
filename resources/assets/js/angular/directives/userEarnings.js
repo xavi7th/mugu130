@@ -16,6 +16,14 @@ var url = `
     </div>
     <br>
     <div ng-show="!earningrecord">
+    <div ng-show="loading" class="animate fade">
+      <div class="ui segment"  style="min-height: 300px;">
+        <div class="ui active inverted dimmer">
+          <div class="ui text loader">Loading</div>
+        </div>
+        <p></p>
+      </div>
+    </div>
       <table class="ui  striped celled table">
         <thead>
           <tr>
@@ -28,16 +36,6 @@ var url = `
           </tr>
         </thead>
         <tbody>
-          <tr ng-show="loading" class="animate fade">
-            <td colspan="6">
-              <div class="ui segment"  style="min-height: 300px;">
-                <div class="ui active inverted dimmer">
-                  <div class="ui text loader">Loading</div>
-                </div>
-                <p></p>
-              </div>
-            </td>
-          </tr>
           <tr ng-repeat="u in data | filter : search" class="animate translate-in" ng-show="!loading" >
             <td>{{ u.id }}</td>
             <td>{{ u.firstname }} {{ u.lastname }}</td>
@@ -52,7 +50,7 @@ var url = `
           </tr>
 
         </tbody>
-        <serv-side-nav url="'/api/get-earnings-by-users-page-details'"></serv-side-nav>
+        <serv-side-nav url="'/api/get-earnings-by-users-page-details'" style="display:table-footer-group"></serv-side-nav>
       </table>
       </div>
 

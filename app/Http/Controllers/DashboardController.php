@@ -460,7 +460,7 @@ class DashboardController extends Controller
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load(['transactions', 'earnings'=> function ($q) { $q->remember(1); }, 'games' => function ($q) { $q->remember(10); },'referrals'=> function ($q) { $q->remember(240); }])
+        'page_details' => Auth::user()->load(['transactions', 'earnings'=> function ($q) { $q->latest()->remember(1); }, 'games' => function ($q) { $q->latest()->remember(10); },'referrals'=> function ($q) { $q->remember(240); }])
       ];
     }
 

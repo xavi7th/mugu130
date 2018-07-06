@@ -43,7 +43,7 @@ var url = `
             </tr>
 
           </tbody>
-          <serv-side-nav url="'/api/get-all-users-earnings'"></serv-side-nav>
+          <serv-side-nav url="'/api/get-all-users-earnings'" style="display:table;"></serv-side-nav>
         </table>
       </div>
 

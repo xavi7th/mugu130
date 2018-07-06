@@ -233,9 +233,16 @@ class User extends Authenticatable{
     }
 
     public function updateUserDetails() {
-      // return request()->all();
+      // return   ;
+      if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+        DB::beginTransaction();
+          Auth::user()->update( array_only(request()->input('details'), ['email', 'password'] ) );
+        DB::commit();
+
+        return true;
+      }
       DB::beginTransaction();
-        Auth::user()->update( array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'firstname', 'lastname', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password', 'password_confirmation'] ) );
+        Auth::user()->update( array_only(request()->input('details'), ['acct_no', 'acct_type', 'address', 'bank', 'email', 'network', 'phone1', 'state', 'town'] ) );
       DB::commit();
 
       return true;

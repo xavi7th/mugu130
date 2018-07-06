@@ -47,7 +47,7 @@ var url = `
             </tr>
 
           </tbody>
-          <serv-side-nav url="'/api/get-all-games'"></serv-side-nav>
+          <serv-side-nav url="'/api/get-all-games'" style="display:table-footer-group"></serv-side-nav>
         </table>
       </table>
       </div>

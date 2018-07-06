@@ -431,7 +431,6 @@ class AdminController extends Controller
       if (request()->input('details.id') == env('USER_ROLE_ID')) {
           return response()->json(['message' => 'You really don\'t want to delete this message. Trust me' ], 409);
       }
-      Cache::flush();
       return [
         'status' => Message::find(request()->input('details.id'))->delete()
       ];

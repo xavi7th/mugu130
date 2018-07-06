@@ -6,7 +6,6 @@
 // Variables
 @import "variables";
 @import "mixins";
-@import "layout";
 
 @import "./semantic/html5reset";
 @import "./semantic/semantic";
@@ -585,4 +584,8 @@ footer{
           transition-delay: .1s;
   -webkit-transition-duration: 0;
           transition-duration: 0;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate){
+  display: none !important;
 }

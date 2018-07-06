@@ -82,6 +82,7 @@ mix.browserSync({
          'public/**/*.php',
          'public/js/**/*.js',
          '!public/js/**/libraries.js',
-         '!public/css/**/*.css'
+         '!public/css/**/*.css',
+         '!public/css/**/*.map'
      ],
 });
