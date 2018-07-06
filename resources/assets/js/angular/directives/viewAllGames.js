@@ -16,6 +16,14 @@ var url = `
       </div>
       <br>
       <div ng-show="!gamerecord">
+      <div ng-show="loading" class="animate fade">
+        <div class="ui segment"  style="min-height: 300px;">
+          <div class="ui active inverted dimmer">
+            <div class="ui text loader">Loading</div>
+          </div>
+          <p></p>
+        </div>
+      </div>
         <table class="ui  striped celled table">
           <thead>
             <tr>
@@ -32,16 +40,7 @@ var url = `
             </tr>
           </thead>
           <tbody>
-            <tr ng-show="loading" class="animate fade">
-              <td colspan="10">
-                <div class="ui segment"  style="min-height: 300px;">
-                  <div class="ui active inverted dimmer">
-                    <div class="ui text loader">Loading</div>
-                  </div>
-                  <p></p>
-                </div>
-              </td>
-            </tr>
+
             <tr ng-repeat="game in  data | filter : search" class="animate translate-in" ng-show="!loading" >
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ $index + 1 }}</td>
               <td ng-click="viewGameRecord(game)" style="cursor:pointer;">{{ game.status ? 'active' : 'ended' }}</td>
@@ -56,8 +55,9 @@ var url = `
             </tr>
 
           </tbody>
-          <serv-side-nav url="'/api/get-all-games'"></serv-side-nav>
+          <serv-side-nav url="'/api/get-all-games'" style="display:table;"></serv-side-nav>
         </table>
+
       </div>
 
       <div ng-show="gamerecord">

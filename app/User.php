@@ -69,12 +69,15 @@ class User extends Authenticatable{
          'verified' => 'boolean',
          'available_units' => 'double',
          'units_purchased' => 'double',
+         'total_untransferred_earnings' => 'double',
+         'total_transferred_earnings' => 'double',
+         'num_og_games_played' => 'integer',
          'num_of_withdrawals' => 'integer',
          'total_withdrawals' => 'integer'
     ];
 
     protected $appends = [
-          'total_withdrawals', 'num_of_withdrawals', 'total_untransferred_earnings', 'total_transferred_earnings'
+          'total_withdrawals', 'num_of_withdrawals', 'total_untransferred_earnings', 'total_transferred_earnings', 'num_of_games_played'
     ];
 
     public function setPasswordAttribute($value){
@@ -118,6 +121,10 @@ class User extends Authenticatable{
 
     public function getTotalTransferredEarningsAttribute(){
       return $this->hasMany(Earning::class)->where('transferred', true)->remember(30)->sum('amount');
+    }
+
+    public function getNumOfGamesPlayedAttribute(){
+      return $this->hasMany(UserGameSession::class)->remember(30)->count('user_id');
     }
 
     public static function totalWalletAmount(){
