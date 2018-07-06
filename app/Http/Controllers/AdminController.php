@@ -336,8 +336,9 @@ class AdminController extends Controller
         'details.email' => 'required',
         // 'details.phone1' => 'required'
       ]);
+
       return [
-        'status' => User::find(request()->input('details.id'))->update(array_except(request()->input('details'), ['id', 'created_at', 'DOB', 'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'old_password', 'password_confirmation', 'earnings', 'referrals', 'total_transferred_earnings', 'total_untransferred_earnings', 'untransferred_earnings'] ))
+        'status' => User::find(request()->input('details.id'))->update(array_only(request()->input('details'), ['firstname', 'lastname', 'acct_no', 'password'] ))
       ];
     }
 
