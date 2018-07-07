@@ -211,6 +211,8 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       };
 
       $scope.displayResults = () => {
+        sendRequest.storeData('prevent', true);
+        
         sendRequest.postRequest('/user/end-exam', $scope.user_questions)
                  .then(function (rsp) {
                    delete $localStorage.user_questions;

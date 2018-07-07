@@ -53,6 +53,12 @@ var url = `
           <div class="inline field" style="text-align: center;">
             <input type="number" placeholder="Minimum: ₦500" ng-model="requested_amount" ng-min="500">
           </div>
+          <div class="actions  flex-center">
+            <pay-with-paystack></pay-with-paystack>
+            <div class="ui black left deny button">
+            Close
+            </div>
+          </div>
           <div class="ui message">
             <div class="header">
               NB:
@@ -62,12 +68,7 @@ var url = `
         </div>
       </div>
 
-      <div class="actions  flex-center">
-        <pay-with-paystack></pay-with-paystack>
-        <div class="ui black left deny button">
-        Close
-        </div>
-      </div>
+
       <div class="ui segments" id="info-images">
         <div class="ui segment">
           <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>
