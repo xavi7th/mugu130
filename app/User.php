@@ -275,7 +275,7 @@ class User extends Authenticatable{
     }
 
     public function totalEarnings(){
-      return $this->earnings()->where('transferred', false)->remember(10);
+      return $this->earnings()->where('transferred', false)->remember(5);
     }
 
     public function creditAccount($amt){

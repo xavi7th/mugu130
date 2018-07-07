@@ -277,7 +277,7 @@ class DashboardController extends Controller
     }
 
     public function transferEarnings(){
-
+      Cache::flush();
       //if there is, add the sum to the available_units
       if (!Auth::user()->totalEarnings()->where('transferred', false)->sum('amount')) {
         return [
@@ -463,7 +463,7 @@ class DashboardController extends Controller
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load(['transactions', 'earnings'=> function ($q) { $q->latest()->remember(1); }, 'games' => function ($q) { $q->latest()->remember(10); },'referrals'=> function ($q) { $q->remember(240); }])
+        'page_details' => Auth::user()->load(['transactions' => function ($q) { $q->latest()->remember(0.5); }, 'earnings'=> function ($q) { $q->latest()->remember(1); }, 'games' => function ($q) { $q->latest()->remember(10); },'referrals'=> function ($q) { $q->remember(240); }])
       ];
     }
 
@@ -515,6 +515,9 @@ class DashboardController extends Controller
         'details.email' => 'required',
         // 'details.phone1' => 'required'
       ]);
+
+      Cache::flush();
+
       return [
         'status' =>  Auth::user()->updateUserDetails(),
       ];
