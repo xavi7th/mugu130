@@ -234,9 +234,14 @@ class Game extends Model{
 		}
   }
 
-  public static function active(){
+  public static function active($useCache = true){
 
-		$games = self::where('status', true)->remember(0.1)->get();
+		if ($useCache) {
+			$games = self::where('status', true)->remember(0.1)->get();
+		}
+		else{
+			$games = self::where('status', true)->get();
+		}
 
 
 		// if ( (Carbon::now()->minute%2 == 0) ) {

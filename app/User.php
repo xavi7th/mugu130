@@ -187,7 +187,7 @@ class User extends Authenticatable{
     }
 
     public function getUserQuestions(){
-      $active_game = Game::active();
+      $active_game = Game::active(false);
 
       //check for active game
       if (!$active_game) {
