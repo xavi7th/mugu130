@@ -45,7 +45,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('before')->except('sendMessage');
+        $this->middleware('before')->except('sendMessage', 'joinGame');
         $this->middleware('auth')->except('getGameState', 'sendMessage');
         $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState', 'sendMessage');
         $this->middleware('users')->only('joinGame','pauseGame','resumeGame','submitExam','endExam','getExamResults');
@@ -80,7 +80,7 @@ class DashboardController extends Controller
       }
 
       // Get id of the current active on-going game
-      $game_id = Game::where('status', true)->value('id');
+      $game_id = optional(Game::active(false))->id;
 
       if (!$game_id) {
         return response()->json(['status' => false ], 422);
@@ -94,13 +94,8 @@ class DashboardController extends Controller
 
         else {
 
-          // TODO: REDUCE THIS CODE TO JUST COUNT THE NUM OF EXAMINEES IF THAT IS ALL WE NEED
-          //use the game id to retrieve all the user game sessions ordered by ended_at
-          $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
-
-          //count hom many they are.
-          $total_examinees = $exam_records->count();
-
+          // COUNT THE NUM OF EXAMINEES CURRENTLY
+          $total_examinees = UserGameSession::where('game_id', $game_id)->count('id');
 
           DB::beginTransaction();
 
@@ -128,21 +123,11 @@ class DashboardController extends Controller
 
           DB::commit();
 
-
-
-
         }
 
         return ['status' => true];
       }
 
-      // Retrieve 11 random questions from the question pool and assign it to the user for that particular game
-
-
-        return [
-          'game_timer' => 600,
-          'game_state' => 'active' //active, waiting (for the game to end and show result), paused, loading
-        ];
     }
 
     public function pauseGame(){
