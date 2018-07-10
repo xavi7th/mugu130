@@ -139,25 +139,25 @@ var url = `
 
             <tr>
               <td>Requested Amount</td>
-              <td>{{ trans_record.amount }} </td>
+              <td>{{ trans_record.amount | currency }} </td>
             </tr>
 
             <tr>
               <td>Request Type</td>
               <td>
-                <span ng-if="trans_record.amount > 1000 "> Cash </span>
-                <span ng-if="trans_record.amount < 1000 "> Recharge Card </span>
+                <span ng-if="trans_record.amount > 861 "> Cash </span>
+                <span ng-if="trans_record.amount < 861 "> Recharge Card </span>
               </td>
             </tr>
 
             <tr>
               <td>Balance Units</td>
-              <td>{{ trans_record.user.available_units }} </td>
+              <td>{{ trans_record.user.available_units | currency }} </td>
             </tr>
 
             <tr>
               <td>Total Purchsaed Units</td>
-              <td>{{ trans_record.user.units_purchased }} </td>
+              <td>{{ trans_record.user.units_purchased | currency }} </td>
             </tr>
 
           </tbody>

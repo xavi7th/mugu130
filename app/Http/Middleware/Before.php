@@ -124,57 +124,57 @@ class Before
 
 // dd(collect(Game::active())->isEmpty());
 // dump(session()->all());
-			// if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
-			// 	$f = fopen('lock', 'w') or die('Cant open file');
-			// 	if (flock($f, LOCK_EX | LOCK_NB)) {
-			//
-			// 		// Bypass the cache ONLY within the first 10secs
-			// 		if (Carbon::now()->minute == 0 && Carbon::now()->second <= 10) {
-			// 			if ( !Game::active(false) ) {
-			// 				Game::new();
-			// 				session(['GAME_STATE' => 'active']);
-			// 			}
-			// 		}
-			// 		else{
-			// 			if ( !Game::active() ) {
-			// 				Game::new();
-			// 				session(['GAME_STATE' => 'active']);
-			// 			}
-			// 		}
-			// 	};
-			//
-			//
-			// 	if (session('GAME_STATE') != 'paused' && session('GAME_STATE') != 'waiting' ) {
-			// 		session(['GAME_STATE' => 'active']);
-			// 	}
-			//
-			// 	if ((Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9 )) {
-			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 9, 59))]);
-			// 	}
-			// 	else if (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) {
-			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 39, 59))]);
-			// 	}
-			// }
-			//
-			// else {
-			// 	$f = fopen('lock', 'w') or die('Cant open file');
-			// 	if (flock($f, LOCK_EX | LOCK_NB)) {
-			// 		if ( Game::active() ) {
-			// 			Game::end();
-			// 			Session::forget('GAME_ACTIVE');
-			// 		}
-			// 	};
-			//
-			// 	session(['GAME_STATE' => 'loading']);
-			//
-			// 	if ((Carbon::now()->minute >= 10 && Carbon::now()->minute <= 29)) {
-			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 29, 59))]);
-			// 	}
-			// 	else if (Carbon::now()->minute >= 40 && Carbon::now()->minute <= 59) {
-			// 		session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 59, 59))]);
-			// 	}
-			//
-			// }
+			if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
+				$f = fopen('lock', 'w') or die('Cant open file');
+				if (flock($f, LOCK_EX | LOCK_NB)) {
+
+					// Bypass the cache ONLY within the first 10secs
+					if (Carbon::now()->minute == 0 && Carbon::now()->second <= 10) {
+						if ( !Game::active(false) ) {
+							Game::new();
+							session(['GAME_STATE' => 'active']);
+						}
+					}
+					else{
+						if ( !Game::active() ) {
+							Game::new();
+							session(['GAME_STATE' => 'active']);
+						}
+					}
+				};
+
+
+				if (session('GAME_STATE') != 'paused' && session('GAME_STATE') != 'waiting' ) {
+					session(['GAME_STATE' => 'active']);
+				}
+
+				if ((Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9 )) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 9, 59))]);
+				}
+				else if (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 39, 59))]);
+				}
+			}
+
+			else {
+				$f = fopen('lock', 'w') or die('Cant open file');
+				if (flock($f, LOCK_EX | LOCK_NB)) {
+					if ( Game::active() ) {
+						Game::end();
+						Session::forget('GAME_ACTIVE');
+					}
+				};
+
+				session(['GAME_STATE' => 'loading']);
+
+				if ((Carbon::now()->minute >= 10 && Carbon::now()->minute <= 29)) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 29, 59))]);
+				}
+				else if (Carbon::now()->minute >= 40 && Carbon::now()->minute <= 59) {
+					session(['GAME_TIMER' => Carbon::now()->diffInSeconds(Carbon::createFromTime(Carbon::now()->hour, 59, 59))]);
+				}
+
+			}
 
 
 
