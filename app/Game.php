@@ -38,9 +38,7 @@ class Game extends Model{
 		self::end();
 
 		//create new game
-		return self::firstOrCreate(['status' => true],[
-
-		]);
+		return self::firstOrCreate(['status' => true],[]);
   }
 
 	public function user_game_sessions(){
@@ -68,7 +66,7 @@ class Game extends Model{
 
 		$exam_records = optional($active_game)->user_game_sessions;
 
-		//count hom many they are.
+		//count how many they are.
 		$total_examinees = optional($exam_records)->count();
 
 		// dd($total_examinees);
@@ -234,9 +232,14 @@ class Game extends Model{
 		}
   }
 
-  public static function active(){
+  public static function active($useCache = true){
 
-		$games = self::where('status', true)->remember(0.1)->get();
+		if ($useCache) {
+			$games = self::where('status', true)->remember(0.1)->get();
+		}
+		else{
+			$games = self::where('status', true)->get();
+		}
 
 
 		// if ( (Carbon::now()->minute%2 == 0) ) {
