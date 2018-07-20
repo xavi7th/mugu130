@@ -132,13 +132,21 @@ class DashboardController extends Controller
 
     public function pauseGame(){
 
-      session(['GAME_STATE' => 'paused']);
+      if (Auth::user()->activeGames && session('GAME_STATE') != 'waiting') {
+            session(['GAME_STATE' => 'paused']);
+            return 'game paused';
+        }
+       return 'user has ended his exam';
 
     }
 
     public function resumeGame(){
-      session(['GAME_STATE' => 'active']);
-      return ['status' => true];
+      if(!Auth::user()->activeGames->ended_at){
+           session(['GAME_STATE' => 'active']);
+           return ['status' => true];
+       } else {
+           return ['status' => session(['GAME_STATE'])];
+       }
     }
 
     public function submitExam(){

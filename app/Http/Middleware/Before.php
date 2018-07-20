@@ -23,30 +23,7 @@ class Before
 	 public function handle($request, Closure $next)
     {
 
-			// dd(fopen('lock', 'w'));
-			// $f = fopen('lock', 'w') or die('Cant open file');
-			// if (flock($f, LOCK_EX | LOCK_NB)) {
-			// 	echo "yay";
-			// 	sleep(10);
-			// };
-
-			// $semaphore = sem_get( intval(env('SEMAPHORE_KEY')),  intval(env('SEMAPHORE_MAX_ACQUIRE')),  env('SEMAPHORE_PERMISSIONS'),  env('SEMAPHORE_AUTORELEASE'));
-			// $semaphore = sem_get( 123456,  1);
-			// if (sem_acquire($semaphore, 1) !== false) {
-			// 	if ( Game::active() ) {
-			// 		Game::end();
-			// 		Session::forget('GAME_ACTIVE');
-			// 	}
-			// 	sem_release($semaphore);
-			// 	sem_remove($semaphore);
-			// }
-
-			// exit;
-			// Session::forget('GAME_ACTIVE');
-			//  _dd( Hash::check('pass.', Auth::user()->password) );
-			// Game::new();
-			// Game::end();
-
+			// 2 Mijs timer
 			// if ( (Carbon::now()->minute%2 == 0) ) {
 			// 	// Bypass the cache ONLY within the first 10secs
 			// 	if (Carbon::now()->minute%2 == 0 && Carbon::now()->second <= 10) {
@@ -79,14 +56,16 @@ class Before
 			// 	session(['GAME_STATE' => 'loading']);
 			// 	session(['GAME_TIMER' => 60 - Carbon::now()->second ]);
 			// }
-// Game::end();
 
+
+
+			// 5 mins timer
 			// if ( (Carbon::now()->minute%10 > 4) ) {
-			// if ( (Carbon::now()->minute%10 <= 4) ) {
+			// // if ( (Carbon::now()->minute%10 <= 4) ) {
 			//
 			// 	// Bypass the cache ONLY within the first 10secs
 			// 	if (Carbon::now()->minute%10 > 4 && Carbon::now()->second <= 10) {
-			// 	if (Carbon::now()->minute%10 <= 4 && Carbon::now()->second <= 10) {
+			// 	// if (Carbon::now()->minute%10 <= 4 && Carbon::now()->second <= 10) {
 			// 		if ( !Game::active(false) ) {
 			// 			Game::new();
 			// 			session(['GAME_STATE' => 'active']);
@@ -122,8 +101,9 @@ class Before
 			// 	session(['GAME_TIMER' => 60 - Carbon::now()->second  + (60 * (4 - Carbon::now()->minute%5)) ]);
 			// }
 
-// dd(collect(Game::active())->isEmpty());
-// dump(session()->all());
+
+
+			// Normal Game timer
 			if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
 				$f = fopen('lock', 'w') or die('Cant open file');
 				if (flock($f, LOCK_EX | LOCK_NB)) {
@@ -178,41 +158,11 @@ class Before
 
 
 
+			//Redirect to secure
+			if( App::environment('production') && ! $request->secure()){
+					return redirect()->secure($request->path());
+			}
 
-			//
-			// Game::new();
-			// session(['GAME_ACTIVE' => true]);
-			// session(['GAME_STATE' => 'active']);
-
-			// Game::end();
-			// Session::forget('GAME_ACTIVE');
-			// session(['GAME_STATE' => 'loading']);
-
-			// if ($request->session()->has('LAST_ACTIVITY')) {
-			// 	$idletime = session()->get('LAST_ACTIVITY')->diffInSeconds(Carbon::now());
-			// } else {
-			// 	$idletime = 200;
-			// }
-      //
-			// session(['IDLE_TIME' => $idletime]);
-      //
-			// session(['LAST_ACTIVITY' => Carbon::now()]);
-      //
-      //
-			// if ($request->session()->get('IDLE_TIME') > 60 * 60 ) {
-			// 		\Cart::whereDate('created_at', '<', Carbon::now()->subWeek()->toDateString())->where('checked_out', 'no')->where('email', 'N/A')->forceDelete();
-			// 		Session::forget('transid');
-			// }
-
-
-
-				if( App::environment('production') && ! $request->secure()){
-					// return gethostname();
-					// echo  App::environment();
-					// return var_dump($request->secure());
-						return redirect()->secure($request->path());
-				}
-
-		     return $next($request);
+	     return $next($request);
 	 }
 }
