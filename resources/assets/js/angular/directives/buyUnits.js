@@ -15,19 +15,19 @@ var url = `
 
   <div class="ui tiny modal buyUnits transition hidden">
       <div class="header">
-        Fund Wallet: Input Amount
+        Fund Wallet
       </div>
 
       <div id="form" class="ui segments">
         <div class="ui segment">
           <div id="session-menu" class="ui two item menu">
-          <a class="active item" data-tab="bank-transfer" style="background-color: #03A9F4; color:#FFF;">BANK TRANSFER</a>
-            <a class="item" data-tab="online-transfer">ONLINE TRANSFER</a>
+          <a class="item active" data-tab="online-transfer" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>
+          <a class="item" data-tab="bank-transfer">BANK TRANSFER</a>
           </div>
         </div>
 
         <div class="ui segment" style="padding-bottom: 30px;">
-          <div class="ui tab" data-tab="online-transfer">
+          <div class="ui tab active" data-tab="online-transfer">
             <div class="image content flex-center">
               <div class="ui form">
                 <div class="inline field" style="text-align: center;">
@@ -61,9 +61,9 @@ var url = `
             </div>
           </div>
 
-          <div class="ui tab active" data-tab="bank-transfer">
+          <div class="ui tab" data-tab="bank-transfer">
             <div class="ui segment" id="extra">
-              <div class="ui small header">Pay via bank Deposit or Wire transfer</div>
+              <div class="ui small header">Pay via bank Deposit or Wire transfer(Minimum ₦500)</div>
               <p>
                 <b style="font-weight: 900; margin-right:5%; color:red; font-size:2em;">!</b>  Use your email as depositor's name or transaction description
               </p>
