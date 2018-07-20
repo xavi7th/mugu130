@@ -45,22 +45,22 @@ class AdminController extends Controller
       // Cache::flush();
       return  [
         'details' => [
-                    'num_of_admins' => User::remember(120)->where('role_id', env('ADMIN_ROLE_ID'))->count(),
-                    'num_of_questions' => Question::remember(120)->count(),
-                    'num_of_messages' => Message::where('read', false)->remember(30)->count(),
-                    'admin_message_status' => Message::remember(30)->find(1)->read,
-                    'total_referrals' => Referral::remember(120)->count('referral_id'),
-                    'total_referrers' => Referral::distinct()->remember(240)->count('user_id'),
-                    'top_referrer' => Referral::select(DB::raw('count(referral_id) as referral_count, user_id'))->groupBy('user_id')->orderBy('referral_count', 'DESC')->remember(240)->first()->load(['user' => function ($q) { $q->remember(240); }]),
-                    'active_subscribers' => User::where('available_units', '>', 35)->remember(120)->count(),
-                    'verified_accounts' => User::where('verified', true)->remember(240)->count(),
-                    'suspended_accounts' => User::where('useraccstatus', 'suspended')->remember(240)->count(),
-                    'total_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->remember(120)->count(),
+                    'num_of_admins' => User::where('role_id', env('ADMIN_ROLE_ID'))->count(),
+                    'num_of_questions' => Question::count(),
+                    'num_of_messages' => Message::where('read', false)->count(),
+                    'admin_message_status' => Message::find(1)->read,
+                    'total_referrals' => Referral::count('referral_id'),
+                    'total_referrers' => Referral::distinct()->count('user_id'),
+                    'top_referrer' => Referral::select(DB::raw('count(referral_id) as referral_count, user_id'))->groupBy('user_id')->orderBy('referral_count', 'DESC')->first()->load(['user']),
+                    'active_subscribers' => User::where('available_units', '>', 35)->count(),
+                    'verified_accounts' => User::where('verified', true)->count(),
+                    'suspended_accounts' => User::where('useraccstatus', 'suspended')->count(),
+                    'total_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->count(),
                     'total_pending_withdrawals' => Transaction::totalNumberOfRequests(),
-                    'no_of_cash_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->remember(120)->count(),
-                    'no_of_airtime_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->remember(120)->count(),
-                    'total_cash_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->remember(120)->sum('amount'),
-                    'total_airtime_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->remember(120)->sum('amount'),
+                    'no_of_cash_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->count(),
+                    'no_of_airtime_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->count(),
+                    'total_cash_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->sum('amount'),
+                    'total_airtime_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->sum('amount'),
                     'total_amount_withdrawn' => Transaction::totalAmountWithdrawn(),
                     'total_wallet_amount' => User::totalWalletAmount(),
                     'total_wallet_funding' => Transaction::totalWalletFundingAmount(),
@@ -77,8 +77,8 @@ class AdminController extends Controller
                     'admin_previous_month_earnings' => Earning::totalAdminPrevMonthEarnings(),
                     'total_valid_games_played' => Game::validGamesCount(),
                     'total_users_in_all_games' => Game::totalUsersInAllGames(),
-                    'top_player' => UserGameSession::remember(60)->groupBy('user_id')->orderBy('games_count', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user' => function ($q) { $q->remember(240); }]),
-                    'top_winner' => UserGameSession::remember(60)->groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user' => function ($q) { $q->remember(240); }]),
+                    'top_player' => UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
+                    'top_winner' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
                 ]
       ];
     }
@@ -92,7 +92,7 @@ class AdminController extends Controller
 
     public function getQuestionsPageDetails(){
         return [
-          'details' => Question::latest()->remember(10)->paginate(env('ROWS_PER_PAGE'))
+          'details' => Question::latest()->paginate(env('ROWS_PER_PAGE'))
         ];
     }
 
@@ -192,11 +192,6 @@ class AdminController extends Controller
         ];
     }
 
-
-
-
-
-
     public function getLiveGameSession(){
         return [
           'live_session' => optional(optional(Game::active())->user_game_sessions)->load('user')
@@ -205,7 +200,7 @@ class AdminController extends Controller
 
     public function getAllGames(){
       return [
-        'details' => Game::latest()->remember(10)->paginate(env('ROWS_PER_PAGE')),
+        'details' => Game::latest()->paginate(env('ROWS_PER_PAGE')),
 
       ];
     }
@@ -217,21 +212,19 @@ class AdminController extends Controller
     }
 
     public function getLogsByDay(){
-      // return Carbon::parse(request()->input('details'));
       $grouped = UserGameSession::whereDate('created_at', Carbon::parse(request()->input('details')))->get()->mapToGroups(function ($item, $key) {
           return [$item['game_id'] => $item];
       });
 
-        return [
-          'daily_log' => $grouped
-        ];
+      return [
+        'daily_log' => $grouped
+      ];
     }
 
     public function getMonthlyStatistics(){
       return [
         'stats' => [
           'new_users' => User::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->count(),
-          // 'new_referrals' => Referral::with('user')->whereMonth('created_at', Carbon::parse(request('details'))->month)->get(),
           'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
           'online_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
           'offline_payments' => Transaction::whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
@@ -246,13 +239,10 @@ class AdminController extends Controller
     }
 
     public function getDailyStatistics(){
-      // return ;
       return [
           'stats' => [
             'date' => Carbon::parse(request('details'))->day,
-            // 'new_users' => User::whereDay('created_at', Carbon::parse(request('details'))->day)->whereMonth('created_at', Carbon::parse(request('details'))->month)->whereYear('created_at', Carbon::parse(request('details'))->year)->count(),
             'new_users' => User::whereDate('created_at', Carbon::parse(request('details')))->count(),
-            // 'new_referrals' => Referral::with('user')->whereDay('created_at', Carbon::parse(request('details'))->day)->get(),
             'top_ganer' => UserGameSession::with('user')->select(DB::raw('count(*) as gamer_count, user_id'))->whereDate('created_at', Carbon::parse(request('details')))->groupBy('user_id')->orderBy('gamer_count', 'DESC')->first(),
             'online_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'online')->count(),
             'offline_payments' => Transaction::whereDay('created_at', Carbon::parse(request('details'))->day)->where('trans_type', 'wallet funding')->where('channel', 'offline')->count(),
@@ -266,11 +256,6 @@ class AdminController extends Controller
       ];
     }
 
-
-
-
-
-
     public function confirmWithdrawal($id){
       return [
         'status' => Transaction::find($id)->update([
@@ -281,7 +266,7 @@ class AdminController extends Controller
 
     public function getAllTransactions(){
       return [
-        'details' => Transaction::with(['user' => function ($q) { $q->remember(10); },])->latest()->remember(10)->paginate(env('ROWS_PER_PAGE'))
+        'details' => Transaction::with(['user'])->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -321,11 +306,6 @@ class AdminController extends Controller
       ];
     }
 
-
-
-
-
-
     public function getReferralsByUser($id){
       return Referral::where('user_id', $id)->with('user', 'referred');
     }
@@ -333,8 +313,7 @@ class AdminController extends Controller
     public function editUser(){
       // return request()->all();
       $this->validate(request(), [
-        'details.email' => 'required',
-        // 'details.phone1' => 'required'
+        'details.email' => 'required'
       ]);
 
       return [
@@ -383,7 +362,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'details' => User::with(['untransferred_earnings' => function ($q) { $q->remember(10); }, 'referrals' => function ($q) { $q->remember(10); } ])->where('role_id', env("USER_ROLE_ID"))->latest()->remember('10')->paginate(env('ROWS_PER_PAGE'))
+        'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -397,12 +376,6 @@ class AdminController extends Controller
         'status' =>  Auth::user()->updateUserDetails(),
       ];
     }
-
-
-
-
-
-
 
     public function getAllMessages(){
       return [
@@ -458,20 +431,18 @@ class AdminController extends Controller
       ];
     }
 
-
-
     public function getAllUsersEarnings(){
       return [
-        'details' => Earning::with(['user' => function ($q) { $q->remember(10); }])->where('user_id', '!=', env('ADMIN_ROLE_ID'))->latest()->remember(10)->paginate(env('ROWS_PER_PAGE')),
+        'details' => Earning::with(['user'])->where('user_id', '!=', env('ADMIN_ROLE_ID'))->latest()->paginate(env('ROWS_PER_PAGE')),
       ];
     }
 
     public function getAllAdminEarnings(){
       return [
-        'details' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->latest()->remember(10)->paginate(env('ROWS_PER_PAGE')),
+        'details' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->latest()->paginate(env('ROWS_PER_PAGE')),
         'extras' => [
-          'total_transferred' => Earning::with(['user' => function ($q) { $q->remember(10); }])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->remember(10)->sum('amount'),
-          'total_untransferred' => Earning::with(['user' => function ($q) { $q->remember(10); }])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->remember(10)->sum('amount'),
+          'total_transferred' => Earning::with(['user'])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount'),
+          'total_untransferred' => Earning::with(['user'])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount'),
         ]
       ];
     }
@@ -485,10 +456,10 @@ class AdminController extends Controller
     public function getEarningsByUsersPageDetails(){
       Cache::flush();
       return [
-        'details' => User::with(['earnings' => function ($q) { $q->remember(10); } ])->where('role_id', env("USER_ROLE_ID"))->latest()->remember('10')->paginate(env('ROWS_PER_PAGE'))
+        'details' => User::with(['earnings'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
-    
+
     public function getAllUserEarnings(){
       return [
         'earnings' => Earning::where('user_id', request()->input('details.id'))->get()
@@ -496,14 +467,12 @@ class AdminController extends Controller
     }
 
     public function getUserReferrals(){
-      // return request()->all();
       return [
         'referrals' => User::find(request('details'))->referrals()->with('referral')->get()
       ];
     }
 
     public function getAllGameEarnings(){
-      // return request()->all();
       return [
         'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', env("ADMIN_ROLE_ID"))->get()
       ];

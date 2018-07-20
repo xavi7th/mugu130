@@ -16,8 +16,6 @@ use Carbon\Carbon;
 
 use App\Mail\TransactionalMail;
 
-use Watson\Rememberable\Rememberable;
-
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Support\Facades\DB;
@@ -28,12 +26,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-// Cache::flush();
-
 class User extends Authenticatable{
     use Notifiable;
     use SoftDeletes;
-    use Rememberable;
 
     /**
      * The attributes that are mass assignable.
@@ -62,8 +57,6 @@ class User extends Authenticatable{
     protected $dates = [
         'created_at', 'expectedghdate', 'phdate'
     ];
-
-    public $rememberFor = 1;
 
     protected $casts = [
          // 'acct_no' => 'double',
@@ -109,23 +102,23 @@ class User extends Authenticatable{
     }
 
     public function getTotalWithdrawalsAttribute(){
-      return $this->transactions()->where('trans_type', 'withdrawal')->remember(30)->sum('amount');
+      return $this->transactions()->where('trans_type', 'withdrawal')->sum('amount');
     }
 
     public function getNumOfWithdrawalsAttribute(){
-      return $this->transactions()->where('trans_type', 'withdrawal')->remember(30)->count();
+      return $this->transactions()->where('trans_type', 'withdrawal')->count();
     }
 
     public function getTotalUntransferredEarningsAttribute(){
-      return $this->hasMany(Earning::class)->where('transferred', false)->remember(30)->sum('amount');
+      return $this->hasMany(Earning::class)->where('transferred', false)->sum('amount');
     }
 
     public function getTotalTransferredEarningsAttribute(){
-      return $this->hasMany(Earning::class)->where('transferred', true)->remember(30)->sum('amount');
+      return $this->hasMany(Earning::class)->where('transferred', true)->sum('amount');
     }
 
     public function getNumOfGamesPlayedAttribute(){
-      return $this->hasMany(UserGameSession::class)->remember(30)->count('user_id');
+      return $this->hasMany(UserGameSession::class)->count('user_id');
     }
 
     public static function totalWalletAmount(){
@@ -275,7 +268,7 @@ class User extends Authenticatable{
     }
 
     public function totalEarnings(){
-      return $this->earnings()->where('transferred', false)->remember(5);
+      return $this->earnings()->where('transferred', false);
     }
 
     public function creditAccount($amt){

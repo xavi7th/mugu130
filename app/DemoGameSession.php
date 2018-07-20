@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Watson\Rememberable\Rememberable;
 use Carbon\Carbon;
 
 class DemoGameSession extends Model{
 
-	use SoftDeletes;
-	use Rememberable;
+	// use SoftDeletes;
 
   protected $guarded = [];
 
@@ -21,7 +19,6 @@ class DemoGameSession extends Model{
 	];
 
   protected $dates = ['deleted_at', 'ended_at'];
-	// public $rememberFor = 5;
 
   public static function new(){
 
@@ -36,7 +33,5 @@ class DemoGameSession extends Model{
 	public function getDurationAttribute() {
 		return Carbon::parse($this->created_at)->diffInMinutes(Carbon::parse($this->ended_at));
 	}
-
-
 
 }

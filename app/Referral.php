@@ -7,13 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use App\Confirmation;
 use Carbon\Carbon;
-use Watson\Rememberable\Rememberable;
 
 class Referral extends Model
 {
-
-  use SoftDeletes;
-  use Rememberable;
 
     protected $guarded = [];
 
@@ -21,10 +17,6 @@ class Referral extends Model
         //  'creation_day', 'creation_month'
     ];
 
-    // public function deletable() {
-    //   return $this->confirmations->isEmpty();
-    // }
-    //
     public function user(){
       return $this->belongsTo(User::class);
     }
@@ -39,19 +31,5 @@ class Referral extends Model
               'referral_id' => $referral_id,
             ]);
     }
-
-
-
-    //
-    // public function getCreationDayAttribute(){
-    //   $v = Carbon::parse($this->news_date);
-    //   return $v->day;
-    // }
-    //
-    //
-    // public function getCreationMonthAttribute(){
-    //   $v = Carbon::parse($this->news_date);
-    //   return $v->format('M');
-    // }
 
 }

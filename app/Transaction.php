@@ -4,17 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Watson\Rememberable\Rememberable;
 use App\User;
 
 class Transaction extends Model{
 
 	use SoftDeletes;
-	use Rememberable;
 
   protected $guarded = [];
   protected $dates = ['deleted_at'];
-	public $rememberFor = 5; //5
 	protected $casts = [
 		 'amount' => 'double'
 	];
@@ -24,26 +21,26 @@ class Transaction extends Model{
 	 }
 
 	 public static function totalAmountWithdrawn(){
-			 return self::where('trans_type', 'withdrawal')->where('status', 'completed')->remember(240)->sum('amount'); //240
+			 return self::where('trans_type', 'withdrawal')->where('status', 'completed')->sum('amount');
 	 }
 
 	 public static function totalNumberOfRequests(){
-			 return self::where('trans_type', 'withdrawal')->where('status', 'pending')->remember(240)->count(); //240
+			 return self::where('trans_type', 'withdrawal')->where('status', 'pending')->count();
 	 }
 
 	 public static function totalWalletFundingCount(){
-		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->remember(240)->count(); //240
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->count();
 	 }
 
 	 public static function totalOnlineWalletFundingCount(){
-		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'online')->remember(240)->count(); //240
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'online')->count();
 	 }
 
 	 public static function totalOfflineWalletFundingCount(){
-		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'bank deposit')->remember(240)->count(); //240
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'bank deposit')->count();
 	 }
 	 public static function totalWalletFundingAmount(){
-		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->remember(240)->sum('amount'); //240
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->sum('amount');
 	 }
 
 }

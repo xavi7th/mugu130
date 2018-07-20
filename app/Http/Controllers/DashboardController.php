@@ -52,18 +52,14 @@ class DashboardController extends Controller
     }
 
     public function getGameState(){
-      // return optional(Game::active())->id;
-      // $game_id = Game::where('status', true)->value('id');
+
       if (!Game::active()) {
         $exam_records = 0;
       }
       else{
-        $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->remember(0.5)->count();
+        $exam_records = UserGameSession::where('game_id', optional(Game::active())->id)->oldest('ended_at')->count();
       }
 
-      // if (Auth::user()->activeGames) {
-      //   session(['GAME_STATE' => 'paused']);
-      // }
       return [
         'game_timer' => session('GAME_TIMER'),
         'game_state' => session('GAME_STATE'), //active, waiting (for the game to end and show result), paused, loading
@@ -215,8 +211,6 @@ class DashboardController extends Controller
           $ids[] = $record;
         }
 
-        // _dd(Auth::user()->lastGame);
-
         Auth::user()->lastGame->ended_at = Carbon::now();
         Auth::user()->lastGame->score = $count;
         Auth::user()->lastGame->save();
@@ -244,9 +238,6 @@ class DashboardController extends Controller
         'total_prize_money' => $game->total_prize,
         'user_questions' => Auth::user()->load('user_questions.question')
       ];
-      //
-      //
-      // }
 
     }
 
@@ -255,16 +246,14 @@ class DashboardController extends Controller
         //return the results ordered by position
 
         if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
-          $earnings = Earning::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', 0)->remember(5)->sum('amount');
+          $earnings = Earning::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', 0)->sum('amount');
         }
         else{
           $earnings = Auth::user()->totalEarnings->sum('amount');
-
         }
 
         return [
           'total_earnings' => $earnings,
-
         ];
 
     }
@@ -323,17 +312,6 @@ class DashboardController extends Controller
 
     public function creditAccount(){
       // return  request('reference');
-
-      // Confirm that reference has not already gotten value
-      // This would have happened most times if you handle the charge.success event.
-      // If it has already gotten value by your records, you may call
-      // perform_success()
-
-      // Get this from https://github.com/yabacon/paystack-class
-      // require 'Paystack.php';
-      // if using https://github.com/yabacon/paystack-php
-      // require 'paystack/autoload.php';
-
 
       // The PAYSTACK CLASS IS IN MY MODELS
 
@@ -456,7 +434,7 @@ class DashboardController extends Controller
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load(['transactions' => function ($q) { $q->latest()->remember(0.5); }, 'earnings'=> function ($q) { $q->latest()->remember(1); }, 'games' => function ($q) { $q->latest()->remember(10); },'referrals'=> function ($q) { $q->remember(240); }])
+        'page_details' => Auth::user()->load(['transactions' => function ($q) { $q->latest(); }, 'earnings'=> function ($q) { $q->latest(); }, 'games' => function ($q) { $q->latest(); },'referrals'=> function ($q) { $q->latest(); }])
       ];
     }
 
@@ -469,11 +447,7 @@ class DashboardController extends Controller
       if ( optional(Auth::user()->activeGames)->ended_at != null && optional(Auth::user()->activeGames)->payment_status == 'unpaid') {
         session(['GAME_STATE' => 'waiting']);
       }
-      // $game_id = Game::where('status', true)->value('id');
-      // $exam_records = UserGameSession::where('game_id', $game_id)->oldest('ended_at')->get();
-      //
-      //
-      //
+
       return [
         'status' => true,
       ];
@@ -487,15 +461,11 @@ class DashboardController extends Controller
     }
 
     public function confirmUserPassword(){
-      // return request()->input('details');
 
       if ( ! Hash::check(request()->input('details'), Auth::user()->password)) {
         return response()->json(['message' => 'Old password missmatch' ], 423);
       }
 
-      // if (Auth::user()->unencpass != request()->input('details')) {
-      //   return response()->json(['message' => 'Old password missmatch' ], 423);
-      // }
       return [
         'status' =>  true,
       ];
@@ -506,10 +476,7 @@ class DashboardController extends Controller
       // return request();
       $this->validate(request(), [
         'details.email' => 'required',
-        // 'details.phone1' => 'required'
       ]);
-
-      Cache::flush();
 
       return [
         'status' =>  Auth::user()->updateUserDetails(),

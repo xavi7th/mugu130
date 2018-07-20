@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Watson\Rememberable\Rememberable;
 use Carbon\Carbon;
 
 class Earning extends Model{
 
 	use SoftDeletes;
-	use Rememberable;
 
   protected $guarded = [];
   protected $dates = ['deleted_at', 'ended_at'];
@@ -21,8 +19,6 @@ class Earning extends Model{
 		'game_id' => 'integer',
 		'amount' => 'double'
 	];
-	// public $rememberFor = 1;
-	 //
 
 	 public function user(){
 			 return $this->belongsTo(User::class);
@@ -30,40 +26,40 @@ class Earning extends Model{
 
 
   public static function totalUserEarnings(){
-		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->remember(10)->sum('amount'); //10
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->sum('amount');
   }
 
 
   public static function totalUserUntransferredEarnings(){
-		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->where('transferred', false)->remember(120)->sum('amount'); //120
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount');
   }
 
 
   public static function totalUserTransferredEarnings(){
-		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->where('transferred', true)->remember(120)->sum('amount'); //120
+		return self::where('user_id', '!=', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount');
   }
 
 
   public static function totalAdminEarnings(){
-		return self::where('user_id', env('ADMIN_ROLE_ID'))->remember(120)->sum('amount'); //120
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->sum('amount');
   }
 
 
   public static function totalAdminUntransferredEarnings(){
-		return self::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->remember(120)->sum('amount'); //120
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount');
   }
 
 
   public static function totalAdminTransferredEarnings(){
-		return self::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->remember(120)->sum('amount'); //120
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount');
   }
 
 	public static function totalAdminMonthEarnings(){
-		return self::where('user_id', env('ADMIN_ROLE_ID'))->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->remember(120)->sum('amount'); //120
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->sum('amount');
 	}
 
 	public static function totalAdminPrevMonthEarnings(){
-		return self::where('user_id', env('ADMIN_ROLE_ID'))->whereMonth('created_at', Carbon::now()->subMonth()->month)->whereYear('created_at', Carbon::now()->year)->remember(120)->sum('amount'); //120
+		return self::where('user_id', env('ADMIN_ROLE_ID'))->whereMonth('created_at', Carbon::now()->subMonth()->month)->whereYear('created_at', Carbon::now()->year)->sum('amount');
 	}
 
   public static function adminGameEarning($gid, $amt){

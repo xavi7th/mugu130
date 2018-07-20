@@ -6,25 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Watson\Rememberable\Rememberable;
 use Carbon\Carbon;
 use App\UserGameSession;
 
 class Game extends Model{
 
 	use SoftDeletes;
-	use Rememberable;
 
   protected $guarded = [];
   protected $dates = ['deleted_at', 'ended_at'];
 	protected $casts = [
 			 'status' => 'boolean',
 	];
-	// public $rememberFor = 0.1;
-	 //
-	//  public function user(){
-	// 		 return $this->belongsTo(User::class, 'sender_id');
-	//  }
 
   public static function new(){
 
@@ -235,23 +228,11 @@ class Game extends Model{
   public static function active($useCache = true){
 
 		if ($useCache) {
-			$games = self::where('status', true)->remember(0.1)->get();
+			$games = self::where('status', true)->get();
 		}
 		else{
 			$games = self::where('status', true)->get();
 		}
-
-
-		// if ( (Carbon::now()->minute%2 == 0) ) {
-		// // if ( (Carbon::now()->minute%10 > 4) ) {
-		// // if ( (Carbon::now()->minute >= 0 && Carbon::now()->minute <= 9) || (Carbon::now()->minute >= 30 && Carbon::now()->minute <= 39) ) {
-		//
-		// 	$games = self::where('status', true)->remember( session('GAME_TIMER')/60 )->cacheTags('active_game')->get();
-		//
-		//
-		// } else {
-		// 	$games = self::where('status', true)->remember( session('GAME_TIMER')/60 )->cacheTags('inactive_game')->get();
-		// }
 
 		if ($games->count() > 1) {
 			return 'Too many active games';
@@ -273,16 +254,11 @@ class Game extends Model{
 
 
   public static function validGamesCount(){
-		return self::where('num_of_players', '>', 1)->remember(10)->count(); //10
+		return self::where('num_of_players', '>', 1)->count(); //10
   }
 
 
   public static function totalUsersInAllGames(){
-		return self::remember(10)->sum('num_of_players'); //10
+		return self::sum('num_of_players'); //10
   }
-
-
-
-
-
 }
