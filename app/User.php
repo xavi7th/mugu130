@@ -110,11 +110,11 @@ class User extends Authenticatable{
     }
 
     public function getTotalUntransferredEarningsAttribute(){
-      return $this->hasMany(Earning::class)->where('transferred', false)->sum('amount');
+      return (float)$this->hasMany(Earning::class)->where('transferred', false)->sum('amount');
     }
 
     public function getTotalTransferredEarningsAttribute(){
-      return $this->hasMany(Earning::class)->where('transferred', true)->sum('amount');
+      return (float)$this->hasMany(Earning::class)->where('transferred', true)->sum('amount');
     }
 
     public function getNumOfGamesPlayedAttribute(){

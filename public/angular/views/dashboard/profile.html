@@ -77,7 +77,7 @@
             <p>Statistics</p>
           </div>
           <table class="ui blue celled table">
-        
+
             <tbody>
               <tr>
                 <td>No. of games played</td>
@@ -96,7 +96,7 @@
                 <td>{{ _.sumBy(_.filter(user_earnings, ['transferred', true]), 'amount') | currency }}</td>
               </tr>
               <tr>
-                <td>Total amount withdrwan</td>
+                <td>Total amount withdrawn</td>
                 <td>{{userdetails.total_withdrawals  | currency }}</td>
               </tr>
               <tr>

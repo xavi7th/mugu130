@@ -62,6 +62,9 @@ var url = `
           </div>
 
           <div class="ui tab" data-tab="bank-transfer">
+            <div class="actions  flex-center">
+              <div class="ui black left deny button">Close</div>
+            </div>
             <div class="ui segment" id="extra">
               <div class="ui small header">Pay via bank Deposit or Wire transfer(Minimum ₦500)</div>
               <p>
@@ -93,6 +96,7 @@ var url = `
                 </div>
                 <p>When making payments, please ensure you confirm that the account number you pay into matches the one shown above as we will not be liable for any payments made to a bank account that is not ours.</p>
               </div>
+
             </div>
           </div>
         </div>
