@@ -2,9 +2,10 @@
 
 @section('customCSS')
   <style media="screen">
-  div[ng-view] {
-    min-height: 0 !important;
-  }
+    div[ng-view] {
+      min-height: 0 !important;
+    }
+
   </style>
 @endsection
 
@@ -145,7 +146,8 @@
 
       <section id="mid">
         <div class="grid-container">
-          <div class="grid-30 info">
+
+          <div class="grid-30 info ">
             <h1>Tell a friend</h1>
             <p>
               <img src="/img/fastplay24_referal_homepage.png" alt="">
@@ -153,6 +155,88 @@
             <p>
               Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
             </p>
+          </div>
+          <div class="grid-45  push-20  hide-on-mobile hide-on-tablet" style="position: relative; bottom: -100px;">
+
+            <table class="ui blue celled table" style="font-size: 1.2em;">
+
+              <tbody ng-cloak>
+                <tr >
+                  <th colspan="2" style="font-size:2em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
+                </tr>
+                <tr>
+                  <td>Total Quizzes Taken</td>
+                  <td>@{{ total_games_played }}</td>
+                </tr>
+                <tr>
+                  <td>Number of Users</td>
+                  <td>@{{ total_num_of_users }}</td>
+                </tr>
+                <tr>
+                  <td>Total User Earnings</td>
+                  <td>@{{  total_user_earnings | currency }}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="intro">
+        <div class="grid-container">
+          <div class="grid-45  push-20 hide-on-desktop" style="margin-bottom: 45px;">
+
+            <table class="ui blue celled table" style="font-size: 1.2em;">
+
+              <tbody ng-cloak>
+                <tr >
+                  <th colspan="2" style="font-size:1.2em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
+                </tr>
+                <tr>
+                  <td>Total Quizzes Taken</td>
+                  <td>@{{ total_games_played }}</td>
+                </tr>
+                <tr>
+                  <td>Number of Users</td>
+                  <td>@{{ total_num_of_users }}</td>
+                </tr>
+                <tr>
+                  <td>Total User Earnings</td>
+                  <td>@{{  total_user_earnings | currency }}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="grid-50 push-25">
+            <h1 class="text center">TOP WINNERS</h1>
+            <div class="owl-carousel owl-theme">
+              <div ng-repeat=" e in ::top_three_earners">
+                <div class="ui card green">
+                  <div class="image">
+                    {{-- <img src="../images/avatar2/large/kristy.png"> --}}
+                  </div>
+                  <div class="content">
+                    <a class="header">@{{ e.user.firstname }} @{{ e.user.lastname }}</a>
+                    <div class="meta">
+                      <span class="date">Joined @{{ e.user.created_at | timeAgo }}</span>
+                    </div>
+                    <div class="description">
+                      <span ng-if="$index == 0">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span ng-if="$index == 1">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span ng-if="$index == 2">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <a>
+                      <i class="user icon"></i>
+                      @{{ e.user_earnings | currency }} earned from @{{ e.games_count }} games played
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -181,5 +265,6 @@
 
 
       </style>
+
 
 @endsection

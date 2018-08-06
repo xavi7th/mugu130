@@ -6,6 +6,7 @@ use App\Slide;
 use App\Notice;
 use App\Message;
 use App\Package;
+use App\Earning;
 use App\NewsItem;
 use App\CryptoSite;
 use App\TeamMember;
@@ -364,9 +365,10 @@ Route::group(['prefix' => 'api'], function () {
   Route::get('/get-home-page-details', function () {
 
     return [
-      'slides' => Slide::all(),
-      'news_items' => NewsItem::all()->take(3),
-      'team_members' => TeamMember::all()
+      'total_games_played' => Game::validGamesCount(),
+      'total_num_of_users' => User::count(),
+      'total_user_earnings' => Earning::totalUserEarnings(),
+      'top_three_earners' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(3)->load(['user']),
 
     ];
 

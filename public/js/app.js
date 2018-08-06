@@ -1,4 +1,4 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
 /***/ "./node_modules/laravel-echo/dist/echo.js":
 /***/ (function(module, exports, __webpack_require__) {

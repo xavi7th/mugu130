@@ -1,4 +1,16 @@
 let mix = require('laravel-mix');
+let glob = require('glob');
+
+let directiveFiles = glob.sync(
+    Mix.paths.root('resources/assets/js/angular/directives/*.js')
+);
+
+let htmlFiles = glob.sync(
+    Mix.paths.root('public/angular/views/**/*.html')
+);
+let paths = directiveFiles.concat(htmlFiles);//.concat(otherPhpFiles);
+//
+
 
 /*
  |--------------------------------------------------------------------------
@@ -25,14 +37,23 @@ mix.js('resources/assets/js/app.js', 'public/js')
   .sourceMaps()
 	.options({
 		//  processCssUrls: false,
+		purifyCss: {
+		   paths: paths,
+		   purifyOptions: {
+		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*'],
+		     // extensions: ['html', 'php', 'js', 'php'],
+		     // info: true,
+		     rejected: true,
+		   }
+		 },
 		fileLoaderDirs: {
 			images: 'img',
 			// fonts: 'web-fonts'
 		},
 		postCss: [
              require('postcss-fixes')(), // add fallbacks for rem units and other fixes
-             require('postcss-merge-rules')(), // merge rules
-             require('postcss-discard-duplicates')() // remove duplicate rules
+             // require('postcss-merge-rules')(), // merge rules
+             // require('postcss-discard-duplicates')() // remove duplicate rules
          ]
 	})
 	.version();
@@ -64,7 +85,7 @@ mix.browserSync({
 	// Will not attempt to determine your network status, assumes you're ONLINE.
 	online: false,
 	proxy: {
-		target: 'localhost:8000',
+		target: 'localhost:9000',
 		reqHeaders: function () {
 			return {
 				host: "localhost:3000"

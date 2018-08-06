@@ -11,6 +11,8 @@
 @import "./semantic/semantic";
 @import "./semantic/icon";
 @import "./semantic/unsemantic-grid-responsive-tablet";
+@import "~owl.carousel/dist/assets/owl.carousel";
+@import "~owl.carousel/dist/assets/owl.theme.default";
 @import "./itse-style";
 @import "./nprogress";
 @import "~textangular/dist/textAngular";
@@ -237,6 +239,10 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
   border: 2px solid $red;
 }
 
+.text.center{
+  text-align: center !important;
+}
+
 .btn-transparent{
   color: #fff;
   background-color: transparent;
@@ -415,6 +421,7 @@ div#main-controller{
   }
 
   .info{
+    bottom: -80px;
     p,h1{
       text-align: center;
     }
@@ -425,6 +432,13 @@ div#main-controller{
 
     img{
       max-width: 70%;
+    }
+  }
+
+  #intro{
+    .ui.card{
+      width: 100%;
+      text-align: center;
     }
   }
 
