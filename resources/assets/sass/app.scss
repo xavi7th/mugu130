@@ -435,7 +435,7 @@ div#main-controller{
     }
   }
 
-  #intro{
+  #mid{
     .ui.card{
       width: 100%;
       text-align: center;
@@ -461,21 +461,20 @@ div#main-controller{
       }
     }
 
-    section#intro {
+    section#mid {
       #form{
-        width: 90% !important;
+        height: auto;
+        position: relative;
         margin-top: 15px;
           z-index: 2;
       }
       tr:nth-child(-n+3) p {
         margin-top: 15% !important;
       }
-    }
 
-    section#mid{
       .info{
-        position: absolute !important;
-        bottom: 2vh;
+        // position: absolute !important;
+        // bottom: 2vh;
       }
     }
 
@@ -609,4 +608,24 @@ footer{
 }
 .testimonials_ref_links{
   margin: 0 5px;
+}
+
+.mb-d-40{
+  margin-bottom: 40px !important;
+}
+
+.mb-d-25{
+  margin-bottom: 25px !important;
+}
+
+.mb-t-100{
+  margin-top: 100px !important;
+}
+
+.mb-t-40{
+  margin-top: 40px !important;
+}
+
+.mb-t-25{
+  margin-top: 25px !important;
 }

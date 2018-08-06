@@ -29829,36 +29829,6 @@ div#main-controller header#alpha nav a.item:not(.notif):hover {
   text-decoration: underline;
 }
 
-div#main-controller section#intro {
-  padding: 40px 0px;
-  background-color: #fff;
-}
-
-div#main-controller section#intro h1 {
-  text-transform: uppercase;
-}
-
-div#main-controller section#intro p {
-  font-size: 13px;
-}
-
-div#main-controller section#intro #form {
-  position: absolute;
-  width: 100%;
-  height: 420px;
-  background-color: #fff;
-}
-
-div#main-controller section#intro #form #forgot-pass {
-  float: right;
-  margin-top: 15px;
-  text-transform: capitalize;
-}
-
-div#main-controller section#intro #form .ui.menu .active.item {
-  background-color: #2d95dc;
-}
-
 div#main-controller section#mid {
   padding: 50px 0px 100px 0px;
   background-color: #4d5961;
@@ -29868,6 +29838,35 @@ div#main-controller section#mid {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: calc(100vh - 420px);
+}
+
+div#main-controller section#mid h1 {
+  text-transform: uppercase;
+}
+
+div#main-controller section#mid h3 {
+  color: #fff;
+}
+
+div#main-controller section#mid p {
+  font-size: 13px;
+}
+
+div#main-controller section#mid #form {
+  position: absolute;
+  width: 100%;
+  height: 420px;
+  background-color: #fff;
+}
+
+div#main-controller section#mid #form #forgot-pass {
+  float: right;
+  margin-top: 15px;
+  text-transform: capitalize;
+}
+
+div#main-controller section#mid #form .ui.menu .active.item {
+  background-color: #2d95dc;
 }
 
 div#main-controller section#mid h1 {
@@ -30528,7 +30527,7 @@ div#main-controller .info img {
   max-width: 70%;
 }
 
-div#main-controller #intro .ui.card {
+div#main-controller #mid .ui.card {
   width: 100%;
   text-align: center;
 }
@@ -30549,19 +30548,15 @@ div#main-controller #intro .ui.card {
     display: none !important;
   }
 
-  div#main-controller section#intro #form {
-    width: 90% !important;
+  div#main-controller section#mid #form {
+    height: auto;
+    position: relative;
     margin-top: 15px;
     z-index: 2;
   }
 
-  div#main-controller section#intro tr:nth-child(-n+3) p {
+  div#main-controller section#mid tr:nth-child(-n+3) p {
     margin-top: 15% !important;
-  }
-
-  div#main-controller section#mid .info {
-    position: absolute !important;
-    bottom: 2vh;
   }
 
   div#main-controller #dashboard {
@@ -30696,5 +30691,25 @@ div#main-controller footer {
 
 .testimonials_ref_links {
   margin: 0 5px;
+}
+
+.mb-d-40 {
+  margin-bottom: 40px !important;
+}
+
+.mb-d-25 {
+  margin-bottom: 25px !important;
+}
+
+.mb-t-100 {
+  margin-top: 100px !important;
+}
+
+.mb-t-40 {
+  margin-top: 40px !important;
+}
+
+.mb-t-25 {
+  margin-top: 25px !important;
 }
 /*# sourceMappingURL=app.css.map*/

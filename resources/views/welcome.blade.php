@@ -28,28 +28,54 @@
 
 @section('contents')
 
-      <section id="intro">
+      <section id="mid">
         <div class="grid-container">
-          <div class="grid-40">
+          <div class="grid-45 grid-parent">
 
             <h1>welcome to fastplay24</h1>
-            <p style="font-size:1.2em">Put your IQ to the test, have fun and win some cool cash on a daily basis. <br><br>Win up to N15, 000 with just ₦35 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
+            <p style="font-size:1.2em">Win up to N15, 000 with just ₦35 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
 
             <h3>Think - Play - Win</h3>
+            <div class="flex-center mb-d-40">
 
-            <a href="/demo-play" target="_self">
-              <button class="ui labeled blue icon button">
-                <i class="gamepad icon"></i>
-                Play Demo
-              </button>
-            </a>
-            <a href="/calculator" target="_self">
-              <button class="ui right labeled purple icon button">
-                View Calculator
-                <i class="calculator icon"></i>
-              </button>
-            </a>
+              <a href="/demo-play" target="_self">
+                <button class="ui labeled blue icon button">
+                  <i class="gamepad icon"></i>
+                  Play Demo
+                </button>
+              </a>
+              <a href="/calculator" target="_self">
+                <button class="ui right labeled purple icon button">
+                  View Calculator
+                  <i class="calculator icon"></i>
+                </button>
+              </a>
+            </div>
 
+            <div class="grid-100" style="position: relative; margin-top: 20px;">
+
+              <table class="ui blue celled table" style="font-size: 1.2em;">
+
+                <tbody ng-cloak>
+                  <tr >
+                    <th colspan="2" style="font-size:1.3em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
+                  </tr>
+                  <tr>
+                    <td>Total Quizzes Taken</td>
+                    <td>@{{ total_games_played }}</td>
+                  </tr>
+                  <tr>
+                    <td>Number of Users</td>
+                    <td>@{{ total_num_of_users }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total User Earnings</td>
+                    <td>@{{  total_user_earnings | currency }}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
 
           </div>
           <div class="grid-40 push-10">
@@ -142,74 +168,10 @@
             </div>
           </div>
         </div>
-      </section>
 
-      <section id="mid">
-        <div class="grid-container">
+        <div class="grid-container mb-t-100">
 
-          <div class="grid-30 info ">
-            <h1>Tell a friend</h1>
-            <p>
-              <img src="/img/fastplay24_referal_homepage.png" alt="">
-            </p>
-            <p>
-              Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
-            </p>
-          </div>
-          <div class="grid-45  push-20  hide-on-mobile hide-on-tablet" style="position: relative; bottom: -100px;">
-
-            <table class="ui blue celled table" style="font-size: 1.2em;">
-
-              <tbody ng-cloak>
-                <tr >
-                  <th colspan="2" style="font-size:2em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
-                </tr>
-                <tr>
-                  <td>Total Quizzes Taken</td>
-                  <td>@{{ total_games_played }}</td>
-                </tr>
-                <tr>
-                  <td>Number of Users</td>
-                  <td>@{{ total_num_of_users }}</td>
-                </tr>
-                <tr>
-                  <td>Total User Earnings</td>
-                  <td>@{{  total_user_earnings | currency }}</td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section id="intro">
-        <div class="grid-container">
-          <div class="grid-45  push-20 hide-on-desktop" style="margin-bottom: 45px;">
-
-            <table class="ui blue celled table" style="font-size: 1.2em;">
-
-              <tbody ng-cloak>
-                <tr >
-                  <th colspan="2" style="font-size:1.2em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
-                </tr>
-                <tr>
-                  <td>Total Quizzes Taken</td>
-                  <td>@{{ total_games_played }}</td>
-                </tr>
-                <tr>
-                  <td>Number of Users</td>
-                  <td>@{{ total_num_of_users }}</td>
-                </tr>
-                <tr>
-                  <td>Total User Earnings</td>
-                  <td>@{{  total_user_earnings | currency }}</td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-          <div class="grid-70 push-15" style="font-size: 1.2em;">
+          <div class="grid-45" style="font-size: 1.2em;">
             <h1 class="text center">TOP WINNERS</h1>
             <div class="owl-carousel owl-theme">
               <div ng-repeat=" e in ::top_three_earners">
@@ -248,33 +210,19 @@
               </div>
             </div>
           </div>
+          <div class="grid-30 info push-20  ">
+            <h1>Tell a friend</h1>
+            <p>
+              <img src="/img/fastplay24_referal_homepage.png" alt="">
+            </p>
+            <p>
+              Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
+            </p>
+          </div>
         </div>
       </section>
+
       <div ng-view></div>
-
-
-
-      <style media="screen and ( max-width:767px)">
-
-        @if (Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' )
-          section#mid{
-            position: relative !important;
-            height: 125vh !important;
-            height: @{{height}}vh !important;
-          }
-
-        @else
-
-          section#mid{
-            position: relative !important;
-            height: 85vh !important;
-            height: @{{height}}vh !important;
-          }
-
-        @endif
-
-
-      </style>
 
 
 @endsection

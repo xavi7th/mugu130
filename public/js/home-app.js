@@ -4408,6 +4408,7 @@ home.factory('bootstrapPage', ['$timeout', '$window', 'sendRequest', function ($
 				var carousel = function carousel() {
 					$('.owl-carousel').owlCarousel({
 						loop: true,
+						autoplay: true,
 						margin: 10,
 						responsive: {
 							0: {
