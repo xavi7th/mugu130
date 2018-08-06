@@ -38,6 +38,8 @@
 
 		@yield('customCSS')
 
+		<script charset="UTF-8" src="//cdn.sendpulse.com/9dae6d62c816560a842268bde2cd317d/js/push/f37e1c775696c935a2c00dce0f6960b1_1.js" async></script>
+
 	</head>
 
 	<body ng-app="home" ng-strict-di>
@@ -83,6 +85,15 @@
 		<script src="{{ asset(mix('/js/home-app.js')) }}" charset="utf-8"></script>
 
 		@yield('customJS')
+		<!-- Start Alexa Certify Javascript -->
+		<script type="text/javascript">
+		_atrk_opts = { atrk_acct:"1e3pr1z2js20lS", domain:"fastplay24.com",dynamic: true};
+		(function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+		</script>
+		<noscript><img src="https://certify.alexametrics.com/atrk.gif?account=1e3pr1z2js20lS" style="display:none" height="1" width="1" alt="" /></noscript>
+		<!-- End Alexa Certify Javascript -->
+
+
 
 	</body>
 </html>

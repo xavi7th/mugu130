@@ -5355,12 +5355,20 @@ i.icon.shop:before {
   content: "\F07A";
 }
 
+i.icon.comments:before {
+  content: "\F086";
+}
+
 i.icon.privacy:before {
   content: "\F084";
 }
 
 i.icon.settings:before {
   content: "\F085";
+}
+
+i.icon.comments:before {
+  content: "\F086";
 }
 
 i.icon.payment:before {
@@ -5377,6 +5385,10 @@ i.icon.mail:before {
 
 i.icon.dashboard:before {
   content: "\F0E4";
+}
+
+i.icon.comments.outline:before {
+  content: "\F0E6";
 }
 
 i.icon.code:before {
@@ -6335,6 +6347,10 @@ i.icon.phone.square:before {
 
 i.icon.credit.card:before {
   content: "\F09D";
+}
+
+i.icon.bullhorn:before {
+  content: "\F0A1";
 }
 
 i.icon.group:before {
@@ -17354,6 +17370,19 @@ Floated Menu / Item
     Comments
 ---------------*/
 
+.ui.comments {
+  margin: 1.5em 0em;
+  max-width: 650px;
+}
+
+.ui.comments:first-child {
+  margin-top: 0em;
+}
+
+.ui.comments:last-child {
+  margin-bottom: 0em;
+}
+
 /*--------------
      Comment
 ---------------*/
@@ -17392,6 +17421,15 @@ Floated Menu / Item
       Reply Form
 ---------------------*/
 
+.ui.comments > .reply.form {
+  margin-top: 1em;
+}
+
+.ui.comments .reply.form textarea {
+  font-size: 1em;
+  height: 12em;
+}
+
 /*******************************
             State
 *******************************/
@@ -17411,6 +17449,46 @@ Floated Menu / Item
 /*-------------------
         Sizes
 --------------------*/
+
+.ui.mini.comments {
+  font-size: 11px;
+  font-size: 0.78571429rem;
+}
+
+.ui.tiny.comments {
+  font-size: 12px;
+  font-size: 0.85714286rem;
+}
+
+.ui.small.comments {
+  font-size: 13px;
+  font-size: 0.92857143rem;
+}
+
+.ui.comments {
+  font-size: 14px;
+  font-size: 1rem;
+}
+
+.ui.large.comments {
+  font-size: 15.99999px;
+  font-size: 1.14285714rem;
+}
+
+.ui.big.comments {
+  font-size: 18px;
+  font-size: 1.28571429rem;
+}
+
+.ui.huge.comments {
+  font-size: 20px;
+  font-size: 1.42857143rem;
+}
+
+.ui.massive.comments {
+  font-size: 23.99999px;
+  font-size: 1.71428571rem;
+}
 
 /*******************************
          Theme Overrides
@@ -26899,12 +26977,20 @@ i.icon.shop:before {
   content: "\F07A";
 }
 
+i.icon.comments:before {
+  content: "\F086";
+}
+
 i.icon.privacy:before {
   content: "\F084";
 }
 
 i.icon.settings:before {
   content: "\F085";
+}
+
+i.icon.comments:before {
+  content: "\F086";
 }
 
 i.icon.payment:before {
@@ -26921,6 +27007,10 @@ i.icon.mail:before {
 
 i.icon.dashboard:before {
   content: "\F0E4";
+}
+
+i.icon.comments.outline:before {
+  content: "\F0E6";
 }
 
 i.icon.code:before {
@@ -27879,6 +27969,10 @@ i.icon.phone.square:before {
 
 i.icon.credit.card:before {
   content: "\F09D";
+}
+
+i.icon.bullhorn:before {
+  content: "\F0A1";
 }
 
 i.icon.group:before {
@@ -30594,5 +30688,13 @@ div#main-controller footer {
 
 [ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate) {
   display: none !important;
+}
+
+.testimonials_comments {
+  line-height: 2.2em;
+}
+
+.testimonials_ref_links {
+  margin: 0 5px;
 }
 /*# sourceMappingURL=app.css.map*/

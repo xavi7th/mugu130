@@ -209,7 +209,7 @@
               </tbody>
             </table>
           </div>
-          <div class="grid-50 push-25">
+          <div class="grid-70 push-15" style="font-size: 1.2em;">
             <h1 class="text center">TOP WINNERS</h1>
             <div class="owl-carousel owl-theme">
               <div ng-repeat=" e in ::top_three_earners">
@@ -223,14 +223,24 @@
                       <span class="date">Joined @{{ e.user.created_at | timeAgo }}</span>
                     </div>
                     <div class="description">
-                      <span ng-if="$index == 0">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
-                      <span ng-if="$index == 1">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
-                      <span ng-if="$index == 2">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
+                      <span class="testimonials_comments" ng-if="$index == 0">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span class="testimonials_comments" ng-if="$index == 1">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span class="testimonials_comments" ng-if="$index == 2">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
+                    </div>
+                    <div class="description" style="font-size: 1.2em;">
+                      <br><br>
+                      <span ng-if="$index == 0"><a href="https://instagram.com/darerah_gram"><i class="fa fa-instagram testimonials_ref_links"></i></a></span>
+                      <span ng-if="$index == 1"></span>
+                      <span ng-if="$index == 2">
+                          <a href="https://instagram.com/kaligraph_jay"><i class="fa fa-instagram testimonials_ref_links"></i></a>
+                          <a href="https://facebook.com/profile.php?id=100008795411460 "><i class="fa fa-facebook testimonials_ref_links"></i></a>
+                          <a href="https://twitter.com/kaligraph_jay "><i class="fa fa-twitter testimonials_ref_links"></i></a>
+                      </span>
                     </div>
                   </div>
                   <div class="extra content">
                     <a>
-                      <i class="user icon"></i>
+                      <i class="bullhorn icon"></i>
                       @{{ e.user_earnings | currency }} earned from @{{ e.games_count }} games played
                     </a>
                   </div>
