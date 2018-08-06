@@ -109,6 +109,7 @@ Route::middleware(['before'])->group( function () {
   })->name('calculator');
 
   Route::get('/privacy', function () {
+    return response()->file('storage/privacy.pdf');
     return download_file('privacy.pdf', env('PRIVACY_FILE_NAME'));
   })->name('privacy');
 

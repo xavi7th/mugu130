@@ -66,9 +66,9 @@
                </div>
                <div class="field">
                  <div class="ui buttons">
-                   <button ng-class="['ui', 'positive', 'button', {'loading': loading}]" type="submit" name="btnsub" ng-click="loading = true">Submit</button>
+                   <button ng-class="['ui', 'positive', 'button', {'loading': loading}]" type="submit" name="btnsub" ng-click="loading = true">Calculate</button>
                    <div class="or"></div>
-                   <a class="ui deny button" name="btnref" href="/calculator" target="_self">Refresh</a>
+                   <a class="ui deny button" name="btnref" href="/calculator" target="_self">Clear</a>
                  </div>
                </div>
              </div>

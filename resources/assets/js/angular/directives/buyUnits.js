@@ -44,6 +44,7 @@ var url = `
                     NB:
                   </div>
                   <p>This transaction will have attract a charge of 1.7%. Also, transactions ranging from ₦2,500 and above will attract an additional fixed charge of ₦100.</p>
+                  <p>If your wallet is not funded as soon as your online payment is successful, kindly send an email to hello@fastplay24.com immediately. </p>
                 </div>
               </div>
             </div>
