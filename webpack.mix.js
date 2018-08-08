@@ -40,7 +40,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
 		purifyCss: {
 		   paths: paths,
 		   purifyOptions: {
-		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*'],
+		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*', '*.modals*', '*.ui.table*', '*.ui.form*', '*.scrolling*'],
 		     // extensions: ['html', 'php', 'js', 'php'],
 		     // info: true,
 		     rejected: true,

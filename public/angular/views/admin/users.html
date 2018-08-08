@@ -195,9 +195,9 @@
 
     <div class="ui blue stacked segment">
       <div class="ui cards">
-        <div class="card" style="width:280px;" ng-repeat="ref in referrals">
+        <div class="card" style="width:280px;" ng-repeat="ref in ::referrals">
           <div class="content">
-            <div class="center aligned header">{{ ref.referral.firstname }} {{ ref.referral.lastname }}</div>
+            <div class="center aligned header">{{ ref.referral.firstname }} {{ ref.referral.lastname }} ({{ ref.referral.units_purchased | currency }})</div>
             <div class="center aligned description">
               <p>{{ ref.referral.email }}</p>
             </div>
