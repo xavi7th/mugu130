@@ -22,7 +22,7 @@ var url = `
         <div class="ui segment">
           <div id="session-menu" class="ui two item menu">
           <a class="item active" data-tab="online-transfer" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>
-          <a class="item" data-tab="bank-transfer">BANK TRANSFER</a>
+          <a class="item" data-tab="bank-transfer">Tap here for bank deposit</a>
           </div>
         </div>
 

@@ -353,7 +353,7 @@ class AdminController extends Controller
       $user->verified = true;
       $user->save();
 
-      TransactionalMail::sendWelcomeMail($user->firstname, $user->email);
+      // TransactionalMail::sendWelcomeMail($user->firstname, $user->email);
 
       return [
         'status' => true

@@ -136,14 +136,14 @@
               <br>
               <br>
               <div class="label" style="font-size: 1.2em !important;">
-                Please check your email for the verification link. <br> If you did not receive any message, kindly check your spam first (then mark as “not spam”) or shoot a note to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>
+                We will send an email to you shortly.
               </div>
             </div>
           </div>
 
           <div class="grid-100 flex-center">
             <a href="{{ route('login') }}" class="massive blue ui button" target="_self">
-              Proceed
+              Proceed to my Dashboard
             </a>
           </div>
         </div>
