@@ -16,12 +16,13 @@ var url = `
       </div>
       <br>
       <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">
+        <button ng-class="['ui green button', {'loading':searching}]" ng-click="performDatabaseSearch(searchPhrase)">View All Pending Cashouts</button>
         <div class="ui icon input">
           <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">
           <i class="search icon"></i>
         </div>
-        <div class="results"></div>
       </div>
+
 
       <div ng-show="!transactionrecord">
         <table class="ui  striped celled table">
@@ -194,6 +195,26 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
                       }
                     });
       };
+
+      $scope.performDatabaseSearch = () => {
+        $scope.searching = true;
+        NProgress.start();
+        sendRequest.postRequest(route_root + '/api/database-search/transaction', 'pending')
+        .then(rsp => {
+          console.log(rsp);
+          $scope.data = rsp.data.details.data;
+          $scope.first_page_url = rsp.data.details.first_page_url;
+          $scope.last_page_url = rsp.data.details.last_page_url;
+          $scope.prev_page_url = rsp.data.details.prev_page_url;
+          $scope.next_page_url = rsp.data.details.next_page_url;
+          $scope.current_page = rsp.data.details.current_page;
+          $scope.total = rsp.data.details.total;
+          $scope.extras = rsp.data.extras;
+          $scope.searching = false;
+          NProgress.done();
+        });
+      };
+
 
       $scope.viewTransactionRecord = (transaction) => {
         if (transaction.trans_type != 'withdrawal') {

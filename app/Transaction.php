@@ -39,8 +39,21 @@ class Transaction extends Model{
 	 public static function totalOfflineWalletFundingCount(){
 		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->where('channel', 'bank deposit')->count();
 	 }
+
 	 public static function totalWalletFundingAmount(){
 		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->sum('amount');
+	 }
+
+	 /**
+	  * Retrieves all pending cash out requests from the transaction database.
+	  *
+	  * Gets a paginate object from the transaction table based on transaction type being withdrawala and the status being pending
+	  *
+	  * @return return PaginatedResourceResponse
+	  */
+
+	 public static function pendingCashouts(){
+		 return self::with(['user'])->where('trans_type', 'withdrawal')->where('status', 'pending')->paginate(env('ROWS_PER_PAGE'));
 	 }
 
 }

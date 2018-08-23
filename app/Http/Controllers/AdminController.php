@@ -380,6 +380,7 @@ class AdminController extends Controller
     public function databaseSearch($resource){
       // return $resource;
       $searchPhrase = request()->input('details');
+      $results = [];
 
       switch ($resource) {
         case 'user':
@@ -388,6 +389,10 @@ class AdminController extends Controller
                         ->orWhere('lastname', 'like', '%'.$searchPhrase.'%')
                         ->orWhere('email', 'like', '%'.$searchPhrase.'%')
                         ->paginate(env('ROWS_PER_PAGE'));
+          break;
+
+        case 'transaction':
+          $results = Transaction::pendingCashouts();
           break;
 
         default:
