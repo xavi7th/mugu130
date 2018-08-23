@@ -7,11 +7,11 @@
        animation: 'slide'
      })
 
-     .when('/test', {
-       controller: 'HomeController',
-       template : '',
-       animation: 'slide'
-     })
+     // .when('/test', {
+     //   controller: 'HomeController',
+     //   template : '',
+     //   animation: 'slide'
+     // })
 
      .when('/login', {
        controller: 'HomeController',

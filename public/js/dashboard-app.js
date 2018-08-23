@@ -1273,28 +1273,25 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
 
   $routeProvider.when('/dashboard', {
     templateUrl: 'angular/views/dashboard/index.html',
-    controller: 'DashboardController',
-    animation: 'slide'
+    controller: 'DashboardController'
+  }).when('/register/success', {
+    templateUrl: 'angular/views/dashboard/register-success.html',
+    controller: 'DashboardController'
   }).when('/dashboard/profile', {
     templateUrl: 'angular/views/dashboard/profile.html',
-    controller: 'ProfileController',
-    animation: 'slide'
+    controller: 'ProfileController'
   }).when('/dashboard/messages', {
     templateUrl: 'angular/views/dashboard/messages.html',
-    controller: 'MessageController',
-    animation: 'slide'
+    controller: 'MessageController'
   }).when('/dashboard/notices', {
     templateUrl: 'angular/views/dashboard/notices.html',
-    controller: 'NoticeController',
-    animation: 'slide'
+    controller: 'NoticeController'
   }).when('/dashboard/settings', {
     templateUrl: 'angular/views/dashboard/settings.html',
-    controller: 'SettingsController',
-    animation: 'slide'
+    controller: 'SettingsController'
   }).when('/dashboard/game-play', {
     templateUrl: 'angular/views/dashboard/game-play.html',
     controller: 'GamePlayController',
-    animation: 'slide',
     resolve: {
       gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {
         return sendRequest.getGameState().then(function (rsp) {

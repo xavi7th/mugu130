@@ -91,7 +91,6 @@ class RegisterController extends Controller
           'firstname'=> request()->input('firstname'),
           'lastname'=> request()->input('lastname'),
 
-          // 'created_at'=> Carbon::now(),
           'confirmation_token' => $token,
         ]);
 
@@ -105,9 +104,8 @@ class RegisterController extends Controller
       User::reguard();
 
       // session(['NEW_USER' => $user]);
-      TransactionalMail::sendverificationMail($token, $user);
+      // TransactionalMail::sendverificationMail($token, $user);
 
-
-        return $user;
+      return $user;
     }
 }

@@ -31,23 +31,8 @@
 	<body ng-app="dashboard" ng-strict-di>
     <base href="/" target="_self">
 
-		{{-- <div id="main-controller" >
-	    <header id="alpha">
-	      <div class="grid-container">
-	        <div class="grid-50">
-	          <img src="/img/logo.png" alt="">
-	        </div>
-	        <div class="grid-50">
-	        </div>
-	      </div>
-	    </header> --}}
-
 			@yield('contents')
 
-
-	    {{-- <footer style="position: absolute; width: 100%; bottom: 0;">
-	      @include('partials.footer-content')
-	    </footer> --}}
 	  </div>
 
 
@@ -58,8 +43,6 @@
     <script src="{{ asset(mix('/js/app.js')) }}" charset="utf-8"></script>
 		<script src="{{ asset(mix('/js/libraries.js')) }}" charset="utf-8"></script>
 		<script src="{{ asset(mix('/js/dashboard-app.js')) }}" charset="utf-8"></script>
-		{{-- <script src="https://js.paystack.co/v1/inline.js"></script> --}}
-
 
 		@yield('customJS')
 

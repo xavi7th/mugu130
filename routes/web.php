@@ -50,7 +50,7 @@ Route::middleware(['before'])->group( function () {
         // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
         // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
-    // return view('demo-play');
+    return view('auth.register-success');
 
     // return dd(view('demo-play')->render());
     $user = Auth::user();

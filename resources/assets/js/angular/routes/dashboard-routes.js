@@ -5,37 +5,36 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
    .when('/dashboard', {
      templateUrl: 'angular/views/dashboard/index.html',
      controller: 'DashboardController',
-     animation: 'slide',
+   })
+
+   .when('/register/success', {
+     templateUrl: 'angular/views/dashboard/register-success.html',
+     controller: 'DashboardController',
    })
 
    .when('/dashboard/profile', {
      templateUrl: 'angular/views/dashboard/profile.html',
      controller: 'ProfileController',
-     animation: 'slide',
    })
 
    .when('/dashboard/messages', {
      templateUrl: 'angular/views/dashboard/messages.html',
      controller: 'MessageController',
-     animation: 'slide',
    })
 
    .when('/dashboard/notices', {
      templateUrl: 'angular/views/dashboard/notices.html',
      controller: 'NoticeController',
-     animation: 'slide',
    })
 
    .when('/dashboard/settings', {
      templateUrl: 'angular/views/dashboard/settings.html',
      controller: 'SettingsController',
-     animation: 'slide',
    })
 
    .when('/dashboard/game-play', {
      templateUrl: 'angular/views/dashboard/game-play.html',
      controller: 'GamePlayController',
-     animation: 'slide',
      resolve: {
                 gameActive: ['$location', 'sendRequest', function($location, sendRequest) {
                   return sendRequest.getGameState()

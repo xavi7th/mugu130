@@ -1,10 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 
 @section('customCSS')
 <style media="screen">
   #main-controller{
-    min-height: 100vh;
       position: relative;
       background-color: #135482;
       background-image: url(/img/4.jpg);
@@ -78,7 +77,23 @@
       font-size: 1em !important;
     }
   }
+  #logo{
+    flex-shrink: 18;
+  }
 
+  #logo .image{
+    width: 25%;
+  }
+
+  #logo img{
+    width: 100%;
+  }
+
+  .visible.content{
+    font-size: 1.71428571rem;
+    padding: 6% 13%;
+    white-space:nowrap;
+  }
 
 </style>
 
@@ -111,43 +126,14 @@
 @endsection
 
 
+@section('customJS')
+  @javascript('PAYSTACK_PUBLIC_KEY', env('PAYSTACK_PUBLIC_KEY'))
+@endsection
+
+
+
 @section('contents')
 
-      <section id="intro">
-        <div class="grid-container">
-          <div class="grid-100 flex-center">
-
-            <div class="ui circular blue segment">
-              <h2 class="ui header huge blue dash_header">
-                <i class="check icon" style="margin: 0 !important;"></i>
-              </h2>
-            </div>
-
-          </div>
-
-          <div class="grid-100 flex-center">
-            <div class="ui statistic">
-              <div class="text value">
-                Congratulations
-              </div>
-              <div class="label">
-                You are the owner of a brand new FastPlay24 account.
-              </div>
-              <br>
-              <br>
-              <div class="label" style="font-size: 1.2em !important;">
-                We will send an email to you shortly.
-              </div>
-            </div>
-          </div>
-
-          <div class="grid-100 flex-center">
-            <a href="{{ route('login') }}" class="massive blue ui button" target="_self">
-              Proceed to my Dashboard
-            </a>
-          </div>
-        </div>
-      </section>
-
+      <div ng-view class="animate translate-in"></div>
 
 @endsection
