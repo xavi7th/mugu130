@@ -234,6 +234,11 @@ datepicker, .datepicker, [datepicker],
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
+@include MQ(S){
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak.ng-cloak.ng-cloak, #ng-cloak.ng-cloak, .x-ng-cloak {
+      display: none !important;
+  }
+}
 
 input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
   border: 2px solid $red;
@@ -432,6 +437,9 @@ div#main-controller{
 
     img{
       max-width: 70%;
+      @include MQ(M){
+        display: none !important;
+      }
     }
   }
 
@@ -450,6 +458,22 @@ div#main-controller{
       -webkit-box-pack: center !important;
           -ms-flex-pack: center !important;
               justify-content: center !important;
+    }
+    section#mid {
+      #form{
+        height: auto;
+        position: relative;
+        margin-top: 15px;
+          z-index: 2;
+      }
+      tr:nth-child(-n+3) p {
+        margin-top: 15% !important;
+      }
+
+      .info{
+        // position: absolute !important;
+        // bottom: 2vh;
+      }
     }
   }
 

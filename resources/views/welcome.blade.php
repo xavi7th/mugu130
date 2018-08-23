@@ -5,9 +5,6 @@
     div[ng-view] {
       min-height: 0 !important;
     }
-    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-      display: none !important;
-    }
   </style>
 @endsection
 
@@ -64,7 +61,7 @@
 
               <table class="ui blue celled table" style="font-size: 1.2em;">
 
-                <tbody ng-cloak>
+                <tbody class="ng-cloak" id="ng-cloak">
                   <tr>
                     <th colspan="2" style="font-size:1.3em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
                   </tr>

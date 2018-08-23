@@ -30031,7 +30031,7 @@ i.icon.s15:before {
   top: 50%;
   margin-left: -40px;
   margin-top: -40px;
-  background: url(/img/vendor/owl.carousel/dist/owl.video.play.png?4cbde124d6cd8122c801118696c16f07) no-repeat;
+  background: url(/img/vendor/owl.carousel/dist/owl.video.play.png?4a37f8008959c75f619bf0a3a4e2d7a2) no-repeat;
   cursor: pointer;
   z-index: 1;
   -webkit-backface-visibility: hidden;
@@ -30635,6 +30635,12 @@ datepicker,.datepicker,[datepicker],._720kb-datepicker-calendar-header,._720kb-d
   display: none !important;
 }
 
+@media only screen and (max-width: 767px) {
+  [ng\:cloak],  [ng-cloak],  [data-ng-cloak],  [x-ng-cloak],  .ng-cloak.ng-cloak.ng-cloak,  #ng-cloak.ng-cloak,  .x-ng-cloak {
+    display: none !important;
+  }
+}
+
 input.ng-invalid.ng-touched,textarea.ng-invalid.ng-touched {
   border: 2px solid #ee0034;
 }
@@ -30875,6 +30881,12 @@ div#main-controller .info img {
   max-width: 70%;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1169px) {
+  div#main-controller .info img {
+    display: none !important;
+  }
+}
+
 div#main-controller #mid .ui.card {
   width: 100%;
   text-align: center;
@@ -30887,6 +30899,17 @@ div#main-controller #mid .ui.card {
     -webkit-box-pack: center !important;
     -ms-flex-pack: center !important;
     justify-content: center !important;
+  }
+
+  div#main-controller section#mid #form {
+    height: auto;
+    position: relative;
+    margin-top: 15px;
+    z-index: 2;
+  }
+
+  div#main-controller section#mid tr:nth-child(-n+3) p {
+    margin-top: 15% !important;
   }
 }
 
