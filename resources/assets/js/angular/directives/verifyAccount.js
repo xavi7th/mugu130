@@ -4,18 +4,49 @@
 
 var url = `
 <section id="verifyAccount" class="ui left floated horizontal  list">
+  <style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
 
-  <div class="ui circular green labels" ng-if="userdetails.verified" title="Verified Account">
-    <a class="ui label">
-      <i class="check circle icon" style="margin: 0;"></i>
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+
+  </style>
+  <div class="ui circular green labels " ng-if="userdetails.verified" title="Verified Account" >
+    <a class="ui label tooltip">
+      <i class="check circle icon " style="margin: 0;"></i>
+      <span class="tooltiptext">Account verified</span>
     </a>
   </div>
 
-  <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMail()" ng-if="!userdetails.verified">
-    <div class="ui red label right pointing">
+  <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMai()" ng-if="!userdetails.verified">
+  <!--
+    <div class="ui red label right pointing" >
       <i class="exclamation triangle icon"></i>
     </div>
-    <a class="ui basic red label ng-binding">Verify now</a>
+    <a class="ui basic red label ng-binding tooltip">
+      Unverified
+      <span class="tooltiptext">Account not yet verified.</span>
+    </a>
+    -->
   </div>
 </section>
 `;

@@ -26,8 +26,9 @@ class TransactionalMail
       // $errors = new MessageBag(['mail_error' => ['net_err'=>$e->getMessage() ]]);
       abort(404, 'Activation mail not sent. ' . str_limit($e->getMessage(), 52, '.') . ' Go back to home page and login with your details');
     }
-    catch (Exception $e) {
-      dd($e);
+    catch (\Exception $e) {
+      abort(404, 'Something went wrong while attempting to send you an email.');
+      // dd($e);
     }
 
 

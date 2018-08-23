@@ -5,7 +5,6 @@
     div[ng-view] {
       min-height: 0 !important;
     }
-
   </style>
 @endsection
 
@@ -36,18 +35,24 @@
             <p style="font-size:1.2em">Win up to N15, 000 with just ₦35 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
 
             <h3>Think - Play - Win</h3>
-            <div class="flex-center mb-d-40">
+            <div class="flex-center mb-d-40 stack small">
 
               <a href="/demo-play" target="_self">
-                <button class="ui labeled blue icon button">
-                  <i class="gamepad icon"></i>
+                <button class="ui right labeled basic inverted icon button">
                   Play Demo
+                  <i class="gamepad icon"></i>
                 </button>
               </a>
               <a href="/calculator" target="_self">
-                <button class="ui right labeled purple icon button">
+                <button class="ui right labeled basic inverted icon button">
                   View Calculator
                   <i class="calculator icon"></i>
+                </button>
+              </a>
+              <a href="{{ route('faq') }}" target="_self">
+                <button class="ui right labeled basic inverted icon button">
+                  How it works
+                  <i class="lightbulb icon"></i>
                 </button>
               </a>
             </div>
@@ -56,8 +61,8 @@
 
               <table class="ui blue celled table" style="font-size: 1.2em;">
 
-                <tbody ng-cloak>
-                  <tr >
+                <tbody class="ng-cloak" id="ng-cloak">
+                  <tr>
                     <th colspan="2" style="font-size:1.3em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
                   </tr>
                   <tr>
@@ -87,7 +92,7 @@
                 </div>
               </div>
 
-              <div class="ui segment" style="padding-bottom: 30px;">
+              <div class="ui segment" style="padding: 0px 1em;">
                 @if (count($errors) > 0)
                   <div class="ui error message">
                     <div class="header">
@@ -101,7 +106,7 @@
                   </div>
                 @endif
 
-                <div class="ui tab {{ Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral' ? 'active' : null }}" data-tab="register">
+                <div class="ui tab {{ (Route::currentRouteName() == 'register' || Route::currentRouteName() == 'referral') && Agent::isDesktop() ? 'active' : null }}" data-tab="register" style="padding-bottom: 15px;">
                   <form class="ui form" method="POST" action="/register" name="registerForm">
 
                     {{ csrf_field() }}
@@ -132,7 +137,7 @@
                       <div class="ui segment">
                           <div class="ui checkbox">
                           <input id="terms" type="checkbox" name="terms" ng-model="terms" required>
-                          <label>Agree to<a href="{{ route('terms') }}" target="_blank"> terms and conditions</a></label>
+                          <label>I agree to the<a href="{{ route('terms') }}" target="_blank"> terms and conditions</a></label>
                         </div>
                       </div>
                     </div>
@@ -148,7 +153,7 @@
                   </form>
                 </div>
 
-                <div class="ui tab {{ Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home' ? 'active' : null }}" data-tab="login">
+                <div class="ui tab {{ (Route::currentRouteName() == 'login' ? 'active' : null || Route::currentRouteName() == 'home') && Agent::isDesktop() ? 'active' : null }}" data-tab="login">
                   <form class="ui form" method="POST" action="/login">
                     {{ csrf_field() }}
                     <h2>LOGIN</h2>
@@ -185,25 +190,25 @@
                       <span class="date">Joined @{{ e.user.created_at | timeAgo }}</span>
                     </div>
                     <div class="description">
-                      <span class="testimonials_comments" ng-if="$index == 0">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
-                      <span class="testimonials_comments" ng-if="$index == 1">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
-                      <span class="testimonials_comments" ng-if="$index == 2">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
+                      <span class="testimonials_comments" ng-if="e.user.id == 1145">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span class="testimonials_comments" ng-if="e.user.id == 287000">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span class="testimonials_comments" ng-if="e.user.id == 505">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
                     </div>
                     <div class="description" style="font-size: 1.2em;">
                       <br><br>
-                      <span ng-if="$index == 0"><a href="https://instagram.com/darerah_gram"><i class="fa fa-instagram testimonials_ref_links"></i></a></span>
-                      <span ng-if="$index == 1"></span>
-                      <span ng-if="$index == 2">
-                          <a href="https://instagram.com/kaligraph_jay"><i class="fa fa-instagram testimonials_ref_links"></i></a>
-                          <a href="https://facebook.com/profile.php?id=100008795411460 "><i class="fa fa-facebook testimonials_ref_links"></i></a>
-                          <a href="https://twitter.com/kaligraph_jay "><i class="fa fa-twitter testimonials_ref_links"></i></a>
+                      <span ng-if="e.user.id == 1145"><a href="https://instagram.com/darerah_gram"><i class="fa fa-instagram testimonials_ref_links"></i></a></span>
+                      <span ng-if="e.user.id == 287000"></span>
+                      <span ng-if="e.user.id == 505">
+                          <a target="_blank" href="https://instagram.com/kaligraph_jay"><i class="fa fa-instagram testimonials_ref_links"></i></a>
+                          <a target="_blank" href="https://facebook.com/profile.php?id=100008795411460 "><i class="fa fa-facebook testimonials_ref_links"></i></a>
+                          <a target="_blank" href="https://twitter.com/kaligragh_jay "><i class="fa fa-twitter testimonials_ref_links"></i></a>
                       </span>
                     </div>
                   </div>
                   <div class="extra content">
                     <a>
                       <i class="bullhorn icon"></i>
-                      @{{ e.user_earnings | currency }} earned from @{{ e.games_count }} games played
+                      <b>EARNINGS:</b> @{{ e.user_earnings | currency }}
                     </a>
                   </div>
                 </div>

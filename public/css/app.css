@@ -29,6 +29,10 @@
     -ms-flex-direction: column;
     flex-direction: column;
   }
+
+  .flex-center.stack.small > * {
+    margin-bottom: 5px;
+  }
 }
 
 /* html5reset.css - 01/11/2011 */
@@ -4963,6 +4967,11 @@ i.icon.loading {
              States
 *******************************/
 
+i.icon.hover {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
+  opacity: 1 !important;
+}
+
 i.icon.active {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
   opacity: 1 !important;
@@ -6397,6 +6406,10 @@ i.icon.envelope:before {
   content: "\F0E0";
 }
 
+i.icon.lightbulb:before {
+  content: "\F0EB";
+}
+
 i.icon.circle.outline:before {
   content: "\F10C";
 }
@@ -7598,6 +7611,10 @@ a.ui.label {
 }
 
 /* Inside Table */
+
+.ui.table td > .ui.ribbon.label {
+  left: -1.98571em;
+}
 
 .ui.table td > .ui[class*="right ribbon"].label {
   left: calc(100% + 1.98571em);
@@ -11060,7 +11077,7 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
 
 /* Full Width Input */
 
-.ui.form .ten.fields .ui.input input,.ui.form .eight.fields .ui.input input,.ui.form .seven.fields .ui.input input,.ui.form .five.fields .ui.input input,.ui.form .four.fields .ui.input input,.ui.form .three.fields .ui.input input,.ui.form .two.fields .ui.input input,.ui.form .wide.field .ui.input input {
+.ui.form .ten.fields .ui.input input,.ui.form .nine.fields .ui.input input,.ui.form .eight.fields .ui.input input,.ui.form .seven.fields .ui.input input,.ui.form .six.fields .ui.input input,.ui.form .five.fields .ui.input input,.ui.form .four.fields .ui.input input,.ui.form .three.fields .ui.input input,.ui.form .two.fields .ui.input input,.ui.form .wide.field .ui.input input {
   -webkit-box-flex: 1;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -11280,6 +11297,11 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
   color: #9F3A38;
 }
 
+.ui.form .fields.error .field .corner.label,.ui.form .field.error .corner.label {
+  border-color: #9F3A38;
+  color: #FFFFFF;
+}
+
 .ui.form .fields.error .field textarea,.ui.form .fields.error .field select,.ui.form .fields.error .field input:not([type]),.ui.form .fields.error .field input[type="date"],.ui.form .fields.error .field input[type="datetime-local"],.ui.form .fields.error .field input[type="email"],.ui.form .fields.error .field input[type="number"],.ui.form .fields.error .field input[type="password"],.ui.form .fields.error .field input[type="search"],.ui.form .fields.error .field input[type="tel"],.ui.form .fields.error .field input[type="time"],.ui.form .fields.error .field input[type="text"],.ui.form .fields.error .field input[type="file"],.ui.form .fields.error .field input[type="url"],.ui.form .field.error textarea,.ui.form .field.error select,.ui.form .field.error input:not([type]),.ui.form .field.error input[type="date"],.ui.form .field.error input[type="datetime-local"],.ui.form .field.error input[type="email"],.ui.form .field.error input[type="number"],.ui.form .field.error input[type="password"],.ui.form .field.error input[type="search"],.ui.form .field.error input[type="tel"],.ui.form .field.error input[type="time"],.ui.form .field.error input[type="text"],.ui.form .field.error input[type="file"],.ui.form .field.error input[type="url"] {
   background: #FFF6F6;
   border-color: #E0B4B4;
@@ -11325,6 +11347,11 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
   border-color: #E0B4B4;
 }
 
+.ui.form .fields.error .field .ui.multiple.selection.dropdown > .label,.ui.form .field.error .ui.multiple.selection.dropdown > .label {
+  background-color: #EACBCB;
+  color: #9F3A38;
+}
+
 /* Hover */
 
 .ui.form .fields.error .field .ui.dropdown .menu .item:hover,.ui.form .field.error .ui.dropdown .menu .item:hover {
@@ -11347,16 +11374,16 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
     Checkbox Error
 ---------------------*/
 
-.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label,.ui.form .field.error .checkbox:not(.toggle):not(.slider) label {
+.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label,.ui.form .field.error .checkbox:not(.toggle):not(.slider) label,.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box,.ui.form .field.error .checkbox:not(.toggle):not(.slider) .box {
   color: #9F3A38;
 }
 
-.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label:before,.ui.form .field.error .checkbox:not(.toggle):not(.slider) label:before {
+.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label:before,.ui.form .field.error .checkbox:not(.toggle):not(.slider) label:before,.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box:before,.ui.form .field.error .checkbox:not(.toggle):not(.slider) .box:before {
   background: #FFF6F6;
   border-color: #E0B4B4;
 }
 
-.ui.form .fields.error .field .checkbox label:after,.ui.form .field.error .checkbox label:after {
+.ui.form .fields.error .field .checkbox label:after,.ui.form .field.error .checkbox label:after,.ui.form .fields.error .field .checkbox .box:after,.ui.form .field.error .checkbox .box:after {
   color: #9F3A38;
 }
 
@@ -11455,18 +11482,18 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
      Required Field
 ---------------------*/
 
-.ui.form .required.field > label:after,.ui.form .required.field > .checkbox:after {
+.ui.form .required.fields:not(.grouped) > .field > label:after,.ui.form .required.fields.grouped > label:after,.ui.form .required.field > label:after,.ui.form .required.fields:not(.grouped) > .field > .checkbox:after,.ui.form .required.field > .checkbox:after {
   margin: -0.2em 0em 0em 0.2em;
   content: '*';
   color: #DB2828;
 }
 
-.ui.form .required.field > label:after {
+.ui.form .required.fields:not(.grouped) > .field > label:after,.ui.form .required.fields.grouped > label:after,.ui.form .required.field > label:after {
   display: inline-block;
   vertical-align: top;
 }
 
-.ui.form .required.field > .checkbox:after {
+.ui.form .required.fields:not(.grouped) > .field > .checkbox:after,.ui.form .required.field > .checkbox:after {
   position: absolute;
   top: 0%;
   left: 100%;
@@ -11480,7 +11507,7 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
     Inverted Colors
 ---------------------*/
 
-.ui.inverted.form label,.ui.form .inverted.segment label,.ui.form .inverted.segment .ui.checkbox label,.ui.inverted.form .ui.checkbox label,.ui.inverted.form .inline.fields > label,.ui.inverted.form .inline.fields .field > label,.ui.inverted.form .inline.fields .field > p,.ui.inverted.form .inline.field > label,.ui.inverted.form .inline.field > p {
+.ui.inverted.form label,.ui.form .inverted.segment label,.ui.form .inverted.segment .ui.checkbox label,.ui.form .inverted.segment .ui.checkbox .box,.ui.inverted.form .ui.checkbox label,.ui.inverted.form .inline.fields > label,.ui.inverted.form .inline.fields .field > label,.ui.inverted.form .inline.fields .field > p,.ui.inverted.form .inline.field > label,.ui.inverted.form .inline.field > p {
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -11499,6 +11526,30 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
 ---------------------*/
 
 /* Grouped Vertically */
+
+.ui.form .grouped.fields {
+  display: block;
+  margin: 0em 0em 1em;
+}
+
+.ui.form .grouped.fields:last-child {
+  margin-bottom: 0em;
+}
+
+.ui.form .grouped.fields > label {
+  margin: 0em 0em 4px 0em;
+  margin: 0em 0em 0.28571429rem 0em;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.92857143em;
+  font-weight: bold;
+  text-transform: none;
+}
+
+.ui.form .grouped.fields .field,.ui.form .grouped.inline.fields .field {
+  display: block;
+  margin: 0.5em 0em;
+  padding: 0em;
+}
 
 /*--------------------
         Fields
@@ -11549,12 +11600,20 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
   width: 20%;
 }
 
+.ui.form .six.fields > .fields,.ui.form .six.fields > .field {
+  width: 16.66666667%;
+}
+
 .ui.form .seven.fields > .fields,.ui.form .seven.fields > .field {
   width: 14.28571429%;
 }
 
 .ui.form .eight.fields > .fields,.ui.form .eight.fields > .field {
   width: 12.5%;
+}
+
+.ui.form .nine.fields > .fields,.ui.form .nine.fields > .field {
+  width: 11.11111111%;
 }
 
 .ui.form .ten.fields > .fields,.ui.form .ten.fields > .field {
@@ -11567,6 +11626,11 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
   .ui.form .fields {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+  }
+
+  .ui.form:not(.unstackable) [class*="equal width"].fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .two.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .two.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .three.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .three.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .four.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .four.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .five.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .five.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .six.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .six.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .seven.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .seven.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .eight.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .eight.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .nine.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .nine.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .ten.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .ten.fields:not(.unstackable) > .field {
+    width: 100% !important;
+    margin: 0em 0em 1em;
   }
 }
 
@@ -11598,6 +11662,10 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
   width: 31.25% !important;
 }
 
+.ui.form .six.wide.field {
+  width: 37.5% !important;
+}
+
 .ui.form .seven.wide.field {
   width: 43.75% !important;
 }
@@ -11606,8 +11674,28 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
   width: 50% !important;
 }
 
+.ui.form .nine.wide.field {
+  width: 56.25% !important;
+}
+
 .ui.form .ten.wide.field {
   width: 62.5% !important;
+}
+
+.ui.form .eleven.wide.field {
+  width: 68.75% !important;
+}
+
+.ui.form .twelve.wide.field {
+  width: 75% !important;
+}
+
+.ui.form .thirteen.wide.field {
+  width: 81.25% !important;
+}
+
+.ui.form .fourteen.wide.field {
+  width: 87.5% !important;
 }
 
 .ui.form .fifteen.wide.field {
@@ -11621,6 +11709,10 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
 /* Swap to full width on mobile */
 
 @media only screen and (max-width: 767px) {
+  .ui.form:not(.unstackable) .two.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .two.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .three.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .three.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .four.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .four.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .five.fields:not(.unstackable) > .fields,  .ui.form:not(.unstackable) .five.fields:not(.unstackable) > .field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .two.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .three.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .four.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .five.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .six.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .seven.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .eight.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .nine.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .ten.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .eleven.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .twelve.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .thirteen.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .fourteen.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .fifteen.wide.field,  .ui.form:not(.unstackable) .fields:not(.unstackable) > .sixteen.wide.field {
+    width: 100% !important;
+  }
+
   .ui.form .fields {
     margin-bottom: 0em;
   }
@@ -15815,6 +15907,46 @@ Floated Menu / Item
 /* Responsive */
 
 @media only screen and (max-width: 767px) {
+  .ui.table:not(.unstackable) {
+    width: 100%;
+  }
+
+  .ui.table:not(.unstackable) tbody,  .ui.table:not(.unstackable) tr,  .ui.table:not(.unstackable) tr > th,  .ui.table:not(.unstackable) tr > td {
+    width: auto !important;
+    display: block !important;
+  }
+
+  .ui.table:not(.unstackable) {
+    padding: 0em;
+  }
+
+  .ui.table:not(.unstackable) thead {
+    display: block;
+  }
+
+  .ui.table:not(.unstackable) tfoot {
+    display: block;
+  }
+
+  .ui.table:not(.unstackable) tr {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+    box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+  }
+
+  .ui.table:not(.unstackable) tr > th,  .ui.table:not(.unstackable) tr > td {
+    background: none;
+    border: none !important;
+    padding: 0.25em 0.75em !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .ui.table:not(.unstackable) th:first-child,  .ui.table:not(.unstackable) td:first-child {
+    font-weight: bold;
+  }
+
   /* Definition Table */
 }
 
@@ -16067,6 +16199,11 @@ Floated Menu / Item
     Collapsing
 ---------------*/
 
+.ui.table th.collapsing,.ui.table td.collapsing {
+  width: 1px;
+  white-space: nowrap;
+}
+
 /*--------------
      Fixed
 ---------------*/
@@ -16084,9 +16221,49 @@ Floated Menu / Item
    Selectable
 ---------------*/
 
+.ui.table tbody tr td.selectable:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: rgba(0, 0, 0, 0.95) !important;
+}
+
 /* Selectable Cell Link */
 
+.ui.table tbody tr td.selectable {
+  padding: 0em;
+}
+
+.ui.table tbody tr td.selectable > a:not(.ui) {
+  display: block;
+  color: inherit;
+  padding: 0.78571429em 0.78571429em;
+}
+
 /* Other States */
+
+.ui.table tr td.selectable.error:hover {
+  background: #ffe7e7 !important;
+  color: #943634 !important;
+}
+
+.ui.table tr td.selectable.warning:hover {
+  background: #fff4e4 !important;
+  color: #493107 !important;
+}
+
+.ui.table tr td.selectable.active:hover {
+  background: #E0E0E0 !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ui.table tr td.selectable.positive:hover {
+  background: #f7ffe6 !important;
+  color: #275b28 !important;
+}
+
+.ui.table tr td.selectable.negative:hover {
+  background: #ffe7e7 !important;
+  color: #943634 !important;
+}
 
 /*-------------------
       Attached
@@ -16349,6 +16526,10 @@ Floated Menu / Item
   width: 31.25%;
 }
 
+.ui.table th.six.wide,.ui.table td.six.wide {
+  width: 37.5%;
+}
+
 .ui.table th.seven.wide,.ui.table td.seven.wide {
   width: 43.75%;
 }
@@ -16357,8 +16538,28 @@ Floated Menu / Item
   width: 50%;
 }
 
+.ui.table th.nine.wide,.ui.table td.nine.wide {
+  width: 56.25%;
+}
+
 .ui.table th.ten.wide,.ui.table td.ten.wide {
   width: 62.5%;
+}
+
+.ui.table th.eleven.wide,.ui.table td.eleven.wide {
+  width: 68.75%;
+}
+
+.ui.table th.twelve.wide,.ui.table td.twelve.wide {
+  width: 75%;
+}
+
+.ui.table th.thirteen.wide,.ui.table td.thirteen.wide {
+  width: 81.25%;
+}
+
+.ui.table th.fourteen.wide,.ui.table td.fourteen.wide {
+  width: 87.5%;
 }
 
 .ui.table th.fifteen.wide,.ui.table td.fifteen.wide {
@@ -20644,7 +20845,77 @@ select.ui.dropdown {
 
 /*  Selection Menu */
 
+.ui.scrolling.dropdown .menu,.ui.dropdown .scrolling.menu {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ui.scrolling.dropdown .menu {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+  min-width: 100% !important;
+  width: auto !important;
+}
+
+.ui.dropdown .scrolling.menu {
+  position: static;
+  overflow-y: auto;
+  border: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  min-width: 100% !important;
+  width: auto !important;
+  border-top: 1px solid rgba(34, 36, 38, 0.15);
+}
+
+.ui.scrolling.dropdown .menu .item.item.item,.ui.dropdown .scrolling.menu > .item.item.item {
+  border-top: none;
+}
+
+.ui.scrolling.dropdown .menu .item:first-child,.ui.dropdown .scrolling.menu .item:first-child {
+  border-top: none;
+}
+
+.ui.dropdown > .animating.menu .scrolling.menu,.ui.dropdown > .visible.menu .scrolling.menu {
+  display: block;
+}
+
 /* Scrollbar in IE */
+
+@media all and (-ms-high-contrast: none) {
+  .ui.scrolling.dropdown .menu,  .ui.dropdown .scrolling.menu {
+    min-width: calc(100% - 17px);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.scrolling.dropdown .menu,  .ui.dropdown .scrolling.menu {
+    max-height: 10.28571429rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .ui.scrolling.dropdown .menu,  .ui.dropdown .scrolling.menu {
+    max-height: 15.42857143rem;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .ui.scrolling.dropdown .menu,  .ui.dropdown .scrolling.menu {
+    max-height: 20.57142857rem;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .ui.scrolling.dropdown .menu,  .ui.dropdown .scrolling.menu {
+    max-height: 20.57142857rem;
+  }
+}
 
 /*--------------
      Simple
@@ -21443,15 +21714,66 @@ select.ui.dropdown {
 
 /* A modal that cannot fit on the page */
 
+.scrolling.dimmable.dimmed {
+  overflow: hidden;
+}
+
+.scrolling.dimmable.dimmed > .dimmer {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrolling.dimmable > .dimmer {
+  position: fixed;
+}
+
+.modals.dimmer .ui.scrolling.modal {
+  position: static !important;
+  margin: 49px auto !important;
+  margin: 3.5rem auto !important;
+}
+
 /* undetached scrolling */
+
+.scrolling.undetached.dimmable.dimmed {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrolling.undetached.dimmable.dimmed > .dimmer {
+  overflow: hidden;
+}
+
+.scrolling.undetached.dimmable .ui.scrolling.modal {
+  position: absolute;
+  left: 50%;
+  margin-top: 49px !important;
+  margin-top: 3.5rem !important;
+}
 
 /* Coupling with Sidebar */
 
+@media only screen and (max-width: 991px) {
+  .modals.dimmer .ui.scrolling.modal {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
 /* Scrolling Content */
+
+.ui.modal .scrolling.content {
+  max-height: 70vh;
+  overflow: auto;
+}
 
 /*--------------
    Full Screen
 ---------------*/
+
+.ui.fullscreen.scrolling.modal {
+  left: 0em !important;
+}
 
 /*--------------
       Size
@@ -26585,6 +26907,11 @@ i.icon.loading {
              States
 *******************************/
 
+i.icon.hover {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
+  opacity: 1 !important;
+}
+
 i.icon.active {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" !important;
   opacity: 1 !important;
@@ -28017,6 +28344,10 @@ i.icon.triangle.right:before {
 
 i.icon.envelope:before {
   content: "\F0E0";
+}
+
+i.icon.lightbulb:before {
+  content: "\F0EB";
 }
 
 i.icon.circle.outline:before {
@@ -29855,14 +30186,31 @@ div#main-controller section#mid p {
 div#main-controller section#mid #form {
   position: absolute;
   width: 100%;
-  height: 420px;
   background-color: #fff;
 }
 
 div#main-controller section#mid #form #forgot-pass {
-  float: right;
   margin-top: 15px;
+  margin-bottom: 15px;
   text-transform: capitalize;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 767px) {
+  div#main-controller section#mid #form #forgot-pass.stack.small {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 div#main-controller section#mid #form .ui.menu .active.item {
@@ -30287,6 +30635,12 @@ datepicker,.datepicker,[datepicker],._720kb-datepicker-calendar-header,._720kb-d
   display: none !important;
 }
 
+@media only screen and (max-width: 767px) {
+  [ng\:cloak],  [ng-cloak],  [data-ng-cloak],  [x-ng-cloak],  .ng-cloak.ng-cloak.ng-cloak,  #ng-cloak.ng-cloak,  .x-ng-cloak {
+    display: none !important;
+  }
+}
+
 input.ng-invalid.ng-touched,textarea.ng-invalid.ng-touched {
   border: 2px solid #ee0034;
 }
@@ -30527,6 +30881,12 @@ div#main-controller .info img {
   max-width: 70%;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1169px) {
+  div#main-controller .info img {
+    display: none !important;
+  }
+}
+
 div#main-controller #mid .ui.card {
   width: 100%;
   text-align: center;
@@ -30536,10 +30896,20 @@ div#main-controller #mid .ui.card {
   div#main-controller .ui.menu {
     -ms-flex-wrap: wrap !important;
     flex-wrap: wrap !important;
-    margin-bottom: 30px !important;
     -webkit-box-pack: center !important;
     -ms-flex-pack: center !important;
     justify-content: center !important;
+  }
+
+  div#main-controller section#mid #form {
+    height: auto;
+    position: relative;
+    margin-top: 15px;
+    z-index: 2;
+  }
+
+  div#main-controller section#mid tr:nth-child(-n+3) p {
+    margin-top: 15% !important;
   }
 }
 
@@ -30574,7 +30944,6 @@ div#main-controller #mid .ui.card {
   div#main-controller .ui.menu {
     -ms-flex-wrap: wrap !important;
     flex-wrap: wrap !important;
-    margin-bottom: 30px !important;
     -webkit-box-pack: center !important;
     -ms-flex-pack: center !important;
     justify-content: center !important;

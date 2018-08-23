@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 let glob = require('glob');
 
 let directiveFiles = glob.sync(
@@ -26,7 +26,6 @@ let paths = directiveFiles.concat(htmlFiles);//.concat(otherPhpFiles);
 
 mix.js('resources/assets/js/app.js', 'public/js')
 	.extract(['jquery', 'angular', 'angular-route', 'angular-animate', 'ngStorage', 'angular-ui-notification', 'angular-timeago'])
-	// .sass('resources/assets/sass/dashboard-app.scss', 'public/css')
 	.js('resources/assets/js/home-app.js', 'public/js')
 	.js('resources/assets/js/dashboard-app.js', 'public/js')
 	.js('resources/assets/js/admin-app.js', 'public/js')
@@ -36,11 +35,11 @@ mix.js('resources/assets/js/app.js', 'public/js')
 	.sass('resources/assets/sass/app.scss', 'public/css')
   .sourceMaps()
 	.options({
-		//  processCssUrls: false,
+		 // processCssUrls: false,
 		purifyCss: {
 		   paths: paths,
 		   purifyOptions: {
-		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*'],
+		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*', '*.modals*', '*.ui.table*', '*.ui.form*', '*.scrolling*'],
 		     // extensions: ['html', 'php', 'js', 'php'],
 		     // info: true,
 		     rejected: true,
@@ -52,8 +51,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 		},
 		postCss: [
              require('postcss-fixes')(), // add fallbacks for rem units and other fixes
-             // require('postcss-merge-rules')(), // merge rules
-             // require('postcss-discard-duplicates')() // remove duplicate rules
          ]
 	})
 	.version();
@@ -85,7 +82,7 @@ mix.browserSync({
 	// Will not attempt to determine your network status, assumes you're ONLINE.
 	online: false,
 	proxy: {
-		target: 'localhost:9000',
+		target: 'localhost:8000',
 		reqHeaders: function () {
 			return {
 				host: "localhost:3000"
@@ -93,7 +90,7 @@ mix.browserSync({
 		}
 	},
 	// browser: "vivaldi",
-	browser: ["google chrome", "firefox"],
+	browser: ["google chrome"],
 	files: [
 
         //  'app/**/*.php',

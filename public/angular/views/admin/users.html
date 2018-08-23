@@ -55,8 +55,8 @@
                     <div class="or"></div>
                     <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyUser(u)" ng-hide="u.verified">Verify</button>
                     <div class="or"></div>
-                    <button ng-class="['ui green button', {'loading':loading}]" ng-click="openReferralsModal(u)">View Referrals</button>
-                    <div class="or"></div>
+                    <button ng-if="u.referrals.length > 0" ng-class="['ui green button', {'loading':loading}]" ng-click="openReferralsModal(u)">View Referrals</button>
+                    <div ng-if="u.referrals.length > 0" class="or"></div>
                     <button class="ui red button" confirm-action="deleteUser(u)">Delete</button>
                     <div class="or"></div>
                     <button ng-class="['ui blue button', {'loading' : loading}]" ng-click="creditUser(u)">Credit</button>
@@ -197,7 +197,7 @@
       <div class="ui cards">
         <div class="card" style="width:280px;" ng-repeat="ref in referrals">
           <div class="content">
-            <div class="center aligned header">{{ ref.referral.firstname }} {{ ref.referral.lastname }}</div>
+            <div class="center aligned header">{{ ref.referral.firstname }} {{ ref.referral.lastname }} ({{ ref.referral.available_units | currency }}) /  ({{ ref.referral.units_purchased | currency }})</div>
             <div class="center aligned description">
               <p>{{ ref.referral.email }}</p>
             </div>

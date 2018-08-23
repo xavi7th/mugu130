@@ -56,7 +56,7 @@ home.factory('bootstrapPage', ['$timeout', '$window', 'sendRequest', function ($
                    });
                  };
 
-                 $timeout(carousel, 2000);
+                 $timeout(carousel, 1000);
                });
 
       scope.$on('$viewContentLoaded', function() {

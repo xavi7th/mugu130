@@ -401,7 +401,10 @@ class DashboardController extends Controller
       }
 
       if (!Auth::user()->verified) {
-        return response()->json(['message' => 'User account not yet verified' ], 422);
+        $message = <<<MESSAGE
+          USER ACCOUNT NOT YET VERIFIED. <br> <br> To withdraw, you have to verify your account. A verification link has been sent to you. If you don't find the email in your inbox, check your spam. Otherwise, send a complaint to <a style="color:white; text-decoration: underline;" href="mailto:hello@fastplay24.com ">hello@fastplay24.com </a> for your account to be verified.
+MESSAGE;
+        return response()->json(['message' => $message ], 422);
       }
 
       if (Auth::user()->acct_no == null ||  Auth::user()->phone1 == null) {
@@ -515,7 +518,7 @@ class DashboardController extends Controller
     }
 
     public function resendVerificationMail() {
-      $rsp = TransactionalMail::resendVerificationMail();
+      // $rsp = TransactionalMail::resendVerificationMail();
 
       if (is_array($rsp)) {
         return response()->json(['message' => $rsp['message'] ], $rsp['status']);

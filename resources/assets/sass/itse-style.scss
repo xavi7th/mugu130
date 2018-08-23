@@ -37,13 +37,16 @@ div#main-controller{
     #form{
       position: absolute;
       width: 100%;
-      height: 420px;
+      // height: 420px;
       background-color: #fff;
 
       #forgot-pass{
-        float: right;
+        // float: right;
         margin-top: 15px;
+        margin-bottom: 15px;
         text-transform: capitalize;
+        @include flex-center;
+        
       }
 
       .ui.menu .active.item{
