@@ -221,8 +221,8 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   $scope.loading = true;
 
   $scope.previewUser = (u) => {
-    $scope.u = u;
-    console.log('hhh');
+    $scope.details = u;
+    console.log(u);
 
     $('.ui.modal.showUser').modal({
       blurring: true
@@ -381,6 +381,25 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                   else if (rsp.status == 410) {
                     Notification.error(rsp.data.message);
                   }
+                  NProgress.done();
+                });
+  };
+
+  $scope.performDatabaseSearch = (u) => {
+    $scope.searching = true;
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase)
+                .then(rsp => {
+                  console.log(rsp);
+                  $scope.data = rsp.data.details.data;
+                  $scope.first_page_url = rsp.data.details.first_page_url;
+                  $scope.last_page_url = rsp.data.details.last_page_url;
+                  $scope.prev_page_url = rsp.data.details.prev_page_url;
+                  $scope.next_page_url = rsp.data.details.next_page_url;
+                  $scope.current_page = rsp.data.details.current_page;
+                  $scope.total = rsp.data.details.total;
+                  $scope.extras = rsp.data.extras;
+                  $scope.searching = false;
                   NProgress.done();
                 });
   };

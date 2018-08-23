@@ -377,6 +377,29 @@ class AdminController extends Controller
       ];
     }
 
+    public function databaseSearch($resource){
+      // return $resource;
+      $searchPhrase = request()->input('details');
+
+      switch ($resource) {
+        case 'user':
+          $results = User::with(['transactions', 'earnings', 'games', 'referrals'])
+                        ->where('firstname', 'like', '%'.$searchPhrase.'%')
+                        ->orWhere('lastname', 'like', '%'.$searchPhrase.'%')
+                        ->orWhere('email', 'like', '%'.$searchPhrase.'%')
+                        ->paginate(env('ROWS_PER_PAGE'));
+          break;
+
+        default:
+          break;
+      }
+
+
+      return [
+        'details' => $results
+      ];
+    }
+
     public function getAllMessages(){
       return [
         'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->orWhere('sender_id', env('USER_ROLE_ID'))->get()

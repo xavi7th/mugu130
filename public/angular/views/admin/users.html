@@ -1,6 +1,15 @@
 <div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
   <ng-include src="'angular/views/partials/admin-menu.html'"></ng-include>
 
+  <style>
+    .ui.search .action:hover {
+      background: transparent;
+    }
+    .ui.input.error input{
+      /* background-color: red; */
+    }
+  </style>
+
   <section id="dashboard">
     <div class="grid-container">
       <div class="grid-100">
@@ -16,11 +25,12 @@
         </div>
           <br>
         <div class="ui search flex-center" style="justify-content:flex-end">
-          <div class="ui icon input">
-            <input class="prompt" type="text" placeholder="Search users..." ng-model="search">
+          {{ searchField }}
+          <div ng-class="['ui icon input action', {'loading': searching, 'error' : !searchPhrase || searchField.$invalid}]">
+            <input class="prompt" type="text" placeholder="Search users..." ng-model="searchPhrase" ng-minlength="3" name="searchField">
             <i class="search icon"></i>
+            <button class="ui green button" ng-click="performDatabaseSearch(searchPhrase)" ng-disabled="!searchPhrase || searchField.$invalid"></button>
           </div>
-          <div class="results"></div>
         </div>
         <div class="ui red segment">
           <div ng-show="loading" class="animate fade">
@@ -41,7 +51,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="u in data | filter : search" ng-show="!loading" class="animate translate-in">
+              <tr ng-repeat="u in data" ng-show="!loading" class="animate translate-in">
                 <td>{{ u.id }}</td>
                 <td><span style="cursor:pointer;" ng-click="previewUser(u)">{{ u.firstname }} {{ u.lastname }}</span></td>
                 <td>{{ u.email }}</td>
@@ -209,6 +219,138 @@
           </div>
         </div>
       </div>
+    </div>
+
+  </div>
+
+  <div class="ui modal showUser transition hidden">
+    <div class="ui blue dash_header header">
+      <h1>
+        <button class="ui large icon button close" ng-click="closeModal()">
+          <i class="reply icon"></i>
+        </button>
+        {{ details.firstname }}'s Details
+      </h1>
+    </div>
+
+
+    <div class="ui red segment">
+      <div ng-show="loading" class="animate fade">
+        <div class="ui segment"  style="min-height: 300px;">
+          <div class="ui active inverted dimmer">
+            <div class="ui text loader">Loading</div>
+          </div>
+          <p></p>
+        </div>
+      </div>
+      <table class="ui  striped celled table">
+        <div class="ui blue dash_header header">
+          <h3>
+            {{ details.firstname }}'s Transactions
+          </h3>
+        </div>
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Amount</th>
+            <th>Charges</th>
+            <th>Transaction Type</th>
+            <th>Status</th>
+            <th>Channel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="u in details.transactions | orderBy : '-id'" ng-show="!loading" class="animate translate-in">
+            <td>{{ u.id }}</td>
+            <td>{{ u.amount }}</td>
+            <td>{{ u.charges }}</td>
+            <td>{{ u.trans_type }}</td>
+            <td>{{ u.status }}</td>
+            <td>{{ u.channel }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="ui red segment">
+      <div ng-show="loading" class="animate fade">
+        <div class="ui segment"  style="min-height: 300px;">
+          <div class="ui active inverted dimmer">
+            <div class="ui text loader">Loading</div>
+          </div>
+          <p></p>
+        </div>
+      </div>
+      <table class="ui  striped celled table">
+        <div class="ui blue dash_header header">
+          <h3>
+            {{ details.firstname }}'s Earnings
+          </h3>
+        </div>
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Amount</th>
+            <th>Session ID</th>
+            <th>Transfer Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="u in details.earnings | orderBy : '-id'" ng-show="!loading" class="animate translate-in">
+            <td>{{ u.id }}</td>
+            <td>{{ u.amount }}</td>
+            <td>{{ u.game_id }}</td>
+            <td>{{ u.transferred }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="ui red segment">
+      <div ng-show="loading" class="animate fade">
+        <div class="ui segment"  style="min-height: 300px;">
+          <div class="ui active inverted dimmer">
+            <div class="ui text loader">Loading</div>
+          </div>
+          <p></p>
+        </div>
+      </div>
+      <table class="ui  striped celled table">
+        <div class="ui blue dash_header header">
+          <h3>
+            {{ details.firstname }}'s Game Sessions
+          </h3>
+        </div>
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Session ID</th>
+            <th>Status</th>
+            <th>Payment Status</th>
+            <th>Score</th>
+            <th>Earning</th>
+            <th>Position</th>
+            <th>Ended At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="u in details.games | orderBy : '-id'" ng-show="!loading" class="animate translate-in">
+            <td>{{ u.id }}</td>
+            <td>{{ u.game_id }}</td>
+            <td>{{ u.status }}</td>
+            <td>{{ u.payment_status }}</td>
+            <td>{{ u.score }}</td>
+            <td>{{ u.earning }}</td>
+            <td>{{ u.position }}</td>
+            <td>{{ u.ended_at }}</td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
 
   </div>

@@ -24,6 +24,7 @@ use App\Events\ExamJoined;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -529,6 +530,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/activate-user', $c.'activateUser');
 
     Route::post('/verify-user', $c.'verifyUser');
+
+    Route::post('/database-search/{resource}', $c.'databaseSearch');
 
     Route::post('/get-all-messages', $c.'getAllMessages');
 

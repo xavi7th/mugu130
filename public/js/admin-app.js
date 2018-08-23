@@ -946,8 +946,8 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
   $scope.loading = true;
 
   $scope.previewUser = function (u) {
-    $scope.u = u;
-    console.log('hhh');
+    $scope.details = u;
+    console.log(u);
 
     $('.ui.modal.showUser').modal({
       blurring: true
@@ -1088,6 +1088,24 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
       } else if (rsp.status == 410) {
         Notification.error(rsp.data.message);
       }
+      NProgress.done();
+    });
+  };
+
+  $scope.performDatabaseSearch = function (u) {
+    $scope.searching = true;
+    NProgress.start();
+    sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase).then(function (rsp) {
+      console.log(rsp);
+      $scope.data = rsp.data.details.data;
+      $scope.first_page_url = rsp.data.details.first_page_url;
+      $scope.last_page_url = rsp.data.details.last_page_url;
+      $scope.prev_page_url = rsp.data.details.prev_page_url;
+      $scope.next_page_url = rsp.data.details.next_page_url;
+      $scope.current_page = rsp.data.details.current_page;
+      $scope.total = rsp.data.details.total;
+      $scope.extras = rsp.data.extras;
+      $scope.searching = false;
       NProgress.done();
     });
   };
@@ -2092,11 +2110,7 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
         Notification.error('Error retrieving data from server');
       });
 
-      // //pass the value of the parent scope into the child scope so that it will display in the input field
-      // scope.old.advertname = scope.$parent.advert.name;
-      // scope.old.advertimg = scope.$parent.advert.img;
-      // scope.old.id = scope.$parent.advert.id;
-      // //
+      // Make a request to the server using the url provided from Laravel's paginate method
       scope.reveal = function (url) {
         NProgress.start();
         scope.$parent.loading = true;

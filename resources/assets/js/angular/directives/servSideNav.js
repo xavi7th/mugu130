@@ -97,11 +97,8 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
                 Notification.error('Error retrieving data from server');
               });
 
-      // //pass the value of the parent scope into the child scope so that it will display in the input field
-      // scope.old.advertname = scope.$parent.advert.name;
-      // scope.old.advertimg = scope.$parent.advert.img;
-      // scope.old.id = scope.$parent.advert.id;
-      // //
+
+      // Make a request to the server using the url provided from Laravel's paginate method
       scope.reveal = url => {
         NProgress.start();
         scope.$parent.loading = true;
