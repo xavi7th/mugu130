@@ -72,7 +72,7 @@ class DashboardController extends Controller
 
       //check user balance
       if (Auth::user()->available_units < env('GAME_CREDITS')) {
-        return response()->json(['status' => 'Insufficient balance' ], 402);
+        return response()->json(['err_msg' => 'INSUFFICIENT FUNDS!!! <br> Kindly fund your wallet to join game' ], 402);
       }
 
       // Get id of the current active on-going game

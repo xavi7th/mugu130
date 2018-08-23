@@ -245,8 +245,9 @@ angular.module('gameState', []).directive('gameState', ['$location', '$route', '
                      }
                    }
                    else if (rsp.status == 402) {
+                     console.log(rsp);
                      $scope.transition = false;
-                     Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center'});
+                     Notification.error({ message: rsp.data.err_msg, positionX: 'center'});
                    }
                    else if (rsp.status == 403) {
                      $scope.transition = true;
