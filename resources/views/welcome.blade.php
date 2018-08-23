@@ -5,6 +5,32 @@
     div[ng-view] {
       min-height: 0 !important;
     }
+
+    .playstore{
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .playstore a{
+      display: block;
+      height: 50px;
+      background-image: url(http://localhost:3000/img/fastplay-playstore.jpg);
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 200px;
+      transition: all 160ms ease;
+    }
+
+    .playstore a:hover{
+      background-image: url(http://localhost:3000/img/fastplay-playstore-hover.jpg);
+    }
+
+    @media (max-width:1024px) {
+      .playstore{
+        height: 100px;
+      }
+    }
   </style>
 @endsection
 
@@ -215,7 +241,10 @@
               </div>
             </div>
           </div>
-          <div class="grid-30 info push-20  ">
+          <div class="grid-25 playstore">
+            <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
+          </div>
+          <div class="grid-30 info">
             <h1>Tell a friend</h1>
             <p>
               <img src="/img/fastplay24_referal_homepage.png" alt="">
