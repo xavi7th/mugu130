@@ -15,7 +15,7 @@
     .playstore a{
       display: block;
       height: 50px;
-      background-image: url(http://localhost:3000/img/fastplay-playstore.jpg);
+      background-image: url({{ asset('img/fastplay-playstore.jpg') }});
       background-repeat: no-repeat;
       background-position: center;
       width: 200px;
@@ -23,7 +23,7 @@
     }
 
     .playstore a:hover{
-      background-image: url(http://localhost:3000/img/fastplay-playstore-hover.jpg);
+      background-image: url({{ asset('img/fastplay-playstore-hover.jpg') }});
     }
 
     @media (max-width:1024px) {

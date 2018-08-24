@@ -116,7 +116,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="que in user_questions">
+              <tr ng-repeat="que in _.take(_.reject(user_questions, ['answered_option', 'skipped']), 10) ">
                 <th>{{ que.question.question }}</th>
                 <th>{{ que.answered_option || 'N/A' }}</th>
                 <th>{{ que.verdict == 0 ? 'Failed' : 'Correct' }}</th>

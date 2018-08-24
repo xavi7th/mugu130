@@ -43,8 +43,7 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('before')->except('sendMessage', 'joinGame');
         $this->middleware('auth')->except('getGameState', 'sendMessage');
         $this->middleware('suspended')->except('suspended', 'getApiKey', 'sendMessage', 'getGameState', 'sendMessage');

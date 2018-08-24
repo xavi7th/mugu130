@@ -182,9 +182,14 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       };
 
       $scope.requestExtra = (q) => {
+        q.answered_option = 'skipped';
         var removedQuestion = $scope.user_questions.indexOf(q);
         $scope.user_questions.splice(removedQuestion, 1);
         $scope.lifelines.extra = true;
+
+        //Add it back to the array so that it gets sent to the server and marked as skipped.
+        //This way we can prevent it from showing up in the displayed results
+        $scope.user_questions.push(q);
       };
 
       $scope.requestOptions = (q) => {
@@ -212,7 +217,6 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
 
       $scope.displayResults = () => {
         sendRequest.storeData('prevent', true);
-        
         sendRequest.postRequest('/user/end-exam', $scope.user_questions)
                  .then(function (rsp) {
                    delete $localStorage.user_questions;
