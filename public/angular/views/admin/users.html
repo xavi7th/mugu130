@@ -246,7 +246,8 @@
       <table class="ui  striped celled table">
         <div class="ui blue dash_header header">
           <h3>
-            {{ details.firstname }}'s Transactions
+            {{ details.firstname }}'s Transactions <br>
+            Total withdrawal: {{ _.size(_.filter(details.transactions, ['trans_type', 'withdrawal'])) }} times ({{  _.sumBy(_.filter(details.transactions, ['trans_type', 'withdrawal']), 'amount')  | currency }})
           </h3>
         </div>
         <thead>
@@ -321,6 +322,7 @@
         <div class="ui blue dash_header header">
           <h3>
             {{ details.firstname }}'s Game Sessions
+            {{ _.size(details.games) }} ( {{ _.size(_.filter(details.games, ['payment_status', 'paid'])) * 35 | currency }} ) <span style="color:red">{{  _.size(_.filter(details.games, ['payment_status', 'nullified'])) }} games nullified</span>
           </h3>
         </div>
         <thead>
