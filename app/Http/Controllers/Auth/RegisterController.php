@@ -104,7 +104,7 @@ class RegisterController extends Controller
       User::reguard();
 
       // session(['NEW_USER' => $user]);
-      // TransactionalMail::sendverificationMail($token, $user);
+      TransactionalMail::sendverificationMail($token, $user);
 
       return $user;
     }

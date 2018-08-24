@@ -6934,7 +6934,7 @@ img.ui.image {
         Focus
 ---------------------*/
 
-.ui.input input:focus {
+.ui.input.focus input,.ui.input input:focus {
   border-color: #85B7D9;
   background: #FFFFFF;
   color: rgba(0, 0, 0, 0.8);
@@ -6942,15 +6942,15 @@ img.ui.image {
   box-shadow: none;
 }
 
-.ui.input input:focus::-webkit-input-placeholder {
+.ui.input.focus input::-webkit-input-placeholder,.ui.input input:focus::-webkit-input-placeholder {
   color: rgba(115, 115, 115, 0.87);
 }
 
-.ui.input input:focus::-moz-placeholder {
+.ui.input.focus input::-moz-placeholder,.ui.input input:focus::-moz-placeholder {
   color: rgba(115, 115, 115, 0.87);
 }
 
-.ui.input input:focus:-ms-input-placeholder {
+.ui.input.focus input:-ms-input-placeholder,.ui.input input:focus:-ms-input-placeholder {
   color: rgba(115, 115, 115, 0.87);
 }
 

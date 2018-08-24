@@ -54,6 +54,15 @@ var url = `
             <p> While an additional service fee of ₦70 will be charged for every ₦5000.</p>
           </div>
         </div>
+        <div class="ui icon mini message negative">
+          <i class="inbox icon"></i>
+          <div class="content">
+            <div class="header">
+              NOTE:
+            </div>
+            <p> NB: If you do not receive the requested amount within 48 hours, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>
+          </div>
+        </div>
         <div class="ui icon mini message">
           <i class="inbox icon"></i>
           <div class="content">

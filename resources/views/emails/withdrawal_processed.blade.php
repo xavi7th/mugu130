@@ -924,6 +924,7 @@
 																								<tr>
 																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 																										<p>Cheers,</p>
+																										<p>FastPlay24 Billing Team </p>
 																									</td>
 																								</tr>
 																								<tr>

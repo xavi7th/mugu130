@@ -22,7 +22,7 @@ var url = `
   <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'active'" ng-click="joinGame()">
     <div class="ui green button">
      <ng-transclude></ng-transclude>
-      <i class="gamepad icon"></i>Game On
+      <i class="gamepad icon"></i>Join Game
     </div>
     <a class="ui basic left pointing green label" ng-click="joinGame()">
         <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
