@@ -410,12 +410,13 @@ MESSAGE;
         return response()->json(['message' => 'Account profile incomplete' ], 422);
       }
 
-      if (request()->input('details.amt') <= 1000) {
+      if (request()->input('details.amt') < 1000) {
         $fee = env('TRANSACTION_FEE');
         $amount = request()->input('details.amt') - $fee;
       }
       else{
-        $fee = ((floor(request()->input('details.amt')/5000) * env('TRANSACTION_FEE')) + (env('TRANSACTION_FEE') * 2));
+        $fee = ((floor(request()->input('details.amt')/env('WITHDRAWAL_BOUNDARY_AMOUNT')) * env('TRANSACTION_FEE')) + ( env('TRANSACTION_FEE') ));
+        // _dd(floor(request()->input('details.amt')/env('WITHDRAWAL_BOUNDARY_AMOUNT')));
         $amount = request()->input('details.amt') - $fee;
       }
 

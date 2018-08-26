@@ -13,9 +13,7 @@
 
       <div id="form" class="ui segments">
         <div class="ui segment">
-          <div id="session-menu" class="ui one item menu">
-            <a class="active item" style="background-color: #2d95dc; color:white;" data-tab="register"><h2>Contact Form</h2></a>
-          </div>
+         
         </div>
 
 
@@ -25,25 +23,7 @@
           </div>
 
           <div class="ui tab active" data-tab="register">
-            <form class="ui form">
-
-              <div class="field">
-                <div class="two fields">
-                  <div class="field">
-                    <input type="email" name="email" placeholder="Enter Email" ng-model="msg.email">
-                  </div>
-                  <div class="field">
-                    <input type="text" name="subject" placeholder="Enter Subject" ng-model="msg.subject">
-                  </div>
-                </div>
-              </div>
-
-              <div class="field">
-                <textarea name="message" ng-model="msg.message"></textarea>
-              </div>
-              <button type="button" style="background-color: #2d95dc;" ng-class="['ui', 'fluid', 'orange', 'button', 'action', {'loading' : loading}]" ng-click="contactAdmin()" ng-disabled="_.size(msg) != 3">Send</button>
-            </form>
-
+           
             <div class="grid-container" style="margin-top: 45px;">
               <div class="grid-70 push-15">
                 <div class="ui segment red compact">
