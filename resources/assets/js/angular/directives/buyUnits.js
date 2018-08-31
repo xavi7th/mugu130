@@ -22,6 +22,7 @@ var url = `
         <div class="ui segment">
           <div id="session-menu" class="ui two item menu">
             <a class="item active" data-tab="online-transfer" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>
+            <a class="item" data-tab="bank-transfer">TAP HERE TO PAY VIA AGENT</a>
           </div>
         </div>
 
@@ -58,6 +59,51 @@ var url = `
                   <img src="/img/paystack_preview.png" alt="" />
                 </p>
               </div>
+            </div>
+          </div>
+          <div class="ui tab" data-tab="bank-transfer">
+            <div class="actions  flex-center">
+              <div class="ui black left deny button">Close</div>
+            </div>
+            <div class="ui segment" id="extra">
+              <div class="ui header">FASTPLAY24 PAYMENT AGENT</div>
+
+              <p>
+                <b>Minimum amount:</b> ₦600 (₦100 agency fee included)
+              </p>
+
+              <p>
+                <b>Payment Agent:</b> Simeon
+              </p>
+              <p>
+                <b>Account Number:</b> 3088711170 (First Bank)
+              </p>
+              <p>
+                <b>WhatsApp Number:</b> <a href="https://api.whatsapp.com/send?phone=2347067420064 ">07067420064 </a>
+              </p>
+
+              <div class="ui positive message">
+                <div class="header">
+                  NB:
+                </div>
+                <p>As soon as you make your payment send proof of payment, alongside the following details via WhatsApp:</p>
+                <p>
+                  <ul>
+                    <li><b>Amount Paid</b></li>
+                    <li><b>Full Name</b> (As it is in your FastPlay24 Account.)</li>
+                    <li><b>Email Address</b> (The one you used to sign up on FastPlay24)</li>
+                  </ul>
+                </p>
+                <p>Your wallet will be funded upon verification of payment.</p>
+              </div>
+
+              <div class="ui negative message">
+                <div class="header">
+                  NB:
+                </div>
+                <p>A ₦100 (hundred naira) fixed charge will be deducted from any amount you pay.</p>
+              </div>
+
             </div>
           </div>
         </div>
