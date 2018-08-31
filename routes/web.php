@@ -44,44 +44,44 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home')->middleware('guest');
 
-  Route::get('/test', function () {
-    // return $fee = ((floor(1400/5000) * 50) + (50 * 2));
-    // abort(404);
-        // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
-        // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
-
-    return view('auth.register-success');
-
-    // return dd(view('demo-play')->render());
-    $user = Auth::user();
-    return view('suspended', compact('user'));
-    // return (new ActivationMail(8779))->render();
-    // return (new ReactivationMail())->render();
-    // return Redis::keys('*');
-    Redis::set('demo-page', view('demo-play')->render());
-    // Redis::pipeline(function ($pipe) {
-    //     for ($i = 0; $i < 1000; $i++) {
-    //         $pipe->set("key:$i", $i);
-    //     }
-    // });
-    // return Redis::get('demo-page');
-     return ['status' => Redis::get('demo-page')];
-
-    try {
-        Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
-    } catch (\Swift_TransportException $e) {
-      return [ 'status' => $e->getMessage() ];
-    }
-
-
-    if ( count(Mail::failures()) > 0) {
-      return [
-        'status' => 422,
-        'message' => 'Error sending mail'
-      ];
-    }
-
-  });
+  // Route::get('/test', function () {
+  //   // return $fee = ((floor(1400/5000) * 50) + (50 * 2));
+  //   // abort(404);
+  //       // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
+  //       // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
+  //
+  //   return view('auth.register-success');
+  //
+  //   // return dd(view('demo-play')->render());
+  //   $user = Auth::user();
+  //   return view('suspended', compact('user'));
+  //   // return (new ActivationMail(8779))->render();
+  //   // return (new ReactivationMail())->render();
+  //   // return Redis::keys('*');
+  //   Redis::set('demo-page', view('demo-play')->render());
+  //   // Redis::pipeline(function ($pipe) {
+  //   //     for ($i = 0; $i < 1000; $i++) {
+  //   //         $pipe->set("key:$i", $i);
+  //   //     }
+  //   // });
+  //   // return Redis::get('demo-page');
+  //    return ['status' => Redis::get('demo-page')];
+  //
+  //   try {
+  //       Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
+  //   } catch (\Swift_TransportException $e) {
+  //     return [ 'status' => $e->getMessage() ];
+  //   }
+  //
+  //
+  //   if ( count(Mail::failures()) > 0) {
+  //     return [
+  //       'status' => 422,
+  //       'message' => 'Error sending mail'
+  //     ];
+  //   }
+  //
+  // });
 
   Route::view('/frequently-asked-questions', 'others-home')->name('faq');
 
@@ -187,19 +187,9 @@ Route::middleware(['before'])->group( function () {
 
   })->name('verify.check');
 
-
   Route::view('/register', 'welcome')->name('register')->middleware('guest');
 
   Route::view('/login', 'welcome')->name('login')->middleware('guest');
-
-  // Route::get('/demo-play', function () {
-  //
-  //   // return Redis::keys('*');
-  //   // return view('demo-play');
-  //
-  //   abort(404, 'Invalid verification code.');
-  //
-  // })->name('demo.play')->middleware('guest');
 
   Route::view('/demo-play', 'demo-play')->name('demo.play')->middleware('guest');
 
@@ -286,8 +276,6 @@ Route::middleware(['before'])->group( function () {
   Route::any('get-demo-exam-results', function () {
     return 'demo results';
   });
-
-
 
 });
 
