@@ -31,6 +31,17 @@ class Message extends Model{
 		return true;
   }
 
+  public static function userSuspended($sbj){
+   	self::create([
+                      'user_id' => env("ADMIN_ROLE_ID"),
+                      'sender_id' => Auth::id(),
+                      'senderusername' => Auth::user()->email,
+                      'subject' => $sbj,
+                      'message' => 'User suspended for suspicious exam stuff. Finished under 30secs and scored 100%',
+                    ]);
+		return true;
+  }
+
   public static function fromAdmin(){
    	self::create([
                       'user_id' => request()->input('details.user_id'),

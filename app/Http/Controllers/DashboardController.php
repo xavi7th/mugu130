@@ -19,6 +19,7 @@ use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
 use App\Events\NewMemberJoined;
+use App\Question;
 
 use Illuminate\Http\Request;
 
@@ -146,6 +147,7 @@ class DashboardController extends Controller
 
     public function submitExam(){
 
+
       // return Auth::user()->activeGames;
 
       $exam = request('details');
@@ -159,13 +161,34 @@ class DashboardController extends Controller
         foreach ($exam as $key => $value) {
           $record = UserQuestion::find($value['id']);
           $record->answered_option = $value['answered_option'];
-          if ($value['answered_option'] == $value['question']['correct_option']) {
+          if ($value['answered_option'] == $record->correct_option) {
             $value['verdict'] = 1;
             $record->verdict = 1;
             $count++;
           }
           $record->save();
           $ids[] = $record;
+        }
+
+        if ( Auth::user()->activeGames->created_at->diffInSeconds(now()) < env('MIN_ACCEPTABLE_GAME_TIME') && $count >= env('MINIMUM_PASSING_SCORE') ) {
+
+          Auth::user()->activeGames->ended_at = Carbon::now();
+          Auth::user()->activeGames->score = null;
+          Auth::user()->activeGames->payment_status = 'malpractice';
+          Auth::user()->activeGames->save();
+
+          Auth::user()->useraccstatus = 'suspended';
+          Auth::user()->save();
+
+          //Send Admin a message that a user has been suspended
+          Message::userSuspended('Malpractice');
+
+          Auth::logout();
+
+          DB::commit();
+          session(['GAME_STATE' => 'loading']);
+
+          return;
         }
 
         Auth::user()->activeGames->ended_at = Carbon::now();
@@ -201,13 +224,34 @@ class DashboardController extends Controller
         foreach ($exam as $key => $value) {
           $record = UserQuestion::find($value['id']);
           $record->answered_option = $value['answered_option'];
-          if ($value['answered_option'] == $value['question']['correct_option']) {
+          if ($value['answered_option'] == $record->correct_option) {
             $value['verdict'] = 1;
             $record->verdict = 1;
             $count++;
           }
           $record->save();
           $ids[] = $record;
+        }
+
+        if ( Auth::user()->lastGame->created_at->diffInSeconds(now()) < env('MIN_ACCEPTABLE_GAME_TIME') && $count >= env('MINIMUM_PASSING_SCORE') ) {
+
+          Auth::user()->lastGame->ended_at = Carbon::now();
+          Auth::user()->lastGame->payment_status = 'malpractice';
+          Auth::user()->lastGame->score = null;
+          Auth::user()->lastGame->save();
+
+          Auth::user()->useraccstatus = 'suspended';
+          Auth::user()->save();
+
+          //Send Admin a message that a user has been suspended
+          Message::userSuspended('Malpractice');
+
+          Auth::logout();
+
+          DB::commit();
+          session(['GAME_STATE' => 'loading']);
+
+          return;
         }
 
         Auth::user()->lastGame->ended_at = Carbon::now();
@@ -237,6 +281,27 @@ class DashboardController extends Controller
         'total_prize_money' => $game->total_prize,
         'user_questions' => Auth::user()->load('user_questions.question')
       ];
+
+    }
+
+    public function questionRemoveOptions(){
+
+      // dd(Question::find(request('details')));
+      $question = Question::find(request('details'));
+
+      $j = 0;
+      for ($i=0; $i < 4;) {
+
+        if ($question->{'option_'.++$i} !== $question->correct_option) {
+          if ($j > 1) {
+            break;
+          }
+          $j++;
+          $question->{'option_'.$i} = null;
+        }
+      }
+
+      return $question;
 
     }
 

@@ -63,6 +63,7 @@
         },
 
         getUserQuestions : function (url, flushStore = false) {
+          // using local storage so so that if he refreshes his browser during a game session, it will preserve his game state
           var deferred = $q.defer();
 
           if (flushStore) {

@@ -1190,23 +1190,9 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       };
 
       $scope.requestOptions = function (q) {
-        var count = 0;
-        if (q.question.option_1 != q.question.correct_option) {
-          q.question.option_1 = null;
-          count++;
-        }
-        if (q.question.option_2 != q.question.correct_option) {
-          q.question.option_2 = null;
-          count++;
-        }
-        if (q.question.option_3 != q.question.correct_option && count < 2) {
-          q.question.option_3 = null;
-          count++;
-        }
-        if (q.question.option_4 != q.question.correct_option && count < 2) {
-          q.question.option_4 = null;
-          count++;
-        }
+        sendRequest.postRequest('/user/question-remove-options/', q.question.id).then(function (rsp) {
+          q.question = rsp.data;
+        });
 
         $scope.lifelines.options = true;
       };
@@ -2108,6 +2094,7 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
     getUserQuestions: function getUserQuestions(url) {
       var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
+      // using local storage so so that if he refreshes his browser during a game session, it will preserve his game state
       var deferred = $q.defer();
 
       if (flushStore) {

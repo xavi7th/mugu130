@@ -193,26 +193,12 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       };
 
       $scope.requestOptions = (q) => {
-        var count = 0;
-        if (q.question.option_1 != q.question.correct_option) {
-          q.question.option_1 = null;
-          count++;
-        }
-        if (q.question.option_2 != q.question.correct_option) {
-          q.question.option_2 = null;
-          count++;
-        }
-        if (q.question.option_3 != q.question.correct_option && count < 2) {
-          q.question.option_3 = null;
-          count++;
-        }
-        if (q.question.option_4 != q.question.correct_option && count < 2) {
-          q.question.option_4 = null;
-          count++;
-        }
+        sendRequest.postRequest('/user/question-remove-options/', q.question.id)
+                 .then(function (rsp) {
+                   q.question = rsp.data;
+                 });
 
         $scope.lifelines.options = true;
-
       };
 
       $scope.displayResults = () => {

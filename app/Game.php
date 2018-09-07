@@ -106,6 +106,7 @@ class Game extends Model{
 		//if more than 1, use the formula to calculate the amount they should receive
 		else if($total_examinees > 1){
 
+
 			DB::beginTransaction();
 					// get the total amount to share, ie game credits - 5 (basic unit for participation ) - 5( for admin ) * total number of examinees
 					$total_stake = (env('GAME_CREDITS') - env('BASIC_PARTICIPATION_REWARD') - env('EXAM_PARTICIPATION_FEE')) * $total_examinees;
@@ -184,6 +185,11 @@ class Game extends Model{
 
 					//Next loop over that second array and continue to positions them and add earning of 5
 					foreach ($others as $key => &$v) {
+
+						// If the user was suspended for malpractice don't award aything so that the money can be available to the Admin
+						if ($v->payment_status == 'malpractice') {
+							continue;
+						}
 						$v->position = $count == 1 ? $count + 1 : $count;
 						$v->earning = env('BASIC_PARTICIPATION_REWARD');
 

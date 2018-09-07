@@ -329,6 +329,8 @@ Route::group(['prefix' => 'user'], function () {
 
   Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
 
+  Route::post('/question-remove-options', 'DashboardController@questionRemoveOptions');
+
   Route::post('/mark-message-as-read', 'DashboardController@markMessageAsRead');
 
   Route::post('/delete-message', 'DashboardController@deleteMessage');

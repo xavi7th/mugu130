@@ -4024,6 +4024,7 @@ home.config(['$routeProvider', '$locationProvider', '$provide', 'NotificationPro
     getUserQuestions: function getUserQuestions(url) {
       var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
+      // using local storage so so that if he refreshes his browser during a game session, it will preserve his game state
       var deferred = $q.defer();
 
       if (flushStore) {

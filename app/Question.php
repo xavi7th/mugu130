@@ -9,6 +9,7 @@ use App\User;
 class Question extends Model{
 
   protected $guarded = [];
+  protected $hidden = ['correct_option'];
   protected $dates = ['deleted_at'];
 
 	 public function user(){

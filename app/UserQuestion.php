@@ -13,6 +13,7 @@ class UserQuestion extends Model{
 	use SoftDeletes;
 
   protected $guarded = [];
+  protected $hidden = ['correct_option'];
   protected $dates = ['deleted_at'];
 
 	 public function user(){

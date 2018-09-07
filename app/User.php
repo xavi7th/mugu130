@@ -215,15 +215,16 @@ class User extends Authenticatable{
     public function generateQuestions($game_id){
 
       //Read 11 questions
-      $questions = Question::inRandomOrder()->take(11)->get(['id'])->toArray();
+      $questions = Question::inRandomOrder()->take(11)->get(['id', 'correct_option']);
 
       //create it in User qusetion db
 
-      foreach ($questions as $key => $question ) {
+      foreach ($questions as $question ) {
         $user_questions[] = [
           'game_id' => $game_id,
           'user_id' => auth()->id(),
-          'question_id' => $question['id'],
+          'question_id' => $question->id,
+          'correct_option' => $question->correct_option,
           'created_at' => Carbon::now(),
           'updated_at' => Carbon::now(),
         ];
