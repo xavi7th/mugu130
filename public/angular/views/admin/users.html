@@ -258,6 +258,7 @@
             <th>Transaction Type</th>
             <th>Status</th>
             <th>Channel</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -268,6 +269,7 @@
             <td>{{ u.trans_type }}</td>
             <td>{{ u.status }}</td>
             <td>{{ u.channel }}</td>
+            <td>{{ u.created_at }}</td>
           </tr>
         </tbody>
       </table>
@@ -295,6 +297,7 @@
             <th>Amount</th>
             <th>Session ID</th>
             <th>Transfer Status</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -303,6 +306,7 @@
             <td>{{ u.amount }}</td>
             <td>{{ u.game_id }}</td>
             <td>{{ u.transferred }}</td>
+            <td>{{ u.created_at }}</td>
           </tr>
         </tbody>
       </table>

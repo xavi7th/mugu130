@@ -222,7 +222,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
 
   $scope.previewUser = (u) => {
     $scope.details = u;
-    console.log(u);
 
     $('.ui.modal.showUser').modal({
       blurring: true
@@ -390,7 +389,6 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
     NProgress.start();
     sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase)
                 .then(rsp => {
-                  console.log(rsp);
                   $scope.data = rsp.data.details.data;
                   $scope.first_page_url = rsp.data.details.first_page_url;
                   $scope.last_page_url = rsp.data.details.last_page_url;
