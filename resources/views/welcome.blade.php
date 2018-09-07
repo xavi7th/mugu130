@@ -83,31 +83,6 @@
               </a>
             </div>
 
-            <div class="grid-100" style="position: relative; margin-top: 20px;">
-
-              <table class="ui blue celled table" style="font-size: 1.2em;">
-
-                <tbody class="ng-cloak" id="ng-cloak">
-                  <tr>
-                    <th colspan="2" style="font-size:1.3em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
-                  </tr>
-                  <tr>
-                    <td>Total Quizzes Taken</td>
-                    <td>@{{ total_games_played }}</td>
-                  </tr>
-                  <tr>
-                    <td>Number of Users</td>
-                    <td>@{{ total_num_of_users }}</td>
-                  </tr>
-                  <tr>
-                    <td>Total User Earnings</td>
-                    <td>@{{  total_user_earnings | currency }}</td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
           </div>
           <div class="grid-40 push-10">
             <div id="form" class="ui segments">
@@ -201,46 +176,6 @@
         </div>
 
         <div class="grid-container mb-t-100">
-
-          <div class="grid-45" style="font-size: 1.2em;">
-            <h1 class="text center">TOP WINNERS</h1>
-            <div class="owl-carousel owl-theme">
-              <div ng-repeat=" e in ::top_three_earners">
-                <div class="ui card green">
-                  <div class="image">
-                    {{-- <img src="../images/avatar2/large/kristy.png"> --}}
-                  </div>
-                  <div class="content">
-                    <a class="header">@{{ e.user.firstname }} @{{ e.user.lastname }}</a>
-                    <div class="meta">
-                      <span class="date">Joined @{{ e.user.created_at | timeAgo }}</span>
-                    </div>
-                    <div class="description">
-                      <span class="testimonials_comments" ng-if="e.user.id == 1145">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
-                      <span class="testimonials_comments" ng-if="e.user.id == 287000">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
-                      <span class="testimonials_comments" ng-if="e.user.id == 505">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
-                    </div>
-                    <div class="description" style="font-size: 1.2em;">
-                      <br><br>
-                      <span ng-if="e.user.id == 1145"><a href="https://instagram.com/darerah_gram"><i class="fa fa-instagram testimonials_ref_links"></i></a></span>
-                      <span ng-if="e.user.id == 287000"></span>
-                      <span ng-if="e.user.id == 505">
-                          <a target="_blank" href="https://instagram.com/kaligraph_jay"><i class="fa fa-instagram testimonials_ref_links"></i></a>
-                          <a target="_blank" href="https://facebook.com/profile.php?id=100008795411460 "><i class="fa fa-facebook testimonials_ref_links"></i></a>
-                          <a target="_blank" href="https://twitter.com/kaligragh_jay "><i class="fa fa-twitter testimonials_ref_links"></i></a>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="extra content">
-                    <a>
-                      <i class="bullhorn icon"></i>
-                      <b>EARNINGS:</b> @{{ e.user_earnings | currency }}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="grid-25 playstore">
             <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
           </div>

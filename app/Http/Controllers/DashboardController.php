@@ -275,11 +275,20 @@ class DashboardController extends Controller
 
       return [
         'results' => [Auth::user()->lastGame],
-        'user_earning' => Auth::user()->totalEarnings()->where('game_id', Game::last()->id)->sum('amount'),
+        'user_earning' => Auth::user()->totalEarnings()->where('game_id', $game->id)->sum('amount'),
         'total_players' => $game->num_of_players,
         'max_winners' => $game->max_winners,
         'total_prize_money' => $game->total_prize,
-        'user_questions' => Auth::user()->load('user_questions.question')
+        'user_questions' => Auth::user()->load('user_questions.question'),
+        'top_ten' => UserGameSession::with(['user:id,firstname'])->where('game_id', $game->id)->orderBy('score')->take(10)->get(['score', 'earning', 'user_id'])->unique('score')
+      ];
+
+    }
+
+    public function getExamTopTen($game_id){
+
+      return [
+        'top_ten' => UserGameSession::with(['user:id,firstname', 'game:id,num_of_players'])->where('game_id', $game_id)->orderBy('score', 'desc')->take(10)->get(['score', 'earning', 'position', 'user_id', 'created_at', 'ended_at', 'game_id'])->unique('position')
       ];
 
     }
@@ -502,7 +511,7 @@ MESSAGE;
     public function getProfilePageDetails(){
 
       return [
-        'page_details' => Auth::user()->load(['transactions' => function ($q) { $q->latest(); }, 'earnings'=> function ($q) { $q->latest(); }, 'games' => function ($q) { $q->latest(); },'referrals'=> function ($q) { $q->latest(); }])
+        'page_details' => Auth::user()->load(['transactions' => function ($q) { $q->latest(); }, 'earnings.user_game_session'=> function ($q) { $q->latest(); }, 'games' => function ($q) { $q->latest(); },'referrals'=> function ($q) { $q->latest(); }])
       ];
     }
 

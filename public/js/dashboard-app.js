@@ -1867,6 +1867,50 @@ angular.module('verifyAccount', []).directive('verifyAccount', ['Notification', 
 
 /***/ }),
 
+/***/ "./resources/assets/js/angular/directives/viewTopTenPlayers.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var url = '\n<div ng-click="showPlayers()">\n  <ng-transclude></ng-transclude>\n  <div class="ui modal players{{game}} transition hidden">\n      <div class="header">\n        Send a message\n      </div>\n      <div class="content flex-center">\n      <table class="ui red fixed single line striped celled table" style="text-align: center;">\n        <thead>\n          <tr>\n            <th colspan="2">Score Sheet</th>\n            <th colspan="1">Game ID: {{ top_ten[0].game.id }}</th>\n            <th colspan="2">Number of Players: {{ top_ten[0].game.num_of_players }}</th>\n          </tr>\n        </thead>\n        <thead>\n          <tr>\n            <th>Name</th>\n            <th>Position</th>\n            <th>Score</th>\n            <th>Duration</th>\n            <th>Earning</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr ng-repeat="record in top_ten ">\n            <th>{{ record.user.firstname }}</th>\n            <th>{{ record.position || \'N/A\' }}</th>\n            <th>{{ record.score }}</th>\n            <th>{{ record.duration_secs }} seconds </th>\n            <th>{{ record.earning }}</th>\n          </tr>\n        </tbody>\n      </table>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n      </div>\n    </div>\n</div>\n';
+
+angular.module('viewTopTenPlayers', []).directive('viewTopTenPlayers', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'A',
+    scope: {
+      game: '='
+    },
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.showPlayers = function () {
+        $('.ui.modal.players' + $scope.game).modal({
+          allowMultiple: false,
+          centered: false,
+          blurring: true,
+          onDeny: function onDeny() {
+            return true;
+          },
+          onHide: function onHide() {
+            var remove = function remove() {};
+            setTimeout(remove, 1000);
+          },
+          onApprove: function onApprove() {
+            return true;
+          }
+        }).modal('show');
+        sendRequest.request('user/get-exam-top-ten/' + $scope.game).then(function (data) {
+          $scope.top_ten = data.top_ten;
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./resources/assets/js/angular/filters/parseHTML.js":
 /***/ (function(module, exports) {
 
@@ -2446,7 +2490,7 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 
 __webpack_require__("./node_modules/angular-utils-pagination/index.js");
 
-dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting', 'angularUtils.directives.dirPagination']);
+dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting', 'angularUtils.directives.dirPagination', 'viewTopTenPlayers']);
 
 dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 
@@ -2497,6 +2541,7 @@ __webpack_require__("./resources/assets/js/angular/directives/verifyAccount.js")
 __webpack_require__("./resources/assets/js/angular/directives/payWithPaystack.js");
 __webpack_require__("./resources/assets/js/angular/directives/promptPassword.js");
 __webpack_require__("./resources/assets/js/angular/directives/cacheBusting.js");
+__webpack_require__("./resources/assets/js/angular/directives/viewTopTenPlayers.js");
 //
 //
 // require('./angular/directives/ngRepeatFinishedCallback');

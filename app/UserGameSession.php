@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Game;
 
 class UserGameSession extends Model{
 
@@ -15,13 +16,16 @@ class UserGameSession extends Model{
   protected $guarded = [];
 
 	protected $appends = [
-		 'duration'
+		 'duration', 'duration_secs'
 	];
 
-  protected $dates = ['deleted_at'];
+  protected $dates = ['deleted_at', 'ended_at'];
 
 	 public function user(){
 			 return $this->belongsTo(User::class);
+	 }
+	 public function game(){
+			 return $this->belongsTo(Game::class);
 	 }
 
   public static function sendAdminMessage($senderid, $senderusername, $message){
@@ -32,6 +36,10 @@ class UserGameSession extends Model{
 
 	public function getDurationAttribute() {
 		return Carbon::parse($this->created_at)->diffInMinutes(Carbon::parse($this->ended_at));
+	}
+
+	public function getDurationSecsAttribute() {
+		return $this->created_at->diffInSeconds($this->ended_at);
 	}
 
 

@@ -6,7 +6,7 @@ require('angular-utils-pagination');
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
                   'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage',
                   'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting',
-                   'angularUtils.directives.dirPagination'
+                   'angularUtils.directives.dirPagination', 'viewTopTenPlayers'
                 ]);
 
   dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {
@@ -62,6 +62,7 @@ require('angular-utils-pagination');
   require('./angular/directives/payWithPaystack');
   require('./angular/directives/promptPassword');
    require('./angular/directives/cacheBusting');
+   require('./angular/directives/viewTopTenPlayers');
    //
    //
    // require('./angular/directives/ngRepeatFinishedCallback');

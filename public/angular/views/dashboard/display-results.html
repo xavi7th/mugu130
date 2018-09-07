@@ -82,13 +82,24 @@
             <div class="ui segment">
               <div class="ui labeled button floated right" tabindex="-1">
                 <div class="ui icon button">
-                  <i class="fork icon"></i>Total Prize Money
+                  <i class="fork icon"></i>All Players Won
                 </div>
                 <a class="ui basic label">
                   ₦{{ total_prize_money + (5 * total_players) }}
                 </a>
               </div>
             </div>
+
+            <div class="ui segment">
+              <div class="ui labeled button floated right" tabindex="-1">
+                <div class="ui icon purple button" view-top-ten-players style="cursor:pointer;" game="results[0].game_id">
+                  <i class="fork icon"></i>View Top Winners
+                </div>
+                <a class="ui basic label">
+                </a>
+              </div>
+            </div>
+
           </div>
 
           <table class="ui  striped celled table" style="text-align: center;">

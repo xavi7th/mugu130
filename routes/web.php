@@ -327,6 +327,8 @@ Route::group(['prefix' => 'user'], function () {
 
   Route::any('get-exam-results', 'DashboardController@getExamResults');
 
+  Route::any('get-exam-top-ten/{game_id}', 'DashboardController@getExamTopTen');
+
   Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
 
   Route::post('/question-remove-options', 'DashboardController@questionRemoveOptions');
@@ -343,17 +345,6 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'api'], function () {
 
-  Route::post('/get-banks-list', function () {
-
-    $string = file_get_contents("../resources/assets/js/banks.json");
-    return $string;
-
-    return [
-      'bank_lists' => Slide::all(),
-    ];
-
-  });
-
   Route::get('/get-home-page-details', function () {
 
     return [
@@ -362,22 +353,6 @@ Route::group(['prefix' => 'api'], function () {
       'total_user_earnings' => Earning::totalUserEarnings(),
       'top_three_earners' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(3)->load(['user']),
 
-    ];
-
-  });
-
-  Route::get('/get-about-page-details', function () {
-
-    return [
-      'team_members' => TeamMember::all()
-    ];
-
-  });
-
-  Route::get('/get-crypto-page-details', function () {
-
-    return [
-      'crypto_sites' => CryptoSite::all()
     ];
 
   });
@@ -395,43 +370,6 @@ Route::group(['prefix' => 'api'], function () {
 });
 
 Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
-
-    Route::post('/get-buy-package-page-details', function () {
-
-      return [
-        'packages' => Package::all()
-      ];
-
-    });
-
-    Route::post('/user/payment-made', function () {
-
-      DB::beginTransaction();
-
-          Notice::paymentMade();
-          Auth::user()->tracker = 'awaiting confirmation';
-          Auth::user()->save();
-
-          Confirmation::find(request()->input('details'))->update([
-            'ghconfirmstatus' => 'awaiting confirmation'
-          ]);
-
-      DB::commit();
-      return [
-        'status' => true
-      ];
-
-    });
-
-    Route::post('/user/delete-package', function () {
-
-      // return request()->input('details');
-          Confirmation::destroy(request()->input('details'));
-      return [
-        'status' => true
-      ];
-
-    });
 
     Route::post('/user/mark-as-read', function () {
 
@@ -530,7 +468,6 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/mark-message-as-read', $c.'markMessageAsRead');
 
     Route::post('/delete-message', $c.'deleteMessage');
-
 
     Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
 

@@ -193,8 +193,11 @@
 							<tr>
 								<th>S/N</th>
 								<th>Game ID</th>
+								<th>Score</th>
+								<th>Position</th>
 								<th>Date</th>
 								<th>Amount</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -205,8 +208,15 @@
 									<span ng-if="earning.game_id">{{ earning.game_id }}</span>
 									<span ng-if="!earning.game_id"> Referral Bonus </span>
 								</td>
+								<td>{{ earning.user_game_session.score }}</td>
+								<td>{{ earning.user_game_session.position }}</td>
 								<td>{{ earning.created_at | timeAgo}}</td>
 								<td>{{ earning.amount | currency }}</td>
+								<td>
+										<div class=" ui vertical compact button" view-top-ten-players style="cursor:pointer;" game="earning.game_id" ng-if="earning.game_id > 0">
+												View Top Winners
+									  </div>
+								</td>
 							</tr>
 						</tbody>
 					</table>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\UserGameSession;
 
 class Earning extends Model{
 
@@ -22,6 +23,10 @@ class Earning extends Model{
 
 	 public function user(){
 			 return $this->belongsTo(User::class);
+	 }
+
+	 public function user_game_session(){
+			 return $this->belongsTo(UserGameSession::class, 'game_id', 'game_id')->where('user_id', Auth::id());
 	 }
 
 
