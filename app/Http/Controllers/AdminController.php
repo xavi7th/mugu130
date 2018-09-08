@@ -310,6 +310,13 @@ class AdminController extends Controller
       return Referral::where('user_id', $id)->with('user', 'referred');
     }
 
+    public function getUnverifiedUsersCount(){
+
+      return [
+        'unverified_users' => User::where('verified', false)->count()
+      ];
+    }
+
     public function editUser(){
       // return request()->all();
       $this->validate(request(), [
@@ -360,6 +367,12 @@ class AdminController extends Controller
       ];
     }
 
+    public function verifyAllUsers(){
+      return [
+        'status' => $user = User::where('verified', false)->update([ 'verified' => true ])
+      ];
+    }
+
     public function getUsersPageDetails(){
       return [
         'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
@@ -404,6 +417,10 @@ class AdminController extends Controller
         'details' => $results
       ];
     }
+
+
+
+
 
     public function getAllMessages(){
       return [
@@ -458,6 +475,9 @@ class AdminController extends Controller
         'status' => true
       ];
     }
+
+
+
 
     public function getAllUsersEarnings(){
       return [

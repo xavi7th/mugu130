@@ -455,6 +455,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
 
     Route::post('/get-referrals-by-user', $c.'getReferralsByUser');
 
+    Route::post('/get-unverified-users-count', $c.'getUnverifiedUsersCount');
+
     Route::post('/edit-user', $c.'editUser');
 
     Route::post('/delete-user', $c.'deleteUser');
@@ -464,6 +466,8 @@ Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'],
     Route::post('/activate-user', $c.'activateUser');
 
     Route::post('/verify-user', $c.'verifyUser');
+
+    Route::put('/verify-all-users', $c.'verifyAllUsers');
 
     Route::post('/database-search/{resource}', $c.'databaseSearch');
 

@@ -201,7 +201,7 @@ var url = `
           <div class="ui segment">
             <div class="ui labeled button floated right" tabindex="-1">
               <div class="ui icon button">
-                <i class="fork icon"></i>Total Prize Money
+                <i class="fork icon"></i>All Players Won
               </div>
               <a class="ui basic label">
                 ₦{{ total_prize_money + (5 * total_players) }}

@@ -134,6 +134,24 @@
                         });
         },
 
+        putRequest : function (url, data) {
+
+          return $http .put(url, {details: data})
+                        .then(function (response) {
+                          return response;
+                        },
+                        function (err) {
+                          if (err.status == 419 || err.status == 401) {
+                            location.href = '/login';
+                          }
+                          else if (err.status == 403) {
+                            location.href = '/suspended';
+                          }
+                          console.log(err);
+                          return err;
+                        });
+        },
+
         request : function (url) {
           var data = [];
           return $http.get(url)
@@ -377,6 +395,10 @@
           sendRequest.getBanks('/api/get-banks-list')
                    .then(function (rsp) {
                      scope.banks = rsp.banks;
+                   });
+          sendRequest.postRequest(route_root + '/api/get-unverified-users-count')
+                   .then(function (rsp) {
+                     scope.unverified_users = rsp.data.unverified_users;
                    });
 
           scope.$on('$viewContentLoaded', function() {

@@ -21,11 +21,13 @@
               <div class="label">
                 Users
               </div>
+              <div class="label">
+                <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyAllUsers()" class="ui purple button">Verify {{ unverified_users }} users</button>
+              </div>
             </div>
         </div>
           <br>
         <div class="ui search flex-center" style="justify-content:flex-end">
-          {{ searchField }}
           <div ng-class="['ui icon input action', {'loading': searching, 'error' : !searchPhrase || searchField.$invalid}]">
             <input class="prompt" type="text" placeholder="Search users..." ng-model="searchPhrase" ng-minlength="3" name="searchField">
             <i class="search icon"></i>

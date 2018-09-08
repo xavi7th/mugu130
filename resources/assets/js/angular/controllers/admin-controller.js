@@ -350,6 +350,22 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
                 });
   };
 
+  $scope.verifyAllUsers = () => {
+    $scope.verifying = true;
+    NProgress.start();
+    sendRequest.putRequest(route_root + '/api/verify-all-users')
+                .then(rsp => {
+                  if (rsp.status == 200) {
+                    Notification.success(rsp.data.status + ' users verified');
+                  }
+                  else if (rsp.status == 403) {
+                    Notification.error(rsp.data.status);
+                  }
+                  NProgress.done();
+                  $scope.verifying = false;
+                });
+  };
+
   $scope.processCreditAddition = (u) => {
     $scope.loading = true;
     NProgress.start();

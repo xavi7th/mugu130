@@ -1061,6 +1061,20 @@ admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'b
     });
   };
 
+  $scope.verifyAllUsers = function () {
+    $scope.verifying = true;
+    NProgress.start();
+    sendRequest.putRequest(route_root + '/api/verify-all-users').then(function (rsp) {
+      if (rsp.status == 200) {
+        Notification.success(rsp.data.status + ' users verified');
+      } else if (rsp.status == 403) {
+        Notification.error(rsp.data.status);
+      }
+      NProgress.done();
+      $scope.verifying = false;
+    });
+  };
+
   $scope.processCreditAddition = function (u) {
     $scope.loading = true;
     NProgress.start();
@@ -2560,6 +2574,21 @@ admin.config(['$routeProvider', '$locationProvider', '$localStorageProvider', '$
       });
     },
 
+    putRequest: function putRequest(url, data) {
+
+      return $http.put(url, { details: data }).then(function (response) {
+        return response;
+      }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        } else if (err.status == 403) {
+          location.href = '/suspended';
+        }
+        console.log(err);
+        return err;
+      });
+    },
+
     request: function request(url) {
       var data = [];
       return $http.get(url).then(function (response) {
@@ -2771,6 +2800,9 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
     users: function users(scope) {
       sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
         scope.banks = rsp.banks;
+      });
+      sendRequest.postRequest(route_root + '/api/get-unverified-users-count').then(function (rsp) {
+        scope.unverified_users = rsp.data.unverified_users;
       });
 
       scope.$on('$viewContentLoaded', function () {
