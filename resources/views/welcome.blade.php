@@ -176,9 +176,6 @@
         </div>
 
         <div class="grid-container mb-t-100">
-          <div class="grid-25 playstore">
-            <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
-          </div>
           <div class="grid-30 info">
             <h1>Tell a friend</h1>
             <p>
@@ -187,6 +184,9 @@
             <p>
               Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
             </p>
+          </div>
+          <div class="grid-25 playstore">
+            <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
           </div>
         </div>
       </section>

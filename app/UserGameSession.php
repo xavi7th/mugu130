@@ -39,7 +39,7 @@ class UserGameSession extends Model{
 	}
 
 	public function getDurationSecsAttribute() {
-		return $this->created_at->diffInSeconds($this->ended_at);
+		return Carbon::parse($this->created_at)->diffInSeconds(Carbon::parse($this->ended_at));
 	}
 
 

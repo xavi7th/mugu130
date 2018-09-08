@@ -25,11 +25,11 @@ var url = `
         </thead>
         <tbody>
           <tr ng-repeat="record in top_ten ">
-            <th>{{ record.user.firstname }}</th>
-            <th>{{ record.position || 'N/A' }}</th>
-            <th>{{ record.score }}</th>
-            <th>{{ record.duration_secs }} seconds </th>
-            <th>{{ record.earning }}</th>
+            <th style="padding:5px 0;">{{ record.user.firstname }}</th>
+            <th style="padding:5px 0;">{{ record.position || 'N/A' }}</th>
+            <th style="padding:5px 0;">{{ record.score }}</th>
+            <th style="padding:5px 0;">{{ record.duration_secs }} seconds </th>
+            <th style="padding:5px 0;">{{ record.earning }}</th>
           </tr>
         </tbody>
       </table>
