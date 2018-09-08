@@ -344,6 +344,12 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'api'], function () {
+  Route::post('/get-banks-list', function () {
+
+    $string = file_get_contents("../resources/assets/js/banks.json");
+    return $string;
+
+  });
 
   Route::get('/get-home-page-details', function () {
 
