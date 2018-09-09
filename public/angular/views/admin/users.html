@@ -26,7 +26,7 @@
               </div>
             </div>
         </div>
-          <br>
+        <div class="clear"></div>
         <div class="ui search flex-center" style="justify-content:flex-end">
           <div ng-class="['ui icon input action', {'loading': searching, 'error' : !searchPhrase || searchField.$invalid}]">
             <input class="prompt" type="text" placeholder="Search users..." ng-model="searchPhrase" ng-minlength="3" name="searchField">
@@ -34,6 +34,7 @@
             <button class="ui green button" ng-click="performDatabaseSearch(searchPhrase)" ng-disabled="!searchPhrase || searchField.$invalid"></button>
           </div>
         </div>
+        <div class="clear"></div>
         <div class="ui red segment">
           <div ng-show="loading" class="animate fade">
             <div class="ui segment"  style="min-height: 300px;">

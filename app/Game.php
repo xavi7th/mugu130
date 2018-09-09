@@ -31,7 +31,13 @@ class Game extends Model{
 		self::end();
 
 		//create new game
-		return self::firstOrCreate(['status' => true],[]);
+		try {
+			return self::firstOrCreate(['status' => true],[]);
+		}
+		catch (\Exception $e) {
+
+		}
+
   }
 
 	public function user_game_sessions(){

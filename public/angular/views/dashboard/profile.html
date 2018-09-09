@@ -186,7 +186,7 @@
 				</div>
 				<div class="ui tab" data-tab="earnings">
 					<div class="ui compact segment">
-						<p>Earnings</p>
+						<p>My Earnings</p>
 					</div>
 					<table class="ui blue celled table">
 						<thead>
@@ -195,6 +195,7 @@
 								<th>Game ID</th>
 								<th>Score</th>
 								<th>Position</th>
+								<th>Finish Time</th>
 								<th>Date</th>
 								<th>Amount</th>
 								<th>Action</th>
@@ -210,6 +211,7 @@
 								</td>
 								<td>{{ earning.user_game_session.score }}</td>
 								<td>{{ earning.user_game_session.position }}</td>
+								<td>{{ earning.user_game_session.ended_at }}</td>
 								<td>{{ earning.created_at | timeAgo}}</td>
 								<td>{{ earning.amount | currency }}</td>
 								<td>

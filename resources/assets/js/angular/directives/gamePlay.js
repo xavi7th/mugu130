@@ -193,7 +193,7 @@ angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorag
       };
 
       $scope.requestOptions = (q) => {
-        sendRequest.postRequest('/user/question-remove-options/', q.question.id)
+        sendRequest.postRequest('/user/question-remove-options', q.question.id)
                  .then(function (rsp) {
                    q.question = rsp.data;
                  });
