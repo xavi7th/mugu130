@@ -175,6 +175,10 @@ class User extends Authenticatable{
       return $this->hasMany(Earning::class);
     }
 
+    public function earnings_today(){
+      return $this->hasMany(Earning::class)->daily();
+    }
+
     public function untransferred_earnings(){
       return $this->hasMany(Earning::class)->where('transferred', false);
     }

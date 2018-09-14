@@ -84,4 +84,19 @@ class Earning extends Model{
 		]);
   }
 
+	/**
+	 * Scope a query to only include today's earnings.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $q
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeDaily($q){
+			// return $this->expectedghdate->lte(Carbon::now());
+			// dd(Carbon::today()->isToday());
+
+			$q->whereDate('created_at', '=', Carbon::today());
+			 // ->whereDate('created_at', '2016-12-31')
+
+	}
+
 }

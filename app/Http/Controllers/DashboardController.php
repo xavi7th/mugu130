@@ -70,6 +70,12 @@ class DashboardController extends Controller
 
     public function joinGame(){
 
+      // return ['hh' => Auth::user()->earnings_today()->sum('amount') < env('MAX_ACCEPTABLE_DAILY_EARNING')] ;
+
+      if (Auth::user()->earnings_today()->sum('amount') >= env('MAX_ACCEPTABLE_DAILY_EARNING') ) {
+        return response()->json(['err_msg' => 'DAILY LIMIT EXCEEDED!!! <br> Please wait until tomorrow' ], 402);
+      }
+
       //check user balance
       if (Auth::user()->available_units < env('GAME_CREDITS')) {
         return response()->json(['err_msg' => 'INSUFFICIENT FUNDS!!! <br> Kindly fund your wallet to join game' ], 402);
