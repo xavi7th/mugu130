@@ -475,8 +475,17 @@ class DashboardController extends Controller
 
     public function requestWithdrawal(){
 
+      if ( !Auth::user()->withdrawals_today->isEmpty() ) {
+        //The user has withdrawn money today before
+        return response()->json(['message' => 'DAILY CASHOUT LIMIT EXCEEDED!!! <br> Please wait until tomorrow.'], 422);
+      }
+
       if (Auth::user()->available_units < request()->input('details.amt')) {
         return response()->json(['message' => 'Insufficient funds' ], 422);
+      }
+
+      if (request()->input('details.amt') > env('MAX_WITHDRAWABLE_AMOUNT')) {
+        return response()->json(['message' => 'Maximum limit exceeded' ], 422);
       }
 
       if (!Auth::user()->verified) {
@@ -486,7 +495,7 @@ MESSAGE;
         return response()->json(['message' => $message ], 422);
       }
 
-      if (Auth::user()->acct_no == null ||  Auth::user()->phone1 == null) {
+      if (Auth::user()->acct_no == null ||  Auth::user()->phone1 == null || (Auth::user()->facebook == null &&  Auth::user()->twitter == null && Auth::user()->instagram == null && Auth::user()->telegram == null) ) {
         return response()->json(['message' => 'Account profile incomplete' ], 422);
       }
 

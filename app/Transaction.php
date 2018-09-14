@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
+use Carbon\Carbon;
 
 class Transaction extends Model{
 
@@ -55,5 +56,20 @@ class Transaction extends Model{
 	 public static function pendingCashouts(){
 		 return self::with(['user'])->where('trans_type', 'withdrawal')->where('status', 'pending')->paginate(env('ROWS_PER_PAGE'));
 	 }
+
+	 /**
+ 	 * Scope a query to only include today's earnings.
+ 	 *
+ 	 * @param \Illuminate\Database\Eloquent\Builder $q
+ 	 * @return \Illuminate\Database\Eloquent\Builder
+ 	 */
+ 	public function scopeDailyWithdrawal($q){
+ 			// return $this->expectedghdate->lte(Carbon::now());
+ 			// dd(Carbon::today()->isToday());
+
+ 			$q->whereDate('created_at', Carbon::today())->where('trans_type', 'withdrawal');
+ 			 // ->whereDate('created_at', '2016-12-31')
+
+ 	}
 
 }

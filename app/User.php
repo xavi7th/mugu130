@@ -129,6 +129,10 @@ class User extends Authenticatable{
       return $this->hasMany(Transaction::class);
     }
 
+    public function withdrawals_today(){
+      return $this->hasMany(Transaction::class)->dailyWithdrawal();
+    }
+
     public function referrals(){
       return $this->hasMany(Referral::class);
     }
