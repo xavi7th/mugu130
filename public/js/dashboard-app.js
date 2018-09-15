@@ -699,22 +699,31 @@ dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequ
 dashboard.controller('WithdrawalController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
   NProgress.start();
 
-  sendRequest.postRequest('user/get-withdrawal-instructions-data', { 'id': null }).then(function (rsp) {
+  console.log(sendRequest.getData('tr_id'));
+
+  sendRequest.postRequest('user/get-withdrawal-instructions-data', { 'id': sendRequest.getData('tr_id') }).then(function (rsp) {
     if (rsp.status == 200) {
       $scope.amount = rsp.data.amount;
       $scope.total_amount = rsp.data.total_amount;
       $scope.time_joined = rsp.data.time_joined;
       $scope.refcode = rsp.data.refcode;
     }
+    sendRequest.storeData('tr_id', null);
   });
 
   NProgress.done();
 }]);
 
-dashboard.controller('ProfileController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+dashboard.controller('ProfileController', ['$scope', '$location', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, $location, Notification, sendRequest, bootstrapPage) {
   NProgress.start();
 
   bootstrapPage.profile($scope);
+
+  $scope.viewShareInfo = function (id) {
+    console.log(id);
+    sendRequest.storeData('tr_id', id);
+    $location.path('dashboard/withdrawal/success');
+  };
 
   NProgress.done();
 }]);

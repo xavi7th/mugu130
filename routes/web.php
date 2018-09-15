@@ -21,6 +21,7 @@ use App\Mail\AccountCredited;
 use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
+use App\Transaction;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -297,6 +298,14 @@ Route::group(['prefix' => 'user'], function () {
                 'refcode' => Auth::user()->refcode,
               ];
 
+    }
+    else{
+      return [
+                'amount' => Transaction::find(request()->input('details.id'))['amount'],
+                'total_amount' => Auth::user()->total_withdrawals,
+                'time_joined' => Auth::user()->created_at->diffForHumans(),
+                'refcode' => Auth::user()->refcode,
+              ];
     }
   });
 });
