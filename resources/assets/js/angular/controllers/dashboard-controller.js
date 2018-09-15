@@ -46,6 +46,24 @@ dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequ
 
 }]);
 
+dashboard.controller('WithdrawalController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
+  NProgress.start();
+
+
+  sendRequest.postRequest('user/get-withdrawal-instructions-data', {'id' : null})
+            .then(rsp => {
+              if (rsp.status == 200) {
+                $scope.amount = rsp.data.amount;
+                $scope.total_amount = rsp.data.total_amount;
+                $scope.time_joined = rsp.data.time_joined;
+                $scope.refcode = rsp.data.refcode;
+              }
+            });
+
+  NProgress.done();
+
+}]);
+
 dashboard.controller('ProfileController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage ) {
   NProgress.start();
 

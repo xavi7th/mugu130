@@ -12,6 +12,11 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
      controller: 'DashboardController',
    })
 
+   .when('/dashboard/withdrawal/success', {
+     templateUrl: 'angular/views/dashboard/withdrawal-instructions.html',
+     controller: 'WithdrawalController',
+   })
+
    .when('/dashboard/profile', {
      templateUrl: 'angular/views/dashboard/profile.html',
      controller: 'ProfileController',

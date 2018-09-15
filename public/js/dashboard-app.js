@@ -696,6 +696,21 @@ dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequ
   NProgress.done();
 }]);
 
+dashboard.controller('WithdrawalController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  sendRequest.postRequest('user/get-withdrawal-instructions-data', { 'id': null }).then(function (rsp) {
+    if (rsp.status == 200) {
+      $scope.amount = rsp.data.amount;
+      $scope.total_amount = rsp.data.total_amount;
+      $scope.time_joined = rsp.data.time_joined;
+      $scope.refcode = rsp.data.refcode;
+    }
+  });
+
+  NProgress.done();
+}]);
+
 dashboard.controller('ProfileController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
   NProgress.start();
 
@@ -1407,7 +1422,7 @@ angular.module('inputCountValidator', []).directive('count', function () {
 
 var url = '\n<section id="makeWithdrawal" class="ui right floated horizontal  list">\n  <div class=" ui vertical animated orange compact button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="icon money bill alternate outline"></i></div>\n    <div class="visible content">\n      Cash Out\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal makeWithdrawal transition hidden">\n\n      <div class="ui icon mini message">\n        <i class="inbox icon"></i>\n        <div class="content">\n          <div class="header">\n            TRANSFER EARNINGS FIRST\n          </div>\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \'transfer earnings\' button. Otherwise proceed.</p>\n        </div>\n      </div>\n\n      <div class="header">\n        Enter an Amount\n      </div>\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="inline field">\n            <input type="number" placeholder="Min 170" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="170">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !requested_amount}" prompt-password="requestWithdrawal()">\n          Yep, proceed!\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n      <div class="image content" style="flex-direction:column;">\n        <div class="ui icon mini message positive">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> For withdrawals below \u20A61000, a service fee of \u20A670 will be charged. </p>\n            <p> While an additional service fee of \u20A670 will be charged for every \u20A61000.</p>\n          </div>\n        </div>\n        <div class="ui icon mini message negative">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> NB: If you do not receive the requested amount within 48 hours, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>\n          </div>\n        </div>\n        <div class="ui icon mini message">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> Withdrawals below \u20A61000 will be sent to your registered phone number as credit. </p>\n            <p> While withdrawals above \u20A61000 will be sent to your registered bank account.</p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
 
-angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$route', 'Notification', 'sendRequest', function ($timeout, $route, Notification, sendRequest) {
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope: {
@@ -1452,6 +1467,8 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
               if ($scope.requested_amount < 1000) {
                 Notification.primary('Amount requested will be sent as airtime to ' + $scope.$parent.userdetails.phone1);
               } else {
+                sendRequest.storeData('withdraw', true);
+                $location.path('dashboard/withdrawal/success');
                 Notification.primary({ message: 'Amount requested will be sent to account number ' + $scope.$parent.userdetails.acct_no, positionX: 'center' });
               }
 
@@ -1966,6 +1983,9 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
   }).when('/register/success', {
     templateUrl: 'angular/views/dashboard/register-success.html',
     controller: 'DashboardController'
+  }).when('/dashboard/withdrawal/success', {
+    templateUrl: 'angular/views/dashboard/withdrawal-instructions.html',
+    controller: 'WithdrawalController'
   }).when('/dashboard/profile', {
     templateUrl: 'angular/views/dashboard/profile.html',
     controller: 'ProfileController'

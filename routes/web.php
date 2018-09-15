@@ -114,6 +114,10 @@ Route::middleware(['before'])->group( function () {
     return download_file('privacy.pdf', env('PRIVACY_FILE_NAME'));
   })->name('privacy');
 
+  Route::get('/download-image', function () {
+    return download_file('image.png', 'fastplay24-winner.png');
+  });
+
   Route::get('/terms&conditions', function () {
     return view_file_in_browser('terms.pdf');
     // return download_file('terms.pdf', env('TERMS_FILE_NAME'));
@@ -283,6 +287,18 @@ Route::group(['prefix' => 'user'], function () {
   Route::any('/get-game-state', 'DashboardController@getGameState');
 
   Route::post('/send-verification-mail', 'DashboardController@resendVerificationMail');
+
+  Route::post('/get-withdrawal-instructions-data', function () {
+    if (is_null(request()->input('details.id'))) {
+      return [
+                'amount' => Auth::user()->withdrawals_today()->latest()->first(['amount'])['amount'],
+                'total_amount' => Auth::user()->total_withdrawals,
+                'time_joined' => Auth::user()->created_at->diffForHumans(),
+                'refcode' => Auth::user()->refcode,
+              ];
+
+    }
+  });
 });
 
 Route::group(['prefix' => 'user'], function () {

@@ -102,7 +102,7 @@ class User extends Authenticatable{
     }
 
     public function getTotalWithdrawalsAttribute(){
-      return $this->transactions()->where('trans_type', 'withdrawal')->sum('amount');
+      return $this->transactions()->where('trans_type', 'withdrawal')->where('status', 'completed')->sum('amount');
     }
 
     public function getNumOfWithdrawalsAttribute(){
@@ -252,7 +252,7 @@ class User extends Authenticatable{
         return true;
       }
       DB::beginTransaction();
-        Auth::user()->update( array_only(request()->input('details'), ['acct_no', 'acct_type', 'address', 'bank', 'email', 'network', 'phone1', 'state', 'town', 'password'] ) );
+        Auth::user()->update( array_only(request()->input('details'), ['acct_no', 'acct_type', 'address', 'bank', 'email', 'network', 'phone1', 'state', 'town', 'password', 'facebook', 'twitter', 'instagram', 'telegram'] ) );
       DB::commit();
 
       return true;

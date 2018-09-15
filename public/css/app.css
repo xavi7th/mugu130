@@ -6246,6 +6246,10 @@ i.icon.first.order:before {
   content: "\F2B0";
 }
 
+i.icon.telegram:before {
+  content: "\F2C6";
+}
+
 /*******************************
             Aliases
 *******************************/
@@ -28102,6 +28106,10 @@ i.icon.microsoft.edge:before {
 
 i.icon.first.order:before {
   content: "\F2B0";
+}
+
+i.icon.telegram:before {
+  content: "\F2C6";
 }
 
 /*******************************

@@ -477,7 +477,7 @@ class DashboardController extends Controller
 
       if ( !Auth::user()->withdrawals_today->isEmpty() ) {
         //The user has withdrawn money today before
-        return response()->json(['message' => 'DAILY CASHOUT LIMIT EXCEEDED!!! <br> Please wait until tomorrow.'], 422);
+        // return response()->json(['message' => 'DAILY CASHOUT LIMIT EXCEEDED!!! <br> Please wait until tomorrow.'], 422);
       }
 
       if (Auth::user()->available_units < request()->input('details.amt')) {

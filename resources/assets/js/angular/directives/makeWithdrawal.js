@@ -81,7 +81,7 @@ var url = `
 `;
 
 
-angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$route','Notification', 'sendRequest', function ($timeout, $route, Notification, sendRequest) {
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$location','Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
   return {
     restrict: 'E',
     scope:{
@@ -134,6 +134,8 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
                          Notification.primary('Amount requested will be sent as airtime to ' + $scope.$parent.userdetails.phone1);
                        }
                        else {
+                         sendRequest.storeData('withdraw', true);
+                         $location.path('dashboard/withdrawal/success');
                          Notification.primary({ message: 'Amount requested will be sent to account number ' + $scope.$parent.userdetails.acct_no, positionX: 'center'});
                        }
 
