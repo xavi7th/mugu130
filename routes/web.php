@@ -23,6 +23,7 @@ use App\Mail\TransactionalMail;
 use App\Events\ExamJoined;
 use App\Transaction;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -379,11 +380,10 @@ Route::group(['prefix' => 'api'], function () {
   Route::get('/get-home-page-details', function () {
 
     return [
-      // 'total_games_played' => Game::validGamesCount(),
-      // 'total_num_of_users' => User::count(),
-      // 'total_user_earnings' => Earning::totalUserEarnings(),
-      // 'top_three_earners' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(3)->load(['user']),
-
+      'total_games_played' => Game::validGamesCount(),
+      'total_num_of_users' => User::count(),
+      'total_user_earnings' => Earning::totalUserEarnings(),
+      'top_three_earners' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(3)->load(['user']),
     ];
 
   });
