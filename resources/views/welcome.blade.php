@@ -26,6 +26,12 @@
       background-image: url({{ asset('img/fastplay-playstore-hover.jpg') }});
     }
 
+    .star.icon{
+      color:#FF9800;
+      font-size: .8em;
+      margin-right: -10px;
+    }
+
     @media (max-width:1024px) {
       .playstore{
         height: 100px;
@@ -211,7 +217,14 @@
                     {{-- <img src="../images/avatar2/large/kristy.png"> --}}
                   </div>
                   <div class="content">
-                    <a class="header">@{{ e.user.firstname }} </a>
+                    <a class="header">@{{ e.user.firstname }}
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                    </a>
+
                     <div class="meta">
                       <span class="date">Joined @{{ e.user.created_at | timeAgo }}</span>
                     </div>
