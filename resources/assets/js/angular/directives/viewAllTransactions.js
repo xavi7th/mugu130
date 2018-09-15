@@ -147,7 +147,7 @@ var url = `
               <td>Request Type</td>
               <td>
                 <span ng-if="trans_record.amount > 929 "> Cash </span>
-                <span ng-if="trans_record.amount <=w 929 "> Recharge Card </span>
+                <span ng-if="trans_record.amount <= 929 "> Recharge Card </span>
               </td>
             </tr>
 
