@@ -117,7 +117,7 @@ Route::middleware(['before'])->group( function () {
   })->name('privacy');
 
   Route::get('/download-image', function () {
-    return download_file('image.png', 'fastplay24-winner.png');
+    return download_file('image.jpg', 'instagram-post.jpg');
   });
 
   Route::get('/terms&conditions', function () {
