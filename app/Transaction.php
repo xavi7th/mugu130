@@ -25,6 +25,10 @@ class Transaction extends Model{
 			 return self::where('trans_type', 'withdrawal')->where('status', 'completed')->sum('amount');
 	 }
 
+	 public static function totalSumOfPendingRequests(){
+			 return self::where('trans_type', 'withdrawal')->where('status', 'pending')->sum('amount');
+	 }
+
 	 public static function totalNumberOfRequests(){
 			 return self::where('trans_type', 'withdrawal')->where('status', 'pending')->count();
 	 }

@@ -57,6 +57,7 @@ class AdminController extends Controller
                     'suspended_accounts' => User::where('useraccstatus', 'suspended')->count(),
                     'total_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->count(),
                     'total_pending_withdrawals' => Transaction::totalNumberOfRequests(),
+                    'amount_pending_withdrawals' => Transaction::totalSumOfPendingRequests(),
                     'no_of_cash_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->count(),
                     'no_of_airtime_approved_withdrawals' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '<=', (1000 - env('TRANSACTION_FEE')))->count(),
                     'total_cash_approved_withdrawals_amount' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->where('amount', '>', (1000 - env('TRANSACTION_FEE')))->sum('amount'),

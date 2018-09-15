@@ -116,7 +116,7 @@
             Users
           </a>
           <a class="item" data-tab="transactions">
-            <i class="visa icon"></i>
+            <i class="cc visa icon"></i>
             User Transactions
           </a>
           <a class="item" data-tab="earnings">
@@ -182,7 +182,7 @@
               </tr>
               <tr>
                 <td>Pending Withdrawals</td>
-                <td>{{ details.total_pending_withdrawals }}</td>
+                <td>{{ details.total_pending_withdrawals }} &nbsp; ({{ details.amount_pending_withdrawals | currency }})</td>
               </tr>
               <tr>
                 <td>No of Withdrawals Cash vs Airtime</td>
