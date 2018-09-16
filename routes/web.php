@@ -112,6 +112,7 @@ Route::middleware(['before'])->group( function () {
   })->name('calculator');
 
   Route::get('/privacy', function () {
+     return view('others-home');
     return response()->file('storage/privacy.pdf');
     return download_file('privacy.pdf', env('PRIVACY_FILE_NAME'));
   })->name('privacy');
@@ -120,7 +121,8 @@ Route::middleware(['before'])->group( function () {
     return download_file('image.jpg', 'instagram-post.jpg');
   });
 
-  Route::get('/terms&conditions', function () {
+  Route::get('/terms-and-conditions', function () {
+     return view('others-home');
     return view_file_in_browser('terms.pdf');
     // return download_file('terms.pdf', env('TERMS_FILE_NAME'));
   })->name('terms');

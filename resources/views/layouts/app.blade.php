@@ -17,6 +17,10 @@
 			@include('meta.home.help')
 		@elseif (Route::is('support'))
 			@include('meta.home.support')
+		@elseif (Route::is('terms'))
+			@include('meta.home.terms')
+		@elseif (Route::is('privacy'))
+			@include('meta.home.privacy')
 		@endif
 
 		<meta charset="utf-8">
