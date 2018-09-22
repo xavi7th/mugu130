@@ -41,7 +41,7 @@
     <div class="grid-container">
       <div class="grid-100 tablet-grid-90 tablet-push-5" style="text-align: center;">
         <div class="ui blue segment">
-          <h4>View a preview of the all time top 100 winners on fastplay24. You too can be a winner</h4>
+          <h4>A preview of the all time top 100 winners on fastplay24. You too can be a winner</h4>
         </div>
         <div class="ui raised segment">
           <div class="ui four stackable doubling cards">

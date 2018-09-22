@@ -1,5 +1,5 @@
 <title>Terms &amp; Conditions | {{ env('APP_NAME') }}</title>
-<meta name="robots" content="index,follow">
+<meta name="robots" content="noindex,nofollow">
 
 <meta name="description" content="{{ env('APP_NAME') }} terms and conditions "/>
 <meta name="author" content="{{ env('APP_AUTHOR') }}">

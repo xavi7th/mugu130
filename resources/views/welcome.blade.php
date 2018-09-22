@@ -6,6 +6,14 @@
       min-height: 0 !important;
     }
 
+    .flex-center{
+      flex-wrap:wrap;
+    }
+
+    .flex-center.options *{
+      margin-bottom: 8px;
+    }
+
     .playstore, .top_100{
       height: 150px;
       display: flex;
@@ -67,7 +75,7 @@
             <p style="font-size:1.2em">Win up to N15, 000 with just ₦35 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
 
             <h3>Think - Play - Win</h3>
-            <div class="flex-center mb-d-40 stack small">
+            <div class="flex-center mb-d-40 stack small options">
 
               <a href="/demo-play" target="_self">
                 <button class="ui right labeled basic inverted icon button">
@@ -85,6 +93,11 @@
                 <button class="ui right labeled basic inverted icon button">
                   How it works
                   <i class="lightbulb icon"></i>
+                </button>
+              </a>
+              <a href="{{ route('top-100') }}" target="_self">
+                <button class="ui right labeled basic inverted icon button" style="padding-right: 1.5em !important;">
+                  See Top 100 Winners
                 </button>
               </a>
             </div>
@@ -255,13 +268,6 @@
             </div>
           </div>
           <div class="grid-25">
-            <div class="top_100" style="align-items:flex-end;">
-              <a href="{{ route('top-100') }}" target="_self">
-                <button class="ui right labeled basic inverted icon button">
-                  See Top 100 Winners
-                </button>
-              </a>
-            </div>
             <div class="playstore">
               <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
             </div>
