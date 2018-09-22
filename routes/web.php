@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 
 /*
@@ -110,6 +111,11 @@ Route::middleware(['before'])->group( function () {
     }
     return view('calculator');
   })->name('calculator');
+
+  Route::get('/top-100-winners', function () {
+    $top100 = UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(100)->load(['user']);
+    return view('top-100', compact('top100'));
+  })->name('top-100');
 
   Route::get('/privacy', function () {
      return view('others-home');
@@ -385,7 +391,7 @@ Route::group(['prefix' => 'api'], function () {
       'total_games_played' => Game::validGamesCount(),
       'total_num_of_users' => User::count(),
       'total_user_earnings' => Earning::totalUserEarnings(),
-      'top_three_earners' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(3)->load(['user']),
+      'top_three_earners' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(5)->load(['user']),
     ];
 
   });

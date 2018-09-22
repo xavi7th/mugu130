@@ -21,6 +21,8 @@
 			@include('meta.home.terms')
 		@elseif (Route::is('privacy'))
 			@include('meta.home.privacy')
+		@elseif (Route::is('top-100'))
+			@include('meta.home.top-100')
 		@endif
 
 		<meta charset="utf-8">

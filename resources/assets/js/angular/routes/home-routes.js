@@ -74,6 +74,11 @@
        controller: 'CalculatorController'
      })
 
+     .when('/top-100-winners', {
+       templateUrl: '',
+       // controller: 'CalculatorController'
+     })
+
      .when('/terms-and-conditions', {
        templateUrl: 'angular/views/home/terms.html',
        controller: 'TermsController'

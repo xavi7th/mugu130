@@ -6,8 +6,8 @@
       min-height: 0 !important;
     }
 
-    .playstore{
-      height: 300px;
+    .playstore, .top_100{
+      height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -33,7 +33,7 @@
     }
 
     @media (max-width:1024px) {
-      .playstore{
+      .playstore, .top_100{
         height: 100px;
       }
     }
@@ -254,8 +254,17 @@
               </div>
             </div>
           </div>
-          <div class="grid-25 playstore">
-            <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
+          <div class="grid-25">
+            <div class="top_100" style="align-items:flex-end;">
+              <a href="{{ route('top-100') }}" target="_self">
+                <button class="ui right labeled basic inverted icon button">
+                  See Top 100 Winners
+                </button>
+              </a>
+            </div>
+            <div class="playstore">
+              <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
+            </div>
           </div>
           <div class="grid-30 info">
             <h1>Tell a friend</h1>
