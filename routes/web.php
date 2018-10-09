@@ -22,6 +22,7 @@ use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
 use App\Transaction;
+use App\Http\Controllers\DashboardController;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -326,59 +327,7 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'user'], function () {
 
-  Route::get('/get-api-key', 'DashboardController@getApiKey');
-
-  Route::post('/get-total-earnings', 'DashboardController@getTotalEarnings');
-
-  Route::post('/transfer-earnings', 'DashboardController@transferEarnings');
-
-  Route::post('/get-user-details', 'DashboardController@getUserDetails');
-
-  Route::post('/get-profile-page-details', 'DashboardController@getProfilePageDetails');
-
-  Route::post('/get-dashboard-page-details', 'DashboardController@getDashboardPageDetails');
-
-  Route::post('/make-deposit', 'DashboardController@makeDeposit');
-
-  Route::post('/send-credit-account-request', 'DashboardController@sendCreditAccountRequest');
-
-  Route::post('/credit-account', 'DashboardController@creditAccount');
-
-  Route::post('/request-withdrawal', 'DashboardController@requestWithdrawal');
-
-  Route::post('/received-withdrawal', 'DashboardController@receivedWithdrawal');
-
-  Route::post('/dispute-withdrawal', 'DashboardController@disputeWithdrawal');
-
-  Route::post('/confirm-user-password', 'DashboardController@confirmUserPassword');
-
-  Route::post('/update-user-details', 'DashboardController@updateUserDetails');
-
-  Route::post('/join-game', 'DashboardController@joinGame');
-
-  Route::post('/pause-game', 'DashboardController@pauseGame');
-
-  Route::post('/resume-game', 'DashboardController@resumeGame');
-
-  Route::post('/submit-exam', 'DashboardController@submitExam');
-
-  Route::any('/end-exam', 'DashboardController@endExam');
-
-  Route::any('get-exam-results', 'DashboardController@getExamResults');
-
-  Route::any('get-exam-top-ten/{game_id}', 'DashboardController@getExamTopTen');
-
-  Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
-
-  Route::post('/question-remove-options', 'DashboardController@questionRemoveOptions');
-
-  Route::post('/mark-message-as-read', 'DashboardController@markMessageAsRead');
-
-  Route::post('/delete-message', 'DashboardController@deleteMessage');
-
-  Route::post('/mark-notice-as-read', 'DashboardController@markNoticeAsRead');
-
-  Route::post('/delete-notice', 'DashboardController@deleteNotice');
+  DashboardController::routes();
 
 });
 
