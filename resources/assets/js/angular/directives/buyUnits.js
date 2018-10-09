@@ -1,7 +1,6 @@
 // EXAMPLE uploadPostImage
 // <game-play></game-play>
 
-
 var url = `
 <section id="buyUnits" class="ui right floated horizontal list">
 
@@ -31,7 +30,7 @@ var url = `
             <div class="image content flex-center">
               <div class="ui form">
                 <div class="inline field" style="text-align: center;">
-                  <input type="number" placeholder="Minimum: ₦500" ng-model="requested_amount" ng-min="500">
+                  <input type="number" placeholder="Minimum: ₦500 | Maximum: ₦5,000" ng-model="requested_amount" ng-min="500" ng-max="5000">
                 </div>
                 <div class="actions  flex-center">
                   <pay-with-paystack></pay-with-paystack>
