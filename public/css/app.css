@@ -5910,6 +5910,10 @@ i.icon.h.square:before {
   content: "\F0FD";
 }
 
+i.icon.hashtag:before {
+  content: "\F292";
+}
+
 i.icon.heading:before {
   content: "\F1DC";
 }

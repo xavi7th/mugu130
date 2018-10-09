@@ -32,7 +32,17 @@ var url = `
     }
 </style>
 
-
+  <div class="ui blue segment">
+    <div class="ui icon error message">
+      <i class="exclamation icon"></i>
+      <div class="content">
+        <div class="header">
+          Note
+        </div>
+        <p>You don’t get paid to play the demo. To start playing live and earning, please <a href="/register" target="_self">register</a> and fund your wallet.</p>
+      </div>
+    </div>
+  </div>
 
 
   <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">
