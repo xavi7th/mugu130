@@ -1953,6 +1953,14 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
   width: 20%;
 }
 
+.ui.six.buttons {
+  width: 100%;
+}
+
+.ui.six.buttons > .button {
+  width: 16.666%;
+}
+
 .ui.seven.buttons {
   width: 100%;
 }
@@ -2000,6 +2008,10 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 
 .ui.five.vertical.buttons > .button {
   height: 20%;
+}
+
+.ui.six.vertical.buttons > .button {
+  height: 16.666%;
 }
 
 .ui.seven.vertical.buttons > .button {
@@ -11787,7 +11799,7 @@ ol.ui.horizontal.list li:before,.ui.ordered.horizontal.list .list > .item:before
     Evenly Divided
 --------------------*/
 
-.ui.one.steps,.ui.two.steps,.ui.three.steps,.ui.four.steps,.ui.five.steps,.ui.seven.steps,.ui.eight.steps {
+.ui.one.steps,.ui.two.steps,.ui.three.steps,.ui.four.steps,.ui.five.steps,.ui.six.steps,.ui.seven.steps,.ui.eight.steps {
   width: 100%;
 }
 
@@ -16110,6 +16122,10 @@ Floated Menu / Item
   width: 20%;
 }
 
+.ui.menu.six.item .item {
+  width: 16.666%;
+}
+
 .ui.menu.seven.item .item {
   width: 14.285%;
 }
@@ -17735,6 +17751,10 @@ Floated Menu / Item
   width: 20%;
 }
 
+.ui.six.column.table td {
+  width: 16.66666667%;
+}
+
 .ui.seven.column.table td {
   width: 14.28571429%;
 }
@@ -18757,6 +18777,17 @@ Floated Menu / Item
   margin-right: 0.75em;
 }
 
+.ui.six.cards {
+  margin-left: -0.75em;
+  margin-right: -0.75em;
+}
+
+.ui.six.cards > .card {
+  width: calc(16.66667% - 1.5em);
+  margin-left: 0.75em;
+  margin-right: 0.75em;
+}
+
 .ui.seven.cards {
   margin-left: -0.5em;
   margin-right: -0.5em;
@@ -18842,6 +18873,17 @@ Floated Menu / Item
     margin-right: 1em;
   }
 
+  .ui.six.doubling.cards {
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+
+  .ui.six.doubling.cards > .card {
+    width: calc(50% - 2em);
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
   .ui.seven.doubling.cards {
     margin-left: -1em;
     margin-right: -1em;
@@ -18918,6 +18960,17 @@ Floated Menu / Item
   }
 
   .ui.five.doubling.cards > .card {
+    width: calc(33.33333% - 2em);
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  .ui.six.doubling.cards {
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+
+  .ui.six.doubling.cards > .card {
     width: calc(33.33333% - 2em);
     margin-left: 1em;
     margin-right: 1em;
@@ -19873,6 +19926,15 @@ Floated Menu / Item
 
 .ui.seven.statistics .statistic {
   min-width: 14.28571429%;
+  margin: 0em 0em 1em;
+}
+
+.ui.six.statistics {
+  margin: 0em 0em -1em;
+}
+
+.ui.six.statistics .statistic {
+  min-width: 16.66666667%;
   margin: 0em 0em 1em;
 }
 

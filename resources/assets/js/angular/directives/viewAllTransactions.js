@@ -1,7 +1,6 @@
 // EXAMPLE
 // <transaction-play></transaction-play>
 
-
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
       <div class="ui segment compact left floated">
@@ -159,6 +158,26 @@ var url = `
             <tr>
               <td>Total Purchsaed Units</td>
               <td>{{ trans_record.user.units_purchased | currency }} </td>
+            </tr>
+
+            <tr>
+              <td>Twitter</td>
+              <td> <a ng-href="{{ trans_record.user.twitter }}">{{ trans_record.user.twitter }}</a> </td>
+            </tr>
+
+            <tr>
+              <td>Telegram</td>
+              <td> <a ng-href="{{ trans_record.user.telegram }}">{{ trans_record.user.telegram }}</a> </td>
+            </tr>
+
+            <tr>
+              <td>Facebook</td>
+              <td> <a ng-href="{{ trans_record.user.facebook }}">{{ trans_record.user.facebook }}</a> </td>
+            </tr>
+
+            <tr>
+              <td>Instagram</td>
+              <td> <a ng-href="{{ trans_record.user.instagram }}">{{ trans_record.user.instagram }}</a> </td>
             </tr>
 
           </tbody>
