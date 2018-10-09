@@ -51,14 +51,15 @@ Route::middleware(['before'])->group( function () {
   if (App::environment('local')) {
     Route::get('/test', function () {
 
-      Agent::mobile();
+      // Agent::mobile();
 
-      return csrf_token();
+      // return csrf_token();
       // abort(404);
           // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
           // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
       return view('auth.register-success');
+      exit;
 
       // return dd(view('demo-play')->render());
       $user = Auth::user();
