@@ -4,14 +4,14 @@
 
 var url = `
 <section id="payWithPaystack" class="ui right floated horizontal list">
-  <button ng-class="{'ui blue right labeled icon button': true, 'disabled': !requested_amount}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">
-    Pay Online
+  <button ng-class="{'ui blue right labeled icon button': true, 'loading disabled':loading}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">
+    Pay Now
     <i class="credit card outline icon"></i>
   </button>
 </section>
 `;
 
-angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', function (Notification, SweetAlert, sendRequest) {
   return {
     restrict: 'E',
     template:url,
@@ -21,18 +21,44 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
         scriptTag.attr('charset', 'utf-8');
         scriptTag.attr('src', 'https://js.paystack.co/v1/inline.js');
         element.append(scriptTag);
+        console.log(element);
     },
     controller: ['$scope', '$location',  ($scope, $location) => {
 
       $scope.saveOrderThenPayWithPaystack = () => {
 
-            $scope.awardCredits()
-                  .then(function (rsp) {
-                    $scope.payWithPaystack();
-                  },
-                  function (err) {
-                    alert('Network Error. Please refresh the page and try again.');
-                  });
+            $scope.loading = true;
+
+            SweetAlert.swal({
+               title: "Are you sure?",
+               text: "Yo will be redirected to the payment gateway to process your payment!",
+               type: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, fund my account!",
+               cancelButtonText: "I'll fund later.",
+               closeOnConfirm: false,
+               closeOnCancel: false
+             },
+            function(isConfirm){
+               if (isConfirm) {
+                  SweetAlert.swal({
+                     title: "Please wait.....",
+                     text: "Contacting Paystack payment gateway.",
+                     showCancelButton: false,
+                     showConfirmButton: false,
+                   });
+                   $scope.awardCredits()
+                         .then(function (rsp) {
+                           $scope.payWithPaystack();
+                         },
+                         function (err) {
+                           SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
+                         });
+               } else {
+                  SweetAlert.swal("Ok", "Transaction cancelled", "info");
+               }
+            });
+
       };
 
       $scope.payWithPaystack = () => {
@@ -42,7 +68,6 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
               fees = (0.017 * $scope.requested_amount) + 100;
             }
 
-
             var orderid = _.random(676764765, 544765545646456);
             var handler = PaystackPop.setup({
               // This assumes you already created a constant named
@@ -50,11 +75,11 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
               // Paystack dashboard. You can as well just paste it
               // instead of creating the constant
               key: PAYSTACK_PUBLIC_KEY,
-              email: $scope.$parent.userdetails.email,
-              first_name: $scope.$parent.userdetails.firstname,
-              last_name: $scope.$parent.userdetails.lastname,
-              phone: $scope.$parent.userdetails.phone1,
-              amount: ($scope.requested_amount + fees) * 100,
+              email: $scope.$root.userdetails.email,
+              first_name: $scope.$root.userdetails.firstname,
+              last_name: $scope.$root.userdetails.lastname,
+              phone: $scope.$root.userdetails.phone1,
+              amount: Math.ceil(($scope.requested_amount + fees) * 100),
               ref: orderid,
               metadata: {
                   cartid: orderid,
@@ -73,12 +98,12 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
                                 {
                                   display_name: "User Details",
                                   variable_name: "user_details",
-                                  value: $scope.$parent.userdetails.firstname + ' ' + $scope.$parent.userdetails.lastname + ': ' + $scope.$parent.userdetails.phone1
+                                  value: $scope.$root.userdetails.firstname + ' ' + $scope.$root.userdetails.lastname + ': ' + $scope.$root.userdetails.phone1
                                 },
                                 {
                                   display_name: "User ID",
                                   variable_name: "user_id",
-                                  value: $scope.$parent.userdetails.id
+                                  value: $scope.$root.userdetails.id
                                 },
                                 {
                                   display_name: "Fees",
@@ -88,7 +113,13 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
                                   ]
               },
               callback: function(response){
-                Notification.warning({message:'Acknowledging payment. Please wait...', delay:20000, replaceMessage:true});
+                SweetAlert.swal({
+                   title: "Please wait.....",
+                   text: "We are attempting to acknowledge your payment.",
+                   icon: 'info',
+                   showCancelButton: false,
+                   showConfirmButton: false,
+                 });
 
 
                 // post to server to verify transaction before giving value
@@ -99,12 +130,13 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
 
                                sendRequest.storeData('activeTransaction', true);
 
-                               Notification.primary({ message: 'Units added to account', positionX: 'center'});
-                                $scope.$parent.userdetails.available_units += $scope.requested_amount;
+                               SweetAlert.swal('Success!', 'Transaction verified. Units added to account', 'success');
+
+                                $scope.$root.userdetails.available_units += $scope.requested_amount;
                                 $scope.requested_amount = null;
                                $location.path('/dashboard/order-successful');
                               } else {
-                                Notification.error('Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.');
+                                SweetAlert.swal('Notice!', 'Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.', 'warning');
                               }
                            }
                          });
@@ -112,12 +144,13 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
               },
               onClose: function(){
                 $scope.requested_amount = null;
-                Notification.error('Transaction cancelled by user');
+                SweetAlert.swal('Error!', 'Transaction cancelled by user', 'error');
+                // Notification.error('Transaction cancelled by user');
+                location.reload();
               }
           });
           handler.openIframe();
-          $('.buyUnits.ui.modal').modal('hide');
-          Notification.warning({message:'Contacting payment gate way. Please wait...', delay:20000, replaceMessage:true});
+          // Notification.warning({message:'Contacting payment gate way. Please wait...', delay:20000, replaceMessage:true});
       };
 
       $scope.awardCredits = () => {

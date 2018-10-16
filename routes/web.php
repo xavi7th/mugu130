@@ -22,6 +22,7 @@ use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
 use App\Transaction;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 
 use Illuminate\Support\Facades\DB;
@@ -301,34 +302,8 @@ Route::middleware(['before'])->group( function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
-  Route::any('/get-game-state', 'DashboardController@getGameState');
 
-  Route::post('/send-verification-mail', 'DashboardController@resendVerificationMail');
-
-  Route::post('/get-withdrawal-instructions-data', function () {
-    if (is_null(request()->input('details.id'))) {
-      return [
-                'amount' => Auth::user()->withdrawals_today()->latest()->first(['amount'])['amount'],
-                'total_amount' => Auth::user()->total_withdrawals,
-                'time_joined' => Auth::user()->created_at->diffForHumans(),
-                'refcode' => Auth::user()->refcode,
-              ];
-
-    }
-    else{
-      return [
-                'amount' => Transaction::find(request()->input('details.id'))['amount'],
-                'total_amount' => Auth::user()->total_withdrawals,
-                'time_joined' => Auth::user()->created_at->diffForHumans(),
-                'refcode' => Auth::user()->refcode,
-              ];
-    }
-  });
-});
-
-Route::group(['prefix' => 'user'], function () {
-
-  DashboardController::routes();
+  DashboardController::API_Routes();
 
 });
 
@@ -381,116 +356,8 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
 
 Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'], function () {
 
-  $c = 'AdminController@';
-
-  Route::group(['prefix' => 'api'], function () use($c) {
-
-    Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
-
-    Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
-
-    Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
-
-    Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
-
-    Route::get('/get-users-page-details', $c.'getUsersPageDetails');
-
-    Route::post('/update-user-details', $c.'updateUserDetails');
-
-    Route::get('/get-questions-page-details', $c.'getQuestionsPageDetails');
-
-    Route::post('/edit-question', $c.'editQuestion');
-
-    Route::post('/delete-question', $c.'deleteQuestion');
-
-    Route::post('/create-question', $c.'createQuestion');
-
-    Route::post('/edit-admin', $c.'editAdmin');
-
-    Route::post('/delete-admin', $c.'deleteAdmin');
-
-    Route::post('/create-admin', $c.'createAdmin');
-
-    Route::post('/remove-admin', $c.'removeAdmin');
-
-    Route::post('/get-live-game-session', $c.'getLiveGameSession');
-
-    Route::get('/get-all-games', $c.'getAllGames');
-
-    Route::post('/get-game-records', $c.'getGameRecords');
-
-    Route::post('/get-logs-by-day', $c.'getLogsByDay');
-
-    Route::post('/get-profile-page-details', $c.'confirmWithdrawal');
-
-    Route::get('/get-all-transactions', $c.'getAllTransactions');
-
-    Route::post('/create-transaction', $c.'createTransaction');
-
-    Route::post('/mark-transaction-as-paid', $c.'markTransactionAsPaid');
-
-    Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
-
-    Route::post('/get-user-referrals', $c.'getUserReferrals');
-
-    Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
-
-    Route::post('/get-daily-statistics', $c.'getDailyStatistics');
-
-    Route::post('/send-broadcast', $c.'sendBroadcast');
-
-    Route::post('/send-message', $c.'sendMessage');
-
-    Route::post('/get-referrals-by-user', $c.'getReferralsByUser');
-
-    Route::post('/get-unverified-users-count', $c.'getUnverifiedUsersCount');
-
-    Route::post('/edit-user', $c.'editUser');
-
-    Route::post('/delete-user', $c.'deleteUser');
-
-    Route::post('/suspend-user', $c.'suspendUser');
-
-    Route::post('/activate-user', $c.'activateUser');
-
-    Route::post('/verify-user', $c.'verifyUser');
-
-    Route::put('/verify-all-users', $c.'verifyAllUsers');
-
-    Route::post('/database-search/{resource}', $c.'databaseSearch');
-
-    Route::post('/get-all-messages', $c.'getAllMessages');
-
-    Route::post('/reply-message', $c.'replyMessage');
-
-    Route::post('/mark-message-as-read', $c.'markMessageAsRead');
-
-    Route::post('/delete-message', $c.'deleteMessage');
-
-    Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
-
-    Route::get('/get-earnings-by-users-page-details', $c.'getEarningsByUsersPageDetails');
-
-    Route::get('/get-all-admin-earnings', $c.'getAllAdminEarnings');
-
-    Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
-
-    Route::get('/get-all-user-earnings', $c.'getAllUserEarnings');
-
-    Route::get('/get-all-game-earnings', $c.'getAllGameEarnings');
-
-  });
-
-  Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin');
+  AdminController::routes();
 
 });
 
-Route::get('/dashboard/game-play', function () {
-  return redirect('/dashboard');
-});
-
-Route::get('/dashboard/display-results', function () {
-  return redirect('/dashboard');
-});
-
-Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
+DashboardController::routes();

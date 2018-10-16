@@ -1,0 +1,190 @@
+<div id="main-controller" style="background: #fff;">
+
+  <style>
+    html, body {
+        background-color: #fff;
+        color: #636b6f;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 100;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .full-height {
+        min-height: calc(100vh - 125px);
+    }
+
+    .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .position-ref {
+        position: relative;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 3em;
+        padding: 10px;
+    }
+
+    .message {
+        font-size: 1.4em;
+        padding: 5px;
+    }
+
+    .m0{
+      margin: 0 !important;
+    }
+
+
+    .tal{
+      text-align: left !important;
+    }
+
+    .al{
+      align-self: left;
+    }
+
+    img.image{
+      margin-top: 45px;
+    }
+
+  </style>
+
+  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+
+  <div class="grid-container">
+    <div class="grid-80 push-10">
+      <div class="position-ref full-height">
+
+        <div id="fund-account" class="ui top attached tabular menu">
+          <a class="active item" data-tab="first">Pay online</a>
+          <a class="item" data-tab="second">Tap here to Pay via a FastPlay24 payment Agent</a>
+        </div>
+        <div class="ui bottom attached active tab segment basic flex-center" data-tab="first">
+
+          <h1 class="content title">Payment Instructions</h1>
+          <p class="message"><b>Charges</b>: 1.7% of amount. Also, transactions ranging from ₦2,500 and above will attract an additional fixed charge of ₦100.</p>
+
+          <p class="message">
+            Ensure you provide the phone number that matches with the one on your bank account to enable you receive the SMS token from your bank to authorize your online payment.
+          </p>
+          <p class="message">
+            If you intend to use the bank method of online payment and your bank is not listed kindly use your debit card or pay via our Payment Agents.
+          </p>
+          <p class="message">
+            If your wallet is not funded immediately your online payment is successful, kindly send an email to hello@fastplay24.com immediately for your account to be funded.
+          </p>
+
+          <div class="flex-center">
+            <buy-units></buy-units>
+          </div>
+
+          <p>
+            <b>NOTE</b>: <br>
+            <li>Do not delete any of your Cashout posts on your wall. If you do you won't be paid the next time you want to Cashout.</li>
+            <li>Ensure that you turn off privacy settings on your social media accounts, so that we can see your posts.</li>
+          </p>
+
+
+        </div>
+
+        <div class="ui bottom attached tab segment" data-tab="second">
+          <h1 class="content title">Payment Instructions</h1>
+          <p class="message">Contact any of our Payment Agents to fund your wallet via bank deposit or transfer. Min. Amount: ₦600 | Max. Amount: ₦2,500 (₦100 agency fee included)</p>
+          <div class="ui segment" id="extra">
+            <div class="ui header">FASTPLAY24 PAYMENT AGENT</div>
+
+            <p>
+              <b>Minimum amount:</b> ₦600 (₦100 agency fee included)
+            </p>
+
+            <p>
+              <b>Payment Agent:</b> Simeon
+            </p>
+            <p>
+              <b>Account Number:</b> 3088711170 (First Bank)
+            </p>
+            <p>
+              <b>WhatsApp Number:</b> <a href="https://api.whatsapp.com/send?phone=2347067420064 ">07067420064 </a>
+            </p>
+
+            <div class="ui positive message">
+              <div class="header">
+                NB:
+              </div>
+              <p>As soon as you make your payment send proof of payment, alongside the following details via WhatsApp:</p>
+              <p>
+                <ul>
+                  <li><b>Amount Paid</b></li>
+                  <li><b>Full Name</b> (As it is in your FastPlay24 Account.)</li>
+                  <li><b>Email Address</b> (The one you used to sign up on FastPlay24)</li>
+                </ul>
+              </p>
+              <p>Your wallet will be funded upon verification of payment.</p>
+            </div>
+
+            <div class="ui negative message">
+              <div class="header">
+                NB:
+              </div>
+              <p>A ₦100 (hundred naira) fixed charge will be deducted from any amount you pay.</p>
+            </div>
+          <div class="ui special cards">
+
+            <div class="card" ng-repeat="n in userdetails.messages">
+              <div class="content image blurring dimmable">
+                <div class="ui inverted dimmer">
+                  <div class="content">
+                    <div class="center">
+                      <div class="ui primary mini button" ng-show="!n.read" ng-click="markAsRead(n)">Mark as Read</div>
+                      <div class="ui red mini button" ng-click="deleteMessage(n)">Delete Message</div>
+                      <!-- <div class="ui teal mini button" ng-click="deleteMessage(n)">Reply Message</div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="center aligned header">{{ n.subject }}</div>
+                <div class="center aligned description">
+                  <p>{{ n.message }}l</p>
+                </div>
+              </div>
+              <div class="extra content">
+                <send-message msg="n">Reply <i class="upload icon"></i></send-message>
+                <div class="center aligned author">
+                  <img class="ui avatar image" src="/img/avatar.png"> {{ n.senderusername }}
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="content">
+                <div class="center aligned header">{{ userdetails.firstname }} {{ userdetails.lastname }}</div>
+                <div class="center aligned description">
+                  <p>Nobody thinks about you. Too bad.</p>
+                </div>
+              </div>
+              <div class="extra content">
+                <div class="center aligned author">
+                  <img class="ui avatar image" src="/img/avatar.png"> FastPlay24
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
+
+</div>

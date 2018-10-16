@@ -5,7 +5,7 @@
     @include('layout.menu')
     <section id="dashboard">
       <div class="grid-container">
-        kyjtghy
+
         <div class="grid-50 push-25">
           <game-load></game-load>
           <game-active></game-active>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </section>
-    <footer >
+    <footer>
       @include('layout.footer-content')
     </footer>
   </div>

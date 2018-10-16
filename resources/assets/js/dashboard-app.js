@@ -1,4 +1,6 @@
 require('angular-utils-pagination');
+require('angular-sweetalert');
+
 
   dashboard = angular.module('dashboard',
                 [
@@ -6,7 +8,7 @@ require('angular-utils-pagination');
                   'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer',
                   'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage',
                   'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting',
-                   'angularUtils.directives.dirPagination', 'viewTopTenPlayers'
+                   'angularUtils.directives.dirPagination', 'viewTopTenPlayers', 'oitozero.ngSweetAlert'
                 ]);
 
   dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', ($rootScope, $window, Notification, sendRequest) => {

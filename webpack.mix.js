@@ -39,7 +39,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
 		purifyCss: {
 		   paths: paths,
 		   purifyOptions: {
-		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*', '*.modals*', '*.ui.table*', '*.ui.form*', '*.scrolling*'],
+		     whitelist:['*.datepicker*', '*.owl-*', '*ui-notification*', '*.ng-*', '*.modals*', '*.ui.table*', '*.ui.form*',
+                    '*.scrolling*', '*.sweet-alert*', '.showSweetAlert', '.hideSweetAlert', '.animateSuccessTip', '.animateSuccessLong',
+                    '.animateSuccessTip', '.animateSuccessLong', '.animateErrorIcon', '.animateXMark', '.pulseWarning', '.pulseWarningIns',
+                    '.sweet-overlay', '*.sa-success*'],
 		     // extensions: ['html', 'php', 'js', 'php'],
 		     // info: true,
 		     rejected: true,

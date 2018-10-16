@@ -1,5 +1,4 @@
-<header id="alpha" style="background: #035596;
-border-bottom: 2px solid #fff;">
+<header id="alpha" style="background: #035596; border-bottom: 2px solid #fff;">
   <div class="grid-container">
     <div class="grid-40">
       <img src="/assets/logo.png" alt="">
@@ -7,12 +6,7 @@ border-bottom: 2px solid #fff;">
     <div class="grid-60">
       <nav>
         <span id="unit-tag">Available Units: 0</span>
-        <span id="unit-tag" style="padding: 2px;
-          background: #fff;
-          border-radius: 2px;
-          color: red;
-          margin-left: 10px;
-          font-size: 12px;">Total Earnings: #450.05</span>
+        <span id="unit-tag" style="padding: 2px;background: #fff;border-radius: 2px;color: red;margin-left: 10px;font-size: 12px;">Total Earnings: #450.05</span>
         <div class="ui right floated horizontal list">
           <a class="item" href="/dashboard">Dashboard</a>
           <a class="item" href="/profile">Profile</a>

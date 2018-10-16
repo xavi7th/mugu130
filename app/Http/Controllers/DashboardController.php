@@ -52,7 +52,52 @@ class DashboardController extends Controller
         $this->middleware('users')->only('joinGame','pauseGame','resumeGame','submitExam','endExam','getExamResults');
     }
 
+    /**
+     * User DAshboard routes
+     *
+     * The normal HTTP routes for the user's dashboard`
+     *
+     * @return return type
+     */
     public static function routes(){
+      Route::get('/dashboard/game-play', function () {
+        return redirect('/dashboard');
+      });
+
+      Route::get('/dashboard/display-results', function () {
+        return redirect('/dashboard');
+      });
+
+      Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
+
+    }
+
+    public static function API_Routes(){
+
+      Route::any('/get-game-state', 'DashboardController@getGameState');
+
+      Route::post('/send-verification-mail', 'DashboardController@resendVerificationMail');
+
+      Route::post('/get-withdrawal-instructions-data', function () {
+        if (is_null(request()->input('details.id'))) {
+          return [
+                    'amount' => Auth::user()->withdrawals_today()->latest()->first(['amount'])['amount'],
+                    'total_amount' => Auth::user()->total_withdrawals,
+                    'time_joined' => Auth::user()->created_at->diffForHumans(),
+                    'refcode' => Auth::user()->refcode,
+                  ];
+
+        }
+        else{
+          return [
+                    'amount' => Transaction::find(request()->input('details.id'))['amount'],
+                    'total_amount' => Auth::user()->total_withdrawals,
+                    'time_joined' => Auth::user()->created_at->diffForHumans(),
+                    'refcode' => Auth::user()->refcode,
+                  ];
+        }
+      });
+
       Route::get('/get-api-key', 'DashboardController@getApiKey');
 
       Route::post('/get-total-earnings', 'DashboardController@getTotalEarnings');

@@ -31,7 +31,10 @@ var url = `
         <make-withdrawal  style="margin-right: 3%; margin-bottom: 15px;"></make-withdrawal>
       </div>
       <div class="content" style="margin-bottom: 15px;">
-        <buy-units  style="margin-right: 3%;"></buy-units>
+        <a class="ui vertical blue compact button right floated" href="/dashboard/fund-wallet" style="margin-right: 3%;">
+          <i class="icon credit card amazon pay"></i>
+          Fund Wallet
+        </a>
       </div>
     </div>
   </div>

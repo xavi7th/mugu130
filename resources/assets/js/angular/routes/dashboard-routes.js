@@ -82,6 +82,11 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
               }
    })
 
+   .when('/dashboard/fund-wallet', {
+     templateUrl: 'angular/views/dashboard/fund-wallet.html',
+     controller: 'FundWalletController',
+   })
+
    .otherwise({
      redirectTo: '/dashboard'
    });

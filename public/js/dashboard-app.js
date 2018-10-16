@@ -1,5 +1,920 @@
 webpackJsonp([1],{
 
+/***/ "./node_modules/angular-sweetalert/SweetAlert.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+@fileOverview
+
+@toc
+
+*/
+
+(function (root, factory) {
+	"use strict";
+
+	/*global define*/
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("./node_modules/angular/index.js"), __webpack_require__("./node_modules/angular-sweetalert/node_modules/sweetalert/lib/sweet-alert.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));  // AMD
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = factory(require('angular'), require('sweetalert')); // Node
+	} else {
+		factory(root.angular, root.swal);					// Browser
+	}
+
+}(this, function (angular, swal) {
+	"use strict";
+
+	angular.module('oitozero.ngSweetAlert', [])
+		.factory('SweetAlert', [ '$rootScope', function ( $rootScope ) {
+			//public methods
+			var self = {
+
+				swal: function ( arg1, arg2, arg3 ) {
+					$rootScope.$evalAsync(function(){
+						if( typeof(arg2) === 'function' ) {
+							swal( arg1, function(isConfirm){
+								$rootScope.$evalAsync( function(){
+									arg2(isConfirm);
+								});
+							}, arg3 );
+						} else {
+							swal( arg1, arg2, arg3 );
+						}
+					});
+				},
+				success: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'success' );
+					});
+				},
+				error: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'error' );
+					});
+				},
+				warning: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'warning' );
+					});
+				},
+				info: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'info' );
+					});
+				},
+				showInputError: function(message) {
+					$rootScope.$evalAsync(function(){
+						swal.showInputError( message );
+					});
+				},
+				close: function() {
+					$rootScope.$evalAsync(function(){
+						swal.close();
+					});
+				}
+			};
+
+			return self;
+		}]);
+}));
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/angular-sweetalert/node_modules/sweetalert/lib/sweet-alert.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// SweetAlert
+// 2014 (c) - Tristan Edwards
+// github.com/t4t5/sweetalert
+;(function(window, document, undefined) {
+
+  var modalClass   = '.sweet-alert',
+      overlayClass = '.sweet-overlay',
+      alertTypes   = ['error', 'warning', 'info', 'success'],
+      defaultParams = {
+        title: '',
+        text: '',
+        type: null,
+        allowOutsideClick: false,
+        showConfirmButton: true,
+        showCancelButton: false,
+        closeOnConfirm: true,
+        closeOnCancel: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#AEDEF4',
+        cancelButtonText: 'Cancel',
+        imageUrl: null,
+        imageSize: null,
+        timer: null,
+        customClass: '',
+        html: false,
+        animation: true,
+        allowEscapeKey: true
+      };
+
+
+  /*
+   * Manipulate DOM
+   */
+
+  var getModal = function() {
+      var $modal = document.querySelector(modalClass);
+
+      if (!$modal) {
+        sweetAlertInitialize();
+        $modal = getModal();
+      }
+
+      return $modal;
+    },
+    getOverlay = function() {
+      return document.querySelector(overlayClass);
+    },
+    hasClass = function(elem, className) {
+      return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+    },
+    addClass = function(elem, className) {
+      if (!hasClass(elem, className)) {
+        elem.className += ' ' + className;
+      }
+    },
+    removeClass = function(elem, className) {
+      var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
+      if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0) {
+          newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+      }
+    },
+    escapeHtml = function(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    },
+    _show = function(elem) {
+      elem.style.opacity = '';
+      elem.style.display = 'block';
+    },
+    show = function(elems) {
+      if (elems && !elems.length) {
+        return _show(elems);
+      }
+      for (var i = 0; i < elems.length; ++i) {
+        _show(elems[i]);
+      }
+    },
+    _hide = function(elem) {
+      elem.style.opacity = '';
+      elem.style.display = 'none';
+    },
+    hide = function(elems) {
+      if (elems && !elems.length) {
+        return _hide(elems);
+      }
+      for (var i = 0; i < elems.length; ++i) {
+        _hide(elems[i]);
+      }
+    },
+    isDescendant = function(parent, child) {
+      var node = child.parentNode;
+      while (node !== null) {
+        if (node === parent) {
+          return true;
+        }
+        node = node.parentNode;
+      }
+      return false;
+    },
+    getTopMargin = function(elem) {
+      elem.style.left = '-9999px';
+      elem.style.display = 'block';
+
+      var height = elem.clientHeight,
+          padding;
+      if (typeof getComputedStyle !== "undefined") { /* IE 8 */
+        padding = parseInt(getComputedStyle(elem).getPropertyValue('padding'), 10);
+      } else {
+        padding = parseInt(elem.currentStyle.padding);
+      }
+
+      elem.style.left = '';
+      elem.style.display = 'none';
+      return ('-' + parseInt(height / 2 + padding) + 'px');
+    },
+    fadeIn = function(elem, interval) {
+      if (+elem.style.opacity < 1) {
+        interval = interval || 16;
+        elem.style.opacity = 0;
+        elem.style.display = 'block';
+        var last = +new Date();
+        var tick = function() {
+          elem.style.opacity = +elem.style.opacity + (new Date() - last) / 100;
+          last = +new Date();
+
+          if (+elem.style.opacity < 1) {
+            setTimeout(tick, interval);
+          }
+        };
+        tick();
+      }
+      elem.style.display = 'block'; //fallback IE8
+    },
+    fadeOut = function(elem, interval) {
+      interval = interval || 16;
+      elem.style.opacity = 1;
+      var last = +new Date();
+      var tick = function() {
+        elem.style.opacity = +elem.style.opacity - (new Date() - last) / 100;
+        last = +new Date();
+
+        if (+elem.style.opacity > 0) {
+          setTimeout(tick, interval);
+        } else {
+          elem.style.display = 'none';
+        }
+      };
+      tick();
+    },
+    fireClick = function(node) {
+      // Taken from http://www.nonobtrusive.com/2011/11/29/programatically-fire-crossbrowser-click-event-with-javascript/
+      // Then fixed for today's Chrome browser.
+      if (typeof MouseEvent === 'function') {
+        // Up-to-date approach
+        var mevt = new MouseEvent('click', {
+          view: window,
+          bubbles: false,
+          cancelable: true
+        });
+        node.dispatchEvent(mevt);
+      } else if ( document.createEvent ) {
+        // Fallback
+        var evt = document.createEvent('MouseEvents');
+        evt.initEvent('click', false, false);
+        node.dispatchEvent(evt);
+      } else if( document.createEventObject ) {
+        node.fireEvent('onclick') ;
+      } else if (typeof node.onclick === 'function' ) {
+        node.onclick();
+      }
+    },
+    stopEventPropagation = function(e) {
+      // In particular, make sure the space bar doesn't scroll the main window.
+      if (typeof e.stopPropagation === 'function') {
+        e.stopPropagation();
+        e.preventDefault();
+      } else if (window.event && window.event.hasOwnProperty('cancelBubble')) {
+        window.event.cancelBubble = true;
+      }
+    };
+
+  // Remember state in cases where opening and handling a modal will fiddle with it.
+  var previousActiveElement,
+      previousDocumentClick,
+      previousWindowKeyDown,
+      lastFocusedButton;
+
+
+  /*
+   * Add modal + overlay to DOM
+   */
+
+  var sweetAlertInitialize = function() {
+    var sweetHTML = '<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert" tabIndex="-1"><div class="sa-icon sa-error"><span class="sa-x-mark"><span class="sa-line sa-left"></span><span class="sa-line sa-right"></span></span></div><div class="sa-icon sa-warning"> <span class="sa-body"></span> <span class="sa-dot"></span> </div> <div class="sa-icon sa-info"></div> <div class="sa-icon sa-success"> <span class="sa-line sa-tip"></span> <span class="sa-line sa-long"></span> <div class="sa-placeholder"></div> <div class="sa-fix"></div> </div> <div class="sa-icon sa-custom"></div> <h2>Title</h2><p>Text</p><button class="cancel" tabIndex="2">Cancel</button><button class="confirm" tabIndex="1">OK</button></div>',
+        sweetWrap = document.createElement('div');
+
+    sweetWrap.innerHTML = sweetHTML;
+
+    // Append elements to body
+    while (sweetWrap.firstChild) {
+      document.body.appendChild(sweetWrap.firstChild);
+    }
+  };
+
+
+  /*
+   * Global sweetAlert function
+   */
+  var sweetAlert, swal;
+  
+  sweetAlert = swal = function() {
+    var customizations = arguments[0];
+
+    /*
+     * Use argument if defined or default value from params object otherwise.
+     * Supports the case where a default value is boolean true and should be
+     * overridden by a corresponding explicit argument which is boolean false.
+     */
+    function argumentOrDefault(key) {
+      var args = customizations;
+
+      if (typeof args[key] !== 'undefined') {
+        return args[key];
+      } else {
+        return defaultParams[key];
+      }
+    }
+
+    if (arguments[0] === undefined) {
+      logStr('SweetAlert expects at least 1 attribute!');
+      return false;
+    }
+
+    var params = extend({}, defaultParams);
+
+    switch (typeof arguments[0]) {
+
+      // Ex: swal("Hello", "Just testing", "info");
+      case 'string':
+        params.title = arguments[0];
+        params.text  = arguments[1] || '';
+        params.type  = arguments[2] || '';
+
+        break;
+
+      // Ex: swal({title:"Hello", text: "Just testing", type: "info"});
+      case 'object':
+        if (arguments[0].title === undefined) {
+          logStr('Missing "title" argument!');
+          return false;
+        }
+
+        params.title = arguments[0].title;
+
+        var availableCustoms = [
+          'text',
+          'type',
+          'customClass',
+          'allowOutsideClick',
+          'showConfirmButton',
+          'showCancelButton',
+          'closeOnConfirm',
+          'closeOnCancel',
+          'timer',
+          'confirmButtonColor',
+          'cancelButtonText',
+          'imageUrl',
+          'imageSize',
+          'html',
+          'animation',
+          'allowEscapeKey'];
+
+        // It would be nice to just use .forEach here, but IE8... :(
+        var numCustoms = availableCustoms.length;
+        for (var customIndex = 0; customIndex < numCustoms; customIndex++) {
+          var customName = availableCustoms[customIndex];
+          params[customName] = argumentOrDefault(customName);
+        }
+
+        // Show "Confirm" instead of "OK" if cancel button is visible
+        params.confirmButtonText  = (params.showCancelButton) ? 'Confirm' : defaultParams.confirmButtonText;
+        params.confirmButtonText  = argumentOrDefault('confirmButtonText');
+
+        // Function to call when clicking on cancel/OK
+        params.doneFunction       = arguments[1] || null;
+
+        break;
+
+      default:
+        logStr('Unexpected type of argument! Expected "string" or "object", got ' + typeof arguments[0]);
+        return false;
+
+    }
+
+    setParameters(params);
+    fixVerticalPosition();
+    openModal();
+
+
+    // Modal interactions
+    var modal = getModal();
+
+    // Mouse interactions
+    var onButtonEvent = function(event) {
+      var e = event || window.event;
+      var target = e.target || e.srcElement,
+          targetedConfirm    = (target.className.indexOf("confirm") !== -1),
+          modalIsVisible     = hasClass(modal, 'visible'),
+          doneFunctionExists = (params.doneFunction && modal.getAttribute('data-has-done-function') === 'true');
+
+      switch (e.type) {
+        case ("mouseover"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.04);
+          }
+          break;
+        case ("mouseout"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = params.confirmButtonColor;
+          }
+          break;
+        case ("mousedown"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.14);
+          }
+          break;
+        case ("mouseup"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.04);
+          }
+          break;
+        case ("focus"):
+          var $confirmButton = modal.querySelector('button.confirm'),
+              $cancelButton  = modal.querySelector('button.cancel');
+
+          if (targetedConfirm) {
+            $cancelButton.style.boxShadow = 'none';
+          } else {
+            $confirmButton.style.boxShadow = 'none';
+          }
+          break;
+        case ("click"):
+          if (targetedConfirm && doneFunctionExists && modalIsVisible) { // Clicked "confirm"
+
+            params.doneFunction(true);
+
+            if (params.closeOnConfirm) {
+              sweetAlert.close();
+            }
+          } else if (doneFunctionExists && modalIsVisible) { // Clicked "cancel"
+
+            // Check if callback function expects a parameter (to track cancel actions)
+            var functionAsStr          = String(params.doneFunction).replace(/\s/g, '');
+            var functionHandlesCancel  = functionAsStr.substring(0, 9) === "function(" && functionAsStr.substring(9, 10) !== ")";
+
+            if (functionHandlesCancel) {
+              params.doneFunction(false);
+            }
+
+            if (params.closeOnCancel) {
+              sweetAlert.close();
+            }
+          } else {
+            sweetAlert.close();
+          }
+
+          break;
+      }
+    };
+
+    var $buttons = modal.querySelectorAll('button');
+    for (var i = 0; i < $buttons.length; i++) {
+      $buttons[i].onclick     = onButtonEvent;
+      $buttons[i].onmouseover = onButtonEvent;
+      $buttons[i].onmouseout  = onButtonEvent;
+      $buttons[i].onmousedown = onButtonEvent;
+      //$buttons[i].onmouseup   = onButtonEvent;
+      $buttons[i].onfocus     = onButtonEvent;
+    }
+
+    // Remember the current document.onclick event.
+    previousDocumentClick = document.onclick;
+    document.onclick = function(event) {
+      var e = event || window.event;
+      var target = e.target || e.srcElement;
+
+      var clickedOnModal = (modal === target),
+          clickedOnModalChild = isDescendant(modal, target),
+          modalIsVisible = hasClass(modal, 'visible'),
+          outsideClickIsAllowed = modal.getAttribute('data-allow-ouside-click') === 'true';
+
+      if (!clickedOnModal && !clickedOnModalChild && modalIsVisible && outsideClickIsAllowed) {
+        sweetAlert.close();
+      }
+    };
+
+
+    // Keyboard interactions
+    var $okButton = modal.querySelector('button.confirm'),
+        $cancelButton = modal.querySelector('button.cancel'),
+        $modalButtons = modal.querySelectorAll('button[tabindex]');
+
+
+    function handleKeyDown(event) {
+      var e = event || window.event;
+      var keyCode = e.keyCode || e.which;
+
+      if ([9,13,32,27].indexOf(keyCode) === -1) {
+        // Don't do work on keys we don't care about.
+        return;
+      }
+
+      var $targetElement = e.target || e.srcElement;
+
+      var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
+      for (var i = 0; i < $modalButtons.length; i++) {
+        if ($targetElement === $modalButtons[i]) {
+          btnIndex = i;
+          break;
+        }
+      }
+
+      if (keyCode === 9) {
+        // TAB
+        if (btnIndex === -1) {
+          // No button focused. Jump to the confirm button.
+          $targetElement = $okButton;
+        } else {
+          // Cycle to the next button
+          if (btnIndex === $modalButtons.length - 1) {
+            $targetElement = $modalButtons[0];
+          } else {
+            $targetElement = $modalButtons[btnIndex + 1];
+          }
+        }
+
+        stopEventPropagation(e);
+        $targetElement.focus();
+        setFocusStyle($targetElement, params.confirmButtonColor); // TODO
+
+      } else {
+        if (keyCode === 13 || keyCode === 32) {
+            if (btnIndex === -1) {
+              // ENTER/SPACE clicked outside of a button.
+              $targetElement = $okButton;
+            } else {
+              // Do nothing - let the browser handle it.
+              $targetElement = undefined;
+            }
+        } else if (keyCode === 27 && params.allowEscapeKey === true) {
+          $targetElement = $cancelButton;
+        } else {
+          // Fallback - let the browser handle it.
+          $targetElement = undefined;
+        }
+
+        if ($targetElement !== undefined) {
+          fireClick($targetElement, e);
+        }
+      }
+    }
+
+    previousWindowKeyDown = window.onkeydown;
+
+    window.onkeydown = handleKeyDown;
+
+    function handleOnBlur(event) {
+      var e = event || window.event;
+      var $targetElement = e.target || e.srcElement,
+          $focusElement = e.relatedTarget,
+          modalIsVisible = hasClass(modal, 'visible');
+
+      if (modalIsVisible) {
+        var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
+
+        if ($focusElement !== null) {
+          // If we picked something in the DOM to focus to, let's see if it was a button.
+          for (var i = 0; i < $modalButtons.length; i++) {
+            if ($focusElement === $modalButtons[i]) {
+              btnIndex = i;
+              break;
+            }
+          }
+
+          if (btnIndex === -1) {
+            // Something in the dom, but not a visible button. Focus back on the button.
+            $targetElement.focus();
+          }
+        } else {
+          // Exiting the DOM (e.g. clicked in the URL bar);
+          lastFocusedButton = $targetElement;
+        }
+      }
+    }
+
+    $okButton.onblur = handleOnBlur;
+    $cancelButton.onblur = handleOnBlur;
+
+    window.onfocus = function() {
+      // When the user has focused away and focused back from the whole window.
+      window.setTimeout(function() {
+        // Put in a timeout to jump out of the event sequence. Calling focus() in the event
+        // sequence confuses things.
+        if (lastFocusedButton !== undefined) {
+          lastFocusedButton.focus();
+          lastFocusedButton = undefined;
+        }
+      }, 0);
+    };
+  };
+
+
+  /*
+   * Set default params for each popup
+   * @param {Object} userParams
+   */
+  sweetAlert.setDefaults = swal.setDefaults = function(userParams) {
+    if (!userParams) {
+      throw new Error('userParams is required');
+    }
+    if (typeof userParams !== 'object') {
+      throw new Error('userParams has to be a object');
+    }
+
+    extend(defaultParams, userParams);
+  };
+
+
+  /*
+   * Set type, text and actions on modal
+   */
+
+  function setParameters(params) {
+    var modal = getModal();
+
+    var $title = modal.querySelector('h2'),
+        $text = modal.querySelector('p'),
+        $cancelBtn = modal.querySelector('button.cancel'),
+        $confirmBtn = modal.querySelector('button.confirm');
+
+    // Title
+    $title.innerHTML = (params.html) ? params.title : escapeHtml(params.title).split("\n").join("<br>");
+
+    // Text
+    $text.innerHTML = (params.html) ? params.text : escapeHtml(params.text || '').split("\n").join("<br>");
+
+    if (params.text) {
+      show($text);
+    }
+
+    //Custom Class
+    if (params.customClass) {
+      addClass(modal, params.customClass);
+      modal.setAttribute('data-custom-class', params.customClass);
+    } else {
+      // Find previously set classes and remove them
+      var customClass = modal.getAttribute('data-custom-class');
+      removeClass(modal, customClass);
+      modal.setAttribute('data-custom-class', "");
+    }
+
+    // Icon
+    hide(modal.querySelectorAll('.sa-icon'));
+    if (params.type && !isIE8()) {
+      var validType = false;
+      for (var i = 0; i < alertTypes.length; i++) {
+        if (params.type === alertTypes[i]) {
+          validType = true;
+          break;
+        }
+      }
+      if (!validType) {
+        logStr('Unknown alert type: ' + params.type);
+        return false;
+      }
+      var $icon = modal.querySelector('.sa-icon.' + 'sa-' + params.type);
+      show($icon);
+
+      // Animate icon
+      switch (params.type) {
+        case "success":
+          addClass($icon, 'animate');
+          addClass($icon.querySelector('.sa-tip'), 'animateSuccessTip');
+          addClass($icon.querySelector('.sa-long'), 'animateSuccessLong');
+          break;
+        case "error":
+          addClass($icon, 'animateErrorIcon');
+          addClass($icon.querySelector('.sa-x-mark'), 'animateXMark');
+          break;
+        case "warning":
+          addClass($icon, 'pulseWarning');
+          addClass($icon.querySelector('.sa-body'), 'pulseWarningIns');
+          addClass($icon.querySelector('.sa-dot'), 'pulseWarningIns');
+          break;
+      }
+    }
+
+    // Custom image
+    if (params.imageUrl) {
+      var $customIcon = modal.querySelector('.sa-icon.sa-custom');
+
+      $customIcon.style.backgroundImage = 'url(' + params.imageUrl + ')';
+      show($customIcon);
+
+      var _imgWidth  = 80,
+          _imgHeight = 80;
+
+      if (params.imageSize) {
+        var dimensions = params.imageSize.toString().split('x');
+        var imgWidth  = dimensions[0];
+        var imgHeight = dimensions[1];
+
+        if (!imgWidth || !imgHeight) {
+          logStr("Parameter imageSize expects value with format WIDTHxHEIGHT, got " + params.imageSize);
+        } else {
+          _imgWidth  = imgWidth;
+          _imgHeight = imgHeight;
+        }
+      }
+      $customIcon.setAttribute('style', $customIcon.getAttribute('style') + 'width:' + _imgWidth + 'px; height:' + _imgHeight + 'px');
+    }
+
+    // Show cancel button?
+    modal.setAttribute('data-has-cancel-button', params.showCancelButton);
+    if (params.showCancelButton) {
+      $cancelBtn.style.display = 'inline-block';
+    } else {
+      hide($cancelBtn);
+    }
+
+    // Show confirm button?
+    modal.setAttribute('data-has-confirm-button', params.showConfirmButton);
+    if (params.showConfirmButton) {
+      $confirmBtn.style.display = 'inline-block';
+    } else {
+      hide($confirmBtn);
+    }
+
+    // Edit text on cancel and confirm buttons
+    if (params.cancelButtonText) {
+      $cancelBtn.innerHTML = escapeHtml(params.cancelButtonText);
+    }
+    if (params.confirmButtonText) {
+      $confirmBtn.innerHTML = escapeHtml(params.confirmButtonText);
+    }
+
+    // Set confirm button to selected background color
+    $confirmBtn.style.backgroundColor = params.confirmButtonColor;
+
+    // Set box-shadow to default focused button
+    setFocusStyle($confirmBtn, params.confirmButtonColor);
+
+    // Allow outside click?
+    modal.setAttribute('data-allow-ouside-click', params.allowOutsideClick);
+
+    // Done-function
+    var hasDoneFunction = (params.doneFunction) ? true : false;
+    modal.setAttribute('data-has-done-function', hasDoneFunction);
+
+    // Prevent modal from animating
+    if (!params.animation){
+      modal.setAttribute('data-animation', 'none');
+    } else{
+      modal.setAttribute('data-animation', 'pop');
+    }
+
+    // Close timer
+    modal.setAttribute('data-timer', params.timer);
+  }
+
+
+  /*
+   * Set hover, active and focus-states for buttons (source: http://www.sitepoint.com/javascript-generate-lighter-darker-color)
+   */
+
+  function colorLuminance(hex, lum) {
+    // Validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    }
+    lum = lum || 0;
+
+    // Convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+      c = parseInt(hex.substr(i*2,2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      rgb += ("00"+c).substr(c.length);
+    }
+
+    return rgb;
+  }
+
+  function extend(a, b){
+    for (var key in b) {
+      if (b.hasOwnProperty(key)) {
+        a[key] = b[key];
+      }
+    }
+
+    return a;
+  }
+
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) : null;
+  }
+
+  // Add box-shadow style to button (depending on its chosen bg-color)
+  function setFocusStyle($button, bgColor) {
+    var rgbColor = hexToRgb(bgColor);
+    $button.style.boxShadow = '0 0 2px rgba(' + rgbColor +', 0.8), inset 0 0 0 1px rgba(0, 0, 0, 0.05)';
+  }
+
+
+  // Animation when opening modal
+  function openModal() {
+    var modal = getModal();
+    fadeIn(getOverlay(), 10);
+    show(modal);
+    addClass(modal, 'showSweetAlert');
+    removeClass(modal, 'hideSweetAlert');
+
+    previousActiveElement = document.activeElement;
+    var $okButton = modal.querySelector('button.confirm');
+    $okButton.focus();
+
+    setTimeout(function() {
+      addClass(modal, 'visible');
+    }, 500);
+
+    var timer = modal.getAttribute('data-timer');
+
+    if (timer !== "null" && timer !== "") {
+      modal.timeout = setTimeout(function() {
+        sweetAlert.close();
+      }, timer);
+    }
+  }
+
+
+  // Aninmation when closing modal
+  sweetAlert.close = swal.close = function() {
+    var modal = getModal();
+    fadeOut(getOverlay(), 5);
+    fadeOut(modal, 5);
+    removeClass(modal, 'showSweetAlert');
+    addClass(modal, 'hideSweetAlert');
+    removeClass(modal, 'visible');
+
+
+    // Reset icon animations
+
+    var $successIcon = modal.querySelector('.sa-icon.sa-success');
+    removeClass($successIcon, 'animate');
+    removeClass($successIcon.querySelector('.sa-tip'), 'animateSuccessTip');
+    removeClass($successIcon.querySelector('.sa-long'), 'animateSuccessLong');
+
+    var $errorIcon = modal.querySelector('.sa-icon.sa-error');
+    removeClass($errorIcon, 'animateErrorIcon');
+    removeClass($errorIcon.querySelector('.sa-x-mark'), 'animateXMark');
+
+    var $warningIcon = modal.querySelector('.sa-icon.sa-warning');
+    removeClass($warningIcon, 'pulseWarning');
+    removeClass($warningIcon.querySelector('.sa-body'), 'pulseWarningIns');
+    removeClass($warningIcon.querySelector('.sa-dot'), 'pulseWarningIns');
+
+
+    // Reset the page to its previous state
+    window.onkeydown = previousWindowKeyDown;
+    document.onclick = previousDocumentClick;
+    if (previousActiveElement) {
+      previousActiveElement.focus();
+    }
+    lastFocusedButton = undefined;
+    clearTimeout(modal.timeout);
+  };
+
+
+  /*
+   * Set "margin-top"-property on modal based on its computed height
+   */
+
+  function fixVerticalPosition() {
+    var modal = getModal();
+
+    modal.style.marginTop = getTopMargin(getModal());
+  }
+
+  // If browser is Internet Explorer 8
+  function isIE8() {
+    if (window.attachEvent && !window.addEventListener) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // Error messages for developers
+  function logStr(string) {
+    if (window.console) { // IE...
+      window.console.log("SweetAlert: " + string);
+    }
+  }
+
+    if (true) {
+      !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() { return sweetAlert; }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof module !== 'undefined' && module.exports) {
+      module.exports = sweetAlert;
+    } else if (typeof window !== 'undefined') {
+      window.sweetAlert = window.swal = sweetAlert;
+    }
+
+})(window, document);
+
+
+/***/ }),
+
 /***/ "./node_modules/angular-utils-pagination/dirPagination.js":
 /***/ (function(module, exports) {
 
@@ -656,9 +1571,9 @@ module.exports = 'angularUtils.directives.dirPagination';
 /***/ }),
 
 /***/ "./resources/assets/js/angular/controllers/dashboard-controller.js":
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+/* WEBPACK VAR INJECTION */(function($) {dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
   NProgress.start();
 
   $scope.hide = true;
@@ -824,15 +1739,28 @@ dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendReques
   NProgress.done();
 }]);
 
+dashboard.controller('FundWalletController', ['$scope', '$timeout', 'sendRequest', function ($scope, $timeout, sendRequest) {
+  NProgress.start();
+
+  $scope.$on('$viewContentLoaded', function () {
+    $timeout(function () {
+      $('#fund-account .item').tab();
+    }, 500);
+  });
+
+  NProgress.done();
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/buyUnits.js":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// EXAMPLE uploadPostImage
 // <game-play></game-play>
 
-var url = '\n<section id="buyUnits" class="ui right floated horizontal list">\n\n  <div class="ui vertical blue compact animated button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="shop icon"></i></div>\n    <div class="visible content">\n      Fund Wallet\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal buyUnits transition hidden">\n      <div class="header">\n        Fund Wallet\n      </div>\n\n      <div id="form" class="ui segments">\n        <div class="ui segment">\n          <div id="session-menu" class="ui two item menu">\n            <a class="item active" data-tab="online-transfer" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>\n            <a class="item" data-tab="bank-transfer">TAP HERE TO PAY VIA AGENT</a>\n          </div>\n        </div>\n\n        <div class="ui segment" style="padding-bottom: 30px;">\n          <div class="ui tab active" data-tab="online-transfer">\n            <div class="image content flex-center">\n              <div class="ui form">\n                <div class="inline field" style="text-align: center;">\n                  <input type="number" placeholder="Minimum: \u20A6500 | Maximum: \u20A65,000" ng-model="requested_amount" ng-min="500" ng-max="5000">\n                </div>\n                <div class="actions  flex-center">\n                  <pay-with-paystack></pay-with-paystack>\n                  <div class="ui black left deny button">\n                  Close\n                  </div>\n                </div>\n                <div class="ui message">\n                  <div class="header">\n                    NB:\n                  </div>\n                  <p>This transaction will attract a charge of 1.7%. Also, transactions ranging from \u20A62,500 and above will attract an additional fixed charge of \u20A6100.</p>\n                  <p>If your wallet is not funded as soon as your online payment is successful, kindly send an email to hello@fastplay24.com immediately. </p>\n                </div>\n              </div>\n            </div>\n\n            <div class="ui segments" id="info-images">\n              <div class="ui segment">\n                <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n                <p></p>\n              </div>\n              <div class="ui secondary segment">\n                <p>\n                  <img src="/img/paystack_preview.png" alt="" />\n                </p>\n              </div>\n            </div>\n          </div>\n          <div class="ui tab" data-tab="bank-transfer">\n            <div class="actions  flex-center">\n              <div class="ui black left deny button">Close</div>\n            </div>\n            <div class="ui segment" id="extra">\n              <div class="ui header">FASTPLAY24 PAYMENT AGENT</div>\n\n              <p>\n                <b>Minimum amount:</b> \u20A6600 (\u20A6100 agency fee included)\n              </p>\n\n              <p>\n                <b>Payment Agent:</b> Simeon\n              </p>\n              <p>\n                <b>Account Number:</b> 3088711170 (First Bank)\n              </p>\n              <p>\n                <b>WhatsApp Number:</b> <a href="https://api.whatsapp.com/send?phone=2347067420064 ">07067420064 </a>\n              </p>\n\n              <div class="ui positive message">\n                <div class="header">\n                  NB:\n                </div>\n                <p>As soon as you make your payment send proof of payment, alongside the following details via WhatsApp:</p>\n                <p>\n                  <ul>\n                    <li><b>Amount Paid</b></li>\n                    <li><b>Full Name</b> (As it is in your FastPlay24 Account.)</li>\n                    <li><b>Email Address</b> (The one you used to sign up on FastPlay24)</li>\n                  </ul>\n                </p>\n                <p>Your wallet will be funded upon verification of payment.</p>\n              </div>\n\n              <div class="ui negative message">\n                <div class="header">\n                  NB:\n                </div>\n                <p>A \u20A6100 (hundred naira) fixed charge will be deducted from any amount you pay.</p>\n              </div>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n</section>\n';
+var url = '\n<section id="buyUnits" class="ui horizontal list">\n\n  <div class="ui vertical blue button animate fade" ng-show="makeDeposit == 1" ng-click="switch(2)">\n      Fund Wallet\n  </div>\n\n  <div id="form" class="ui segments animate fade" ng-show="makeDeposit == 2">\n\n    <div id="session-menu" class="ui one item menu">\n      <a class="item" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>\n    </div>\n\n    <div class="ui segment" style="padding-bottom: 30px;">\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="number" placeholder="Minimum: \u20A6500 | Maximum: \u20A65,000" ng-model="requested_amount" ng-min="500" ng-max="5000" style="width: 270px;">\n          </div>\n          <div class="actions  flex-center row" >\n            <div ng-class="[\'ui green left button\', {\'disabled\': !requested_amount}]" ng-click="switch(3)">Pay Online</div>\n            <div class="ui black left button" ng-click="switch(1)">Close</div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class="ui segments animate translate-in" ng-if="makeDeposit == 3" id="info-images">\n    <div class="ui segment">\n      <p><b>Amount:</b> {{ requested_amount | currency }}</p>\n      <p><b>Charge:</b> {{ fees | currency }}</p>\n      <p><b>Payment channel:</b> Paystack Limited</p>\n      <p><b>Payment Due:</b> {{ requested_amount + fees | currency }}</p>\n      <p><b>Status:</b> <span style="color:gold">Pending</span></p>\n    </div>\n    <div class="ui segment">\n      <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n      <div class="actions  flex-center row" >\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui red left button" ng-click="switch(2)">Go back</div>\n      </div>\n    </div>\n    <div class="ui secondary segment">\n      <p>\n        <img src="/img/paystack_preview.png" alt="" />\n      </p>\n    </div>\n  </div>\n\n\n</section>\n';
 
 angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
@@ -843,53 +1771,70 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
     controller: ['$scope', function ($scope) {
 
       $scope.amt_per_unit = 1;
+      $scope.makeDeposit = 1;
 
-      $scope.openModal = function () {
-        $('#session-menu .item').tab();
-        $('.ui.modal.buyUnits').modal({
-          allowMultiple: false,
-          centered: false,
-          blurring: true,
-          onDeny: function onDeny() {
-            return true;
-          },
-          onHide: function onHide() {
-            var remove = function remove() {};
-            setTimeout(remove, 1000);
-          },
-          onApprove: function onApprove() {
-            return true;
-          }
-        }).modal('show');
-      };
+      $scope.switch = function (num) {
+        $scope.fees = 0.017 * $scope.requested_amount;
 
-      $scope.awardCredits = function () {
-
-        sendRequest.postRequest('/user/credit-account', { 'amt': $scope.requested_amount }).then(function (rsp) {
-          if (rsp.status == 422) {
-            Notification.error({ message: 'No active game in progress', positionX: 'center' });
-          } else if (rsp.status == 200) {
-            if (rsp.data.status) {
-              Notification.primary({ message: 'Units added to account', positionX: 'center' });
-              $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;
-              $scope.requested_amount = null;
-            }
-          }
-        });
-      };
-
-      $scope.$on('$routeChangeStart', function () {
+        if ($scope.requested_amount > 2500) {
+          $scope.fees = 0.017 * $scope.requested_amount + 100;
+        }
         $timeout(function () {
-          if ($('.ui.modal.buyUnits').length > 1) {
-            //remove extras
-            $('.ui.modal.buyUnits')[1].remove();
-          }
-        }, 0);
-      });
+          $scope.makeDeposit = num;
+        }, 500);
+      };
+
+      // $scope.openModal = () => {
+      //   $('#session-menu .item').tab();
+      //   $('.ui.modal.buyUnits')
+      //     .modal({
+      //       allowMultiple: false,
+      //       centered: false,
+      //       blurring: true,
+      //       onDeny    : function(){
+      //            return true;
+      //          },
+      //         onHide    : function(){
+      //           var remove = () => {
+      //           };
+      //           setTimeout(remove, 1000);
+      //         },
+      //         onApprove : function() {
+      //           return true;
+      //         }
+      //       })
+      //     .modal('show');
+      // };
+      //
+      // $scope.awardCredits = () => {
+      //
+      //   sendRequest.postRequest('/user/credit-account', {'amt': $scope.requested_amount})
+      //            .then(function (rsp) {
+      //              if (rsp.status == 422) {
+      //                Notification.error({ message: 'No active game in progress', positionX: 'center'});
+      //              }
+      //              else if (rsp.status == 200) {
+      //                if (rsp.data.status) {
+      //                  Notification.primary({ message: 'Units added to account', positionX: 'center'});
+      //                  $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;
+      //                  $scope.requested_amount = null;
+      //                }
+      //              }
+      //            });
+      //
+      // };
+
+      // $scope.$on('$routeChangeStart', function() {
+      //   $timeout(function () {
+      //     if ($('.ui.modal.buyUnits').length > 1) {
+      //       //remove extras
+      //       // $('.ui.modal.buyUnits')[1].remove();
+      //     }
+      //   }, 0);
+      // });
     }]
   };
 }]);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -1584,15 +2529,15 @@ angular.module('miniGameState', []).directive('miniGameState', ['$location', 'No
 /***/ }),
 
 /***/ "./resources/assets/js/angular/directives/payWithPaystack.js":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// EXAMPLE uploadPostImage
 // <game-play></game-play>
 
 
-var url = '\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <button ng-class="{\'ui blue right labeled icon button\': true, \'disabled\': !requested_amount}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">\n    Pay Online\n    <i class="credit card outline icon"></i>\n  </button>\n</section>\n';
+var url = '\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <button ng-class="{\'ui blue right labeled icon button\': true, \'loading disabled\':loading}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">\n    Pay Now\n    <i class="credit card outline icon"></i>\n  </button>\n</section>\n';
 
-angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', function (Notification, SweetAlert, sendRequest) {
   return {
     restrict: 'E',
     template: url,
@@ -1602,15 +2547,39 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
       scriptTag.attr('charset', 'utf-8');
       scriptTag.attr('src', 'https://js.paystack.co/v1/inline.js');
       element.append(scriptTag);
+      console.log(element);
     },
     controller: ['$scope', '$location', function ($scope, $location) {
 
       $scope.saveOrderThenPayWithPaystack = function () {
 
-        $scope.awardCredits().then(function (rsp) {
-          $scope.payWithPaystack();
-        }, function (err) {
-          alert('Network Error. Please refresh the page and try again.');
+        $scope.loading = true;
+
+        SweetAlert.swal({
+          title: "Are you sure?",
+          text: "Yo will be redirected to the payment gateway to process your payment!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, fund my account!",
+          cancelButtonText: "I'll fund later.",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        }, function (isConfirm) {
+          if (isConfirm) {
+            SweetAlert.swal({
+              title: "Please wait.....",
+              text: "Contacting Paystack payment gateway.",
+              showCancelButton: false,
+              showConfirmButton: false
+            });
+            $scope.awardCredits().then(function (rsp) {
+              $scope.payWithPaystack();
+            }, function (err) {
+              SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
+            });
+          } else {
+            SweetAlert.swal("Ok", "Transaction cancelled", "info");
+          }
         });
       };
 
@@ -1628,11 +2597,11 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
           // Paystack dashboard. You can as well just paste it
           // instead of creating the constant
           key: PAYSTACK_PUBLIC_KEY,
-          email: $scope.$parent.userdetails.email,
-          first_name: $scope.$parent.userdetails.firstname,
-          last_name: $scope.$parent.userdetails.lastname,
-          phone: $scope.$parent.userdetails.phone1,
-          amount: ($scope.requested_amount + fees) * 100,
+          email: $scope.$root.userdetails.email,
+          first_name: $scope.$root.userdetails.firstname,
+          last_name: $scope.$root.userdetails.lastname,
+          phone: $scope.$root.userdetails.phone1,
+          amount: Math.ceil(($scope.requested_amount + fees) * 100),
           ref: orderid,
           metadata: {
             cartid: orderid,
@@ -1649,11 +2618,11 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
             }, {
               display_name: "User Details",
               variable_name: "user_details",
-              value: $scope.$parent.userdetails.firstname + ' ' + $scope.$parent.userdetails.lastname + ': ' + $scope.$parent.userdetails.phone1
+              value: $scope.$root.userdetails.firstname + ' ' + $scope.$root.userdetails.lastname + ': ' + $scope.$root.userdetails.phone1
             }, {
               display_name: "User ID",
               variable_name: "user_id",
-              value: $scope.$parent.userdetails.id
+              value: $scope.$root.userdetails.id
             }, {
               display_name: "Fees",
               variable_name: "fees",
@@ -1661,7 +2630,13 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
             }]
           },
           callback: function callback(response) {
-            Notification.warning({ message: 'Acknowledging payment. Please wait...', delay: 20000, replaceMessage: true });
+            SweetAlert.swal({
+              title: "Please wait.....",
+              text: "We are attempting to acknowledge your payment.",
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false
+            });
 
             // post to server to verify transaction before giving value
             sendRequest.postRequest('/user/credit-account?reference=' + response.reference).then(function (rsp) {
@@ -1670,24 +2645,26 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
 
                   sendRequest.storeData('activeTransaction', true);
 
-                  Notification.primary({ message: 'Units added to account', positionX: 'center' });
-                  $scope.$parent.userdetails.available_units += $scope.requested_amount;
+                  SweetAlert.swal('Success!', 'Transaction verified. Units added to account', 'success');
+
+                  $scope.$root.userdetails.available_units += $scope.requested_amount;
                   $scope.requested_amount = null;
                   $location.path('/dashboard/order-successful');
                 } else {
-                  Notification.error('Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.');
+                  SweetAlert.swal('Notice!', 'Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.', 'warning');
                 }
               }
             });
           },
           onClose: function onClose() {
             $scope.requested_amount = null;
-            Notification.error('Transaction cancelled by user');
+            SweetAlert.swal('Error!', 'Transaction cancelled by user', 'error');
+            // Notification.error('Transaction cancelled by user');
+            location.reload();
           }
         });
         handler.openIframe();
-        $('.buyUnits.ui.modal').modal('hide');
-        Notification.warning({ message: 'Contacting payment gate way. Please wait...', delay: 20000, replaceMessage: true });
+        // Notification.warning({message:'Contacting payment gate way. Please wait...', delay:20000, replaceMessage:true});
       };
 
       $scope.awardCredits = function () {
@@ -1709,7 +2686,6 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
     }]
   };
 }]);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -1805,7 +2781,7 @@ angular.module('sendMessage', []).directive('sendMessage', ['Notification', 'sen
 
 /* WEBPACK VAR INJECTION */(function($) {
 
-var url = '\n<section id="u_details">\n  <div class="grid-container">\n    <div class="grid-50">\n      <div class="content">\n        <h2 class="header" style="margin-bottom: 2px;">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="meta">\n            <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>\n          </div>\n\n        </div>\n        <div class="content" >\n\n        </div>\n        <div class="content" style="padding-bottom: 5px;">\n\n        </div>\n      </div>\n    </div>\n    <div class="grid-50">\n      <div class="content">\n        <button class="ui compact right floated violet button" ng-click="transferEarnings()">\n          <i class="icon credit card amazon pay"></i>\n          Transfer Earnings\n        </button>\n      </div>\n      <div class="content">\n        <make-withdrawal  style="margin-right: 3%; margin-bottom: 15px;"></make-withdrawal>\n      </div>\n      <div class="content" style="margin-bottom: 15px;">\n        <buy-units  style="margin-right: 3%;"></buy-units>\n      </div>\n    </div>\n  </div>\n</section>\n';
+var url = '\n<section id="u_details">\n  <div class="grid-container">\n    <div class="grid-50">\n      <div class="content">\n        <h2 class="header" style="margin-bottom: 2px;">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="meta">\n            <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>\n          </div>\n\n        </div>\n        <div class="content" >\n\n        </div>\n        <div class="content" style="padding-bottom: 5px;">\n\n        </div>\n      </div>\n    </div>\n    <div class="grid-50">\n      <div class="content">\n        <button class="ui compact right floated violet button" ng-click="transferEarnings()">\n          <i class="icon credit card amazon pay"></i>\n          Transfer Earnings\n        </button>\n      </div>\n      <div class="content">\n        <make-withdrawal  style="margin-right: 3%; margin-bottom: 15px;"></make-withdrawal>\n      </div>\n      <div class="content" style="margin-bottom: 15px;">\n        <a class="ui vertical blue compact button right floated" href="/dashboard/fund-wallet" style="margin-right: 3%;">\n          <i class="icon credit card amazon pay"></i>\n          Fund Wallet\n        </a>\n      </div>\n    </div>\n  </div>\n</section>\n';
 
 angular.module('userProfile', []).directive('userProfile', [function () {
   return {
@@ -2044,6 +3020,9 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
         }
       }]
     }
+  }).when('/dashboard/fund-wallet', {
+    templateUrl: 'angular/views/dashboard/fund-wallet.html',
+    controller: 'FundWalletController'
   }).otherwise({
     redirectTo: '/dashboard'
   });
@@ -2537,8 +3516,9 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./node_modules/angular-utils-pagination/index.js");
+__webpack_require__("./node_modules/angular-sweetalert/SweetAlert.js");
 
-dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting', 'angularUtils.directives.dirPagination', 'viewTopTenPlayers']);
+dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting', 'angularUtils.directives.dirPagination', 'viewTopTenPlayers', 'oitozero.ngSweetAlert']);
 
 dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
 

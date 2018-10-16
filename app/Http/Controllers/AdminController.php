@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Game;
@@ -30,6 +30,115 @@ class AdminController extends Controller
         $this->middleware('auth');
         $this->middleware('admin');
         $this->middleware('suspended');
+    }
+
+    /**
+     * All Admin routes
+     *
+     * @return return type
+     */
+    public static function routes(){
+      $c = 'AdminController@';
+
+      Route::group(['prefix' => 'api'], function () use($c) {
+
+        Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
+
+        Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
+
+        Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
+
+        Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
+
+        Route::get('/get-users-page-details', $c.'getUsersPageDetails');
+
+        Route::post('/update-user-details', $c.'updateUserDetails');
+
+        Route::get('/get-questions-page-details', $c.'getQuestionsPageDetails');
+
+        Route::post('/edit-question', $c.'editQuestion');
+
+        Route::post('/delete-question', $c.'deleteQuestion');
+
+        Route::post('/create-question', $c.'createQuestion');
+
+        Route::post('/edit-admin', $c.'editAdmin');
+
+        Route::post('/delete-admin', $c.'deleteAdmin');
+
+        Route::post('/create-admin', $c.'createAdmin');
+
+        Route::post('/remove-admin', $c.'removeAdmin');
+
+        Route::post('/get-live-game-session', $c.'getLiveGameSession');
+
+        Route::get('/get-all-games', $c.'getAllGames');
+
+        Route::post('/get-game-records', $c.'getGameRecords');
+
+        Route::post('/get-logs-by-day', $c.'getLogsByDay');
+
+        Route::post('/get-profile-page-details', $c.'confirmWithdrawal');
+
+        Route::get('/get-all-transactions', $c.'getAllTransactions');
+
+        Route::post('/create-transaction', $c.'createTransaction');
+
+        Route::post('/mark-transaction-as-paid', $c.'markTransactionAsPaid');
+
+        Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+        Route::post('/get-user-referrals', $c.'getUserReferrals');
+
+        Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
+
+        Route::post('/get-daily-statistics', $c.'getDailyStatistics');
+
+        Route::post('/send-broadcast', $c.'sendBroadcast');
+
+        Route::post('/send-message', $c.'sendMessage');
+
+        Route::post('/get-referrals-by-user', $c.'getReferralsByUser');
+
+        Route::post('/get-unverified-users-count', $c.'getUnverifiedUsersCount');
+
+        Route::post('/edit-user', $c.'editUser');
+
+        Route::post('/delete-user', $c.'deleteUser');
+
+        Route::post('/suspend-user', $c.'suspendUser');
+
+        Route::post('/activate-user', $c.'activateUser');
+
+        Route::post('/verify-user', $c.'verifyUser');
+
+        Route::put('/verify-all-users', $c.'verifyAllUsers');
+
+        Route::post('/database-search/{resource}', $c.'databaseSearch');
+
+        Route::post('/get-all-messages', $c.'getAllMessages');
+
+        Route::post('/reply-message', $c.'replyMessage');
+
+        Route::post('/mark-message-as-read', $c.'markMessageAsRead');
+
+        Route::post('/delete-message', $c.'deleteMessage');
+
+        Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
+
+        Route::get('/get-earnings-by-users-page-details', $c.'getEarningsByUsersPageDetails');
+
+        Route::get('/get-all-admin-earnings', $c.'getAllAdminEarnings');
+
+        Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
+
+        Route::get('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+        Route::get('/get-all-game-earnings', $c.'getAllGameEarnings');
+
+      });
+
+      Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin');
     }
 
     public function showDashboard(){
