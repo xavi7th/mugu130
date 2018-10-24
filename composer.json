@@ -37,6 +37,7 @@
       "files": [
            "app/helpers.php",
            "app/Paystack.php",
+           "app/PaystackCharge.php",
            "app/Mail/Exception.php",
            "app/Mail/PHPMailer.php",
            "app/Mail/SMTP.php"

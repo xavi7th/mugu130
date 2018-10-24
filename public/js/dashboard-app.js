@@ -1760,7 +1760,7 @@ dashboard.controller('FundWalletController', ['$scope', '$timeout', 'sendRequest
 // EXAMPLE uploadPostImage
 // <game-play></game-play>
 
-var url = '\n<section id="buyUnits" class="ui horizontal list">\n\n  <div class="ui vertical blue button animate fade" ng-show="makeDeposit == 1" ng-click="switch(2)">\n      Fund Wallet\n  </div>\n\n  <div id="form" class="ui segments animate fade" ng-show="makeDeposit == 2">\n\n    <div id="session-menu" class="ui one item menu">\n      <a class="item" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>\n    </div>\n\n    <div class="ui segment" style="padding-bottom: 30px;">\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="number" placeholder="Minimum: \u20A6500 | Maximum: \u20A65,000" ng-model="requested_amount" ng-min="500" ng-max="5000" style="width: 270px;">\n          </div>\n          <div class="actions  flex-center row" >\n            <div ng-class="[\'ui green left button\', {\'disabled\': !requested_amount}]" ng-click="switch(3)">Pay Online</div>\n            <div class="ui black left button" ng-click="switch(1)">Close</div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class="ui segments animate translate-in" ng-if="makeDeposit == 3" id="info-images">\n    <div class="ui segment">\n      <p><b>Amount:</b> {{ requested_amount | currency }}</p>\n      <p><b>Charge:</b> {{ fees | currency }}</p>\n      <p><b>Payment channel:</b> Paystack Limited</p>\n      <p><b>Payment Due:</b> {{ requested_amount + fees | currency }}</p>\n      <p><b>Status:</b> <span style="color:gold">Pending</span></p>\n    </div>\n    <div class="ui segment">\n      <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n      <div class="actions  flex-center row" >\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui red left button" ng-click="switch(2)">Go back</div>\n      </div>\n    </div>\n    <div class="ui secondary segment">\n      <p>\n        <img src="/img/paystack_preview.png" alt="" />\n      </p>\n    </div>\n  </div>\n\n\n</section>\n';
+var url = '\n<section id="buyUnits" class="ui horizontal list">\n\n  <div id="form" class="ui segments animate fade" ng-show="makeDeposit == 1">\n\n    <div id="session-menu" class="ui one item menu">\n      <a class="item" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>\n    </div>\n\n    <div class="ui segment" style="padding-bottom: 30px;">\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="number" placeholder="Minimum: \u20A6500 | Maximum: \u20A65,000" ng-model="requested_amount" ng-min="500" ng-max="5000" style="width: 270px;">\n          </div>\n          <div class="actions  flex-center row" >\n            <div ng-class="[\'ui green left button\', {\'disabled\': !requested_amount}]" ng-click="switch(2)">Pay Online</div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class="ui segments animate translate-in" ng-if="makeDeposit == 2" id="info-images">\n    <div class="ui segment">\n      <p><b>Amount:</b> {{ requested_amount | currency }}</p>\n      <p><b>Charge:</b> {{ fees | currency }}</p>\n      <p><b>Payment channel:</b> Paystack Limited</p>\n      <p><b>Payment Due:</b> {{ requested_amount + fees | currency }}</p>\n      <p><b>Status:</b> <span style="color:gold">Pending</span></p>\n    </div>\n    <div class="ui segment">\n      <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n      <div class="actions  flex-center row" >\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui red left button" ng-click="switch(1)">Go back</div>\n      </div>\n    </div>\n    <div class="ui secondary segment">\n      <p>\n        <img src="/img/paystack_preview.png" alt="" />\n      </p>\n    </div>\n  </div>\n\n\n</section>\n';
 
 angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
   return {
@@ -1783,55 +1783,6 @@ angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification'
           $scope.makeDeposit = num;
         }, 500);
       };
-
-      // $scope.openModal = () => {
-      //   $('#session-menu .item').tab();
-      //   $('.ui.modal.buyUnits')
-      //     .modal({
-      //       allowMultiple: false,
-      //       centered: false,
-      //       blurring: true,
-      //       onDeny    : function(){
-      //            return true;
-      //          },
-      //         onHide    : function(){
-      //           var remove = () => {
-      //           };
-      //           setTimeout(remove, 1000);
-      //         },
-      //         onApprove : function() {
-      //           return true;
-      //         }
-      //       })
-      //     .modal('show');
-      // };
-      //
-      // $scope.awardCredits = () => {
-      //
-      //   sendRequest.postRequest('/user/credit-account', {'amt': $scope.requested_amount})
-      //            .then(function (rsp) {
-      //              if (rsp.status == 422) {
-      //                Notification.error({ message: 'No active game in progress', positionX: 'center'});
-      //              }
-      //              else if (rsp.status == 200) {
-      //                if (rsp.data.status) {
-      //                  Notification.primary({ message: 'Units added to account', positionX: 'center'});
-      //                  $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units + $scope.requested_amount;
-      //                  $scope.requested_amount = null;
-      //                }
-      //              }
-      //            });
-      //
-      // };
-
-      // $scope.$on('$routeChangeStart', function() {
-      //   $timeout(function () {
-      //     if ($('.ui.modal.buyUnits').length > 1) {
-      //       //remove extras
-      //       // $('.ui.modal.buyUnits')[1].remove();
-      //     }
-      //   }, 0);
-      // });
     }]
   };
 }]);
@@ -2535,9 +2486,9 @@ angular.module('miniGameState', []).directive('miniGameState', ['$location', 'No
 // <game-play></game-play>
 
 
-var url = '\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <button ng-class="{\'ui blue right labeled icon button\': true, \'loading disabled\':loading}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">\n    Pay Now\n    <i class="credit card outline icon"></i>\n  </button>\n</section>\n';
+var url = '\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <form action="/dashboard/save-order-and-pay" method="POST">\n   <input type="hidden" name="amount" value="{{ requested_amount * 100 }}">\n   <input type="hidden" name="_token" value="{{ CSRF_TOKEN }}">\n   <button type="submit" ng-class="{\'ui purple right labeled icon button\': true, \'loading disabled\':loading}" id="pay-now" title="Pay now">\n     Pay Now\n     <i class="credit card outline icon"></i>\n   </button>\n  </form>\n\n</section>\n';
 
-angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', function (Notification, SweetAlert, sendRequest) {
+angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', 'CSRF_TOKEN', function (Notification, SweetAlert, sendRequest, CSRF_TOKEN) {
   return {
     restrict: 'E',
     template: url,
@@ -2551,39 +2502,27 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
     },
     controller: ['$scope', '$location', function ($scope, $location) {
 
+      $scope.CSRF_TOKEN = CSRF_TOKEN;
+
       $scope.saveOrderThenPayWithPaystack = function () {
+        console.log(PAYSTACK_PUBLIC_KEY);
 
         $scope.loading = true;
-
         SweetAlert.swal({
-          title: "Are you sure?",
-          text: "Yo will be redirected to the payment gateway to process your payment!",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55", confirmButtonText: "Yes, fund my account!",
-          cancelButtonText: "I'll fund later.",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        }, function (isConfirm) {
-          if (isConfirm) {
-            SweetAlert.swal({
-              title: "Please wait.....",
-              text: "Contacting Paystack payment gateway.",
-              showCancelButton: false,
-              showConfirmButton: false
-            });
-            $scope.awardCredits().then(function (rsp) {
-              $scope.payWithPaystack();
-            }, function (err) {
-              SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
-            });
-          } else {
-            SweetAlert.swal("Ok", "Transaction cancelled", "info");
-          }
+          title: "Please wait.....",
+          text: "Contacting Paystack payment gateway.",
+          showCancelButton: false,
+          showConfirmButton: false
+        });
+        $scope.awardCredits().then(function (rsp) {
+          $scope.payWithPaystack();
+        }, function (err) {
+          SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
         });
       };
 
       $scope.payWithPaystack = function () {
+        console.log(PAYSTACK_PUBLIC_KEY);
         var fees = 0.017 * $scope.requested_amount;
 
         if ($scope.requested_amount > 2500) {
@@ -2602,7 +2541,7 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
           last_name: $scope.$root.userdetails.lastname,
           phone: $scope.$root.userdetails.phone1,
           amount: Math.ceil(($scope.requested_amount + fees) * 100),
-          ref: orderid,
+          // ref: orderid,
           metadata: {
             cartid: orderid,
             orderid: orderid,
@@ -3015,9 +2954,9 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
     //  controller: 'DisplayResultsController',
     resolve: {
       activeTransaction: ['$location', 'sendRequest', function ($location, sendRequest) {
-        if (!sendRequest.getData('activeTransaction')) {
-          $location.path('/dashboard/profile');
-        }
+        // if (!sendRequest.getData('activeTransaction')) {
+        //   $location.path('/dashboard/profile');
+        // }
       }]
     }
   }).when('/dashboard/fund-wallet', {

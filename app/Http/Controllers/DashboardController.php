@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Paystack;
+use PaystackCharge;
 
 use App\Game;
 use App\User;
@@ -12,6 +13,7 @@ use App\Message;
 use App\Transaction;
 use App\UserQuestion;
 use App\UserGameSession;
+use App\PaystackWebhook;
 
 use Carbon\Carbon;
 
@@ -67,6 +69,298 @@ class DashboardController extends Controller
       Route::get('/dashboard/display-results', function () {
         return redirect('/dashboard');
       });
+
+      Route::post('/dashboard/save-order-and-pay', function () {
+
+        /***** THE PaystackCharge file is in my models and autoloaded by composer files option in composer.json  *******/
+        // you can configure to use default charge (1.5% with a additional 100ngn if above 2500)
+        // or a negotiated charge
+        $pc = new PaystackCharge(0.017, 10000, 250000, 1000000000); // 1.5% with a additional 100ngn if above 2500ngn - 10Mngn charge cap (essentially infinite)
+        $amount = $pc->add_for_kobo(request('amount')) . "\n";
+
+        DB::beginTransaction();
+
+          //create deposit transcation record
+          $transaction =  Auth::user()->transactions()->create([
+              'amount' => request('amount'),
+              'charges' => intval($amount) - intval(request('amount')),
+              'trans_type' => 'wallet funding',
+              'status' => 'pending',
+              'ref_no' => 'PAYSTACK-'.str_random(22)
+            ]);
+
+
+        // Get this from https://github.com/yabacon/paystack-class
+        // The PAYSTACK CLASS IS IN MY MODELS and autlooaded with files object in composer.json
+
+        $paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
+
+        //Initialise a call to paystack to authorize the payment. Sample response below
+        /*
+
+            Array[1][
+              {
+                "status": true,
+                "message": "Authorization URL created",
+                "data": {
+                  "authorization_url": "https://checkout.paystack.com/exqcbnbjltzfdyz",
+                  "access_code": "exqcbnbjltzfdyz",
+                  "reference": "t69t891pmp"
+                }
+              }
+            ]
+
+        */
+        // the code below throws an exception if there was a problem completing the request,
+        // else returns an object created from the json response
+        try {
+          $trx = $paystack->transaction->initialize(
+            [
+              'amount' => $amount,
+              'email' => Auth::user()->email,
+              'reference' => $transaction->ref_no,
+              'callback_url' => route('verify-paystack-transaction'),
+              'metadata' => json_encode([
+                'transaction_id' => $transaction->id,
+                'ref_no' => $transaction->ref_no,
+                'user_id' => Auth::user()->id,
+                'amount_to_credit_user' => intval(request('amount')),
+                'amount_the_user_was_charged' => (intval($amount) - intval(request('amount'))),
+                'custom_fields' => [ // to be displayed on paystack transaction page and paystack email.
+                                      [
+                                        'display_name' => "User Details",
+                                        'variable_name' => "user_details",
+                                        'value' => Auth::user()->firstname . ' ' . Auth::user()->lastname . ': ' . Auth::user()->phone1
+                                      ],
+                                      [
+                                        'display_name' => "User's Amount",
+                                        'variable_name' => "user_amount",
+                                        'value' => '₦'.(number_format((intval(request('amount')) / 100), 2))
+                                      ],
+                                      [
+                                        'display_name' => "Client Charged",
+                                        'variable_name' => "fees",
+                                        'value' => '₦'.((intval($amount) - intval(request('amount'))) / 100)
+                                      ]
+                                ]
+              ])
+            ]
+          );
+        }
+        catch (\Exception $e) {
+          if ($e->getCode() == 0) {
+            abort(203, 'There was a problem connecting to the payment gateway. Try again later.');
+          }
+        }
+
+        // status should be true if there was a successful call
+        if(!$trx->status){
+          abort(502, 'A node in the communication replied with '. $trx->message . '. Please try again.');
+        }
+
+        //Since the transaction has been authorised, commit the trasnaction record
+        DB::commit();
+
+        // full sample initialize response is here: https://developers.paystack.co/docs/initialize-a-transaction
+        // An authorsied URL where this transaction will be processed. The paystack form for the user to enter his details is at this URL.
+        // This is a sample of the URL "https://checkout.paystack.com/exqcbnbjltzfdyz",
+        // From this URL, paystack sends a JSON data for events, posted to your webhook url when a transaction is successful
+        // on your account in the webhook's domain. Your webhook has to be a publicly available url which doesn't redirect.
+        // The webhook URL is where you handle the charge.sucess event
+
+        // return $trx->data->authorization_url;
+        // Get the user to click link to start payment or simply redirect to the url generated
+
+        session(['activeTransaction' => true]);
+
+        return redirect($trx->data->authorization_url);
+
+      })->middleware('auth', 'suspended', 'before', 'users');
+
+      Route::any('/dashboard/paystack-web-hook', function () {
+
+        // Retrieve the request's body
+        $body = @file_get_contents("php://input");
+        $signature = (isset($_SERVER['HTTP_X_PAYSTACK_SIGNATURE']) ? $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] : '');
+
+        PaystackWebhook::create([
+          'signature' => $signature,
+          'body' => $body
+        ]);
+
+
+        exit;
+
+
+        /* It is a good idea to log all events received. Add code *
+         * here to log the signature and body to db or file       */
+
+        if (!$signature) {
+            // only a post with paystack signature header gets our attention
+            exit();
+        }
+
+        define('PAYSTACK_SECRET_KEY','sk_xxxx_xxxxxx');
+        // confirm the event's signature
+        if( $signature !== hash_hmac('sha512', $body, PAYSTACK_SECRET_KEY) ){
+          // silently forget this ever happened
+          exit();
+        }
+
+        http_response_code(200);
+        // parse event (which is json string) as object
+        // Give value to your customer but don't give any output
+        // Remember that this is a call from Paystack's servers and
+        // Your customer is not seeing the response here at all
+        $event = json_decode($body);
+        switch($event->event){
+            // charge.success
+            case 'charge.success':
+                // TIP: you may still verify the transaction
+            		// before giving value.
+                /*
+                  {
+                    "event": "charge.success",
+                    "data": {
+                      "id": 748541,
+                      "domain": "test",
+                      "status": "success",
+                      "reference": "87pfjx9yjj",
+                      "amount": 67800,
+                      "message": null,
+                      "gateway_response": "Successful",
+                      "paid_at": "2017-02-09T17:36:15.000Z",
+                      "created_at": "2017-02-09T17:35:48.000Z",
+                      "channel": "card",
+                      "currency": "NGN",
+                      "ip_address": "154.118.45.106",
+                      "metadata": {},
+                      "log": null,
+                      "fees": null,
+                      "fees_split": null,
+                      "customer": {
+                        "id": 181336,
+                        "first_name": null,
+                        "last_name": null,
+                        "email": "support@paystack.com",
+                        "customer_code": "CUS_dw5posshfd1i5uj",
+                        "phone": null,
+                        "metadata": null,
+                        "risk_action": "default"
+                      },
+                      "authorization": {
+                        "authorization_code": "AUTH_z7k6ysdd",
+                        "bin": "412345",
+                        "last4": "1381",
+                        "exp_month": "01",
+                        "exp_year": "2020",
+                        "channel": "card",
+                        "card_type": "visa visa",
+                        "bank": "TEST BANK",
+                        "country_code": "NG",
+                        "brand": "visa",
+                        "reusable": true
+                      },
+                      "plan": {
+                        "id": 2511,
+                        "name": "bleh",
+                        "plan_code": "PLN_3g5vcz2c1pkc4n0",
+                        "description": null,
+                        "amount": 67800,
+                        "interval": "hourly",
+                        "send_invoices": true,
+                        "send_sms": true,
+                        "currency": "NGN"
+                      },
+                      "subaccount": {
+
+                      },
+                      "paidAt": "2017-02-09T17:36:15.000Z"
+                    }
+                  }
+
+                */
+                break;
+        }
+        exit();
+
+      });
+
+      Route::get('/dashboard/verify-wallet-funding-transaction', function () {
+
+        // Confirm that reference has not already gotten value
+        // This would have happened most times if you handle the charge.success event.
+        // If it has already gotten value by your records, you may call
+        // perform_success()
+
+
+        $paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
+        // the code below throws an exception if there was a problem completing the request,
+        // else returns an object created from the json response
+        $trx = $paystack->transaction->verify(
+        	[
+        	 'reference'=>$_GET['reference']
+        	]
+        );
+
+
+        //Save the reansaction details from Paystack whether positive or negative
+        Transaction::find($trx->data->metadata->transaction_id)->update([
+          'paystack_response' => json_encode($trx)
+        ]);
+
+        // status should be true if there was a successful call
+        if(!$trx->status){
+            abort(502, 'A node in the communication replied with '. $trx->message . '. Please try again.');
+        }
+
+        // full sample verify response is here: https://developers.paystack.co/docs/verifying-transactions
+        if('success' == $trx->data->status){
+        	//TODO: Maybe use trx info including metadata and a session info to confirm that cartid
+          // matches the one for which we accepted payment
+          try {
+            DB::beginTransaction();
+              Transaction::find($trx->data->metadata->transaction_id)->update([
+                'status' => 'completed'
+              ]);
+              Auth::user()->creditAccount(($trx->data->metadata->amount_to_credit_user)/100);
+            DB::commit();
+
+            $rsp = TransactionalMail::sendCreditMail(($trx->data->amount/100), ($trx->data->metadata->amount_the_user_was_charged/100), 'wallet funding', Auth::user()->available_units);
+            if (is_array($rsp)) {
+              // If response is an array it means Mail not sent
+              // Handle it somehow
+              // return response()->json(['message' => $rsp['message'] ], $rsp['status']);
+            }
+
+          }
+          catch (\Exception $e) {
+            //Send the admin an error message that someone trien to perform an operationa nd there was an error
+
+            //send the user a notification that something went wrong but support has been notified
+          }
+          // exit('here');
+          return redirect()->route('wallet-funding-successful');
+          exit();
+        }
+
+        abort(502, 'A node in the encountered an error. Please try again.');
+
+      })->name('verify-paystack-transaction');
+
+      Route::get('/dashboard/order-successful', function () {
+
+        if (session('activeTransaction')) {
+          session()->forget('activeTransaction');
+          return view('dashboard');
+        }
+        else{
+          return redirect()->route('dashboard');
+        }
+
+      })->name('wallet-funding-successful');
+
+
 
       Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
 

@@ -83,7 +83,7 @@ mix.browserSync({
 	// Attempt to use the URL "http://my-private-site.localtunnel.me"
 	tunnel: "daniel",
 	// Will not attempt to determine your network status, assumes you're ONLINE.
-	online: false,
+	online: true,
 	proxy: {
 		target: 'localhost:8000',
 		reqHeaders: function () {

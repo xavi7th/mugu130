@@ -43,6 +43,9 @@
     <script src="{{ asset(mix('/js/app.js')) }}" charset="utf-8"></script>
 		<script src="{{ asset(mix('/js/libraries.js')) }}" charset="utf-8"></script>
 		<script src="{{ asset(mix('/js/dashboard-app.js')) }}" charset="utf-8"></script>
+		<script>
+		  angular.module("dashboard").constant("CSRF_TOKEN", '{{ csrf_token() }}');
+		</script>
 
 		@yield('customJS')
 

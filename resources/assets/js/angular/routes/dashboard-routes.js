@@ -75,9 +75,9 @@ dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$l
     //  controller: 'DisplayResultsController',
      resolve: {
                  activeTransaction: ['$location', 'sendRequest', function($location, sendRequest) {
-                     if (!sendRequest.getData('activeTransaction')) {
-                       $location.path('/dashboard/profile');
-                     }
+                     // if (!sendRequest.getData('activeTransaction')) {
+                     //   $location.path('/dashboard/profile');
+                     // }
                  }]
               }
    })

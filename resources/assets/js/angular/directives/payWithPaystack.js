@@ -4,14 +4,19 @@
 
 var url = `
 <section id="payWithPaystack" class="ui right floated horizontal list">
-  <button ng-class="{'ui blue right labeled icon button': true, 'loading disabled':loading}"  type="button" name="pay_now" id="pay-now" title="Pay now"  ng-click="saveOrderThenPayWithPaystack()">
-    Pay Now
-    <i class="credit card outline icon"></i>
-  </button>
+  <form action="/dashboard/save-order-and-pay" method="POST">
+   <input type="hidden" name="amount" value="{{ requested_amount * 100 }}">
+   <input type="hidden" name="_token" value="{{ CSRF_TOKEN }}">
+   <button type="submit" ng-class="{'ui purple right labeled icon button': true, 'loading disabled':loading}" id="pay-now" title="Pay now">
+     Pay Now
+     <i class="credit card outline icon"></i>
+   </button>
+  </form>
+
 </section>
 `;
 
-angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', function (Notification, SweetAlert, sendRequest) {
+angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', 'CSRF_TOKEN', function (Notification, SweetAlert, sendRequest, CSRF_TOKEN) {
   return {
     restrict: 'E',
     template:url,
@@ -25,43 +30,29 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
     },
     controller: ['$scope', '$location',  ($scope, $location) => {
 
+      $scope.CSRF_TOKEN = CSRF_TOKEN;
+
       $scope.saveOrderThenPayWithPaystack = () => {
+        console.log(PAYSTACK_PUBLIC_KEY);
 
             $scope.loading = true;
-
             SweetAlert.swal({
-               title: "Are you sure?",
-               text: "Yo will be redirected to the payment gateway to process your payment!",
-               type: "warning",
-               showCancelButton: true,
-               confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, fund my account!",
-               cancelButtonText: "I'll fund later.",
-               closeOnConfirm: false,
-               closeOnCancel: false
-             },
-            function(isConfirm){
-               if (isConfirm) {
-                  SweetAlert.swal({
-                     title: "Please wait.....",
-                     text: "Contacting Paystack payment gateway.",
-                     showCancelButton: false,
-                     showConfirmButton: false,
+               title: "Please wait.....",
+               text: "Contacting Paystack payment gateway.",
+               showCancelButton: false,
+               showConfirmButton: false,
+             });
+             $scope.awardCredits()
+                   .then(function (rsp) {
+                     $scope.payWithPaystack();
+                   },
+                   function (err) {
+                     SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
                    });
-                   $scope.awardCredits()
-                         .then(function (rsp) {
-                           $scope.payWithPaystack();
-                         },
-                         function (err) {
-                           SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
-                         });
-               } else {
-                  SweetAlert.swal("Ok", "Transaction cancelled", "info");
-               }
-            });
-
       };
 
       $scope.payWithPaystack = () => {
+        console.log(PAYSTACK_PUBLIC_KEY);
             let fees = 0.017 * $scope.requested_amount;
 
             if ($scope.requested_amount > 2500) {
@@ -80,7 +71,7 @@ angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notificatio
               last_name: $scope.$root.userdetails.lastname,
               phone: $scope.$root.userdetails.phone1,
               amount: Math.ceil(($scope.requested_amount + fees) * 100),
-              ref: orderid,
+              // ref: orderid,
               metadata: {
                   cartid: orderid,
                   orderid: orderid,
