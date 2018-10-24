@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([4],{
 
 /***/ "./node_modules/angular-animate/angular-animate.js":
 /***/ (function(module, exports) {
@@ -53447,7 +53447,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./node_modules/jquery/dist/jquery.js");
@@ -53461,5 +53461,5 @@ module.exports = __webpack_require__("./node_modules/angular-timeago/dist/angula
 
 /***/ })
 
-},[4]);
+},[5]);
 //# sourceMappingURL=vendor.js.map

@@ -1,4 +1,4 @@
-webpackJsonp([0],{
+webpackJsonp([2],{
 
 /***/ "./node_modules/angular-utils-pagination/dirPagination.js":
 /***/ (function(module, exports) {
@@ -2876,7 +2876,7 @@ angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeou
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/assets/js/admin-app.js");
@@ -2884,5 +2884,5 @@ module.exports = __webpack_require__("./resources/assets/js/admin-app.js");
 
 /***/ })
 
-},[3]);
+},[4]);
 //# sourceMappingURL=admin-app.js.map

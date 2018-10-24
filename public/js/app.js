@@ -1,4 +1,4 @@
-webpackJsonp([4],{
+webpackJsonp([6],{
 
 /***/ "./node_modules/laravel-echo/dist/echo.js":
 /***/ (function(module, exports, __webpack_require__) {
@@ -27326,30 +27326,6 @@ try {
 } catch (e) {}
 
 /**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-// window.axios = require('axios');
-
-// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-// let token = document.head.querySelector('meta[name="csrf-token"]');
-//
-// if (token) {
-//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-// } else {
-//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-// }
-
-/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
@@ -27385,21 +27361,13 @@ __webpack_require__("./node_modules/angular-timeago/dist/angular-timeago.js");
 
 /***/ }),
 
-/***/ "./resources/assets/sass/app.scss":
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/node-sass/vendor/darwin-x64-57/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 8.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 6.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (module.js:653:30)\n    at Object.Module._extensions..js (module.js:664:10)\n    at Module.load (module.js:566:32)\n    at tryModuleLoad (module.js:506:12)\n    at Function.Module._load (module.js:498:3)\n    at Module.require (module.js:597:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (module.js:653:30)\n    at Object.Module._extensions..js (module.js:664:10)\n    at Module.load (module.js:566:32)\n    at tryModuleLoad (module.js:506:12)\n    at Function.Module._load (module.js:498:3)\n    at Module.require (module.js:597:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:13:17)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at runLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModule.js:195:19)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:170:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:27:11)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:173:18\n    at loadLoader (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/loadLoader.js:36:3)\n    at iteratePitchingLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/loader-runner/lib/LoaderRunner.js:362:2)\n    at NormalModule.doBuild (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/Compilation.js:157:10)\n    at moduleFactory.create (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/Compilation.js:460:10)\n    at factory (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModuleFactory.js:94:13)\n    at /Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/tapable/lib/Tapable.js:272:13)\n    at resolver (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModuleFactory.js:69:10)\n    at process.nextTick (/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/node_modules/webpack/lib/NormalModuleFactory.js:196:7)\n    at _combinedTickCallback (internal/process/next_tick.js:132:7)");
-
-/***/ }),
-
-/***/ 0:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("./resources/assets/js/app.js");
-module.exports = __webpack_require__("./resources/assets/sass/app.scss");
+module.exports = __webpack_require__("./resources/assets/js/app.js");
 
 
 /***/ })
 
-},[0]);
+},[1]);
 //# sourceMappingURL=app.js.map

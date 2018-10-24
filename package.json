@@ -12,11 +12,12 @@
   "devDependencies": {
     "axios": "^0.16.2",
     "bootstrap-sass": "^3.3.7",
-    "browser-sync": "^2.18.13",
+    "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^1.2.0",
     "cross-env": "^5.0.1",
     "jquery": "^3.1.1",
     "laravel-mix": "^2.0.0",
+    "laravel-mix-merge-manifest": "^0.1.1",
     "laravel-mix-purgecss": "^1.0.4",
     "lodash": "^4.17.4",
     "purify-css": "^1.2.5",
@@ -42,6 +43,12 @@
     "owl.carousel": "^2.2.0",
     "postcss-fixes": "^2.0.1",
     "pusher-js": "^4.2.2",
-    "textangular": "^1.5.16"
+    "sweetalert": "^2.1.0",
+    "textangular": "^1.5.16",
+    "vee-validate": "^2.1.0-beta.11",
+    "vue-keep-scroll-position": "^0.1.2",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vue2-filters": "^0.3.0"
   }
 }

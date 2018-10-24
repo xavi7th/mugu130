@@ -1,0 +1,14 @@
+{
+    "name": "PaymentAgent",
+    "alias": "paymentagent",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "App\\Modules\\PaymentAgent\\Providers\\PaymentAgentServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,5 +1,23 @@
 const mix = require('laravel-mix');
 let glob = require('glob');
+let fs = require('fs-extra');
+
+let modules = fs.readdirSync('app/Modules'); // Make sure the path of yoour modules are correct
+
+if (modules && modules.length > 0){
+    modules.forEach((module) => {
+        let path = `./app/Modules/${module}/webpack.mix.js`;
+        console.log(path);
+        if (fs.existsSync(path)) {
+          console.log('required');
+            require(path);
+        }
+    });
+}
+
+let bladeFiles = glob.sync(
+    Mix.paths.root('resources/views/**/*.blade.php')
+);
 
 let directiveFiles = glob.sync(
     Mix.paths.root('resources/assets/js/angular/directives/*.js')
@@ -8,8 +26,18 @@ let directiveFiles = glob.sync(
 let htmlFiles = glob.sync(
     Mix.paths.root('public/angular/views/**/*.html')
 );
-let paths = directiveFiles.concat(htmlFiles);//.concat(otherPhpFiles);
-//
+
+let moduleBladeFiles = glob.sync(
+    Mix.paths.root('app/Modules/**/*.blade.php')
+);
+
+let vueFiles = glob.sync(
+    Mix.paths.root('app/Modules/**/*.vue')
+);
+let paths = moduleBladeFiles.concat(htmlFiles).concat(vueFiles)
+            .concat(directiveFiles).concat(htmlFiles).concat(bladeFiles);
+
+// console.log(paths);
 
 
 /*
@@ -45,7 +73,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
                     '.sweet-overlay', '*.sa-success*'],
 		     // extensions: ['html', 'php', 'js', 'php'],
 		     // info: true,
-		     rejected: true,
+		     // rejected: true,
 		   }
 		 },
 		fileLoaderDirs: {
@@ -68,42 +96,44 @@ mix.webpackConfig({
 		 devtool: 'source-map'
  });
 
-mix.browserSync({
-	//  proxy: "localhost:8000",
-	reloadDelay: 1000,
-	// Don't show any notifications in the browser.
-	notify: false,
-	// Inject CSS changes
-	injectChanges: true,
-	ghostMode: {
-			clicks: false,
-			forms: false,
-			scroll: true
-	},
-	// Attempt to use the URL "http://my-private-site.localtunnel.me"
-	tunnel: "daniel",
-	// Will not attempt to determine your network status, assumes you're ONLINE.
-	online: true,
-	proxy: {
-		target: 'localhost:8000',
-		reqHeaders: function () {
-			return {
-				host: "localhost:3000"
-			};
-		}
-	},
-	// browser: "vivaldi",
-	browser: ["google chrome"],
-	files: [
-
-        //  'app/**/*.php',
-         'resources/views/**/*.php',
-         '!resources/**/*.js',
-         'public/**/*.html',
-         'public/**/*.php',
-         'public/js/**/*.js',
-         '!public/js/**/libraries.js',
-         '!public/css/**/*.css',
-         '!public/css/**/*.map'
-     ],
-});
+// mix.browserSync({
+// 	//  proxy: "localhost:8000",
+// 	reloadDelay: 1000,
+// 	// Don't show any notifications in the browser.
+// 	notify: false,
+// 	// Inject CSS changes
+// 	injectChanges: true,
+// 	ghostMode: {
+// 			clicks: false,
+// 			forms: false,
+// 			scroll: false
+// 	},
+// 	// Attempt to use the URL "http://my-private-site.localtunnel.me"
+// 	tunnel: "daniel",
+// 	// Will not attempt to determine your network status, assumes you're ONLINE.
+// 	online: false,
+// 	proxy: {
+// 		target: 'localhost:8000',
+// 		reqHeaders: function () {
+// 			return {
+// 				host: "localhost:3000"
+// 			};
+// 		}
+// 	},
+// 	// browser: "vivaldi",
+// 	browser: ["google chrome"],
+// 	files: [
+//
+//         //  'app/**/*.php',
+//          'resources/views/**/*.php',
+//          '!resources/**/*.js',
+//          'public/**/*.html',
+//          'public/**/*.php',
+//          'public/js/**/*.js',
+//          '!public/js/**/libraries.js',
+//          '!public/css/**/*.css',
+//          '!public/css/**/*.map',
+//          'app/Modules/**/*.vue',
+//          'app/Modules/**/*.blade.php'
+//      ],
+// });

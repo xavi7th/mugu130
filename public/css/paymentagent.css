@@ -1,0 +1,197 @@
+.full-height {
+  height: 100vh;
+}
+
+.flex-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.page-enter-active {
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95), -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+}
+
+.page-enter-active .enter-1 {
+  -webkit-transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transition-delay: 520ms;
+  transition-delay: 520ms;
+}
+
+.page-enter {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.page-enter .enter-1 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+  -webkit-transform: translateX(50px);
+  transform: translateX(50px);
+}
+
+.page-enter-active {
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95), -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+}
+
+.page-enter-active .enter-2 {
+  -webkit-transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transition-delay: 640ms;
+  transition-delay: 640ms;
+}
+
+.page-enter {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.page-enter .enter-2 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+  -webkit-transform: translateX(50px);
+  transform: translateX(50px);
+}
+
+.page-enter-active {
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95), -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+}
+
+.page-enter-active .enter-3 {
+  -webkit-transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transition-delay: 760ms;
+  transition-delay: 760ms;
+}
+
+.page-enter {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.page-enter .enter-3 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+  -webkit-transform: translateX(50px);
+  transform: translateX(50px);
+}
+
+.page-enter-active {
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95), -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+}
+
+.page-enter-active .enter-4 {
+  -webkit-transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transition-delay: 880ms;
+  transition-delay: 880ms;
+}
+
+.page-enter {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.page-enter .enter-4 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+  -webkit-transform: translateX(50px);
+  transform: translateX(50px);
+}
+
+.page-enter-active {
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+  transition: transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95), -webkit-transform 400ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+}
+
+.page-enter-active .enter-5 {
+  -webkit-transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  transition: 300ms cubic-bezier(0.1, 0.7, 0.6, 0.9);
+  -webkit-transition-property: opacity, -webkit-transform;
+  transition-property: opacity, -webkit-transform;
+  transition-property: opacity, transform;
+  transition-property: opacity, transform, -webkit-transform;
+  -webkit-transition-delay: 1000ms;
+  transition-delay: 1000ms;
+}
+
+.page-enter {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.page-enter .enter-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  opacity: 0;
+  -webkit-transform: translateX(50px);
+  transform: translateX(50px);
+}
+/*# sourceMappingURL=paymentagent.css.map*/
