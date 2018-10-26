@@ -17,7 +17,7 @@ class Admin
 
 		//  exit;
 
-			if (Auth::user()->role_id != env('ADMIN_ROLE_ID')){
+			if (!Auth::user()->isAdmin()){
 
 		    Message::alertAdmin();
 		    Session::flush();

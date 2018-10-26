@@ -29,7 +29,7 @@ class LoginController extends Controller
      */
     // protected $redirectTo = '/user/dashboard';
     protected function redirectTo(){
-      if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+      if (Auth::user()->isAdmin()) {
         return route('admin');
       }
         return route('dashboard');

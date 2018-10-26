@@ -7,6 +7,7 @@ use PaystackCharge;
 
 use App\Game;
 use App\User;
+use App\Role;
 use App\Notice;
 use App\Earning;
 use App\Message;
@@ -720,8 +721,8 @@ class DashboardController extends Controller
 
         //return the results ordered by position
 
-        if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
-          $earnings = Earning::where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', 0)->sum('amount');
+        if (Auth::user()->isAdmin()) {
+          $earnings = Earning::where('user_id', Role::admin_id())->where('transferred', 0)->sum('amount');
         }
         else{
           $earnings = Auth::user()->totalEarnings->sum('amount');

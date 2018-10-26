@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Game;
+use App\Role;
 use App\Notice;
 use App\Earning;
 use App\Message;
@@ -122,7 +123,11 @@ class User extends Authenticatable{
     }
 
     public static function totalWalletAmount(){
-      return self::where('role_id', env('USER_ROLE_ID'))->sum('available_units');
+      return self::where('role_id', Role::user_id())->sum('available_units');
+    }
+
+    public function role(){
+      return $this->hasOne(Role::class);
     }
 
     public function transactions(){
@@ -244,7 +249,7 @@ class User extends Authenticatable{
 
     public function updateUserDetails() {
       // return  request()->all() ;
-      if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+      if (Auth::user()->isAdmin()) {
         DB::beginTransaction();
           Auth::user()->update( array_only(request()->input('details'), ['email', 'password'] ) );
         DB::commit();
@@ -340,7 +345,7 @@ class User extends Authenticatable{
     }
 
     public static function adminDeletable(){
-      if (User::where('role_id', env('ADMIN_ROLE_ID'))->count() < 2) {
+      if (User::where('role_id', Role::admin_id())->count() < 2) {
         return false;
       }
       return true;
@@ -348,6 +353,18 @@ class User extends Authenticatable{
 
     public function isVerified(){
       return $this->verified;
+    }
+
+    public function isAdmin(){
+      return $this->role == 'admin';
+    }
+
+    public function isAgent(){
+      return $this->role == 'paymentagent';
+    }
+
+    public function isNormalUser(){
+      return $this->role == 'user';
     }
 
   	/**

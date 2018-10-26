@@ -17,7 +17,7 @@ class Users
 
 		//  exit;
 
-			if (Auth::user()->role_id != env('USER_ROLE_ID')){
+			if (!Auth::user()->isNormalUser()){
 				Session::flush();
 				Auth::logout();
 

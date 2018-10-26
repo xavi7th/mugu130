@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Game;
+use App\Role;
 use App\Earning;
 use App\Message;
 use App\Question;
@@ -144,7 +145,7 @@ class AdminController extends Controller
     public function showDashboard(){
         // Cache::flush();
 
-        if (!Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+        if (!Auth::user()->isAdmin()) {
           return redirect()->route('dashboard');
         }
         return view('admin');
@@ -154,7 +155,7 @@ class AdminController extends Controller
       // Cache::flush();
       return  [
         'details' => [
-                    'num_of_admins' => User::where('role_id', env('ADMIN_ROLE_ID'))->count(),
+                    'num_of_admins' => User::where('role_id', Role::admin_id())->count(),
                     'num_of_questions' => Question::count(),
                     'num_of_messages' => Message::where('read', false)->count(),
                     'admin_message_status' => Message::find(1)->read,
@@ -247,7 +248,7 @@ class AdminController extends Controller
 
     public function getAdminsPageDetails(){
         return [
-          'admins' => User::where('role_id', env('ADMIN_ROLE_ID'))->get()
+          'admins' => User::where('role_id', Role::admin_id())->get()
         ];
     }
 
@@ -257,12 +258,12 @@ class AdminController extends Controller
           'details.phone1' => 'required'
         ]);
         return [
-          'status' => Admin::find(request()->input('details.id'))->update(request()->input('details'))
+          'status' => User::find(request()->input('details.id'))->update(request()->input('details'))
         ];
     }
 
     public function deleteAdmin(){
-      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+      if (!Auth::user()->isSuperAdmin()) {
         return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
       }
       if (User::adminDeletable()) {
@@ -278,26 +279,26 @@ class AdminController extends Controller
 
     public function createAdmin(){
 
-      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+      if (!Auth::user()->isSuperAdmin()) {
         return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
       }
       User::unguard();
         return [
           'status' => User::find(request()->input('details.id'))->update([
-            'role_id' => env('ADMIN_ROLE_ID')
+            'role_id' => Role::admin_id()
           ])
         ];
     }
 
     public function removeAdmin(){
-      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+      if (!Auth::user()->isSuperAdmin()) {
         return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
       }
       User::unguard();
 
         return [
           'status' => User::find(request()->input('details.id'))->update([
-            'role_id' => 1
+            'role_id' => Role::user_id()
           ])
         ];
     }
@@ -485,7 +486,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
+        'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', Role::user_id())->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -534,7 +535,7 @@ class AdminController extends Controller
 
     public function getAllMessages(){
       return [
-        'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->orWhere('sender_id', env('USER_ROLE_ID'))->get()
+        'messages' => Message::where('user_id', Role::admin_id())->orWhere('sender_id', Role::user_id())->get()
       ];
     }
 
@@ -557,7 +558,7 @@ class AdminController extends Controller
 
     public function deleteMessage(){
 
-      if (request()->input('details.id') == env('USER_ROLE_ID')) {
+      if (request()->input('details.id') == Role::user_id()) {
           return response()->json(['message' => 'You really don\'t want to delete this message. Trust me' ], 409);
       }
       return [
@@ -591,30 +592,30 @@ class AdminController extends Controller
 
     public function getAllUsersEarnings(){
       return [
-        'details' => Earning::with(['user'])->where('user_id', '!=', env('ADMIN_ROLE_ID'))->latest()->paginate(env('ROWS_PER_PAGE')),
+        'details' => Earning::with(['user'])->where('user_id', '!=', Role::admin_id())->latest()->paginate(env('ROWS_PER_PAGE')),
       ];
     }
 
     public function getAllAdminEarnings(){
       return [
-        'details' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->latest()->paginate(env('ROWS_PER_PAGE')),
+        'details' => Earning::where('user_id', Role::admin_id())->latest()->paginate(env('ROWS_PER_PAGE')),
         'extras' => [
-          'total_transferred' => Earning::with(['user'])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount'),
-          'total_untransferred' => Earning::with(['user'])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount'),
+          'total_transferred' => Earning::with(['user'])->where('user_id', Role::admin_id())->where('transferred', true)->sum('amount'),
+          'total_untransferred' => Earning::with(['user'])->where('user_id', Role::admin_id())->where('transferred', false)->sum('amount'),
         ]
       ];
     }
 
     public function withdrawAdminEarnings(){
       return [
-        'status' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->update([ 'transferred' => true ])
+        'status' => Earning::where('user_id', Role::admin_id())->update([ 'transferred' => true ])
       ];
     }
 
     public function getEarningsByUsersPageDetails(){
       Cache::flush();
       return [
-        'details' => User::with(['earnings'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
+        'details' => User::with(['earnings'])->where('role_id', Role::user_id())->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -632,7 +633,7 @@ class AdminController extends Controller
 
     public function getAllGameEarnings(){
       return [
-        'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', env("ADMIN_ROLE_ID"))->get()
+        'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', Role::admin_id())->get()
       ];
     }
 
