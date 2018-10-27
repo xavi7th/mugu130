@@ -22,17 +22,13 @@ class PaymentAgentController extends Controller
     * @return return type
     */
     public static function routes(){
-        LoginController::routes();
+        // LoginController::routes();
 
-        Route::get('testing', function () {
-          return view('paymentagent::dashboard');
-        });
-
-        Route::group(['middleware' => 'auth'], function(){
+        Route::group(['middleware' => ['auth', 'suspended', 'agent']], function(){
 
           Route::get('/{vue_capture?}', function () {
-            return view('paymentagent::dashboard');
-          })->where('vue_capture', '[\/\w\.-]*');
+            return view('paymentagent::agent-dashboard');
+          })->where('vue_capture', '[\/\w\.-]*')->name('agent.dashboard');
 
         });
 

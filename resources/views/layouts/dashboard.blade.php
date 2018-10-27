@@ -15,7 +15,7 @@
     <meta name="author" content="">
 
 		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="192x192"/>
-		<link rel="stylesheet" href="{{ mix('/css/app.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<link id="stylesheet" href="{{ mix('/css/app.css') }}">
 		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 		@yield('customCSS')
 
@@ -45,6 +45,7 @@
 		<script src="{{ asset(mix('/js/dashboard-app.js')) }}" charset="utf-8"></script>
 		<script>
 		  angular.module("dashboard").constant("CSRF_TOKEN", '{{ csrf_token() }}');
+			document.querySelector('#stylesheet').setAttribute('rel','stylesheet');
 		</script>
 
 		@yield('customJS')

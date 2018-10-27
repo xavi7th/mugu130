@@ -4,6 +4,7 @@ namespace App\Modules\PaymentAgent\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use App\Modules\PaymentAgent\Http\Middleware\AgentsOnly;
 
 class PaymentAgentServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,7 @@ class PaymentAgentServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         //Register my middleware
-        // app()->make('router')->aliasMiddleware('secure', RedirectToSecure::class);
+        app()->make('router')->aliasMiddleware('agent', AgentsOnly::class);
     }
 
     /**

@@ -4,10 +4,12 @@ webpackJsonp([0],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./AgentDashboardComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue",
+	"./AgentDashboardComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue",
+	"./AppComponent": "./app/Modules/PaymentAgent/Resources/js/components/AppComponent.vue",
+	"./AppComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AppComponent.vue",
 	"./DataTableComponent": "./app/Modules/PaymentAgent/Resources/js/components/DataTableComponent.vue",
 	"./DataTableComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/DataTableComponent.vue",
-	"./MasterComponent": "./app/Modules/PaymentAgent/Resources/js/components/MasterComponent.vue",
-	"./MasterComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/MasterComponent.vue",
 	"./SubComponents/SubCreateTransaction": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubCreateTransaction.vue",
 	"./SubComponents/SubCreateTransaction.vue": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubCreateTransaction.vue",
 	"./SubComponents/SubCreateUser": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubCreateUser.vue",
@@ -27,7 +29,21 @@ var map = {
 	"./SubComponents/SubViewTransferRequests": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewTransferRequests.vue",
 	"./SubComponents/SubViewTransferRequests.vue": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewTransferRequests.vue",
 	"./SubComponents/SubViewUsers": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewUsers.vue",
-	"./SubComponents/SubViewUsers.vue": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewUsers.vue"
+	"./SubComponents/SubViewUsers.vue": "./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewUsers.vue",
+	"./layouts/MasterLayoutComponent": "./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue",
+	"./layouts/MasterLayoutComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue",
+	"./misc/LoaderComponent": "./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue",
+	"./misc/LoaderComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue",
+	"./misc/PaginationComponent": "./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue",
+	"./misc/PaginationComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue",
+	"./partials/AgentHeaderComponent": "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentHeaderComponent.vue",
+	"./partials/AgentHeaderComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentHeaderComponent.vue",
+	"./partials/AgentNavComponent": "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentNavComponent.vue",
+	"./partials/AgentNavComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentNavComponent.vue",
+	"./partials/AgentStatisticsComponent": "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue",
+	"./partials/AgentStatisticsComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue",
+	"./partials/FooterComponent": "./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue",
+	"./partials/FooterComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue"
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -44,6 +60,58 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./app/Modules/PaymentAgent/Resources/js/components recursive ^\\.\\/.*$";
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b7c6fb6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5b7c6fb6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5b7c6fb6", Component.options)
+  } else {
+    hotAPI.reload("data-v-5b7c6fb6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 
@@ -564,6 +632,399 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7711fce2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-7711fce2"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7711fce2", Component.options)
+  } else {
+    hotAPI.reload("data-v-7711fce2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6c77c340\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6c77c340", Component.options)
+  } else {
+    hotAPI.reload("data-v-6c77c340", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1627698e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1627698e", Component.options)
+  } else {
+    hotAPI.reload("data-v-1627698e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentHeaderComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/partials/AgentHeaderComponent.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentNavComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/partials/AgentNavComponent.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/config/endpoints.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export apiDomain */
+/* unused harmony export apiRootUrl */
+/* unused harmony export rootUrl */
+/* unused harmony export loginUrl */
+/* unused harmony export registerUrl */
+// Base Url
+
+// development server endpoint
+
+// export const apiDomain = process.env.NODE_ENV === 'production' ? 'https://devapi.mypadi.ng/api/v1/' : 'http://localhost:8000/api/v1/'
+// live server
+// export const apiDomain = 'https://api.mypadi.ng/api/v1/'
+
+// production server
+// export const apiDomain = 'https://fastplay24.com/agent/api/'
+
+// development server
+var apiDomain = 'http://localhost:8000/agent/api/';
+
+// End Points
+
+/**
+ *
+ * @param {string} url
+ */
+var apiRootUrl = function apiRootUrl(url) {
+  return apiDomain + url;
+};
+
+var rootUrl = function rootUrl(url) {
+  return '/' + url;
+};
+
+var loginUrl = apiRootUrl('user/login');
+var registerUrl = apiRootUrl('user/register');
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_AgentNavComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/partials/AgentNavComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_AgentNavComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_AgentNavComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    // name: 'AccommodationsComponent',
+    components: {
+        pageLoading: __WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent___default.a,
+        MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a
+    },
+    data: function data() {
+        return {};
+    },
+
+    methods: {
+        getaccommodations: function getaccommodations() {}
+    },
+    mounted: function mounted() {
+        this.getaccommodations();
+    }
+});
 
 /***/ }),
 
@@ -2400,6 +2861,132 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AgentHeaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/partials/AgentHeaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_AgentHeaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_AgentHeaderComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_FooterComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_FooterComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_FooterComponent__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'MasterLayout',
+  components: {
+    AgentHeader: __WEBPACK_IMPORTED_MODULE_0__partials_AgentHeaderComponent___default.a, Footer: __WEBPACK_IMPORTED_MODULE_1__partials_FooterComponent___default.a
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Loader',
+  props: {
+    size: {
+      type: Number,
+      default: 30
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'pagination',
+    props: ['pagination', 'offset'],
+    methods: {
+        isCurrentPage: function isCurrentPage(page) {
+            return this.pagination.current_page == page;
+        },
+        changePage: function changePage() {
+            if (page > this.pagination.last_page) {
+                page = this.pagination.last_page;
+            }
+            this.pagination.current_page = page;
+            this.$emit('paginate');
+        }
+    },
+    computed: {
+        pages: function pages() {
+            var pages = [];
+
+            var from = this.pagination.current_page - Math.floor(this.offset / 2);
+
+            if (from < 1) {
+                from = 1;
+            }
+            var to = from + this.offset - 1;
+
+            if (to > this.pagination.last_page) {
+                to = this.pagination.last_page;
+            }
+
+            while (from <= to) {
+                pages.push(from);
+                from++;
+            }
+
+            return pages;
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b57845\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubCreateUser.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2460,6 +3047,21 @@ exports.push([module.i, "\ntd:last-child{\n  white-space: nowrap;\n}\n", "", {"v
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b7c6fb6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.accommodations-container {\n    padding-top: 64px !important;\n    padding-top: 4rem !important;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue"],"names":[],"mappings":";AA2DA;IACA,6BAAA;IAAA,6BAAA;CACA","file":"AgentDashboardComponent.vue","sourcesContent":["<template>\n    <master-layout>\n\n      <template slot=\"content-section\">\n\n        <div class=\"container accommodations-container\">\n\n          <div class=\"row\">\n\n\n          </div>\n\n          <div class=\"row justify-content-center\">\n\n          <div class=\"col-sm-6\" v-if=\"loaders.results\">\n\n                <div class=\"text-center\">\n\n                  <page-loading :size=\"120\"></page-loading>\n\n                </div>\n\n\n            </div>\n\n        </div>\n\n        </div>\n\n\n      </template>\n\n    </master-layout>\n</template>\n<script>\n    import MasterLayout from './layouts/MasterLayoutComponent'\n    import AgentNav from './partials/AgentNavComponent'\n    import AgentStatistics from './partials/AgentStatisticsComponent'\n    import Loader from './misc/LoaderComponent'\n    import { apiRootUrl } from '../config/endpoints'\n\n    export default {\n        // name: 'AccommodationsComponent',\n        components: {\n            pageLoading:Loader,\n            MasterLayout\n        },\n        data () {\n            return {}\n        },\n        methods: {\n            getaccommodations () {}\n        },\n        mounted() {\n            this.getaccommodations();\n        }\n    }\n</script>\n<style>\n.accommodations-container {\n    padding-top: 4rem !important;\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-620c741c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/DataTableComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2475,6 +3077,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.loader {\n  display: inline-block;\n  border: 5px solid rgba(189,189,189, 0.25);\n  border-left-color: #8ace42;\n  border-top-color: #8ace42;\n  border-radius: 50%;\n  -webkit-animation: rotate 600ms infinite linear;\n          animation: rotate 600ms infinite linear;\n}\n@-webkit-keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n@keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/misc/app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue"],"names":[],"mappings":";AAiBA;EACA,sBAAA;EACA,0CAAA;EACA,2BAAA;EACA,0BAAA;EACA,mBAAA;EACA,gDAAA;UAAA,wCAAA;CACA;AAEA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA;AAJA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA","file":"LoaderComponent.vue","sourcesContent":["<template>\n  <div class=\"loader\" :style=\"{ width: size + 'px', height: size + 'px' }\"></div>\n</template>\n\n<script>\n  export default {\n      name: 'Loader',\n      props: {\n        size: {\n          type: Number,\n          default: 30\n        }\n      }\n  }\n</script>\n\n<style>\n  .loader {\n    display: inline-block;\n    border: 5px solid rgba(189,189,189, 0.25);\n    border-left-color: #8ace42;\n    border-top-color: #8ace42;\n    border-radius: 50%;\n    animation: rotate 600ms infinite linear;\n  }\n\n  @keyframes rotate {\n      to {\n          transform: rotate(1turn)\n        }\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7464e386\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewAllTransferRequests.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2484,6 +3101,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\ntd:nth-child(5){\n  white-space: nowrap;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/SubComponents/app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewAllTransferRequests.vue"],"names":[],"mappings":";AAkJA;EACA,oBAAA;CACA","file":"SubViewAllTransferRequests.vue","sourcesContent":["<template lang=\"html\">\n  <div class=\"container-fluid\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n                Transaction Records\n            </div>\n            <div class=\"panel-body\">\n              <div class=\"table-responsive\">\n                <table class=\"table table-hover table-striped\">\n                  <thead>\n                    <tr class=\"default\">\n                      <th>User</th>\n                      <th>Recipient</th>\n                      <th>Bank Name</th>\n                      <th>Amount</th>\n                      <th>Payment Type</th>\n                      <th>Country</th>\n                      <th>Status</th>\n                      <th>Actions</th>\n                    </tr>\n                  </thead>\n                  <tbody>\n                    <tr colspan=\"6\" class=\"loading text-center text-danger\" v-if=\"loading\">\n                        Loading...\n                    </tr>\n                    <tr v-if=\"error\" class=\"error\">\n                        <td colspan=\"6\">{{ error }}</td>\n                    </tr>\n                    <tr v-if=\"transfer_requests\" v-for=\"trans in transfer_requests\" :key=\"trans.id\">\n                      <td>{{ trans.user.acc_name }}</td>\n                      <td> {{ trans.acc_name }}</td>\n                      <td> {{ trans.bank_name }}</td>\n                      <td> {{ trans.amount | currency }}</td>\n                      <td> {{ trans.payment_type }}</td>\n                      <td> {{ trans.country }}</td>\n                      <td> {{ trans.status }}</td>\n                      <td>\n                        <button class=\"btn btn-xs btn-danger\" @click=\"deleteTransferRequest(trans)\">Delete</button>\n                      </td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n</template>\n\n<script>\nexport default {\n  created() {\n    swal(\"Retrieving all transfer requests....\", {\n      buttons: false,\n    });\n    this.loading=true;\n      axios.get('api/get-all-transfer-requests').then( rsp => {\n        this.transfer_requests = rsp.data;\n        this.loading=false;\n        swal.stopLoading();\n        swal.close();\n      }, err => {\n        this.serverError(err);\n      });\n  },\n  data () {\n    return {\n      searchText: '',\n      error: '',\n      transfer_requests: {},\n      loading: false\n    };\n  },\n  computed: {},\n  methods: {\n   serverError(msg){\n     swal(\"Error!\", `${msg}`, \"error\");\n   },\n   deleteTransferRequest(transfer_request){\n     swal({\n       title: \"Are you sure?\",\n       text: \"Once deleted, you will not be able to recover this transfer request!\",\n       icon: \"warning\",\n       buttons: {\n          cancel: true,\n          confirm: {\n            text: \"Proceed\",\n            value: true,\n            visible: true,\n            className: \"\",\n            closeModal: false\n          }\n        },\n       dangerMode: true,\n     })\n     .then((willDelete) => {\n       if (willDelete) {\n         return axios.post('api/delete-transfer-request', {id: transfer_request.id});\n\n       } else {\n         swal(\"Cancelled.\", {\n           icon: \"info\",\n         });\n         throw null;\n       }\n     })\n     .then(results => {\n       const status = results.data.status;\n\n       if (!status) {\n         return swal('Error', 'Something went wrong at the server. Account not deleted', 'error');\n       }\n       else {\n\n         let index = this.transfer_requests.indexOf(transfer_request);\n         this.transfer_requests.splice(index, 1);\n\n\n         swal({\n           title: \"Success\",\n           text: 'Transfer Request deleted',\n           icon: 'success',\n         });\n       }\n\n\n     })\n     .catch(err => {\n       console.log(err);\n       if (err) {\n         swal(\"Oh noes!\", \"The AJAX request failed!\", \"error\");\n       } else {\n         swal.stopLoading();\n         swal.close();\n       }\n     });\n   },\n  }\n}\n</script>\n\n<style lang=\"css\">\n  td:nth-child(5){\n    white-space: nowrap;\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AAyBA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n  <div>\n      <inverse-nav />\n\n      <div class=\"container-fluid master-container\">\n\n        <slot name=\"content-section\"></slot>\n\n      </div>\n\n\n      <footer-component />\n  </div>\n</template>\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import Footer from '../partials/FooterComponent'\n  export default {\n    name: 'MasterLayout',\n    components: {\n      AgentHeader, Footer\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -3782,6 +4414,101 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1627698e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/PaginationComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("nav", [
+      _c(
+        "ul",
+        { staticClass: "pagination" },
+        [
+          _c("li", [
+            _c(
+              "a",
+              {
+                attrs: {
+                  disabled: _vm.pagination.current_page,
+                  "aria-label": "Previous"
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.changePage(_vm.pagination.current_page - 1)
+                  }
+                }
+              },
+              [
+                _c("span", { attrs: { "aria-hidden": "true" } }, [
+                  _vm._v("Previous")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.pages, function(page) {
+            return _c("li", { key: page }, [
+              _c(
+                "a",
+                {
+                  class: _vm.isCurrentPage(page) ? "active" : "",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.changePage(page)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(page))]
+              )
+            ])
+          }),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                attrs: {
+                  disabled:
+                    _vm.pagination.current_page >= _vm.pagination.last_page,
+                  "aria-label": "Next"
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.changePage(_vm.pagination.current_page + 1)
+                  }
+                }
+              },
+              [
+                _c("span", { attrs: { "aria-hidden": "true" } }, [
+                  _vm._v("Next")
+                ])
+              ]
+            )
+          ])
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1627698e", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1c2b8010\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewTransactions.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4234,6 +4961,50 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4fad8cf2", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5b7c6fb6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "master-layout",
+    [
+      _c("template", { slot: "content-section" }, [
+        _c("div", { staticClass: "container accommodations-container" }, [
+          _c("div", { staticClass: "row" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "row justify-content-center" }, [
+            _vm.loaders.results
+              ? _c("div", { staticClass: "col-sm-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "text-center" },
+                    [_c("page-loading", { attrs: { size: 120 } })],
+                    1
+                  )
+                ])
+              : _vm._e()
+          ])
+        ])
+      ])
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5b7c6fb6", module.exports)
   }
 }
 
@@ -5222,6 +5993,30 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6c77c340\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {
+    staticClass: "loader",
+    style: { width: _vm.size + "px", height: _vm.size + "px" }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6c77c340", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7464e386\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewAllTransferRequests.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5351,6 +6146,42 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7464e386", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7711fce2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("inverse-nav"),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "container-fluid master-container" },
+        [_vm._t("content-section")],
+        2
+      ),
+      _vm._v(" "),
+      _c("footer-component")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7711fce2", module.exports)
   }
 }
 
@@ -7552,6 +8383,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b7c6fb6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b7c6fb6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6a5152d0", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b7c6fb6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentDashboardComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b7c6fb6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentDashboardComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-620c741c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/DataTableComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7579,6 +8437,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("1700928e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoaderComponent.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoaderComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7464e386\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/SubComponents/SubViewAllTransferRequests.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7596,6 +8481,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7464e386\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SubViewAllTransferRequests.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7464e386\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SubViewAllTransferRequests.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5ea64175", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MasterLayoutComponent.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MasterLayoutComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

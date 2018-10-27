@@ -47,7 +47,7 @@ Vue.use(VeeValidate);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import Master from './components/MasterComponent';
+import App from './components/AppComponent';
 // import UserDailyAccSummary from './components/UserDailyAccSummaryComponent';
 // import UserDenied from './components/UserDeniedComponent';
 // import UserTransferToSelf from './components/UserTransferToSelfComponent';
@@ -69,15 +69,16 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/agent/testing',
+            path: '/agent/dashboard',
             name: 'dashboard',
-            component: Master
+            component: App
         },
         {
             path: '/user/acc-summary',
             name: 'accsummary',
             component: view('UserAccSummaryComponent'),
-        }
+        },
+        { path: '*', redirect: '/agent/dashboard' }
     ],
 });
 

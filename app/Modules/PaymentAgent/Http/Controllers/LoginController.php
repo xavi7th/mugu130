@@ -41,9 +41,9 @@ class LoginController extends Controller
 
     static function routes(){
 
-      Route::get('login', 'LoginController@showLoginForm')->name('login');
+      Route::get('login', 'LoginController@showLoginForm')->name('agent.login');
       Route::post('login', 'LoginController@login');
-      Route::post('logout', 'LoginController@logout')->name('logout');
+      Route::post('logout', 'LoginController@logout')->name('agent.logout');
 
       // // Registration Routes...
       // Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
@@ -98,6 +98,21 @@ class LoginController extends Controller
      */
     public function username(){
         return 'email';
+    }
+
+    /**
+     * Log the agent out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect()->route('agent.login');
     }
 
 }

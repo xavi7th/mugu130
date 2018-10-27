@@ -1,9 +1,14 @@
-@extends('paymentagent::layouts.dashboard-master')
+@extends('paymentagent::layouts.agent-dashboard-master')
 
 @section('contents')
   <transition :name="transitionName" mode="out-in" :duration="{ enter: 1300, leave: 200 }" v-on:change-transition="changeTransition($event)">
     <router-view></router-view>
   </transition>
+  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a> <span>|</span>
+
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										{{ csrf_field() }}
+								</form>
 @endsection
 
 @section('customCSS')
