@@ -139,7 +139,7 @@ class AdminController extends Controller
 
       });
 
-      Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin');
+      Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin.dashboard');
     }
 
     public function showDashboard(){

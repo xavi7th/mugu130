@@ -27,13 +27,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/user/dashboard';
     protected function redirectTo(){
-      if (Auth::user()->isAdmin()) {
-        return route('admin');
-      }
-        return route('dashboard');
+        return route(Auth::user()->role->dashboard_route);
     }
+    // protected $redirectTo = '/user/dashboard';
+
 
     /**
      * Create a new controller instance.
@@ -44,4 +42,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+     /**
+      * The user has been authenticated.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  mixed  $user
+      * @return mixed
+      */
+     protected function authenticated($request, $user)
+     {
+         if (!Auth::user()->role) {
+           $this->logout(request());
+           return redirect('/')->withErrors('An error occurred while trying to log you in');
+         }
+     }
 }

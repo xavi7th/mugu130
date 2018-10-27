@@ -127,7 +127,7 @@ class User extends Authenticatable{
     }
 
     public function role(){
-      return $this->hasOne(Role::class);
+      return $this->belongsTo(Role::class);
     }
 
     public function transactions(){
@@ -356,15 +356,15 @@ class User extends Authenticatable{
     }
 
     public function isAdmin(){
-      return $this->role == 'admin';
+      return $this->role->name == 'admin';
     }
 
     public function isAgent(){
-      return $this->role == 'paymentagent';
+      return $this->role->name == 'paymentagent';
     }
 
     public function isNormalUser(){
-      return $this->role == 'user';
+      return $this->role->name == 'user';
     }
 
   	/**
@@ -372,9 +372,7 @@ class User extends Authenticatable{
   	 *
   	 * This functions allows me to use a custom handler (postmark in this case) to perform the actualmail sends instead of using the default swiftmailer class
   	 *
-  	 * @param string token The generated token that will be used to confirm the password reset link
-  	 * @param Eloquent Object this The Model for the current emailinjected  into the method
-  	 * @param string url The pattern for the route that the reset link in the email MUST call in the url(route('password.reset', $token))
+  	 * @param string $token The generated token that will be used to confirm the password reset link
   	 * @return void
   	 */
   	public function sendPasswordResetNotification($token){

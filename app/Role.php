@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
   public function user(){
-    return $this->belongsTo(User::class);
+    return $this->hasMany(User::class);
   }
   public static function admin_id(){
     // dd(self::where('name', 'admin')->first()->id);
