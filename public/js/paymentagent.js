@@ -590,7 +590,12 @@ var agentCreditUser = apiRootUrl('credit-user');
 var agentLogout = rootUrl('logout');
 
 var logoutAgent = function logoutAgent() {
-  swal("Logging you out....", {
+  var msg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+  if (!msg) {
+    msg = "Logging you out....";
+  }
+  swal(msg, {
     buttons: false
   });
   axios.post(agentLogout).then(function (rsp) {
@@ -2248,6 +2253,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2255,19 +2261,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'AccommodationsComponent',
+  name: 'AgentDashboard',
   components: {
-    pageLoading: __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default.a,
+    // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
     MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a,
     FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUser___default.a
-  },
-  mounted: function mounted() {
-    this.getAgentDetails();
   },
   data: function data() {
     return {
       currentComponent: 'FundUser',
-      propsToPass: {}
+      propsToPass: null
     };
   },
 
@@ -2283,17 +2286,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object
       this.currentComponent = dt.comp;
       this.propsToPass = dt.data;
-    },
-    getAgentDetails: function getAgentDetails() {
-
-      // axios.get(apiRoutes.agentDetails).then(rsp => {
-      //
-      // },
-      // err => {
-      //
-      //   axios.post(apiRoutes.agentLogout);
-      //   //exit the app or logout the user;
-      // });
     }
   }
 });
@@ -2402,6 +2394,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FundUser',
+  props: ['details', 'agent_details'],
   created: function created() {
     // Customise the validator message to be displayed
     var dict = {
@@ -2593,6 +2586,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2602,12 +2607,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MasterLayout',
+  created: function created() {
+    this.getAgentDetails();
+  },
+  data: function data() {
+    return {
+      agent_details: {}
+    };
+  },
+
   components: {
     AgentHeader: __WEBPACK_IMPORTED_MODULE_0__partials_AgentHeaderComponent___default.a, AgentFooter: __WEBPACK_IMPORTED_MODULE_3__partials_FooterComponent___default.a, AgentNav: __WEBPACK_IMPORTED_MODULE_1__partials_AgentNavComponent___default.a, AgentStatistics: __WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent___default.a
   },
   methods: {
     logoutAgent: function logoutAgent() {
       __WEBPACK_IMPORTED_MODULE_4__config_endpoints__["a" /* default */].logoutAgent();
+    },
+    getAgentDetails: function getAgentDetails() {
+      var _this = this;
+
+      axios.get(__WEBPACK_IMPORTED_MODULE_4__config_endpoints__["a" /* default */].agentDetails).then(function (rsp) {
+        _this.agent_details = rsp.data;
+      }, function (err) {
+        __WEBPACK_IMPORTED_MODULE_4__config_endpoints__["a" /* default */].logoutAgent('Could not retrieve user details. Logging you out.');
+      });
     }
   }
 });
@@ -2684,15 +2707,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['agent_details']
+});
 
 /***/ }),
 
@@ -2723,6 +2741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AgentNav',
+  props: ['agent_details'],
   data: function data() {
     return {
       isActive: 1
@@ -2868,7 +2887,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentHeaderComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentHeaderComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -2883,7 +2902,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -2943,7 +2962,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AA0CA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header  v-on:logout-agent=\"logoutAgent()\"></agent-header>\n\n      <agent-nav></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics></agent-statistics>\n\n        <slot name=\"content-section\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AAuEA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header  v-on:logout-agent=\"logoutAgent()\" v-bind:agent_details=\"agent_details\"></agent-header>\n\n      <agent-nav v-bind:agent_details=\"agent_details\"></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics></agent-statistics>\n\n        <!--\n          Bind the agent details to the slot. On the slot template create a slot scope thus\n          <template slot=\"content-section\" slot-scope=\"slotProps\"> </template>\n          Then the data is then available within the template as slotProps.whatever\n          This data can be passed as a prop to a component whether dynamic or fixed that is within the template\n          And of course it must be received in the props array of the said component\n          A complete example is\n          <template slot=\"content-section\" slot-scope=\"dataForSlot\">\n            The bound data is {{ dataForSlot }}\n            <component v-bind:is=\"currentComponent\" v-bind:dataToPass=\"dataForSlot\"></component>\n          </template>\n        -->\n        <slot name=\"content-section\" v-bind:agentDetails=\"agent_details\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    created(){\n      this.getAgentDetails();\n    },\n    data (){\n      return {\n        agent_details: {}\n      }\n    },\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      },\n      getAgentDetails(){\n        axios.get(apiRoutes.agentDetails).then(rsp => {\n          this.agent_details = rsp.data;\n        },\n        err => {\n          apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');\n        });\n\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -28974,7 +28993,51 @@ var render = function() {
     _c("div", { staticClass: "grid-container" }, [
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "grid-60" }, [
+        _c("nav", [
+          _c(
+            "div",
+            { staticClass: "ui labeled  button", attrs: { tabindex: "-1" } },
+            [
+              _c(
+                "div",
+                { staticClass: "ui purple button right pointing label" },
+                [_vm._v("Total Wallet Funding")]
+              ),
+              _vm._v(" "),
+              _c("a", { staticClass: "ui basic purple label " }, [
+                _vm._v(
+                  _vm._s(_vm._f("currency")(_vm.agent_details.units_purchased))
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "mini-game" } }, [
+            _c(
+              "div",
+              { staticClass: "ui labeled button ", attrs: { tabindex: "-1" } },
+              [
+                _c("div", { staticClass: "ui green button" }, [
+                  _vm._v("Current Wallet Balance")
+                ]),
+                _vm._v(" "),
+                _c("a", { staticClass: "ui basic left pointing green label" }, [
+                  _c("div", { attrs: { countdown: "game_timer" } }, [
+                    _c("h1", { staticClass: "time " }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("currency")(_vm.agent_details.available_units)
+                        )
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid-20" }, [
         _c("nav", [
@@ -29026,55 +29089,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "grid-35" }, [
+    return _c("div", { staticClass: "grid-20" }, [
       _c("a", { attrs: { href: "/" } }, [
         _c("img", { attrs: { src: "/img/logo.png", alt: "" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "grid-45" }, [
-      _c("nav", [
-        _c(
-          "div",
-          { staticClass: "ui labeled  button", attrs: { tabindex: "-1" } },
-          [
-            _c(
-              "div",
-              { staticClass: "ui purple button right pointing label" },
-              [
-                _c("i", { staticClass: "heart icon" }),
-                _vm._v(" Total Earnings\n          ")
-              ]
-            ),
-            _vm._v(" "),
-            _c("a", { staticClass: "ui basic purple label " }, [
-              _vm._v("\n            ₦35,256.00\n          ")
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "mini-game" } }, [
-          _c(
-            "div",
-            { staticClass: "ui labeled button ", attrs: { tabindex: "-1" } },
-            [
-              _c("div", { staticClass: "ui green button" }, [
-                _c("i", { staticClass: "gamepad icon" }),
-                _vm._v("Join Game\n            ")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "ui basic left pointing green label" }, [
-                _c("div", { attrs: { countdown: "game_timer" } }, [
-                  _c("h1", { staticClass: "time " }, [_vm._v("0:55")])
-                ])
-              ])
-            ]
-          )
-        ])
       ])
     ])
   }
@@ -29097,41 +29114,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "master-layout",
-    [
-      _c(
-        "template",
-        { slot: "content-section" },
-        [
-          _c(
-            "keep-alive",
-            [
-              _c(
-                _vm.currentComponent,
-                _vm._b(
-                  {
-                    tag: "component",
-                    on: {
-                      "switch-component": function($event) {
-                        _vm.switchComponent($event)
+  return _c("master-layout", {
+    scopedSlots: _vm._u([
+      {
+        key: "content-section",
+        fn: function(propsForSlot) {
+          return [
+            _c(
+              "keep-alive",
+              [
+                _c(
+                  _vm.currentComponent,
+                  _vm._b(
+                    {
+                      tag: "component",
+                      attrs: { agent_details: propsForSlot.agentDetails },
+                      on: {
+                        "switch-component": function($event) {
+                          _vm.switchComponent($event)
+                        }
                       }
-                    }
-                  },
-                  "component",
-                  _vm.currentProperties,
-                  false
+                    },
+                    "component",
+                    _vm.currentProperties,
+                    false
+                  )
                 )
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    2
-  )
+              ],
+              1
+            )
+          ]
+        }
+      }
+    ])
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -29154,7 +29170,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { attrs: { id: "u_details" } }, [
     _c("div", { staticClass: "grid-container" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "grid-30" }, [
+        _c(
+          "h2",
+          { staticClass: "header ", staticStyle: { "margin-bottom": "2px" } },
+          [_vm._v("Hi Agent " + _vm._s(_vm.agent_details.firstname))]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid-60 flex-center" }, [
         _c(
@@ -29184,20 +29206,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "grid-30" }, [
-      _c(
-        "h2",
-        { staticClass: "header ", staticStyle: { "margin-bottom": "2px" } },
-        [_vm._v("Hi Agent ")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -29388,6 +29397,7 @@ var render = function() {
     "div",
     [
       _c("agent-header", {
+        attrs: { agent_details: _vm.agent_details },
         on: {
           "logout-agent": function($event) {
             _vm.logoutAgent()
@@ -29395,12 +29405,16 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("agent-nav"),
+      _c("agent-nav", { attrs: { agent_details: _vm.agent_details } }),
       _vm._v(" "),
       _c(
         "div",
         { attrs: { id: "dashboard" } },
-        [_c("agent-statistics"), _vm._v(" "), _vm._t("content-section")],
+        [
+          _c("agent-statistics"),
+          _vm._v(" "),
+          _vm._t("content-section", null, { agentDetails: _vm.agent_details })
+        ],
         2
       ),
       _vm._v(" "),

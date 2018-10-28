@@ -90,13 +90,11 @@
 </template>
 
 <script>
-import {
-  apiRootUrl
-} from '../config/endpoints';
 import apiRoutes from '../config/endpoints';
 
 export default {
   name: 'FundUser',
+  props: ['details', 'agent_details'],
   created() {
     // Customise the validator message to be displayed
 			const dict = {

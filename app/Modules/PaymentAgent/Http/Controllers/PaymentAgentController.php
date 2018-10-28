@@ -5,6 +5,7 @@ namespace App\Modules\PaymentAgent\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\User;
@@ -46,6 +47,15 @@ class PaymentAgentController extends Controller
               return ['status' => true, 'message' => 'User credited'];
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'User not found' ], 204);
+            }
+
+          });
+
+          Route::get('get-agent-details', function () {
+            try {
+              return Auth::user();
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'User not found' ], 403);
             }
 
           });

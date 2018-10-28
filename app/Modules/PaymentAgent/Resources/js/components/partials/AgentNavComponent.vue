@@ -2,7 +2,7 @@
   <section id="u_details" class="">
     <div class="grid-container">
       <div class="grid-30">
-          <h2 class="header " style="margin-bottom: 2px;">Hi Agent </h2>
+          <h2 class="header " style="margin-bottom: 2px;">Hi Agent {{ agent_details.firstname }}</h2>
       </div>
       <div class="grid-60 flex-center">
         <div class="ui compact menu">
@@ -20,6 +20,7 @@
 
   export default {
     name: 'AgentNav',
+    props:['agent_details'],
     data () {
       return {
         isActive: 1

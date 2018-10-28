@@ -27,8 +27,11 @@ const agentFindUser = apiRootUrl('find-user');
 const agentCreditUser = apiRootUrl('credit-user');
 const agentLogout = rootUrl('logout');
 
-const logoutAgent = () => {
-  swal("Logging you out....", {
+const logoutAgent = (msg = null) => {
+  if (!msg) {
+    msg = "Logging you out....";
+  }
+  swal(msg, {
     buttons: false,
   });
   axios.post(agentLogout).then( rsp => {
