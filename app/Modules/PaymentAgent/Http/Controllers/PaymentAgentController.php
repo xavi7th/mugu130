@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\User;
 use App\Modules\PaymentAgent\Models\PaymentAgent;
+use App\Earning;
 
 /**
  * undocumented class variable
@@ -45,11 +46,17 @@ class PaymentAgentController extends Controller
             if (Auth::user()->available_units < request('amount')) {
               return response()->json(['message' => 'Insufficient balance' ], 200);
             }
+            if (request('amount') < 200) {
+              return response()->json(['message' => 'Funding amount must be greater that 200' ], 200);
+            }
+
+            $amount_to_credit_user = request('amount') - env('AGENT_REMITAL_FEE') - env('AGENT_PROFIT');
+
             try {
               DB::beginTransaction();
                   $user = User::findOrFail(request('user_id'));
-                  $user->available_units += request('amount');
-                  $user->units_purchased += request('amount');
+                  $user->available_units += $amount_to_credit_user;
+                  $user->units_purchased += $amount_to_credit_user;
                   $user->save();
 
                   Auth::user()->available_units -= request('amount');
@@ -57,7 +64,7 @@ class PaymentAgentController extends Controller
 
                   //Create a transaction record for the user
                   $user->transactions()->create([
-                    'amount' => request('amount'),
+                    'amount' => $amount_to_credit_user,
                     'ref_no' => 'AGENT-' . str_random(rand(20,30)),
                     'trans_type' => 'wallet funding',
                     'status' => 'completed',
@@ -71,6 +78,12 @@ class PaymentAgentController extends Controller
                     'trans_type' => 'user wallet funding',
                     'status' => 'completed'
                   ]);
+
+                  //Add admin earning
+                  Earning::addAdminEarningFromAgent(env('AGENT_REMITAL_FEE'));
+
+                  //Add agent Earning
+                  Auth::user()->addEarning(0, env('AGENT_PROFIT'));
               DB::commit();
               return ['status' => true, 'message' => 'User credited'];
             } catch (ModelNotFoundException $e) {

@@ -2453,7 +2453,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (result) {
           swal({
             title: "Are you sure?",
-            text: "Once credited, you will not be able to reverse this transaction!",
+            text: '\u20A6' + _this2.credit_amount + ' will be deducted from your wallet. You will make a profit of \u20A650. Are you sure you want to fund this user with \u20A6' + (_this2.credit_amount - 100) + '? ',
             icon: "warning",
             buttons: {
               cancel: true,

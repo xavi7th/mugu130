@@ -84,6 +84,16 @@ class Earning extends Model{
 		]);
   }
 
+
+  public static function addAdminEarningFromAgent($amt){
+		self::create([
+			'user_id' => 0,
+			'agent_id' => Auth::id(),
+			'game_id' => 0,
+			'amount' => $amt,
+		]);
+  }
+
 	/**
 	 * Scope a query to only include today's earnings.
 	 *
