@@ -32,12 +32,12 @@ window._ = require('lodash');
 
 
 import Vue from 'vue'
-import VueRouter from 'vue-router';
 import Vue2Filters from 'vue2-filters'
 import VeeValidate from 'vee-validate';
+import { createRouter } from './router';
+import swal from 'sweetalert';
 
 
-Vue.use(VueRouter);
 Vue.use(Vue2Filters)
 Vue.use(VeeValidate);
 
@@ -47,46 +47,14 @@ Vue.use(VeeValidate);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import App from './components/AppComponent';
-// import UserDailyAccSummary from './components/UserDailyAccSummaryComponent';
-// import UserDenied from './components/UserDeniedComponent';
-// import UserTransferToSelf from './components/UserTransferToSelfComponent';
-// import UserFeedback from './components/UserTransferToSelfComponent';
-
-/**
- * Asynchronously load view (Webpack Lazy loading compatible)
- * @param  {string}   name     the filename (basename) of the view to load.
- */
-function view(name) {
-    return function(resolve) {
-        require(['./components/' + name], resolve);
-    };
-}
-
-
-
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/agent/dashboard',
-            name: 'dashboard',
-            component: App
-        },
-        {
-            path: '/user/acc-summary',
-            name: 'accsummary',
-            component: view('UserAccSummaryComponent'),
-        },
-        { path: '*', redirect: '/agent/dashboard' }
-    ],
+const router = createRouter();
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 });
 
 const app = new Vue({
     el: '#app',
-    components: {
-      // UserDashboard
-    },
     data: {
       transitionName: 'page'
     },

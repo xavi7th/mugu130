@@ -10,7 +10,7 @@
 // export const apiDomain = 'https://fastplay24.com/agent/api/'
 
 // development server
-export const apiDomain = 'http://localhost:8000/agent/api/'
+export const apiDomain = 'http://localhost:3000/agent/api/'
 
 // End Points
 
@@ -22,5 +22,9 @@ export const apiRootUrl = (url) => (apiDomain + url)
 
 export const rootUrl = (url) => '/' + url
 
-export const loginUrl = apiRootUrl('user/login');
-export const registerUrl = apiRootUrl('user/register');
+export const agentFindUser = apiRootUrl('find-user');
+export const agentCreditUser = apiRootUrl('credit-user');
+
+export default {
+  agentFindUser, agentCreditUser
+}

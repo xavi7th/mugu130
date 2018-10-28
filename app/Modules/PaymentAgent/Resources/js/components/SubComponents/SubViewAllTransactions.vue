@@ -3,30 +3,7 @@
       <div class="row">
         <div class="col-md-12">
            <!--    Hover Rows  -->
-           <li>
-             <router-link @click.native="setActive(1)" :class="[isActive == 1 ? 'active-menu' : '']" to="agent//dashboard"><i class="fa fa-dashboard"></i> Dashboard </router-link>
-           </li>
-           <li>
-             <router-link @click.native="setActive(2)" :class="[isActive == 2 ? 'active-menu' : '']" :to="{ name: 'admin.manage-users' }"> <i class="fa fa-users"></i>  Manage Users</router-link>
-           </li>
-           <li>
-             <router-link @click.native="setActive(3)" :class="[isActive == 3 ? 'active-menu' : '']" :to="{ name: 'admin.manage-transactions' }"> <i class="fa fa-bar-chart-o"></i>  Manage Transactions</router-link>
-           </li>
-           <li>
-             <router-link @click.native="setActive(4)" :class="[isActive == 4 ? 'active-menu' : '']" :to="{ name: 'admin.manage-transfer-requests' }"> <i class="fa fa-credit-card"></i>  Manage Transfer Requests</router-link>
-           </li>
-           <li>
-             <router-link @click.native="setActive(5)" :class="[isActive == 5 ? 'active-menu' : '']" :to="{ name: 'admin.manage-messages' }"> <i class="fa fa-envelope"></i>  Manage Messages</router-link>
-           </li>
-           <li>
-             <a href="/logout"
-               onclick="event.preventDefault();
-               document.getElementById('logout-form').submit();">
-               <i class="fa fa-sign-out fa-fw"></i> Logout
-             </a>
-             <form id="logout-form" action="/logout" method="POST" style="display: none;">
-             </form>
-           </li>
+
           <div class="panel panel-default">
             <div class="panel-heading">
                 Transaction Records

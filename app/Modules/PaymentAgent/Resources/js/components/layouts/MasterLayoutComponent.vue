@@ -1,24 +1,34 @@
 <template>
-  <div>
-      <inverse-nav />
 
-      <div class="container-fluid master-container">
+  <div>
+
+      <agent-header></agent-header>
+
+      <agent-nav></agent-nav>
+
+      <div id="dashboard">
+
+        <agent-statistics></agent-statistics>
 
         <slot name="content-section"></slot>
 
       </div>
 
+      <agent-footer></agent-footer>
 
-      <footer-component />
   </div>
+
 </template>
+
 <script>
   import AgentHeader from '../partials/AgentHeaderComponent'
-  import Footer from '../partials/FooterComponent'
+  import AgentNav from '../partials/AgentNavComponent'
+  import AgentStatistics from '../partials/AgentStatisticsComponent'
+  import AgentFooter from '../partials/FooterComponent'
   export default {
     name: 'MasterLayout',
     components: {
-      AgentHeader, Footer
+      AgentHeader, AgentFooter, AgentNav, AgentStatistics
     }
   }
 </script>

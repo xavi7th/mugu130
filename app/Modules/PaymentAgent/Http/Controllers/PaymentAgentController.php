@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\User;
 
 /**
  * undocumented class variable
@@ -24,6 +26,32 @@ class PaymentAgentController extends Controller
     public static function routes(){
         // LoginController::routes();
 
+        Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'api'], function(){
+
+          Route::get('find-user/{email}', function ($email) {
+            try {
+              return User::where('email', $email)->firstOrFail()->only(['email', 'firstname', 'lastname', 'id']);
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
+
+          });
+
+          Route::post('credit-user', function () {
+            try {
+              $user = User::findOrFail(request('user_id'));
+              $user->available_units += request('amount');
+              $user->units_purchased += request('amount');
+              $user->save();
+              return ['status' => true, 'message' => 'User credited'];
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'User not found' ], 204);
+            }
+
+          });
+
+        });
+
         Route::group(['middleware' => ['auth', 'suspended', 'agent']], function(){
 
           Route::get('/{vue_capture?}', function () {
@@ -32,10 +60,7 @@ class PaymentAgentController extends Controller
 
         });
 
-      Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'api'], function(){
 
-
-      });
     }
 
     /**

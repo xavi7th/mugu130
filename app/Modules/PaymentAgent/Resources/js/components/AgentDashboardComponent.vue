@@ -3,29 +3,15 @@
 
       <template slot="content-section">
 
-        <div class="container accommodations-container">
+        <keep-alive>
+          <component
+          v-bind:is="currentComponent"
+          v-bind="currentProperties"
+          v-on:switch-component="switchComponent($event)"
+          ></component>
+        </keep-alive>
 
-          <div class="row">
-
-
-          </div>
-
-          <div class="row justify-content-center">
-
-          <div class="col-sm-6" v-if="loaders.results">
-
-                <div class="text-center">
-
-                  <page-loading :size="120"></page-loading>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-        </div>
+        <!-- <page-loading :size="120"></page-loading> -->
 
 
       </template>
@@ -34,30 +20,41 @@
 </template>
 <script>
     import MasterLayout from './layouts/MasterLayoutComponent'
-    import AgentNav from './partials/AgentNavComponent'
-    import AgentStatistics from './partials/AgentStatisticsComponent'
+    import FundUser from './AgentFundUser'
     import Loader from './misc/LoaderComponent'
-    import { apiRootUrl } from '../config/endpoints'
 
     export default {
-        // name: 'AccommodationsComponent',
+        name: 'AccommodationsComponent',
         components: {
-            pageLoading:Loader,
-            MasterLayout
-        },
-        data () {
-            return {}
-        },
-        methods: {
-            getaccommodations () {}
+            pageLoading: Loader,
+            MasterLayout,
+            FundUser
         },
         mounted() {
-            this.getaccommodations();
+            // this.getaccommodations();
+        },
+        data() {
+          return {
+            currentComponent: 'FundUser',
+            propsToPass: {}
+          };
+        },
+        computed: {
+          currentProperties: function() {
+            return {
+              details: this.propsToPass
+            }
+          },
+        },
+        methods: {
+          switchComponent(dt) {
+            // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object
+            this.currentComponent = dt.comp;
+            this.propsToPass = dt.data;
+          },
         }
     }
 </script>
 <style>
-.accommodations-container {
-    padding-top: 4rem !important;
-  }
+
 </style>
