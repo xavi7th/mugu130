@@ -13,8 +13,8 @@
 
           <div id="mini-game" class="">
             <div class="ui labeled button " tabindex="-1">
-              <div class="ui green button">Current Wallet Balance</div>
-              <a class="ui basic left pointing green label">
+              <div class="ui button" :class="units_level">Current Wallet Balance</div>
+              <a class="ui basic left pointing label" :class="units_level">
                 <div countdown="game_timer">
                   <h1 class="time ">{{ agent_details.available_units | currency }}</h1>
                 </div>
@@ -43,7 +43,20 @@
 
 <script>
 export default {
-  props: ['agent_details']
+  props: ['agent_details'],
+  computed: {
+    units_level () {
+      if (this.agent_details.available_units <= 500) {
+        return 'red'
+      }
+      else if(this.agent_details.available_units <= 1000) {
+        return 'yellow'
+      }
+      else {
+        return 'green'
+      }
+    }
+  }
 }
 </script>
 

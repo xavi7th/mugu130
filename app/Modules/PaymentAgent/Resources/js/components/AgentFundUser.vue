@@ -21,7 +21,7 @@
             <div class="ui icon input">
 
               <input class="prompt" type="text" :placeholder="`enter amount to credit ${user_details.firstname}`" name="credit_amount"
-              v-model="credit_amount" v-validate="'numeric'" autofocus>
+              v-model="credit_amount" v-validate="'min_value:200'" autofocus min="200">
 
               <i class="download icon"></i>
 
@@ -40,7 +40,7 @@
           </div>
 
           <button :class="['ui', 'blue', 'button', {'loading' : loading}]"
-          :disabled="loading || !credit_amount || errors.has('credit_amount')" type="submit">Credit Amount</button>
+          :disabled="loading || !credit_amount || errors.has('credit_amount') || credit_amount > agent_details.available_units" type="submit">Credit Amount</button>
 
         </form>
 
@@ -58,7 +58,7 @@
 
             <div class="ui icon input">
 
-              <input class="prompt" type="text" placeholder="enter email address" name="user_email"
+              <input class="prompt" type="text" placeholder="enter email address" name="user_email" autofocus
                      v-model="user_email" v-validate="'email'">
 
               <i class="search icon"></i>
@@ -118,6 +118,12 @@ export default {
     checkFields() {
 			return this.$validator.validate();
 		},
+    resetComponent() {
+      this.loading=false;
+      this.user_details = null;
+      this.user_email = null;
+      this.credit_amount = null;
+		},
     findUser (){
       this.checkFields().then(result => {
         if (result) {
@@ -170,20 +176,27 @@ export default {
           })
           .then(rsp => {
             if (!rsp.data.status) {
-              return swal('Error', 'Something went wrong at the server. User not credited', 'error');
+              if (rsp.data.message) {
+                this.resetComponent();
+                return swal(rsp.data.message, '', 'error');
+              }
+              else{
+                this.resetComponent();
+                return swal('Error', 'Something went wrong at the server. User not credited', 'error');
+              }
             }
             else {
+              this.agent_details.available_units -= this.credit_amount;
               swal({
                 title: "Success",
                 text: rsp.data.message,
                 icon: 'success',
               });
             }
-            this.loading=false;
-            this.user_details = null;
-            this.user_email = null;
+            this.resetComponent();
           })
           .catch(err => {
+            this.resetComponent();
             if (err) {
               swal("Oh noes!", "The AJAX request failed!", "error");
             }

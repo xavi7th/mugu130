@@ -2419,6 +2419,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     checkFields: function checkFields() {
       return this.$validator.validate();
     },
+    resetComponent: function resetComponent() {
+      this.loading = false;
+      this.user_details = null;
+      this.user_email = null;
+      this.credit_amount = null;
+    },
     findUser: function findUser() {
       var _this = this;
 
@@ -2471,18 +2477,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
           }).then(function (rsp) {
             if (!rsp.data.status) {
-              return swal('Error', 'Something went wrong at the server. User not credited', 'error');
+              if (rsp.data.message) {
+                _this2.resetComponent();
+                return swal(rsp.data.message, '', 'error');
+              } else {
+                _this2.resetComponent();
+                return swal('Error', 'Something went wrong at the server. User not credited', 'error');
+              }
             } else {
+              _this2.agent_details.available_units -= _this2.credit_amount;
               swal({
                 title: "Success",
                 text: rsp.data.message,
                 icon: 'success'
               });
             }
-            _this2.loading = false;
-            _this2.user_details = null;
-            _this2.user_email = null;
+            _this2.resetComponent();
           }).catch(function (err) {
+            _this2.resetComponent();
             if (err) {
               swal("Oh noes!", "The AJAX request failed!", "error");
             } else {
@@ -2709,7 +2721,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['agent_details']
+  props: ['agent_details'],
+  computed: {
+    units_level: function units_level() {
+      if (this.agent_details.available_units <= 500) {
+        return 'red';
+      } else if (this.agent_details.available_units <= 1000) {
+        return 'yellow';
+      } else {
+        return 'green';
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2887,7 +2910,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentHeaderComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentHeaderComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -29018,21 +29041,32 @@ var render = function() {
               "div",
               { staticClass: "ui labeled button ", attrs: { tabindex: "-1" } },
               [
-                _c("div", { staticClass: "ui green button" }, [
-                  _vm._v("Current Wallet Balance")
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "ui button", class: _vm.units_level },
+                  [_vm._v("Current Wallet Balance")]
+                ),
                 _vm._v(" "),
-                _c("a", { staticClass: "ui basic left pointing green label" }, [
-                  _c("div", { attrs: { countdown: "game_timer" } }, [
-                    _c("h1", { staticClass: "time " }, [
-                      _vm._v(
-                        _vm._s(
-                          _vm._f("currency")(_vm.agent_details.available_units)
+                _c(
+                  "a",
+                  {
+                    staticClass: "ui basic left pointing label",
+                    class: _vm.units_level
+                  },
+                  [
+                    _c("div", { attrs: { countdown: "game_timer" } }, [
+                      _c("h1", { staticClass: "time " }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currency")(
+                              _vm.agent_details.available_units
+                            )
+                          )
                         )
-                      )
+                      ])
                     ])
-                  ])
-                ])
+                  ]
+                )
               ]
             )
           ])
@@ -29559,8 +29593,8 @@ var render = function() {
                             {
                               name: "validate",
                               rawName: "v-validate",
-                              value: "numeric",
-                              expression: "'numeric'"
+                              value: "min_value:200",
+                              expression: "'min_value:200'"
                             }
                           ],
                           staticClass: "prompt",
@@ -29570,7 +29604,8 @@ var render = function() {
                               "enter amount to credit " +
                               _vm.user_details.firstname,
                             name: "credit_amount",
-                            autofocus: ""
+                            autofocus: "",
+                            min: "200"
                           },
                           domProps: { value: _vm.credit_amount },
                           on: {
@@ -29608,7 +29643,8 @@ var render = function() {
                         disabled:
                           _vm.loading ||
                           !_vm.credit_amount ||
-                          _vm.errors.has("credit_amount"),
+                          _vm.errors.has("credit_amount") ||
+                          _vm.credit_amount > _vm.agent_details.available_units,
                         type: "submit"
                       }
                     },
@@ -29664,7 +29700,8 @@ var render = function() {
                           attrs: {
                             type: "text",
                             placeholder: "enter email address",
-                            name: "user_email"
+                            name: "user_email",
+                            autofocus: ""
                           },
                           domProps: { value: _vm.user_email },
                           on: {

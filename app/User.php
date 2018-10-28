@@ -16,6 +16,7 @@ use App\UserGameSession;
 use Carbon\Carbon;
 
 use App\Mail\TransactionalMail;
+use App\Modules\PaymentAgent\Models\PaymentAgentTransactions;
 
 use Illuminate\Notifications\Notifiable;
 

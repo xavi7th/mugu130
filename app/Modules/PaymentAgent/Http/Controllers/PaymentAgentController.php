@@ -5,10 +5,12 @@ namespace App\Modules\PaymentAgent\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\User;
+use App\Modules\PaymentAgent\Models\PaymentAgent;
 
 /**
  * undocumented class variable
@@ -39,11 +41,37 @@ class PaymentAgentController extends Controller
           });
 
           Route::post('credit-user', function () {
+
+            if (Auth::user()->available_units < request('amount')) {
+              return response()->json(['message' => 'Insufficient balance' ], 200);
+            }
             try {
-              $user = User::findOrFail(request('user_id'));
-              $user->available_units += request('amount');
-              $user->units_purchased += request('amount');
-              $user->save();
+              DB::beginTransaction();
+                  $user = User::findOrFail(request('user_id'));
+                  $user->available_units += request('amount');
+                  $user->units_purchased += request('amount');
+                  $user->save();
+
+                  Auth::user()->available_units -= request('amount');
+                  Auth::user()->save();
+
+                  //Create a transaction record for the user
+                  $user->transactions()->create([
+                    'amount' => request('amount'),
+                    'ref_no' => 'AGENT-' . str_random(rand(20,30)),
+                    'trans_type' => 'wallet funding',
+                    'status' => 'completed',
+                    'channel' => 'bank deposit'
+                  ]);
+
+                  //Create a transaction record for the agent
+                  PaymentAgent::find(Auth::id())->agent_transactions()->create([
+                    'amount' => request('amount'),
+                    'credited_user_id' => request('user_id'),
+                    'trans_type' => 'user wallet funding',
+                    'status' => 'completed'
+                  ]);
+              DB::commit();
               return ['status' => true, 'message' => 'User credited'];
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'User not found' ], 204);
