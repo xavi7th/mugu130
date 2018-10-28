@@ -2,7 +2,7 @@
 
   <div>
 
-      <agent-header></agent-header>
+      <agent-header  v-on:logout-agent="logoutAgent()"></agent-header>
 
       <agent-nav></agent-nav>
 
@@ -25,10 +25,17 @@
   import AgentNav from '../partials/AgentNavComponent'
   import AgentStatistics from '../partials/AgentStatisticsComponent'
   import AgentFooter from '../partials/FooterComponent'
+  import apiRoutes from '../../config/endpoints'
+
   export default {
     name: 'MasterLayout',
     components: {
       AgentHeader, AgentFooter, AgentNav, AgentStatistics
+    },
+    methods: {
+      logoutAgent(){
+        apiRoutes.logoutAgent();
+      }
     }
   }
 </script>

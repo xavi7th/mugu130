@@ -556,8 +556,6 @@ module.exports = Component.exports
 /* unused harmony export apiDomain */
 /* unused harmony export apiRootUrl */
 /* unused harmony export rootUrl */
-/* unused harmony export agentFindUser */
-/* unused harmony export agentCreditUser */
 // Base Url
 
 // development server endpoint
@@ -586,11 +584,22 @@ var rootUrl = function rootUrl(url) {
   return '/' + url;
 };
 
+var agentDetails = apiRootUrl('get-agent-details');
 var agentFindUser = apiRootUrl('find-user');
 var agentCreditUser = apiRootUrl('credit-user');
+var agentLogout = rootUrl('logout');
+
+var logoutAgent = function logoutAgent() {
+  swal("Logging you out....", {
+    buttons: false
+  });
+  axios.post(agentLogout).then(function (rsp) {
+    location.reload();
+  });
+};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  agentFindUser: agentFindUser, agentCreditUser: agentCreditUser
+  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, logoutAgent: logoutAgent
 });
 
 /***/ }),
@@ -2218,6 +2227,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AgentFundUser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AgentFundUser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 //
 //
 //
@@ -2238,6 +2248,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2251,7 +2262,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUser___default.a
   },
   mounted: function mounted() {
-    // this.getaccommodations();
+    this.getAgentDetails();
   },
   data: function data() {
     return {
@@ -2272,6 +2283,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object
       this.currentComponent = dt.comp;
       this.propsToPass = dt.data;
+    },
+    getAgentDetails: function getAgentDetails() {
+
+      // axios.get(apiRoutes.agentDetails).then(rsp => {
+      //
+      // },
+      // err => {
+      //
+      //   axios.post(apiRoutes.agentLogout);
+      //   //exit the app or logout the user;
+      // });
     }
   }
 });
@@ -2375,7 +2397,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 
@@ -2549,6 +2570,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_FooterComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partials_FooterComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__partials_FooterComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 //
 //
 //
@@ -2571,6 +2593,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
@@ -2580,6 +2604,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: 'MasterLayout',
   components: {
     AgentHeader: __WEBPACK_IMPORTED_MODULE_0__partials_AgentHeaderComponent___default.a, AgentFooter: __WEBPACK_IMPORTED_MODULE_3__partials_FooterComponent___default.a, AgentNav: __WEBPACK_IMPORTED_MODULE_1__partials_AgentNavComponent___default.a, AgentStatistics: __WEBPACK_IMPORTED_MODULE_2__partials_AgentStatisticsComponent___default.a
+  },
+  methods: {
+    logoutAgent: function logoutAgent() {
+      __WEBPACK_IMPORTED_MODULE_4__config_endpoints__["a" /* default */].logoutAgent();
+    }
   }
 });
 
@@ -2854,7 +2883,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -2914,7 +2943,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AAmCA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header></agent-header>\n\n      <agent-nav></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics></agent-statistics>\n\n        <slot name=\"content-section\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  export default {\n    name: 'MasterLayout',\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AA0CA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header  v-on:logout-agent=\"logoutAgent()\"></agent-header>\n\n      <agent-nav></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics></agent-statistics>\n\n        <slot name=\"content-section\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -28941,101 +28970,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("header", { attrs: { id: "alpha" } }, [
+    _c("div", { staticClass: "grid-container" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "grid-20" }, [
+        _c("nav", [
+          _c(
+            "div",
+            {
+              staticClass: "ui right floated horizontal list",
+              staticStyle: { "line-height": "40px" }
+            },
+            [
+              _c("a", { staticClass: "item", attrs: { href: "/dashboard" } }, [
+                _vm._v("Dashboard")
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "item", attrs: { href: "/tcom01/settings" } },
+                [_vm._v("Profile")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "item",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.$emit("logout-agent")
+                    }
+                  }
+                },
+                [
+                  _vm._v("Logout "),
+                  _c("i", {
+                    staticClass: "sign out icon",
+                    staticStyle: { color: "white" }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("header", { attrs: { id: "alpha" } }, [
-      _c("div", { staticClass: "grid-container" }, [
-        _c("div", { staticClass: "grid-35" }, [
-          _c("a", { attrs: { href: "/" } }, [
-            _c("img", { attrs: { src: "/img/logo.png", alt: "" } })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "grid-45" }, [
-          _c("nav", [
+    return _c("div", { staticClass: "grid-35" }, [
+      _c("a", { attrs: { href: "/" } }, [
+        _c("img", { attrs: { src: "/img/logo.png", alt: "" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "grid-45" }, [
+      _c("nav", [
+        _c(
+          "div",
+          { staticClass: "ui labeled  button", attrs: { tabindex: "-1" } },
+          [
             _c(
               "div",
-              { staticClass: "ui labeled  button", attrs: { tabindex: "-1" } },
+              { staticClass: "ui purple button right pointing label" },
               [
-                _c(
-                  "div",
-                  { staticClass: "ui purple button right pointing label" },
-                  [
-                    _c("i", { staticClass: "heart icon" }),
-                    _vm._v(" Total Earnings\n          ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c("a", { staticClass: "ui basic purple label " }, [
-                  _vm._v("\n            ₦35,256.00\n          ")
-                ])
+                _c("i", { staticClass: "heart icon" }),
+                _vm._v(" Total Earnings\n          ")
               ]
             ),
             _vm._v(" "),
-            _c("div", { attrs: { id: "mini-game" } }, [
-              _c(
-                "div",
-                {
-                  staticClass: "ui labeled button ",
-                  attrs: { tabindex: "-1" }
-                },
-                [
-                  _c("div", { staticClass: "ui green button" }, [
-                    _c("i", { staticClass: "gamepad icon" }),
-                    _vm._v("Join Game\n            ")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "ui basic left pointing green label" },
-                    [
-                      _c("div", { attrs: { countdown: "game_timer" } }, [
-                        _c("h1", { staticClass: "time " }, [_vm._v("0:55")])
-                      ])
-                    ]
-                  )
-                ]
-              )
+            _c("a", { staticClass: "ui basic purple label " }, [
+              _vm._v("\n            ₦35,256.00\n          ")
             ])
-          ])
-        ]),
+          ]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "grid-20" }, [
-          _c("nav", [
-            _c(
-              "div",
-              {
-                staticClass: "ui right floated horizontal list",
-                staticStyle: { "line-height": "40px" }
-              },
-              [
-                _c(
-                  "a",
-                  { staticClass: "item", attrs: { href: "/dashboard" } },
-                  [_vm._v("Dashboard")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "item", attrs: { href: "/tcom01/settings" } },
-                  [_vm._v("Profile")]
-                ),
-                _vm._v(" "),
-                _c("a", { staticClass: "item", attrs: { href: "" } }, [
-                  _vm._v("Logout "),
-                  _c("i", {
-                    staticClass: "sign out icon",
-                    staticStyle: { color: "white" }
-                  })
+        _c("div", { attrs: { id: "mini-game" } }, [
+          _c(
+            "div",
+            { staticClass: "ui labeled button ", attrs: { tabindex: "-1" } },
+            [
+              _c("div", { staticClass: "ui green button" }, [
+                _c("i", { staticClass: "gamepad icon" }),
+                _vm._v("Join Game\n            ")
+              ]),
+              _vm._v(" "),
+              _c("a", { staticClass: "ui basic left pointing green label" }, [
+                _c("div", { attrs: { countdown: "game_timer" } }, [
+                  _c("h1", { staticClass: "time " }, [_vm._v("0:55")])
                 ])
-              ]
-            )
-          ])
+              ])
+            ]
+          )
         ])
       ])
     ])
@@ -29349,7 +29387,13 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("agent-header"),
+      _c("agent-header", {
+        on: {
+          "logout-agent": function($event) {
+            _vm.logoutAgent()
+          }
+        }
+      }),
       _vm._v(" "),
       _c("agent-nav"),
       _vm._v(" "),

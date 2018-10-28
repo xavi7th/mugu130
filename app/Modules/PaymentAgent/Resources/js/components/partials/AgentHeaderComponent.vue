@@ -38,7 +38,7 @@
 
             <a class="item" href="/tcom01/settings">Profile</a>
 
-            <a class="item" href="">Logout <i class="sign out icon" style="color:white;"></i></a>
+            <a href="#" class="item" @click="$emit('logout-agent')">Logout <i class="sign out icon" style="color:white;"></i></a>
 
           </div>
         </nav>

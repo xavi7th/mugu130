@@ -10,7 +10,7 @@
 // export const apiDomain = 'https://fastplay24.com/agent/api/'
 
 // development server
-export const apiDomain = 'http://localhost:3000/agent/api/'
+export const apiDomain = 'http://localhost:3000/agent/api/';
 
 // End Points
 
@@ -18,13 +18,24 @@ export const apiDomain = 'http://localhost:3000/agent/api/'
  *
  * @param {string} url
  */
-export const apiRootUrl = (url) => (apiDomain + url)
+export const apiRootUrl = (url) => (apiDomain + url);
 
-export const rootUrl = (url) => '/' + url
+export const rootUrl = (url) => '/' + url;
 
-export const agentFindUser = apiRootUrl('find-user');
-export const agentCreditUser = apiRootUrl('credit-user');
+const agentDetails = apiRootUrl('get-agent-details');
+const agentFindUser = apiRootUrl('find-user');
+const agentCreditUser = apiRootUrl('credit-user');
+const agentLogout = rootUrl('logout');
+
+const logoutAgent = () => {
+  swal("Logging you out....", {
+    buttons: false,
+  });
+  axios.post(agentLogout).then( rsp => {
+    location.reload();
+  });
+};
 
 export default {
-  agentFindUser, agentCreditUser
-}
+  apiRootUrl, agentFindUser, agentCreditUser, agentDetails, logoutAgent
+};
