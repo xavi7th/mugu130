@@ -9,7 +9,8 @@
 
                 <div class="ui statistic">
                   <div class="value">
-                    <i class="inbox icon" style="color: #03A9F4; text-shadow:1px 1px 2px #999;"></i><span style="color: #03A9F4; text-shadow:1px 1px 2px #999;" class="">2</span>
+                    <i class="inbox icon"></i>
+                    <span>{{ agent_details.available_units | currency }}</span>
                   </div>
                   <div class="label">
                     Wallet Balance
@@ -28,7 +29,7 @@
 
                 <div class="ui statistic">
                   <div class="value ">
-                    <i class="users icon"></i> 392
+                    <i class="users icon"></i> {{ agent_details.total_user_fundings }}
                   </div>
                   <div class="label">
                     Total User Fundings
@@ -47,8 +48,8 @@
 
                 <div class="ui statistic">
                   <div class="value">
-                    <i class="money bill alternate outline icon " style="color: red"></i>
-                    <span style="color: red">6</span>
+                    <i class="money bill alternate outline icon " style="color: green"></i>
+                    <span style="color: green"> {{ agent_details.total_untransferred_earnings | currency }}</span>
                   </div>
                   <div class="label">
                     Profit
@@ -65,6 +66,10 @@
 
 <script>
 export default {
+  props: ['agent_details'],
+  created(){
+    console.log(this.agent_details);
+  }
 }
 </script>
 
@@ -72,6 +77,15 @@ export default {
 
   .ui.card{
     width: 100%;
+  }
+
+  .inbox.icon{
+    color: #03A9F4;
+    text-shadow:1px 1px 2px #999;
+
+    &+span{
+      color: #03A9F4; text-shadow:1px 1px 2px #999;
+    }
   }
 
 </style>

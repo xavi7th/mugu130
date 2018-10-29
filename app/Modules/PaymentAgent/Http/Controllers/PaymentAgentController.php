@@ -94,7 +94,7 @@ class PaymentAgentController extends Controller
 
           Route::get('get-agent-details', function () {
             try {
-              return Auth::user();
+              return PaymentAgent::find(Auth::id());
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'User not found' ], 403);
             }

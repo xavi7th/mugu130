@@ -3251,8 +3251,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['agent_details'],
+  created: function created() {
+    console.log(this.agent_details);
+  }
+});
 
 /***/ }),
 
@@ -3296,7 +3302,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.ui.card {\n  width: 100%;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue"],"names":[],"mappings":";AAAA;EACE,YAAY;CAAE","file":"AgentStatisticsComponent.vue","sourcesContent":[".ui.card {\n  width: 100%; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.ui.card {\n  width: 100%;\n}\n.inbox.icon {\n  color: #03A9F4;\n  text-shadow: 1px 1px 2px #999;\n}\n.inbox.icon + span {\n    color: #03A9F4;\n    text-shadow: 1px 1px 2px #999;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue"],"names":[],"mappings":";AAAA;EACE,YAAY;CAAE;AAEhB;EACE,eAAe;EACf,8BAA8B;CAAE;AAChC;IACE,eAAe;IACf,8BAA8B;CAAE","file":"AgentStatisticsComponent.vue","sourcesContent":[".ui.card {\n  width: 100%; }\n\n.inbox.icon {\n  color: #03A9F4;\n  text-shadow: 1px 1px 2px #999; }\n  .inbox.icon + span {\n    color: #03A9F4;\n    text-shadow: 1px 1px 2px #999; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -3416,7 +3422,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AA0EA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header  v-on:logout-agent=\"logoutAgent()\" v-bind:agent_details=\"agent_details\"></agent-header>\n\n      <agent-nav v-bind:agent_details=\"agent_details\"\n                  v-on:go-to=\"reRouteEvent($event)\"></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics></agent-statistics>\n\n        <!--\n          Bind the agent details to the slot. On the slot template create a slot scope thus\n          <template slot=\"content-section\" slot-scope=\"slotProps\"> </template>\n          Then the data is then available within the template as slotProps.whatever\n          This data can be passed as a prop to a component whether dynamic or fixed that is within the template\n          And of course it must be received in the props array of the said component\n          A complete example is\n          <template slot=\"content-section\" slot-scope=\"dataForSlot\">\n            The bound data is {{ dataForSlot }}\n            <component v-bind:is=\"currentComponent\" v-bind:dataToPass=\"dataForSlot\"></component>\n          </template>\n        -->\n        <slot name=\"content-section\" v-bind:agentDetails=\"agent_details\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    created(){\n      this.getAgentDetails();\n    },\n    data (){\n      return {\n        agent_details: {}\n      }\n    },\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      },\n      getAgentDetails(){\n        axios.get(apiRoutes.agentDetails).then(rsp => {\n          this.agent_details = rsp.data;\n        },\n        err => {\n          apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');\n        });\n      },\n      reRouteEvent(dt){\n        this.$emit('switch-component', dt);\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AA0EA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header  v-on:logout-agent=\"logoutAgent()\" v-bind:agent_details=\"agent_details\"></agent-header>\n\n      <agent-nav v-bind:agent_details=\"agent_details\"\n                  v-on:go-to=\"reRouteEvent($event)\"></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics v-bind:agent_details=\"agent_details\"></agent-statistics>\n\n        <!--\n          Bind the agent details to the slot. On the slot template create a slot scope thus\n          <template slot=\"content-section\" slot-scope=\"slotProps\"> </template>\n          Then the data is then available within the template as slotProps.whatever\n          This data can be passed as a prop to a component whether dynamic or fixed that is within the template\n          And of course it must be received in the props array of the said component\n          A complete example is\n          <template slot=\"content-section\" slot-scope=\"dataForSlot\">\n            The bound data is {{ dataForSlot }}\n            <component v-bind:is=\"currentComponent\" v-bind:dataToPass=\"dataForSlot\"></component>\n          </template>\n        -->\n        <slot name=\"content-section\" v-bind:agentDetails=\"agent_details\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    created(){\n      this.getAgentDetails();\n    },\n    data (){\n      return {\n        agent_details: {}\n      }\n    },\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      },\n      getAgentDetails(){\n        axios.get(apiRoutes.agentDetails).then(rsp => {\n          this.agent_details = rsp.data;\n        },\n        err => {\n          apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');\n        });\n      },\n      reRouteEvent(dt){\n        this.$emit('switch-component', dt);\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -29301,130 +29307,128 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "grid-container" }, [
-      _c("div", { staticClass: "grid-100 grid-parent" }, [
-        _c("div", { staticClass: "grid-33" }, [
-          _c(
-            "div",
-            { staticClass: "ui people shape", attrs: { name: "ppleshape" } },
-            [
-              _c("div", { staticClass: "sides" }, [
-                _c("div", { staticClass: "side active" }, [
-                  _c(
-                    "div",
-                    { staticClass: "ui card", staticStyle: { width: "100%" } },
-                    [
-                      _c("div", { staticClass: "ui statistic" }, [
-                        _c("div", { staticClass: "value" }, [
-                          _c("i", {
-                            staticClass: "inbox icon",
-                            staticStyle: {
-                              color: "#03A9F4",
-                              "text-shadow": "1px 1px 2px #999"
-                            }
-                          }),
-                          _c(
-                            "span",
-                            {
-                              staticStyle: {
-                                color: "#03A9F4",
-                                "text-shadow": "1px 1px 2px #999"
-                              }
-                            },
-                            [_vm._v("2")]
-                          )
-                        ]),
+  return _c("div", { staticClass: "grid-container" }, [
+    _c("div", { staticClass: "grid-100 grid-parent" }, [
+      _c("div", { staticClass: "grid-33" }, [
+        _c(
+          "div",
+          { staticClass: "ui people shape", attrs: { name: "ppleshape" } },
+          [
+            _c("div", { staticClass: "sides" }, [
+              _c("div", { staticClass: "side active" }, [
+                _c(
+                  "div",
+                  { staticClass: "ui card", staticStyle: { width: "100%" } },
+                  [
+                    _c("div", { staticClass: "ui statistic" }, [
+                      _c("div", { staticClass: "value" }, [
+                        _c("i", { staticClass: "inbox icon" }),
                         _vm._v(" "),
-                        _c("div", { staticClass: "label" }, [
+                        _c("span", [
                           _vm._v(
-                            "\n                  Wallet Balance\n                "
+                            _vm._s(
+                              _vm._f("currency")(
+                                _vm.agent_details.available_units
+                              )
+                            )
                           )
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "label" }, [
+                        _vm._v(
+                          "\n                  Wallet Balance\n                "
+                        )
                       ])
-                    ]
-                  )
-                ])
+                    ])
+                  ]
+                )
               ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "grid-33" }, [
-          _c(
-            "div",
-            { staticClass: "ui people shape", attrs: { name: "ppleshape" } },
-            [
-              _c("div", { staticClass: "sides" }, [
-                _c("div", { staticClass: "side active" }, [
-                  _c(
-                    "div",
-                    { staticClass: "ui card", staticStyle: { width: "100%" } },
-                    [
-                      _c("div", { staticClass: "ui statistic" }, [
-                        _c("div", { staticClass: "value " }, [
-                          _c("i", { staticClass: "users icon" }),
-                          _vm._v(" 392\n                ")
-                        ]),
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "grid-33" }, [
+        _c(
+          "div",
+          { staticClass: "ui people shape", attrs: { name: "ppleshape" } },
+          [
+            _c("div", { staticClass: "sides" }, [
+              _c("div", { staticClass: "side active" }, [
+                _c(
+                  "div",
+                  { staticClass: "ui card", staticStyle: { width: "100%" } },
+                  [
+                    _c("div", { staticClass: "ui statistic" }, [
+                      _c("div", { staticClass: "value " }, [
+                        _c("i", { staticClass: "users icon" }),
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.agent_details.total_user_fundings) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "label" }, [
+                        _vm._v(
+                          "\n                  Total User Fundings\n                "
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "grid-33" }, [
+        _c(
+          "div",
+          { staticClass: "ui people shape", attrs: { name: "ppleshape" } },
+          [
+            _c("div", { staticClass: "sides" }, [
+              _c("div", { staticClass: "side active" }, [
+                _c(
+                  "div",
+                  { staticClass: "ui card", staticStyle: { width: "100%" } },
+                  [
+                    _c("div", { staticClass: "ui statistic" }, [
+                      _c("div", { staticClass: "value" }, [
+                        _c("i", {
+                          staticClass: "money bill alternate outline icon ",
+                          staticStyle: { color: "green" }
+                        }),
                         _vm._v(" "),
-                        _c("div", { staticClass: "label" }, [
+                        _c("span", { staticStyle: { color: "green" } }, [
                           _vm._v(
-                            "\n                  Total User Fundings\n                "
+                            " " +
+                              _vm._s(
+                                _vm._f("currency")(
+                                  _vm.agent_details.total_untransferred_earnings
+                                )
+                              )
                           )
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "label" }, [
+                        _vm._v("\n                  Profit\n                ")
                       ])
-                    ]
-                  )
-                ])
+                    ])
+                  ]
+                )
               ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "grid-33" }, [
-          _c(
-            "div",
-            { staticClass: "ui people shape", attrs: { name: "ppleshape" } },
-            [
-              _c("div", { staticClass: "sides" }, [
-                _c("div", { staticClass: "side active" }, [
-                  _c(
-                    "div",
-                    { staticClass: "ui card", staticStyle: { width: "100%" } },
-                    [
-                      _c("div", { staticClass: "ui statistic" }, [
-                        _c("div", { staticClass: "value" }, [
-                          _c("i", {
-                            staticClass: "money bill alternate outline icon ",
-                            staticStyle: { color: "red" }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticStyle: { color: "red" } }, [
-                            _vm._v("6")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "label" }, [
-                          _vm._v("\n                  Profit\n                ")
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ]
-          )
-        ])
+            ])
+          ]
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -30281,7 +30285,9 @@ var render = function() {
         "div",
         { attrs: { id: "dashboard" } },
         [
-          _c("agent-statistics"),
+          _c("agent-statistics", {
+            attrs: { agent_details: _vm.agent_details }
+          }),
           _vm._v(" "),
           _vm._t("content-section", null, { agentDetails: _vm.agent_details })
         ],

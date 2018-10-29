@@ -9,7 +9,7 @@
 
       <div id="dashboard">
 
-        <agent-statistics></agent-statistics>
+        <agent-statistics v-bind:agent_details="agent_details"></agent-statistics>
 
         <!--
           Bind the agent details to the slot. On the slot template create a slot scope thus
