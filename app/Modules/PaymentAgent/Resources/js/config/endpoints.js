@@ -25,6 +25,7 @@ export const rootUrl = (url) => '/' + url;
 const agentDetails = apiRootUrl('get-agent-details');
 const agentFindUser = apiRootUrl('find-user');
 const agentCreditUser = apiRootUrl('credit-user');
+const agentGetTransactions = apiRootUrl('get-transactions');
 const agentLogout = rootUrl('logout');
 
 const logoutAgent = (msg = null) => {
@@ -40,5 +41,5 @@ const logoutAgent = (msg = null) => {
 };
 
 export default {
-  apiRootUrl, agentFindUser, agentCreditUser, agentDetails, logoutAgent
+  apiRootUrl, agentFindUser, agentCreditUser, agentDetails, agentGetTransactions, logoutAgent
 };

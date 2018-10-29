@@ -16,12 +16,13 @@
 
 <style>
   .loader {
-    display: inline-block;
+    display: block;
     border: 5px solid rgba(189,189,189, 0.25);
     border-left-color: #8ace42;
     border-top-color: #8ace42;
     border-radius: 50%;
     animation: rotate 600ms infinite linear;
+    margin: 0 auto;
   }
 
   @keyframes rotate {

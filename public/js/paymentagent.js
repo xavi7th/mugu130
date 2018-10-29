@@ -639,6 +639,7 @@ var rootUrl = function rootUrl(url) {
 var agentDetails = apiRootUrl('get-agent-details');
 var agentFindUser = apiRootUrl('find-user');
 var agentCreditUser = apiRootUrl('credit-user');
+var agentGetTransactions = apiRootUrl('get-transactions');
 var agentLogout = rootUrl('logout');
 
 var logoutAgent = function logoutAgent() {
@@ -656,7 +657,7 @@ var logoutAgent = function logoutAgent() {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, logoutAgent: logoutAgent
+  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, agentGetTransactions: agentGetTransactions, logoutAgent: logoutAgent
 });
 
 /***/ }),
@@ -2277,9 +2278,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AgentFundUser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AgentFundUser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__misc_LoaderComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 //
 //
 //
@@ -2302,7 +2301,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 
@@ -2317,7 +2315,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      currentComponent: 'FundUser',
+      currentComponent: 'ViewTransactions',
       propsToPass: null
     };
   },
@@ -2331,8 +2329,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     switchComponent: function switchComponent(dt) {
-      console.log(dt);
-      // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object
       this.currentComponent = dt.comp;
       // this.propsToPass = dt.data;
     }
@@ -2454,6 +2450,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     };
     this.$validator.localize('en', dict);
+    document.title = "Fund User | Agent Dashboard";
   },
   data: function data() {
     return {
@@ -2540,6 +2537,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 text: rsp.data.message,
                 icon: 'success'
               });
+              localStorage.removeItem("agent_transactions");
             }
             _this2.resetComponent();
           }).catch(function (err) {
@@ -2565,6 +2563,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__);
 //
 //
 //
@@ -2624,121 +2624,77 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FundUser',
-  props: ['details', 'agent_details'],
+  props: ['agent_details'],
+  components: { pageLoading: __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default.a },
   created: function created() {
-    // Customise the validator message to be displayed
-    var dict = {
-      custom: {
-        user_email: {
-          email: 'The user email must be a valid email'
-        }
-      }
-    };
-    this.$validator.localize('en', dict);
+    document.title = "View Transactions | Agent Dashboard";
+    this.getTransactions();
   },
   data: function data() {
     return {
-      loading: false,
-      user_email: null,
-      user_details: null,
-      credit_amount: null
+      loading: true,
+      agent_transactions: null
     };
   },
 
   methods: {
-    checkFields: function checkFields() {
-      return this.$validator.validate();
-    },
-    resetComponent: function resetComponent() {
-      this.loading = false;
-      this.user_details = null;
-      this.user_email = null;
-      this.credit_amount = null;
-    },
-    findUser: function findUser() {
+    getTransactions: function getTransactions() {
       var _this = this;
 
-      this.checkFields().then(function (result) {
-        if (result) {
-          _this.loading = true;
-          axios.get(__WEBPACK_IMPORTED_MODULE_0__config_endpoints__["a" /* default */].agentFindUser + '/' + _this.user_email).then(function (rsp) {
-            if (rsp.status == 204) {
-              swal('Error', 'User not found. Check email and try again', 'error');
-            } else {
-              _this.user_details = rsp.data;
-            }
-            _this.loading = false;
-          }, function (err) {
-            swal('Error', '' + err, 'error');
-            _this.loading = false;
-          });
-        }
-      });
-    },
-    creditUser: function creditUser() {
-      var _this2 = this;
-
-      this.loading = true;
-      this.checkFields().then(function (result) {
-        if (result) {
-          swal({
-            title: "Are you sure?",
-            text: '\u20A6' + _this2.credit_amount + ' will be deducted from your wallet. You will make a profit of \u20A650. Are you sure you want to fund this user with \u20A6' + (_this2.credit_amount - 100) + '? ',
-            icon: "warning",
-            buttons: {
-              cancel: true,
-              confirm: {
-                text: "Proceed",
-                value: true,
-                visible: true,
-                className: "",
-                closeModal: false
-              }
-            },
-            dangerMode: true
-          }).then(function (willCredit) {
-            if (willCredit) {
-              return axios.post(__WEBPACK_IMPORTED_MODULE_0__config_endpoints__["a" /* default */].agentCreditUser, { user_id: _this2.user_details.id, amount: _this2.credit_amount });
-            } else {
-              swal("Cancelled.", {
-                icon: "info"
-              });
-              throw null;
-            }
-          }).then(function (rsp) {
-            if (!rsp.data.status) {
-              if (rsp.data.message) {
-                _this2.resetComponent();
-                return swal(rsp.data.message, '', 'error');
-              } else {
-                _this2.resetComponent();
-                return swal('Error', 'Something went wrong at the server. User not credited', 'error');
-              }
-            } else {
-              _this2.agent_details.available_units -= _this2.credit_amount;
-              swal({
-                title: "Success",
-                text: rsp.data.message,
-                icon: 'success'
-              });
-            }
-            _this2.resetComponent();
-          }).catch(function (err) {
-            _this2.resetComponent();
-            if (err) {
-              swal("Oh noes!", "The AJAX request failed!", "error");
-            } else {
-              swal.stopLoading();
-              swal.close();
-            }
-          });
-        }
-      });
+      this.agent_transactions = JSON.parse(localStorage.getItem('agent_transactions'));
+      if (!this.agent_transactions) {
+        axios.get('' + __WEBPACK_IMPORTED_MODULE_0__config_endpoints__["a" /* default */].agentGetTransactions).then(function (rsp) {
+          _this.agent_transactions = rsp.data;
+          localStorage.setItem("agent_transactions", JSON.stringify(_this.agent_transactions));
+          _this.loading = false;
+        }, function (err) {
+          swal('Error', '' + err, 'error');
+        });
+      } else {
+        this.loading = false;
+      }
     }
   }
 });
@@ -3186,7 +3142,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -3231,7 +3187,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.loader {\n  display: inline-block;\n  border: 5px solid rgba(189,189,189, 0.25);\n  border-left-color: #8ace42;\n  border-top-color: #8ace42;\n  border-radius: 50%;\n  -webkit-animation: rotate 600ms infinite linear;\n          animation: rotate 600ms infinite linear;\n}\n@-webkit-keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n@keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/misc/app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue"],"names":[],"mappings":";AAiBA;EACA,sBAAA;EACA,0CAAA;EACA,2BAAA;EACA,0BAAA;EACA,mBAAA;EACA,gDAAA;UAAA,wCAAA;CACA;AAEA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA;AAJA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA","file":"LoaderComponent.vue","sourcesContent":["<template>\n  <div class=\"loader\" :style=\"{ width: size + 'px', height: size + 'px' }\"></div>\n</template>\n\n<script>\n  export default {\n      name: 'Loader',\n      props: {\n        size: {\n          type: Number,\n          default: 30\n        }\n      }\n  }\n</script>\n\n<style>\n  .loader {\n    display: inline-block;\n    border: 5px solid rgba(189,189,189, 0.25);\n    border-left-color: #8ace42;\n    border-top-color: #8ace42;\n    border-radius: 50%;\n    animation: rotate 600ms infinite linear;\n  }\n\n  @keyframes rotate {\n      to {\n          transform: rotate(1turn)\n        }\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.loader {\n  display: block;\n  border: 5px solid rgba(189,189,189, 0.25);\n  border-left-color: #8ace42;\n  border-top-color: #8ace42;\n  border-radius: 50%;\n  -webkit-animation: rotate 600ms infinite linear;\n          animation: rotate 600ms infinite linear;\n  margin: 0 auto;\n}\n@-webkit-keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n@keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/misc/app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue"],"names":[],"mappings":";AAiBA;EACA,eAAA;EACA,0CAAA;EACA,2BAAA;EACA,0BAAA;EACA,mBAAA;EACA,gDAAA;UAAA,wCAAA;EACA,eAAA;CACA;AAEA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA;AAJA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA","file":"LoaderComponent.vue","sourcesContent":["<template>\n  <div class=\"loader\" :style=\"{ width: size + 'px', height: size + 'px' }\"></div>\n</template>\n\n<script>\n  export default {\n      name: 'Loader',\n      props: {\n        size: {\n          type: Number,\n          default: 30\n        }\n      }\n  }\n</script>\n\n<style>\n  .loader {\n    display: block;\n    border: 5px solid rgba(189,189,189, 0.25);\n    border-left-color: #8ace42;\n    border-top-color: #8ace42;\n    border-radius: 50%;\n    animation: rotate 600ms infinite linear;\n    margin: 0 auto;\n  }\n\n  @keyframes rotate {\n      to {\n          transform: rotate(1turn)\n        }\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -29135,133 +29091,198 @@ var render = function() {
     "div",
     { staticClass: "grid-container", attrs: { id: "details-section" } },
     [
-      _c("transition", { attrs: { name: "fade" } }, [
-        _vm.user_details
-          ? _c("div", { key: 1, staticClass: "ui purple segment" }, [
-              _c(
-                "form",
-                {
-                  staticClass: "ui form",
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.creditUser($event)
-                    }
-                  }
-                },
-                [
-                  _c("h1", { staticClass: "ui header" }, [
-                    _vm._v(
-                      "Credit " +
-                        _vm._s(_vm.user_details.firstname) +
-                        "'s account"
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "ui divider" }),
-                  _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.loading
+            ? _c("page-loading")
+            : !_vm.loading && !_vm.agent_transactions
+              ? _c("div", { staticClass: "ui purple segment" }, [
                   _c(
-                    "div",
-                    { staticClass: "user-details ui positive message" },
-                    [
-                      _c("h4", [
-                        _vm._v(
-                          "User's Name: " +
-                            _vm._s(_vm.user_details.firstname) +
-                            " " +
-                            _vm._s(_vm.user_details.lastname)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("h4", [
-                        _vm._v(
-                          "User's Email: " + _vm._s(_vm.user_details.email)
-                        )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
+                    "form",
                     {
-                      staticClass: "ui download",
-                      class: { loading: _vm.loading }
-                    },
-                    [
-                      _c("div", { staticClass: "ui icon input" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.credit_amount,
-                              expression: "credit_amount"
-                            },
-                            {
-                              name: "validate",
-                              rawName: "v-validate",
-                              value: "min_value:200",
-                              expression: "'min_value:200'"
-                            }
-                          ],
-                          staticClass: "prompt",
-                          attrs: {
-                            type: "text",
-                            placeholder:
-                              "enter amount to credit " +
-                              _vm.user_details.firstname,
-                            name: "credit_amount",
-                            autofocus: "",
-                            min: "200"
-                          },
-                          domProps: { value: _vm.credit_amount },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.credit_amount = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("i", { staticClass: "download icon" })
-                      ]),
-                      _vm._v(" "),
-                      _vm.errors.has("credit_amount")
-                        ? _c("div", { staticClass: "ui negative message" }, [
-                            _c("i", { staticClass: "close icon" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "header" }, [
-                              _vm._v(_vm._s(_vm.errors.first("credit_amount")))
-                            ])
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "results" })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      class: ["ui", "blue", "button", { loading: _vm.loading }],
-                      attrs: {
-                        disabled:
-                          _vm.loading ||
-                          !_vm.credit_amount ||
-                          _vm.errors.has("credit_amount") ||
-                          _vm.credit_amount > _vm.agent_details.available_units,
-                        type: "submit"
+                      staticClass: "ui form",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.creditUser($event)
+                        }
                       }
                     },
-                    [_vm._v("Credit Amount")]
+                    [
+                      _c("h1", { staticClass: "ui header" }, [
+                        _vm._v(
+                          "Credit " +
+                            _vm._s(_vm.user_details.firstname) +
+                            "'s account"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "ui divider" }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "user-details ui positive message" },
+                        [
+                          _c("h4", [
+                            _vm._v(
+                              "User's Name: " +
+                                _vm._s(_vm.user_details.firstname) +
+                                " " +
+                                _vm._s(_vm.user_details.lastname)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("h4", [
+                            _vm._v(
+                              "User's Email: " + _vm._s(_vm.user_details.email)
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "ui download",
+                          class: { loading: _vm.loading }
+                        },
+                        [
+                          _c("div", { staticClass: "ui icon input" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.credit_amount,
+                                  expression: "credit_amount"
+                                },
+                                {
+                                  name: "validate",
+                                  rawName: "v-validate",
+                                  value: "min_value:200",
+                                  expression: "'min_value:200'"
+                                }
+                              ],
+                              staticClass: "prompt",
+                              attrs: {
+                                type: "text",
+                                placeholder:
+                                  "enter amount to credit " +
+                                  _vm.user_details.firstname,
+                                name: "credit_amount",
+                                autofocus: "",
+                                min: "200"
+                              },
+                              domProps: { value: _vm.credit_amount },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.credit_amount = $event.target.value
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("i", { staticClass: "download icon" })
+                          ]),
+                          _vm._v(" "),
+                          _vm.errors.has("credit_amount")
+                            ? _c(
+                                "div",
+                                { staticClass: "ui negative message" },
+                                [
+                                  _c("i", { staticClass: "close icon" }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "header" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.errors.first("credit_amount"))
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "results" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          class: [
+                            "ui",
+                            "blue",
+                            "button",
+                            { loading: _vm.loading }
+                          ],
+                          attrs: {
+                            disabled:
+                              _vm.loading ||
+                              !_vm.credit_amount ||
+                              _vm.errors.has("credit_amount") ||
+                              _vm.credit_amount >
+                                _vm.agent_details.available_units,
+                            type: "submit"
+                          }
+                        },
+                        [_vm._v("Credit Amount")]
+                      )
+                    ]
                   )
-                ]
-              )
-            ])
-          : _c("div", { staticClass: "ui red segment" })
-      ])
+                ])
+              : _c("div", { staticClass: "ui red segment" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "ui striped single line table",
+                      attrs: { id: "transactions-table" }
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("User Name")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("User E-mail")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Amount")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Status")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.agent_transactions, function(trans) {
+                          return _c("tr", [
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(trans.credited_user.firstname) +
+                                  " " +
+                                  _vm._s(trans.credited_user.lastname)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(trans.credited_user.email))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm._f("currency")(trans.amount)))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.status))])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ])
+        ],
+        1
+      )
     ],
     1
   )

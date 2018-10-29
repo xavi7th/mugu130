@@ -3,7 +3,9 @@
 
     <transition name="fade">
 
-      <div class="ui purple segment" v-if="user_details" :key="1">
+      <page-loading v-if="loading"></page-loading>
+
+      <div class="ui purple segment" v-else-if="!loading && !agent_transactions">
 
         <form class="ui form" @submit.prevent="creditUser">
 
@@ -48,7 +50,41 @@
 
       <div class="ui red segment" v-else>
 
-        
+        <table class="ui striped single line table" id="transactions-table">
+
+          <thead>
+
+            <tr>
+
+              <th>User Name</th>
+
+              <th>User E-mail</th>
+
+              <th>Amount</th>
+
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr  v-for="trans in agent_transactions">
+
+              <td>{{ trans.credited_user.firstname }} {{ trans.credited_user.lastname }}</td>
+
+              <td>{{ trans.credited_user.email }}</td>
+
+              <td>{{ trans.amount | currency }}</td>
+
+              <td>{{ trans.status }}</td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
 
       </div>
 
@@ -59,124 +95,40 @@
 
 <script>
 import apiRoutes from '../config/endpoints';
+import Loader from './misc/LoaderComponent'
 
 export default {
   name: 'FundUser',
-  props: ['details', 'agent_details'],
+  props: ['agent_details'],
+  components: { pageLoading: Loader },
   created() {
-    // Customise the validator message to be displayed
-			const dict = {
-			  custom: {
-			    user_email: {
-			      email: 'The user email must be a valid email'
-			    }
-			  }
-			};
-			this.$validator.localize('en', dict);
+      document.title = "View Transactions | Agent Dashboard";
+      this.getTransactions();
   },
   data() {
     return{
-      loading: false,
-      user_email: null,
-      user_details: null,
-      credit_amount:null,
+      loading: true,
+      agent_transactions: null
     }
   },
   methods: {
-    checkFields() {
-			return this.$validator.validate();
-		},
-    resetComponent() {
-      this.loading=false;
-      this.user_details = null;
-      this.user_email = null;
-      this.credit_amount = null;
-		},
-    findUser (){
-      this.checkFields().then(result => {
-        if (result) {
-          this.loading = true;
-          axios.get(`${apiRoutes.agentFindUser}/${this.user_email}`)
-                .then( rsp =>{
-                  if (rsp.status == 204) {
-                    swal('Error', `User not found. Check email and try again`, 'error');
-                  }
-                  else{
-                    this.user_details = rsp.data;
-                  }
-                  this.loading = false;
-                }, err =>{
-                  swal('Error', `${err}`, 'error');
-                  this.loading = false;
-                });
-        }
-      });
-    },
-    creditUser(){
-      this.loading = true;
-      this.checkFields().then(result => {
-        if(result){
-          swal({
-            title: "Are you sure?",
-            text: `₦${this.credit_amount} will be deducted from your wallet. You will make a profit of ₦50. Are you sure you want to fund this user with ₦${this.credit_amount - 100}? `,
-            icon: "warning",
-            buttons: {
-               cancel: true,
-               confirm: {
-                 text: "Proceed",
-                 value: true,
-                 visible: true,
-                 className: "",
-                 closeModal: false
-               }
-             },
-            dangerMode: true,
-          })
-          .then((willCredit) => {
-            if (willCredit) {
-              return axios.post(apiRoutes.agentCreditUser, {user_id: this.user_details.id, amount: this.credit_amount});
-            } else {
-              swal("Cancelled.", {
-                icon: "info",
+    getTransactions (){
+      this.agent_transactions = JSON.parse(localStorage.getItem('agent_transactions'));
+      if (!this.agent_transactions) {
+        axios.get(`${apiRoutes.agentGetTransactions}`)
+              .then( rsp =>{
+                this.agent_transactions = rsp.data;
+                localStorage.setItem("agent_transactions", JSON.stringify(this.agent_transactions));
+                this.loading = false;
+              }, err =>{
+                swal('Error', `${err}`, 'error');
               });
-              throw null;
-            }
-          })
-          .then(rsp => {
-            if (!rsp.data.status) {
-              if (rsp.data.message) {
-                this.resetComponent();
-                return swal(rsp.data.message, '', 'error');
-              }
-              else{
-                this.resetComponent();
-                return swal('Error', 'Something went wrong at the server. User not credited', 'error');
-              }
-            }
-            else {
-              this.agent_details.available_units -= this.credit_amount;
-              swal({
-                title: "Success",
-                text: rsp.data.message,
-                icon: 'success',
-              });
-            }
-            this.resetComponent();
-          })
-          .catch(err => {
-            this.resetComponent();
-            if (err) {
-              swal("Oh noes!", "The AJAX request failed!", "error");
-            }
-            else {
-              swal.stopLoading();
-              swal.close();
-            }
-          });
-        }
-      });
+      }
+      else{
+        this.loading = false;
+      }
 
-    },
+    }
   }
 }
 </script>

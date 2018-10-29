@@ -24,7 +24,6 @@
     import MasterLayout from './layouts/MasterLayoutComponent'
     import FundUser from './AgentFundUser'
     import ViewTransactions from './AgentViewTransactions'
-    import Loader from './misc/LoaderComponent'
     import apiRoutes from '../config/endpoints';
 
     export default {
@@ -35,7 +34,7 @@
         },
         data() {
           return {
-            currentComponent: 'FundUser',
+            currentComponent: 'ViewTransactions',
             propsToPass: null
           };
         },
@@ -48,8 +47,6 @@
         },
         methods: {
           switchComponent(dt) {
-            console.log(dt);
-            // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object
             this.currentComponent = dt.comp;
             // this.propsToPass = dt.data;
           },

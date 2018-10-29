@@ -11,7 +11,7 @@ class PaymentAgent extends Model
     protected $table = 'users';
 
     public function agent_transactions(){
-      return $this->hasMany(PaymentAgentTransactions::class);
+      return $this->hasMany(PaymentAgentTransactions::class)->latest();
     }
 
 }

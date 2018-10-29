@@ -105,6 +105,7 @@ export default {
 			  }
 			};
 			this.$validator.localize('en', dict);
+      document.title = "Fund User | Agent Dashboard";
   },
   data() {
     return{
@@ -192,6 +193,7 @@ export default {
                 text: rsp.data.message,
                 icon: 'success',
               });
+              localStorage.removeItem("agent_transactions");
             }
             this.resetComponent();
           })

@@ -101,6 +101,15 @@ class PaymentAgentController extends Controller
 
           });
 
+          Route::get('get-transactions', function () {
+            try {
+              return PaymentAgent::find(Auth::id())->agent_transactions->load('credited_user:firstname,lastname,email,id');
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'User not found' ], 403);
+            }
+
+          });
+
         });
 
         Route::group(['middleware' => ['auth', 'suspended', 'agent']], function(){
