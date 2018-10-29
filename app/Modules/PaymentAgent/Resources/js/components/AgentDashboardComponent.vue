@@ -1,16 +1,17 @@
 <template>
-    <master-layout>
+    <master-layout v-on:switch-component="switchComponent($event)">
 
       <template slot="content-section" slot-scope="propsForSlot">
 
         <keep-alive>
 
-          <component
-          v-bind:is="currentComponent"
-          v-bind="currentProperties"
-          v-bind:agent_details="propsForSlot.agentDetails"
-          v-on:switch-component="switchComponent($event)"
-          ></component>
+          <transition name="slide-out-in" mode="out-in">
+            <component
+            v-bind:is="currentComponent"
+            v-bind="currentProperties"
+            v-bind:agent_details="propsForSlot.agentDetails"
+            ></component>
+          </transition>
 
         </keep-alive>
 
@@ -22,6 +23,7 @@
 <script>
     import MasterLayout from './layouts/MasterLayoutComponent'
     import FundUser from './AgentFundUser'
+    import ViewTransactions from './AgentViewTransactions'
     import Loader from './misc/LoaderComponent'
     import apiRoutes from '../config/endpoints';
 
@@ -29,8 +31,7 @@
         name: 'AgentDashboard',
         components: {
             // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-            MasterLayout,
-            FundUser
+            MasterLayout, FundUser, ViewTransactions
         },
         data() {
           return {
@@ -47,9 +48,10 @@
         },
         methods: {
           switchComponent(dt) {
+            console.log(dt);
             // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object
             this.currentComponent = dt.comp;
-            this.propsToPass = dt.data;
+            // this.propsToPass = dt.data;
           },
         }
     }

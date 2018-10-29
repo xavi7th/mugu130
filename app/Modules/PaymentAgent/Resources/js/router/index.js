@@ -33,15 +33,7 @@ export function createRouter () {
             name: 'agent.dashboard',
             component: App,
             meta: {
-              title: 'Off-campus hostels & accommodation renting website for students & NYSC members in Nigeria | myPadi.ng'
-            }
-        },
-        {
-            path: '/user/acc-summary',
-            name: 'accsummary',
-            component: view('UserAccSummaryComponent'),
-            meta: {
-              title: 'Off-campus hostels & accommodation renting website for students & NYSC members in Nigeria | myPadi.ng'
+              title: 'Agent Dashboard'
             }
         },
         {

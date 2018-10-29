@@ -4,7 +4,8 @@
 
       <agent-header  v-on:logout-agent="logoutAgent()" v-bind:agent_details="agent_details"></agent-header>
 
-      <agent-nav v-bind:agent_details="agent_details"></agent-nav>
+      <agent-nav v-bind:agent_details="agent_details"
+                  v-on:go-to="reRouteEvent($event)"></agent-nav>
 
       <div id="dashboard">
 
@@ -63,7 +64,9 @@
         err => {
           apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');
         });
-
+      },
+      reRouteEvent(dt){
+        this.$emit('switch-component', dt);
       }
     }
   }
