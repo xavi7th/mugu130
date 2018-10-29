@@ -133,25 +133,25 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue":
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1773de8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ce18d01\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-f1773de8\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6ce18d01\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-f1773de8"
+var __vue_scopeId__ = "data-v-6ce18d01"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -162,7 +162,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue"
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -171,9 +171,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f1773de8", Component.options)
+    hotAPI.createRecord("data-v-6ce18d01", Component.options)
   } else {
-    hotAPI.reload("data-v-f1773de8", Component.options)
+    hotAPI.reload("data-v-6ce18d01", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -185,25 +185,25 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue":
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-050b6f14\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e46f4652\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-050b6f14\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e46f4652\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-050b6f14"
+var __vue_scopeId__ = "data-v-e46f4652"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -214,7 +214,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue"
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -223,9 +223,61 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-050b6f14", Component.options)
+    hotAPI.createRecord("data-v-e46f4652", Component.options)
   } else {
-    hotAPI.reload("data-v-050b6f14", Component.options)
+    hotAPI.reload("data-v-e46f4652", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f93bef4\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5f93bef4\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-5f93bef4"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5f93bef4", Component.options)
+  } else {
+    hotAPI.reload("data-v-5f93bef4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -640,6 +692,7 @@ var agentDetails = apiRootUrl('get-agent-details');
 var agentFindUser = apiRootUrl('find-user');
 var agentCreditUser = apiRootUrl('credit-user');
 var agentGetTransactions = apiRootUrl('get-transactions');
+var agentGetWalletFundLog = apiRootUrl('get-wallet-fund-log');
 var agentLogout = rootUrl('logout');
 
 var logoutAgent = function logoutAgent() {
@@ -657,7 +710,7 @@ var logoutAgent = function logoutAgent() {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, agentGetTransactions: agentGetTransactions, logoutAgent: logoutAgent
+  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, agentGetTransactions: agentGetTransactions, agentGetWalletFundLog: agentGetWalletFundLog, logoutAgent: logoutAgent
 });
 
 /***/ }),
@@ -2274,11 +2327,13 @@ module.exports = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AgentFundUser__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AgentFundUser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AgentFundUser__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 //
 //
 //
@@ -2301,6 +2356,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2311,11 +2367,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: 'AgentDashboard',
   components: {
     // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a, FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUser___default.a, ViewTransactions: __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactions___default.a
+    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a, FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent___default.a, ViewTransactions: __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default.a, ViewWalletFundLog: __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default.a
   },
   data: function data() {
     return {
-      currentComponent: 'ViewTransactions',
+      currentComponent: 'FundUser',
       propsToPass: null
     };
   },
@@ -2337,7 +2393,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2557,7 +2613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2565,10 +2621,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__);
-//
-//
-//
-//
 //
 //
 //
@@ -2688,6 +2740,153 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('' + __WEBPACK_IMPORTED_MODULE_0__config_endpoints__["a" /* default */].agentGetTransactions).then(function (rsp) {
           _this.agent_transactions = rsp.data;
           localStorage.setItem("agent_transactions", JSON.stringify(_this.agent_transactions));
+          _this.loading = false;
+        }, function (err) {
+          swal('Error', '' + err, 'error');
+        });
+      } else {
+        this.loading = false;
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'FundUser',
+  props: ['agent_details'],
+  components: { pageLoading: __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default.a },
+  created: function created() {
+    document.title = "View Transactions | Agent Dashboard";
+    this.getTransactions();
+  },
+  data: function data() {
+    return {
+      loading: true,
+      wallet_log: null
+    };
+  },
+
+  methods: {
+    getTransactions: function getTransactions() {
+      var _this = this;
+
+      // this.wallet_log = JSON.parse(localStorage.getItem('wallet_log'));
+      if (!this.wallet_log) {
+        axios.get('' + __WEBPACK_IMPORTED_MODULE_0__config_endpoints__["a" /* default */].agentGetWalletFundLog).then(function (rsp) {
+          _this.wallet_log = rsp.data.transactions;
+          localStorage.setItem("wallet_log", JSON.stringify(_this.wallet_log));
           _this.loading = false;
         }, function (err) {
           swal('Error', '' + err, 'error');
@@ -3089,21 +3288,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-050b6f14\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
-// imports
-
-
-// module
-exports.push([module.i, "\n.ui.input[data-v-050b6f14] {\n  width: 30%;\n  margin-bottom: 25px;\n}\n.ui.form[data-v-050b6f14] {\n  text-align: center;\n}\n.ui .message[data-v-050b6f14] {\n  max-width: 35%;\n  margin: 0 auto;\n}\nh1[data-v-050b6f14] {\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n.fade-enter-active[data-v-050b6f14], .fade-leave-active[data-v-050b6f14] {\n  -webkit-transition: opacity .5s;\n  transition: opacity .5s;\n}\n.fade-enter[data-v-050b6f14], .fade-leave-to[data-v-050b6f14] {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  opacity: 0;\n}\n.user-details[data-v-050b6f14] {\n  text-align: left;\n  margin: 0 auto 25px !important;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue"],"names":[],"mappings":";AAAA;EACE,WAAW;EACX,oBAAoB;CAAE;AAExB;EACE,mBAAmB;CAAE;AAEvB;EACE,eAAe;EACf,eAAe;CAAE;AAEnB;EACE,2BAA2B;EAC3B,iBAAiB;EACjB,mBAAmB;CAAE;AAEvB;EACE,gCAAwB;EAAxB,wBAAwB;CAAE;AAE5B;EACE,iEAAW;EAAX,WAAW;CAAE;AAEf;EACE,iBAAiB;EACjB,+BAA+B;CAAE","file":"AgentViewTransactions.vue","sourcesContent":[".ui.input {\n  width: 30%;\n  margin-bottom: 25px; }\n\n.ui.form {\n  text-align: center; }\n\n.ui .message {\n  max-width: 35%;\n  margin: 0 auto; }\n\nh1 {\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px; }\n\n.fade-enter-active, .fade-leave-active {\n  transition: opacity .5s; }\n\n.fade-enter, .fade-leave-to {\n  opacity: 0; }\n\n.user-details {\n  text-align: left;\n  margin: 0 auto 25px !important; }\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-11b1a9ae\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3142,7 +3326,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -3158,6 +3342,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n.item i[data-v-5de7d3ca] {\n  padding-right: 2px;\n}\n.header[data-v-5de7d3ca] {\n  color: white;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/partials/AgentNavComponent.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AAEvB;EACE,aAAa;CAAE","file":"AgentNavComponent.vue","sourcesContent":[".item i {\n  padding-right: 2px; }\n\n.header {\n  color: white; }\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f93bef4\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\nh1[data-v-5f93bef4]{\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue"],"names":[],"mappings":";AA2IA;EACA,2BAAA;EACA,iBAAA;EACA,mBAAA;CACA","file":"AgentWalletFundingLogsComponent.vue","sourcesContent":["<template lang=\"html\">\n  <div class=\"grid-container\" id=\"details-section\">\n\n    <transition name=\"fade\">\n\n      <page-loading v-if=\"loading\"></page-loading>\n\n      <div class=\"ui red segment\" v-else-if=\"!loading && !wallet_log\">\n\n        <table class=\"ui striped single line table\" id=\"transactions-table\">\n\n          <thead>\n\n            <tr>\n\n              <th>Amount</th>\n\n              <th>Charges</th>\n\n              <th>Transaction Type</th>\n\n              <th>Status</th>\n\n              <th>Channel</th>\n\n              <th>Date</th>\n\n            </tr>\n\n          </thead>\n\n          <tbody>\n\n            <tr>\n\n              <td colspan=\"6\"><h1>No available Transactions</h1></td>\n\n            </tr>\n\n          </tbody>\n\n        </table>\n\n      </div>\n\n      <div class=\"ui purple segment\" v-else>\n\n        <table class=\"ui striped single line table\" id=\"transactions-table\">\n\n          <thead>\n\n            <tr>\n\n              <th>Amount</th>\n\n              <th>Charges</th>\n\n              <th>Transaction Type</th>\n\n              <th>Status</th>\n\n              <th>Channel</th>\n\n              <th>Date</th>\n\n            </tr>\n\n          </thead>\n\n          <tbody>\n\n            <tr  v-for=\"trans in wallet_log\">\n\n              <td>{{ trans.amount | currency }}</td>\n\n              <td>{{ trans.charges | currency }}</td>\n\n              <td>{{ trans.trans_type }}</td>\n\n              <td>{{ trans.status }}</td>\n\n              <td>{{ trans.channel }}</td>\n\n              <td>{{ trans.updated_at }}</td>\n\n            </tr>\n\n          </tbody>\n\n        </table>\n\n      </div>\n\n    </transition>\n\n  </div>\n</template>\n\n<script>\nimport apiRoutes from '../config/endpoints';\nimport Loader from './misc/LoaderComponent'\n\nexport default {\n  name: 'FundUser',\n  props: ['agent_details'],\n  components: { pageLoading: Loader },\n  created() {\n      document.title = \"View Transactions | Agent Dashboard\";\n      this.getTransactions();\n  },\n  data() {\n    return{\n      loading: true,\n      wallet_log: null\n    }\n  },\n  methods: {\n    getTransactions (){\n      // this.wallet_log = JSON.parse(localStorage.getItem('wallet_log'));\n      if (!this.wallet_log) {\n        axios.get(`${apiRoutes.agentGetWalletFundLog}`)\n              .then( rsp =>{\n                this.wallet_log = rsp.data.transactions;\n                localStorage.setItem(\"wallet_log\", JSON.stringify(this.wallet_log));\n                this.loading = false;\n              }, err =>{\n                swal('Error', `${err}`, 'error');\n              });\n      }\n      else{\n        this.loading = false;\n      }\n    }\n  }\n}\n</script>\n\n<style lang=\"css\" scoped>\n\n  h1{\n    font-family: alegreya sans;\n    font-weight: 100;\n    margin-bottom: 0px;\n  }\n\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -3194,6 +3393,21 @@ exports.push([module.i, "\n.loader {\n  display: block;\n  border: 5px solid rgb
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ce18d01\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.ui.input[data-v-6ce18d01] {\n  width: 30%;\n  margin-bottom: 25px;\n}\n.ui.form[data-v-6ce18d01] {\n  text-align: center;\n}\n.ui .message[data-v-6ce18d01] {\n  max-width: 35%;\n  margin: 0 auto;\n}\nh1[data-v-6ce18d01] {\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n.fade-enter-active[data-v-6ce18d01], .fade-leave-active[data-v-6ce18d01] {\n  -webkit-transition: opacity .5s;\n  transition: opacity .5s;\n}\n.fade-enter[data-v-6ce18d01], .fade-leave-to[data-v-6ce18d01] {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  opacity: 0;\n}\n.user-details[data-v-6ce18d01] {\n  text-align: left;\n  margin: 0 auto 25px !important;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue"],"names":[],"mappings":";AAAA;EACE,WAAW;EACX,oBAAoB;CAAE;AAExB;EACE,mBAAmB;CAAE;AAEvB;EACE,eAAe;EACf,eAAe;CAAE;AAEnB;EACE,2BAA2B;EAC3B,iBAAiB;EACjB,mBAAmB;CAAE;AAEvB;EACE,gCAAwB;EAAxB,wBAAwB;CAAE;AAE5B;EACE,iEAAW;EAAX,WAAW;CAAE;AAEf;EACE,iBAAiB;EACjB,+BAA+B;CAAE","file":"AgentFundUserComponent.vue","sourcesContent":[".ui.input {\n  width: 30%;\n  margin-bottom: 25px; }\n\n.ui.form {\n  text-align: center; }\n\n.ui .message {\n  max-width: 35%;\n  margin: 0 auto; }\n\nh1 {\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px; }\n\n.fade-enter-active, .fade-leave-active {\n  transition: opacity .5s; }\n\n.fade-enter, .fade-leave-to {\n  opacity: 0; }\n\n.user-details {\n  text-align: left;\n  margin: 0 auto 25px !important; }\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3224,7 +3438,7 @@ exports.push([module.i, "\n#dashboard {\n  padding-top: 30px !important;\n}\n[na
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1773de8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue":
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e46f4652\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
@@ -3232,7 +3446,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.ui.input[data-v-f1773de8] {\n  width: 30%;\n  margin-bottom: 25px;\n}\n.ui.form[data-v-f1773de8] {\n  text-align: center;\n}\n.ui .message[data-v-f1773de8] {\n  max-width: 35%;\n  margin: 0 auto;\n}\nh1[data-v-f1773de8] {\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n.fade-enter-active[data-v-f1773de8], .fade-leave-active[data-v-f1773de8] {\n  -webkit-transition: opacity .5s;\n  transition: opacity .5s;\n}\n.fade-enter[data-v-f1773de8], .fade-leave-to[data-v-f1773de8] {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  opacity: 0;\n}\n.user-details[data-v-f1773de8] {\n  text-align: left;\n  margin: 0 auto 25px !important;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue"],"names":[],"mappings":";AAAA;EACE,WAAW;EACX,oBAAoB;CAAE;AAExB;EACE,mBAAmB;CAAE;AAEvB;EACE,eAAe;EACf,eAAe;CAAE;AAEnB;EACE,2BAA2B;EAC3B,iBAAiB;EACjB,mBAAmB;CAAE;AAEvB;EACE,gCAAwB;EAAxB,wBAAwB;CAAE;AAE5B;EACE,iEAAW;EAAX,WAAW;CAAE;AAEf;EACE,iBAAiB;EACjB,+BAA+B;CAAE","file":"AgentFundUser.vue","sourcesContent":[".ui.input {\n  width: 30%;\n  margin-bottom: 25px; }\n\n.ui.form {\n  text-align: center; }\n\n.ui .message {\n  max-width: 35%;\n  margin: 0 auto; }\n\nh1 {\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px; }\n\n.fade-enter-active, .fade-leave-active {\n  transition: opacity .5s; }\n\n.fade-enter, .fade-leave-to {\n  opacity: 0; }\n\n.user-details {\n  text-align: left;\n  margin: 0 auto 25px !important; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\nh1[data-v-e46f4652]{\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue"],"names":[],"mappings":";AAqIA;EACA,2BAAA;EACA,iBAAA;EACA,mBAAA;CACA","file":"AgentViewTransactionsComponent.vue","sourcesContent":["<template lang=\"html\">\n  <div class=\"grid-container\" id=\"details-section\">\n\n    <transition name=\"fade\">\n\n      <page-loading v-if=\"loading\"></page-loading>\n\n      <div class=\"ui red segment\" v-else-if=\"!loading && !agent_transactions\">\n        <table class=\"ui striped single line table\" id=\"transactions-table\">\n\n          <thead>\n\n            <tr>\n\n              <th>User Name</th>\n\n              <th>User E-mail</th>\n\n              <th>Amount</th>\n\n              <th>Status</th>\n\n              <th>Date</th>\n\n            </tr>\n\n          </thead>\n\n          <tbody>\n\n            <tr>\n\n              <td colspan=\"5\"><h1>No available Transactions</h1></td>\n\n            </tr>\n\n          </tbody>\n\n        </table>\n\n      </div>\n\n      <div class=\"ui purple segment\" v-else>\n\n        <table class=\"ui striped single line table\" id=\"transactions-table\">\n\n          <thead>\n\n            <tr>\n\n              <th>User Name</th>\n\n              <th>User E-mail</th>\n\n              <th>Amount</th>\n\n              <th>Status</th>\n\n              <th>Date</th>\n\n            </tr>\n\n          </thead>\n\n          <tbody>\n\n            <tr  v-for=\"trans in agent_transactions\">\n\n              <td>{{ trans.credited_user.firstname }} {{ trans.credited_user.lastname }}</td>\n\n              <td>{{ trans.credited_user.email }}</td>\n\n              <td>{{ trans.amount | currency }}</td>\n\n              <td>{{ trans.status }}</td>\n\n              <td>{{ trans.created_at }}</td>\n\n            </tr>\n\n          </tbody>\n\n        </table>\n\n      </div>\n\n    </transition>\n\n  </div>\n</template>\n\n<script>\nimport apiRoutes from '../config/endpoints';\nimport Loader from './misc/LoaderComponent'\n\nexport default {\n  name: 'FundUser',\n  props: ['agent_details'],\n  components: { pageLoading: Loader },\n  created() {\n      document.title = \"View Transactions | Agent Dashboard\";\n      this.getTransactions();\n  },\n  data() {\n    return{\n      loading: true,\n      agent_transactions: null\n    }\n  },\n  methods: {\n    getTransactions (){\n      this.agent_transactions = JSON.parse(localStorage.getItem('agent_transactions'));\n      if (!this.agent_transactions) {\n        axios.get(`${apiRoutes.agentGetTransactions}`)\n              .then( rsp =>{\n                this.agent_transactions = rsp.data;\n                localStorage.setItem(\"agent_transactions\", JSON.stringify(this.agent_transactions));\n                this.loading = false;\n              }, err =>{\n                swal('Error', `${err}`, 'error');\n              });\n      }\n      else{\n        this.loading = false;\n      }\n\n    }\n  }\n}\n</script>\n\n<style lang=\"css\" scoped>\n\n  h1{\n    font-family: alegreya sans;\n    font-weight: 100;\n    margin-bottom: 0px;\n  }\n\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -29080,225 +29294,6 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-050b6f14\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "grid-container", attrs: { id: "details-section" } },
-    [
-      _c(
-        "transition",
-        { attrs: { name: "fade" } },
-        [
-          _vm.loading
-            ? _c("page-loading")
-            : !_vm.loading && !_vm.agent_transactions
-              ? _c("div", { staticClass: "ui purple segment" }, [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "ui form",
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.creditUser($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("h1", { staticClass: "ui header" }, [
-                        _vm._v(
-                          "Credit " +
-                            _vm._s(_vm.user_details.firstname) +
-                            "'s account"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "ui divider" }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "user-details ui positive message" },
-                        [
-                          _c("h4", [
-                            _vm._v(
-                              "User's Name: " +
-                                _vm._s(_vm.user_details.firstname) +
-                                " " +
-                                _vm._s(_vm.user_details.lastname)
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h4", [
-                            _vm._v(
-                              "User's Email: " + _vm._s(_vm.user_details.email)
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "ui download",
-                          class: { loading: _vm.loading }
-                        },
-                        [
-                          _c("div", { staticClass: "ui icon input" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.credit_amount,
-                                  expression: "credit_amount"
-                                },
-                                {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "min_value:200",
-                                  expression: "'min_value:200'"
-                                }
-                              ],
-                              staticClass: "prompt",
-                              attrs: {
-                                type: "text",
-                                placeholder:
-                                  "enter amount to credit " +
-                                  _vm.user_details.firstname,
-                                name: "credit_amount",
-                                autofocus: "",
-                                min: "200"
-                              },
-                              domProps: { value: _vm.credit_amount },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.credit_amount = $event.target.value
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("i", { staticClass: "download icon" })
-                          ]),
-                          _vm._v(" "),
-                          _vm.errors.has("credit_amount")
-                            ? _c(
-                                "div",
-                                { staticClass: "ui negative message" },
-                                [
-                                  _c("i", { staticClass: "close icon" }),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "header" }, [
-                                    _vm._v(
-                                      _vm._s(_vm.errors.first("credit_amount"))
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "results" })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          class: [
-                            "ui",
-                            "blue",
-                            "button",
-                            { loading: _vm.loading }
-                          ],
-                          attrs: {
-                            disabled:
-                              _vm.loading ||
-                              !_vm.credit_amount ||
-                              _vm.errors.has("credit_amount") ||
-                              _vm.credit_amount >
-                                _vm.agent_details.available_units,
-                            type: "submit"
-                          }
-                        },
-                        [_vm._v("Credit Amount")]
-                      )
-                    ]
-                  )
-                ])
-              : _c("div", { staticClass: "ui red segment" }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass: "ui striped single line table",
-                      attrs: { id: "transactions-table" }
-                    },
-                    [
-                      _c("thead", [
-                        _c("tr", [
-                          _c("th", [_vm._v("User Name")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("User E-mail")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Amount")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Status")])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.agent_transactions, function(trans) {
-                          return _c("tr", [
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(trans.credited_user.firstname) +
-                                  " " +
-                                  _vm._s(trans.credited_user.lastname)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(trans.credited_user.email))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm._f("currency")(trans.amount)))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(trans.status))])
-                          ])
-                        })
-                      )
-                    ]
-                  )
-                ])
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-050b6f14", module.exports)
-  }
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-11b1a9ae\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29721,6 +29716,126 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5f93bef4\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "grid-container", attrs: { id: "details-section" } },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.loading
+            ? _c("page-loading")
+            : !_vm.loading && !_vm.wallet_log
+              ? _c("div", { staticClass: "ui red segment" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "ui striped single line table",
+                      attrs: { id: "transactions-table" }
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("Amount")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Charges")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Transaction Type")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Status")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Channel")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Date")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("tbody", [
+                        _c("tr", [
+                          _c("td", { attrs: { colspan: "6" } }, [
+                            _c("h1", [_vm._v("No available Transactions")])
+                          ])
+                        ])
+                      ])
+                    ]
+                  )
+                ])
+              : _c("div", { staticClass: "ui purple segment" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "ui striped single line table",
+                      attrs: { id: "transactions-table" }
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("Amount")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Charges")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Transaction Type")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Status")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Channel")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Date")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.wallet_log, function(trans) {
+                          return _c("tr", [
+                            _c("td", [
+                              _vm._v(_vm._s(_vm._f("currency")(trans.amount)))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm._f("currency")(trans.charges)))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.trans_type))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.status))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.channel))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.updated_at))])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5f93bef4", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6c4b707e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29889,111 +30004,7 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7711fce2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("agent-header", {
-        attrs: { agent_details: _vm.agent_details },
-        on: {
-          "logout-agent": function($event) {
-            _vm.logoutAgent()
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("agent-nav", {
-        attrs: { agent_details: _vm.agent_details },
-        on: {
-          "go-to": function($event) {
-            _vm.reRouteEvent($event)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { attrs: { id: "dashboard" } },
-        [
-          _c("agent-statistics"),
-          _vm._v(" "),
-          _vm._t("content-section", null, { agentDetails: _vm.agent_details })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("agent-footer")
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7711fce2", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-a0929416\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AppComponent.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticStyle: {
-        "min-height": "100vh",
-        position: "relative",
-        background: "#03A9F4"
-      },
-      attrs: { id: "main-controller" }
-    },
-    [
-      _c(
-        "keep-alive",
-        [
-          _c(_vm.currentComponent, {
-            tag: "component",
-            on: {
-              "switch-component": function($event) {
-                _vm.switchComponent($event)
-              }
-            }
-          })
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-a0929416", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-f1773de8\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6ce18d01\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -30232,7 +30243,231 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f1773de8", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6ce18d01", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7711fce2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("agent-header", {
+        attrs: { agent_details: _vm.agent_details },
+        on: {
+          "logout-agent": function($event) {
+            _vm.logoutAgent()
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("agent-nav", {
+        attrs: { agent_details: _vm.agent_details },
+        on: {
+          "go-to": function($event) {
+            _vm.reRouteEvent($event)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { attrs: { id: "dashboard" } },
+        [
+          _c("agent-statistics"),
+          _vm._v(" "),
+          _vm._t("content-section", null, { agentDetails: _vm.agent_details })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("agent-footer")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7711fce2", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-a0929416\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AppComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticStyle: {
+        "min-height": "100vh",
+        position: "relative",
+        background: "#03A9F4"
+      },
+      attrs: { id: "main-controller" }
+    },
+    [
+      _c(
+        "keep-alive",
+        [
+          _c(_vm.currentComponent, {
+            tag: "component",
+            on: {
+              "switch-component": function($event) {
+                _vm.switchComponent($event)
+              }
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a0929416", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e46f4652\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "grid-container", attrs: { id: "details-section" } },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.loading
+            ? _c("page-loading")
+            : !_vm.loading && !_vm.agent_transactions
+              ? _c("div", { staticClass: "ui red segment" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "ui striped single line table",
+                      attrs: { id: "transactions-table" }
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("User Name")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("User E-mail")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Amount")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Status")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Date")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("tbody", [
+                        _c("tr", [
+                          _c("td", { attrs: { colspan: "5" } }, [
+                            _c("h1", [_vm._v("No available Transactions")])
+                          ])
+                        ])
+                      ])
+                    ]
+                  )
+                ])
+              : _c("div", { staticClass: "ui purple segment" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "ui striped single line table",
+                      attrs: { id: "transactions-table" }
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("User Name")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("User E-mail")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Amount")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Status")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Date")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.agent_transactions, function(trans) {
+                          return _c("tr", [
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(trans.credited_user.firstname) +
+                                  " " +
+                                  _vm._s(trans.credited_user.lastname)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(trans.credited_user.email))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm._f("currency")(trans.amount)))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.status))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(trans.created_at))])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e46f4652", module.exports)
   }
 }
 
@@ -32869,33 +33104,6 @@ if (inBrowser && window.Vue) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-050b6f14\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-050b6f14\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactions.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("4a6c955e", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-050b6f14\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentViewTransactions.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-050b6f14\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentViewTransactions.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-11b1a9ae\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/partials/AgentStatisticsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33004,6 +33212,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f93bef4\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f93bef4\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("e95dd94c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f93bef4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentWalletFundingLogsComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f93bef4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentWalletFundingLogsComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c4b707e\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/partials/FooterComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33048,6 +33283,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoaderComponent.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6c77c340\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoaderComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ce18d01\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ce18d01\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7f2c1637", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ce18d01\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentFundUserComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ce18d01\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentFundUserComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -33112,23 +33374,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1773de8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e46f4652\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1773de8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentFundUser.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e46f4652\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("a06e2d14", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7badf92e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1773de8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentFundUser.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1773de8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentFundUser.vue");
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e46f4652\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentViewTransactionsComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e46f4652\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentViewTransactionsComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

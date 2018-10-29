@@ -22,19 +22,20 @@
 </template>
 <script>
     import MasterLayout from './layouts/MasterLayoutComponent'
-    import FundUser from './AgentFundUser'
-    import ViewTransactions from './AgentViewTransactions'
+    import FundUser from './AgentFundUserComponent'
+    import ViewTransactions from './AgentViewTransactionsComponent'
+    import ViewWalletFundLog from './AgentWalletFundingLogsComponent'
     import apiRoutes from '../config/endpoints';
 
     export default {
         name: 'AgentDashboard',
         components: {
             // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-            MasterLayout, FundUser, ViewTransactions
+            MasterLayout, FundUser, ViewTransactions, ViewWalletFundLog
         },
         data() {
           return {
-            currentComponent: 'ViewTransactions',
+            currentComponent: 'FundUser',
             propsToPass: null
           };
         },

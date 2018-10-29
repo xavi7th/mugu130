@@ -5,50 +5,42 @@
 
       <page-loading v-if="loading"></page-loading>
 
-      <div class="ui purple segment" v-else-if="!loading && !agent_transactions">
+      <div class="ui red segment" v-else-if="!loading && !agent_transactions">
+        <table class="ui striped single line table" id="transactions-table">
 
-        <form class="ui form" @submit.prevent="creditUser">
+          <thead>
 
-          <h1 class="ui header">Credit {{ user_details.firstname }}'s account</h1>
+            <tr>
 
-          <div class="ui divider"></div>
+              <th>User Name</th>
 
-          <div class="user-details ui positive message">
-            <h4>User's Name: {{ user_details.firstname }} {{ user_details.lastname }}</h4>
-            <h4>User's Email: {{ user_details.email }}</h4>
-          </div>
+              <th>User E-mail</th>
 
-          <div class="ui download" :class="{loading:loading}">
+              <th>Amount</th>
 
-            <div class="ui icon input">
+              <th>Status</th>
 
-              <input class="prompt" type="text" :placeholder="`enter amount to credit ${user_details.firstname}`" name="credit_amount"
-              v-model="credit_amount" v-validate="'min_value:200'" autofocus min="200">
+              <th>Date</th>
 
-              <i class="download icon"></i>
+            </tr>
 
-            </div>
+          </thead>
 
-            <div class="ui negative message" v-if="errors.has('credit_amount')">
+          <tbody>
 
-              <i class="close icon"></i>
+            <tr>
 
-              <div class="header">{{ errors.first('credit_amount') }}</div>
+              <td colspan="5"><h1>No available Transactions</h1></td>
 
-            </div>
+            </tr>
 
-            <div class="results"></div>
+          </tbody>
 
-          </div>
-
-          <button :class="['ui', 'blue', 'button', {'loading' : loading}]"
-          :disabled="loading || !credit_amount || errors.has('credit_amount') || credit_amount > agent_details.available_units" type="submit">Credit Amount</button>
-
-        </form>
+        </table>
 
       </div>
 
-      <div class="ui red segment" v-else>
+      <div class="ui purple segment" v-else>
 
         <table class="ui striped single line table" id="transactions-table">
 
@@ -63,6 +55,8 @@
               <th>Amount</th>
 
               <th>Status</th>
+
+              <th>Date</th>
 
             </tr>
 
@@ -79,6 +73,8 @@
               <td>{{ trans.amount | currency }}</td>
 
               <td>{{ trans.status }}</td>
+
+              <td>{{ trans.created_at }}</td>
 
             </tr>
 
@@ -133,34 +129,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  .ui{
-    &.input{
-      width: 30%;
-      margin-bottom: 25px;
-    }
-    &.form{
-      text-align: center;
-    }
-    .message{
-      max-width: 35%;
-      margin: 0 auto;
-    }
-  }
+<style lang="css" scoped>
+
   h1{
     font-family: alegreya sans;
     font-weight: 100;
     margin-bottom: 0px;
   }
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
-  }
-  .user-details{
-    text-align: left;
-    margin: 0 auto 25px !important;
-  }
 </style>

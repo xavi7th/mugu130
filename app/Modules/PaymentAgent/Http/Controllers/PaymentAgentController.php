@@ -107,7 +107,16 @@ class PaymentAgentController extends Controller
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'User not found' ], 403);
             }
+          });
 
+          Route::get('get-wallet-fund-log', function () {
+            try {
+              // return PaymentAgent::find(Auth::id())->agent_transactions->load('credited_user:firstname,lastname,email,id');
+              return Auth::user()->load(['transactions' => function ($q) { $q->latest(); }]);
+
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'User not found' ], 403);
+            }
           });
 
         });
