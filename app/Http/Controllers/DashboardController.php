@@ -83,8 +83,8 @@ class DashboardController extends Controller
 
           //create deposit transcation record
           $transaction =  Auth::user()->transactions()->create([
-              'amount' => request('amount'),
-              'charges' => intval($amount) - intval(request('amount')),
+              'amount' => request('amount') / 100,
+              'charges' => (intval($amount) - intval(request('amount')) / 100),
               'trans_type' => 'wallet funding',
               'status' => 'pending',
               'ref_no' => 'PAYSTACK-'.str_random(22)
@@ -294,8 +294,8 @@ class DashboardController extends Controller
         // If it has already gotten value by your records, you may call
         // perform_success()
 
-
         $paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
+
         // the code below throws an exception if there was a problem completing the request,
         // else returns an object created from the json response
         $trx = $paystack->transaction->verify(
@@ -303,7 +303,6 @@ class DashboardController extends Controller
         	 'reference'=>$_GET['reference']
         	]
         );
-
 
         //Save the reansaction details from Paystack whether positive or negative
         Transaction::find($trx->data->metadata->transaction_id)->update([
@@ -337,10 +336,10 @@ class DashboardController extends Controller
           }
           catch (\Exception $e) {
             //Send the admin an error message that someone trien to perform an operationa nd there was an error
-
+            
             //send the user a notification that something went wrong but support has been notified
           }
-          // exit('here');
+
           return redirect()->route('wallet-funding-successful');
           exit();
         }
@@ -764,111 +763,6 @@ class DashboardController extends Controller
         return [
           'user_questions' => Auth::user()->getUserQuestions()
         ];
-    }
-
-    public function sendCreditAccountRequest(){
-      // return  request()->all();
-
-      DB::beginTransaction();
-
-        //create deposit transcation record
-        Auth::user()->transactions()->create([
-          'amount' => request()->input('details.amt'),
-          'trans_type' => request()->input('details.trans_type'),
-          'status' => request()->input('details.status'),
-        ]);
-
-
-      DB::commit();
-
-      return [
-        'status' => true
-      ];
-    }
-
-    public function creditAccount(){
-      // return  request('reference');
-
-      // The PAYSTACK CLASS IS IN MY MODELS
-
-      $paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
-      $reference = request('reference');
-      // the code below throws an exception if there was a problem completing the request,
-      // else returns an object created from the json response
-      $trx = $paystack->transaction->verify([
-                                               'reference' => $reference
-                                            ]);
-      // _dd($trx);
-      // status should be true if there was a successful call. This is not what determines if the transaction was successful. ONLY DETERMINES IF A CALL WAS MADE SUCCESSFULLY
-      if(!$trx->status){
-          exit($trx->message);
-      }
-
-
-      // functions
-      function give_value($reference, $trx){
-        // Be sure to log the reference as having gotten value
-        // write code to give value
-
-        // TODO: REVIEW THIS AREA cf; line 405.
-        if ($trx->status == 'success') {
-
-                // Credit the user on paystack bounceback
-            DB::beginTransaction();
-
-                Transaction::where('user_id', $trx->data->metadata->custom_fields[3]->value)->latest()->first()->update([
-                  'status' => 'completed'
-                ]);
-
-                Auth::user()->creditAccount((($trx->data->amount - $trx->data->metadata->custom_fields[4]->value)/100));
-
-            DB::commit();
-                // _dd($trx->data);
-
-
-            $rsp = TransactionalMail::sendCreditMail(($trx->data->amount/100), ($trx->data->metadata->custom_fields[4]->value/100), 'wallet funding', Auth::user()->available_units);
-            if (is_array($rsp)) {
-              return response()->json(['message' => $rsp['message'] ], $rsp['status']);
-            }
-            else {
-              return ['message' => $rsp];
-            }
-
-          // echo json_encode(['transaction'=>'updated. Value given']);
-        }
-      }
-
-      function perform_success($trx) {
-        // inline
-        echo json_encode([
-                            'verified'=>true,
-                            'status'=> $trx->data->status,
-                            'paystack message'=> $trx->message,
-
-                          ]);
-
-        // redirect to
-
-
-
-
-        // echo '<br>';
-        // echo '<pre>'; print_r($trx); echo '</pre>'; exit;
-        // standard
-        // header('Location:'.route('ordersuccessful'));
-        exit();
-      }
-
-
-
-      // full sample verify response is here: https://developers.paystack.co/docs/verifying-transactions
-      if('success' == $trx->data->status){
-        // use trx info including metadata and session info to confirm that cartid
-        // matches the one for which we accepted payment
-        give_value($reference, $trx);
-        perform_success($trx);
-      }
-
     }
 
     public function requestWithdrawal(){
