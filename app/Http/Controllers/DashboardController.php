@@ -336,7 +336,7 @@ class DashboardController extends Controller
           }
           catch (\Exception $e) {
             //Send the admin an error message that someone trien to perform an operationa nd there was an error
-            
+
             //send the user a notification that something went wrong but support has been notified
           }
 
@@ -445,6 +445,11 @@ class DashboardController extends Controller
       Route::post('/mark-notice-as-read', 'DashboardController@markNoticeAsRead');
 
       Route::post('/delete-notice', 'DashboardController@deleteNotice');
+
+      Route::get('/get-all-agents', function () {
+        return  DB::table('users')->where('role_id', Role::agent_id())
+                    ->get(['id', 'phone1', 'acct_no', 'acct_type', 'firstname', 'lastname']);
+      });
     }
 
     public function getGameState(){

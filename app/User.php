@@ -9,20 +9,17 @@ use App\Earning;
 use App\Message;
 use App\Referral;
 use App\Transaction;
-use App\Confirmation;
 use App\UserQuestion;
 use App\UserGameSession;
 
 use Carbon\Carbon;
 
 use App\Mail\TransactionalMail;
-use App\Modules\PaymentAgent\Models\PaymentAgentTransactions;
 
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -333,10 +330,6 @@ class User extends Authenticatable{
     public function messages(){
       return $this->hasOne(Message::class, 'sender_id', 'role_id')->where('read', 0)->latest();
     }
-
-    // public function messages(){
-    //   return Message::where('sender_id', 88888)->first();
-    // }
 
     public function deletable(){
       if ($this->earnings->isEmpty() || $this->availble_units < 10) {

@@ -43,17 +43,31 @@
       margin: 0 !important;
     }
 
-
     .tal{
       text-align: left !important;
+    }
+
+    .tac{
+      text-align: center !important;
     }
 
     .al{
       align-self: left;
     }
 
-    img.image{
+    .ui.tabular.menu .item{
+      background-color: #03A9F4;
+      color: #FFF;
+    }
+
+    .agent-phone{
+      font-weight: 600;
+      color: #555;
+    }
+
+    #fund-account{
       margin-top: 45px;
+      border: 1px solid #D4D4D5;
     }
 
   </style>
@@ -62,7 +76,7 @@
 
   <div class="grid-container">
     <div class="grid-80 push-10">
-      <div class="position-ref full-height">
+      <div class="position-ref">
 
         <div id="fund-account" class="ui top attached tabular menu">
           <a class="active item" data-tab="first">Pay online</a>
@@ -87,34 +101,33 @@
             <buy-units></buy-units>
           </div>
 
-          <p>
-            <b>NOTE</b>: <br>
-            <li>Do not delete any of your Cashout posts on your wall. If you do you won't be paid the next time you want to Cashout.</li>
-            <li>Ensure that you turn off privacy settings on your social media accounts, so that we can see your posts.</li>
-          </p>
-
-
         </div>
 
         <div class="ui bottom attached tab segment" data-tab="second">
           <h1 class="content title">Payment Instructions</h1>
           <p class="message">Contact any of our Payment Agents to fund your wallet via bank deposit or transfer. Min. Amount: ₦600 | Max. Amount: ₦2,500 (₦100 agency fee included)</p>
           <div class="ui segment" id="extra">
-            <div class="ui header">FASTPLAY24 PAYMENT AGENT</div>
+            <div class="ui header tac">FASTPLAY24 PAYMENT AGENT LIST</div>
 
-            <p>
-              <b>Minimum amount:</b> ₦600 (₦100 agency fee included)
-            </p>
+            <div class="ui special cards">
 
-            <p>
-              <b>Payment Agent:</b> Simeon
-            </p>
-            <p>
-              <b>Account Number:</b> 3088711170 (First Bank)
-            </p>
-            <p>
-              <b>WhatsApp Number:</b> <a href="https://api.whatsapp.com/send?phone=2347067420064 ">07067420064 </a>
-            </p>
+              <div class="card" ng-repeat="agent in agents">
+                <div class="content">
+                  <div class="center aligned header">{{ agent.firstname }} {{ agent.lastname }}</div>
+                  <div class="center aligned description">
+                    <p><strong>Account Number:</strong> {{ agent.acct_no }}</p>
+                    <p><strong>Account Type:</strong> {{ agent.acct_type }}</p>
+                  </div>
+                </div>
+                <div class="extra content">
+                  <div class="center aligned agent-phone">
+                    <strong>WhatsApp Number:</strong>
+                    <a ng-href="https://api.whatsapp.com/send?phone={{ agent.phone1 }} ">{{ agent.phone1 }}</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
 
             <div class="ui positive message">
               <div class="header">
@@ -137,47 +150,6 @@
               </div>
               <p>A ₦100 (hundred naira) fixed charge will be deducted from any amount you pay.</p>
             </div>
-          <div class="ui special cards">
-
-            <div class="card" ng-repeat="n in userdetails.messages">
-              <div class="content image blurring dimmable">
-                <div class="ui inverted dimmer">
-                  <div class="content">
-                    <div class="center">
-                      <div class="ui primary mini button" ng-show="!n.read" ng-click="markAsRead(n)">Mark as Read</div>
-                      <div class="ui red mini button" ng-click="deleteMessage(n)">Delete Message</div>
-                      <!-- <div class="ui teal mini button" ng-click="deleteMessage(n)">Reply Message</div> -->
-                    </div>
-                  </div>
-                </div>
-                <div class="center aligned header">{{ n.subject }}</div>
-                <div class="center aligned description">
-                  <p>{{ n.message }}l</p>
-                </div>
-              </div>
-              <div class="extra content">
-                <send-message msg="n">Reply <i class="upload icon"></i></send-message>
-                <div class="center aligned author">
-                  <img class="ui avatar image" src="/img/avatar.png"> {{ n.senderusername }}
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="content">
-                <div class="center aligned header">{{ userdetails.firstname }} {{ userdetails.lastname }}</div>
-                <div class="center aligned description">
-                  <p>Nobody thinks about you. Too bad.</p>
-                </div>
-              </div>
-              <div class="extra content">
-                <div class="center aligned author">
-                  <img class="ui avatar image" src="/img/avatar.png"> FastPlay24
-                </div>
-              </div>
-            </div>
-
-          </div>
         </div>
 
 

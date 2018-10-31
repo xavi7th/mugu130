@@ -192,6 +192,10 @@ dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendReques
 dashboard.controller('FundWalletController', ['$scope', '$timeout', 'sendRequest', function ($scope, $timeout, sendRequest ) {
   NProgress.start();
 
+  sendRequest.request('user/get-all-agents').then(rsp => {
+    $scope.agents = rsp;
+  });
+
   $scope.$on('$viewContentLoaded', function() {
      $timeout(function () {
        $('#fund-account .item').tab();
