@@ -148,7 +148,10 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
 
       };
 
-      $scope.withdrawal_max = $scope.$parent.userdetails.available_units < 15000 ? $scope.$parent.userdetails.available_units : 15000;
+      $timeout(function () {
+        //This prevent the dashboard from crashing on page load where the parent scope may not yet be ready
+        $scope.withdrawal_max = $scope.$parent.userdetails.available_units < 15000 ? $scope.$parent.userdetails.available_units : 15000;
+      }, 1000);
 
       $scope.$on('$routeChangeStart', function() {
         $timeout(function () {
