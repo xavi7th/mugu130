@@ -27,8 +27,8 @@ var url = `
       <div class="header">
         Enter an Amount
       </div>
-      <div class="image content flex-center">
-        <div class="ui form" style="flex-basis:  55%;">
+      <div class="content flex-center">
+        <div class="ui form" id="input-field">
           <div class="field">
             <input type="number" placeholder="Min ₦1,000 | Max: ₦15, 000" ng-model="requested_amount" ng-max="withdrawal_max" ng-min="1000">
           </div>
@@ -62,16 +62,6 @@ var url = `
               NOTE:
             </div>
             <p> NB: If you do not receive the requested amount in your bank account within 72 hours after the time of request, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>
-          </div>
-        </div>
-        <div class="ui icon mini message">
-          <i class="inbox icon"></i>
-          <div class="content">
-            <div class="header">
-              NOTE:
-            </div>
-            <p> Withdrawals below ₦1000 will be sent to your registered phone number as credit. </p>
-            <p> While withdrawals above ₦1000 will be sent to your registered bank account.</p>
           </div>
         </div>
       </div>
