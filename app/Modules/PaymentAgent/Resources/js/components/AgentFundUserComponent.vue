@@ -220,6 +220,9 @@ export default {
     &.input{
       width: 30%;
       margin-bottom: 25px;
+      @media(max-width:767px){
+        width: auto;
+      }
     }
     &.form{
       text-align: center;
@@ -227,6 +230,9 @@ export default {
     .message{
       max-width: 35%;
       margin: 0 auto;
+      @media(max-width:767px){
+        max-width: none;
+      }
     }
   }
   h1{
