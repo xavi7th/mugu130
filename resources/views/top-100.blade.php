@@ -40,37 +40,8 @@
   <section id="others_contents">
     <div class="grid-container">
       <div class="grid-100 tablet-grid-90 tablet-push-5" style="text-align: center;">
-        <div class="ui purple segment">
-          <a href="https://web.facebook.com/search/str/%23fastplay24pays/keywords_blended_photos" target="_blank">
-            <div class="ui animated fade facebook button" tabindex="-1">
-              <div class="visible content">View Facebook Testimonies</div>
-              <div class="hidden content">
-                <i class="facebook icon"></i>
-                Visit Page
-              </div>
-            </div>
-          </a>
-          <a href="https://twitter.com/hashtag/FastPlay24?s=08" target="_blank">
-            <div class="ui animated fade twitter button" tabindex="-1">
-              <div class="visible content">View Twitter Testimonies</div>
-              <div class="hidden content">
-                <i class="twitter icon"></i>
-                Visit Page
-              </div>
-            </div>
-          </a>
-          <a href="https://www.instagram.com/explore/tags/fastplay24/" target="_blank">
-            <div class="ui animated fade instagram button" tabindex="-1">
-              <div class="visible content">View Instagram Testimonies</div>
-              <div class="hidden content">
-                <i class="instagram icon"></i>
-                Visit Page
-              </div>
-            </div>
-          </a>
-        </div>
         <div class="ui blue segment">
-          <h4>A preview of the all time top 100 winners on fastplay24. You too can be a winner</h4>
+          <h4>Meet the Top 100 Winners on FastPlay24. You too can be a winner.</h4>
         </div>
         <div class="ui raised segment">
           <div class="ui four stackable doubling cards">
@@ -121,8 +92,8 @@
                 </div>
                 <div class="extra content">
                   <a class="ng-binding">
-                    <i class="bullhorn icon"></i>
-                    <b>EARNINGS:</b> ₦{{ $record->user_earnings }}
+                    <i class="cc visa icon"></i>
+                    <b>EARNINGS:</b> ₦{{ number_format($record->user_earnings, 2) }}
                   </a>
                 </div>
               </div>

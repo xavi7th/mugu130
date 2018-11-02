@@ -1,5 +1,5 @@
 <title>Privacy Policy | {{ env('APP_NAME') }}</title>
-<meta name="robots" content="index,follow">
+<meta name="robots" content="noindex,nofollow">
 
 <meta name="description" content="{{ env('APP_NAME') }} privacy policy"/>
 <meta name="author" content="{{ env('APP_AUTHOR') }}">
