@@ -1,4 +1,4 @@
-webpackJsonp([6],{
+webpackJsonp([8],{
 
 /***/ "./node_modules/laravel-echo/dist/echo.js":
 /***/ (function(module, exports, __webpack_require__) {
@@ -27361,7 +27361,7 @@ __webpack_require__("./node_modules/angular-timeago/dist/angular-timeago.js");
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/assets/js/app.js");
@@ -27369,5 +27369,5 @@ module.exports = __webpack_require__("./resources/assets/js/app.js");
 
 /***/ })
 
-},[1]);
+},[2]);
 //# sourceMappingURL=app.js.map

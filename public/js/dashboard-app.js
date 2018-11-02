@@ -1,4 +1,4 @@
-webpackJsonp([3],{
+webpackJsonp([5],{
 
 /***/ "./node_modules/angular-sweetalert/SweetAlert.js":
 /***/ (function(module, exports, __webpack_require__) {
@@ -3528,7 +3528,7 @@ __webpack_require__("./resources/assets/js/angular/controllers/dashboard-control
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/assets/js/dashboard-app.js");
@@ -3536,5 +3536,5 @@ module.exports = __webpack_require__("./resources/assets/js/dashboard-app.js");
 
 /***/ })
 
-},[3]);
+},[4]);
 //# sourceMappingURL=dashboard-app.js.map

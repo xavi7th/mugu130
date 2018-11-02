@@ -8,7 +8,7 @@
     "providers": [
         "App\\Modules\\PaymentAgent\\Providers\\PaymentAgentServiceProvider"
     ],
-    "aliases": {},
+    "aliases": [],
     "files": [],
     "requires": []
 }

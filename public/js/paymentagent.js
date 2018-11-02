@@ -1,4 +1,4 @@
-webpackJsonp([1],{
+webpackJsonp([2],{
 
 /***/ "./app/Modules/PaymentAgent/Resources/js/agent-app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -45384,21 +45384,13 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/assets/sass/app.scss":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("./app/Modules/PaymentAgent/Resources/js/agent-app.js");
-module.exports = __webpack_require__("./resources/assets/sass/app.scss");
+module.exports = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/agent-app.js");
 
 
 /***/ })
 
-},[0]);
+},[1]);
 //# sourceMappingURL=paymentagent.js.map

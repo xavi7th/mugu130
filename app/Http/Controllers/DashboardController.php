@@ -360,8 +360,6 @@ class DashboardController extends Controller
 
       })->name('wallet-funding-successful');
 
-
-
       Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
 
     }
