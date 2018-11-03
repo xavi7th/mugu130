@@ -14,7 +14,7 @@
       <meta name="author" content="">
 
   		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="192x192"/>
-  		<link id="stylesheet" href="{{ mix('/css/app.css') }}">
+  		<link id="stylesheet" href="{{ mix('/css/app.css') }}" rel="stylesheet">
   		<noscript><link  rel="stylesheet" href="{{ mix('/css/app.css') }}"></noscript>
 
       @section('customCSS') @show
@@ -30,7 +30,7 @@
       <script src="{{ asset(mix('/js/vendor.js')) }}" charset="utf-8"></script>
       <script src="{{ asset(mix('js/paymentagent.js'))}}" charset="utf-8"></script>
       <script>
-        document.querySelector('#stylesheet').setAttribute('rel','stylesheet');
+        // document.querySelector('#stylesheet').setAttribute('rel','stylesheet');
       </script>
 
       @section('customJS') @show

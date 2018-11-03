@@ -19,6 +19,7 @@ export const httpUserRootUrl = (url) => (httpUsersDomain + (url || ''));
 
 const getAdminDetails = httpUserRootUrl('get-user-details');
 const getTotalEarnings = httpUserRootUrl('get-total-earnings');
+const getAllAgents = httpAdminRootUrl('agents/get-all-agents');
 const adminViewAgents = httpAdminRootUrl('agents');
 const adminDashboard = httpAdminRootUrl();
 const adminViewQuestions = httpAdminRootUrl('questions');
@@ -46,6 +47,7 @@ export default {
   adminDashboard,
   getAdminDetails,
   getTotalEarnings,
+  getAllAgents,
   adminViewQuestions,
   adminViewAdmins,
   adminViewUsers,

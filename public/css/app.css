@@ -5743,10 +5743,6 @@ i.icon.angular:before {
   content: "\F420";
 }
 
-i.icon.app.store:before {
-  content: "\F36F";
-}
-
 i.icon.apple:before {
   content: "\F179";
 }
@@ -6081,10 +6077,6 @@ i.icon.google.wallet:before {
 
 i.icon.h.square:before {
   content: "\F0FD";
-}
-
-i.icon.hashtag:before {
-  content: "\F292";
 }
 
 i.icon.heading:before {
@@ -6881,6 +6873,10 @@ i.icon.signing:before {
   content: "\F2A7";
 }
 
+i.icon.sound:before {
+  content: "\F025";
+}
+
 i.icon.target:before {
   content: "\F140";
 }
@@ -7355,7 +7351,7 @@ i.icon.star.empty:before {
 
 /* Brand Icon Font Family */
 
-i.icon.\35 00px,i.icon.amazon,i.icon.amazon.pay,i.icon.angular,i.icon.app.store,i.icon.apple,i.icon.apple.pay,i.icon.bitcoin,i.icon.btc,i.icon.cc.amazon.pay,i.icon.cc.apple.pay,i.icon.cc.visa,i.icon.chrome,i.icon.css3,i.icon.css3.alternate,i.icon.d.and.d,i.icon.edge,i.icon.facebook,i.icon.facebook.f,i.icon.facebook.messenger,i.icon.facebook.square,i.icon.first.order,i.icon.font.awesome,i.icon.font.awesome.alternate,i.icon.get.pocket,i.icon.google,i.icon.google.play,i.icon.google.wallet,i.icon.html5,i.icon.instagram,i.icon.js,i.icon.js.square,i.icon.laravel,i.icon.medium,i.icon.medium.m,i.icon.microsoft,i.icon.mix,i.icon.opera,i.icon.page4,i.icon.php,i.icon.stack.overflow,i.icon.telegram,i.icon.twitter,i.icon.twitter.square,i.icon.whatsapp,i.icon.whatsapp.square {
+i.icon.\35 00px,i.icon.amazon,i.icon.amazon.pay,i.icon.angular,i.icon.apple,i.icon.apple.pay,i.icon.bitcoin,i.icon.btc,i.icon.cc.amazon.pay,i.icon.cc.apple.pay,i.icon.cc.visa,i.icon.chrome,i.icon.css3,i.icon.css3.alternate,i.icon.d.and.d,i.icon.edge,i.icon.facebook,i.icon.facebook.f,i.icon.facebook.messenger,i.icon.facebook.square,i.icon.first.order,i.icon.font.awesome,i.icon.font.awesome.alternate,i.icon.get.pocket,i.icon.google,i.icon.google.play,i.icon.google.wallet,i.icon.html5,i.icon.instagram,i.icon.js,i.icon.js.square,i.icon.laravel,i.icon.medium,i.icon.medium.m,i.icon.microsoft,i.icon.mix,i.icon.opera,i.icon.page4,i.icon.php,i.icon.stack.overflow,i.icon.telegram,i.icon.twitter,i.icon.twitter.square,i.icon.whatsapp,i.icon.whatsapp.square {
   font-family: 'brand-icons';
 }
 
@@ -18318,10 +18314,6 @@ Floated Menu / Item
 
 .ui.fifteen.column.table td {
   width: 6.66666667%;
-}
-
-.ui.sixteen.column.table td {
-  width: 6.25%;
 }
 
 /* Column Width */

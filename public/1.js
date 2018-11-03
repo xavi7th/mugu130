@@ -4,8 +4,10 @@ webpackJsonp([1],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./AdminManageAgentsComponent": "./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue",
-	"./AdminManageAgentsComponent.vue": "./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue",
+	"./AdminEditAgentsComponent": "./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue",
+	"./AdminEditAgentsComponent.vue": "./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue",
+	"./AdminViewAgentsComponent": "./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue",
+	"./AdminViewAgentsComponent.vue": "./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue",
 	"./AppComponent": "./app/Modules/Admin/Resources/js/components/AppComponent.vue",
 	"./AppComponent.vue": "./app/Modules/Admin/Resources/js/components/AppComponent.vue",
 	"./layouts/MasterLayoutComponent": "./app/Modules/Admin/Resources/js/components/layouts/MasterLayoutComponent.vue",

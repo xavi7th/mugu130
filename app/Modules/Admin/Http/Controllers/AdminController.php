@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\User;
+use App\Role;
 
 /**
  * undocumented class variable
@@ -28,7 +29,8 @@ class AdminController extends Controller
 
         Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'agents/api'], function(){
 
-          Route::get('find-user/{email}', function ($email) {
+          Route::get('get-all-agents', function () {
+            return 'here';
             try {
               return User::where('email', $email)->firstOrFail()->only(['email', 'firstname', 'lastname', 'id']);
             } catch (ModelNotFoundException $e) {
@@ -40,6 +42,17 @@ class AdminController extends Controller
         });
 
         Route::group(['middleware' => ['auth', 'suspended', 'admin'], 'prefix' => 'agents'], function(){
+
+
+           Route::get('get-all-agents', function () {
+             try {
+               return User::where('role_id', Role::agent_id())->get();
+             } catch (ModelNotFoundException $e) {
+               return response()->json(['message' => 'user not found' ], 204);
+             }
+
+           });
+
           Route::get('/{vue_capture?}', function () {
             // exit('here');
             return view('admin::admin-dashboard');

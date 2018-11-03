@@ -81,19 +81,19 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
 /***/ }),
 
-/***/ "./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue":
+/***/ "./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-36b5d1dc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5be648d2\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-36b5d1dc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5be648d2\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -110,7 +110,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue"
+Component.options.__file = "app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -119,9 +119,61 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-36b5d1dc", Component.options)
+    hotAPI.createRecord("data-v-5be648d2", Component.options)
   } else {
-    hotAPI.reload("data-v-36b5d1dc", Component.options)
+    hotAPI.reload("data-v-5be648d2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-371349c8\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-371349c8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-371349c8", Component.options)
+  } else {
+    hotAPI.reload("data-v-371349c8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -537,6 +589,7 @@ var httpUserRootUrl = function httpUserRootUrl(url) {
 
 var getAdminDetails = httpUserRootUrl('get-user-details');
 var getTotalEarnings = httpUserRootUrl('get-total-earnings');
+var getAllAgents = httpAdminRootUrl('agents/get-all-agents');
 var adminViewAgents = httpAdminRootUrl('agents');
 var adminDashboard = httpAdminRootUrl();
 var adminViewQuestions = httpAdminRootUrl('questions');
@@ -566,6 +619,7 @@ var logoutAdmin = function logoutAdmin() {
   adminDashboard: adminDashboard,
   getAdminDetails: getAdminDetails,
   getTotalEarnings: getTotalEarnings,
+  getAllAgents: getAllAgents,
   adminViewQuestions: adminViewQuestions,
   adminViewAdmins: adminViewAdmins,
   adminViewUsers: adminViewUsers,
@@ -589,8 +643,11 @@ var logoutAdmin = function logoutAdmin() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_endpoints__ = __webpack_require__("./app/Modules/Admin/Resources/js/config/endpoints.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_AppComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AppComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_AppComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_AppComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AdminManageAgentsComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AdminManageAgentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_AdminManageAgentsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AdminViewAgentsComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AdminViewAgentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_AdminViewAgentsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_AdminEditAgentsComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_AdminEditAgentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_AdminEditAgentsComponent__);
+
 
 
 
@@ -629,13 +686,20 @@ function createRouter() {
         title: 'Admin Manage Agents | Fastplay24'
       },
       children: [{
-        // ManageAgents will be rendered inside App's <router-view>
+        // ViewAgents will be rendered inside App's <router-view>
         // when /tcom01/agents is matched
         path: 'agents',
-        component: __WEBPACK_IMPORTED_MODULE_4__components_AdminManageAgentsComponent___default.a,
+        component: __WEBPACK_IMPORTED_MODULE_4__components_AdminViewAgentsComponent___default.a,
         name: 'admin.view-agents',
         meta: {
           title: 'Admin View Agents | Fastplay24'
+        }
+      }, {
+        path: 'agent/:id/edit',
+        component: __WEBPACK_IMPORTED_MODULE_5__components_AdminEditAgentsComponent___default.a,
+        name: 'admin.edit-agent',
+        meta: {
+          title: 'Admin Edit Agent Details | Fastplay24'
         }
       }]
 
@@ -2199,7 +2263,115 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/layouts/MasterLayoutComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/partials/AdminAgentsNavComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/misc/LoaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_endpoints__ = __webpack_require__("./app/Modules/Admin/Resources/js/config/endpoints.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'EditAgents',
+  components: {
+    pageLoading: __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default.a,
+    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a,
+    AgentMenu: __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent___default.a
+  },
+  created: function created() {
+    this.getAllAgents();
+  },
+  data: function data() {
+    return {
+      all_agents: false,
+      loading: true
+    };
+  },
+
+  computed: {},
+  methods: {
+    getAllAgents: function getAllAgents() {
+      var _this = this;
+
+      axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgents).then(function (rsp) {
+        _this.all_agents = rsp.data;
+        _this.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2283,6 +2455,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2290,19 +2481,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'AdminManageAgents',
-    components: {
-        pageLoading: __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default.a,
-        MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a,
-        AgentMenu: __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent___default.a
-    },
-    created: function created() {},
-    data: function data() {
-        return {};
-    },
+  name: 'ViewAgents',
+  components: {
+    pageLoading: __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default.a,
+    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a,
+    AgentMenu: __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent___default.a
+  },
+  created: function created() {
+    this.getAllAgents();
+  },
+  data: function data() {
+    return {
+      all_agents: false,
+      loading: true
+    };
+  },
 
-    computed: {},
-    methods: {}
+  computed: {},
+  methods: {
+    getAllAgents: function getAllAgents() {
+      var _this = this;
+
+      axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgents).then(function (rsp) {
+        _this.all_agents = rsp.data;
+        _this.loading = false;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2312,15 +2517,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminManageAgentsComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminManageAgentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AdminManageAgentsComponent__);
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent__);
 //
 //
 //
@@ -2341,11 +2539,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   components: {
-    ManageAgents: __WEBPACK_IMPORTED_MODULE_0__AdminManageAgentsComponent___default.a
+    ViewAgents: __WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent___default.a
   },
   data: function data() {
     return {
-      currentComponent: 'ManageAgents',
+      currentComponent: 'ViewAgents',
       propsToPass: {}
     };
   },
@@ -2497,11 +2695,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'AdminNav',
+  name: 'AdminAgentsNav',
   props: ['admin_details'],
   data: function data() {
     return {
@@ -2735,14 +2938,14 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AppComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AppComponent.vue","sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-36b5d1dc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue":
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-371349c8\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
@@ -2750,7 +2953,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminManageAgentsComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminViewAgentsComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -2781,6 +2984,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n.loader {\n  display: block;\n  border: 5px solid rgba(189,189,189, 0.25);\n  border-left-color: rgb(3, 169, 244);\n  border-top-color: rgb(3, 169, 244);\n  border-radius: 50%;\n  -webkit-animation: rotate 600ms infinite linear;\n          animation: rotate 600ms infinite linear;\n  margin: 0 auto;\n}\n@-webkit-keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n@keyframes rotate {\nto {\n        -webkit-transform: rotate(1turn);\n                transform: rotate(1turn)\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/Admin/Resources/js/components/misc/app/Modules/Admin/Resources/js/components/misc/LoaderComponent.vue"],"names":[],"mappings":";AAiBA;EACA,eAAA;EACA,0CAAA;EACA,oCAAA;EACA,mCAAA;EACA,mBAAA;EACA,gDAAA;UAAA,wCAAA;EACA,eAAA;CACA;AAEA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA;AAJA;AACA;QACA,iCAAA;gBAAA,wBAAA;CACA;CACA","file":"LoaderComponent.vue","sourcesContent":["<template>\n  <div class=\"loader\" :style=\"{ width: size + 'px', height: size + 'px' }\"></div>\n</template>\n\n<script>\n  export default {\n      name: 'Loader',\n      props: {\n        size: {\n          type: Number,\n          default: 30\n        }\n      }\n  }\n</script>\n\n<style>\n  .loader {\n    display: block;\n    border: 5px solid rgba(189,189,189, 0.25);\n    border-left-color: rgb(3, 169, 244);\n    border-top-color: rgb(3, 169, 244);\n    border-radius: 50%;\n    animation: rotate 600ms infinite linear;\n    margin: 0 auto;\n  }\n\n  @keyframes rotate {\n      to {\n          transform: rotate(1turn)\n        }\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5be648d2\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminEditAgentsComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -28758,7 +28976,13 @@ var render = function() {
             _vm._v(" "),
             _c(
               "router-link",
-              { staticClass: "item", attrs: { to: { name: "hhhhh" } } },
+              {
+                staticClass: "item",
+                attrs: {
+                  to: { name: "admin.view-agents" },
+                  "active-class": "active"
+                }
+              },
               [
                 _c("i", { staticClass: "users icon" }),
                 _vm._v("\n          Agents\n        ")
@@ -28798,9 +29022,24 @@ var render = function() {
           { staticClass: "ui compact menu inverted" },
           [
             _c(
+              "router-link",
+              {
+                staticClass: "item red",
+                attrs: {
+                  to: { name: "admin.view-agents" },
+                  "active-class": "active"
+                }
+              },
+              [
+                _c("i", { staticClass: "users icon" }),
+                _vm._v("\n          View Agents\n        ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
               "a",
               {
-                staticClass: " active red item",
+                staticClass: "red item",
                 attrs: { href: _vm.routes.adminViewGames }
               },
               [
@@ -28835,7 +29074,10 @@ var render = function() {
             _vm._v(" "),
             _c(
               "router-link",
-              { staticClass: "item", attrs: { to: { name: "hhhhh" } } },
+              {
+                staticClass: "item",
+                attrs: { to: { name: "admin.view-agents" } }
+              },
               [
                 _c("i", { staticClass: "users icon" }),
                 _vm._v("\n          Agents\n        ")
@@ -28900,7 +29142,7 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-36b5d1dc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-371349c8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -28917,134 +29159,204 @@ var render = function() {
           _c("agent-menu"),
           _vm._v(" "),
           _c("div", { staticClass: "grid-container" }, [
-            _c("div", { staticClass: "grid-100 flex-center stack small" }, [
-              _c("div", { staticClass: "ui segment compact left floated" }, [
-                _c("div", { staticClass: "ui horizontal statistic" }, [
-                  _c("div", { staticClass: "value" }, [
-                    _vm._v(
-                      "\n                  " +
-                        _vm._s("total") +
-                        "\n                "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "label" }, [
-                    _vm._v("\n                  Agents\n                ")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "ui orange button",
-                  attrs: { "ng-click": "newQuestion()" }
-                },
-                [_vm._v("New Agent")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "ui search flex-center",
-                  staticStyle: { "justify-content": "flex-end" }
-                },
-                [
-                  _c("div", { staticClass: "ui icon input" }, [
-                    _c("input", {
-                      staticClass: "prompt",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Search...",
-                        "ng-model": "search"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("i", { staticClass: "search icon" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "results" })
-                ]
-              ),
-              _vm._v(" "),
-              _c("br")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-container" }, [
             _c("div", { staticClass: "grid-100" }, [
               _c(
                 "div",
                 { staticClass: "ui red segment" },
                 [
-                  _c("page-loading", { attrs: { size: 60 } }),
-                  _vm._v(" "),
-                  _c("table", { staticClass: "ui  striped celled table" }, [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", [_vm._v("S/N")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Question")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Created At")]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Actions")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tbody", [
-                      _c(
-                        "tr",
-                        {
-                          staticClass: "animate translate-in",
-                          attrs: {
-                            "ng-class":
-                              "{'negative': transaction.trans_type == 'withdrawal'}"
-                          }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s("q.id"))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "span",
-                              {
-                                staticStyle: { cursor: "pointer" },
-                                attrs: { "ng-click": "previewQuestion(q)" }
-                              },
-                              [_vm._v(_vm._s("q.question | limitTo : 100"))]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s("q.created_at | timeAgo"))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("div", { staticClass: "ui mini buttons" }, [
+                  !_vm.loading
+                    ? _c("div", { staticClass: "grid-100" }, [
+                        _c("div", { staticClass: "grid-40" }, [
+                          _c(
+                            "div",
+                            { staticClass: "ui segment compact left floated" },
+                            [
                               _c(
-                                "button",
-                                {
-                                  staticClass: "ui orange button",
-                                  attrs: { "ng-click": "openModal(q)" }
-                                },
-                                [_vm._v("Edit")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "or" }),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "ui red button",
-                                  attrs: { "ng-click": "deleteQuestion(q)" }
-                                },
-                                [_vm._v("Delete")]
+                                "div",
+                                { staticClass: "ui horizontal statistic" },
+                                [
+                                  _c("div", { staticClass: "value" }, [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s("total") +
+                                        "\n                      "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "label" }, [
+                                    _vm._v(
+                                      "\n                        Agents\n                      "
+                                    )
+                                  ])
+                                ]
                               )
-                            ])
-                          ])
-                        ]
-                      )
-                    ])
-                  ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "grid-15" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "ui orange button",
+                              attrs: { "ng-click": "newQuestion()" }
+                            },
+                            [_vm._v("New Agent")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "grid-45" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "ui search flex-center",
+                              staticStyle: { "justify-content": "flex-end" }
+                            },
+                            [
+                              _c("div", { staticClass: "ui icon input" }, [
+                                _c("input", {
+                                  staticClass: "prompt",
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Search..."
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("i", { staticClass: "search icon" })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "results" })
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    { attrs: { name: "slide-in" } },
+                    [
+                      _vm.loading
+                        ? _c("page-loading", { attrs: { size: 60 } })
+                        : _c(
+                            "table",
+                            { staticClass: "ui  striped celled table" },
+                            [
+                              _c("thead", [
+                                _c("tr", [
+                                  _c("th", [_vm._v("S/N")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("E-Mail")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Full Name")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Available Units")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Account Status")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Actions")])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.all_agents, function(agent) {
+                                  return _c(
+                                    "tr",
+                                    {
+                                      attrs: {
+                                        "ng-class":
+                                          "{'negative': transaction.trans_type == 'withdrawal'}"
+                                      }
+                                    },
+                                    [
+                                      _c("td", [_vm._v(_vm._s("q.id"))]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticStyle: { cursor: "pointer" }
+                                          },
+                                          [_vm._v(_vm._s(agent.email))]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          _vm._s(agent.firstname) +
+                                            " " +
+                                            _vm._s(agent.lastname)
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("currency")(
+                                              agent.available_units,
+                                              "₦"
+                                            )
+                                          )
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(agent.useraccstatus))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "div",
+                                          { staticClass: "ui mini buttons" },
+                                          [
+                                            _c(
+                                              "router-link",
+                                              {
+                                                staticClass: "ui orange button",
+                                                attrs: {
+                                                  to: {
+                                                    name: "admin.edit-agent",
+                                                    params: { id: agent.id }
+                                                  },
+                                                  "active-class": "active"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                              Edit\n                          "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "or" }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass: "ui red button",
+                                                attrs: {
+                                                  "ng-click":
+                                                    "deleteQuestion(q)"
+                                                }
+                                              },
+                                              [_vm._v("Delete")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                })
+                              )
+                            ]
+                          )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -29063,7 +29375,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-36b5d1dc", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-371349c8", module.exports)
   }
 }
 
@@ -29232,6 +29544,132 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-58aea708", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5be648d2\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "master-layout",
+    [
+      _c(
+        "template",
+        { slot: "content-section" },
+        [
+          _c("agent-menu"),
+          _vm._v(" "),
+          _c("div", { staticClass: "grid-container" }, [
+            _c("div", { staticClass: "grid-100" }, [
+              _c(
+                "div",
+                { staticClass: "ui red segment" },
+                [
+                  !_vm.loading
+                    ? _c("div", { staticClass: "grid-100" }, [
+                        _c("div", { staticClass: "grid-40" }, [
+                          _c(
+                            "div",
+                            { staticClass: "ui segment compact left floated" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "ui horizontal statistic" },
+                                [
+                                  _c("div", { staticClass: "value" }, [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s("total") +
+                                        "\n                      "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "label" }, [
+                                    _vm._v(
+                                      "\n                        Agents\n                      "
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "grid-15" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "ui orange button",
+                              attrs: { "ng-click": "newQuestion()" }
+                            },
+                            [_vm._v("New Agent")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "grid-45" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "ui search flex-center",
+                              staticStyle: { "justify-content": "flex-end" }
+                            },
+                            [
+                              _c("div", { staticClass: "ui icon input" }, [
+                                _c("input", {
+                                  staticClass: "prompt",
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Search..."
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("i", { staticClass: "search icon" })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "results" })
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    { attrs: { name: "slide-in" } },
+                    [
+                      _vm.loading
+                        ? _c("page-loading", { attrs: { size: 60 } })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ],
+        1
+      )
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5be648d2", module.exports)
   }
 }
 
@@ -32126,23 +32564,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-36b5d1dc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-371349c8\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-36b5d1dc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminManageAgentsComponent.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-371349c8\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("e59ea9ea", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("616d3b0d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-36b5d1dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminManageAgentsComponent.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-36b5d1dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminManageAgentsComponent.vue");
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-371349c8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminViewAgentsComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-371349c8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminViewAgentsComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -32197,6 +32635,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-58aea708\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoaderComponent.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-58aea708\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoaderComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5be648d2\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5be648d2\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("2c58181d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5be648d2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminEditAgentsComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5be648d2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminEditAgentsComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

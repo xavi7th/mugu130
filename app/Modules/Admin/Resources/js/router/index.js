@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import routes from '../config/endpoints';
 
 import App from '../components/AppComponent';
-import ManageAgents from '../components/AdminManageAgentsComponent'
+import ViewAgents from '../components/AdminViewAgentsComponent'
+import EditAgent from '../components/AdminEditAgentsComponent'
 
 Vue.use(VueRouter)
 
@@ -39,13 +40,21 @@ export function createRouter () {
             },
             children: [
                 {
-                  // ManageAgents will be rendered inside App's <router-view>
+                  // ViewAgents will be rendered inside App's <router-view>
                   // when /tcom01/agents is matched
                   path: 'agents',
-                  component: ManageAgents,
+                  component: ViewAgents,
                   name: 'admin.view-agents',
                   meta: {
                     title: 'Admin View Agents | Fastplay24'
+                  }
+                },
+                {
+                  path: 'agent/:id/edit',
+                  component: EditAgent,
+                  name: 'admin.edit-agent',
+                  meta: {
+                    title: 'Admin Edit Agent Details | Fastplay24'
                   }
                 },
             ],

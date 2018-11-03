@@ -33,7 +33,7 @@
             <i class="folder open outline icon"></i>
             Messages
           </a>
-          <router-link :to="{ name: 'hhhhh' }" class="item">
+          <router-link :to="{ name: 'admin.view-agents' }" class="item" active-class="active">
             <i class="users icon"></i>
             Agents
           </router-link>
