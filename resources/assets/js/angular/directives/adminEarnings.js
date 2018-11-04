@@ -52,7 +52,8 @@ var url = `
               <td ng-click="viewGameRecord(earning)" style="cursor:pointer;"> Admin </td>
               <td>{{ earning.amount }}</td>
               <td ng-if="earning.game_id">{{ earning.game_id }}</td>
-              <td ng-if="!earning.game_id"> Withdrawal Fee </td>
+              <td ng-if="!earning.game_id && !earning.agent_id"> Withdrawal Fee </td>
+              <td ng-if="!earning.game_id && earning.agent_id"> Agent Charges </td>
               <td>
                   <span ng-if="earning.transferred">Transferred</span>
                   <span ng-if="!earning.transferred">Untransferred</span>
