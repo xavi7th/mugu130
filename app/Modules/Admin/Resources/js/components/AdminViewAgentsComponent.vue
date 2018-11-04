@@ -16,7 +16,7 @@
                     <div class="ui segment compact left floated">
                       <div class="ui horizontal statistic">
                         <div class="value">
-                          {{ 'total' }}
+                          {{ num_of_agents }}
                         </div>
                         <div class="label">
                           Agents
@@ -25,7 +25,7 @@
                     </div>
                   </div>
                   <div class="grid-15">
-                    <button class="ui orange button" ng-click="newQuestion()">New Agent</button>
+                    <!-- <button class="ui orange button" ng-click="newQuestion()">New Agent</button> -->
                   </div>
                   <div class="grid-45">
                     <div class="ui search flex-center" style="justify-content:flex-end">
@@ -94,6 +94,7 @@
     import AgentMenu from './partials/AdminAgentsNavComponent'
     import Loader from './misc/LoaderComponent'
     import apiRoutes from '../config/endpoints';
+    import { size } from 'lodash'
 
     export default {
         name: 'ViewAgents',
@@ -112,7 +113,9 @@
           };
         },
         computed: {
-
+          num_of_agents(){
+            return _.size(this.all_agents);
+          }
         },
         methods: {
           getAllAgents(){

@@ -4,42 +4,13 @@
 
       <template slot="content-section">
 
-        <!-- <agent-menu></agent-menu> -->
+        <agent-menu></agent-menu>
 
           <div class="grid-container">
 
             <div class="grid-100">
 
               <div class="ui red segment">
-
-                <div class="grid-100" v-if="!loading">
-                  <div class="grid-40">
-                    <div class="ui segment compact left floated">
-                      <div class="ui horizontal statistic">
-                        <div class="value">
-                          {{ 'total' }}
-                        </div>
-                        <div class="label">
-                          Agents
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid-15">
-                    <button class="ui orange button square">New Agent</button>
-                    <router-link :to="{ name: '', params: {} }"></router-link>
-                  </div>
-                  <div class="grid-45">
-                    <div class="ui search flex-center" style="justify-content:flex-end">
-                      <div class="ui icon input">
-                        <input class="prompt" type="text" placeholder="Search...">
-                        <i class="search icon"></i>
-                      </div>
-                      <div class="results"></div>
-                    </div>
-                  </div>
-                  <br>
-                </div>
 
                 <transition name="slide-in"  mode="out-in">
 
@@ -61,29 +32,30 @@
                       </div>
                     </div>
                     <div class="field">
-                      <label>Password</label>
                       <div class="two fields">
                         <div class="field">
+                          <label>Password</label>
                           <input type="password" name="password" placeholder="Enter Password" v-model="agent_details.password">
                         </div>
+                        <div class="field">
+                          <div class="three fields">
+                            <div class="field">
+                              <label>Total Units Purchsased</label>
+                              <input type="number" name="num_of_referrals" placeholder="Units Purchased" readonly="readonly"  v-model="agent_details.units_purchased">
+                            </div>
+                            <div class="field">
+                              <label>Wallet Balance</label>
+                              <input type="number" name="available_units" placeholder="Wallet Balance" readonly="readonly"  v-model="agent_details.available_units">
+                            </div>
+                            <div class="field">
+                              <label>Profit</label>
+                              <input type="number" name="untransferred_earnings" placeholder="Untransferred Earnings" readonly="readonly"  v-model="agent_details.total_untransferred_earnings">
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="field">
-                      <div class="six fields">
-                        <div class="field">
-                          <label>Total Units Purchsased</label>
-                          <input type="number" name="num_of_referrals" placeholder="Units Purchased" readonly="readonly"  v-model="agent_details.units_purchased">
-                        </div>
-                        <div class="field">
-                          <label>Wallet Balance</label>
-                          <input type="number" name="available_units" placeholder="Wallet Balance" readonly="readonly"  v-model="agent_details.available_units">
-                        </div>
-                        <div class="field">
-                          <label>Profit</label>
-                          <input type="number" name="untransferred_earnings" placeholder="Untransferred Earnings" readonly="readonly"  v-model="agent_details.total_untransferred_earnings">
-                        </div>
-                      </div>
-                    </div>
+
                     <div class="field">
                       <div class="two fields">
                         <div class="field">

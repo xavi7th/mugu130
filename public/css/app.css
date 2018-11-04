@@ -42,6 +42,13 @@
   flex-direction: row;
 }
 
+.flex-center.column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 /* html5reset.css - 01/11/2011 */
 
 html,body,div,span,object,h1,h2,h3,h4,h5,h6,p,blockquote,address,code,em,img,q,small,strong,sub,sup,var,b,i,dt,dd,ol,ul,li,form,label,table,caption,tbody,tfoot,thead,tr,th,td,details,footer,header,menu,nav,section,summary,time,mark,video {
@@ -1314,6 +1321,27 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 }
 
 /* Google Plus */
+
+.ui.google.plus.button {
+  background-color: #DD4B39;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.google.plus.button:hover {
+  background-color: #e0321c;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.google.plus.button:active {
+  background-color: #c23321;
+  color: #FFFFFF;
+  text-shadow: none;
+}
 
 /* Linked In */
 
@@ -5973,8 +6001,16 @@ i.icon.calendar.check:before {
   content: "\F274";
 }
 
+i.icon.calendar.plus:before {
+  content: "\F271";
+}
+
 i.icon.calendar.times:before {
   content: "\F273";
+}
+
+i.icon.cart.plus:before {
+  content: "\F217";
 }
 
 i.icon.cc.amazon.pay:before {
@@ -6249,6 +6285,18 @@ i.icon.google.play:before {
   content: "\F3AB";
 }
 
+i.icon.google.plus:before {
+  content: "\F2B3";
+}
+
+i.icon.google.plus.g:before {
+  content: "\F0D5";
+}
+
+i.icon.google.plus.square:before {
+  content: "\F0D4";
+}
+
 i.icon.google.wallet:before {
   content: "\F1EE";
 }
@@ -6449,6 +6497,18 @@ i.icon.play.circle:before {
   content: "\F144";
 }
 
+i.icon.plus:before {
+  content: "\F067";
+}
+
+i.icon.plus.circle:before {
+  content: "\F055";
+}
+
+i.icon.plus.square:before {
+  content: "\F0FE";
+}
+
 i.icon.power.off:before {
   content: "\F011";
 }
@@ -6487,6 +6547,10 @@ i.icon.save:before {
 
 i.icon.search:before {
   content: "\F002";
+}
+
+i.icon.search.plus:before {
+  content: "\F00E";
 }
 
 i.icon.server:before {
@@ -6671,6 +6735,10 @@ i.icon.user.circle:before {
 
 i.icon.user.md:before {
   content: "\F0F0";
+}
+
+i.icon.user.plus:before {
+  content: "\F234";
 }
 
 i.icon.user.secret:before {
@@ -6863,6 +6931,14 @@ i.icon.game:before {
   content: "\F11B";
 }
 
+i.icon.google.plus.circle:before {
+  content: "\F2B3";
+}
+
+i.icon.google.plus.official:before {
+  content: "\F2B3";
+}
+
 i.icon.grid.layout:before {
   content: "\F00A";
 }
@@ -6961,6 +7037,10 @@ i.icon.payment:before {
 
 i.icon.picture:before {
   content: "\F03E";
+}
+
+i.icon.plus.cart:before {
+  content: "\F217";
 }
 
 i.icon.pocket:before {
@@ -7308,6 +7388,10 @@ i.icon.calendar.check.outline:before {
   content: "\F274";
 }
 
+i.icon.calendar.plus.outline:before {
+  content: "\F271";
+}
+
 i.icon.calendar.times.outline:before {
   content: "\F273";
 }
@@ -7440,6 +7524,10 @@ i.icon.play.circle.outline:before {
   content: "\F144";
 }
 
+i.icon.plus.square.outline:before {
+  content: "\F0FE";
+}
+
 i.icon.question.circle.outline:before {
   content: "\F059";
 }
@@ -7545,7 +7633,7 @@ i.icon.star.empty:before {
 
 /* Brand Icon Font Family */
 
-i.icon.\35 00px,i.icon.amazon,i.icon.amazon.pay,i.icon.angular,i.icon.apple,i.icon.apple.pay,i.icon.bitcoin,i.icon.btc,i.icon.cc.amazon.pay,i.icon.cc.apple.pay,i.icon.cc.visa,i.icon.chrome,i.icon.css3,i.icon.css3.alternate,i.icon.d.and.d,i.icon.edge,i.icon.facebook,i.icon.facebook.f,i.icon.facebook.messenger,i.icon.facebook.square,i.icon.first.order,i.icon.font.awesome,i.icon.font.awesome.alternate,i.icon.get.pocket,i.icon.google,i.icon.google.play,i.icon.google.wallet,i.icon.html5,i.icon.instagram,i.icon.js,i.icon.js.square,i.icon.laravel,i.icon.medium,i.icon.medium.m,i.icon.microsoft,i.icon.mix,i.icon.opera,i.icon.page4,i.icon.php,i.icon.stack.overflow,i.icon.telegram,i.icon.twitter,i.icon.twitter.square,i.icon.whatsapp,i.icon.whatsapp.square {
+i.icon.\35 00px,i.icon.amazon,i.icon.amazon.pay,i.icon.angular,i.icon.apple,i.icon.apple.pay,i.icon.bitcoin,i.icon.btc,i.icon.cc.amazon.pay,i.icon.cc.apple.pay,i.icon.cc.visa,i.icon.chrome,i.icon.css3,i.icon.css3.alternate,i.icon.d.and.d,i.icon.edge,i.icon.facebook,i.icon.facebook.f,i.icon.facebook.messenger,i.icon.facebook.square,i.icon.first.order,i.icon.font.awesome,i.icon.font.awesome.alternate,i.icon.get.pocket,i.icon.google,i.icon.google.play,i.icon.google.plus,i.icon.google.plus.g,i.icon.google.plus.square,i.icon.google.wallet,i.icon.html5,i.icon.instagram,i.icon.js,i.icon.js.square,i.icon.laravel,i.icon.medium,i.icon.medium.m,i.icon.microsoft,i.icon.mix,i.icon.opera,i.icon.page4,i.icon.php,i.icon.stack.overflow,i.icon.telegram,i.icon.twitter,i.icon.twitter.square,i.icon.whatsapp,i.icon.whatsapp.square {
   font-family: 'brand-icons';
 }
 

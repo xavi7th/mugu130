@@ -1,12 +1,10 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from '../config/endpoints';
 
 import App from '../components/AppComponent';
-import ViewAgents from '../components/AdminViewAgentsComponent'
-import EditAgent from '../components/AdminEditAgentsComponent'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 /**
  * Asynchronously load view (Webpack Lazy loading compatible)
@@ -51,7 +49,7 @@ export function createRouter () {
                 },
                 {
                   path: 'agent/:id/edit',
-                  component: EditAgent,
+                  component: view('AdminEditAgentsComponent'),
                   name: 'admin.edit-agent',
                   meta: {
                     title: 'Edit Agent Details | Fastplay24 Admin'
@@ -59,7 +57,7 @@ export function createRouter () {
                 },
                 {
                   path: 'agent/create',
-                  component: EditAgent,
+                  component: view('AdminCreateAgentComponent'),
                   name: 'admin.create-agent',
                   meta: {
                     title: 'Create New Agent | Fastplay24 Admin'

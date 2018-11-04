@@ -29,6 +29,15 @@ class AdminController extends Controller
 
         Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'agents/api'], function(){
 
+          Route::get('get-all-agents', function () {
+            try {
+              return User::where('role_id', Role::agent_id())->withTrashed()->get()->makeVisible('deleted_at');
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
+
+          });
+
           Route::get('get-agent-details/{id}', function ($id) {
             try {
               return User::find($id)->firstOrFail();
@@ -65,19 +74,34 @@ class AdminController extends Controller
             }
           });
 
+          Route::get('get-user-details/{email}', function ($email) {
+            try {
+              return User::where('email', $email)->firstOrFail(['id', 'email', 'firstname', 'lastname']);
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
+          });
+
+          Route::put('create-agent', function () {
+            // return request('user_id');
+            try {
+              $user = User::find(request('user_id'));
+              $user->role_id = Role::agent_id();
+              $user->save();
+
+              return [
+                      'status' => true,
+                      'message' => 'Account converted to Agent Account'
+                      ];
+                      
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
+          });
+
         });
 
         Route::group(['middleware' => ['auth', 'suspended', 'admin'], 'prefix' => 'agents'], function(){
-
-
-           Route::get('get-all-agents', function () {
-             try {
-               return User::where('role_id', Role::agent_id())->withTrashed()->get()->makeVisible('deleted_at');
-             } catch (ModelNotFoundException $e) {
-               return response()->json(['message' => 'user not found' ], 204);
-             }
-
-           });
 
           Route::get('/{vue_capture?}', function () {
             // exit('here');

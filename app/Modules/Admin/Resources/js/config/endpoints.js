@@ -1,8 +1,14 @@
-// production server
-// export const apiDomain = 'https://playground.fastplay24.com/admin/api/';
+// import { mix } from 'laravel-mix';
+//
+// if (mix.inProduction()) {
+//     const domain = 'https://playground.fastplay24.com/admin/api/';
+// }
+// else{
+//   // const domain = 'http://localhost:3000/tcom01/agents/api/';
+//   const domain = 'https://playground.fastplay24.com/admin/api/';
+// }
 
-// development server
-export const apiDomain = 'http://localhost:3000/tcom01/agents/api/';
+export const apiDomain = 'https://playground.fastplay24.com/admin/api/';
 export const httpAdminDomain = '/tcom01/';
 export const httpUsersDomain = '/user/';
 
@@ -19,11 +25,16 @@ export const httpUserRootUrl = (url) => (httpUsersDomain + (url || ''));
 export const httpAdminApiRootUrl = (url) => (httpAdminDomain + 'agents/api/' + (url || ''));
 
 const getAdminDetails = httpUserRootUrl('get-user-details');
+
 const getTotalEarnings = httpUserRootUrl('get-total-earnings');
-const getAllAgents = httpAdminRootUrl('agents/get-all-agents');
+const getAllAgents = httpAdminApiRootUrl('get-all-agents');
 const editAgentsDetails = httpAdminApiRootUrl('edit-agent-details');
 const deleteAgent = httpAdminApiRootUrl('delete-agent');
 const restoreAgent = httpAdminApiRootUrl('restore-agent');
+const adminFindUser = httpAdminApiRootUrl('get-user-details');
+const adminCreateAgent = httpAdminApiRootUrl('create-agent');
+
+/****** Angular App Routes  ********/
 const adminViewAgents = httpAdminRootUrl('agents');
 const adminDashboard = httpAdminRootUrl();
 const adminViewQuestions = httpAdminRootUrl('questions');
@@ -55,6 +66,8 @@ export default {
   editAgentsDetails,
   deleteAgent,
   restoreAgent,
+  adminFindUser,
+  adminCreateAgent,
   adminViewQuestions,
   adminViewAdmins,
   adminViewUsers,
