@@ -14,11 +14,15 @@
       margin-bottom: 8px;
     }
 
-    .playstore, .top_100{
+    .top_100{
       height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    iframe{
+      margin-top: 60px;
     }
 
     .star.icon{
@@ -28,8 +32,11 @@
     }
 
     @media (max-width:1024px) {
-      .playstore, .top_100{
+      .top_100{
         height: 100px;
+      }
+      iframe{
+        margin-bottom: 60px;
       }
     }
   </style>
@@ -194,7 +201,6 @@
           </div>
         </div>
       </section>
-
     @else
       <section id="mid">
         <div class="grid-container">
@@ -397,7 +403,9 @@
             </div>
           </div>
           <div class="grid-25">
-
+            <iframe src="https://www.youtube.com/embed/dv7I0SkF6P8"
+                    frameborder="0" allowfullscreen
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="grid-30 info">
             <h1>Tell a friend</h1>
@@ -412,7 +420,7 @@
       </section>
 
     @endif
-    
+
     <div ng-view></div>
 
 
