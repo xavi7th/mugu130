@@ -133,6 +133,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2c7b93e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e2c7b93e\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-e2c7b93e"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e2c7b93e", Component.options)
+  } else {
+    hotAPI.reload("data-v-e2c7b93e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -745,6 +797,7 @@ var agentFindUser = apiRootUrl('find-user');
 var agentCreditUser = apiRootUrl('credit-user');
 var agentGetTransactions = apiRootUrl('get-transactions');
 var agentGetWalletFundLog = apiRootUrl('get-wallet-fund-log');
+var agentEditDetails = apiRootUrl('edit-details');
 var agentLogout = rootUrl('logout');
 
 var logoutAgent = function logoutAgent() {
@@ -762,7 +815,8 @@ var logoutAgent = function logoutAgent() {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, agentGetTransactions: agentGetTransactions, agentGetWalletFundLog: agentGetWalletFundLog, logoutAgent: logoutAgent
+  apiRootUrl: apiRootUrl, agentFindUser: agentFindUser, agentCreditUser: agentCreditUser, agentDetails: agentDetails, agentGetTransactions: agentGetTransactions,
+  agentGetWalletFundLog: agentGetWalletFundLog, logoutAgent: logoutAgent, agentEditDetails: agentEditDetails
 });
 
 /***/ }),
@@ -2387,7 +2441,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AgentEditDetailsComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AgentEditDetailsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__AgentEditDetailsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 //
 //
 //
@@ -2410,6 +2466,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2422,7 +2479,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: 'AgentDashboard',
   components: {
     // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a, FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent___default.a, ViewTransactions: __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default.a, ViewWalletFundLog: __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default.a, ViewProfile: __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent___default.a
+    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a, FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent___default.a, ViewTransactions: __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default.a, ViewWalletFundLog: __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default.a, ViewProfile: __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent___default.a, EditDetails: __WEBPACK_IMPORTED_MODULE_5__AgentEditDetailsComponent___default.a
   },
   data: function data() {
     return {
@@ -2442,6 +2499,155 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     switchComponent: function switchComponent(dt) {
       this.currentComponent = dt.comp;
       // this.propsToPass = dt.data;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'EditDetails',
+  props: ['agent_details'],
+  components: { pageLoading: __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default.a },
+  created: function created() {
+    document.title = "View Profile | Agent Dashboard";
+  },
+  data: function data() {
+    return {
+      loading: false,
+      agent_transactions: null
+    };
+  },
+
+  methods: {
+    editAgent: function editAgent() {
+      var _this = this;
+
+      this.loading = true;
+      axios.post(__WEBPACK_IMPORTED_MODULE_0__config_endpoints__["a" /* default */].agentEditDetails, { details: this.agent_details }).then(function (rsp) {
+        _this.loading = false;
+        _this.$emit('go-to', { comp: 'ViewProfile' });
+      });
     }
   }
 });
@@ -3502,7 +3708,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -3623,6 +3829,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n#dashboard {\n  padding-top: 30px !important;\n}\n[name=\"ppleshape\"] {\n  width: 100% !important;\n}\n[name=\"ppleshape\"] * {\n  width: 100% !important;\n}\n[name=\"ppleshape\"] i {\n  padding-top: 20px !important;\n}\n[name=\"ppleshape\"] .label {\n  padding-bottom: 20px !important;\n}\n#details-section {\n  background-color: #fdfdfd;\n  margin-top: 45px;\n  padding: 45px 20px;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/app/Modules/PaymentAgent/Resources/js/components/AppComponent.vue"],"names":[],"mappings":";AA8CA;EACA,6BAAA;CACA;AAEA;EACA,uBAAA;CACA;AAEA;EACA,uBAAA;CACA;AAEA;EACA,6BAAA;CACA;AAEA;EACA,gCAAA;CACA;AAEA;EACA,0BAAA;EACA,iBAAA;EACA,mBAAA;CACA","file":"AppComponent.vue","sourcesContent":["<template>\n\n  <div id=\"main-controller\" style=\"min-height: 100vh; position: relative; background: #03A9F4;\" class=\"\">\n        <keep-alive>\n          <component\n            v-bind:is=\"currentComponent\"\n            v-on:switch-component=\"switchComponent($event)\"\n           ></component>\n        </keep-alive>\n  </div>\n\n</template>\n\n<script>\nimport Dashboard from './AgentDashboardComponent'\n\n\n\nexport default {\n  components: {\n    Dashboard\n  },\n  data() {\n    return {\n      currentComponent: 'Dashboard',\n      propsToPass: {}\n    };\n  },\n  computed: {\n    currentProperties: function() {\n      return {\n        details: this.propsToPass\n      }\n    },\n  },\n  methods: {\n    switchComponent(dt) {\n      // This method receives an object containing the component to loas as a atring and the data to pass into the componenet as an object\n      this.currentComponent = dt.comp;\n      this.propsToPass = dt.data;\n    },\n  }\n}\n</script>\n\n<style media=\"screen\">\n  #dashboard {\n    padding-top: 30px !important;\n  }\n\n  [name=\"ppleshape\"] {\n    width: 100% !important;\n  }\n\n  [name=\"ppleshape\"] * {\n    width: 100% !important;\n  }\n\n  [name=\"ppleshape\"] i {\n    padding-top: 20px !important;\n  }\n\n  [name=\"ppleshape\"] .label {\n    padding-bottom: 20px !important;\n  }\n\n  #details-section {\n    background-color: #fdfdfd;\n    margin-top: 45px;\n    padding: 45px 20px;\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2c7b93e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\nh1[data-v-e2c7b93e]{\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue"],"names":[],"mappings":";AA2IA;EACA,2BAAA;EACA,iBAAA;EACA,mBAAA;CACA","file":"AgentEditDetailsComponent.vue","sourcesContent":["<template lang=\"html\">\n  <div class=\"grid-container\" id=\"details-section\">\n\n    <transition name=\"fade\">\n\n      <page-loading v-if=\"loading\"></page-loading>\n\n      <div class=\"ui red segment\" v-else=\"!loading && !agent_transactions\">\n\n        <div class=\"grid-container\">\n    \t\t\t<div class=\"grid-80 push-10 tablet-grid-90 tablet-push-5\">\n\n            <form class=\"ui form\" name=\"edit\" @submit.prevent=\"editAgent\">\n\n              <h2 class=\"ui dividing header\">Edit My Information</h2>\n\n              <!-- <div class=\"field\">\n                <label>Name</label>\n                <div class=\"two fields\">\n                  <div class=\"field\">\n                    <input type=\"text\" name=\"firstname\" placeholder=\"First Name\" v-model=\"agent_details.firstname\">\n                  </div>\n                  <div class=\"field\">\n                    <input type=\"text\" name=\"lastname\" placeholder=\"Last Name\" v-model=\"agent_details.lastname\">\n                  </div>\n                </div>\n              </div> -->\n              <div class=\"field\">\n                <div class=\"two fields\">\n                  <div class=\"field\">\n                    <label>Password</label>\n                    <input type=\"password\" name=\"password\" placeholder=\"Enter Password\" v-model=\"agent_details.password\">\n                  </div>\n                  <div class=\"field\">\n                    <div class=\"three fields\">\n                      <div class=\"field\">\n                        <label>Total Units Purchsased</label>\n                        <input type=\"number\" name=\"num_of_referrals\" placeholder=\"Units Purchased\" readonly=\"readonly\"  v-model=\"agent_details.units_purchased\">\n                      </div>\n                      <div class=\"field\">\n                        <label>Wallet Balance</label>\n                        <input type=\"number\" name=\"available_units\" placeholder=\"Wallet Balance\" readonly=\"readonly\"  v-model=\"agent_details.available_units\">\n                      </div>\n                      <div class=\"field\">\n                        <label>Profit</label>\n                        <input type=\"number\" name=\"untransferred_earnings\" placeholder=\"Untransferred Earnings\" readonly=\"readonly\"  v-model=\"agent_details.total_untransferred_earnings\">\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n              <!-- <div class=\"field\">\n                <div class=\"two fields\">\n                  <div class=\"field\">\n                    <label>Account Number</label>\n                    <input type=\"text\" name=\"phone1\" placeholder=\"Account Number\"  v-model=\"agent_details.acct_no\">\n                  </div>\n                  <div class=\"field\">\n                    <label>Bank Name</label>\n                    <input type=\"text\" name=\"available_units\" placeholder=\"Bank Name\"  v-model=\"agent_details.bank\">\n                  </div>\n                </div>\n                <div class=\"three fields\">\n                  <div class=\"field\">\n                    <label>Account Type</label>\n                    <input type=\"text\" name=\"earnings\" placeholder=\"Account Type\"  v-model=\"agent_details.acct_type\">\n                  </div>\n                  <div class=\"field\">\n                    <label>Phone Number</label>\n                    <input type=\"text\" name=\"phone1\" placeholder=\"Phone Number\"  v-model=\"agent_details.phone1\">\n                  </div>\n                  <div class=\"field\">\n                    <label>Phone Network</label>\n                    <input type=\"text\" name=\"network\" placeholder=\"Phone Number\"  v-model=\"agent_details.network\">\n                  </div>\n                </div>\n              </div> -->\n              <!-- <div class=\"field\">\n                <div class=\"fields\">\n                  <div class=\"eight wide field\">\n                    <label>Email Address</label>\n                    <input type=\"text\" name=\"email\" placeholder=\"Email Address\"  v-model=\"agent_details.email\">\n                  </div>\n                  <div class=\"eight wide field\">\n                    <label>Address</label>\n                    <textarea rows=\"2\" name=\"address\" placeholder=\"Address\"  v-model=\"agent_details.address\"></textarea>\n                  </div>\n\n                </div>\n              </div> -->\n\n              <div class=\"ui buttons large\">\n                <button type=\"submit\" class=\"ui button green\" tabindex=\"0\">Save Details</button>\n              </div>\n            </form>\n\n\n    \t\t\t</div>\n    \t\t</div>\n\n      </div>\n\n    </transition>\n\n  </div>\n</template>\n\n<script>\nimport apiRoutes from '../config/endpoints';\nimport Loader from './misc/LoaderComponent'\n\nexport default {\n  name: 'EditDetails',\n  props: ['agent_details'],\n  components: { pageLoading: Loader },\n  created() {\n      document.title = \"View Profile | Agent Dashboard\";\n  },\n  data() {\n    return{\n      loading: false,\n      agent_transactions: null\n    }\n  },\n  methods: {\n    editAgent(){\n      this.loading = true;\n      axios.post(apiRoutes.agentEditDetails, {details: this.agent_details} ).then(rsp => {\n        this.loading = false;\n        this.$emit('go-to', {comp: 'ViewProfile'})\n      });\n    },\n  }\n}\n</script>\n\n<style lang=\"css\" scoped>\n\n  h1{\n    font-family: alegreya sans;\n    font-weight: 100;\n    margin-bottom: 0px;\n  }\n\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -30746,6 +30967,246 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e2c7b93e\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "grid-container", attrs: { id: "details-section" } },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.loading
+            ? _c("page-loading")
+            : _c("div", { staticClass: "ui red segment" }, [
+                _c("div", { staticClass: "grid-container" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "grid-80 push-10 tablet-grid-90 tablet-push-5"
+                    },
+                    [
+                      _c(
+                        "form",
+                        {
+                          staticClass: "ui form",
+                          attrs: { name: "edit" },
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.editAgent($event)
+                            }
+                          }
+                        },
+                        [
+                          _c("h2", { staticClass: "ui dividing header" }, [
+                            _vm._v("Edit My Information")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "field" }, [
+                            _c("div", { staticClass: "two fields" }, [
+                              _c("div", { staticClass: "field" }, [
+                                _c("label", [_vm._v("Password")]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.agent_details.password,
+                                      expression: "agent_details.password"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "password",
+                                    name: "password",
+                                    placeholder: "Enter Password"
+                                  },
+                                  domProps: {
+                                    value: _vm.agent_details.password
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.agent_details,
+                                        "password",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "field" }, [
+                                _c("div", { staticClass: "three fields" }, [
+                                  _c("div", { staticClass: "field" }, [
+                                    _c("label", [
+                                      _vm._v("Total Units Purchsased")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.agent_details.units_purchased,
+                                          expression:
+                                            "agent_details.units_purchased"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "number",
+                                        name: "num_of_referrals",
+                                        placeholder: "Units Purchased",
+                                        readonly: "readonly"
+                                      },
+                                      domProps: {
+                                        value: _vm.agent_details.units_purchased
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.agent_details,
+                                            "units_purchased",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "field" }, [
+                                    _c("label", [_vm._v("Wallet Balance")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.agent_details.available_units,
+                                          expression:
+                                            "agent_details.available_units"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "number",
+                                        name: "available_units",
+                                        placeholder: "Wallet Balance",
+                                        readonly: "readonly"
+                                      },
+                                      domProps: {
+                                        value: _vm.agent_details.available_units
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.agent_details,
+                                            "available_units",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "field" }, [
+                                    _c("label", [_vm._v("Profit")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.agent_details
+                                              .total_untransferred_earnings,
+                                          expression:
+                                            "agent_details.total_untransferred_earnings"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "number",
+                                        name: "untransferred_earnings",
+                                        placeholder: "Untransferred Earnings",
+                                        readonly: "readonly"
+                                      },
+                                      domProps: {
+                                        value:
+                                          _vm.agent_details
+                                            .total_untransferred_earnings
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.agent_details,
+                                            "total_untransferred_earnings",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "ui buttons large" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "ui button green",
+                                attrs: { type: "submit", tabindex: "0" }
+                              },
+                              [_vm._v("Save Details")]
+                            )
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e2c7b93e", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e46f4652\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33784,6 +34245,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a0929416\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AppComponent.vue", function() {
      var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a0929416\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AppComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2c7b93e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2c7b93e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7ac7f06c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2c7b93e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentEditDetailsComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2c7b93e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentEditDetailsComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

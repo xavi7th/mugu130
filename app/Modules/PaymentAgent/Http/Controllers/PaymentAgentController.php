@@ -119,6 +119,10 @@ class PaymentAgentController extends Controller
             }
           });
 
+          Route::post('edit-details', function () {
+              return ['status' => PaymentAgent::find(Auth::id())->update(request('details'))];
+          });
+
         });
 
         Route::group(['middleware' => ['auth', 'suspended', 'agent']], function(){

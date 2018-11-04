@@ -6,6 +6,8 @@ webpackJsonp([1],{
 var map = {
 	"./AgentDashboardComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue",
 	"./AgentDashboardComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue",
+	"./AgentEditDetailsComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue",
+	"./AgentEditDetailsComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentEditDetailsComponent.vue",
 	"./AgentFundUserComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue",
 	"./AgentFundUserComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue",
 	"./AgentViewProfileComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue",

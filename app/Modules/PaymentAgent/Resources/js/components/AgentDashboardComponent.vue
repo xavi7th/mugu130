@@ -26,13 +26,14 @@
     import ViewTransactions from './AgentViewTransactionsComponent'
     import ViewWalletFundLog from './AgentWalletFundingLogsComponent'
     import ViewProfile from './AgentViewProfileComponent'
+    import EditDetails from './AgentEditDetailsComponent'
     import apiRoutes from '../config/endpoints';
 
     export default {
         name: 'AgentDashboard',
         components: {
             // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-            MasterLayout, FundUser, ViewTransactions, ViewWalletFundLog, ViewProfile
+            MasterLayout, FundUser, ViewTransactions, ViewWalletFundLog, ViewProfile, EditDetails
         },
         data() {
           return {

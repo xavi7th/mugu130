@@ -13,6 +13,8 @@ class PaymentAgent extends User
 
     protected $appends = ['total_user_fundings', 'total_untransferred_earnings'];
 
+    protected $guarded = ['total_user_fundings', 'total_untransferred_earnings', 'agent_transactions'];
+
     public function agent_transactions(){
       return $this->hasMany(PaymentAgentTransactions::class)->latest();
     }

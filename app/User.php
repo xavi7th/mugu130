@@ -39,7 +39,8 @@ class User extends Authenticatable{
         'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased',
         'available_units',  'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals',
         'units_purchased', 'notices', 'messages', 'verified', 'total_untransferred_earnings',
-        'total_transferred_earnings', 'num_of_games_played', 'num_of_withdrawals', 'total_withdrawals'
+        'total_transferred_earnings', 'num_of_games_played', 'num_of_withdrawals', 'total_withdrawals',
+        'agent_transactions'
     ];
 
     /**
