@@ -10,7 +10,7 @@
 // export const apiDomain = 'https://playground.fastplay24.com/agent/api/';
 
 // development server
-export const apiDomain = 'http://localhost:3000/agent/api/';
+export const apiDomain = '/agent/api/';
 
 // End Points
 

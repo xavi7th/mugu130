@@ -62,7 +62,11 @@
           this.agent_details = rsp.data;
         },
         err => {
-          apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');
+          axios.post('/log-error', {err}).then(rsp => {
+            this.agent_details = rsp.data;
+            apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');
+          });
+          console.log(err);
         });
       },
       reRouteEvent(dt){

@@ -24,8 +24,10 @@ use App\Events\ExamJoined;
 use App\Transaction;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\GeneratedError;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -163,7 +165,6 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/register/success', function () {
 
-
     if (!session('NEW_USER')) {
       return redirect()->route('register');
     }
@@ -173,6 +174,12 @@ Route::middleware(['before'])->group( function () {
     return view( 'auth.register-success');
 
   })->name('register.success');
+
+  Route::post('/log-error', function () {
+    GeneratedError::create([
+      'generated_error' => json_encode(request()->all()),
+    ]);
+  })->name('log-error');
 
   Auth::routes();
 
