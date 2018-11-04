@@ -6,10 +6,10 @@
         <keep-alive>
 
           <transition name="slide-out-in" mode="out-in">
-            <component
-            v-bind:is="currentComponent"
-            v-bind="currentProperties"
-            v-bind:agent_details="propsForSlot.agentDetails"
+            <component  v-bind:is="currentComponent"
+                        v-bind="currentProperties"
+                        v-bind:agent_details="propsForSlot.agentDetails"
+                        v-on:go-to="switchComponent($event)"
             ></component>
           </transition>
 
@@ -25,13 +25,14 @@
     import FundUser from './AgentFundUserComponent'
     import ViewTransactions from './AgentViewTransactionsComponent'
     import ViewWalletFundLog from './AgentWalletFundingLogsComponent'
+    import ViewProfile from './AgentViewProfileComponent'
     import apiRoutes from '../config/endpoints';
 
     export default {
         name: 'AgentDashboard',
         components: {
             // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-            MasterLayout, FundUser, ViewTransactions, ViewWalletFundLog
+            MasterLayout, FundUser, ViewTransactions, ViewWalletFundLog, ViewProfile
         },
         data() {
           return {

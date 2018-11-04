@@ -8,6 +8,8 @@ var map = {
 	"./AgentDashboardComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentDashboardComponent.vue",
 	"./AgentFundUserComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue",
 	"./AgentFundUserComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentFundUserComponent.vue",
+	"./AgentViewProfileComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue",
+	"./AgentViewProfileComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue",
 	"./AgentViewTransactionsComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue",
 	"./AgentViewTransactionsComponent.vue": "./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue",
 	"./AgentWalletFundingLogsComponent": "./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue",

@@ -185,6 +185,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f67c75\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-78f67c75\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-78f67c75"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-78f67c75", Component.options)
+  } else {
+    hotAPI.reload("data-v-78f67c75", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./app/Modules/PaymentAgent/Resources/js/components/AgentViewTransactionsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2333,7 +2385,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentWalletFundingLogsComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
 //
 //
 //
@@ -2356,6 +2410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2367,7 +2422,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: 'AgentDashboard',
   components: {
     // pageLoading: Loader,  <!-- Use thus <page-loading :size="120"></page-loading> -->
-    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a, FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent___default.a, ViewTransactions: __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default.a, ViewWalletFundLog: __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default.a
+    MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a, FundUser: __WEBPACK_IMPORTED_MODULE_1__AgentFundUserComponent___default.a, ViewTransactions: __WEBPACK_IMPORTED_MODULE_2__AgentViewTransactionsComponent___default.a, ViewWalletFundLog: __WEBPACK_IMPORTED_MODULE_3__AgentWalletFundingLogsComponent___default.a, ViewProfile: __WEBPACK_IMPORTED_MODULE_4__AgentViewProfileComponent___default.a
   },
   data: function data() {
     return {
@@ -2609,6 +2664,119 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_endpoints__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/config/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__ = __webpack_require__("./app/Modules/PaymentAgent/Resources/js/components/misc/LoaderComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ViewProfile',
+  props: ['agent_details'],
+  components: { pageLoading: __WEBPACK_IMPORTED_MODULE_1__misc_LoaderComponent___default.a },
+  created: function created() {
+    document.title = "View Profile | Agent Dashboard";
+  },
+  data: function data() {
+    return {
+      loading: false,
+      agent_transactions: null
+    };
+  },
+
+  methods: {}
 });
 
 /***/ }),
@@ -3001,6 +3169,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3117,6 +3288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['agent_details'],
@@ -3140,9 +3312,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
 //
 //
 //
@@ -3258,10 +3427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['agent_details'],
-  created: function created() {
-    console.log(this.agent_details);
-  }
+  props: ['agent_details']
 });
 
 /***/ }),
@@ -3321,7 +3487,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentHeaderComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentHeaderComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -3336,7 +3502,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AgentDashboardComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -3426,7 +3592,22 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AA8EA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header  v-on:logout-agent=\"logoutAgent()\" v-bind:agent_details=\"agent_details\"></agent-header>\n\n      <agent-nav v-bind:agent_details=\"agent_details\"\n                  v-on:go-to=\"reRouteEvent($event)\"></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics v-bind:agent_details=\"agent_details\"></agent-statistics>\n\n        <!--\n          Bind the agent details to the slot. On the slot template create a slot scope thus\n          <template slot=\"content-section\" slot-scope=\"slotProps\"> </template>\n          Then the data is then available within the template as slotProps.whatever\n          This data can be passed as a prop to a component whether dynamic or fixed that is within the template\n          And of course it must be received in the props array of the said component\n          A complete example is\n          <template slot=\"content-section\" slot-scope=\"dataForSlot\">\n            The bound data is {{ dataForSlot }}\n            <component v-bind:is=\"currentComponent\" v-bind:dataToPass=\"dataForSlot\"></component>\n          </template>\n        -->\n        <slot name=\"content-section\" v-bind:agentDetails=\"agent_details\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    created(){\n      this.getAgentDetails();\n    },\n    data (){\n      return {\n        agent_details: {}\n      }\n    },\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      },\n      getAgentDetails(){\n        axios.get(apiRoutes.agentDetails).then(rsp => {\n          this.agent_details = rsp.data;\n        },\n        err => {\n          axios.post('/log-error', {err}).then(rsp => {\n            this.agent_details = rsp.data;\n            apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');\n          });\n          console.log(err);\n        });\n      },\n      reRouteEvent(dt){\n        this.$emit('switch-component', dt);\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.master-container[data-v-7711fce2] {\n  padding-top: 80px !important;\n  padding-top: 5rem !important;\n  padding-bottom: 80px !important;\n  padding-bottom: 5rem !important;\n  padding-right: 0 !important;\n  padding-left: 0 !important;\n}\n@media screen and (max-width: 767px) {\n.master-container[data-v-7711fce2] {\n    padding-top: 3rem !important;\n    padding-bottom: 3rem !important;\n}\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/layouts/app/Modules/PaymentAgent/Resources/js/components/layouts/MasterLayoutComponent.vue"],"names":[],"mappings":";AAiFA;EACA,6BAAA;EAAA,6BAAA;EACA,gCAAA;EAAA,gCAAA;EACA,4BAAA;EACA,2BAAA;CACA;AAEA;AACA;IACA,6BAAA;IACA,gCAAA;CACA;CACA","file":"MasterLayoutComponent.vue","sourcesContent":["<template>\n\n  <div>\n\n      <agent-header v-on:logout-agent=\"logoutAgent()\"\n                    v-on:go-to=\"reRouteEvent($event)\"\n                    v-bind:agent_details=\"agent_details\"></agent-header>\n\n      <agent-nav v-bind:agent_details=\"agent_details\"\n                  v-on:go-to=\"reRouteEvent($event)\"></agent-nav>\n\n      <div id=\"dashboard\">\n\n        <agent-statistics v-bind:agent_details=\"agent_details\"></agent-statistics>\n\n        <!--\n          Bind the agent details to the slot. On the slot template create a slot scope thus\n          <template slot=\"content-section\" slot-scope=\"slotProps\"> </template>\n          Then the data is then available within the template as slotProps.whatever\n          This data can be passed as a prop to a component whether dynamic or fixed that is within the template\n          And of course it must be received in the props array of the said component\n          A complete example is\n          <template slot=\"content-section\" slot-scope=\"dataForSlot\">\n            The bound data is {{ dataForSlot }}\n            <component v-bind:is=\"currentComponent\" v-bind:dataToPass=\"dataForSlot\"></component>\n          </template>\n        -->\n        <slot name=\"content-section\" v-bind:agentDetails=\"agent_details\"\n              v-on:go-to=\"reRouteEvent($event)\"></slot>\n\n      </div>\n\n      <agent-footer></agent-footer>\n\n  </div>\n\n</template>\n\n<script>\n  import AgentHeader from '../partials/AgentHeaderComponent'\n  import AgentNav from '../partials/AgentNavComponent'\n  import AgentStatistics from '../partials/AgentStatisticsComponent'\n  import AgentFooter from '../partials/FooterComponent'\n  import apiRoutes from '../../config/endpoints'\n\n  export default {\n    name: 'MasterLayout',\n    created(){\n      this.getAgentDetails();\n    },\n    data (){\n      return {\n        agent_details: {}\n      }\n    },\n    components: {\n      AgentHeader, AgentFooter, AgentNav, AgentStatistics\n    },\n    methods: {\n      logoutAgent(){\n        apiRoutes.logoutAgent();\n      },\n      getAgentDetails(){\n        axios.get(apiRoutes.agentDetails).then(rsp => {\n          this.agent_details = rsp.data;\n        },\n        err => {\n          axios.post('/log-error', {err}).then(rsp => {\n            this.agent_details = rsp.data;\n            apiRoutes.logoutAgent('Could not retrieve user details. Logging you out.');\n          });\n          console.log(err);\n        });\n      },\n      reRouteEvent(dt){\n        this.$emit('switch-component', dt);\n      }\n    }\n  }\n</script>\n<style scoped>\n  .master-container {\n    padding-top: 5rem !important;\n    padding-bottom: 5rem !important;\n    padding-right: 0 !important;\n    padding-left: 0 !important;\n  }\n\n  @media screen and (max-width: 767px) {\n    .master-container {\n      padding-top: 3rem !important;\n      padding-bottom: 3rem !important;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f67c75\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
+// imports
+
+
+// module
+exports.push([module.i, "\nh1[data-v-78f67c75]{\n  font-family: alegreya sans;\n  font-weight: 100;\n  margin-bottom: 0px;\n}\n\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/PaymentAgent/Resources/js/components/app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue"],"names":[],"mappings":";AA2GA;EACA,2BAAA;EACA,iBAAA;EACA,mBAAA;CACA","file":"AgentViewProfileComponent.vue","sourcesContent":["<template lang=\"html\">\n  <div class=\"grid-container\" id=\"details-section\">\n\n    <transition name=\"fade\">\n\n      <page-loading v-if=\"loading\"></page-loading>\n\n      <div class=\"ui red segment\" v-else=\"!loading && !agent_transactions\">\n\n        <div class=\"grid-container\">\n    \t\t\t<div class=\"grid-80 push-10 tablet-grid-90 tablet-push-5\">\n\n            <div class=\"ui orange segment\">\n              <p>My Data</p>\n            </div>\n\n            <table class=\"ui blue celled table\">\n              <tbody>\n                <tr>\n                  <td>E-mail</td>\n                  <td>{{ agent_details.email || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Phone Number</td>\n                  <td>{{ agent_details.phone1 || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Phone Network</td>\n                  <td>{{ agent_details.network || 'N/A' | uppercase }}</td>\n                </tr>\n                <tr>\n                  <td>Address</td>\n                  <td>{{ agent_details.address || 'N/A' }}, {{ agent_details.town }}, {{ agent_details.state }}</td>\n                </tr>\n                <tr>\n                  <td>Facebook</td>\n                  <td>{{ agent_details.facebook || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Instagram</td>\n                  <td>{{ agent_details.instagram || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Twitter</td>\n                  <td>{{ agent_details.twitter || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Telegram</td>\n                  <td>{{ agent_details.telegram || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>My bank</td>\n                  <td>{{ agent_details.bank || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Account Name</td>\n                  <td>{{ agent_details.firstname }} {{ agent_details.lastname }}</td>\n                </tr>\n                <tr>\n                  <td>Account Number</td>\n                  <td>{{ agent_details.acct_no || 'N/A' }}</td>\n                </tr>\n                <tr>\n                  <td>Account Type</td>\n                  <td>{{ agent_details.acct_type || 'N/A' }}</td>\n                </tr>\n              </tbody>\n            </table>\n            <div class=\"ui buttons large\">\n              <button type=\"button\" class=\"ui blue button\" @click=\"$emit('go-to', {comp: 'EditDetails'})\">Edit Details</button>\n            </div>\n\n    \t\t\t</div>\n    \t\t</div>\n\n      </div>\n\n    </transition>\n\n  </div>\n</template>\n\n<script>\nimport apiRoutes from '../config/endpoints';\nimport Loader from './misc/LoaderComponent'\n\nexport default {\n  name: 'ViewProfile',\n  props: ['agent_details'],\n  components: { pageLoading: Loader },\n  created() {\n      document.title = \"View Profile | Agent Dashboard\";\n  },\n  data() {\n    return{\n      loading: false,\n      agent_transactions: null\n    }\n  },\n  methods: {\n\n  }\n}\n</script>\n\n<style lang=\"css\" scoped>\n\n  h1{\n    font-family: alegreya sans;\n    font-weight: 100;\n    margin-bottom: 0px;\n  }\n\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -29527,7 +29708,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "a",
-                { staticClass: "item", attrs: { href: "/tcom01/settings" } },
+                {
+                  staticClass: "item",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.$emit("go-to", { comp: "ViewProfile" })
+                    }
+                  }
+                },
                 [_vm._v("Profile")]
               ),
               _vm._v(" "),
@@ -29542,13 +29731,7 @@ var render = function() {
                     }
                   }
                 },
-                [
-                  _vm._v("Logout "),
-                  _c("i", {
-                    staticClass: "sign out icon",
-                    staticStyle: { color: "white" }
-                  })
-                ]
+                [_vm._v("Logout")]
               )
             ]
           )
@@ -29610,7 +29793,12 @@ var render = function() {
                       _vm._b(
                         {
                           tag: "component",
-                          attrs: { agent_details: propsForSlot.agentDetails }
+                          attrs: { agent_details: propsForSlot.agentDetails },
+                          on: {
+                            "go-to": function($event) {
+                              _vm.switchComponent($event)
+                            }
+                          }
                         },
                         "component",
                         _vm.currentProperties,
@@ -30272,6 +30460,9 @@ var render = function() {
         on: {
           "logout-agent": function($event) {
             _vm.logoutAgent()
+          },
+          "go-to": function($event) {
+            _vm.reRouteEvent($event)
           }
         }
       }),
@@ -30310,6 +30501,198 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7711fce2", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-78f67c75\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "grid-container", attrs: { id: "details-section" } },
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.loading
+            ? _c("page-loading")
+            : _c("div", { staticClass: "ui red segment" }, [
+                _c("div", { staticClass: "grid-container" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "grid-80 push-10 tablet-grid-90 tablet-push-5"
+                    },
+                    [
+                      _c("div", { staticClass: "ui orange segment" }, [
+                        _c("p", [_vm._v("My Data")])
+                      ]),
+                      _vm._v(" "),
+                      _c("table", { staticClass: "ui blue celled table" }, [
+                        _c("tbody", [
+                          _c("tr", [
+                            _c("td", [_vm._v("E-mail")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.agent_details.email || "N/A"))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Phone Number")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.agent_details.phone1 || "N/A"))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Phone Network")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("uppercase")(
+                                    _vm.agent_details.network || "N/A"
+                                  )
+                                )
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Address")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.agent_details.address || "N/A") +
+                                  ", " +
+                                  _vm._s(_vm.agent_details.town) +
+                                  ", " +
+                                  _vm._s(_vm.agent_details.state)
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Facebook")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.agent_details.facebook || "N/A")
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Instagram")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.agent_details.instagram || "N/A")
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Twitter")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.agent_details.twitter || "N/A"))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Telegram")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.agent_details.telegram || "N/A")
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("My bank")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.agent_details.bank || "N/A"))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Account Name")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.agent_details.firstname) +
+                                  " " +
+                                  _vm._s(_vm.agent_details.lastname)
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Account Number")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(_vm.agent_details.acct_no || "N/A"))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v("Account Type")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.agent_details.acct_type || "N/A")
+                              )
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "ui buttons large" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "ui blue button",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.$emit("go-to", { comp: "EditDetails" })
+                              }
+                            }
+                          },
+                          [_vm._v("Edit Details")]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-78f67c75", module.exports)
   }
 }
 
@@ -33347,6 +33730,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MasterLayoutComponent.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7711fce2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MasterLayoutComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f67c75\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f67c75\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/PaymentAgent/Resources/js/components/AgentViewProfileComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("dbb1660a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f67c75\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentViewProfileComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f67c75\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AgentViewProfileComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

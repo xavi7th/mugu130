@@ -66,10 +66,7 @@
 
 <script>
 export default {
-  props: ['agent_details'],
-  created(){
-    console.log(this.agent_details);
-  }
+  props: ['agent_details']
 }
 </script>
 

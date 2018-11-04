@@ -6,10 +6,7 @@
       </div>
       <div class="grid-60">
         <div class="ui compact menu">
-          <!-- <router-link @click.native=""
-                      :to="{ name: 'agent.dashboard' }">
-
-          </router-link> -->
+        
           <a href="#" :class="['item', isActive == 1 ? 'active' : '']"
                       @click="setActive(1, 'FundUser')"> <i class="fa fa-dashboard"></i> Dashboard</a>
           <a href="#" :class="['item', isActive == 2 ? 'active' : '']"

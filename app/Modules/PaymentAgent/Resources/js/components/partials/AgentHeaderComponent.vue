@@ -27,11 +27,12 @@
       <div class="grid-20">
         <nav>
           <div class="ui right floated horizontal list" style="line-height:40px;">
+
             <a class="item" href="/dashboard">Dashboard</a>
 
-            <a class="item" href="/tcom01/settings">Profile</a>
+            <a class="item" href="#" @click="$emit('go-to', {comp: 'ViewProfile'})">Profile</a>
 
-            <a href="#" class="item" @click="$emit('logout-agent')">Logout <i class="sign out icon" style="color:white;"></i></a>
+            <a href="#" class="item" @click="$emit('logout-agent')">Logout</a>
 
           </div>
         </nav>

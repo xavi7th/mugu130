@@ -2,7 +2,9 @@
 
   <div>
 
-      <agent-header  v-on:logout-agent="logoutAgent()" v-bind:agent_details="agent_details"></agent-header>
+      <agent-header v-on:logout-agent="logoutAgent()"
+                    v-on:go-to="reRouteEvent($event)"
+                    v-bind:agent_details="agent_details"></agent-header>
 
       <agent-nav v-bind:agent_details="agent_details"
                   v-on:go-to="reRouteEvent($event)"></agent-nav>
@@ -23,7 +25,8 @@
             <component v-bind:is="currentComponent" v-bind:dataToPass="dataForSlot"></component>
           </template>
         -->
-        <slot name="content-section" v-bind:agentDetails="agent_details"></slot>
+        <slot name="content-section" v-bind:agentDetails="agent_details"
+              v-on:go-to="reRouteEvent($event)"></slot>
 
       </div>
 
