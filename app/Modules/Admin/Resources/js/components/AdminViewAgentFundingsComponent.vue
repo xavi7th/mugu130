@@ -11,82 +11,105 @@
             <div class="grid-100">
 
               <div class="ui red segment">
+
                 <div class="grid-100" v-if="!loading">
+
                   <div class="grid-40">
+
                     <div class="ui segment compact left floated">
+
                       <div class="ui horizontal statistic">
-                        <div class="value">
-                          {{ num_of_agents }}
-                        </div>
-                        <div class="label">
-                          Agents
-                        </div>
+
+                        <div class="value">{{ num_of_agent_fundingss }}</div>
+
+                        <div class="label">Fundings</div>
+
                       </div>
+
                     </div>
+
                   </div>
-                  <div class="grid-15">
-                    <!-- <button class="ui orange button" ng-click="newQuestion()">New Agent</button> -->
-                  </div>
-                  <div class="grid-45">
+
+                  <div class="grid-60">
+
                     <div class="ui search flex-center" style="justify-content:flex-end">
+
                       <div class="ui icon input">
+
                         <input class="prompt" type="text" placeholder="Search...">
+
                         <i class="search icon"></i>
+
                       </div>
-                      <div class="results"></div>
+
                     </div>
+
                   </div>
+
                   <br>
+
                 </div>
 
                 <transition name="slide-in" mode="out-in">
 
                   <page-loading :size="60" v-if="loading"></page-loading>
 
-                  <table class="ui  striped celled table" v-else>
+                  <table class="ui striped single line table" id="transactions-table" v-else>
+
                     <thead>
+
                       <tr>
-                        <th>S/N</th>
-                        <th>E-Mail</th>
-                        <th>Full Name</th>
-                        <th>Available Units</th>
-                        <th>Account Status</th>
-                        <th>Actions</th>
+
+                        <th>ID</th>
+
+                        <th>Amount</th>
+
+                        <th>Status</th>
+
+                        <th>Transaction Type</th>
+
+                        <th>Date</th>
+
                       </tr>
+
                     </thead>
-                    <tbody>
 
-                      <tr v-for="agent in all_agents">
-                        <td>{{ agent.id }}</td>
-                        <td>{{ agent.email }}</td>
-                        <td>
-                          {{ agent.firstname }} {{ agent.lastname }}
-                          <router-link class="ui purple button" :to="{ name: 'admin.view-agent-transactions' }">Transactions</router-link>
-                          <router-link class="ui orange button" :to="{ name: 'admin.view-agent-fundings' }">Fundings</router-link>
-                        </td>
-                        <td>{{ agent.available_units | currency('₦') }}</td>
-                        <td>{{ agent.deleted_at ? 'Deleted' : agent.useraccstatus }}</td>
-                        <td>
-                          <div class="ui mini buttons">
-                            <router-link :to="{ name: 'admin.edit-agent', params: { id: agent.id } }"
-                                          class="ui orange button" active-class="active">
-                                Edit
-                            </router-link>
-                            <div class="or"></div>
-                            <button class="ui green button" @click="restoreAgent(agent)" v-if="agent.deleted_at">Restore</button>
-                            <button class="ui red button" @click="deleteAgent(agent)" v-else="agent.deleted_at">Delete</button>
-                          </div>
-                        </td>
+                    <tbody v-if="num_of_agent_fundingss > 0">
+
+                      <tr  v-for="trans in all_agent_fundings">
+
+                        <td>{{ trans.id }}</td>
+
+                        <td>{{ trans.amount | currency('₦') }}</td>
+
+                        <td>{{ trans.status }}</td>
+
+                        <td>{{ trans.trans_type }}</td>
+
+                        <td>{{ trans.created_at }}</td>
+
                       </tr>
-
 
                     </tbody>
+
+                    <tbody v-else>
+
+                      <tr>
+
+                        <td colspan="5"><h1>No available Fundings</h1></td>
+
+                      </tr>
+
+                    </tbody>
+
                   </table>
 
                 </transition>
 
               </div>
+
             </div>
+
           </div>
 
       </template>
@@ -101,54 +124,40 @@
     import { size } from 'lodash'
 
     export default {
-        name: 'ViewAgents',
+        name: 'ViewAgentFundings',
         components: {
             pageLoading: Loader,
             MasterLayout,
             AgentMenu
         },
         created(){
-          this.getAllAgents();
+          this.getAllAgentFundings(this.$route.params.id);
         },
         data() {
           return {
-            all_agents: false,
+            all_agent_fundings: false,
             loading: true
           };
         },
         computed: {
-          num_of_agents(){
-            return _.size(this.all_agents);
+          num_of_agent_fundingss(){
+            return _.size(this.all_agent_fundings);
           }
         },
         methods: {
-          getAllAgents(){
-            axios.get(apiRoutes.getAllAgents).then(rsp => {
-              this.all_agents = rsp.data;
+          getAllAgentFundings(id){
+            axios.get(apiRoutes.getAllAgentFundings(id)).then(rsp => {
+              this.all_agent_fundings = rsp.data;
               this.loading = false;
             });
           },
-          deleteAgent(agent){
-            this.loading = true;
-            axios.delete(`${apiRoutes.deleteAgent}/${agent.id}` ).then(rsp => {
-              this.loading = false;
-              agent.deleted_at = true;
-              // var removed = this.all_agents.indexOf(agent);
-              // this.all_agents.splice(removed, 1);
-            });
-          },
-          restoreAgent(agent){
-            this.loading = true;
-            axios.delete(`${apiRoutes.restoreAgent}/${agent.id}` ).then(rsp => {
-              this.loading = false;
-              agent.deleted_at = false;
-              // var removed = this.all_agents.indexOf(agent);
-              // this.all_agents.splice(removed, 1);
-            });
-          }
         }
     }
 </script>
-<style>
-
+<style lang="scss">
+  td{
+    h1{
+      text-align: center;
+    }
+  }
 </style>

@@ -56,6 +56,15 @@ class AdminController extends Controller
             }
           });
 
+          Route::get('get-all-agent-fundings/{id}', function ($id) {
+            // return $id;
+            try {
+              return User::findOrFail($id)->transactions;
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 404);
+            }
+          });
+
           Route::post('edit-agent-details', function () {
             // return request('details');
             try {

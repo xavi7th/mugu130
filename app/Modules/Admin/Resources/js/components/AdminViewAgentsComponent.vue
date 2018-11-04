@@ -50,6 +50,7 @@
                         <th>E-Mail</th>
                         <th>Full Name</th>
                         <th>Available Units</th>
+                        <th>Profits</th>
                         <th>Account Status</th>
                         <th>Actions</th>
                       </tr>
@@ -71,6 +72,7 @@
                           </div>
                         </td>
                         <td>{{ agent.available_units | currency('₦') }}</td>
+                        <td>{{ agent.total_untransferred_earnings | currency('₦') }}</td>
                         <td>{{ agent.deleted_at ? 'Deleted' : agent.useraccstatus }}</td>
                         <td>
                           <div class="ui mini buttons">

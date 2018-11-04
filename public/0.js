@@ -159,7 +159,7 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
@@ -1168,6 +1168,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1176,56 +1199,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ViewAgents',
+  name: 'ViewAgentFundings',
   components: {
     pageLoading: __WEBPACK_IMPORTED_MODULE_2__misc_LoaderComponent___default.a,
     MasterLayout: __WEBPACK_IMPORTED_MODULE_0__layouts_MasterLayoutComponent___default.a,
     AgentMenu: __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent___default.a
   },
   created: function created() {
-    this.getAllAgents();
+    this.getAllAgentFundings(this.$route.params.id);
   },
   data: function data() {
     return {
-      all_agents: false,
+      all_agent_fundings: false,
       loading: true
     };
   },
 
   computed: {
-    num_of_agents: function num_of_agents() {
-      return _.size(this.all_agents);
+    num_of_agent_fundingss: function num_of_agent_fundingss() {
+      return _.size(this.all_agent_fundings);
     }
   },
   methods: {
-    getAllAgents: function getAllAgents() {
+    getAllAgentFundings: function getAllAgentFundings(id) {
       var _this = this;
 
-      axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgents).then(function (rsp) {
-        _this.all_agents = rsp.data;
+      axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgentFundings(id)).then(function (rsp) {
+        _this.all_agent_fundings = rsp.data;
         _this.loading = false;
-      });
-    },
-    deleteAgent: function deleteAgent(agent) {
-      var _this2 = this;
-
-      this.loading = true;
-      axios.delete(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].deleteAgent + '/' + agent.id).then(function (rsp) {
-        _this2.loading = false;
-        agent.deleted_at = true;
-        // var removed = this.all_agents.indexOf(agent);
-        // this.all_agents.splice(removed, 1);
-      });
-    },
-    restoreAgent: function restoreAgent(agent) {
-      var _this3 = this;
-
-      this.loading = true;
-      axios.delete(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].restoreAgent + '/' + agent.id).then(function (rsp) {
-        _this3.loading = false;
-        agent.deleted_at = false;
-        // var removed = this.all_agents.indexOf(agent);
-        // this.all_agents.splice(removed, 1);
       });
     }
   }
@@ -1422,6 +1423,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_endpoints__ = __webpack_require__("./app/Modules/Admin/Resources/js/config/endpoints.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__("./node_modules/lodash/lodash.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
+//
+//
 //
 //
 //
@@ -2058,7 +2061,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminViewAgentsComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminViewAgentsComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -2080,7 +2083,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue":
+/***/ "./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(true);
@@ -2088,7 +2091,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminViewAgentFundingsComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\ntd h1 {\n  text-align: center;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE","file":"AdminViewAgentFundingsComponent.vue","sourcesContent":["td h1 {\n  text-align: center; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -2729,7 +2732,10 @@ var render = function() {
                                         _c("td", [
                                           _vm._v(
                                             _vm._s(
-                                              _vm._f("currency")(trans.amount)
+                                              _vm._f("currency")(
+                                                trans.amount,
+                                                "₦"
+                                              )
                                             )
                                           )
                                         ]),
@@ -2885,6 +2891,8 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("th", [_vm._v("Available Units")]),
                                   _vm._v(" "),
+                                  _c("th", [_vm._v("Profits")]),
+                                  _vm._v(" "),
                                   _c("th", [_vm._v("Account Status")]),
                                   _vm._v(" "),
                                   _c("th", [_vm._v("Actions")])
@@ -2961,6 +2969,17 @@ var render = function() {
                                         _vm._s(
                                           _vm._f("currency")(
                                             agent.available_units,
+                                            "₦"
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("currency")(
+                                            agent.total_untransferred_earnings,
                                             "₦"
                                           )
                                         )
@@ -3243,17 +3262,11 @@ var render = function() {
                                 { staticClass: "ui horizontal statistic" },
                                 [
                                   _c("div", { staticClass: "value" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(_vm.num_of_agents) +
-                                        "\n                      "
-                                    )
+                                    _vm._v(_vm._s(_vm.num_of_agent_fundingss))
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "label" }, [
-                                    _vm._v(
-                                      "\n                        Agents\n                      "
-                                    )
+                                    _vm._v("Fundings")
                                   ])
                                 ]
                               )
@@ -3261,9 +3274,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "grid-15" }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "grid-45" }, [
+                        _c("div", { staticClass: "grid-60" }, [
                           _c(
                             "div",
                             {
@@ -3281,9 +3292,7 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("i", { staticClass: "search icon" })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "results" })
+                              ])
                             ]
                           )
                         ]),
@@ -3300,153 +3309,68 @@ var render = function() {
                         ? _c("page-loading", { attrs: { size: 60 } })
                         : _c(
                             "table",
-                            { staticClass: "ui  striped celled table" },
+                            {
+                              staticClass: "ui striped single line table",
+                              attrs: { id: "transactions-table" }
+                            },
                             [
                               _c("thead", [
                                 _c("tr", [
-                                  _c("th", [_vm._v("S/N")]),
+                                  _c("th", [_vm._v("ID")]),
                                   _vm._v(" "),
-                                  _c("th", [_vm._v("E-Mail")]),
+                                  _c("th", [_vm._v("Amount")]),
                                   _vm._v(" "),
-                                  _c("th", [_vm._v("Full Name")]),
+                                  _c("th", [_vm._v("Status")]),
                                   _vm._v(" "),
-                                  _c("th", [_vm._v("Available Units")]),
+                                  _c("th", [_vm._v("Transaction Type")]),
                                   _vm._v(" "),
-                                  _c("th", [_vm._v("Account Status")]),
-                                  _vm._v(" "),
-                                  _c("th", [_vm._v("Actions")])
+                                  _c("th", [_vm._v("Date")])
                                 ])
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "tbody",
-                                _vm._l(_vm.all_agents, function(agent) {
-                                  return _c("tr", [
-                                    _c("td", [_vm._v(_vm._s(agent.id))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(agent.email))]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "td",
-                                      [
-                                        _vm._v(
-                                          "\n                        " +
-                                            _vm._s(agent.firstname) +
-                                            " " +
-                                            _vm._s(agent.lastname) +
-                                            "\n                        "
-                                        ),
-                                        _c(
-                                          "router-link",
-                                          {
-                                            staticClass: "ui purple button",
-                                            attrs: {
-                                              to: {
-                                                name:
-                                                  "admin.view-agent-transactions"
-                                              }
-                                            }
-                                          },
-                                          [_vm._v("Transactions")]
-                                        ),
+                              _vm.num_of_agent_fundingss > 0
+                                ? _c(
+                                    "tbody",
+                                    _vm._l(_vm.all_agent_fundings, function(
+                                      trans
+                                    ) {
+                                      return _c("tr", [
+                                        _c("td", [_vm._v(_vm._s(trans.id))]),
                                         _vm._v(" "),
-                                        _c(
-                                          "router-link",
-                                          {
-                                            staticClass: "ui orange button",
-                                            attrs: {
-                                              to: {
-                                                name:
-                                                  "admin.view-agent-fundings"
-                                              }
-                                            }
-                                          },
-                                          [_vm._v("Fundings")]
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("currency")(
-                                            agent.available_units,
-                                            "₦"
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("currency")(
+                                                trans.amount,
+                                                "₦"
+                                              )
+                                            )
                                           )
-                                        )
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(
-                                          agent.deleted_at
-                                            ? "Deleted"
-                                            : agent.useraccstatus
-                                        )
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "div",
-                                        { staticClass: "ui mini buttons" },
-                                        [
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "ui orange button",
-                                              attrs: {
-                                                to: {
-                                                  name: "admin.edit-agent",
-                                                  params: { id: agent.id }
-                                                },
-                                                "active-class": "active"
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                              Edit\n                          "
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("div", { staticClass: "or" }),
-                                          _vm._v(" "),
-                                          agent.deleted_at
-                                            ? _c(
-                                                "button",
-                                                {
-                                                  staticClass:
-                                                    "ui green button",
-                                                  on: {
-                                                    click: function($event) {
-                                                      _vm.restoreAgent(agent)
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v("Restore")]
-                                              )
-                                            : _c(
-                                                "button",
-                                                {
-                                                  staticClass: "ui red button",
-                                                  on: {
-                                                    click: function($event) {
-                                                      _vm.deleteAgent(agent)
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v("Delete")]
-                                              )
-                                        ],
-                                        1
-                                      )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(trans.status))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(trans.trans_type))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(trans.created_at))
+                                        ])
+                                      ])
+                                    })
+                                  )
+                                : _c("tbody", [
+                                    _c("tr", [
+                                      _c("td", { attrs: { colspan: "5" } }, [
+                                        _c("h1", [
+                                          _vm._v("No available Fundings")
+                                        ])
+                                      ])
                                     ])
                                   ])
-                                })
-                              )
                             ]
                           )
                     ],
@@ -4518,23 +4442,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js?sourceMap!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./app/Modules/Admin/Resources/js/components/AdminViewAgentFundingsComponent.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("61c49aef", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("b637f9d0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminViewAgentFundingsComponent.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminViewAgentFundingsComponent.vue");
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminViewAgentFundingsComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-539e8a85\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AdminViewAgentFundingsComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
