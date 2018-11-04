@@ -30,7 +30,7 @@ var url = `
       <div class="content flex-center">
         <div class="ui form" id="input-field">
           <div class="field">
-            <input type="number" placeholder="Min ₦1,000 | Max: ₦15, 000" ng-model="requested_amount" ng-max="withdrawal_max" ng-min="1000">
+            <input type="number" placeholder="Min ₦1,000 | Max: ₦50, 000" ng-model="requested_amount" ng-max="withdrawal_max" ng-min="1000">
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
 
       $timeout(function () {
         //This prevent the dashboard from crashing on page load where the parent scope may not yet be ready
-        $scope.withdrawal_max = $scope.$parent.userdetails.available_units < 15000 ? $scope.$parent.userdetails.available_units : 15000;
+        $scope.withdrawal_max = $scope.$parent.userdetails.available_units < 50000 ? $scope.$parent.userdetails.available_units : 50000;
       }, 1000);
 
       $scope.$on('$routeChangeStart', function() {
