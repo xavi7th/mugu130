@@ -50,7 +50,7 @@ class PaymentAgentController extends Controller
               return response()->json(['message' => 'Funding amount must be greater that 200' ], 200);
             }
 
-            $amount_to_credit_user = request('amount') - env('AGENT_REMITAL_FEE') - env('AGENT_PROFIT');
+            $amount_to_credit_user = request('amount') - env('AGENT_REMITAL_FEE');
 
             try {
               DB::beginTransaction();
@@ -83,7 +83,7 @@ class PaymentAgentController extends Controller
                   Earning::addAdminEarningFromAgent(env('AGENT_REMITAL_FEE'));
 
                   //Add agent Earning
-                  Auth::user()->addEarning(0, env('AGENT_PROFIT'));
+                  Auth::user()->addEarning(1, env('AGENT_PROFIT'));
               DB::commit();
               return ['status' => true, 'message' => 'User credited'];
             } catch (ModelNotFoundException $e) {
