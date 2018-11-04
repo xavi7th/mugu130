@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\User;
 use App\Role;
+use App\Modules\PaymentAgent\Models\PaymentAgent;
 
 /**
  * undocumented class variable
@@ -40,9 +41,18 @@ class AdminController extends Controller
 
           Route::get('get-agent-details/{id}', function ($id) {
             try {
-              return User::find($id)->firstOrFail();
+              return User::findOrFail($id);
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'user not found' ], 204);
+            }
+          });
+
+          Route::get('get-all-agent-transactions/{id}', function ($id) {
+            // return $id;
+            try {
+              return PaymentAgent::findOrFail($id)->agent_transactions->load('credited_user:firstname,lastname,email,id');
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 404);
             }
           });
 
@@ -93,7 +103,7 @@ class AdminController extends Controller
                       'status' => true,
                       'message' => 'Account converted to Agent Account'
                       ];
-                      
+
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'user not found' ], 204);
             }

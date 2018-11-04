@@ -144,7 +144,7 @@ module.exports = Component.exports
 /* unused harmony export apiRootUrl */
 /* unused harmony export httpAdminRootUrl */
 /* unused harmony export httpUserRootUrl */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return httpAdminApiRootUrl; });
+/* unused harmony export httpAdminApiRootUrl */
 // import { mix } from 'laravel-mix';
 //
 // if (mix.inProduction()) {
@@ -184,7 +184,16 @@ var httpAdminApiRootUrl = function httpAdminApiRootUrl(url) {
 var getAdminDetails = httpUserRootUrl('get-user-details');
 
 var getTotalEarnings = httpUserRootUrl('get-total-earnings');
+var getAgentDetails = function getAgentDetails(id) {
+  return httpAdminApiRootUrl('get-agent-details/' + id);
+};
 var getAllAgents = httpAdminApiRootUrl('get-all-agents');
+var getAllAgentTransactions = function getAllAgentTransactions(id) {
+  return httpAdminApiRootUrl('get-all-agent-transactions/' + id);
+};
+var getAllAgentFundings = function getAllAgentFundings(id) {
+  return httpAdminApiRootUrl('get-all-agent-fundings/' + id);
+};
 var editAgentsDetails = httpAdminApiRootUrl('edit-agent-details');
 var deleteAgent = httpAdminApiRootUrl('delete-agent');
 var restoreAgent = httpAdminApiRootUrl('restore-agent');
@@ -221,7 +230,10 @@ var logoutAdmin = function logoutAdmin() {
   adminDashboard: adminDashboard,
   getAdminDetails: getAdminDetails,
   getTotalEarnings: getTotalEarnings,
+  getAgentDetails: getAgentDetails,
   getAllAgents: getAllAgents,
+  getAllAgentTransactions: getAllAgentTransactions,
+  getAllAgentFundings: getAllAgentFundings,
   editAgentsDetails: editAgentsDetails,
   deleteAgent: deleteAgent,
   restoreAgent: restoreAgent,
@@ -308,6 +320,20 @@ function createRouter() {
         name: 'admin.create-agent',
         meta: {
           title: 'Create New Agent | Fastplay24 Admin'
+        }
+      }, {
+        path: 'agent/:id/transactions',
+        component: view('AdminViewAgentTransactionsComponent'),
+        name: 'admin.view-agent-transactions',
+        meta: {
+          title: 'Agent\'s Transactions | Fastplay24 Admin'
+        }
+      }, {
+        path: 'agent/:id/fundings',
+        component: view('AdminViewAgentFundingsComponent'),
+        name: 'admin.view-agent-fundings',
+        meta: {
+          title: 'Agent\'s Fundings | Fastplay24 Admin'
         }
       }]
 

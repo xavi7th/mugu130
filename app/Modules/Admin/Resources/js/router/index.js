@@ -63,6 +63,22 @@ export function createRouter () {
                     title: 'Create New Agent | Fastplay24 Admin'
                   }
                 },
+                {
+                  path: 'agent/:id/transactions',
+                  component: view('AdminViewAgentTransactionsComponent'),
+                  name: 'admin.view-agent-transactions',
+                  meta: {
+                    title: 'Agent\'s Transactions | Fastplay24 Admin'
+                  }
+                },
+                {
+                  path: 'agent/:id/fundings',
+                  component: view('AdminViewAgentFundingsComponent'),
+                  name: 'admin.view-agent-fundings',
+                  meta: {
+                    title: 'Agent\'s Fundings | Fastplay24 Admin'
+                  }
+                },
             ],
 
         },

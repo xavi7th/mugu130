@@ -27,7 +27,10 @@ export const httpAdminApiRootUrl = (url) => (httpAdminDomain + 'agents/api/' + (
 const getAdminDetails = httpUserRootUrl('get-user-details');
 
 const getTotalEarnings = httpUserRootUrl('get-total-earnings');
+const getAgentDetails = (id) => ( httpAdminApiRootUrl(`get-agent-details/${id}`));
 const getAllAgents = httpAdminApiRootUrl('get-all-agents');
+const getAllAgentTransactions = (id) => ( httpAdminApiRootUrl(`get-all-agent-transactions/${id}`));
+const getAllAgentFundings = (id) => ( httpAdminApiRootUrl(`get-all-agent-fundings/${id}`));
 const editAgentsDetails = httpAdminApiRootUrl('edit-agent-details');
 const deleteAgent = httpAdminApiRootUrl('delete-agent');
 const restoreAgent = httpAdminApiRootUrl('restore-agent');
@@ -62,7 +65,10 @@ export default {
   adminDashboard,
   getAdminDetails,
   getTotalEarnings,
+  getAgentDetails,
   getAllAgents,
+  getAllAgentTransactions,
+  getAllAgentFundings,
   editAgentsDetails,
   deleteAgent,
   restoreAgent,

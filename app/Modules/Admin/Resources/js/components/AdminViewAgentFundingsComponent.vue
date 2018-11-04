@@ -61,14 +61,8 @@
                         <td>{{ agent.email }}</td>
                         <td>
                           {{ agent.firstname }} {{ agent.lastname }}
-                          <div class="ui mini buttons right floated">
-                            <router-link class="ui purple button"
-                                          :to="{ name: 'admin.view-agent-transactions', params: {id: agent.id} }">
-                                                  Transactions </router-link>
-                            <router-link class="ui orange button"
-                                          :to="{ name: 'admin.view-agent-fundings', params: {id: agent.id} }">
-                                                  Fundings </router-link>
-                          </div>
+                          <router-link class="ui purple button" :to="{ name: 'admin.view-agent-transactions' }">Transactions</router-link>
+                          <router-link class="ui orange button" :to="{ name: 'admin.view-agent-fundings' }">Fundings</router-link>
                         </td>
                         <td>{{ agent.available_units | currency('₦') }}</td>
                         <td>{{ agent.deleted_at ? 'Deleted' : agent.useraccstatus }}</td>

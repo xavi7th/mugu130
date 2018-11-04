@@ -123,7 +123,6 @@
             AgentMenu
         },
         created(){
-          console.log(this.$route.params);
           this.getAgentDetails(this.$route.params.id)
         },
         data() {
@@ -137,7 +136,7 @@
         },
         methods: {
           getAgentDetails(id){
-            axios.get(httpAdminApiRootUrl(`get-agent-details/${id}`)).then(rsp => {
+            axios.get( apiRoutes.getAgentDetails(id) ).then(rsp => {
               console.log(rsp);
               this.agent_details = rsp.data;
               this.loading = false;
