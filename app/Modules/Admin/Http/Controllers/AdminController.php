@@ -47,6 +47,24 @@ class AdminController extends Controller
             }
           });
 
+          Route::delete('delete-agent/{id}', function ($id) {
+            // return $id;
+            try {
+              return ['status' => User::destroy($id)];
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
+          });
+
+          Route::delete('restore-agent/{id}', function ($id) {
+            // return $id;
+            try {
+              return ['status' => User::withTrashed()->find($id)->restore()];
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
+          });
+
         });
 
         Route::group(['middleware' => ['auth', 'suspended', 'admin'], 'prefix' => 'agents'], function(){
@@ -54,7 +72,7 @@ class AdminController extends Controller
 
            Route::get('get-all-agents', function () {
              try {
-               return User::where('role_id', Role::agent_id())->get();
+               return User::where('role_id', Role::agent_id())->withTrashed()->get()->makeVisible('deleted_at');
              } catch (ModelNotFoundException $e) {
                return response()->json(['message' => 'user not found' ], 204);
              }

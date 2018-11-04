@@ -22,6 +22,8 @@ const getAdminDetails = httpUserRootUrl('get-user-details');
 const getTotalEarnings = httpUserRootUrl('get-total-earnings');
 const getAllAgents = httpAdminRootUrl('agents/get-all-agents');
 const editAgentsDetails = httpAdminApiRootUrl('edit-agent-details');
+const deleteAgent = httpAdminApiRootUrl('delete-agent');
+const restoreAgent = httpAdminApiRootUrl('restore-agent');
 const adminViewAgents = httpAdminRootUrl('agents');
 const adminDashboard = httpAdminRootUrl();
 const adminViewQuestions = httpAdminRootUrl('questions');
@@ -51,6 +53,8 @@ export default {
   getTotalEarnings,
   getAllAgents,
   editAgentsDetails,
+  deleteAgent,
+  restoreAgent,
   adminViewQuestions,
   adminViewAdmins,
   adminViewUsers,

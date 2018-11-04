@@ -595,6 +595,8 @@ var getAdminDetails = httpUserRootUrl('get-user-details');
 var getTotalEarnings = httpUserRootUrl('get-total-earnings');
 var getAllAgents = httpAdminRootUrl('agents/get-all-agents');
 var editAgentsDetails = httpAdminApiRootUrl('edit-agent-details');
+var deleteAgent = httpAdminApiRootUrl('delete-agent');
+var restoreAgent = httpAdminApiRootUrl('restore-agent');
 var adminViewAgents = httpAdminRootUrl('agents');
 var adminDashboard = httpAdminRootUrl();
 var adminViewQuestions = httpAdminRootUrl('questions');
@@ -626,6 +628,8 @@ var logoutAdmin = function logoutAdmin() {
   getTotalEarnings: getTotalEarnings,
   getAllAgents: getAllAgents,
   editAgentsDetails: editAgentsDetails,
+  deleteAgent: deleteAgent,
+  restoreAgent: restoreAgent,
   adminViewQuestions: adminViewQuestions,
   adminViewAdmins: adminViewAdmins,
   adminViewUsers: adminViewUsers,
@@ -2611,6 +2615,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.all_agents = rsp.data;
         _this.loading = false;
       });
+    },
+    deleteAgent: function deleteAgent(agent) {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.delete(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].deleteAgent + '/' + agent.id).then(function (rsp) {
+        _this2.loading = false;
+        agent.deleted_at = true;
+        // var removed = this.all_agents.indexOf(agent);
+        // this.all_agents.splice(removed, 1);
+      });
+    },
+    restoreAgent: function restoreAgent(agent) {
+      var _this3 = this;
+
+      this.loading = true;
+      axios.delete(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].restoreAgent + '/' + agent.id).then(function (rsp) {
+        _this3.loading = false;
+        agent.deleted_at = false;
+        // var removed = this.all_agents.indexOf(agent);
+        // this.all_agents.splice(removed, 1);
+      });
     }
   }
 });
@@ -3043,7 +3069,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminViewAgentsComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminViewAgentsComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -3088,7 +3114,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\nui.square{\n  border-radius: 4px;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/Admin/Resources/js/components/app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue"],"names":[],"mappings":";AAwLA;EACA,mBAAA;CACA","file":"AdminEditAgentsComponent.vue","sourcesContent":["<template>\n\n  <master-layout>\n\n      <template slot=\"content-section\">\n\n        <!-- <agent-menu></agent-menu> -->\n\n          <div class=\"grid-container\">\n\n            <div class=\"grid-100\">\n\n              <div class=\"ui red segment\">\n\n                <div class=\"grid-100\" v-if=\"!loading\">\n                  <div class=\"grid-40\">\n                    <div class=\"ui segment compact left floated\">\n                      <div class=\"ui horizontal statistic\">\n                        <div class=\"value\">\n                          {{ 'total' }}\n                        </div>\n                        <div class=\"label\">\n                          Agents\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"grid-15\">\n                    <button class=\"ui orange button square\">New Agent</button>\n                    <router-link :to=\"{ name: '', params: {} }\"></router-link>\n                  </div>\n                  <div class=\"grid-45\">\n                    <div class=\"ui search flex-center\" style=\"justify-content:flex-end\">\n                      <div class=\"ui icon input\">\n                        <input class=\"prompt\" type=\"text\" placeholder=\"Search...\">\n                        <i class=\"search icon\"></i>\n                      </div>\n                      <div class=\"results\"></div>\n                    </div>\n                  </div>\n                  <br>\n                </div>\n\n                <transition name=\"slide-in\">\n\n                  <page-loading :size=\"60\" v-if=\"loading\"></page-loading>\n\n                  <form class=\"ui form\" name=\"edit\" v-else @submit.prevent=\"editAgent\">\n\n                    <h2 class=\"ui dividing header\">Edit Agent's Information</h2>\n\n                    <div class=\"field\">\n                      <label>Name</label>\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <input type=\"text\" name=\"firstname\" placeholder=\"First Name\" v-model=\"agent_details.firstname\">\n                        </div>\n                        <div class=\"field\">\n                          <input type=\"text\" name=\"lastname\" placeholder=\"Last Name\" v-model=\"agent_details.lastname\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <label>Password</label>\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <input type=\"password\" name=\"password\" placeholder=\"Enter Password\" v-model=\"agent_details.password\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"six fields\">\n                        <div class=\"field\">\n                          <label>Total Units Purchsased</label>\n                          <input type=\"number\" name=\"num_of_referrals\" placeholder=\"Units Purchased\" readonly=\"readonly\"  v-model=\"agent_details.units_purchased\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Wallet Balance</label>\n                          <input type=\"number\" name=\"available_units\" placeholder=\"Wallet Balance\" readonly=\"readonly\"  v-model=\"agent_details.available_units\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Profit</label>\n                          <input type=\"number\" name=\"untransferred_earnings\" placeholder=\"Untransferred Earnings\" readonly=\"readonly\"  v-model=\"agent_details.total_untransferred_earnings\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <label>Account Number</label>\n                          <input type=\"text\" name=\"phone1\" placeholder=\"Account Number\"  v-model=\"agent_details.acct_no\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Bank Name</label>\n                          <input type=\"text\" name=\"available_units\" placeholder=\"Bank Name\"  v-model=\"agent_details.bank\">\n                        </div>\n                      </div>\n                      <div class=\"three fields\">\n                        <div class=\"field\">\n                          <label>Account Type</label>\n                          <input type=\"text\" name=\"earnings\" placeholder=\"Account Type\"  v-model=\"agent_details.acct_type\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Phone Number</label>\n                          <input type=\"text\" name=\"phone1\" placeholder=\"Phone Number\"  v-model=\"agent_details.phone1\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Phone Network</label>\n                          <input type=\"text\" name=\"network\" placeholder=\"Phone Number\"  v-model=\"agent_details.network\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"fields\">\n                        <div class=\"eight wide field\">\n                          <label>Email Address</label>\n                          <input type=\"text\" name=\"email\" placeholder=\"Email Address\"  v-model=\"agent_details.email\">\n                        </div>\n                        <div class=\"eight wide field\">\n                          <label>Address</label>\n                          <textarea rows=\"2\" name=\"address\" placeholder=\"Address\"  v-model=\"agent_details.address\"></textarea>\n                        </div>\n\n                      </div>\n                    </div>\n\n                    <button type=\"submit\" class=\"ui button green\" tabindex=\"0\">Submit</button>\n                  </form>\n\n                </transition>\n\n              </div>\n            </div>\n          </div>\n\n      </template>\n\n    </master-layout>\n</template>\n<script>\n    import MasterLayout from './layouts/MasterLayoutComponent'\n    import AgentMenu from './partials/AdminAgentsNavComponent'\n    import Loader from './misc/LoaderComponent'\n    import apiRoutes, { httpAdminApiRootUrl } from '../config/endpoints';\n\n    export default {\n        name: 'EditAgents',\n        components: {\n            pageLoading: Loader,\n            MasterLayout,\n            AgentMenu\n        },\n        created(){\n          console.log(this.$route.params);\n          this.getAgentDetails(this.$route.params.id)\n        },\n        data() {\n          return {\n            agent_details: {},\n            loading: true\n          };\n        },\n        computed: {\n\n        },\n        methods: {\n          getAgentDetails(id){\n            axios.get(httpAdminApiRootUrl(`get-agent-details/${id}`)).then(rsp => {\n              console.log(rsp);\n              this.agent_details = rsp.data;\n              this.loading = false;\n            });\n          },\n          editAgent(){\n            this.loading = true;\n            axios.post(apiRoutes.editAgentsDetails, {details: this.agent_details} ).then(rsp => {\n              this.loading = false;\n              this.$router.push({name : 'admin.view-agents'});\n            });\n          }\n        }\n    }\n</script>\n<style>\n  ui.square{\n    border-radius: 4px;\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\nui.square{\n  border-radius: 4px;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/Admin/Resources/js/components/app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue"],"names":[],"mappings":";AAwLA;EACA,mBAAA;CACA","file":"AdminEditAgentsComponent.vue","sourcesContent":["<template>\n\n  <master-layout>\n\n      <template slot=\"content-section\">\n\n        <!-- <agent-menu></agent-menu> -->\n\n          <div class=\"grid-container\">\n\n            <div class=\"grid-100\">\n\n              <div class=\"ui red segment\">\n\n                <div class=\"grid-100\" v-if=\"!loading\">\n                  <div class=\"grid-40\">\n                    <div class=\"ui segment compact left floated\">\n                      <div class=\"ui horizontal statistic\">\n                        <div class=\"value\">\n                          {{ 'total' }}\n                        </div>\n                        <div class=\"label\">\n                          Agents\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"grid-15\">\n                    <button class=\"ui orange button square\">New Agent</button>\n                    <router-link :to=\"{ name: '', params: {} }\"></router-link>\n                  </div>\n                  <div class=\"grid-45\">\n                    <div class=\"ui search flex-center\" style=\"justify-content:flex-end\">\n                      <div class=\"ui icon input\">\n                        <input class=\"prompt\" type=\"text\" placeholder=\"Search...\">\n                        <i class=\"search icon\"></i>\n                      </div>\n                      <div class=\"results\"></div>\n                    </div>\n                  </div>\n                  <br>\n                </div>\n\n                <transition name=\"slide-in\"  mode=\"out-in\">\n\n                  <page-loading :size=\"60\" v-if=\"loading\"></page-loading>\n\n                  <form class=\"ui form\" name=\"edit\" v-else @submit.prevent=\"editAgent\">\n\n                    <h2 class=\"ui dividing header\">Edit Agent's Information</h2>\n\n                    <div class=\"field\">\n                      <label>Name</label>\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <input type=\"text\" name=\"firstname\" placeholder=\"First Name\" v-model=\"agent_details.firstname\">\n                        </div>\n                        <div class=\"field\">\n                          <input type=\"text\" name=\"lastname\" placeholder=\"Last Name\" v-model=\"agent_details.lastname\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <label>Password</label>\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <input type=\"password\" name=\"password\" placeholder=\"Enter Password\" v-model=\"agent_details.password\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"six fields\">\n                        <div class=\"field\">\n                          <label>Total Units Purchsased</label>\n                          <input type=\"number\" name=\"num_of_referrals\" placeholder=\"Units Purchased\" readonly=\"readonly\"  v-model=\"agent_details.units_purchased\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Wallet Balance</label>\n                          <input type=\"number\" name=\"available_units\" placeholder=\"Wallet Balance\" readonly=\"readonly\"  v-model=\"agent_details.available_units\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Profit</label>\n                          <input type=\"number\" name=\"untransferred_earnings\" placeholder=\"Untransferred Earnings\" readonly=\"readonly\"  v-model=\"agent_details.total_untransferred_earnings\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <label>Account Number</label>\n                          <input type=\"text\" name=\"phone1\" placeholder=\"Account Number\"  v-model=\"agent_details.acct_no\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Bank Name</label>\n                          <input type=\"text\" name=\"available_units\" placeholder=\"Bank Name\"  v-model=\"agent_details.bank\">\n                        </div>\n                      </div>\n                      <div class=\"three fields\">\n                        <div class=\"field\">\n                          <label>Account Type</label>\n                          <input type=\"text\" name=\"earnings\" placeholder=\"Account Type\"  v-model=\"agent_details.acct_type\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Phone Number</label>\n                          <input type=\"text\" name=\"phone1\" placeholder=\"Phone Number\"  v-model=\"agent_details.phone1\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Phone Network</label>\n                          <input type=\"text\" name=\"network\" placeholder=\"Phone Number\"  v-model=\"agent_details.network\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"fields\">\n                        <div class=\"eight wide field\">\n                          <label>Email Address</label>\n                          <input type=\"text\" name=\"email\" placeholder=\"Email Address\"  v-model=\"agent_details.email\">\n                        </div>\n                        <div class=\"eight wide field\">\n                          <label>Address</label>\n                          <textarea rows=\"2\" name=\"address\" placeholder=\"Address\"  v-model=\"agent_details.address\"></textarea>\n                        </div>\n\n                      </div>\n                    </div>\n\n                    <button type=\"submit\" class=\"ui button green\" tabindex=\"0\">Submit</button>\n                  </form>\n\n                </transition>\n\n              </div>\n            </div>\n          </div>\n\n      </template>\n\n    </master-layout>\n</template>\n<script>\n    import MasterLayout from './layouts/MasterLayoutComponent'\n    import AgentMenu from './partials/AdminAgentsNavComponent'\n    import Loader from './misc/LoaderComponent'\n    import apiRoutes, { httpAdminApiRootUrl } from '../config/endpoints';\n\n    export default {\n        name: 'EditAgents',\n        components: {\n            pageLoading: Loader,\n            MasterLayout,\n            AgentMenu\n        },\n        created(){\n          console.log(this.$route.params);\n          this.getAgentDetails(this.$route.params.id)\n        },\n        data() {\n          return {\n            agent_details: {},\n            loading: true\n          };\n        },\n        computed: {\n\n        },\n        methods: {\n          getAgentDetails(id){\n            axios.get(httpAdminApiRootUrl(`get-agent-details/${id}`)).then(rsp => {\n              console.log(rsp);\n              this.agent_details = rsp.data;\n              this.loading = false;\n            });\n          },\n          editAgent(){\n            this.loading = true;\n            axios.post(apiRoutes.editAgentsDetails, {details: this.agent_details} ).then(rsp => {\n              this.loading = false;\n              this.$router.push({name : 'admin.view-agents'});\n            });\n          }\n        }\n    }\n</script>\n<style>\n  ui.square{\n    border-radius: 4px;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -29326,7 +29352,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "transition",
-                    { attrs: { name: "slide-in" } },
+                    { attrs: { name: "slide-in", mode: "out-in" } },
                     [
                       _vm.loading
                         ? _c("page-loading", { attrs: { size: 60 } })
@@ -29353,93 +29379,103 @@ var render = function() {
                               _c(
                                 "tbody",
                                 _vm._l(_vm.all_agents, function(agent) {
-                                  return _c(
-                                    "tr",
-                                    {
-                                      attrs: {
-                                        "ng-class":
-                                          "{'negative': transaction.trans_type == 'withdrawal'}"
-                                      }
-                                    },
-                                    [
-                                      _c("td", [_vm._v(_vm._s("q.id"))]),
-                                      _vm._v(" "),
-                                      _c("td", [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticStyle: { cursor: "pointer" }
-                                          },
-                                          [_vm._v(_vm._s(agent.email))]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", [
-                                        _vm._v(
-                                          _vm._s(agent.firstname) +
-                                            " " +
-                                            _vm._s(agent.lastname)
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm._f("currency")(
-                                              agent.available_units,
-                                              "₦"
-                                            )
+                                  return _c("tr", [
+                                    _c("td", [_vm._v(_vm._s("q.id"))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "span",
+                                        { staticStyle: { cursor: "pointer" } },
+                                        [_vm._v(_vm._s(agent.email))]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(agent.firstname) +
+                                          " " +
+                                          _vm._s(agent.lastname)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("currency")(
+                                            agent.available_units,
+                                            "₦"
                                           )
                                         )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", [
-                                        _vm._v(_vm._s(agent.useraccstatus))
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", [
-                                        _c(
-                                          "div",
-                                          { staticClass: "ui mini buttons" },
-                                          [
-                                            _c(
-                                              "router-link",
-                                              {
-                                                staticClass: "ui orange button",
-                                                attrs: {
-                                                  to: {
-                                                    name: "admin.edit-agent",
-                                                    params: { id: agent.id }
-                                                  },
-                                                  "active-class": "active"
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\n                              Edit\n                          "
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("div", { staticClass: "or" }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass: "ui red button",
-                                                attrs: {
-                                                  "ng-click":
-                                                    "deleteQuestion(q)"
-                                                }
-                                              },
-                                              [_vm._v("Delete")]
-                                            )
-                                          ],
-                                          1
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          agent.deleted_at
+                                            ? "Deleted"
+                                            : agent.useraccstatus
                                         )
-                                      ])
-                                    ]
-                                  )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "div",
+                                        { staticClass: "ui mini buttons" },
+                                        [
+                                          _c(
+                                            "router-link",
+                                            {
+                                              staticClass: "ui orange button",
+                                              attrs: {
+                                                to: {
+                                                  name: "admin.edit-agent",
+                                                  params: { id: agent.id }
+                                                },
+                                                "active-class": "active"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                              Edit\n                          "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("div", { staticClass: "or" }),
+                                          _vm._v(" "),
+                                          agent.deleted_at
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "ui green button",
+                                                  on: {
+                                                    click: function($event) {
+                                                      _vm.restoreAgent(agent)
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Restore")]
+                                              )
+                                            : _c(
+                                                "button",
+                                                {
+                                                  staticClass: "ui red button",
+                                                  on: {
+                                                    click: function($event) {
+                                                      _vm.deleteAgent(agent)
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Delete")]
+                                              )
+                                        ],
+                                        1
+                                      )
+                                    ])
+                                  ])
                                 })
                               )
                             ]
@@ -29734,7 +29770,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "transition",
-                  { attrs: { name: "slide-in" } },
+                  { attrs: { name: "slide-in", mode: "out-in" } },
                   [
                     _vm.loading
                       ? _c("page-loading", { attrs: { size: 60 } })

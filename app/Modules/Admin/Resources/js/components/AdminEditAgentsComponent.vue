@@ -41,7 +41,7 @@
                   <br>
                 </div>
 
-                <transition name="slide-in">
+                <transition name="slide-in"  mode="out-in">
 
                   <page-loading :size="60" v-if="loading"></page-loading>
 

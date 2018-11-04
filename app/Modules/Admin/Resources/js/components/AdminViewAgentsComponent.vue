@@ -39,7 +39,7 @@
                   <br>
                 </div>
 
-                <transition name="slide-in">
+                <transition name="slide-in" mode="out-in">
 
                   <page-loading :size="60" v-if="loading"></page-loading>
 
@@ -56,13 +56,12 @@
                     </thead>
                     <tbody>
 
-                      <tr ng-class="{'negative': transaction.trans_type == 'withdrawal'}"
-                          v-for="agent in all_agents">
+                      <tr v-for="agent in all_agents">
                         <td>{{ 'q.id' }}</td>
                         <td><span style="cursor:pointer;">{{ agent.email }}</span></td>
                         <td>{{ agent.firstname }} {{ agent.lastname }}</td>
                         <td>{{ agent.available_units | currency('₦') }}</td>
-                        <td>{{ agent.useraccstatus }}</td>
+                        <td>{{ agent.deleted_at ? 'Deleted' : agent.useraccstatus }}</td>
                         <td>
                           <div class="ui mini buttons">
                             <router-link :to="{ name: 'admin.edit-agent', params: { id: agent.id } }"
@@ -70,7 +69,8 @@
                                 Edit
                             </router-link>
                             <div class="or"></div>
-                            <button class="ui red button" ng-click="deleteQuestion(q)">Delete</button>
+                            <button class="ui green button" @click="restoreAgent(agent)" v-if="agent.deleted_at">Restore</button>
+                            <button class="ui red button" @click="deleteAgent(agent)" v-else="agent.deleted_at">Delete</button>
                           </div>
                         </td>
                       </tr>
@@ -119,6 +119,24 @@
             axios.get(apiRoutes.getAllAgents).then(rsp => {
               this.all_agents = rsp.data;
               this.loading = false;
+            });
+          },
+          deleteAgent(agent){
+            this.loading = true;
+            axios.delete(`${apiRoutes.deleteAgent}/${agent.id}` ).then(rsp => {
+              this.loading = false;
+              agent.deleted_at = true;
+              // var removed = this.all_agents.indexOf(agent);
+              // this.all_agents.splice(removed, 1);
+            });
+          },
+          restoreAgent(agent){
+            this.loading = true;
+            axios.delete(`${apiRoutes.restoreAgent}/${agent.id}` ).then(rsp => {
+              this.loading = false;
+              agent.deleted_at = false;
+              // var removed = this.all_agents.indexOf(agent);
+              // this.all_agents.splice(removed, 1);
             });
           }
         }
