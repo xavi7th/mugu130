@@ -65,7 +65,7 @@ class PaymentAgentController extends Controller
                   //Create a transaction record for the user
                   $user->transactions()->create([
                     'amount' => $amount_to_credit_user,
-                    'ref_no' => 'AGENT-' . str_random(rand(20,30)),
+                    'ref_no' => 'AGENT-'. Auth::id() . '-' . str_random(rand(20,30)),
                     'trans_type' => 'wallet funding',
                     'status' => 'completed',
                     'channel' => 'bank deposit'
