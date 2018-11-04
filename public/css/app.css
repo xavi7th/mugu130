@@ -51,7 +51,7 @@
 
 /* html5reset.css - 01/11/2011 */
 
-html,body,div,span,object,h1,h2,h3,h4,h5,h6,p,blockquote,address,code,em,img,q,small,strong,sub,sup,var,b,i,dt,dd,ol,ul,li,form,label,table,caption,tbody,tfoot,thead,tr,th,td,details,footer,header,menu,nav,section,summary,time,mark,video {
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,address,code,em,img,q,small,strong,sub,sup,var,b,i,dt,dd,ol,ul,li,form,label,table,caption,tbody,tfoot,thead,tr,th,td,details,footer,header,menu,nav,section,summary,time,mark,video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -1346,6 +1346,27 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 /* Linked In */
 
 /* YouTube */
+
+.ui.youtube.button {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+  -webkit-box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+}
+
+.ui.youtube.button:hover {
+  background-color: #e60000;
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.ui.youtube.button:active {
+  background-color: #cc0000;
+  color: #FFFFFF;
+  text-shadow: none;
+}
 
 /* Instagram */
 
@@ -6789,6 +6810,14 @@ i.icon.won.sign:before {
   content: "\F159";
 }
 
+i.icon.youtube:before {
+  content: "\F167";
+}
+
+i.icon.youtube.square:before {
+  content: "\F431";
+}
+
 /* Aliases */
 
 i.icon.ordered.list:before {
@@ -7343,6 +7372,10 @@ i.icon.write:before {
   content: "\F303";
 }
 
+i.icon.youtube.play:before {
+  content: "\F167";
+}
+
 /*******************************
         Outline Icons
 *******************************/
@@ -7633,7 +7666,7 @@ i.icon.star.empty:before {
 
 /* Brand Icon Font Family */
 
-i.icon.\35 00px,i.icon.amazon,i.icon.amazon.pay,i.icon.angular,i.icon.apple,i.icon.apple.pay,i.icon.bitcoin,i.icon.btc,i.icon.cc.amazon.pay,i.icon.cc.apple.pay,i.icon.cc.visa,i.icon.chrome,i.icon.css3,i.icon.css3.alternate,i.icon.d.and.d,i.icon.edge,i.icon.facebook,i.icon.facebook.f,i.icon.facebook.messenger,i.icon.facebook.square,i.icon.first.order,i.icon.font.awesome,i.icon.font.awesome.alternate,i.icon.get.pocket,i.icon.google,i.icon.google.play,i.icon.google.plus,i.icon.google.plus.g,i.icon.google.plus.square,i.icon.google.wallet,i.icon.html5,i.icon.instagram,i.icon.js,i.icon.js.square,i.icon.laravel,i.icon.medium,i.icon.medium.m,i.icon.microsoft,i.icon.mix,i.icon.opera,i.icon.page4,i.icon.php,i.icon.stack.overflow,i.icon.telegram,i.icon.twitter,i.icon.twitter.square,i.icon.whatsapp,i.icon.whatsapp.square {
+i.icon.\35 00px,i.icon.amazon,i.icon.amazon.pay,i.icon.angular,i.icon.apple,i.icon.apple.pay,i.icon.bitcoin,i.icon.btc,i.icon.cc.amazon.pay,i.icon.cc.apple.pay,i.icon.cc.visa,i.icon.chrome,i.icon.css3,i.icon.css3.alternate,i.icon.d.and.d,i.icon.edge,i.icon.facebook,i.icon.facebook.f,i.icon.facebook.messenger,i.icon.facebook.square,i.icon.first.order,i.icon.font.awesome,i.icon.font.awesome.alternate,i.icon.get.pocket,i.icon.google,i.icon.google.play,i.icon.google.plus,i.icon.google.plus.g,i.icon.google.plus.square,i.icon.google.wallet,i.icon.html5,i.icon.instagram,i.icon.js,i.icon.js.square,i.icon.laravel,i.icon.medium,i.icon.medium.m,i.icon.microsoft,i.icon.mix,i.icon.opera,i.icon.page4,i.icon.php,i.icon.stack.overflow,i.icon.telegram,i.icon.twitter,i.icon.twitter.square,i.icon.whatsapp,i.icon.whatsapp.square,i.icon.youtube,i.icon.youtube.square {
   font-family: 'brand-icons';
 }
 
@@ -23735,21 +23768,97 @@ select.ui.dropdown {
             Types
 *******************************/
 
+.ui.embed {
+  position: relative;
+  max-width: 100%;
+  height: 0px;
+  overflow: hidden;
+  background: #DCDDDE;
+  padding-bottom: 56.25%;
+}
+
 /*-----------------
   Embedded Content
 ------------------*/
+
+.ui.embed iframe,.ui.embed embed,.ui.embed object {
+  position: absolute;
+  border: none;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  margin: 0em;
+  padding: 0em;
+}
 
 /*-----------------
       Embed
 ------------------*/
 
+.ui.embed > .embed {
+  display: none;
+}
+
 /*--------------
    Placeholder
 ---------------*/
 
+.ui.embed > .placeholder {
+  position: absolute;
+  cursor: pointer;
+  top: 0px;
+  left: 0px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+}
+
 /*--------------
       Icon
 ---------------*/
+
+.ui.embed > .icon {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.ui.embed > .icon:after {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  content: '';
+  background: radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  opacity: 0.5;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+
+.ui.embed > .icon:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  color: #FFFFFF;
+  font-size: 84px;
+  font-size: 6rem;
+  text-shadow: 0px 2px 10px rgba(34, 36, 38, 0.2);
+  -webkit-transition: opacity 0.5s ease, color 0.5s ease;
+  transition: opacity 0.5s ease, color 0.5s ease;
+  z-index: 10;
+}
 
 /*******************************
             States
@@ -23759,9 +23868,27 @@ select.ui.dropdown {
      Hover
 ---------------*/
 
+.ui.embed .icon:hover:after {
+  background: radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  opacity: 1;
+}
+
+.ui.embed .icon:hover:before {
+  color: #FFFFFF;
+}
+
 /*--------------
      Active
 ---------------*/
+
+.ui.active.embed > .icon,.ui.active.embed > .placeholder {
+  display: none;
+}
+
+.ui.active.embed > .embed {
+  display: block;
+}
 
 /*******************************
         Video Overrides
@@ -23774,6 +23901,22 @@ select.ui.dropdown {
 /*******************************
           Variations
 *******************************/
+
+.ui.square.embed {
+  padding-bottom: 100%;
+}
+
+.ui[class*="4:3"].embed {
+  padding-bottom: 75%;
+}
+
+.ui[class*="16:9"].embed {
+  padding-bottom: 56.25%;
+}
+
+.ui[class*="21:9"].embed {
+  padding-bottom: 42.85714286%;
+}
 
 /*!
  * # Semantic UI 2.4.0 - Modal
