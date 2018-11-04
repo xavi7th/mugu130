@@ -162,7 +162,7 @@ var url = `
 
             <tr>
               <td>Twitter</td>
-              <td> <a ng-href="{{ trans_record.user.twitter }}">{{ trans_record.user.twitter }}</a> </td>
+              <td> <a ng-href="{{ 'https://' + trans_record.user.twitter }}" target="_blank">{{ trans_record.user.twitter }}</a> </td>
             </tr>
 
             <tr>
@@ -172,12 +172,12 @@ var url = `
 
             <tr>
               <td>Facebook</td>
-              <td> <a ng-href="{{ trans_record.user.facebook }}">{{ trans_record.user.facebook }}</a> </td>
+              <td> <a ng-href="{{ 'https://' + trans_record.user.facebook }}" target="_blank">{{ trans_record.user.facebook }}</a> </td>
             </tr>
 
             <tr>
               <td>Instagram</td>
-              <td> <a ng-href="{{ trans_record.user.instagram }}">{{ trans_record.user.instagram }}</a> </td>
+              <td> <a ng-href="{{ 'https://' + trans_record.user.instagram }}" target="_blank">{{ trans_record.user.instagram }}</a> </td>
             </tr>
 
           </tbody>

@@ -560,6 +560,7 @@ module.exports = Component.exports
 /* unused harmony export apiRootUrl */
 /* unused harmony export httpAdminRootUrl */
 /* unused harmony export httpUserRootUrl */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return httpAdminApiRootUrl; });
 // production server
 // export const apiDomain = 'https://playground.fastplay24.com/admin/api/';
 
@@ -586,10 +587,14 @@ var httpAdminRootUrl = function httpAdminRootUrl(url) {
 var httpUserRootUrl = function httpUserRootUrl(url) {
   return httpUsersDomain + (url || '');
 };
+var httpAdminApiRootUrl = function httpAdminApiRootUrl(url) {
+  return httpAdminDomain + 'agents/api/' + (url || '');
+};
 
 var getAdminDetails = httpUserRootUrl('get-user-details');
 var getTotalEarnings = httpUserRootUrl('get-total-earnings');
 var getAllAgents = httpAdminRootUrl('agents/get-all-agents');
+var editAgentsDetails = httpAdminApiRootUrl('edit-agent-details');
 var adminViewAgents = httpAdminRootUrl('agents');
 var adminDashboard = httpAdminRootUrl();
 var adminViewQuestions = httpAdminRootUrl('questions');
@@ -620,6 +625,7 @@ var logoutAdmin = function logoutAdmin() {
   getAdminDetails: getAdminDetails,
   getTotalEarnings: getTotalEarnings,
   getAllAgents: getAllAgents,
+  editAgentsDetails: editAgentsDetails,
   adminViewQuestions: adminViewQuestions,
   adminViewAdmins: adminViewAdmins,
   adminViewUsers: adminViewUsers,
@@ -689,23 +695,30 @@ function createRouter() {
         // ViewAgents will be rendered inside App's <router-view>
         // when /tcom01/agents is matched
         path: 'agents',
-        component: __WEBPACK_IMPORTED_MODULE_4__components_AdminViewAgentsComponent___default.a,
+        component: view('AdminViewAgentsComponent'),
         name: 'admin.view-agents',
         meta: {
-          title: 'Admin View Agents | Fastplay24'
+          title: 'View Agents | Fastplay24 Admin'
         }
       }, {
         path: 'agent/:id/edit',
         component: __WEBPACK_IMPORTED_MODULE_5__components_AdminEditAgentsComponent___default.a,
         name: 'admin.edit-agent',
         meta: {
-          title: 'Admin Edit Agent Details | Fastplay24'
+          title: 'Edit Agent Details | Fastplay24 Admin'
+        }
+      }, {
+        path: 'agent/create',
+        component: __WEBPACK_IMPORTED_MODULE_5__components_AdminEditAgentsComponent___default.a,
+        name: 'admin.create-agent',
+        meta: {
+          title: 'Create New Agent | Fastplay24 Admin'
         }
       }]
 
     }, {
       path: '*',
-      redirect: __WEBPACK_IMPORTED_MODULE_2__config_endpoints__["a" /* default */].adminDashboard
+      redirect: { name: 'admin.view-agents' }
     }]
 
   });
@@ -2333,6 +2346,87 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2347,23 +2441,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     AgentMenu: __WEBPACK_IMPORTED_MODULE_1__partials_AdminAgentsNavComponent___default.a
   },
   created: function created() {
-    this.getAllAgents();
+    console.log(this.$route.params);
+    this.getAgentDetails(this.$route.params.id);
   },
   data: function data() {
     return {
-      all_agents: false,
+      agent_details: {},
       loading: true
     };
   },
 
   computed: {},
   methods: {
-    getAllAgents: function getAllAgents() {
+    getAgentDetails: function getAgentDetails(id) {
       var _this = this;
 
-      axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgents).then(function (rsp) {
-        _this.all_agents = rsp.data;
+      axios.get(Object(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["b" /* httpAdminApiRootUrl */])('get-agent-details/' + id)).then(function (rsp) {
+        console.log(rsp);
+        _this.agent_details = rsp.data;
         _this.loading = false;
+      });
+    },
+    editAgent: function editAgent() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.post(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].editAgentsDetails, { details: this.agent_details }).then(function (rsp) {
+        _this2.loading = false;
+        _this2.$router.push({ name: 'admin.view-agents' });
       });
     }
   }
@@ -2517,8 +2622,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent__ = __webpack_require__("./app/Modules/Admin/Resources/js/components/AdminViewAgentsComponent.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent__);
 //
 //
 //
@@ -2533,23 +2636,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'App',
-  components: {
-    ViewAgents: __WEBPACK_IMPORTED_MODULE_0__AdminViewAgentsComponent___default.a
-  },
-  data: function data() {
-    return {
-      currentComponent: 'ViewAgents',
-      propsToPass: {}
-    };
-  },
-
-  computed: {},
-  methods: {}
+  name: 'App'
 });
 
 /***/ }),
@@ -2938,7 +3028,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AppComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AppComponent.vue","sourceRoot":""}]);
 
 // exports
 
@@ -2998,7 +3088,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"AdminEditAgentsComponent.vue","sourceRoot":""}]);
+exports.push([module.i, "\nui.square{\n  border-radius: 4px;\n}\n", "", {"version":3,"sources":["/Applications/XAMPP/xamppfiles/htdocs/TanshiL5/app/Modules/Admin/Resources/js/components/app/Modules/Admin/Resources/js/components/AdminEditAgentsComponent.vue"],"names":[],"mappings":";AAwLA;EACA,mBAAA;CACA","file":"AdminEditAgentsComponent.vue","sourcesContent":["<template>\n\n  <master-layout>\n\n      <template slot=\"content-section\">\n\n        <!-- <agent-menu></agent-menu> -->\n\n          <div class=\"grid-container\">\n\n            <div class=\"grid-100\">\n\n              <div class=\"ui red segment\">\n\n                <div class=\"grid-100\" v-if=\"!loading\">\n                  <div class=\"grid-40\">\n                    <div class=\"ui segment compact left floated\">\n                      <div class=\"ui horizontal statistic\">\n                        <div class=\"value\">\n                          {{ 'total' }}\n                        </div>\n                        <div class=\"label\">\n                          Agents\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"grid-15\">\n                    <button class=\"ui orange button square\">New Agent</button>\n                    <router-link :to=\"{ name: '', params: {} }\"></router-link>\n                  </div>\n                  <div class=\"grid-45\">\n                    <div class=\"ui search flex-center\" style=\"justify-content:flex-end\">\n                      <div class=\"ui icon input\">\n                        <input class=\"prompt\" type=\"text\" placeholder=\"Search...\">\n                        <i class=\"search icon\"></i>\n                      </div>\n                      <div class=\"results\"></div>\n                    </div>\n                  </div>\n                  <br>\n                </div>\n\n                <transition name=\"slide-in\">\n\n                  <page-loading :size=\"60\" v-if=\"loading\"></page-loading>\n\n                  <form class=\"ui form\" name=\"edit\" v-else @submit.prevent=\"editAgent\">\n\n                    <h2 class=\"ui dividing header\">Edit Agent's Information</h2>\n\n                    <div class=\"field\">\n                      <label>Name</label>\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <input type=\"text\" name=\"firstname\" placeholder=\"First Name\" v-model=\"agent_details.firstname\">\n                        </div>\n                        <div class=\"field\">\n                          <input type=\"text\" name=\"lastname\" placeholder=\"Last Name\" v-model=\"agent_details.lastname\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <label>Password</label>\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <input type=\"password\" name=\"password\" placeholder=\"Enter Password\" v-model=\"agent_details.password\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"six fields\">\n                        <div class=\"field\">\n                          <label>Total Units Purchsased</label>\n                          <input type=\"number\" name=\"num_of_referrals\" placeholder=\"Units Purchased\" readonly=\"readonly\"  v-model=\"agent_details.units_purchased\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Wallet Balance</label>\n                          <input type=\"number\" name=\"available_units\" placeholder=\"Wallet Balance\" readonly=\"readonly\"  v-model=\"agent_details.available_units\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Profit</label>\n                          <input type=\"number\" name=\"untransferred_earnings\" placeholder=\"Untransferred Earnings\" readonly=\"readonly\"  v-model=\"agent_details.total_untransferred_earnings\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"two fields\">\n                        <div class=\"field\">\n                          <label>Account Number</label>\n                          <input type=\"text\" name=\"phone1\" placeholder=\"Account Number\"  v-model=\"agent_details.acct_no\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Bank Name</label>\n                          <input type=\"text\" name=\"available_units\" placeholder=\"Bank Name\"  v-model=\"agent_details.bank\">\n                        </div>\n                      </div>\n                      <div class=\"three fields\">\n                        <div class=\"field\">\n                          <label>Account Type</label>\n                          <input type=\"text\" name=\"earnings\" placeholder=\"Account Type\"  v-model=\"agent_details.acct_type\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Phone Number</label>\n                          <input type=\"text\" name=\"phone1\" placeholder=\"Phone Number\"  v-model=\"agent_details.phone1\">\n                        </div>\n                        <div class=\"field\">\n                          <label>Phone Network</label>\n                          <input type=\"text\" name=\"network\" placeholder=\"Phone Number\"  v-model=\"agent_details.network\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"field\">\n                      <div class=\"fields\">\n                        <div class=\"eight wide field\">\n                          <label>Email Address</label>\n                          <input type=\"text\" name=\"email\" placeholder=\"Email Address\"  v-model=\"agent_details.email\">\n                        </div>\n                        <div class=\"eight wide field\">\n                          <label>Address</label>\n                          <textarea rows=\"2\" name=\"address\" placeholder=\"Address\"  v-model=\"agent_details.address\"></textarea>\n                        </div>\n\n                      </div>\n                    </div>\n\n                    <button type=\"submit\" class=\"ui button green\" tabindex=\"0\">Submit</button>\n                  </form>\n\n                </transition>\n\n              </div>\n            </div>\n          </div>\n\n      </template>\n\n    </master-layout>\n</template>\n<script>\n    import MasterLayout from './layouts/MasterLayoutComponent'\n    import AgentMenu from './partials/AdminAgentsNavComponent'\n    import Loader from './misc/LoaderComponent'\n    import apiRoutes, { httpAdminApiRootUrl } from '../config/endpoints';\n\n    export default {\n        name: 'EditAgents',\n        components: {\n            pageLoading: Loader,\n            MasterLayout,\n            AgentMenu\n        },\n        created(){\n          console.log(this.$route.params);\n          this.getAgentDetails(this.$route.params.id)\n        },\n        data() {\n          return {\n            agent_details: {},\n            loading: true\n          };\n        },\n        computed: {\n\n        },\n        methods: {\n          getAgentDetails(id){\n            axios.get(httpAdminApiRootUrl(`get-agent-details/${id}`)).then(rsp => {\n              console.log(rsp);\n              this.agent_details = rsp.data;\n              this.loading = false;\n            });\n          },\n          editAgent(){\n            this.loading = true;\n            axios.post(apiRoutes.editAgentsDetails, {details: this.agent_details} ).then(rsp => {\n              this.loading = false;\n              this.$router.push({name : 'admin.view-agents'});\n            });\n          }\n        }\n    }\n</script>\n<style>\n  ui.square{\n    border-radius: 4px;\n  }\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -29559,106 +29649,618 @@ var render = function() {
   return _c(
     "master-layout",
     [
-      _c(
-        "template",
-        { slot: "content-section" },
-        [
-          _c("agent-menu"),
-          _vm._v(" "),
-          _c("div", { staticClass: "grid-container" }, [
-            _c("div", { staticClass: "grid-100" }, [
-              _c(
-                "div",
-                { staticClass: "ui red segment" },
-                [
-                  !_vm.loading
-                    ? _c("div", { staticClass: "grid-100" }, [
-                        _c("div", { staticClass: "grid-40" }, [
-                          _c(
-                            "div",
-                            { staticClass: "ui segment compact left floated" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "ui horizontal statistic" },
-                                [
-                                  _c("div", { staticClass: "value" }, [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s("total") +
-                                        "\n                      "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "label" }, [
-                                    _vm._v(
-                                      "\n                        Agents\n                      "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "grid-15" }, [
+      _c("template", { slot: "content-section" }, [
+        _c("div", { staticClass: "grid-container" }, [
+          _c("div", { staticClass: "grid-100" }, [
+            _c(
+              "div",
+              { staticClass: "ui red segment" },
+              [
+                !_vm.loading
+                  ? _c("div", { staticClass: "grid-100" }, [
+                      _c("div", { staticClass: "grid-40" }, [
+                        _c(
+                          "div",
+                          { staticClass: "ui segment compact left floated" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "ui horizontal statistic" },
+                              [
+                                _c("div", { staticClass: "value" }, [
+                                  _vm._v(
+                                    "\n                        " +
+                                      _vm._s("total") +
+                                      "\n                      "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "label" }, [
+                                  _vm._v(
+                                    "\n                        Agents\n                      "
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "grid-15" },
+                        [
                           _c(
                             "button",
-                            {
-                              staticClass: "ui orange button",
-                              attrs: { "ng-click": "newQuestion()" }
-                            },
+                            { staticClass: "ui orange button square" },
                             [_vm._v("New Agent")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "grid-45" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "ui search flex-center",
-                              staticStyle: { "justify-content": "flex-end" }
-                            },
-                            [
-                              _c("div", { staticClass: "ui icon input" }, [
-                                _c("input", {
-                                  staticClass: "prompt",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Search..."
-                                  }
-                                }),
+                          ),
+                          _vm._v(" "),
+                          _c("router-link", {
+                            attrs: { to: { name: "", params: {} } }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "grid-45" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "ui search flex-center",
+                            staticStyle: { "justify-content": "flex-end" }
+                          },
+                          [
+                            _c("div", { staticClass: "ui icon input" }, [
+                              _c("input", {
+                                staticClass: "prompt",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Search..."
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("i", { staticClass: "search icon" })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "results" })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("br")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "transition",
+                  { attrs: { name: "slide-in" } },
+                  [
+                    _vm.loading
+                      ? _c("page-loading", { attrs: { size: 60 } })
+                      : _c(
+                          "form",
+                          {
+                            staticClass: "ui form",
+                            attrs: { name: "edit" },
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                return _vm.editAgent($event)
+                              }
+                            }
+                          },
+                          [
+                            _c("h2", { staticClass: "ui dividing header" }, [
+                              _vm._v("Edit Agent's Information")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "field" }, [
+                              _c("label", [_vm._v("Name")]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "two fields" }, [
+                                _c("div", { staticClass: "field" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.firstname,
+                                        expression: "agent_details.firstname"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "firstname",
+                                      placeholder: "First Name"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.firstname
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "firstname",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
                                 _vm._v(" "),
-                                _c("i", { staticClass: "search icon" })
+                                _c("div", { staticClass: "field" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.lastname,
+                                        expression: "agent_details.lastname"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "lastname",
+                                      placeholder: "Last Name"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.lastname
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "lastname",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "field" }, [
+                              _c("label", [_vm._v("Password")]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "two fields" }, [
+                                _c("div", { staticClass: "field" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.password,
+                                        expression: "agent_details.password"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "password",
+                                      name: "password",
+                                      placeholder: "Enter Password"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.password
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "password",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "field" }, [
+                              _c("div", { staticClass: "six fields" }, [
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [
+                                    _vm._v("Total Units Purchsased")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.agent_details.units_purchased,
+                                        expression:
+                                          "agent_details.units_purchased"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "number",
+                                      name: "num_of_referrals",
+                                      placeholder: "Units Purchased",
+                                      readonly: "readonly"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.units_purchased
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "units_purchased",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Wallet Balance")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.agent_details.available_units,
+                                        expression:
+                                          "agent_details.available_units"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "number",
+                                      name: "available_units",
+                                      placeholder: "Wallet Balance",
+                                      readonly: "readonly"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.available_units
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "available_units",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Profit")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.agent_details
+                                            .total_untransferred_earnings,
+                                        expression:
+                                          "agent_details.total_untransferred_earnings"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "number",
+                                      name: "untransferred_earnings",
+                                      placeholder: "Untransferred Earnings",
+                                      readonly: "readonly"
+                                    },
+                                    domProps: {
+                                      value:
+                                        _vm.agent_details
+                                          .total_untransferred_earnings
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "total_untransferred_earnings",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "field" }, [
+                              _c("div", { staticClass: "two fields" }, [
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Account Number")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.acct_no,
+                                        expression: "agent_details.acct_no"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "phone1",
+                                      placeholder: "Account Number"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.acct_no
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "acct_no",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Bank Name")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.bank,
+                                        expression: "agent_details.bank"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "available_units",
+                                      placeholder: "Bank Name"
+                                    },
+                                    domProps: { value: _vm.agent_details.bank },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "bank",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "results" })
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("br")
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "transition",
-                    { attrs: { name: "slide-in" } },
-                    [
-                      _vm.loading
-                        ? _c("page-loading", { attrs: { size: 60 } })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
+                              _c("div", { staticClass: "three fields" }, [
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Account Type")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.acct_type,
+                                        expression: "agent_details.acct_type"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "earnings",
+                                      placeholder: "Account Type"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.acct_type
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "acct_type",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Phone Number")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.phone1,
+                                        expression: "agent_details.phone1"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "phone1",
+                                      placeholder: "Phone Number"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.phone1
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "phone1",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "field" }, [
+                                  _c("label", [_vm._v("Phone Network")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.network,
+                                        expression: "agent_details.network"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "network",
+                                      placeholder: "Phone Number"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.network
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "network",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "field" }, [
+                              _c("div", { staticClass: "fields" }, [
+                                _c("div", { staticClass: "eight wide field" }, [
+                                  _c("label", [_vm._v("Email Address")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.email,
+                                        expression: "agent_details.email"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      name: "email",
+                                      placeholder: "Email Address"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.email
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "email",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "eight wide field" }, [
+                                  _c("label", [_vm._v("Address")]),
+                                  _vm._v(" "),
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.agent_details.address,
+                                        expression: "agent_details.address"
+                                      }
+                                    ],
+                                    attrs: {
+                                      rows: "2",
+                                      name: "address",
+                                      placeholder: "Address"
+                                    },
+                                    domProps: {
+                                      value: _vm.agent_details.address
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.agent_details,
+                                          "address",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "ui button green",
+                                attrs: { type: "submit", tabindex: "0" }
+                              },
+                              [_vm._v("Submit")]
+                            )
+                          ]
+                        )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
           ])
-        ],
-        1
-      )
+        ])
+      ])
     ],
     2
   )

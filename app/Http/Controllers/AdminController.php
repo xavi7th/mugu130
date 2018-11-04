@@ -140,7 +140,7 @@ class AdminController extends Controller
       });
 
       Route::get('/{subcat?}', $c.'showDashboard')
-            ->where('subcat', '^((?!(agents|anotherWordInCase)).)*$') //Matches all routes except the list provided.
+            ->where('subcat', '^((?!(agents|anotherWordInCase)).)*') //Matches all routes except routes that start with the list provided.
             ->name('admin.dashboard');
     }
 

@@ -43,10 +43,10 @@ export function createRouter () {
                   // ViewAgents will be rendered inside App's <router-view>
                   // when /tcom01/agents is matched
                   path: 'agents',
-                  component: ViewAgents,
+                  component: view('AdminViewAgentsComponent'),
                   name: 'admin.view-agents',
                   meta: {
-                    title: 'Admin View Agents | Fastplay24'
+                    title: 'View Agents | Fastplay24 Admin'
                   }
                 },
                 {
@@ -54,7 +54,15 @@ export function createRouter () {
                   component: EditAgent,
                   name: 'admin.edit-agent',
                   meta: {
-                    title: 'Admin Edit Agent Details | Fastplay24'
+                    title: 'Edit Agent Details | Fastplay24 Admin'
+                  }
+                },
+                {
+                  path: 'agent/create',
+                  component: EditAgent,
+                  name: 'admin.create-agent',
+                  meta: {
+                    title: 'Create New Agent | Fastplay24 Admin'
                   }
                 },
             ],
@@ -62,7 +70,7 @@ export function createRouter () {
         },
         {
           path: '*',
-          redirect: routes.adminDashboard
+          redirect:  { name: 'admin.view-agents' }
         }
     ],
 

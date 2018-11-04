@@ -19,6 +19,7 @@ use App\Mail\TransactionalMail;
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,7 +36,10 @@ class User extends Authenticatable{
      * @var array
      */
     protected $guarded = [
-        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased', 'available_units',  'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'notices', 'messages', 'verified'
+        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased',
+        'available_units',  'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals',
+        'units_purchased', 'notices', 'messages', 'verified', 'total_untransferred_earnings',
+        'total_transferred_earnings', 'num_of_games_played', 'num_of_withdrawals', 'total_withdrawals'
     ];
 
     /**
@@ -64,7 +68,7 @@ class User extends Authenticatable{
          'units_purchased' => 'double',
          'total_untransferred_earnings' => 'double',
          'total_transferred_earnings' => 'double',
-         'num_og_games_played' => 'integer',
+         'num_of_games_played' => 'integer',
          'num_of_withdrawals' => 'integer',
          'total_withdrawals' => 'integer'
     ];
@@ -75,7 +79,9 @@ class User extends Authenticatable{
 
     public function setPasswordAttribute($value){
       $this->attributes['password'] = bcrypt($value);
-      // $this->attributes['unencpass'] = $value;
+      if ( !App::environment('production')) {
+        $this->attributes['unencpass'] = $value;
+      }
       $this->attributes['api_token'] = str_random(144);
       $this->attributes['refcode'] = unique_random('users', 'refcode');
     }

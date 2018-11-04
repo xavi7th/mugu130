@@ -29,14 +29,22 @@ class AdminController extends Controller
 
         Route::group(['middleware' => ['auth', 'api'], 'prefix' => 'agents/api'], function(){
 
-          Route::get('get-all-agents', function () {
-            return 'here';
+          Route::get('get-agent-details/{id}', function ($id) {
             try {
-              return User::where('email', $email)->firstOrFail()->only(['email', 'firstname', 'lastname', 'id']);
+              return User::find($id)->firstOrFail();
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'user not found' ], 204);
             }
+          });
 
+          Route::post('edit-agent-details', function () {
+            // return request('details');
+            try {
+              return ['status' => User::find(request()->input('details.id'))
+                          ->update(request('details'))];
+            } catch (ModelNotFoundException $e) {
+              return response()->json(['message' => 'user not found' ], 204);
+            }
           });
 
         });
