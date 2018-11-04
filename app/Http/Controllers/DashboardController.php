@@ -134,6 +134,11 @@ class DashboardController extends Controller
                                         'value' => Auth::user()->firstname . ' ' . Auth::user()->lastname . ': ' . Auth::user()->phone1
                                       ],
                                       [
+                                        'display_name' => "User ID",
+                                        'variable_name' => "user_id",
+                                        'value' => Auth::user()->id
+                                      ],
+                                      [
                                         'display_name' => "User's Amount",
                                         'variable_name' => "user_amount",
                                         'value' => '₦'.(number_format((intval(request('amount')) / 100), 2))
