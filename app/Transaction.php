@@ -53,7 +53,7 @@ class Transaction extends Model{
 		 if (starts_with($value, 'AGENT')) {
 			 $exploded = explode('-', $value);
 			 $agent_id = $exploded[1];
-			 $agent = User::find($agent_id)->only(['id', 'firstname', 'lastname', 'email']);
+			 $agent = optional(User::find($agent_id))->only(['id', 'firstname', 'lastname', 'email']);
 			 return [
 				 'value' => $value,
 				 'agent' => $agent

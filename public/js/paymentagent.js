@@ -2816,7 +2816,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (result) {
           swal({
             title: "Are you sure?",
-            text: '\u20A6' + _this2.credit_amount + ' will be deducted from your wallet. You will make a profit of \u20A650. Are you sure you want to fund this user with \u20A6' + (_this2.credit_amount - 100) + '? ',
+            text: '\u20A6' + (_this2.credit_amount - 50) + ' will be deducted from your wallet. You will make a profit of \u20A650. Are you sure you want to fund this user with \u20A6' + (_this2.credit_amount - 100) + '? ',
             icon: "warning",
             buttons: {
               cancel: true,
@@ -29734,7 +29734,8 @@ var render = function() {
                           _vm._v(
                             _vm._s(
                               _vm._f("currency")(
-                                _vm.agent_details.available_units
+                                _vm.agent_details.available_units,
+                                "₦"
                               )
                             )
                           )
@@ -29813,7 +29814,9 @@ var render = function() {
                             " " +
                               _vm._s(
                                 _vm._f("currency")(
-                                  _vm.agent_details.total_untransferred_earnings
+                                  _vm.agent_details
+                                    .total_untransferred_earnings,
+                                  "₦"
                                 )
                               )
                           )
@@ -29871,7 +29874,9 @@ var render = function() {
               _vm._v(" "),
               _c("a", { staticClass: "ui basic purple label " }, [
                 _vm._v(
-                  _vm._s(_vm._f("currency")(_vm.agent_details.units_purchased))
+                  _vm._s(
+                    _vm._f("currency")(_vm.agent_details.units_purchased, "₦")
+                  )
                 )
               ])
             ]
@@ -29900,7 +29905,8 @@ var render = function() {
                         _vm._v(
                           _vm._s(
                             _vm._f("currency")(
-                              _vm.agent_details.available_units
+                              _vm.agent_details.available_units,
+                              "₦"
                             )
                           )
                         )

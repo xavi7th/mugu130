@@ -8,7 +8,7 @@
         <nav>
           <div class="ui labeled  button" tabindex="-1">
             <div class="ui purple button right pointing label">Total Wallet Funding</div>
-            <a class="ui basic purple label ">{{ agent_details.units_purchased | currency }}</a>
+            <a class="ui basic purple label ">{{ agent_details.units_purchased | currency('₦') }}</a>
           </div>
 
           <div id="mini-game" class="">
@@ -16,7 +16,7 @@
               <div class="ui button" :class="units_level">Current Wallet Balance</div>
               <a class="ui basic left pointing label" :class="units_level">
                 <div countdown="game_timer">
-                  <h1 class="time ">{{ agent_details.available_units | currency }}</h1>
+                  <h1 class="time ">{{ agent_details.available_units | currency('₦') }}</h1>
                 </div>
               </a>
             </div>

@@ -450,8 +450,8 @@ class DashboardController extends Controller
       Route::post('/delete-notice', 'DashboardController@deleteNotice');
 
       Route::get('/get-all-agents', function () {
-        return  DB::table('users')->where('role_id', Role::agent_id())
-                    ->get(['id', 'phone1', 'acct_no', 'acct_type', 'firstname', 'lastname']);
+        return  DB::table('users')->where('role_id', Role::agent_id())->where('deleted_at', null)
+                    ->get(['id', 'phone1', 'acct_no', 'acct_type', 'firstname', 'lastname', 'bank']);
       });
     }
 
@@ -775,7 +775,7 @@ class DashboardController extends Controller
 
     public function requestWithdrawal(){
 
-      return [now()->endOfDay()];
+      // return [now()->endOfDay()];
 
       if ( !Auth::user()->withdrawals_today->isEmpty() ) {
         //The user has withdrawn money today before

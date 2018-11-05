@@ -151,7 +151,7 @@ export default {
         if(result){
           swal({
             title: "Are you sure?",
-            text: `₦${this.credit_amount} will be deducted from your wallet. You will make a profit of ₦50. Are you sure you want to fund this user with ₦${this.credit_amount - 100}? `,
+            text: `₦${this.credit_amount - 50} will be deducted from your wallet. You will make a profit of ₦50. Are you sure you want to fund this user with ₦${this.credit_amount - 100}? `,
             icon: "warning",
             buttons: {
                cancel: true,

@@ -10,7 +10,7 @@
                 <div class="ui statistic">
                   <div class="value">
                     <i class="inbox icon"></i>
-                    <span>{{ agent_details.available_units | currency }}</span>
+                    <span>{{ agent_details.available_units | currency('₦') }}</span>
                   </div>
                   <div class="label">
                     Wallet Balance
@@ -49,7 +49,7 @@
                 <div class="ui statistic">
                   <div class="value">
                     <i class="money bill alternate outline icon " style="color: green"></i>
-                    <span style="color: green"> {{ agent_details.total_untransferred_earnings | currency }}</span>
+                    <span style="color: green"> {{ agent_details.total_untransferred_earnings | currency('₦') }}</span>
                   </div>
                   <div class="label">
                     Profit

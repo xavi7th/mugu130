@@ -50,7 +50,7 @@ class PaymentAgentController extends Controller
               return response()->json(['message' => 'Funding amount must be greater that 200' ], 200);
             }
 
-            $amount_to_credit_user = request('amount') - env('AGENT_REMITAL_FEE');
+            $amount_to_credit_user = request('amount') - env('AGENT_REMITAL_FEE') - env('AGENT_PROFIT');
 
             try {
               DB::beginTransaction();
@@ -59,7 +59,7 @@ class PaymentAgentController extends Controller
                   $user->units_purchased += $amount_to_credit_user;
                   $user->save();
 
-                  Auth::user()->available_units -= request('amount');
+                  Auth::user()->available_units -= (request('amount') - env('AGENT_PROFIT'));
                   Auth::user()->save();
 
                   //Create a transaction record for the user
@@ -73,7 +73,7 @@ class PaymentAgentController extends Controller
 
                   //Create a transaction record for the agent
                   PaymentAgent::find(Auth::id())->agent_transactions()->create([
-                    'amount' => request('amount'),
+                    'amount' => (request('amount') - env('AGENT_PROFIT')),
                     'credited_user_id' => request('user_id'),
                     'trans_type' => 'user wallet funding',
                     'status' => 'completed'
@@ -134,67 +134,5 @@ class PaymentAgentController extends Controller
         });
 
 
-    }
-
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        return view('paymentagent::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('paymentagent::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('paymentagent::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('paymentagent::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
     }
 }
