@@ -22,6 +22,7 @@ use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
 use App\Events\NewMemberJoined;
+use App\GeneratedError;
 use App\Question;
 
 use Illuminate\Http\Request;
@@ -95,6 +96,7 @@ class DashboardController extends Controller
         // The PAYSTACK CLASS IS IN MY MODELS and autlooaded with files object in composer.json
 
         $paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
+        // dd($transaction->ref_no['value']);
 
         //Initialise a call to paystack to authorize the payment. Sample response below
         /*
@@ -119,7 +121,7 @@ class DashboardController extends Controller
             [
               'amount' => $amount,
               'email' => Auth::user()->email,
-              'reference' => $transaction->ref_no,
+              'reference' => $transaction->ref_no['value'],
               'callback_url' => route('verify-paystack-transaction'),
               'metadata' => json_encode([
                 'transaction_id' => $transaction->id,
@@ -153,9 +155,15 @@ class DashboardController extends Controller
             ]
           );
         }
-        catch (\Exception $e) {
-          if ($e->getCode() == 0) {
+        catch (\Exception $err) {
+
+          GeneratedError::log($err->getMessage());
+
+          if ($err->getCode() == 0) {
             abort(203, 'There was a problem connecting to the payment gateway. Try again later.');
+          }
+          else{
+            abort(203, 'There was a problem while trying to fulfill the transaction. Please try again.');
           }
         }
 

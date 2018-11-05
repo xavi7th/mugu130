@@ -61,8 +61,8 @@ class Transaction extends Model{
 		 }
 		 else{
 			 return [
-				 $value,
-				 null
+				 'value' => $value,
+				 'agent' => null
 			 ];
 		 }
 		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->sum('amount');
