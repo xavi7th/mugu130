@@ -46,6 +46,11 @@
         <div class="ui raised segment">
           <div class="ui four stackable doubling cards">
             @foreach ($top100 as $record)
+
+              @if( !$record->user)
+                @continue
+              @endif
+              
               <div class="card">
                 <div class="image">
 
