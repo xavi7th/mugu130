@@ -85,7 +85,7 @@ class DashboardController extends Controller
           //create deposit transcation record
           $transaction =  Auth::user()->transactions()->create([
               'amount' => request('amount') / 100,
-              'charges' => (intval($amount) - intval(request('amount')) / 100),
+              'charges' => ( ( intval($amount) - intval(request('amount')) ) / 100),
               'trans_type' => 'wallet funding',
               'status' => 'pending',
               'ref_no' => 'PAYSTACK-'.str_random(22)
