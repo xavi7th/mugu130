@@ -149,6 +149,9 @@
             axios.get(apiRoutes.getAllAgentTransactions(id)).then(rsp => {
               this.all_agent_transactions = rsp.data;
               this.loading = false;
+            }, err => {
+              swal('Error', `${err}`, 'error');
+              this.$router.push({name: 'admin.view-agents'});
             });
           },
         }

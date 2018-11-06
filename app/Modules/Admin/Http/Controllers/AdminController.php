@@ -50,7 +50,7 @@ class AdminController extends Controller
           Route::get('get-all-agent-transactions/{id}', function ($id) {
             // return $id;
             try {
-              return PaymentAgent::findOrFail($id)->agent_transactions->load('credited_user:firstname,lastname,email,id');
+              return PaymentAgent::withTrashed()->findOrFail($id)->agent_transactions->load('credited_user:firstname,lastname,email,id');
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'user not found' ], 404);
             }
@@ -59,7 +59,7 @@ class AdminController extends Controller
           Route::get('get-all-agent-fundings/{id}', function ($id) {
             // return $id;
             try {
-              return User::findOrFail($id)->transactions;
+              return User::withTrashed()->findOrFail($id)->transactions;
             } catch (ModelNotFoundException $e) {
               return response()->json(['message' => 'user not found' ], 404);
             }

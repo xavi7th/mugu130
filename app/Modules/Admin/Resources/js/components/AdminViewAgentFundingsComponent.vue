@@ -149,6 +149,9 @@
             axios.get(apiRoutes.getAllAgentFundings(id)).then(rsp => {
               this.all_agent_fundings = rsp.data;
               this.loading = false;
+            }, err => {
+              swal('Error', `${err}`, 'error');
+              this.$router.push({name: 'admin.view-agents'});
             });
           },
         }

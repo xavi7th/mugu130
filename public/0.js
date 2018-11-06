@@ -1227,6 +1227,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgentFundings(id)).then(function (rsp) {
         _this.all_agent_fundings = rsp.data;
         _this.loading = false;
+      }, function (err) {
+        swal('Error', '' + err, 'error');
+        _this.$router.push({ name: 'admin.view-agents' });
       });
     }
   }
@@ -1402,6 +1405,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get(__WEBPACK_IMPORTED_MODULE_3__config_endpoints__["a" /* default */].getAllAgentTransactions(id)).then(function (rsp) {
         _this.all_agent_transactions = rsp.data;
         _this.loading = false;
+      }, function (err) {
+        swal('Error', '' + err, 'error');
+        _this.$router.push({ name: 'admin.view-agents' });
       });
     }
   }
