@@ -123,7 +123,10 @@ Route::middleware(['before'])->group( function () {
   })->name('calculator');
 
   Route::get('/top-100-winners', function () {
-    $top100 = UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(100)->load(['user']);
+    $top100 = UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')
+                              ->select('user_id', DB::raw('count(user_id) as games_count'),
+                                      DB::raw('sum(earning) as user_earnings'))
+                              ->get()->take(100)->load(['userWithTrashed']);
     return view('top-100', compact('top100'));
   })->name('top-100');
 
