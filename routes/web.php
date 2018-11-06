@@ -51,50 +51,56 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home')->middleware('guest');
 
-  if (App::environment('local')) {
-    Route::get('/test', function () {
+  Route::get('/test', function () {
+      if (App::environment('local')) {
 
-      // Agent::mobile();
+        // Agent::mobile();
 
-      // return csrf_token();
-      // abort(404);
-          // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
-          // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
+        // return csrf_token();
+        // abort(404);
+            // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
+            // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
-      return view('auth.register-success');
-      exit;
+        return view('auth.register-success');
+        exit;
 
-      // return dd(view('demo-play')->render());
-      $user = Auth::user();
-      return view('suspended', compact('user'));
-      // return (new ActivationMail(8779))->render();
-      // return (new ReactivationMail())->render();
-      // return Redis::keys('*');
-      Redis::set('demo-page', view('demo-play')->render());
-      // Redis::pipeline(function ($pipe) {
-      //     for ($i = 0; $i < 1000; $i++) {
-      //         $pipe->set("key:$i", $i);
-      //     }
-      // });
-      // return Redis::get('demo-page');
-       return ['status' => Redis::get('demo-page')];
+        // return dd(view('demo-play')->render());
+        $user = Auth::user();
+        return view('suspended', compact('user'));
+        // return (new ActivationMail(8779))->render();
+        // return (new ReactivationMail())->render();
+        // return Redis::keys('*');
+        Redis::set('demo-page', view('demo-play')->render());
+        // Redis::pipeline(function ($pipe) {
+        //     for ($i = 0; $i < 1000; $i++) {
+        //         $pipe->set("key:$i", $i);
+        //     }
+        // });
+        // return Redis::get('demo-page');
+         return ['status' => Redis::get('demo-page')];
 
-      try {
-          Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
-      } catch (\Swift_TransportException $e) {
-        return [ 'status' => $e->getMessage() ];
+        try {
+            Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
+        } catch (\Swift_TransportException $e) {
+          return [ 'status' => $e->getMessage() ];
+        }
+
+
+        if ( count(Mail::failures()) > 0) {
+          return [
+            'status' => 422,
+            'message' => 'Error sending mail'
+          ];
+        }
+      else{
+        $target = '/home/cresawjb/playground.fastplay24.com/storage/app/public/';
+        $shortcut = '/home/cresawjb/playground.fastplay24.com/public/storage';
+        $result = symlink($target, $shortcut);
+
+        return [$result];
       }
-
-
-      if ( count(Mail::failures()) > 0) {
-        return [
-          'status' => 422,
-          'message' => 'Error sending mail'
-        ];
-      }
-
-    });
-  }
+    }
+  });
 
   Route::view('/frequently-asked-questions', 'others-home')->name('faq');
 
