@@ -17,6 +17,7 @@ use App\UserGameSession;
 
 use Carbon\Carbon;
 
+use App\Mail\ActivationMail;
 use App\Mail\AccountCredited;
 use App\Mail\TransactionalMail;
 
@@ -54,6 +55,11 @@ Route::middleware(['before'])->group( function () {
   Route::get('/test', function () {
       if (App::environment('local')) {
 
+        $user = Auth::user();
+        $mail_page = (new ActivationMail(8779, $user))->render();
+        return dd($mail_page); //->render();
+        exit;
+
         // Agent::mobile();
 
         // return csrf_token();
@@ -61,16 +67,13 @@ Route::middleware(['before'])->group( function () {
             // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
             // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
 
-        return view('auth.register-success');
-        exit;
+        // return view('auth.register-success');
 
         // return dd(view('demo-play')->render());
-        $user = Auth::user();
-        return view('suspended', compact('user'));
-        // return (new ActivationMail(8779))->render();
+        // return view('suspended', compact('user'));
         // return (new ReactivationMail())->render();
         // return Redis::keys('*');
-        Redis::set('demo-page', view('demo-play')->render());
+        // Redis::set('demo-page', view('demo-play')->render());
         // Redis::pipeline(function ($pipe) {
         //     for ($i = 0; $i < 1000; $i++) {
         //         $pipe->set("key:$i", $i);
@@ -92,13 +95,13 @@ Route::middleware(['before'])->group( function () {
             'message' => 'Error sending mail'
           ];
         }
-      else{
-        $target = '/home/cresawjb/playground.fastplay24.com/storage/app/public/';
-        $shortcut = '/home/cresawjb/playground.fastplay24.com/public/storage';
-        $result = symlink($target, $shortcut);
+    }
+    else{
+      $target = '/home/cresawjb/playground.fastplay24.com/storage/app/public/';
+      $shortcut = '/home/cresawjb/playground.fastplay24.com/public/storage';
+      $result = symlink($target, $shortcut);
 
-        return [$result];
-      }
+      return [$result];
     }
   });
 
