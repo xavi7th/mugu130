@@ -128,7 +128,7 @@ class User extends Authenticatable{
     }
 
     public static function totalWalletAmount(){
-      return self::where('role_id', Role::user_id())->sum('available_units');
+      return self::where('role_id', Role::user_id())->sum('available_units') + self::where('role_id', Role::agent_id())->sum('available_units');
     }
 
     public function role(){
