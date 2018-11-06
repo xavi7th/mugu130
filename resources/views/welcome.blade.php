@@ -130,9 +130,9 @@
                 <i class="exclamation icon"></i>
                 <div class="content">
                   <div class="header">
-                    NOTICE
+                    NOTICE!
                   </div>
-                  <span>Please do not use Opera Mini. Use Chrome or UC Browser instead.</span>
+                  <span>Sorry! We do not support Opera mini browser. To register and start playing, plese use Chrome or UC browsers. <br> Cheers.</span>
                 </div>
               </div>
             </div>
