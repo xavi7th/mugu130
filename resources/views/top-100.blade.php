@@ -43,6 +43,21 @@
         <div class="ui blue segment">
           <h4>Meet the Top 100 Winners on FastPlay24. You too can be a winner.</h4>
         </div>
+        <div class="ui orange segment">
+            <a href=" https://web.facebook.com/search/str/%23fastplay24pays/keywords_blended_photos"
+                class="ui facebook button" target="_blank">
+              <i class="facebook icon"></i>
+              Facebook Testimonies
+            </a>
+            <a href="https://twitter.com/hashtag/FastPlay24?s=08" class="ui twitter button" target="_blank">
+              <i class="twitter icon"></i>
+              Twitter Testimonies
+            </a>
+            <a href="https://www.instagram.com/explore/tags/fastplay24/" class="ui instagram button" target="_blank">
+              <i class="instagram icon"></i>
+              Instagram Testimonies
+            </a>
+        </div>
         <div class="ui raised segment">
           <div class="ui four stackable doubling cards">
             @foreach ($top100 as $record)
@@ -50,7 +65,7 @@
               @if( !$record->user)
                 @continue
               @endif
-              
+
               <div class="card">
                 <div class="image">
 
