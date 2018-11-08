@@ -70,7 +70,7 @@
 
               <td>{{ trans.credited_user.email }}</td>
 
-              <td>{{ trans.amount | currency }}</td>
+              <td>{{ trans.amount | currency('₦') }}</td>
 
               <td>{{ trans.status }}</td>
 

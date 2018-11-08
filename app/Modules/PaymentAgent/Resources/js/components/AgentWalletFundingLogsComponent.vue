@@ -71,9 +71,9 @@
 
             <tr  v-for="trans in wallet_log">
 
-              <td>{{ trans.amount | currency }}</td>
+              <td>{{ trans.amount | currency('₦') }}</td>
 
-              <td>{{ trans.charges | currency }}</td>
+              <td>{{ trans.charges | currency('₦') }}</td>
 
               <td>{{ trans.trans_type }}</td>
 

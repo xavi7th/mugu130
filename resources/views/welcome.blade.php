@@ -310,7 +310,7 @@
                     <div class="field">
                       <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}" ng-model="password_confirmation">
                       <div class="ui negative message" ng-show="password != password_confirmation">
-                        <p>Password confirmation does not match password</p>
+                        <p style="color:red;">Password confirmation does not match password</p>
                       </div>
                     </div>
                     <div class="field">
