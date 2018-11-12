@@ -17,8 +17,8 @@ let bladeFiles = glob.sync(
     Mix.paths.root('resources/views/**/*.blade.php')
 );
 
-let directiveFiles = glob.sync(
-    Mix.paths.root('resources/assets/js/angular/directives/*.js')
+let jsFiles = glob.sync(
+    Mix.paths.root('resources/assets/js/**/*.js')
 );
 
 let htmlFiles = glob.sync(
@@ -33,7 +33,7 @@ let vueFiles = glob.sync(
     Mix.paths.root('app/Modules/**/*.vue')
 );
 let paths = moduleBladeFiles.concat(htmlFiles).concat(vueFiles)
-            .concat(directiveFiles).concat(htmlFiles).concat(bladeFiles);
+            .concat(jsFiles).concat(htmlFiles).concat(bladeFiles);
 
 console.log(paths);
 

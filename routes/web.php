@@ -105,6 +105,8 @@ Route::middleware(['before'])->group( function () {
     }
   });
 
+  Route::view('/video-preview', 'video-preview')->name('vid-preview');
+
   Route::view('/frequently-asked-questions', 'others-home')->name('faq');
 
   Route::view('/support-center', 'others-home')->name('support');
