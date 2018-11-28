@@ -1,97 +1,144 @@
-<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
+<div
+	id="main-controller"
+	style="min-height: 100vh; position: relative; background: #03A9F4;"
+>
+	<style>
+		#logo {
+			flex-shrink: 18;
+		}
 
-  <style>
-    #logo{
-      flex-shrink: 18;
-    }
+		#logo .image {
+			width: 25%;
+		}
 
-    #logo .image{
-      width: 25%;
-    }
+		#logo img {
+			width: 100%;
+		}
 
-    #logo img{
-      width: 100%;
-    }
+		.banner.ad.ui {
+			margin-top: -20px;
+			margin-bottom: 20px;
+			/* background-image: url('https://images.unsplash.com/39/lIZrwvbeRuuzqOoWJUEn_Photoaday_CSD%20(1%20of%201)-5.jpg?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=92b4ef70a4e06a7e7bf54e1bde61b624&auto=format&fit=crop&w=500&q=75'); */
+			background-position: center;
+			height: 100px;
+			width: 500px;
+			padding: 5px;
+			text-align: center;
+			position: relative;
+			padding: 0;
+			color: #fff;
+		}
 
-  </style>
-  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+		.banner.ad.ui a {
+			color: #fff;
+			text-decoration: none;
+		}
 
-  <div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
-    <div class="grid-container">
+		.banner.ad.ui .bkg {
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			top: 0;
+		}
 
-      <div class="mobile-grid-45 grid-10 prefix-5">
-        <verify-account></verify-account>
-      </div>
+		.banner.ad.ui h1 {
+			font-size: 18px !important;
+			font-weight: 800;
+			margin: 0;
+			padding: 5px 0;
+			position: relative;
+		}
 
-      <div class="mobile-grid-55 grid-20 prefix-5">
+		.banner.ad.ui p {
+			font-size: 14px !important;
+			margin-bottom: 0;
+			position: relative;
+		}
 
-        <div class="ui labeled  button" tabindex="-1">
-          <div class="ui purple button right pointing label">
-            Total Earnings
-          </div>
-          <a class="ui basic purple label">
-              {{ total_earnings | currency }}
-            </a>
-        </div>
+		@media (max-width: 500px) {
+			.ui.banner.ad {
+				max-width: 90%;
+			}
+		}
+	</style>
+	<ng-include src="'angular/views/partials/menu.html'"></ng-include>
 
-      </div>
-      <div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
-      <div class="mobile-grid-35 grid-15 ">
-        <make-withdrawal></make-withdrawal>
-      </div>
-      <div class="mobile-grid-65 grid-20">
+	<div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
+		<div class="grid-container">
+			<div class="mobile-grid-45 grid-10 prefix-5">
+				<verify-account></verify-account>
+			</div>
 
-        <button class="ui compact right floated violet button" ng-click="transferEarnings()">
-          <i class="icon credit card amazon pay"></i>
-          Transfer Earnings
-        </button>
+			<div class="mobile-grid-55 grid-20 prefix-5">
+				<div class="ui labeled  button" tabindex="-1">
+					<div class="ui purple button right pointing label">
+						Total Earnings
+					</div>
+					<a class="ui basic purple label"> {{ total_earnings | currency }} </a>
+				</div>
+			</div>
+			<div
+				class="hide-on-desktop hide-on-tablet"
+				style="margin-top:5px; clear:both;"
+			></div>
+			<div class="mobile-grid-35 grid-15 ">
+				<make-withdrawal></make-withdrawal>
+			</div>
+			<div class="mobile-grid-65 grid-20">
+				<button
+					class="ui compact right floated violet button"
+					ng-click="transferEarnings()"
+				>
+					<i class="icon credit card amazon pay"></i> Transfer Earnings
+				</button>
+			</div>
+			<div
+				class="hide-on-desktop hide-on-tablet"
+				style="margin-top:5px; clear:both;"
+			></div>
 
-      </div>
-      <div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
+			<div class="mobile-grid-50 grid-15">
+				<a
+					class="ui vertical blue compact button right floated"
+					href="/dashboard/fund-wallet"
+				>
+					<i class="icon credit card amazon pay"></i> Fund Wallet
+				</a>
+			</div>
+		</div>
+	</div>
 
-      <div class="mobile-grid-50 grid-15">
-        <a class="ui vertical blue compact button right floated" href="/dashboard/fund-wallet">
-          <i class="icon credit card amazon pay"></i>
-          Fund Wallet
-        </a>
-      </div>
-
-    </div>
-
-  </div>
-
-  <section id="dashboard">
-    <div class="grid-container">
-      <div class="grid-100">
-
-      </div>
-      <div class="grid-50 push-25">
-        <game-state></game-state>
-      </div>
-    </div>
-  </section>
-  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
-  <div class="ui tiny modal" id="notice" ng-if="userdetails.messages">
-    <div class="header">
-      {{ userdetails.messages.subject }}
-    </div>
-    <div class="header" style="border-bottom: none; padding-bottom: 0;">
-      Hello {{ userdetails.firstname }},
-    </div>
-    <div class="image content" id="logo">
-      <div class="image">
-        <img src="/img/logo.png" alt="">
-      </div>
-      <div class="description">
-        {{ userdetails.messages.message }}
-      </div>
-    </div>
-    <h5 style="margin-top: 0; margin-left: 15%;">
-      Cheers, <br>
-      Your buddies at FastPlay24
-    </h5>
-    <div class="actions">
-      <div class="ui red basic cancel button">  <i class="remove icon"></i>Close</div>
-    </div>
-  </div>
+	<section id="dashboard">
+		<div class="ui centered banner ad" id="ads" style="display: none;">
+			<a target="_blank" id="ad-link">
+				<div class="bkg"></div>
+				<div id="ads-contents"></div>
+			</a>
+		</div>
+		<div class="grid-container">
+			<div class="grid-100"></div>
+			<div class="grid-50 push-25"><game-state></game-state></div>
+		</div>
+	</section>
+	<footer ng-include src="'angular/views/partials/footer.html'"></footer>
+	<div class="ui tiny modal" id="notice" ng-if="userdetails.messages">
+		<div class="header">{{ userdetails.messages.subject }}</div>
+		<div class="header" style="border-bottom: none; padding-bottom: 0;">
+			Hello {{ userdetails.firstname }},
+		</div>
+		<div class="image content" id="logo">
+			<div class="image"><img src="/img/logo.png" alt="" /></div>
+			<div class="description">{{ userdetails.messages.message }}</div>
+		</div>
+		<h5 style="margin-top: 0; margin-left: 15%;">
+			Cheers, <br />
+			Your buddies at FastPlay24
+		</h5>
+		<div class="actions">
+			<div class="ui red basic cancel button">
+				<i class="remove icon"></i>Close
+			</div>
+		</div>
+	</div>
 </div>
