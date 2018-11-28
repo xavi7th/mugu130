@@ -49,6 +49,25 @@ class Transaction extends Model{
 		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->sum('amount');
 	 }
 
+	 public function getRefNoAttribute($value){
+		 if (starts_with($value, 'AGENT')) {
+			 $exploded = explode('-', $value);
+			 $agent_id = $exploded[1];
+			 $agent = optional(User::find($agent_id))->only(['id', 'firstname', 'lastname', 'email']);
+			 return [
+				 'value' => $value,
+				 'agent' => $agent
+			 ];
+		 }
+		 else{
+			 return [
+				 'value' => $value,
+				 'agent' => null
+			 ];
+		 }
+		 return self::where('trans_type', 'wallet funding')->where('status', 'completed')->sum('amount');
+	 }
+
 	 /**
 	  * Retrieves all pending cash out requests from the transaction database.
 	  *

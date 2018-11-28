@@ -27,6 +27,19 @@
                     }
               };
             }
+
+            &.row{
+              -webkit-box-orient: horizontal;
+              -webkit-box-direction: normal;
+                  -ms-flex-direction: row;
+                      flex-direction: row;
+            }
+            &.column{
+              -webkit-box-orient: vertical;
+              -webkit-box-direction: normal;
+                  -ms-flex-direction: column;
+                      flex-direction: column;
+            }
 }
 
 @mixin flex-center {

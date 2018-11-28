@@ -121,7 +121,7 @@
           </div>
         </div>
         <div class="field">
-          <div class="three fields">
+          <div class="six fields">
             <div class="field">
               <label>Total Units Purchsased</label>
               <input type="number" name="num_of_referrals" placeholder="Units Purchased" ng-model="u.units_purchased" ng-readonly="true">
@@ -134,8 +134,6 @@
               <label>Wallet Balance</label>
               <input type="number" name="available_units" placeholder="Wallet Balance" ng-model="u.available_units" ng-readonly="true">
             </div>
-          </div>
-          <div class="three fields">
             <div class="field">
               <label>Transferred Earnings</label>
               <input type="number" name="transferred_earnings" placeholder="Transferred Earnings" ng-model="u.total_transferred_earnings" ng-readonly="true">
@@ -154,25 +152,45 @@
           <div class="two fields">
             <div class="field">
               <label>Account Number</label>
-              <input type="text" name="phone1" placeholder="Account Number" ng-model="u.acct_no" ng-readonly="true">
+              <input type="text" name="phone1" placeholder="Account Number" ng-model="u.acct_no" ng-readonly="false">
             </div>
             <div class="field">
               <label>Bank Name</label>
-              <input type="text" name="available_units" placeholder="Bank Name" ng-model="u.bank" ng-readonly="true">
+              <input type="text" name="available_units" placeholder="Bank Name" ng-model="u.bank" ng-readonly="false">
             </div>
           </div>
           <div class="three fields">
             <div class="field">
               <label>Account Type</label>
-              <input type="text" name="earnings" placeholder="Account Type" ng-model="u.acct_type" ng-readonly="true">
+              <input type="text" name="earnings" placeholder="Account Type" ng-model="u.acct_type" ng-readonly="false">
             </div>
             <div class="field">
               <label>Phone Number</label>
-              <input type="text" name="phone1" placeholder="Phone Number" ng-model="u.phone1" ng-readonly="true">
+              <input type="text" name="phone1" placeholder="Phone Number" ng-model="u.phone1" ng-readonly="false">
             </div>
             <div class="field">
               <label>Phone Network</label>
-              <input type="text" name="network" placeholder="Phone Number" ng-model="u.network" ng-readonly="true">
+              <input type="text" name="network" placeholder="Phone Number" ng-model="u.network" ng-readonly="false">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="four fields">
+            <div class="field">
+              <label>Twitter</label>
+              <input type="text" name="twitter" placeholder="Twitter" ng-model="u.twitter" ng-readonly="false">
+            </div>
+            <div class="field">
+              <label>Facebook</label>
+              <input type="text" name="facebook" placeholder="Facebook" ng-model="u.facebook" ng-readonly="false">
+            </div>
+            <div class="field">
+              <label>Telegram</label>
+              <input type="text" name="telegram" placeholder="Telegram" ng-model="u.telegram" ng-readonly="false">
+            </div>
+            <div class="field">
+              <label>Instagram</label>
+              <input type="text" name="instagram" placeholder="Instagram" ng-model="u.instagram" ng-readonly="false">
             </div>
           </div>
         </div>
@@ -180,15 +198,16 @@
           <div class="fields">
             <div class="eight wide field">
               <label>Email Address</label>
-              <input type="text" name="email" placeholder="Email Address" ng-model="u.email" ng-readonly="true">
+              <input type="text" name="email" placeholder="Email Address" ng-model="u.email" ng-readonly="false">
             </div>
             <div class="eight wide field">
               <label>Address</label>
-              <textarea rows="2" name="address" placeholder="Address" ng-model="u.address" ng-readonly="true"></textarea>
+              <textarea rows="2" name="address" placeholder="Address" ng-model="u.address" ng-readonly="false"></textarea>
             </div>
 
           </div>
         </div>
+
         <button type="submit" class="ui button green" tabindex="0" ng-disabled="u.password_confirmation != u.password">Submit</button>
       </form>
     </div>

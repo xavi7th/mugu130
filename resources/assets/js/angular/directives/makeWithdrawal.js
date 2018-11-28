@@ -27,10 +27,10 @@ var url = `
       <div class="header">
         Enter an Amount
       </div>
-      <div class="image content flex-center">
-        <div class="ui form">
-          <div class="inline field">
-            <input type="number" placeholder="Min 170" ng-model="requested_amount" ng-max="$parent.userdetails.available_units" ng-min="170">
+      <div class="content flex-center">
+        <div class="ui form" id="input-field">
+          <div class="field">
+            <input type="number" placeholder="Min ₦1,000 | Max: ₦50, 000" ng-model="requested_amount" ng-max="withdrawal_max" ng-min="1000">
           </div>
         </div>
       </div>
@@ -50,8 +50,9 @@ var url = `
             <div class="header">
               NOTE:
             </div>
-            <p> For withdrawals below ₦1000, a service fee of ₦70 will be charged. </p>
-            <p> While an additional service fee of ₦70 will be charged for every ₦1000.</p>
+            <p> For withdrawals from ₦1,000 and above, a service fee of ₦140 will be charged. </p>
+            <p> While an additional service fee of ₦70 will be charged for every additional ₦1,000.</p>
+            <p> You cannot cashout between 5pm on Friday to 7:59am on Monday. Weekend rest is good you know.</p>
           </div>
         </div>
         <div class="ui icon mini message negative">
@@ -60,17 +61,7 @@ var url = `
             <div class="header">
               NOTE:
             </div>
-            <p> NB: If you do not receive the requested amount within 48 hours, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>
-          </div>
-        </div>
-        <div class="ui icon mini message">
-          <i class="inbox icon"></i>
-          <div class="content">
-            <div class="header">
-              NOTE:
-            </div>
-            <p> Withdrawals below ₦1000 will be sent to your registered phone number as credit. </p>
-            <p> While withdrawals above ₦1000 will be sent to your registered bank account.</p>
+            <p> NB: If you do not receive the requested amount in your bank account within 72 hours after the time of request, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>
           </div>
         </div>
       </div>
@@ -136,7 +127,7 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
                        else {
                          sendRequest.storeData('withdraw', true);
                          $location.path('dashboard/withdrawal/success');
-                         Notification.primary({ message: 'Amount requested will be sent to account number ' + $scope.$parent.userdetails.acct_no, positionX: 'center'});
+                         Notification.primary({ message: 'Amount requested will be sent to account number (' + $scope.$parent.userdetails.acct_no + ' - ' + $scope.$parent.userdetails.bank + ') within 72 hours', positionX: 'center'});
                        }
 
                        $scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units - $scope.requested_amount;
@@ -146,6 +137,11 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
                  });
 
       };
+
+      $timeout(function () {
+        //This prevent the dashboard from crashing on page load where the parent scope may not yet be ready
+        $scope.withdrawal_max = $scope.$parent.userdetails.available_units < 50000 ? $scope.$parent.userdetails.available_units : 50000;
+      }, 1000);
 
       $scope.$on('$routeChangeStart', function() {
         $timeout(function () {

@@ -1,0 +1,171 @@
+<div id="main-controller" style="background: #fff;">
+
+  <style>
+    html, body {
+        background-color: #fff;
+        color: #636b6f;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 100;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .full-height {
+        min-height: calc(100vh - 125px);
+    }
+
+    .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .position-ref {
+        position: relative;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 3em;
+        padding: 10px;
+    }
+
+    .message {
+        font-size: 1.1em;
+        padding: 5px;
+    }
+
+    .m0{
+      margin: 0 !important;
+    }
+
+    .tal{
+      text-align: left !important;
+    }
+
+    .tac{
+      text-align: center !important;
+    }
+
+    .al{
+      align-self: left;
+    }
+
+    .ui.tabular.menu .item{
+      background-color: #03A9F4;
+      color: #FFF;
+    }
+
+    .agent-phone{
+      font-weight: 600;
+      color: #555;
+    }
+
+    #fund-account{
+      margin-top: 45px;
+      border: 1px solid #D4D4D5;
+    }
+
+  </style>
+
+  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+
+  <div class="grid-container">
+    <div class="grid-80 push-10">
+      <div class="position-ref">
+
+        <div id="fund-account" class="ui top attached tabular menu">
+          <a class="active item" data-tab="first">Pay online</a>
+          <a class="item" data-tab="second">Tap here to Pay <br class="hide-on-desktop hide-on-tablet"> via a FastPlay24 payment Agent</a>
+        </div>
+        <div class="ui bottom attached active tab segment basic flex-center" data-tab="first">
+
+          <h1 class="content title">Payment Instructions</h1>
+          <p class="message"><b>Charges</b>: 1.7% of amount. Also, transactions ranging from ₦2,500 and above will attract an additional fixed charge of ₦100.</p>
+
+          <p class="message">
+            Ensure you provide the phone number that matches with the one on your bank account to enable you receive the SMS token from your bank to authorize your online payment.
+          </p>
+          <p class="message">
+            If you intend to use the bank method of online payment and your bank is not listed kindly use your debit card or pay via our Payment Agents.
+          </p>
+          <p class="message">
+            If your wallet is not funded immediately your online payment is successful, kindly send an email to hello@fastplay24.com immediately for your account to be funded.
+          </p>
+
+          <div class="flex-center">
+            <buy-units></buy-units>
+          </div>
+
+        </div>
+
+        <div class="ui bottom attached tab segment" data-tab="second">
+          <h1 class="content title">Payment Instructions</h1>
+          <p class="message">Contact any of our Payment Agents to fund your wallet via bank deposit or transfer. <br>
+                              <strong>Min. Amount:</strong> ₦600 | <strong>Max. Amount:</strong> ₦2,500 (₦100 agency fee included)</p>
+          <div class="ui segment" id="extra">
+            <div class="ui header tac">FASTPLAY24 PAYMENT AGENT LIST</div>
+
+            <div class="ui special cards">
+
+              <div class="card" ng-repeat="agent in agents">
+                <div class="content">
+                  <div class="center aligned header">{{ agent.firstname }} {{ agent.lastname }}</div>
+                  <div class="center aligned description">
+                    <p><strong>Account Number:</strong> {{ agent.acct_no }}</p>
+                    <p><strong>Account Type:</strong> {{ agent.acct_type }}</p>
+                    <p><strong>Bank:</strong> {{ agent.bank }}</p>
+                  </div>
+                </div>
+                <div class="extra content">
+                  <div class="center aligned agent-phone">
+                    <strong>WhatsApp Number:</strong>
+                    <a ng-href="https://api.whatsapp.com/send?phone={{ agent.phone1 }} " target="_blank" >{{ agent.phone1 }}</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="ui positive message">
+              <div class="header">
+                NB:
+              </div>
+              <p>We always advice that you contact any of the payment agents before making payment.
+                  Only pay to the account(s) shown above. Always use your email address (the one you used to sign up on FastPlay24) as depositor’s name or description.
+                  As soon as you make your payment send proof of payment immediately to the agent you paid to, alongside the following details via WhatsApp:</p>
+              <p>
+                <ul>
+                  <li><b>Amount Paid</b></li>
+                  <li><b>Method</b> Bank Deposit | Online Transfer | USSD | Other Methods (state it)</li>
+                  <li><b>Date/time of payment </b></li>
+                  <li><b>Full Name</b> (As it is in your FastPlay24 Account.)</li>
+                  <li><b>Email Address</b> (The one you used to sign up on FastPlay24)</li>
+                </ul>
+              </p>
+              <p>The payment agent will fund your wallet upon verification of payment.
+                  Please ensure you provide the payment agent with a clear/valid proof of payment in other to enable them process your request swiftly.</p>
+            </div>
+
+            <div class="ui negative message">
+              <div class="header">
+                NB:
+              </div>
+              <p>A ₦100 (hundred naira) fixed charge will be deducted from any amount you pay.</p>
+              <p>Only the above listed people are our Authorized Payment Agents.
+                  If you pay through anyone else, you do that at your own risk.</p>
+            </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
+
+</div>

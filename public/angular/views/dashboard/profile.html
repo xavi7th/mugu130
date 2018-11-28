@@ -196,7 +196,7 @@
 								<td ng-if="transaction.amount < 0">₦ {{ transaction.amount }}.00</td>
 								<td>{{ transaction.channel }}</td>
 								<td>{{ transaction.status }}</td>
-								<td><button class="ui tiny green button" ng-click="viewShareInfo(transaction.id)">Share</button></td>
+								<td><button class="ui tiny green button" ng-click="viewShareInfo(transaction.id)" ng-if="transaction.trans_type == 'withdrawal'">Share</button></td>
 							</tr>
 						</tbody>
 					</table>

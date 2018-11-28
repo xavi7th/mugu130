@@ -41,11 +41,31 @@
     <div class="grid-container">
       <div class="grid-100 tablet-grid-90 tablet-push-5" style="text-align: center;">
         <div class="ui blue segment">
-          <h4>A preview of the all time top 100 winners on fastplay24. You too can be a winner</h4>
+          <h4>Meet the Top 100 Winners on FastPlay24. You too can be a winner.</h4>
+        </div>
+        <div class="ui orange segment">
+            <a href=" https://web.facebook.com/search/str/%23fastplay24pays/keywords_blended_photos"
+                class="ui facebook button" target="_blank">
+              <i class="facebook icon"></i>
+              Facebook Testimonies
+            </a>
+            <a href="https://twitter.com/hashtag/FastPlay24?s=08" class="ui twitter button" target="_blank">
+              <i class="twitter icon"></i>
+              Twitter Testimonies
+            </a>
+            <a href="https://www.instagram.com/explore/tags/fastplay24/" class="ui instagram button" target="_blank">
+              <i class="instagram icon"></i>
+              Instagram Testimonies
+            </a>
         </div>
         <div class="ui raised segment">
           <div class="ui four stackable doubling cards">
             @foreach ($top100 as $record)
+
+              @if( !$record->user)
+                @continue
+              @endif
+
               <div class="card">
                 <div class="image">
 
@@ -92,8 +112,8 @@
                 </div>
                 <div class="extra content">
                   <a class="ng-binding">
-                    <i class="bullhorn icon"></i>
-                    <b>EARNINGS:</b> ₦{{ $record->user_earnings }}
+                    <i class="cc visa icon"></i>
+                    <b>EARNINGS:</b> ₦{{ number_format($record->user_earnings, 2) }}
                   </a>
                 </div>
               </div>

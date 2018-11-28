@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Game;
+use App\Role;
 use App\Earning;
 use App\Message;
 use App\Question;
@@ -32,10 +33,121 @@ class AdminController extends Controller
         $this->middleware('suspended');
     }
 
+    /**
+     * All Admin routes
+     *
+     * @return return type
+     */
+    public static function routes(){
+      $c = 'AdminController@';
+
+      Route::group(['prefix' => 'api'], function () use($c) {
+
+        Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
+
+        Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
+
+        Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
+
+        Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
+
+        Route::get('/get-users-page-details', $c.'getUsersPageDetails');
+
+        Route::post('/update-user-details', $c.'updateUserDetails');
+
+        Route::get('/get-questions-page-details', $c.'getQuestionsPageDetails');
+
+        Route::post('/edit-question', $c.'editQuestion');
+
+        Route::post('/delete-question', $c.'deleteQuestion');
+
+        Route::post('/create-question', $c.'createQuestion');
+
+        Route::post('/edit-admin', $c.'editAdmin');
+
+        Route::post('/delete-admin', $c.'deleteAdmin');
+
+        Route::post('/create-admin', $c.'createAdmin');
+
+        Route::post('/remove-admin', $c.'removeAdmin');
+
+        Route::post('/get-live-game-session', $c.'getLiveGameSession');
+
+        Route::get('/get-all-games', $c.'getAllGames');
+
+        Route::post('/get-game-records', $c.'getGameRecords');
+
+        Route::post('/get-logs-by-day', $c.'getLogsByDay');
+
+        Route::post('/get-profile-page-details', $c.'confirmWithdrawal');
+
+        Route::get('/get-all-transactions', $c.'getAllTransactions');
+
+        Route::post('/create-transaction', $c.'createTransaction');
+
+        Route::post('/mark-transaction-as-paid', $c.'markTransactionAsPaid');
+
+        Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+        Route::post('/get-user-referrals', $c.'getUserReferrals');
+
+        Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
+
+        Route::post('/get-daily-statistics', $c.'getDailyStatistics');
+
+        Route::post('/send-broadcast', $c.'sendBroadcast');
+
+        Route::post('/send-message', $c.'sendMessage');
+
+        Route::post('/get-referrals-by-user', $c.'getReferralsByUser');
+
+        Route::post('/get-unverified-users-count', $c.'getUnverifiedUsersCount');
+
+        Route::post('/edit-user', $c.'editUser');
+
+        Route::post('/delete-user', $c.'deleteUser');
+
+        Route::post('/suspend-user', $c.'suspendUser');
+
+        Route::post('/activate-user', $c.'activateUser');
+
+        Route::post('/verify-user', $c.'verifyUser');
+
+        Route::put('/verify-all-users', $c.'verifyAllUsers');
+
+        Route::post('/database-search/{resource}', $c.'databaseSearch');
+
+        Route::post('/get-all-messages', $c.'getAllMessages');
+
+        Route::post('/reply-message', $c.'replyMessage');
+
+        Route::post('/mark-message-as-read', $c.'markMessageAsRead');
+
+        Route::post('/delete-message', $c.'deleteMessage');
+
+        Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
+
+        Route::get('/get-earnings-by-users-page-details', $c.'getEarningsByUsersPageDetails');
+
+        Route::get('/get-all-admin-earnings', $c.'getAllAdminEarnings');
+
+        Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
+
+        Route::get('/get-all-user-earnings', $c.'getAllUserEarnings');
+
+        Route::get('/get-all-game-earnings', $c.'getAllGameEarnings');
+
+      });
+
+      Route::get('/{subcat?}', $c.'showDashboard')
+            ->where('subcat', '^((?!(agents|anotherWordInCase)).)*') //Matches all routes except routes that start with the list provided.
+            ->name('admin.dashboard');
+    }
+
     public function showDashboard(){
         // Cache::flush();
 
-        if (!Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+        if (!Auth::user()->isAdmin()) {
           return redirect()->route('dashboard');
         }
         return view('admin');
@@ -45,7 +157,7 @@ class AdminController extends Controller
       // Cache::flush();
       return  [
         'details' => [
-                    'num_of_admins' => User::where('role_id', env('ADMIN_ROLE_ID'))->count(),
+                    'num_of_admins' => User::where('role_id', Role::admin_id())->count(),
                     'num_of_questions' => Question::count(),
                     'num_of_messages' => Message::where('read', false)->count(),
                     'admin_message_status' => Message::find(1)->read,
@@ -138,7 +250,7 @@ class AdminController extends Controller
 
     public function getAdminsPageDetails(){
         return [
-          'admins' => User::where('role_id', env('ADMIN_ROLE_ID'))->get()
+          'admins' => User::where('role_id', Role::admin_id())->get()
         ];
     }
 
@@ -148,12 +260,12 @@ class AdminController extends Controller
           'details.phone1' => 'required'
         ]);
         return [
-          'status' => Admin::find(request()->input('details.id'))->update(request()->input('details'))
+          'status' => User::find(request()->input('details.id'))->update(request()->input('details'))
         ];
     }
 
     public function deleteAdmin(){
-      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+      if (!Auth::user()->isSuperAdmin()) {
         return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
       }
       if (User::adminDeletable()) {
@@ -169,26 +281,26 @@ class AdminController extends Controller
 
     public function createAdmin(){
 
-      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+      if (!Auth::user()->isSuperAdmin()) {
         return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
       }
       User::unguard();
         return [
           'status' => User::find(request()->input('details.id'))->update([
-            'role_id' => env('ADMIN_ROLE_ID')
+            'role_id' => Role::admin_id()
           ])
         ];
     }
 
     public function removeAdmin(){
-      if (Auth::user()->role_id !== env('SUPER_ADMIN_ROLE_ID')) {
+      if (!Auth::user()->isSuperAdmin()) {
         return response()->json(['message' => 'Action denied. Super Admin only' ], 410);
       }
       User::unguard();
 
         return [
           'status' => User::find(request()->input('details.id'))->update([
-            'role_id' => 1
+            'role_id' => Role::user_id()
           ])
         ];
     }
@@ -376,7 +488,7 @@ class AdminController extends Controller
 
     public function getUsersPageDetails(){
       return [
-        'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
+        'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', Role::user_id())->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -425,7 +537,7 @@ class AdminController extends Controller
 
     public function getAllMessages(){
       return [
-        'messages' => Message::where('user_id', env('ADMIN_ROLE_ID'))->orWhere('sender_id', env('USER_ROLE_ID'))->get()
+        'messages' => Message::where('user_id', Role::admin_id())->orWhere('sender_id', Role::user_id())->get()
       ];
     }
 
@@ -448,7 +560,7 @@ class AdminController extends Controller
 
     public function deleteMessage(){
 
-      if (request()->input('details.id') == env('USER_ROLE_ID')) {
+      if (request()->input('details.id') == Role::user_id()) {
           return response()->json(['message' => 'You really don\'t want to delete this message. Trust me' ], 409);
       }
       return [
@@ -482,30 +594,30 @@ class AdminController extends Controller
 
     public function getAllUsersEarnings(){
       return [
-        'details' => Earning::with(['user'])->where('user_id', '!=', env('ADMIN_ROLE_ID'))->latest()->paginate(env('ROWS_PER_PAGE')),
+        'details' => Earning::with(['user'])->where('user_id', '!=', Role::admin_id())->latest()->paginate(env('ROWS_PER_PAGE')),
       ];
     }
 
     public function getAllAdminEarnings(){
       return [
-        'details' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->latest()->paginate(env('ROWS_PER_PAGE')),
+        'details' => Earning::where('user_id', Role::admin_id())->latest()->paginate(env('ROWS_PER_PAGE')),
         'extras' => [
-          'total_transferred' => Earning::with(['user'])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', true)->sum('amount'),
-          'total_untransferred' => Earning::with(['user'])->where('user_id', env('ADMIN_ROLE_ID'))->where('transferred', false)->sum('amount'),
+          'total_transferred' => Earning::with(['user'])->where('user_id', Role::admin_id())->where('transferred', true)->sum('amount'),
+          'total_untransferred' => Earning::with(['user'])->where('user_id', Role::admin_id())->where('transferred', false)->sum('amount'),
         ]
       ];
     }
 
     public function withdrawAdminEarnings(){
       return [
-        'status' => Earning::where('user_id', env('ADMIN_ROLE_ID'))->update([ 'transferred' => true ])
+        'status' => Earning::where('user_id', Role::admin_id())->update([ 'transferred' => true ])
       ];
     }
 
     public function getEarningsByUsersPageDetails(){
       Cache::flush();
       return [
-        'details' => User::with(['earnings'])->where('role_id', env("USER_ROLE_ID"))->latest()->paginate(env('ROWS_PER_PAGE'))
+        'details' => User::with(['earnings'])->where('role_id', Role::user_id())->latest()->paginate(env('ROWS_PER_PAGE'))
       ];
     }
 
@@ -523,7 +635,7 @@ class AdminController extends Controller
 
     public function getAllGameEarnings(){
       return [
-        'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', env("ADMIN_ROLE_ID"))->get()
+        'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', Role::admin_id())->get()
       ];
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Role;
 
 class Message extends Model{
 
@@ -22,7 +23,7 @@ class Message extends Model{
 
   public static function toAdmin(){
    	self::create([
-                      'user_id' => env("ADMIN_ROLE_ID"),
+                      'user_id' => Role::admin_id(),
                       'sender_id' => Auth::id(),
                       'senderusername' => Auth::user()->firstname,
                       'subject' => request()->input('details.subject') ?? request('subject'),
@@ -33,7 +34,7 @@ class Message extends Model{
 
   public static function userSuspended($sbj){
    	self::create([
-                      'user_id' => env("ADMIN_ROLE_ID"),
+                      'user_id' => Role::admin_id(),
                       'sender_id' => Auth::id(),
                       'senderusername' => Auth::user()->email,
                       'subject' => $sbj,
@@ -45,7 +46,7 @@ class Message extends Model{
   public static function fromAdmin(){
    	self::create([
                       'user_id' => request()->input('details.user_id'),
-                      'sender_id' => env("ADMIN_ROLE_ID"),
+                      'sender_id' => Role::admin_id(),
                       'senderusername' => 'Admin',
                       'subject' => request()->input('details.subject'),
                       'message' => request()->input('details.message'),
@@ -54,9 +55,9 @@ class Message extends Model{
   }
 
   public static function toAll(){
-   	self::updateOrCreate(['sender_id' => env('USER_ROLE_ID')],[
+   	self::updateOrCreate(['sender_id' => Role::user_id()],[
                       'user_id' => 8888888, //All users will pick this
-                      'sender_id' => env('USER_ROLE_ID'),
+                      'sender_id' => Role::user_id(),
                       'senderusername' => 'Admin',
                       'subject' => request()->input('details.subject'),
                       'message' => request()->input('details.message'),
@@ -67,7 +68,7 @@ class Message extends Model{
 
   public static function alertAdmin(){
    	self::create([
-                      'user_id' => env("ADMIN_ROLE_ID"),
+                      'user_id' => Role::admin_id(),
                       'sender_id' => 4888888,
                       'senderusername' => 'Admin Route Monitor',
                       'subject' => 'Intrusion Attempt',

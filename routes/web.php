@@ -17,13 +17,18 @@ use App\UserGameSession;
 
 use Carbon\Carbon;
 
+use App\Mail\ActivationMail;
 use App\Mail\AccountCredited;
 use App\Mail\TransactionalMail;
 
 use App\Events\ExamJoined;
 use App\Transaction;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DashboardController;
+use App\GeneratedError;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -47,44 +52,60 @@ Route::middleware(['before'])->group( function () {
 
   Route::view('/', 'welcome')->name('home')->middleware('guest');
 
-  // Route::get('/test', function () {
-  //   return csrf_token();
-  //   // abort(404);
-  //       // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
-  //       // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
-  //
-  //   return view('auth.register-success');
-  //
-  //   // return dd(view('demo-play')->render());
-  //   $user = Auth::user();
-  //   return view('suspended', compact('user'));
-  //   // return (new ActivationMail(8779))->render();
-  //   // return (new ReactivationMail())->render();
-  //   // return Redis::keys('*');
-  //   Redis::set('demo-page', view('demo-play')->render());
-  //   // Redis::pipeline(function ($pipe) {
-  //   //     for ($i = 0; $i < 1000; $i++) {
-  //   //         $pipe->set("key:$i", $i);
-  //   //     }
-  //   // });
-  //   // return Redis::get('demo-page');
-  //    return ['status' => Redis::get('demo-page')];
-  //
-  //   try {
-  //       Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
-  //   } catch (\Swift_TransportException $e) {
-  //     return [ 'status' => $e->getMessage() ];
-  //   }
-  //
-  //
-  //   if ( count(Mail::failures()) > 0) {
-  //     return [
-  //       'status' => 422,
-  //       'message' => 'Error sending mail'
-  //     ];
-  //   }
-  //
-  // });
+  Route::get('/test', function () {
+      if (App::environment('local')) {
+
+        $user = Auth::user();
+        $mail_page = (new ActivationMail(8779, $user))->render();
+        return dd($mail_page); //->render();
+        exit;
+
+        // Agent::mobile();
+
+        // return csrf_token();
+        // abort(404);
+            // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
+            // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
+
+        // return view('auth.register-success');
+
+        // return dd(view('demo-play')->render());
+        // return view('suspended', compact('user'));
+        // return (new ReactivationMail())->render();
+        // return Redis::keys('*');
+        // Redis::set('demo-page', view('demo-play')->render());
+        // Redis::pipeline(function ($pipe) {
+        //     for ($i = 0; $i < 1000; $i++) {
+        //         $pipe->set("key:$i", $i);
+        //     }
+        // });
+        // return Redis::get('demo-page');
+         return ['status' => Redis::get('demo-page')];
+
+        try {
+            Mail::to( 'xavi7th@gmail.com' )->queue(new ReactivationMail());
+        } catch (\Swift_TransportException $e) {
+          return [ 'status' => $e->getMessage() ];
+        }
+
+
+        if ( count(Mail::failures()) > 0) {
+          return [
+            'status' => 422,
+            'message' => 'Error sending mail'
+          ];
+        }
+    }
+    else{
+      $target = '/home/cresawjb/playground.fastplay24.com/storage/app/public/';
+      $shortcut = '/home/cresawjb/playground.fastplay24.com/public/storage';
+      $result = symlink($target, $shortcut);
+
+      return [$result];
+    }
+  });
+
+  Route::view('/video-preview', 'video-preview')->name('vid-preview');
 
   Route::view('/frequently-asked-questions', 'others-home')->name('faq');
 
@@ -113,7 +134,10 @@ Route::middleware(['before'])->group( function () {
   })->name('calculator');
 
   Route::get('/top-100-winners', function () {
-    $top100 = UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->get()->take(100)->load(['user']);
+    $top100 = UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')
+                              ->select('user_id', DB::raw('count(user_id) as games_count'),
+                                      DB::raw('sum(earning) as user_earnings'))
+                              ->get()->take(100)->load(['userWithTrashed']);
     return view('top-100', compact('top100'));
   })->name('top-100');
 
@@ -124,7 +148,7 @@ Route::middleware(['before'])->group( function () {
   })->name('privacy');
 
   Route::get('/download-image', function () {
-    return download_file('image.jpg', 'instagram-post.jpg');
+    return download_file($filename = 'instagram-post.jpg', $name_to_download_as = 'fastplay24-instagram-post.jpg');
   });
 
   Route::get('/terms-and-conditions', function () {
@@ -155,7 +179,6 @@ Route::middleware(['before'])->group( function () {
 
   Route::get('/register/success', function () {
 
-
     if (!session('NEW_USER')) {
       return redirect()->route('register');
     }
@@ -165,6 +188,12 @@ Route::middleware(['before'])->group( function () {
     return view( 'auth.register-success');
 
   })->name('register.success');
+
+  Route::post('/log-error', function () {
+    GeneratedError::create([
+      'generated_error' => json_encode(request()->all()),
+    ]);
+  })->name('log-error');
 
   Auth::routes();
 
@@ -294,86 +323,8 @@ Route::middleware(['before'])->group( function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
-  Route::any('/get-game-state', 'DashboardController@getGameState');
 
-  Route::post('/send-verification-mail', 'DashboardController@resendVerificationMail');
-
-  Route::post('/get-withdrawal-instructions-data', function () {
-    if (is_null(request()->input('details.id'))) {
-      return [
-                'amount' => Auth::user()->withdrawals_today()->latest()->first(['amount'])['amount'],
-                'total_amount' => Auth::user()->total_withdrawals,
-                'time_joined' => Auth::user()->created_at->diffForHumans(),
-                'refcode' => Auth::user()->refcode,
-              ];
-
-    }
-    else{
-      return [
-                'amount' => Transaction::find(request()->input('details.id'))['amount'],
-                'total_amount' => Auth::user()->total_withdrawals,
-                'time_joined' => Auth::user()->created_at->diffForHumans(),
-                'refcode' => Auth::user()->refcode,
-              ];
-    }
-  });
-});
-
-Route::group(['prefix' => 'user'], function () {
-
-  Route::get('/get-api-key', 'DashboardController@getApiKey');
-
-  Route::post('/get-total-earnings', 'DashboardController@getTotalEarnings');
-
-  Route::post('/transfer-earnings', 'DashboardController@transferEarnings');
-
-  Route::post('/get-user-details', 'DashboardController@getUserDetails');
-
-  Route::post('/get-profile-page-details', 'DashboardController@getProfilePageDetails');
-
-  Route::post('/get-dashboard-page-details', 'DashboardController@getDashboardPageDetails');
-
-  Route::post('/make-deposit', 'DashboardController@makeDeposit');
-
-  Route::post('/send-credit-account-request', 'DashboardController@sendCreditAccountRequest');
-
-  Route::post('/credit-account', 'DashboardController@creditAccount');
-
-  Route::post('/request-withdrawal', 'DashboardController@requestWithdrawal');
-
-  Route::post('/received-withdrawal', 'DashboardController@receivedWithdrawal');
-
-  Route::post('/dispute-withdrawal', 'DashboardController@disputeWithdrawal');
-
-  Route::post('/confirm-user-password', 'DashboardController@confirmUserPassword');
-
-  Route::post('/update-user-details', 'DashboardController@updateUserDetails');
-
-  Route::post('/join-game', 'DashboardController@joinGame');
-
-  Route::post('/pause-game', 'DashboardController@pauseGame');
-
-  Route::post('/resume-game', 'DashboardController@resumeGame');
-
-  Route::post('/submit-exam', 'DashboardController@submitExam');
-
-  Route::any('/end-exam', 'DashboardController@endExam');
-
-  Route::any('get-exam-results', 'DashboardController@getExamResults');
-
-  Route::any('get-exam-top-ten/{game_id}', 'DashboardController@getExamTopTen');
-
-  Route::post('/get-user-questions', 'DashboardController@getUserQuestions');
-
-  Route::post('/question-remove-options', 'DashboardController@questionRemoveOptions');
-
-  Route::post('/mark-message-as-read', 'DashboardController@markMessageAsRead');
-
-  Route::post('/delete-message', 'DashboardController@deleteMessage');
-
-  Route::post('/mark-notice-as-read', 'DashboardController@markNoticeAsRead');
-
-  Route::post('/delete-notice', 'DashboardController@deleteNotice');
+  DashboardController::API_Routes();
 
 });
 
@@ -426,116 +377,8 @@ Route::group(['prefix' => 'api', 'middleware'=>'suspended'], function () {
 
 Route::group(['prefix' => env('ADMIN_ROUTE_PREFIX'), 'middleware'=>'suspended'], function () {
 
-  $c = 'AdminController@';
-
-  Route::group(['prefix' => 'api'], function () use($c) {
-
-    Route::post('/get-dashboard-page-details', $c.'getDashboardPageDetails');
-
-    Route::post('/get-questions-page-details', $c.'getQuestionsPageDetails');
-
-    Route::post('/get-profile-page-details', $c.'getProfilePageDetails');
-
-    Route::post('/get-admins-page-details', $c.'getAdminsPageDetails');
-
-    Route::get('/get-users-page-details', $c.'getUsersPageDetails');
-
-    Route::post('/update-user-details', $c.'updateUserDetails');
-
-    Route::get('/get-questions-page-details', $c.'getQuestionsPageDetails');
-
-    Route::post('/edit-question', $c.'editQuestion');
-
-    Route::post('/delete-question', $c.'deleteQuestion');
-
-    Route::post('/create-question', $c.'createQuestion');
-
-    Route::post('/edit-admin', $c.'editAdmin');
-
-    Route::post('/delete-admin', $c.'deleteAdmin');
-
-    Route::post('/create-admin', $c.'createAdmin');
-
-    Route::post('/remove-admin', $c.'removeAdmin');
-
-    Route::post('/get-live-game-session', $c.'getLiveGameSession');
-
-    Route::get('/get-all-games', $c.'getAllGames');
-
-    Route::post('/get-game-records', $c.'getGameRecords');
-
-    Route::post('/get-logs-by-day', $c.'getLogsByDay');
-
-    Route::post('/get-profile-page-details', $c.'confirmWithdrawal');
-
-    Route::get('/get-all-transactions', $c.'getAllTransactions');
-
-    Route::post('/create-transaction', $c.'createTransaction');
-
-    Route::post('/mark-transaction-as-paid', $c.'markTransactionAsPaid');
-
-    Route::post('/get-all-user-earnings', $c.'getAllUserEarnings');
-
-    Route::post('/get-user-referrals', $c.'getUserReferrals');
-
-    Route::post('/get-monthly-statistics', $c.'getMonthlyStatistics');
-
-    Route::post('/get-daily-statistics', $c.'getDailyStatistics');
-
-    Route::post('/send-broadcast', $c.'sendBroadcast');
-
-    Route::post('/send-message', $c.'sendMessage');
-
-    Route::post('/get-referrals-by-user', $c.'getReferralsByUser');
-
-    Route::post('/get-unverified-users-count', $c.'getUnverifiedUsersCount');
-
-    Route::post('/edit-user', $c.'editUser');
-
-    Route::post('/delete-user', $c.'deleteUser');
-
-    Route::post('/suspend-user', $c.'suspendUser');
-
-    Route::post('/activate-user', $c.'activateUser');
-
-    Route::post('/verify-user', $c.'verifyUser');
-
-    Route::put('/verify-all-users', $c.'verifyAllUsers');
-
-    Route::post('/database-search/{resource}', $c.'databaseSearch');
-
-    Route::post('/get-all-messages', $c.'getAllMessages');
-
-    Route::post('/reply-message', $c.'replyMessage');
-
-    Route::post('/mark-message-as-read', $c.'markMessageAsRead');
-
-    Route::post('/delete-message', $c.'deleteMessage');
-
-    Route::get('/get-all-users-earnings', $c.'getAllUsersEarnings');
-
-    Route::get('/get-earnings-by-users-page-details', $c.'getEarningsByUsersPageDetails');
-
-    Route::get('/get-all-admin-earnings', $c.'getAllAdminEarnings');
-
-    Route::post('/withdraw-admin-earnings', $c.'withdrawAdminEarnings');
-
-    Route::get('/get-all-user-earnings', $c.'getAllUserEarnings');
-
-    Route::get('/get-all-game-earnings', $c.'getAllGameEarnings');
-
-  });
-
-  Route::get('/{subcat?}', $c.'showDashboard')->where('subcat', '(.*)')->name('admin');
+  AdminController::routes();
 
 });
 
-Route::get('/dashboard/game-play', function () {
-  return redirect('/dashboard');
-});
-
-Route::get('/dashboard/display-results', function () {
-  return redirect('/dashboard');
-});
-
-Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
+DashboardController::routes();

@@ -24,6 +24,12 @@ class UserGameSession extends Model{
 	 public function user(){
 			 return $this->belongsTo(User::class);
 	 }
+
+
+	 public function userWithTrashed(){
+			 return $this->belongsTo(User::class)->withTrashed();
+	 }
+
 	 public function game(){
 			 return $this->belongsTo(Game::class);
 	 }

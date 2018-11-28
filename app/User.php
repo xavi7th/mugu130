@@ -3,12 +3,12 @@
 namespace App;
 
 use App\Game;
+use App\Role;
 use App\Notice;
 use App\Earning;
 use App\Message;
 use App\Referral;
 use App\Transaction;
-use App\Confirmation;
 use App\UserQuestion;
 use App\UserGameSession;
 
@@ -19,8 +19,8 @@ use App\Mail\TransactionalMail;
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -36,7 +36,11 @@ class User extends Authenticatable{
      * @var array
      */
     protected $guarded = [
-        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased', 'available_units',  'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals', 'units_purchased', 'notices', 'messages', 'verified'
+        'useraccstatus', 'confirmation_code', 'tracker', 'role_id', 'units_purchased',
+        'available_units',  'refcode', 'referral_Link', 'total_withdrawals', 'num_of_withdrawals',
+        'units_purchased', 'notices', 'messages', 'verified', 'total_untransferred_earnings',
+        'total_transferred_earnings', 'num_of_games_played', 'num_of_withdrawals', 'total_withdrawals',
+        'agent_transactions'
     ];
 
     /**
@@ -65,7 +69,7 @@ class User extends Authenticatable{
          'units_purchased' => 'double',
          'total_untransferred_earnings' => 'double',
          'total_transferred_earnings' => 'double',
-         'num_og_games_played' => 'integer',
+         'num_of_games_played' => 'integer',
          'num_of_withdrawals' => 'integer',
          'total_withdrawals' => 'integer'
     ];
@@ -76,7 +80,9 @@ class User extends Authenticatable{
 
     public function setPasswordAttribute($value){
       $this->attributes['password'] = bcrypt($value);
-      // $this->attributes['unencpass'] = $value;
+      if ( !App::environment('production')) {
+        $this->attributes['unencpass'] = $value;
+      }
       $this->attributes['api_token'] = str_random(144);
       $this->attributes['refcode'] = unique_random('users', 'refcode');
     }
@@ -122,7 +128,11 @@ class User extends Authenticatable{
     }
 
     public static function totalWalletAmount(){
-      return self::where('role_id', env('USER_ROLE_ID'))->sum('available_units');
+      return self::where('role_id', Role::user_id())->sum('available_units') + self::where('role_id', Role::agent_id())->sum('available_units');
+    }
+
+    public function role(){
+      return $this->belongsTo(Role::class);
     }
 
     public function transactions(){
@@ -244,7 +254,7 @@ class User extends Authenticatable{
 
     public function updateUserDetails() {
       // return  request()->all() ;
-      if (Auth::user()->role_id == env('ADMIN_ROLE_ID')) {
+      if (Auth::user()->isAdmin()) {
         DB::beginTransaction();
           Auth::user()->update( array_only(request()->input('details'), ['email', 'password'] ) );
         DB::commit();
@@ -328,10 +338,6 @@ class User extends Authenticatable{
       return $this->hasOne(Message::class, 'sender_id', 'role_id')->where('read', 0)->latest();
     }
 
-    // public function messages(){
-    //   return Message::where('sender_id', 88888)->first();
-    // }
-
     public function deletable(){
       if ($this->earnings->isEmpty() || $this->availble_units < 10) {
         return true;
@@ -340,7 +346,7 @@ class User extends Authenticatable{
     }
 
     public static function adminDeletable(){
-      if (User::where('role_id', env('ADMIN_ROLE_ID'))->count() < 2) {
+      if (User::where('role_id', Role::admin_id())->count() < 2) {
         return false;
       }
       return true;
@@ -350,14 +356,24 @@ class User extends Authenticatable{
       return $this->verified;
     }
 
+    public function isAdmin(){
+      return $this->role->name == 'admin';
+    }
+
+    public function isAgent(){
+      return $this->role->name == 'paymentagent';
+    }
+
+    public function isNormalUser(){
+      return $this->role->name == 'user';
+    }
+
   	/**
   	 * Overrides the inherent password reset mail sender
   	 *
   	 * This functions allows me to use a custom handler (postmark in this case) to perform the actualmail sends instead of using the default swiftmailer class
   	 *
-  	 * @param string token The generated token that will be used to confirm the password reset link
-  	 * @param Eloquent Object this The Model for the current emailinjected  into the method
-  	 * @param string url The pattern for the route that the reset link in the email MUST call in the url(route('password.reset', $token))
+  	 * @param string $token The generated token that will be used to confirm the password reset link
   	 * @return void
   	 */
   	public function sendPasswordResetNotification($token){

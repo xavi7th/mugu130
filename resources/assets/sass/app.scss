@@ -15,7 +15,7 @@
 @import "./itse-style";
 @import "./nprogress";
 @import "~textangular/dist/textAngular";
-
+@import "~angular-sweetalert/node_modules/sweetalert/lib/sweet-alert";
 
 //Datepicker Styles
 
@@ -555,6 +555,88 @@ footer{
 }
 
 }
+
+/* when hiding the thing */
+.ng-hide-add         {
+          -webkit-animation:0.5s fadeInDown ease;
+                  animation:0.5s fadeInDown ease;
+}
+
+/* when showing the thing */
+.ng-hide-remove      {
+          -webkit-animation:0.5s fadeOutDown ease;
+                  animation:0.5s fadeOutDown ease;
+}
+
+/* ANIMATIONS (FROM ANIMATE.CSS) */
+
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+
+@-webkit-keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.fadeOutDown {
+  -webkit-animation-name: fadeOutDown;
+  animation-name: fadeOutDown;
+  -webkit-animation-delay: 10s;
+          animation-delay: 10s;
+
+}
+
 
 .animate.fade.ng-enter {
   -webkit-transition:800ms linear all;

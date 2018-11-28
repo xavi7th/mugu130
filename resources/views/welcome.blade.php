@@ -14,24 +14,15 @@
       margin-bottom: 8px;
     }
 
-    .playstore, .top_100{
+    .top_100{
       height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .playstore a{
-      display: block;
-      height: 50px;
-      background-image: url({{ asset('img/fastplay-playstore.jpg') }});
-      background-repeat: no-repeat;
-      background-position: center;
-      width: 200px;
-      transition: all 160ms ease;
-    }
 
-    .playstore a:hover{
-      background-image: url({{ asset('img/fastplay-playstore-hover.jpg') }});
+    iframe{
+      margin-top: 60px;
     }
 
     .star.icon{
@@ -41,8 +32,11 @@
     }
 
     @media (max-width:1024px) {
-      .playstore, .top_100{
+      .top_100{
         height: 100px;
+      }
+      iframe{
+        margin-bottom: 60px;
       }
     }
   </style>
@@ -67,6 +61,8 @@
 
 @section('contents')
 
+
+    @if (Agent::isMobile() && Agent::isOpera())
       <section id="mid">
         <div class="grid-container">
           <div class="grid-45 grid-parent">
@@ -85,7 +81,146 @@
               </a>
               <a href="/calculator" target="_self">
                 <button class="ui right labeled basic inverted icon button">
-                  View Calculator
+                  Prize Calculator
+                  <i class="calculator icon"></i>
+                </button>
+              </a>
+              <a href="{{ route('faq') }}" target="_self">
+                <button class="ui right labeled basic inverted icon button">
+                  How it works
+                  <i class="lightbulb icon"></i>
+                </button>
+              </a>
+              <a href="{{ route('top-100') }}" target="_self">
+                <button class="ui right labeled basic inverted icon button" style="padding-right: 1.5em !important;">
+                  See Top 100 Winners
+                </button>
+              </a>
+            </div>
+
+            <div class="grid-100" style="position: relative; margin-top: 20px;">
+
+              <table class="ui blue celled table" style="font-size: 1.2em;">
+
+                <tbody class="ng-cloak" id="ng-cloak">
+                  <tr>
+                    <th colspan="2" style="font-size:1.3em; vertical-align:middle; height:60px; text-align:center;">USERS' ACTIVITY SUMMARY</th>
+                  </tr>
+                  <tr>
+                    <td>Total Quizzes Taken</td>
+                    <td>@{{ total_games_played }}</td>
+                  </tr>
+                  <tr>
+                    <td>Number of Users</td>
+                    <td>@{{ total_num_of_users }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total User Earnings</td>
+                    <td>@{{  total_user_earnings | currency }}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <div class="grid-40 push-10">
+            <div id="form" class="ui segment red">
+              <div class="ui icon error message">
+                <i class="exclamation icon"></i>
+                <div class="content">
+                  <div class="header">
+                    NOTICE!
+                  </div>
+                  <span>Sorry! We do not support Opera mini browser. To register and start playing, plese use Chrome or UC browsers. <br> Cheers.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-container mb-t-100">
+
+          <div class="grid-45" style="font-size: 1.2em;">
+            <h1 class="text center">TOP WINNERS</h1>
+            <div class="owl-carousel owl-theme">
+              <div ng-repeat=" e in ::top_three_earners">
+                <div class="ui card green">
+                  <div class="image">
+                    {{-- <img src="../images/avatar2/large/kristy.png"> --}}
+                  </div>
+                  <div class="content">
+                    <a class="header">@{{ e.user.firstname }}
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                      <i class="star icon"></i>
+                    </a>
+
+                    <div class="meta">
+                      <span class="date">Joined @{{ e.user.created_at | timeAgo }}</span>
+                    </div>
+                    <div class="description">
+                      <span class="testimonials_comments" ng-if="e.user.id == 1145">I will definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span class="testimonials_comments" ng-if="e.user.id == 287000">I  definitely recommend FastPlay24. It pays wella and their customer service is awesome</span>
+                      <span class="testimonials_comments" ng-if="e.user.id == 505">FastPlay24 is a really great platform. The questions are quite simple and it pays for real. Just answer 10 simple questions in time. That's all. Great job guys.</span>
+                    </div>
+                    <div class="description" style="font-size: 1.2em;">
+                      <br><br>
+                      <span ng-if="e.user.id == 1145"><a href="https://instagram.com/darerah_gram"><i class="fa fa-instagram testimonials_ref_links"></i></a></span>
+                      <span ng-if="e.user.id == 287000"></span>
+                      <span ng-if="e.user.id == 505">
+                          <a target="_blank" href="https://instagram.com/kaligraph_jay"><i class="fa fa-instagram testimonials_ref_links"></i></a>
+                          <a target="_blank" href="https://facebook.com/profile.php?id=100008795411460 "><i class="fa fa-facebook testimonials_ref_links"></i></a>
+                          <a target="_blank" href="https://twitter.com/kaligragh_jay "><i class="fa fa-twitter testimonials_ref_links"></i></a>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <a>
+                      <i class="bullhorn icon"></i>
+                      <b>EARNINGS:</b> @{{ e.user_earnings | currency }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-25">
+
+          </div>
+          <div class="grid-30 info">
+            <h1>Tell a friend</h1>
+            <p>
+              <img src="/img/fastplay24_referal_homepage.png" alt="">
+            </p>
+            <p>
+              Invite your friends and family members to come join FastPlay24 and get cool earnings. Join the referral program now.
+            </p>
+          </div>
+        </div>
+      </section>
+    @else
+      <section id="mid">
+        <div class="grid-container">
+          <div class="grid-45 grid-parent">
+
+            <h1>welcome to fastplay24</h1>
+            <p style="font-size:1.2em">Win up to N15, 000 with just ₦35 every 20 minutes by answering 10 simple questions in just 10 minutes every day.</p>
+
+            <h3>Think - Play - Win</h3>
+            <div class="flex-center mb-d-40 stack small options">
+
+              <a href="/demo-play" target="_self">
+                <button class="ui right labeled basic inverted icon button">
+                  Play Demo
+                  <i class="gamepad icon"></i>
+                </button>
+              </a>
+              <a href="/calculator" target="_self">
+                <button class="ui right labeled basic inverted icon button">
+                  Prize Calculator
                   <i class="calculator icon"></i>
                 </button>
               </a>
@@ -175,7 +310,7 @@
                     <div class="field">
                       <input type="password" name="password_confirmation" placeholder="Confirm Password" required value="{{ old('password_confirmation') }}" ng-model="password_confirmation">
                       <div class="ui negative message" ng-show="password != password_confirmation">
-                        <p>Password confirmation does not match password</p>
+                        <p style="color:red;">Password confirmation does not match password</p>
                       </div>
                     </div>
                     <div class="field">
@@ -268,9 +403,9 @@
             </div>
           </div>
           <div class="grid-25">
-            <div class="playstore">
-              <a href="https://play.google.com/store/apps/details?id=tcom.fastplay24" target="_blank"></a>
-            </div>
+            <iframe src="https://www.youtube.com/embed/USmvZmF43Zg"
+                    frameborder="0" allowfullscreen
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
           </div>
           <div class="grid-30 info">
             <h1>Tell a friend</h1>
@@ -284,7 +419,9 @@
         </div>
       </section>
 
-      <div ng-view></div>
+    @endif
+
+    <div ng-view></div>
 
 
 @endsection

@@ -1,7 +1,3 @@
-// EXAMPLE
-// <transaction-play></transaction-play>
-
-
 var url = `
 <section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">
       <div class="ui segment compact left floated">
@@ -41,7 +37,7 @@ var url = `
           <tbody>
             <tr ng-repeat="trans in data | filter : search" ng-class="['animate translate-in', {'negative' : trans.trans_type == 'Admin Correction'}]" ng-show="!loading">
               <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>
-              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }}</td>
+              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }} {{ trans.ref_no['agent'] ? 'by ' + trans.ref_no['agent']['firstname'] : null }}</td>
               <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>
               <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>
               <td ng-if="trans.amount < 0">₦{{ trans.amount }}.00</td>
@@ -159,6 +155,26 @@ var url = `
             <tr>
               <td>Total Purchsaed Units</td>
               <td>{{ trans_record.user.units_purchased | currency }} </td>
+            </tr>
+
+            <tr>
+              <td>Twitter</td>
+              <td> <a ng-href="{{ 'https://' + trans_record.user.twitter }}" target="_blank">{{ trans_record.user.twitter }}</a> </td>
+            </tr>
+
+            <tr>
+              <td>Telegram</td>
+              <td> <a ng-href="{{ trans_record.user.telegram }}">{{ trans_record.user.telegram }}</a> </td>
+            </tr>
+
+            <tr>
+              <td>Facebook</td>
+              <td> <a ng-href="{{ 'https://' + trans_record.user.facebook }}" target="_blank">{{ trans_record.user.facebook }}</a> </td>
+            </tr>
+
+            <tr>
+              <td>Instagram</td>
+              <td> <a ng-href="{{ 'https://' + trans_record.user.instagram }}" target="_blank">{{ trans_record.user.instagram }}</a> </td>
             </tr>
 
           </tbody>

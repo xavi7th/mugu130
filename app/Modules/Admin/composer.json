@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/admin",
+    "description": "",
+    "authors": [
+        {
+            "name": "Daniel Ose",
+            "email": "xavi7th@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "App\\Modules\\Admin\\Providers\\AdminServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\Modules\\Admin\\": ""
+        }
+    }
+}
