@@ -6996,6 +6996,10 @@ i.icon.credit.card:before {
   content: "\F09D";
 }
 
+i.icon.crop:before {
+  content: "\F125";
+}
+
 i.icon.css3:before {
   content: "\F13C";
 }

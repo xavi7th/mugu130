@@ -588,22 +588,19 @@ class DashboardController extends Controller
 		if (Auth::user()->activeGames->created_at->diffInSeconds(now()) < env('MIN_ACCEPTABLE_GAME_TIME') && $count >= env('MINIMUM_PASSING_SCORE')) {
 
 			Auth::user()->activeGames->ended_at = Carbon::now();
-			Auth::user()->activeGames->score = null;
+			Auth::user()->activeGames->score = 0;
 			Auth::user()->activeGames->payment_status = 'malpractice';
 			Auth::user()->activeGames->save();
 
-			Auth::user()->useraccstatus = 'suspended';
-			Auth::user()->save();
-
-          //Send Admin a message that a user has been suspended
+          //Send Admin a message that a user is suspected
 			Message::userSuspended('Malpractice');
 
-			Auth::logout();
+			// Auth::logout();
 
 			DB::commit();
 			session(['GAME_STATE' => 'loading']);
 
-			return;
+			return response()->json(['status' => true], 416);
 		}
 
 		Auth::user()->activeGames->ended_at = Carbon::now();
@@ -653,21 +650,18 @@ class DashboardController extends Controller
 
 			Auth::user()->lastGame->ended_at = Carbon::now();
 			Auth::user()->lastGame->payment_status = 'malpractice';
-			Auth::user()->lastGame->score = null;
+			Auth::user()->lastGame->score = 0;
 			Auth::user()->lastGame->save();
-
-			Auth::user()->useraccstatus = 'suspended';
-			Auth::user()->save();
 
           //Send Admin a message that a user has been suspended
 			Message::userSuspended('Malpractice');
 
-			Auth::logout();
+			// Auth::logout();
 
 			DB::commit();
 			session(['GAME_STATE' => 'loading']);
 
-			return;
+			return response()->json(['status' => true], 416);
 		}
 
 		Auth::user()->lastGame->ended_at = Carbon::now();

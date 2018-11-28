@@ -1,7 +1,6 @@
 // EXAMPLE
 // <game-play></game-play>
 
-
 var url = `
 <section id="game-play">
 
@@ -129,100 +128,114 @@ var url = `
     </div>
 
     <div class="text-center" style="display: flex; align-items: center; justify-content: center;">
-      <button ng-click="submitExam()" ng-class="['positive', 'ui', 'button', {'loading' : loading}]">Finish</button>
+      <button ng-click="submitExam()" ng-class="['positive', 'ui', 'button', {'loading' : loading, 'disabled': disabled}]">Finish</button>
   </div>
 
 </section>
 
-`;
+`
 
+angular.module('gamePlay', []).directive('gamePlay', [
+	'$location',
+	'$localStorage',
+	'Notification',
+	'sendRequest',
+	function($location, $localStorage, Notification, sendRequest) {
+		return {
+			restrict: 'E',
+			// templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+			template: url,
+			replace: true,
+			link: (scope, element, attributes) => {},
+			controller: [
+				'$scope',
+				$scope => {
+					$scope.lifelines = $localStorage
+					$scope.lifelines.extra = $scope.lifelines.extra || false
+					$scope.lifelines.options = $scope.lifelines.options || false
 
-angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', 'Notification', 'sendRequest', function ($location, $localStorage, Notification, sendRequest) {
-  return {
-    restrict: 'E',
-    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
-    template:url,
-    replace: true,
-    link: (scope, element, attributes) => {
+					sendRequest.getUserQuestions('/user/get-user-questions').then(rsp => {
+						$scope.user_questions = rsp
+					})
 
-		},
-    controller: ['$scope',  ($scope) => {
-      $scope.lifelines = $localStorage;
-      $scope.lifelines.extra = $scope.lifelines.extra || false;
-      $scope.lifelines.options = $scope.lifelines.options || false;
+					$scope.submitExam = () => {
+						$scope.loading = true
+						sendRequest.storeData('prevent', true)
 
-      sendRequest.getUserQuestions('/user/get-user-questions')
-                  .then( rsp => {
-                    $scope.user_questions = rsp;
-                  });
+						sendRequest
+							.postRequest('/user/submit-exam', $scope.user_questions)
+							.then(function(rsp) {
+								delete $localStorage.user_questions
+								delete $localStorage.extra
+								delete $localStorage.options
 
-      $scope.submitExam = () => {
-        $scope.loading = true;
-        sendRequest.storeData('prevent', true);
+								if (rsp.status == 422) {
+									Notification.error({
+										message: 'No active game in progress',
+										positionX: 'center'
+									})
+									$location.path('/dashboard')
+								}
+								if (rsp.status == 416) {
+									$scope.disabled = true
+									return
+								} else if (rsp.status == 200) {
+									if (rsp.data.status) {
+										sendRequest.storeData('user_score', rsp.data.user_score)
+										$localStorage.user_score = rsp.data.user_score
+										$location.path('/dashboard')
+									}
+								}
+							})
+					}
 
-        sendRequest.postRequest('/user/submit-exam', $scope.user_questions)
-                 .then(function (rsp) {
-                   delete $localStorage.user_questions;
-                   delete $localStorage.extra;
-                   delete $localStorage.options;
+					$scope.requestExtra = q => {
+						q.answered_option = 'skipped'
+						var removedQuestion = $scope.user_questions.indexOf(q)
+						$scope.user_questions.splice(removedQuestion, 1)
+						$scope.lifelines.extra = true
 
-                   if (rsp.status == 422) {
-                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
-                     $location.path('/dashboard');
-                   }
-                   else if (rsp.status == 200) {
-                     if (rsp.data.status) {
-                       sendRequest.storeData('user_score', rsp.data.user_score);
-                       $localStorage.user_score = rsp.data.user_score;
-                       $location.path('/dashboard');
-                     }
-                   }
-                 });
+						//Add it back to the array so that it gets sent to the server and marked as skipped.
+						//This way we can prevent it from showing up in the displayed results
+						$scope.user_questions.push(q)
+					}
 
-      };
+					$scope.requestOptions = q => {
+						sendRequest
+							.postRequest('/user/question-remove-options', q.question.id)
+							.then(function(rsp) {
+								q.question = rsp.data
+							})
 
-      $scope.requestExtra = (q) => {
-        q.answered_option = 'skipped';
-        var removedQuestion = $scope.user_questions.indexOf(q);
-        $scope.user_questions.splice(removedQuestion, 1);
-        $scope.lifelines.extra = true;
+						$scope.lifelines.options = true
+					}
 
-        //Add it back to the array so that it gets sent to the server and marked as skipped.
-        //This way we can prevent it from showing up in the displayed results
-        $scope.user_questions.push(q);
-      };
+					$scope.displayResults = () => {
+						sendRequest.storeData('prevent', true)
+						sendRequest
+							.postRequest('/user/end-exam', $scope.user_questions)
+							.then(function(rsp) {
+								delete $localStorage.user_questions
+								delete $localStorage.extra
+								delete $localStorage.options
 
-      $scope.requestOptions = (q) => {
-        sendRequest.postRequest('/user/question-remove-options', q.question.id)
-                 .then(function (rsp) {
-                   q.question = rsp.data;
-                 });
-
-        $scope.lifelines.options = true;
-      };
-
-      $scope.displayResults = () => {
-        sendRequest.storeData('prevent', true);
-        sendRequest.postRequest('/user/end-exam', $scope.user_questions)
-                 .then(function (rsp) {
-                   delete $localStorage.user_questions;
-                   delete $localStorage.extra;
-                   delete $localStorage.options;
-
-                   if (rsp.status == 422) {
-                     Notification.error({ message: 'No active game in progress', positionX: 'center'});
-                     $location.path('/dashboard');
-                   }
-                   else if (rsp.status == 200) {
-                     if (rsp.data.status) {
-                       sendRequest.storeData('user_score', rsp.data.user_score);
-                       $localStorage.user_score = rsp.data.user_score;
-                       $location.path('/dashboard/display-results');
-                     }
-                   }
-                 });
-      };
-
-    }]
-  };
-}]);
+								if (rsp.status == 422) {
+									Notification.error({
+										message: 'No active game in progress',
+										positionX: 'center'
+									})
+									$location.path('/dashboard')
+								} else if (rsp.status == 200) {
+									if (rsp.data.status) {
+										sendRequest.storeData('user_score', rsp.data.user_score)
+										$localStorage.user_score = rsp.data.user_score
+										$location.path('/dashboard/display-results')
+									}
+								}
+							})
+					}
+				}
+			]
+		}
+	}
+])
