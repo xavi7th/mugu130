@@ -36,7 +36,18 @@ return [
 	'channels' => [
 		'stack' => [
 			'driver' => 'stack',
-			'channels' => ['daily'],
+			'channels' => ['daily', 'database'],
+		],
+
+		'database' => [
+			'driver' => 'custom',
+			'via' => danielme85\LaravelLogToDB\LogToDbHandler::class,
+			'level' => env('APP_LOG_LEVEL', 'debug'),
+			'name' => 'DB LOG',
+			'connection' => 'default',
+			'collection' => 'log',
+			'detailed' => true,
+			'max_rows' => false
 		],
 
 		'single' => [
