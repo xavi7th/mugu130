@@ -37106,7 +37106,7 @@ datepicker select,datepicker select:focus,datepicker select:hover,.datepicker se
   overflow: hidden;
   background: none;
   color: #fff;
-  background-color: #138EFA;
+  background-color: #138efa;
   border-radius: 2px;
   border: 0;
   margin-top: 5px;
@@ -37153,11 +37153,11 @@ datepicker,.datepicker,[datepicker],._720kb-datepicker-calendar-header,._720kb-d
 }
 
 ._720kb-datepicker-calendar-header:nth-child(odd) {
-  background: #138EFA;
+  background: #138efa;
 }
 
 ._720kb-datepicker-calendar-header:nth-child(even) {
-  background: #7BC6FC;
+  background: #7bc6fc;
 }
 
 ._720kb-datepicker-calendar-header-left,._720kb-datepicker-calendar-header-middle,._720kb-datepicker-calendar-header-right {
@@ -37170,11 +37170,11 @@ datepicker,.datepicker,[datepicker],._720kb-datepicker-calendar-header,._720kb-d
 }
 
 ._720kb-datepicker-calendar-header-closed-pagination:after {
-  content: " \25BE";
+  content: ' \25BE';
 }
 
 ._720kb-datepicker-calendar-header-opened-pagination:after {
-  content: " \25BE";
+  content: ' \25BE';
   margin-left: 4px;
   position: relative;
   bottom: -3px;
@@ -37280,8 +37280,7 @@ datepicker,.datepicker,[datepicker],._720kb-datepicker-calendar-header,._720kb-d
   color: rgba(0, 0, 0, 0.7);
 }
 
-._720kb-datepicker-calendar-days
-._720kb-datepicker-default-button {
+._720kb-datepicker-calendar-days ._720kb-datepicker-default-button {
   font-size: 18.5px;
   position: relative;
   bottom: -0.5px;
@@ -37301,7 +37300,9 @@ datepicker,.datepicker,[datepicker],._720kb-datepicker-calendar-header,._720kb-d
   visibility: hidden;
 }
 
-._720kb-datepicker-calendar-day._720kb-datepicker-disabled,._720kb-datepicker-calendar-day._720kb-datepicker-disabled:hover,._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled,._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled:hover,._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled,._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled:hover {
+._720kb-datepicker-calendar-day._720kb-datepicker-disabled,._720kb-datepicker-calendar-day._720kb-datepicker-disabled:hover,._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled,._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled:hover,._720kb-datepicker-calendar-years-pagination
+a._720kb-datepicker-active._720kb-datepicker-disabled,._720kb-datepicker-calendar-years-pagination
+a._720kb-datepicker-active._720kb-datepicker-disabled:hover {
   color: rgba(0, 0, 0, 0.2);
   background: rgba(25, 2, 0, 0.02);
   cursor: default;
@@ -37591,7 +37592,7 @@ div#main-controller #mid .ui.card {
     z-index: 2;
   }
 
-  div#main-controller section#mid tr:nth-child(-n+3) p {
+  div#main-controller section#mid tr:nth-child(-n + 3) p {
     margin-top: 15% !important;
   }
 }
@@ -37608,7 +37609,7 @@ div#main-controller #mid .ui.card {
     z-index: 2;
   }
 
-  div#main-controller section#mid tr:nth-child(-n+3) p {
+  div#main-controller section#mid tr:nth-child(-n + 3) p {
     margin-top: 15% !important;
   }
 
@@ -37659,16 +37660,21 @@ div#main-controller footer {
   border-top: 2px solid #8b909b;
 }
 
+.no-animate,.no-animate * {
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+
 /* when hiding the thing */
 
-.ng-hide-add {
+.ng-hide-add:not(.no-animate) {
   -webkit-animation: 0.5s fadeInDown ease;
   animation: 0.5s fadeInDown ease;
 }
 
 /* when showing the thing */
 
-.ng-hide-remove {
+.ng-hide-remove:not(.no-animate) {
   -webkit-animation: 0.5s fadeOutDown ease;
   animation: 0.5s fadeOutDown ease;
 }
@@ -37796,15 +37802,15 @@ div#main-controller footer {
 }
 
 .animate.translate-in.ng-enter-stagger {
-  -webkit-transition-delay: .1s;
-  transition-delay: .1s;
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
   -webkit-transition-duration: 0;
   transition-duration: 0;
 }
 
 .animate.translate-in.ng-leave-stagger {
-  -webkit-transition-delay: .1s;
-  transition-delay: .1s;
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
   -webkit-transition-duration: 0;
   transition-duration: 0;
 }
@@ -37839,5 +37845,101 @@ div#main-controller footer {
 
 .mb-t-25 {
   margin-top: 25px !important;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slide-item {
+  height: 100%;
+  float: left;
+  clear: none;
+}
+
+.slider-arrow {
+  position: absolute;
+  display: block;
+  margin-bottom: -20px;
+  padding: 20px;
+}
+
+.slider-arrow--right {
+  bottom: 50%;
+  right: 30px;
+  background-position: -17px 0;
+  background-image: url("/img/gameplay-slides-glide-arrows.png");
+  background-repeat: no-repeat;
+  width: 17px;
+  height: 28px;
+  display: block;
+  padding: 0;
+}
+
+.slider-arrow--left {
+  background-image: url("/img/gameplay-slides-glide-arrows.png");
+  background-repeat: no-repeat;
+  width: 17px;
+  height: 28px;
+  display: block;
+  padding: 0;
+}
+
+.slider-nav {
+  position: absolute;
+  bottom: 60px;
+}
+
+.slider-nav__item {
+  width: 12px;
+  height: 12px;
+  float: left;
+  clear: none;
+  display: block;
+  margin: 0 5px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.slider-nav__item:hover {
+  background: #ccc;
+}
+
+.slider-nav__item--current {
+  background: #ccc;
+}
+
+.slider1 {
+  color: #fff;
+}
+
+.slider1 .slide-item {
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.slider1 .content {
+  margin-top: 37%;
+  margin-bottom: 20%;
+}
+
+.slider1 h2 {
+  font-size: 5em;
+  font-weight: 200;
+  margin-bottom: 1.2em;
+  text-shadow: 0 0.05em 0.05em #c25b1d !important;
+}
+
+.slider1 .note {
+  max-height: 5em;
+  min-height: 5em;
+  max-width: 5em;
+  min-width: 5em;
+  display: inline !important;
 }
 /*# sourceMappingURL=app.css.map*/

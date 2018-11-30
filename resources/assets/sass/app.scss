@@ -1,736 +1,861 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,600');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 // Variables
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
-@import "./semantic/html5reset";
-@import "./semantic/semantic";
-@import "./semantic/unsemantic-grid-responsive-tablet";
-@import "~owl.carousel/dist/assets/owl.carousel";
-@import "~owl.carousel/dist/assets/owl.theme.default";
-@import "./itse-style";
-@import "./nprogress";
-@import "~textangular/dist/textAngular";
-@import "~angular-sweetalert/node_modules/sweetalert/lib/sweet-alert";
+@import './semantic/html5reset';
+@import './semantic/semantic';
+@import './semantic/unsemantic-grid-responsive-tablet';
+@import '~owl.carousel/dist/assets/owl.carousel';
+@import '~owl.carousel/dist/assets/owl.theme.default';
+@import './itse-style';
+@import './nprogress';
+@import '~textangular/dist/textAngular';
+@import '~angular-sweetalert/node_modules/sweetalert/lib/sweet-alert';
 
 //Datepicker Styles
 
-datepicker a, [datepicker] a, .datepicker a{
-  color:inherit;
-  text-decoration:none;
+datepicker a,
+[datepicker] a,
+.datepicker a {
+	color: inherit;
+	text-decoration: none;
 }
-datepicker a:hover, [datepicker] a:hover, .datepicker a:hover{
-  text-decoration:none;
+datepicker a:hover,
+[datepicker] a:hover,
+.datepicker a:hover {
+	text-decoration: none;
 }
-datepicker select, datepicker select:focus, datepicker select:hover,
-.datepicker select, .datepicker select:focus, .datepicker select:hover,
-[datepicker] select, [datepicker] select:focus, [datepicker] select:hover{
-  width:100%;
-   overflow: hidden;
-   background:none;
-   color:#fff;
-   background-color: #138EFA;
-   border-radius:2px;
-   border: 0;
-   margin-top:5px;
+datepicker select,
+datepicker select:focus,
+datepicker select:hover,
+.datepicker select,
+.datepicker select:focus,
+.datepicker select:hover,
+[datepicker] select,
+[datepicker] select:focus,
+[datepicker] select:hover {
+	width: 100%;
+	overflow: hidden;
+	background: none;
+	color: #fff;
+	background-color: #138efa;
+	border-radius: 2px;
+	border: 0;
+	margin-top: 5px;
 }
-datepicker, .datepicker, [datepicker],
+datepicker,
+.datepicker,
+[datepicker],
 ._720kb-datepicker-calendar-header,
 ._720kb-datepicker-calendar-body,
 ._720kb-datepicker-calendar-days-header,
 ._720kb-datepicker-calendar-years-pagination-pages {
-  font-family: Helvetica Neue, Arial, sans-serif;
-  font-size: 13.5px;
-  -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 auto;
-  float: left;
-  clear: right;
-  position: relative;
+	font-family: Helvetica Neue, Arial, sans-serif;
+	font-size: 13.5px;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	clear: right;
+	position: relative;
 }
 ._720kb-datepicker-calendar {
-  background: white;
-  color: #333;
-  position: absolute;
-  z-index: 999;
-  min-width: 220px;
-  margin: 0 auto;
-  width: 101%;
-  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
-  visibility: hidden;
-  overflow:hidden;
-  margin-left:-0.5%;
-  padding: 0 0 2% 0;
-  border-radius: 3px;
+	background: white;
+	color: #333;
+	position: absolute;
+	z-index: 999;
+	min-width: 220px;
+	margin: 0 auto;
+	width: 101%;
+	-webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+	visibility: hidden;
+	overflow: hidden;
+	margin-left: -0.5%;
+	padding: 0 0 2% 0;
+	border-radius: 3px;
 }
-._720kb-datepicker-calendar._720kb-datepicker-open,._720kb-datepicker-calendar._720kb-datepicker-forced-to-open {
-  visibility: visible;
+._720kb-datepicker-calendar._720kb-datepicker-open,
+._720kb-datepicker-calendar._720kb-datepicker-forced-to-open {
+	visibility: visible;
 }
 ._720kb-datepicker-calendar-header {
-  text-align: center;
-  font-size: 15px;
-  line-height: 40px;
+	text-align: center;
+	font-size: 15px;
+	line-height: 40px;
 }
 ._720kb-datepicker-calendar-header:nth-child(odd) {
-  background: #138EFA;
+	background: #138efa;
 }
 ._720kb-datepicker-calendar-header:nth-child(even) {
-  background: #7BC6FC;
+	background: #7bc6fc;
 }
 ._720kb-datepicker-calendar-header-left,
 ._720kb-datepicker-calendar-header-middle,
 ._720kb-datepicker-calendar-header-right {
-  width: 15%;
-  float: left;
+	width: 15%;
+	float: left;
 }
 ._720kb-datepicker-calendar-header-middle {
-  width: 70%;
+	width: 70%;
 }
 
 ._720kb-datepicker-calendar-header-closed-pagination::after {
-  content: " \25BE";
+	content: ' \25BE';
 }
 
 ._720kb-datepicker-calendar-header-opened-pagination::after {
-  content: " \25BE";
-  margin-left: 4px;
-  position: relative;
-  bottom: -3px;
-  display:inline-block;
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
+	content: ' \25BE';
+	margin-left: 4px;
+	position: relative;
+	bottom: -3px;
+	display: inline-block;
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 ._720kb-datepicker-calendar-body {
-  width: 96%;
-  margin: 2%;
-  text-align: center;
+	width: 96%;
+	margin: 2%;
+	text-align: center;
 }
 ._720kb-datepicker-calendar-day {
-  cursor: pointer;
-  font-size: 12.5px;
-  width: 12.2%;
-  margin:5px 1%;
-  padding: 1.5% 0;
-  float: left;
-  border-radius: 1px;
+	cursor: pointer;
+	font-size: 12.5px;
+	width: 12.2%;
+	margin: 5px 1%;
+	padding: 1.5% 0;
+	float: left;
+	border-radius: 1px;
 }
 ._720kb-datepicker-calendar-day:hover,
 ._720kb-datepicker-calendar-day._720kb-datepicker-active {
-  background: rgba(0, 0, 0, 0.03);
+	background: rgba(0, 0, 0, 0.03);
 }
-._720kb-datepicker-calendar-header a, ._720kb-datepicker-calendar-header a:hover {
-  text-decoration:none;
-  padding:3% 9% 4% 9%;
-  font-size: 13.5px;
-  color:rgba(0, 0, 0, 0.55);
-  font-weight: bold;
-  border-radius: 3px;
+._720kb-datepicker-calendar-header a,
+._720kb-datepicker-calendar-header a:hover {
+	text-decoration: none;
+	padding: 3% 9% 4% 9%;
+	font-size: 13.5px;
+	color: rgba(0, 0, 0, 0.55);
+	font-weight: bold;
+	border-radius: 3px;
 }
 ._720kb-datepicker-calendar-header a:hover {
-  color:rgba(0, 0, 0, 0.9);
-  background: rgba(255, 255, 255, 0.45);
+	color: rgba(0, 0, 0, 0.9);
+	background: rgba(255, 255, 255, 0.45);
 }
 ._720kb-datepicker-calendar-month {
-  color:#fff;
+	color: #fff;
 }
 ._720kb-datepicker-calendar-month span {
-  font-size: 13px;
-  color:rgba(0, 0, 0, 0.4);
+	font-size: 13px;
+	color: rgba(0, 0, 0, 0.4);
 }
-._720kb-datepicker-calendar-month a span  i {
-  font-style: normal;
-  font-size:15px;
+._720kb-datepicker-calendar-month a span i {
+	font-style: normal;
+	font-size: 15px;
 }
-._720kb-datepicker-calendar-month a, ._720kb-datepicker-calendar-month a:hover {
-  padding: 3px;
-  margin-left:1%;
+._720kb-datepicker-calendar-month a,
+._720kb-datepicker-calendar-month a:hover {
+	padding: 3px;
+	margin-left: 1%;
 }
-._720kb-datepicker-calendar-years-pagination{
-  padding:2% 0 0 0;
-  float:left;
-  clear: right;
-  width: 100%;
+._720kb-datepicker-calendar-years-pagination {
+	padding: 2% 0 0 0;
+	float: left;
+	clear: right;
+	width: 100%;
 }
-._720kb-datepicker-calendar-years-pagination a, ._720kb-datepicker-calendar-years-pagination a:hover {
-  font-size:12px;
-  padding:0 7px;
-  font-weight: normal;
-  margin:3px 1% 0 1%;
-  line-height: 20px;
-  display: inline-block;
+._720kb-datepicker-calendar-years-pagination a,
+._720kb-datepicker-calendar-years-pagination a:hover {
+	font-size: 12px;
+	padding: 0 7px;
+	font-weight: normal;
+	margin: 3px 1% 0 1%;
+	line-height: 20px;
+	display: inline-block;
 }
 ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active {
-  color:rgba(0, 0, 0, 0.9);
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.45);
+	color: rgba(0, 0, 0, 0.9);
+	font-weight: 500;
+	background: rgba(255, 255, 255, 0.45);
 }
-._720kb-datepicker-calendar-years-pagination-pages a,._720kb-datepicker-calendar-years-pagination-pages a:hover{
-  padding:5px 10px;
+._720kb-datepicker-calendar-years-pagination-pages a,
+._720kb-datepicker-calendar-years-pagination-pages a:hover {
+	padding: 5px 10px;
 }
-._720kb-datepicker-calendar-days-header{
-  max-width: 100%;
-  margin:0 auto;
-  padding:0 2% 0 2%;
-  background: rgba(19, 142, 250, 0.08);
-  border-bottom:1px solid rgba(0,0,0,0.02);
+._720kb-datepicker-calendar-days-header {
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 0 2% 0 2%;
+	background: rgba(19, 142, 250, 0.08);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.02);
 }
-._720kb-datepicker-calendar-days-header div{
-  width: 14.18%;
-  font-weight: 500;
-  font-size: 11.5px;
-  padding:10px 0;
-  float:left;
-  text-align: center;
-  color:rgba(0,0,0,0.7);
+._720kb-datepicker-calendar-days-header div {
+	width: 14.18%;
+	font-weight: 500;
+	font-size: 11.5px;
+	padding: 10px 0;
+	float: left;
+	text-align: center;
+	color: rgba(0, 0, 0, 0.7);
 }
-._720kb-datepicker-calendar-days
-._720kb-datepicker-default-button{
-  font-size: 18.5px;
-  position: relative;
-  bottom:-0.5px;
+._720kb-datepicker-calendar-days ._720kb-datepicker-default-button {
+	font-size: 18.5px;
+	position: relative;
+	bottom: -0.5px;
 }
-._720kb-datepicker-default-button{
-  padding:0 4.5px;
+._720kb-datepicker-default-button {
+	padding: 0 4.5px;
 }
-._720kb-datepicker-calendar-header-middle._720kb-datepicker-mobile-item{
-  width:95%;
-  float:none;
-  margin:0 auto;
+._720kb-datepicker-calendar-header-middle._720kb-datepicker-mobile-item {
+	width: 95%;
+	float: none;
+	margin: 0 auto;
 }
-._720kb-datepicker-item-hidden{
-  visibility:hidden;
+._720kb-datepicker-item-hidden {
+	visibility: hidden;
 }
 ._720kb-datepicker-calendar-day._720kb-datepicker-disabled,
 ._720kb-datepicker-calendar-day._720kb-datepicker-disabled:hover,
 ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled,
 ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled:hover,
-._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled,
-._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled:hover{
-  color:rgba(0,0,0,0.2);
-  background: rgba(25,2,0,0.02);
-  cursor: default;
+._720kb-datepicker-calendar-years-pagination
+	a._720kb-datepicker-active._720kb-datepicker-disabled,
+._720kb-datepicker-calendar-years-pagination
+	a._720kb-datepicker-active._720kb-datepicker-disabled:hover {
+	color: rgba(0, 0, 0, 0.2);
+	background: rgba(25, 2, 0, 0.02);
+	cursor: default;
 }
 
 ._720kb-datepicker-calendar-day._720kb-datepicker-today {
-  background:red;
-  color:white;
+	background: red;
+	color: white;
 }
-
 
 /*****  END DATEPICKER STYLES  ******/
 
-
-
-
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+	display: none !important;
 }
-@include MQ(S){
-  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak.ng-cloak.ng-cloak, #ng-cloak.ng-cloak, .x-ng-cloak {
-      display: none !important;
-  }
+@include MQ(S) {
+	[ng\:cloak],
+	[ng-cloak],
+	[data-ng-cloak],
+	[x-ng-cloak],
+	.ng-cloak.ng-cloak.ng-cloak,
+	#ng-cloak.ng-cloak,
+	.x-ng-cloak {
+		display: none !important;
+	}
 }
 
-input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
-  border: 2px solid $red;
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+	border: 2px solid $red;
 }
 
-.text.center{
-  text-align: center !important;
+.text.center {
+	text-align: center !important;
 }
 
-.btn-transparent{
-  color: #fff;
-  background-color: transparent;
-  border-color: $laravel-border-color;
+.btn-transparent {
+	color: #fff;
+	background-color: transparent;
+	border-color: $laravel-border-color;
 }
 
 .ui-notification {
-    border-radius: $ui-notification-border-radius;
-    position: fixed;
-    z-index: 9999;
-    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    width: 300px;
-    text-align: center;
-    // color: $btn-primary-color;
-    background: $brand-primary;
-    -webkit-transition: all ease 0.5s;
-    transition: all ease 0.5s;
-    &.clickable {
-        cursor: pointer;
+	border-radius: $ui-notification-border-radius;
+	position: fixed;
+	z-index: 9999;
+	-webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+	width: 300px;
+	text-align: center;
+	// color: $btn-primary-color;
+	background: $brand-primary;
+	-webkit-transition: all ease 0.5s;
+	transition: all ease 0.5s;
+	&.clickable {
+		cursor: pointer;
 
-        &:hover {
-            opacity: 0.7;
-        }
-    }
-    &.killed {
-        opacity: 0 !important;
-        -webkit-transition: opacity ease 1s;
-        transition: opacity ease 1s;
-        pointer-events: none;
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+	&.killed {
+		opacity: 0 !important;
+		-webkit-transition: opacity ease 1s;
+		transition: opacity ease 1s;
+		pointer-events: none;
 
-        &:hover {
-          display: none;
-        }
-    }
-    & > h3 {
-        display: block;
-        margin: 10px 10px 0 10px;
-        padding: 0 0 5px 0;
-        text-align: left;
-        // font-size: $font-size-base;
-        font-weight: bold;
-        // border-bottom: 1px solid fadeout($btn-primary-color, 70%);
-    }
-    & a {
-        // color: $btn-primary-color;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    & > .message {
-        margin: 10px 10px 10px 10px;
-    }
-    &.warning {
-        color: $btn-warning-color;
-        background: $brand-warning;
-    }
-    &.error {
-        color: $btn-danger-color;
-        background: $brand-danger;
-    }
-    &.success {
-        color: $btn-success-color;
-        background: $brand-success;
-    }
-    &.info {
-        color: $btn-info-color;
-        background: $brand-info;
-    }
-    &.primary {
-        color: $btn-primary-color;
-        background: $brand-primary;
-    }
+		&:hover {
+			display: none;
+		}
+	}
+	& > h3 {
+		display: block;
+		margin: 10px 10px 0 10px;
+		padding: 0 0 5px 0;
+		text-align: left;
+		// font-size: $font-size-base;
+		font-weight: bold;
+		// border-bottom: 1px solid fadeout($btn-primary-color, 70%);
+	}
+	& a {
+		// color: $btn-primary-color;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	& > .message {
+		margin: 10px 10px 10px 10px;
+	}
+	&.warning {
+		color: $btn-warning-color;
+		background: $brand-warning;
+	}
+	&.error {
+		color: $btn-danger-color;
+		background: $brand-danger;
+	}
+	&.success {
+		color: $btn-success-color;
+		background: $brand-success;
+	}
+	&.info {
+		color: $btn-info-color;
+		background: $brand-info;
+	}
+	&.primary {
+		color: $btn-primary-color;
+		background: $brand-primary;
+	}
 }
 
-.ui.compact.vertical.menu{
-  @include MQ(M){
-    margin-bottom: 30px;
-    @include flex-center;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-  };
-  @include MQ(S){
-    margin-bottom: 30px;
-    @include flex-center;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-  };
+.ui.compact.vertical.menu {
+	@include MQ(M) {
+		margin-bottom: 30px;
+		@include flex-center;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
+	@include MQ(S) {
+		margin-bottom: 30px;
+		@include flex-center;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
 }
-.ui.labeled.icon.menu{
-  .item{
-    @include MQ(M){
-      float: left !important;
-    }
-    @include MQ(S){
-      float: left !important;
-    }
-  }
-}
-
-td[ng-click]{
-  cursor: pointer !important;
+.ui.labeled.icon.menu {
+	.item {
+		@include MQ(M) {
+			float: left !important;
+		}
+		@include MQ(S) {
+			float: left !important;
+		}
+	}
 }
 
-
-  .ui.button{
-    border-radius: 20px;
-  }
-
-#info-images{
-  p{
-    text-align: center;
-  }
-  img{
-    max-width: 65% !important;
-  }
-
-  #extra{
-    img{
-      width: 10%;
-    }
-    p{
-      text-align: left;
-    }
-  }
+td[ng-click] {
+	cursor: pointer !important;
 }
 
-#mini-game{
-  float: left;
-  margin-right: 5%;
-  h1{
-    font-size: 1em;
-    margin: 0;
-    padding: 0;
-  }
-
-  .ui.buttons .button, .ui.buttons .or, .ui.button{
-    @include MQ(S){
-      font-size: 0.78571429rem !important;
-      padding-right: 1.2rem !important;
-
-      &.labeled{
-        margin-top: 5px;
-      }
-    };
-  }
+.ui.button {
+	border-radius: 20px;
 }
 
-div#main-controller{
+#info-images {
+	p {
+		text-align: center;
+	}
+	img {
+		max-width: 65% !important;
+	}
 
-  #others_intro{
-    padding: 40px 0px;
-    height: 100px;
-    background-color: #fff;
-  }
-
-  #resultWindow{
-    max-height: 55vh !important;
-    overflow-y: auto;
-  }
-
-  #others_contents{
-      padding: 20px 0px 40px 0px;
-      // background-color: #135482;
-      background-image: url(/img/4.jpg);
-      background-blend-mode: exclusion;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      min-height: calc(100vh - 225px);
-
-  }
-
-  .info{
-    bottom: -80px;
-    p,h1{
-      text-align: center;
-    }
-
-    p{
-      font-size: 1.2em;
-    }
-
-    img{
-      max-width: 70%;
-      @include MQ(M){
-        display: none !important;
-      }
-    }
-  }
-
-  #mid{
-    .ui.card{
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  @include MQ(M){
-    .ui.menu{
-      -ms-flex-wrap: wrap !important;
-          flex-wrap: wrap !important;
-      // margin-bottom: 30px !important;
-      -webkit-box-pack: center !important;
-          -ms-flex-pack: center !important;
-              justify-content: center !important;
-    }
-    section#mid {
-      #form{
-        height: auto;
-        position: relative;
-        margin-top: 15px;
-          z-index: 2;
-      }
-      tr:nth-child(-n+3) p {
-        margin-top: 15% !important;
-      }
-
-      .info{
-        // position: absolute !important;
-        // bottom: 2vh;
-      }
-    }
-  }
-
-  @include MQ(S){
-
-    .info{
-      img{
-        display: none !important;
-      }
-    }
-
-    section#mid {
-      #form{
-        height: auto;
-        position: relative;
-        margin-top: 15px;
-          z-index: 2;
-      }
-      tr:nth-child(-n+3) p {
-        margin-top: 15% !important;
-      }
-
-      .info{
-        // position: absolute !important;
-        // bottom: 2vh;
-      }
-    }
-
-    #dashboard{
-      padding-bottom: 120px;
-    }
-
-    header, .dashboard-actions{
-      .ui.button{
-        font-size: 0.78571429rem !important;
-      }
-    }
-
-    nav .right.floated{
-      float: left !important;
-    }
-
-    .ui.menu{
-      -ms-flex-wrap: wrap !important;
-          flex-wrap: wrap !important;
-      // margin-bottom: 30px !important;
-      -webkit-box-pack: center !important;
-          -ms-flex-pack: center !important;
-              justify-content: center !important;
-    }
-
-    .ui.buttons{
-      -ms-flex-wrap: wrap !important;
-          flex-wrap: wrap !important;
-
-      button{
-        margin-bottom: 10px;
-      }
-    }
-
-    .ui.icon.message{
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-    }
-
-    #resultWindow{
-      .ui.tag.label{
-        top: -30px !important;
-      }
-    }
-
-  }
-
-footer{
-  width: 100%;
-  background: #fff;
-  border-top: 2px solid #8b909b;
+	#extra {
+		img {
+			width: 10%;
+		}
+		p {
+			text-align: left;
+		}
+	}
 }
 
+#mini-game {
+	float: left;
+	margin-right: 5%;
+	h1 {
+		font-size: 1em;
+		margin: 0;
+		padding: 0;
+	}
+
+	.ui.buttons .button,
+	.ui.buttons .or,
+	.ui.button {
+		@include MQ(S) {
+			font-size: 0.78571429rem !important;
+			padding-right: 1.2rem !important;
+
+			&.labeled {
+				margin-top: 5px;
+			}
+		}
+	}
+}
+
+div#main-controller {
+	#others_intro {
+		padding: 40px 0px;
+		height: 100px;
+		background-color: #fff;
+	}
+
+	#resultWindow {
+		max-height: 55vh !important;
+		overflow-y: auto;
+	}
+
+	#others_contents {
+		padding: 20px 0px 40px 0px;
+		// background-color: #135482;
+		background-image: url(/img/4.jpg);
+		background-blend-mode: exclusion;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		min-height: calc(100vh - 225px);
+	}
+
+	.info {
+		bottom: -80px;
+		p,
+		h1 {
+			text-align: center;
+		}
+
+		p {
+			font-size: 1.2em;
+		}
+
+		img {
+			max-width: 70%;
+			@include MQ(M) {
+				display: none !important;
+			}
+		}
+	}
+
+	#mid {
+		.ui.card {
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	@include MQ(M) {
+		.ui.menu {
+			-ms-flex-wrap: wrap !important;
+			flex-wrap: wrap !important;
+			// margin-bottom: 30px !important;
+			-webkit-box-pack: center !important;
+			-ms-flex-pack: center !important;
+			justify-content: center !important;
+		}
+		section#mid {
+			#form {
+				height: auto;
+				position: relative;
+				margin-top: 15px;
+				z-index: 2;
+			}
+			tr:nth-child(-n + 3) p {
+				margin-top: 15% !important;
+			}
+
+			.info {
+				// position: absolute !important;
+				// bottom: 2vh;
+			}
+		}
+	}
+
+	@include MQ(S) {
+		.info {
+			img {
+				display: none !important;
+			}
+		}
+
+		section#mid {
+			#form {
+				height: auto;
+				position: relative;
+				margin-top: 15px;
+				z-index: 2;
+			}
+			tr:nth-child(-n + 3) p {
+				margin-top: 15% !important;
+			}
+
+			.info {
+				// position: absolute !important;
+				// bottom: 2vh;
+			}
+		}
+
+		#dashboard {
+			padding-bottom: 120px;
+		}
+
+		header,
+		.dashboard-actions {
+			.ui.button {
+				font-size: 0.78571429rem !important;
+			}
+		}
+
+		nav .right.floated {
+			float: left !important;
+		}
+
+		.ui.menu {
+			-ms-flex-wrap: wrap !important;
+			flex-wrap: wrap !important;
+			// margin-bottom: 30px !important;
+			-webkit-box-pack: center !important;
+			-ms-flex-pack: center !important;
+			justify-content: center !important;
+		}
+
+		.ui.buttons {
+			-ms-flex-wrap: wrap !important;
+			flex-wrap: wrap !important;
+
+			button {
+				margin-bottom: 10px;
+			}
+		}
+
+		.ui.icon.message {
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: column;
+			flex-direction: column;
+		}
+
+		#resultWindow {
+			.ui.tag.label {
+				top: -30px !important;
+			}
+		}
+	}
+
+	footer {
+		width: 100%;
+		background: #fff;
+		border-top: 2px solid #8b909b;
+	}
+}
+
+.no-animate, .no-animate *{
+	-webkit-transition: none !important;
+ transition: none !important;
 }
 
 /* when hiding the thing */
-.ng-hide-add         {
-          -webkit-animation:0.5s fadeInDown ease;
-                  animation:0.5s fadeInDown ease;
+.ng-hide-add:not(.no-animate) {
+	-webkit-animation: 0.5s fadeInDown ease;
+	animation: 0.5s fadeInDown ease;
 }
 
 /* when showing the thing */
-.ng-hide-remove      {
-          -webkit-animation:0.5s fadeOutDown ease;
-                  animation:0.5s fadeOutDown ease;
+.ng-hide-remove:not(.no-animate) {
+	-webkit-animation: 0.5s fadeOutDown ease;
+	animation: 0.5s fadeOutDown ease;
 }
 
 /* ANIMATIONS (FROM ANIMATE.CSS) */
 
 @-webkit-keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+	}
 
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -100%, 0);
+		transform: translate3d(0, -100%, 0);
+	}
 
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
 }
 
 .fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
 }
-
 
 @-webkit-keyframes fadeOutDown {
-  from {
-    opacity: 1;
-  }
+	from {
+		opacity: 1;
+	}
 
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
+	to {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
 }
 
-
 @keyframes fadeOutDown {
-  from {
-    opacity: 1;
-  }
+	from {
+		opacity: 1;
+	}
 
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
+	to {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+	}
 }
 
 .fadeOutDown {
-  -webkit-animation-name: fadeOutDown;
-  animation-name: fadeOutDown;
-  -webkit-animation-delay: 10s;
-          animation-delay: 10s;
-
+	-webkit-animation-name: fadeOutDown;
+	animation-name: fadeOutDown;
+	-webkit-animation-delay: 10s;
+	animation-delay: 10s;
 }
 
-
 .animate.fade.ng-enter {
-  -webkit-transition:800ms linear all;
-  transition:800ms linear all;
-  opacity:0;
+	-webkit-transition: 800ms linear all;
+	transition: 800ms linear all;
+	opacity: 0;
 }
 
 /* The finishing CSS styles for the enter animation */
 .animate.fade.ng-enter.ng-enter-active {
-  opacity:1;
+	opacity: 1;
 }
 
 .animate.fade.ng-leave {
-  -webkit-transition:0.5s linear all;
-  transition:0.5s linear all;
-  opacity:1;
+	-webkit-transition: 0.5s linear all;
+	transition: 0.5s linear all;
+	opacity: 1;
 }
 .animate.fade.ng-leave.ng-leave-active {
-  opacity:0;
+	opacity: 0;
 }
 
 .animate.translate-in.ng-enter {
-  -webkit-transition:800ms linear all;
-  transition:800ms linear all;
-  opacity:0;
-  -webkit-transform: translateY(30px);
-          transform: translateY(30px);
-
+	-webkit-transition: 800ms linear all;
+	transition: 800ms linear all;
+	opacity: 0;
+	-webkit-transform: translateY(30px);
+	transform: translateY(30px);
 }
 
 /* The finishing CSS styles for the enter animation */
 .animate.translate-in.ng-enter.ng-enter-active {
-  opacity:1;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
 }
 
 .animate.translate-in.ng-leave {
-  -webkit-transition:0.5s linear all;
-  transition:0.5s linear all;
-  opacity:1;
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
+	-webkit-transition: 0.5s linear all;
+	transition: 0.5s linear all;
+	opacity: 1;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
 }
 .animate.translate-in.ng-leave.ng-leave-active {
-  opacity:0;
-  -webkit-transform: translateX(100%);
-          transform: translateX(100%);
+	opacity: 0;
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
 }
-
 
 .animate.translate-in.ng-enter-stagger {
-  -webkit-transition-delay: .1s;
-          transition-delay: .1s;
-  -webkit-transition-duration: 0;
-          transition-duration: 0;
+	-webkit-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+	-webkit-transition-duration: 0;
+	transition-duration: 0;
 }
-
 
 .animate.translate-in.ng-leave-stagger {
-  -webkit-transition-delay: .1s;
-          transition-delay: .1s;
-  -webkit-transition-duration: 0;
-          transition-duration: 0;
+	-webkit-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+	-webkit-transition-duration: 0;
+	transition-duration: 0;
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate){
-  display: none !important;
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+	display: none !important;
 }
 
-.testimonials_comments{
-  line-height: 2.2em;
+.testimonials_comments {
+	line-height: 2.2em;
 }
-.testimonials_ref_links{
-  margin: 0 5px;
-}
-
-.mb-d-40{
-  margin-bottom: 40px !important;
+.testimonials_ref_links {
+	margin: 0 5px;
 }
 
-.mb-d-25{
-  margin-bottom: 25px !important;
+.mb-d-40 {
+	margin-bottom: 40px !important;
 }
 
-.mb-t-100{
-  margin-top: 100px !important;
+.mb-d-25 {
+	margin-bottom: 25px !important;
 }
 
-.mb-t-40{
-  margin-top: 40px !important;
+.mb-t-100 {
+	margin-top: 100px !important;
 }
 
-.mb-t-25{
-  margin-top: 25px !important;
+.mb-t-40 {
+	margin-top: 40px !important;
+}
+
+.mb-t-25 {
+	margin-top: 25px !important;
+}
+
+//colors
+$white: #fff;
+$color_celeste_approx: #ccc;
+$color_orange_roughy_approx: #c25b1d;
+$color_botticelli_approx: #cee4ed;
+$color_sail_approx: #b8e3f5;
+
+//urls
+$url_0: url('/img/gameplay-slides-glide-arrows.png');
+
+.slider {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.slides {
+	height: 100%;
+	overflow: hidden;
+	*zoom: 1;
+}
+.slide-item {
+	height: 100%;
+	float: left;
+	clear: none;
+}
+.slider-arrow {
+	position: absolute;
+	display: block;
+	margin-bottom: -20px;
+	padding: 20px;
+}
+.slider-arrow--right {
+	bottom: 50%;
+	right: 30px;
+	background-position: -17px 0;
+	background-image: $url_0;
+	background-repeat: no-repeat;
+	width: 17px;
+	height: 28px;
+	display: block;
+	padding: 0;
+}
+.slider-arrow--left {
+	background-image: $url_0;
+	background-repeat: no-repeat;
+	width: 17px;
+	height: 28px;
+	display: block;
+	padding: 0;
+}
+.slider-nav {
+	position: absolute;
+	bottom: 60px;
+}
+.slider-nav__item {
+	width: 12px;
+	height: 12px;
+	float: left;
+	clear: none;
+	display: block;
+	margin: 0 5px;
+	background: $white;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50%;
+	&:hover {
+		background: $color_celeste_approx;
+	}
+}
+.slider-nav__item--current {
+	background: $color_celeste_approx;
+}
+.slider1 {
+	color: $white;
+	.slide-item {
+		height: 100%;
+		width: 100%;
+		background-position: center;
+		background-size: cover;
+	}
+	.content {
+		margin-top: 37%;
+		margin-bottom: 20%;
+	}
+	h2 {
+		font-size: 5em;
+		font-weight: 200;
+		margin-bottom: 1.2em;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 0.05em 0.05em $color_orange_roughy_approx !important;
+	}
+	.note {
+		max-height: 5em;
+		min-height: 5em;
+		max-width: 5em;
+		min-width: 5em;
+		display: inline !important;
+	}
 }

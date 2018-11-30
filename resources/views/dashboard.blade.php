@@ -38,6 +38,7 @@
 		}, 1000);
 		
 	</script>
+	
 @endsection
 
 @section('contents')

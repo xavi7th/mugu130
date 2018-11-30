@@ -3854,15 +3854,10 @@ home.config(['$routeProvider', '$locationProvider', '$provide', 'NotificationPro
     controller: 'HomeController',
     template: '',
     animation: 'slide'
-  })
-
-  // .when('/test', {
-  //   controller: 'HomeController',
-  //   template : '',
-  //   animation: 'slide'
-  // })
-
-  .when('/login', {
+  }).when('/test', {
+    controller: 'HomeController',
+    template: ''
+  }).when('/login', {
     controller: 'HomeController',
     template: ''
 
