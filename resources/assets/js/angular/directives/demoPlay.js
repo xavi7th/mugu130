@@ -7,6 +7,67 @@ var url = `
 <section id="game-play">
 
 
+
+<style>
+  #timer h1{
+    margin: 0 !important;
+	}
+	
+
+	.questions{
+		justify-content: center;
+		padding: 50px 0;
+	}
+	.question__card{
+		flex-basis: 80%;
+	}
+	.question__card__question h4{
+		text-transform: initial !important;
+		line-height: 1.5em !important;
+		font-size: 1.2em !important;
+		font-weight: 100 !important;
+		margin-bottom: 26px !important;
+	}
+	.question__card__option{
+		padding-bottom:15px !important;
+	}
+	.question__card__option label{
+		padding-right: 15%;
+		text-align: left;
+		padding-left: 7rem !important;
+	}
+	.question__card__option input{
+		margin-left: 3rem !important;
+		width: 21rem !important;
+	}
+
+	.question__card__option label::before, .question__card__option label::after{
+		margin-left: 5%;
+
+	}
+	.question__actions{
+		display: flex;
+	}
+
+	.question__actions .buttons{
+		flex: 1 1 auto;
+	}
+
+	.submit-button{
+		margin-top:15px !important;
+	}
+
+</style>
+<style media="(max-width:767px)">
+  #heading{
+    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;
+  }
+  #game-play{
+    margin-top: -140px;
+	}
+	
+</style>
+
 <style>
   #timer h1{
     margin: 0 !important;
@@ -78,79 +139,109 @@ var url = `
         </a>
       </div>
     </div>
-  </div>
-
-  <div class="ui styled fluid accordion" ng-if="!display_results">
-
-    <div ng-repeat="q in user_questions" ng-if="$index < 10">
-
-      <div ng-class="{ 'title': true, 'active': $index == 0 }">
-        <i class="dropdown icon"></i> Question {{ $index + 1}}
-      </div>
-
-      <div ng-class="{ 'content': true, 'active': $index == 0 }">
-        <div class="ui stacked segment">
-          <p id="question">{{ q.question }}</p>
-
-          <div class="ui middle aligned selection list">
-            <label class="item" for="option1{{$index}}">
-              <div class="content">
-                <div class="ui slider checkbox" ng-if="q.option_1">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.option_1" ng-model="q.answered_option" ng-change="q.answered_option = q.option_1" id="option1{{$index}}">
-                  <label>{{ q.option_1 }}</label>
-                </div>
-              </div>
-            </label>
-
-            <label class="item" for="option2{{$index}}">
-              <div class="content">
-                <div class="ui slider checkbox" ng-if="q.option_2">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.option_2" ng-model="q.answered_option" ng-change="q.answered_option = q.option_2" id="option2{{$index}}">
-                  <label>{{ q.option_2 }}</label>
-                </div>
-              </div>
-            </label>
-
-            <label class="item" for="option3{{$index}}">
-              <div class="content">
-                <div class="ui slider checkbox" ng-if="q.option_3">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.option_3" ng-model="q.answered_option" ng-change="q.answered_option = q.option_3" id="option3{{$index}}">
-                  <label>{{ q.option_3 }}</label>
-                </div>
-              </div>
-            </label>
-
-            <label class="item" for="option4{{$index}}">
-              <div class="content">
-                <div class="ui slider checkbox" ng-if="q.option_4">
-                  <input type="radio" name="question{{$index + 1}}" ng-value="q.option_4" ng-model="q.answered_option" ng-change="q.answered_option = q.option_4" id="option4{{$index}}">
-                  <label>{{ q.option_4 }}</label>
-                </div>
-              </div>
-            </label>
-
-            <div class="ui buttons">
-              <button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>
-              <div class="or"></div>
-              <button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">
+	</div>
+	
+	<div class="grid-100"  ng-if="!display_results">
+	<div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">
       <div class="ui active inverted dimmer">
         <div class="ui large text loader">Loading questions...</div>
       </div>
     </div>
-  </div>
-
-  <div class="text-center" style="display: flex; align-items: center; justify-content: center; padding-bottom: 30px;" ng-if="!loading && !display_results">
-    <button class="positive ui button" ng-click=submitExam()>Finish</button>
-  </div>
-
+	<div class="ui green segment">
+	
+		<div class="ui cards questions">
+			<div class="card question__card no-animate" ng-repeat="q in user_questions" ng-show="current_number == $index">
+				<div class="content">
+					<div class="header question__card__title">Question {{ $index + 1}}</div>
+				</div>
+				<div class="content question__card__question">
+					<h4 class="ui sub header dash_header question">
+						{{ q.question }} 
+					</h4>
+					
+					<div class="ui small feed question__card__options">
+						
+						<div class="event question__card__option">
+							<div class="content">
+								<div class="summary">
+										<div class="ui slider checkbox" ng-if="q.option_1">
+												<input type="radio" name="question{{$index + 1}}" ng-value="q.option_1" ng-model="q.answered_option" 
+																ng-change="q.answered_option = q.option_1" id="option1{{$index}}">
+												<label >{{ q.option_1 }}</label>
+											</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="event question__card__option">
+							<div class="content">
+								<div class="summary">
+										<div class="ui slider checkbox" ng-if="q.option_2">
+												<input type="radio" name="question{{$index + 2}}" ng-value="q.option_2" ng-model="q.answered_option" 
+																ng-change="q.answered_option = q.option_2" id="option2{{$index}}">
+												<label >{{ q.option_2 }}</label>
+										</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="event question__card__option">
+							<div class="content">
+								<div class="summary">
+								<div class="ui slider checkbox" ng-if="q.option_3">
+										<input type="radio" name="question{{$index + 3}}" ng-value="q.option_3" ng-model="q.answered_option" 
+														ng-change="q.answered_option = q.option_3" id="option3{{$index}}">
+										<label >{{ q.option_3 }}</label>
+								</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="event question__card__option">
+							<div class="content">
+								<div class="summary">
+								<div class="ui slider checkbox" ng-if="q.option_4">
+										<input type="radio" name="question{{$index + 4}}" ng-value="q.option_4" ng-model="q.answered_option" 
+														ng-change="q.answered_option = q.option_4" id="option4{{$index}}">
+										<label >{{ q.option_4 }}</label>
+								</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="extra content question__actions">
+					<div class="ui buttons">
+							<button class="ui left labeled icon black button" ng-click="prev()"  ng-disabled="current_number == 0">
+								<i class="left arrow icon"></i>
+								Previous
+							</button>
+							<div class="or"></div>
+							<button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>
+							<div class="or"></div>
+							<button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>
+							<div class="or"></div>
+							<button class="ui right labeled icon black button" ng-click="next()" ng-disabled="current_number == 9">
+								<i class="right arrow icon"></i>
+								Next
+							</button>
+						</div>
+				</div>
+				<div class="ui buttons">
+					<button class="ui brown button submit-button" ng-click="submitExam()" ng-class="{'loading' : loading, 'disabled': disabled}">Submit</button>
+				</div>
+			</div>
+			
+			
+			<div class="ui right floated pagination menu">
+				<a class="item" ng-class="{'active' : q.answered_option }" ng-click="setCurrent($index)"
+				    ng-repeat="q in user_questions track by q.id" ng-if="$index < 10">{{ $index + 1 }}</a>
+      </div>
+			
+		</div>
+	</div>
+</div>
 
   <div class="grid-container" style="margin-top:70px; padding-bottom:100px;" ng-if="display_results">
     <div class="grid-100">
@@ -255,7 +346,20 @@ angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorag
       $scope.loading=true;
       $scope.lifelines = $sessionStorage;
       $scope.lifelines.extra = $scope.lifelines.extra || false;
-      $scope.lifelines.options = $scope.lifelines.options || false;
+			$scope.lifelines.options = $scope.lifelines.options || false;
+			$scope.current_number = 0
+
+			$scope.next = () => {
+				$scope.current_number++;
+			}
+
+			$scope.prev = () => {
+				$scope.current_number--;
+			}
+
+			$scope.setCurrent = (n) => {
+				$scope.current_number = n;
+			}			
 
 
       var updateExaminees = setInterval(function () {

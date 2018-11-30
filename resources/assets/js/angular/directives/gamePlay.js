@@ -33,7 +33,10 @@ var url = `
 		text-align: left;
 		padding-left: 7rem !important;
 	}
-
+	.question__card__option input{
+		margin-left: 3rem !important;
+		width: 21rem !important;
+	}
 	.question__card__option label::before, .question__card__option label::after{
 		margin-left: 5%;
 
@@ -99,8 +102,13 @@ var url = `
   </div>
 
 	<div class="grid-100">
-	
+	<div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">
+      <div class="ui active inverted dimmer">
+        <div class="ui large text loader">Loading questions...</div>
+      </div>
+    </div>
 	<div class="ui green segment">
+	
 		<div class="ui cards questions">
 			<div class="card question__card no-animate" ng-repeat="q in user_questions" ng-show="current_number == $index">
 				<div class="content">
@@ -116,7 +124,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-										<div class="ui slider checkbox" >
+										<div class="ui slider checkbox" ng-if="q.option_1">
 												<input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="q.answered_option" 
 																ng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">
 												<label >{{ q.question.option_1 }}</label>
@@ -128,7 +136,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-										<div class="ui slider checkbox">
+										<div class="ui slider checkbox" ng-if="q.option_2">
 												<input type="radio" name="question{{$index + 2}}" ng-value="q.question.option_2" ng-model="q.answered_option" 
 																ng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">
 												<label >{{ q.question.option_2 }}</label>
@@ -140,7 +148,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-								<div class="ui slider checkbox">
+								<div class="ui slider checkbox" ng-if="q.option_3">
 										<input type="radio" name="question{{$index + 3}}" ng-value="q.question.option_3" ng-model="q.answered_option" 
 														ng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">
 										<label >{{ q.question.option_3 }}</label>
@@ -152,7 +160,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-								<div class="ui slider checkbox">
+								<div class="ui slider checkbox" ng-if="q.option_4">
 										<input type="radio" name="question{{$index + 4}}" ng-value="q.question.option_4" ng-model="q.answered_option" 
 														ng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">
 										<label >{{ q.question.option_4 }}</label>
