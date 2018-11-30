@@ -246,6 +246,14 @@ Route::middleware(['before'])->group(function () {
 
 	Route::any('/submit-demo-exam', function () {
 
+		// return User::has('games', '>=', 20)->withCount(['games' => function ($q) {
+		// 	$q->whereMonth('created_at', '=', date('m'));
+		// }])->orderBy('games_count', 'DESC')->with(['games' => function ($q) {
+		// 	$q->select(['id','created_at', 'user_id']);
+		// 	$q->whereMonth('created_at', '=', date('m'));
+		// }])->take(10)->get(['id','games', 'games_count']);
+		// return User::has('games', '>', 20)->withCount('games')->orderBy('games_count')->take(10)->get();
+
 		$exam = request()->input('details.answers');
 
     //loop through the answers and mark them and send to DB
