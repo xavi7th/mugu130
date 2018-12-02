@@ -71,11 +71,9 @@
 	}
 
 	@media (max-width:500px) {
-
 		.ui.banner.ad {
 			max-width: 90%;
-		background-image: url('{{ env("ADS_IMAGE_MOBILE") }}');
-
+			background-image: url('{{ env("ADS_IMAGE_MOBILE") }}');
 		}
 	}
 
@@ -248,8 +246,8 @@
 	<div class="ui centered banner ad">
 		<div class="bkg"></div>
 		<a href="{{ env('ADS_LINK') }}" target="_blank">
-			@if (Agent::isMobile()) {!! env('ADS_TEXT_MOBILE') !!} @else {!! env('ADS_TEXT_DESKTOP') !!} @endif
-		</a>
+					@if (Agent::isMobile()) {!! env('ADS_TEXT_MOBILE') !!} @else {!! env('ADS_TEXT_DESKTOP') !!} @endif
+				</a>
 	</div>
 	<div class="grid-container">
 		<div class="grid-45 grid-parent">
@@ -456,7 +454,7 @@
 			</div>
 		</div>
 		<div class="grid-25">
-			<iframe src="https://www.youtube.com/embed/USmvZmF43Zg" frameborder="0" allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+			<iframe src="https://www.youtube.com/embed/00ZBup8ONPA" frameborder="0" allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
 		</div>
 		<div class="grid-30 info">
 			<h1>Tell a friend</h1>

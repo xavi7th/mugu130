@@ -62,7 +62,7 @@
                       Dear {{ Auth::user()->firstname }}, <br> <br> An anomaly has been detected on your account. Thus, we have suspended you from using this service.
                     </div>
                     <div class="header">
-                       A detailed email will be sent to you within 48 hours.
+                       A detailed email will be sent to you within 120 hours (five days).
                     </div>
                     <div class="header">
                        If your think this was a mistake, kindly shoot a note to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com.</a> Kindly include "Account Suspended" in the subject of your message.
