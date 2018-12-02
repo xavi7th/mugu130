@@ -1,7 +1,6 @@
 // EXAMPLE
 // <game-play></game-play>
 
-
 var url = `
 
 <section id="game-play">
@@ -55,6 +54,9 @@ var url = `
 
 	.submit-button{
 		margin-top:15px !important;
+	}
+	.ui.pagination.menu .active.item{
+		background-color:rgba(92, 243, 33, 0.27);
 	}
 
 </style>
@@ -229,7 +231,7 @@ var url = `
 						</div>
 				</div>
 				<div class="ui buttons">
-					<button class="ui brown button submit-button" ng-click="submitExam()" ng-class="{'loading' : loading, 'disabled': disabled}">Submit</button>
+					<button class="ui blue button submit-button" ng-click="submitExam()" ng-class="{'loading' : loading, 'disabled': disabled}">Submit</button>
 				</div>
 			</div>
 			
@@ -325,126 +327,139 @@ var url = `
   </div>
 </section>
 
-`;
+`
 
+angular.module('demoPlay', []).directive('demoPlay', [
+	'$location',
+	'$localStorage',
+	'$sessionStorage',
+	'Notification',
+	'sendRequest',
+	function(
+		$location,
+		$localStorage,
+		$sessionStorage,
+		Notification,
+		sendRequest
+	) {
+		return {
+			restrict: 'E',
+			// templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+			template: url,
+			replace: true,
+			scope: {},
+			link: (scope, element, attributes) => {},
+			controller: [
+				'$scope',
+				'$timeout',
+				($scope, $timeout) => {
+					$scope.game_timer = game_timer
+					$scope.total_examinees = _.random(37)
+					$scope.display_results = false
+					$scope.loading = true
+					$scope.lifelines = $sessionStorage
+					$scope.lifelines.extra = $scope.lifelines.extra || false
+					$scope.lifelines.options = $scope.lifelines.options || false
+					$scope.current_number = 0
 
-angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
-  return {
-    restrict: 'E',
-    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
-    template:url,
-    replace: true,
-    scope:{},
-    link: (scope, element, attributes) => {
+					$scope.next = () => {
+						$scope.current_number++
+					}
 
-		},
-    controller: ['$scope', '$timeout', ($scope, $timeout) => {
+					$scope.prev = () => {
+						$scope.current_number--
+					}
 
-      $scope.game_timer = game_timer;
-      $scope.total_examinees = _.random(37);
-      $scope.display_results = false;
-      $scope.loading=true;
-      $scope.lifelines = $sessionStorage;
-      $scope.lifelines.extra = $scope.lifelines.extra || false;
-			$scope.lifelines.options = $scope.lifelines.options || false;
-			$scope.current_number = 0
+					$scope.setCurrent = n => {
+						$scope.current_number = n
+					}
 
-			$scope.next = () => {
-				$scope.current_number++;
-			}
+					var updateExaminees = setInterval(function() {
+						if ($scope.total_examinees < 10000) {
+							//to make the increment of the users appear ransom onstead of every fixed time
+							if (_.random(50) < 15) {
+								$scope.total_examinees += _.random(593)
+							}
+						}
+					}, 1500)
 
-			$scope.prev = () => {
-				$scope.current_number--;
-			}
+					$scope.requestExtra = q => {
+						var removedQuestion = $scope.user_questions.indexOf(q)
+						$scope.user_questions.splice(removedQuestion, 1)
+						$scope.lifelines.extra = true
+					}
 
-			$scope.setCurrent = (n) => {
-				$scope.current_number = n;
-			}			
+					$scope.requestOptions = q => {
+						var count = 0
+						if (q.option_1 != q.correct_option) {
+							q.option_1 = null
+							count++
+						}
+						if (q.option_2 != q.correct_option) {
+							q.option_2 = null
+							count++
+						}
+						if (q.option_3 != q.correct_option && count < 2) {
+							q.option_3 = null
+							count++
+						}
+						if (q.option_4 != q.correct_option && count < 2) {
+							q.option_4 = null
+							count++
+						}
 
+						$scope.lifelines.options = true
+					}
 
-      var updateExaminees = setInterval(function () {
-        if ($scope.total_examinees < 10000) {
-          //to make the increment of the users appear ransom onstead of every fixed time
-          if (_.random(50) < 15) {
-            $scope.total_examinees += _.random(593);
-          }
-        }
-      }, 1500);
+					$scope.submitExam = () => {
+						clearInterval(updateExaminees)
+						delete $sessionStorage.user_questions
+						delete $sessionStorage.extra
+						delete $sessionStorage.options
 
-      $scope.requestExtra = (q) => {
-        var removedQuestion = $scope.user_questions.indexOf(q);
-        $scope.user_questions.splice(removedQuestion, 1);
-        $scope.lifelines.extra = true;
-      };
+						$scope.loading = true
+						$scope.display_results = true
 
-      $scope.requestOptions = (q) => {
-        var count = 0;
-        if (q.option_1 != q.correct_option) {
-          q.option_1 = null;
-          count++;
-        }
-        if (q.option_2 != q.correct_option) {
-          q.option_2 = null;
-          count++;
-        }
-        if (q.option_3 != q.correct_option && count < 2) {
-          q.option_3 = null;
-          count++;
-        }
-        if (q.option_4 != q.correct_option && count < 2) {
-          q.option_4 = null;
-          count++;
-        }
+						sendRequest
+							.postRequest('/submit-demo-exam', {
+								total_examinees: $scope.total_examinees,
+								answers: $scope.user_questions
+							})
+							.then(function(rsp) {
+								if (rsp.status == 200) {
+									if (rsp.data.status) {
+										$scope.results = rsp.data.results
+										$scope.user_earning = rsp.data.user_earning
+										$scope.max_winners = _.parseInt(rsp.data.max_winners)
+										$scope.total_players = _.parseInt(rsp.data.total_players)
+										$scope.total_prize_money = _.parseInt(
+											rsp.data.total_prize_money
+										)
+										$scope.loading = false
+									}
+								}
+							})
+					}
 
-        $scope.lifelines.options = true;
+					$scope.$parent.$on('$viewContentLoaded', function() {
+						sendRequest
+							.getUserQuestions('/get-deno-questions', true)
+							.then(rsp => {
+								$scope.loading = false
+								$scope.user_questions = rsp
+							})
 
-      };
-
-      $scope.submitExam = () => {
-        clearInterval(updateExaminees);
-        delete $sessionStorage.user_questions;
-        delete $sessionStorage.extra;
-        delete $sessionStorage.options;
-
-        $scope.loading = true;
-        $scope.display_results = true;
-
-        sendRequest.postRequest('/submit-demo-exam', {'total_examinees':$scope.total_examinees, 'answers':$scope.user_questions} )
-                 .then(function (rsp) {
-                   if (rsp.status == 200) {
-                     if (rsp.data.status) {
-                       $scope.results = rsp.data.results;
-                       $scope.user_earning = rsp.data.user_earning;
-                       $scope.max_winners = _.parseInt(rsp.data.max_winners);
-                       $scope.total_players = _.parseInt(rsp.data.total_players);
-                       $scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
-                       $scope.loading = false;
-
-                     }
-                   }
-                 });
-
-      };
-
-      $scope.$parent.$on('$viewContentLoaded', function() {
-
-        sendRequest.getUserQuestions('/get-deno-questions', true)
-                    .then( rsp => {
-                      $scope.loading=false;
-                      $scope.user_questions = rsp;
-                    });
-
-         $timeout(function () {
-           $('.ui.accordion').accordion();
-
-         }, 500);
-      });
-      $scope.$on('$destroy', function() {
-        // $timeout(function () {
-        //   sendRequest.postRequest('/user/pause-game');
-        // }, 0);
-      });
-
-    }]
-  };
-}]);
+						$timeout(function() {
+							$('.ui.accordion').accordion()
+						}, 500)
+					})
+					$scope.$on('$destroy', function() {
+						// $timeout(function () {
+						//   sendRequest.postRequest('/user/pause-game');
+						// }, 0);
+					})
+				}
+			]
+		}
+	}
+])

@@ -3643,118 +3643,118 @@ angular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$
 /* WEBPACK VAR INJECTION */(function($) {// EXAMPLE
 // <game-play></game-play>
 
-
-var url = '\n\n<section id="game-play">\n\n\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n\t}\n\t\n\n\t.questions{\n\t\tjustify-content: center;\n\t\tpadding: 50px 0;\n\t}\n\t.question__card{\n\t\tflex-basis: 80%;\n\t}\n\t.question__card__question h4{\n\t\ttext-transform: initial !important;\n\t\tline-height: 1.5em !important;\n\t\tfont-size: 1.2em !important;\n\t\tfont-weight: 100 !important;\n\t\tmargin-bottom: 26px !important;\n\t}\n\t.question__card__option{\n\t\tpadding-bottom:15px !important;\n\t}\n\t.question__card__option label{\n\t\tpadding-right: 15%;\n\t\ttext-align: left;\n\t\tpadding-left: 7rem !important;\n\t}\n\t.question__card__option input{\n\t\tmargin-left: 3rem !important;\n\t\twidth: 21rem !important;\n\t}\n\n\t.question__card__option label::before, .question__card__option label::after{\n\t\tmargin-left: 5%;\n\n\t}\n\t.question__actions{\n\t\tdisplay: flex;\n\t}\n\n\t.question__actions .buttons{\n\t\tflex: 1 1 auto;\n\t}\n\n\t.submit-button{\n\t\tmargin-top:15px !important;\n\t}\n\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n  #game-play{\n    margin-top: -140px;\n\t}\n\t\n</style>\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n  }\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n</style>\n\n<style media="(max-width:767px)">\n  #summary{\n    -webkit-flex-direction: column;\n    -ms-flex-direction: column;\n    flex-direction: column;\n  }\n    div#main-controller .ui.buttons button {\n      margin-bottom: 0;\n    }\n    input{\n      margin-bottom: 10px !important;\n    }\n</style>\n\n  <div class="ui blue segment">\n    <div class="ui icon error message">\n      <i class="exclamation icon"></i>\n      <div class="content">\n        <div class="header">\n          Note\n        </div>\n        <p>You don\u2019t get paid to play the demo. To start playing live and earning, please <a href="/register" target="_self">register</a> and fund your wallet.</p>\n      </div>\n    </div>\n  </div>\n\n\n  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item" style="padding: 0 20px !important;">\n          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="submitExam()" ng-if="!display_results" id="timer"></countdown-timer>\n        </a>\n      </div>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui violet label" style="font-size: 13px;">\n        <span style="padding-right: 10px;">Active Gamers</span>\n        <i class="users icon"></i> {{ total_examinees }}\n      </div>\n    </div>\n\n\n    <div class="ui segment">\n      <h1 style="color: white; float: right;">Lifelines</h1>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item">\n          50/50\n          <div class="floating ui red label">1</div>\n        </a>\n        <a class="item" style="background:#21BA45; color: white;">\n          CHANGE QUESTION\n          <div class="floating ui teal label">1</div>\n        </a>\n      </div>\n    </div>\n\t</div>\n\t\n\t<div class="grid-100"  ng-if="!display_results">\n\t<div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">\n      <div class="ui active inverted dimmer">\n        <div class="ui large text loader">Loading questions...</div>\n      </div>\n    </div>\n\t<div class="ui green segment">\n\t\n\t\t<div class="ui cards questions">\n\t\t\t<div class="card question__card no-animate" ng-repeat="q in user_questions" ng-show="current_number == $index">\n\t\t\t\t<div class="content">\n\t\t\t\t\t<div class="header question__card__title">Question {{ $index + 1}}</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="content question__card__question">\n\t\t\t\t\t<h4 class="ui sub header dash_header question">\n\t\t\t\t\t\t{{ q.question }} \n\t\t\t\t\t</h4>\n\t\t\t\t\t\n\t\t\t\t\t<div class="ui small feed question__card__options">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_1">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 1}}" ng-value="q.option_1" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_1" id="option1{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_1 }}</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_2">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 2}}" ng-value="q.option_2" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_2" id="option2{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_2 }}</label>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_3">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 3}}" ng-value="q.option_3" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_3" id="option3{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_3 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_4">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 4}}" ng-value="q.option_4" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_4" id="option4{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_4 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="extra content question__actions">\n\t\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t\t\t<button class="ui left labeled icon black button" ng-click="prev()"  ng-disabled="current_number == 0">\n\t\t\t\t\t\t\t\t<i class="left arrow icon"></i>\n\t\t\t\t\t\t\t\tPrevious\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui right labeled icon black button" ng-click="next()" ng-disabled="current_number == 9">\n\t\t\t\t\t\t\t\t<i class="right arrow icon"></i>\n\t\t\t\t\t\t\t\tNext\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t<button class="ui brown button submit-button" ng-click="submitExam()" ng-class="{\'loading\' : loading, \'disabled\': disabled}">Submit</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t\n\t\t\t\n\t\t\t<div class="ui right floated pagination menu">\n\t\t\t\t<a class="item" ng-class="{\'active\' : q.answered_option }" ng-click="setCurrent($index)"\n\t\t\t\t    ng-repeat="q in user_questions track by q.id" ng-if="$index < 10">{{ $index + 1 }}</a>\n      </div>\n\t\t\t\n\t\t</div>\n\t</div>\n</div>\n\n  <div class="grid-container" style="margin-top:70px; padding-bottom:100px;" ng-if="display_results">\n    <div class="grid-100">\n      <div class="ui red segment">\n        <div class="ui icon message">\n          <i class="newspaper icon"></i>\n          <div class="content">\n            <div class="header">\n              Results Display\n            </div>\n          </div>\n          <div class="ui left labeled button" tabindex="-1">\n            <a class="ui basic blue label">\n              {{ user_earning  | currency : \'\u20A6\' : 0 }}\n            </a>\n            <div class="ui icon button">\n              <i class="visa icon"></i>\n              My Earning\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segment" ng-if="loading">\n        <div class="ui active inverted dimmer">\n          <div class="ui large text loader">Computing results...</div>\n        </div>\n        <p style="height:200px;"></p>\n        <p></p>\n        <p></p>\n      </div>\n\n      <div class="ui red segment"  ng-if="!loading">\n\n        <div class="ui raised horizontal segments" id="summary">\n          <div class="ui segment">\n            <div class="ui labeled button" tabindex="-1">\n              <div class="ui button">\n                <i class="heart icon"></i> Players\n              </div>\n              <a class="ui basic label">\n                {{ total_players }}\n              </a>\n            </div>\n          </div>\n\n          <div class="ui segment">\n            <div class="ui left labeled button" tabindex="-1">\n              <a class="ui basic right pointing label">\n                {{ max_winners }}\n              </a>\n              <div class="ui button">\n                <i class="heart icon"></i> Winners\n              </div>\n            </div>\n          </div>\n\n          <div class="ui segment">\n            <div class="ui labeled button floated right" tabindex="-1">\n              <div class="ui icon button">\n                <i class="fork icon"></i>All Players Won\n              </div>\n              <a class="ui basic label">\n                \u20A6{{ total_prize_money + (5 * total_players) }}\n              </a>\n            </div>\n          </div>\n        </div>\n\n        <table class="ui  striped celled table" style="text-align: center;">\n          <thead>\n            <tr ng-repeat="result in results">\n              <th>Position - {{ result.position }}</th>\n              <th>Score - {{ result.score }}</th>\n            </tr>\n          </thead>\n\n        </table>\n      </div>\n    </div>\n  </div>\n</section>\n\n';
+var url = '\n\n<section id="game-play">\n\n\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n\t}\n\t\n\n\t.questions{\n\t\tjustify-content: center;\n\t\tpadding: 50px 0;\n\t}\n\t.question__card{\n\t\tflex-basis: 80%;\n\t}\n\t.question__card__question h4{\n\t\ttext-transform: initial !important;\n\t\tline-height: 1.5em !important;\n\t\tfont-size: 1.2em !important;\n\t\tfont-weight: 100 !important;\n\t\tmargin-bottom: 26px !important;\n\t}\n\t.question__card__option{\n\t\tpadding-bottom:15px !important;\n\t}\n\t.question__card__option label{\n\t\tpadding-right: 15%;\n\t\ttext-align: left;\n\t\tpadding-left: 7rem !important;\n\t}\n\t.question__card__option input{\n\t\tmargin-left: 3rem !important;\n\t\twidth: 21rem !important;\n\t}\n\n\t.question__card__option label::before, .question__card__option label::after{\n\t\tmargin-left: 5%;\n\n\t}\n\t.question__actions{\n\t\tdisplay: flex;\n\t}\n\n\t.question__actions .buttons{\n\t\tflex: 1 1 auto;\n\t}\n\n\t.submit-button{\n\t\tmargin-top:15px !important;\n\t}\n\t.ui.pagination.menu .active.item{\n\t\tbackground-color:rgba(92, 243, 33, 0.27);\n\t}\n\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n  #game-play{\n    margin-top: -140px;\n\t}\n\t\n</style>\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n  }\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n</style>\n\n<style media="(max-width:767px)">\n  #summary{\n    -webkit-flex-direction: column;\n    -ms-flex-direction: column;\n    flex-direction: column;\n  }\n    div#main-controller .ui.buttons button {\n      margin-bottom: 0;\n    }\n    input{\n      margin-bottom: 10px !important;\n    }\n</style>\n\n  <div class="ui blue segment">\n    <div class="ui icon error message">\n      <i class="exclamation icon"></i>\n      <div class="content">\n        <div class="header">\n          Note\n        </div>\n        <p>You don\u2019t get paid to play the demo. To start playing live and earning, please <a href="/register" target="_self">register</a> and fund your wallet.</p>\n      </div>\n    </div>\n  </div>\n\n\n  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item" style="padding: 0 20px !important;">\n          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="submitExam()" ng-if="!display_results" id="timer"></countdown-timer>\n        </a>\n      </div>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui violet label" style="font-size: 13px;">\n        <span style="padding-right: 10px;">Active Gamers</span>\n        <i class="users icon"></i> {{ total_examinees }}\n      </div>\n    </div>\n\n\n    <div class="ui segment">\n      <h1 style="color: white; float: right;">Lifelines</h1>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item">\n          50/50\n          <div class="floating ui red label">1</div>\n        </a>\n        <a class="item" style="background:#21BA45; color: white;">\n          CHANGE QUESTION\n          <div class="floating ui teal label">1</div>\n        </a>\n      </div>\n    </div>\n\t</div>\n\t\n\t<div class="grid-100"  ng-if="!display_results">\n\t<div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">\n      <div class="ui active inverted dimmer">\n        <div class="ui large text loader">Loading questions...</div>\n      </div>\n    </div>\n\t<div class="ui green segment">\n\t\n\t\t<div class="ui cards questions">\n\t\t\t<div class="card question__card no-animate" ng-repeat="q in user_questions" ng-show="current_number == $index">\n\t\t\t\t<div class="content">\n\t\t\t\t\t<div class="header question__card__title">Question {{ $index + 1}}</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="content question__card__question">\n\t\t\t\t\t<h4 class="ui sub header dash_header question">\n\t\t\t\t\t\t{{ q.question }} \n\t\t\t\t\t</h4>\n\t\t\t\t\t\n\t\t\t\t\t<div class="ui small feed question__card__options">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_1">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 1}}" ng-value="q.option_1" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_1" id="option1{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_1 }}</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_2">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 2}}" ng-value="q.option_2" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_2" id="option2{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_2 }}</label>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_3">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 3}}" ng-value="q.option_3" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_3" id="option3{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_3 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.option_4">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 4}}" ng-value="q.option_4" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.option_4" id="option4{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.option_4 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="extra content question__actions">\n\t\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t\t\t<button class="ui left labeled icon black button" ng-click="prev()"  ng-disabled="current_number == 0">\n\t\t\t\t\t\t\t\t<i class="left arrow icon"></i>\n\t\t\t\t\t\t\t\tPrevious\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui right labeled icon black button" ng-click="next()" ng-disabled="current_number == 9">\n\t\t\t\t\t\t\t\t<i class="right arrow icon"></i>\n\t\t\t\t\t\t\t\tNext\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t<button class="ui blue button submit-button" ng-click="submitExam()" ng-class="{\'loading\' : loading, \'disabled\': disabled}">Submit</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t\n\t\t\t\n\t\t\t<div class="ui right floated pagination menu">\n\t\t\t\t<a class="item" ng-class="{\'active\' : q.answered_option }" ng-click="setCurrent($index)"\n\t\t\t\t    ng-repeat="q in user_questions track by q.id" ng-if="$index < 10">{{ $index + 1 }}</a>\n      </div>\n\t\t\t\n\t\t</div>\n\t</div>\n</div>\n\n  <div class="grid-container" style="margin-top:70px; padding-bottom:100px;" ng-if="display_results">\n    <div class="grid-100">\n      <div class="ui red segment">\n        <div class="ui icon message">\n          <i class="newspaper icon"></i>\n          <div class="content">\n            <div class="header">\n              Results Display\n            </div>\n          </div>\n          <div class="ui left labeled button" tabindex="-1">\n            <a class="ui basic blue label">\n              {{ user_earning  | currency : \'\u20A6\' : 0 }}\n            </a>\n            <div class="ui icon button">\n              <i class="visa icon"></i>\n              My Earning\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segment" ng-if="loading">\n        <div class="ui active inverted dimmer">\n          <div class="ui large text loader">Computing results...</div>\n        </div>\n        <p style="height:200px;"></p>\n        <p></p>\n        <p></p>\n      </div>\n\n      <div class="ui red segment"  ng-if="!loading">\n\n        <div class="ui raised horizontal segments" id="summary">\n          <div class="ui segment">\n            <div class="ui labeled button" tabindex="-1">\n              <div class="ui button">\n                <i class="heart icon"></i> Players\n              </div>\n              <a class="ui basic label">\n                {{ total_players }}\n              </a>\n            </div>\n          </div>\n\n          <div class="ui segment">\n            <div class="ui left labeled button" tabindex="-1">\n              <a class="ui basic right pointing label">\n                {{ max_winners }}\n              </a>\n              <div class="ui button">\n                <i class="heart icon"></i> Winners\n              </div>\n            </div>\n          </div>\n\n          <div class="ui segment">\n            <div class="ui labeled button floated right" tabindex="-1">\n              <div class="ui icon button">\n                <i class="fork icon"></i>All Players Won\n              </div>\n              <a class="ui basic label">\n                \u20A6{{ total_prize_money + (5 * total_players) }}\n              </a>\n            </div>\n          </div>\n        </div>\n\n        <table class="ui  striped celled table" style="text-align: center;">\n          <thead>\n            <tr ng-repeat="result in results">\n              <th>Position - {{ result.position }}</th>\n              <th>Score - {{ result.score }}</th>\n            </tr>\n          </thead>\n\n        </table>\n      </div>\n    </div>\n  </div>\n</section>\n\n';
 
 angular.module('demoPlay', []).directive('demoPlay', ['$location', '$localStorage', '$sessionStorage', 'Notification', 'sendRequest', function ($location, $localStorage, $sessionStorage, Notification, sendRequest) {
-  return {
-    restrict: 'E',
-    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
-    template: url,
-    replace: true,
-    scope: {},
-    link: function link(scope, element, attributes) {},
-    controller: ['$scope', '$timeout', function ($scope, $timeout) {
+		return {
+				restrict: 'E',
+				// templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+				template: url,
+				replace: true,
+				scope: {},
+				link: function link(scope, element, attributes) {},
+				controller: ['$scope', '$timeout', function ($scope, $timeout) {
+						$scope.game_timer = game_timer;
+						$scope.total_examinees = _.random(37);
+						$scope.display_results = false;
+						$scope.loading = true;
+						$scope.lifelines = $sessionStorage;
+						$scope.lifelines.extra = $scope.lifelines.extra || false;
+						$scope.lifelines.options = $scope.lifelines.options || false;
+						$scope.current_number = 0;
 
-      $scope.game_timer = game_timer;
-      $scope.total_examinees = _.random(37);
-      $scope.display_results = false;
-      $scope.loading = true;
-      $scope.lifelines = $sessionStorage;
-      $scope.lifelines.extra = $scope.lifelines.extra || false;
-      $scope.lifelines.options = $scope.lifelines.options || false;
-      $scope.current_number = 0;
+						$scope.next = function () {
+								$scope.current_number++;
+						};
 
-      $scope.next = function () {
-        $scope.current_number++;
-      };
+						$scope.prev = function () {
+								$scope.current_number--;
+						};
 
-      $scope.prev = function () {
-        $scope.current_number--;
-      };
+						$scope.setCurrent = function (n) {
+								$scope.current_number = n;
+						};
 
-      $scope.setCurrent = function (n) {
-        $scope.current_number = n;
-      };
+						var updateExaminees = setInterval(function () {
+								if ($scope.total_examinees < 10000) {
+										//to make the increment of the users appear ransom onstead of every fixed time
+										if (_.random(50) < 15) {
+												$scope.total_examinees += _.random(593);
+										}
+								}
+						}, 1500);
 
-      var updateExaminees = setInterval(function () {
-        if ($scope.total_examinees < 10000) {
-          //to make the increment of the users appear ransom onstead of every fixed time
-          if (_.random(50) < 15) {
-            $scope.total_examinees += _.random(593);
-          }
-        }
-      }, 1500);
+						$scope.requestExtra = function (q) {
+								var removedQuestion = $scope.user_questions.indexOf(q);
+								$scope.user_questions.splice(removedQuestion, 1);
+								$scope.lifelines.extra = true;
+						};
 
-      $scope.requestExtra = function (q) {
-        var removedQuestion = $scope.user_questions.indexOf(q);
-        $scope.user_questions.splice(removedQuestion, 1);
-        $scope.lifelines.extra = true;
-      };
+						$scope.requestOptions = function (q) {
+								var count = 0;
+								if (q.option_1 != q.correct_option) {
+										q.option_1 = null;
+										count++;
+								}
+								if (q.option_2 != q.correct_option) {
+										q.option_2 = null;
+										count++;
+								}
+								if (q.option_3 != q.correct_option && count < 2) {
+										q.option_3 = null;
+										count++;
+								}
+								if (q.option_4 != q.correct_option && count < 2) {
+										q.option_4 = null;
+										count++;
+								}
 
-      $scope.requestOptions = function (q) {
-        var count = 0;
-        if (q.option_1 != q.correct_option) {
-          q.option_1 = null;
-          count++;
-        }
-        if (q.option_2 != q.correct_option) {
-          q.option_2 = null;
-          count++;
-        }
-        if (q.option_3 != q.correct_option && count < 2) {
-          q.option_3 = null;
-          count++;
-        }
-        if (q.option_4 != q.correct_option && count < 2) {
-          q.option_4 = null;
-          count++;
-        }
+								$scope.lifelines.options = true;
+						};
 
-        $scope.lifelines.options = true;
-      };
+						$scope.submitExam = function () {
+								clearInterval(updateExaminees);
+								delete $sessionStorage.user_questions;
+								delete $sessionStorage.extra;
+								delete $sessionStorage.options;
 
-      $scope.submitExam = function () {
-        clearInterval(updateExaminees);
-        delete $sessionStorage.user_questions;
-        delete $sessionStorage.extra;
-        delete $sessionStorage.options;
+								$scope.loading = true;
+								$scope.display_results = true;
 
-        $scope.loading = true;
-        $scope.display_results = true;
+								sendRequest.postRequest('/submit-demo-exam', {
+										total_examinees: $scope.total_examinees,
+										answers: $scope.user_questions
+								}).then(function (rsp) {
+										if (rsp.status == 200) {
+												if (rsp.data.status) {
+														$scope.results = rsp.data.results;
+														$scope.user_earning = rsp.data.user_earning;
+														$scope.max_winners = _.parseInt(rsp.data.max_winners);
+														$scope.total_players = _.parseInt(rsp.data.total_players);
+														$scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
+														$scope.loading = false;
+												}
+										}
+								});
+						};
 
-        sendRequest.postRequest('/submit-demo-exam', { 'total_examinees': $scope.total_examinees, 'answers': $scope.user_questions }).then(function (rsp) {
-          if (rsp.status == 200) {
-            if (rsp.data.status) {
-              $scope.results = rsp.data.results;
-              $scope.user_earning = rsp.data.user_earning;
-              $scope.max_winners = _.parseInt(rsp.data.max_winners);
-              $scope.total_players = _.parseInt(rsp.data.total_players);
-              $scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
-              $scope.loading = false;
-            }
-          }
-        });
-      };
+						$scope.$parent.$on('$viewContentLoaded', function () {
+								sendRequest.getUserQuestions('/get-deno-questions', true).then(function (rsp) {
+										$scope.loading = false;
+										$scope.user_questions = rsp;
+								});
 
-      $scope.$parent.$on('$viewContentLoaded', function () {
-
-        sendRequest.getUserQuestions('/get-deno-questions', true).then(function (rsp) {
-          $scope.loading = false;
-          $scope.user_questions = rsp;
-        });
-
-        $timeout(function () {
-          $('.ui.accordion').accordion();
-        }, 500);
-      });
-      $scope.$on('$destroy', function () {
-        // $timeout(function () {
-        //   sendRequest.postRequest('/user/pause-game');
-        // }, 0);
-      });
-    }]
-  };
+								$timeout(function () {
+										$('.ui.accordion').accordion();
+								}, 500);
+						});
+						$scope.$on('$destroy', function () {
+								// $timeout(function () {
+								//   sendRequest.postRequest('/user/pause-game');
+								// }, 0);
+						});
+				}]
+		};
 }]);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 

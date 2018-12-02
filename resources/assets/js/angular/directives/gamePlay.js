@@ -52,7 +52,9 @@ var url = `
 	.submit-button{
 		margin-top:15px !important;
 	}
-
+	.ui.pagination.menu .active.item{
+		background-color:rgba(92, 243, 33, 0.27);
+	}
 </style>
 <style media="(max-width:767px)">
   #heading{
@@ -124,7 +126,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-										<div class="ui slider checkbox" ng-if="q.option_1">
+										<div class="ui slider checkbox" ng-if="q.question.option_1">
 												<input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="q.answered_option" 
 																ng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">
 												<label >{{ q.question.option_1 }}</label>
@@ -136,7 +138,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-										<div class="ui slider checkbox" ng-if="q.option_2">
+										<div class="ui slider checkbox" ng-if="q.question.option_2">
 												<input type="radio" name="question{{$index + 2}}" ng-value="q.question.option_2" ng-model="q.answered_option" 
 																ng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">
 												<label >{{ q.question.option_2 }}</label>
@@ -148,7 +150,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-								<div class="ui slider checkbox" ng-if="q.option_3">
+								<div class="ui slider checkbox" ng-if="q.question.option_3">
 										<input type="radio" name="question{{$index + 3}}" ng-value="q.question.option_3" ng-model="q.answered_option" 
 														ng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">
 										<label >{{ q.question.option_3 }}</label>
@@ -160,7 +162,7 @@ var url = `
 						<div class="event question__card__option">
 							<div class="content">
 								<div class="summary">
-								<div class="ui slider checkbox" ng-if="q.option_4">
+								<div class="ui slider checkbox" ng-if="q.question.option_4">
 										<input type="radio" name="question{{$index + 4}}" ng-value="q.question.option_4" ng-model="q.answered_option" 
 														ng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">
 										<label >{{ q.question.option_4 }}</label>
@@ -189,7 +191,7 @@ var url = `
 						</div>
 				</div>
 				<div class="ui buttons">
-					<button class="ui brown button submit-button" ng-click="submitExam()" ng-class="{'loading' : loading, 'disabled': disabled}">Submit</button>
+					<button class="ui blue button submit-button" ng-click="submitExam()" ng-class="{'loading' : loading, 'disabled': disabled}">Submit</button>
 				</div>
 			</div>
 			
@@ -232,15 +234,15 @@ angular.module('gamePlay', []).directive('gamePlay', [
 					})
 
 					$scope.next = () => {
-						$scope.current_number++;
+						$scope.current_number++
 					}
 
 					$scope.prev = () => {
-						$scope.current_number--;
+						$scope.current_number--
 					}
 
-					$scope.setCurrent = (n) => {
-						$scope.current_number = n;
+					$scope.setCurrent = n => {
+						$scope.current_number = n
 					}
 
 					$scope.submitExam = () => {
