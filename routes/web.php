@@ -66,8 +66,8 @@ Route::middleware(['before'])->group(function () {
         // abort(404);
             // return TransactionalMail::sendWelcomeMail('James', 'xavi7th@yahoo.co.uk');
             // return  redirect( Storage::disk('browser_view')->url('privacy.pdf'));
-
-			return view('scratch-pad');
+			$token = 2;
+			return view('auth.passwords.reset', compact('token'));
 
         // return dd(view('demo-play')->render());
         // return view('suspended', compact('user'));
@@ -104,7 +104,7 @@ Route::middleware(['before'])->group(function () {
 		}
 	});
 
-	Route::view('/video-preview', 'video-preview')->name('vid-preview');
+	Route::view('/lasisi', 'video-preview')->name('vid-preview');
 
 	Route::view('/frequently-asked-questions', 'others-home')->name('faq');
 
