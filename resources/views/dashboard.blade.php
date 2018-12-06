@@ -12,6 +12,7 @@
 		'ADS_LINK' => env('ADS_LINK'),
 		'ADS_TEXT_DESKTOP' => env('ADS_TEXT_DESKTOP'),
 		'ADS_TEXT_MOBILE' => env('ADS_TEXT_MOBILE'),
+		'ADS_BACKGROUND' => env('ADS_BACKGROUND'),
 		'IS_DESKTOP' => Agent::isDesktop(),
 	])
 
@@ -21,7 +22,11 @@
 				clearInterval(inter);
 				$adElem = $('#ads');
 				$adLink = $adElem.find('#ad-link');
+				$adBkg = $adElem.find('#ad-bkg');
 				$adContents = $adElem.find('#ads-contents');
+				if(!ADS_BACKGROUND){
+					$adBkg.hide();
+				}
 				if (IS_DESKTOP) {
 					$adElem.css('backgroundImage', 'url("' + ADS_IMAGE_DESKTOP + '")');
 					$adLink.attr({'href': ADS_LINK});
