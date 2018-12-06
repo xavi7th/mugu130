@@ -796,6 +796,10 @@ class DashboardController extends Controller
 			return response()->json(['message' => 'Maximum limit exceeded'], 422);
 		}
 
+		if (request()->input('details.amt') < env('MIN_WITHDRAWABLE_AMOUNT')) {
+			return response()->json(['message' => 'Minimum amount withdrawable is ' . env('MIN_WITHDRAWABLE_AMOUNT')], 422);
+		}
+
 		if (!Auth::user()->verified) {
 			$message = <<<MESSAGE
           USER ACCOUNT NOT YET VERIFIED. <br> <br> To withdraw, you have to verify your account. A verification link has been sent to you. If you don't find the email in your inbox, check your spam. Otherwise, send a complaint to <a style="color:white; text-decoration: underline;" href="mailto:hello@fastplay24.com ">hello@fastplay24.com </a> for your account to be verified.
