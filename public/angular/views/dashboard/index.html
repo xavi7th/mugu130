@@ -1,7 +1,4 @@
-<div
-	id="main-controller"
-	style="min-height: 100vh; position: relative; background: #03A9F4;"
->
+<div id="main-controller" style="min-height: 100vh; position: relative; background: #03A9F4;">
 	<style>
 		#logo {
 			flex-shrink: 18;
@@ -32,6 +29,8 @@
 		.banner.ad.ui a {
 			color: #fff;
 			text-decoration: none;
+			display: block;
+			height: 100%;
 		}
 
 		.banner.ad.ui .bkg {
@@ -66,45 +65,23 @@
 
 	<div class="ui tall stacked segment dashboard-actions" style="margin-top: 0;">
 		<div class="grid-container">
-			<div class="mobile-grid-45 grid-10 prefix-5">
-				<verify-account></verify-account>
-			</div>
+			<div class="mobile-grid-45 grid-10 prefix-5"><verify-account></verify-account></div>
 
 			<div class="mobile-grid-55 grid-20 prefix-5">
 				<div class="ui labeled  button" tabindex="-1">
-					<div class="ui purple button right pointing label">
-						Total Earnings
-					</div>
+					<div class="ui purple button right pointing label">Total Earnings</div>
 					<a class="ui basic purple label"> {{ total_earnings | currency }} </a>
 				</div>
 			</div>
-			<div
-				class="hide-on-desktop hide-on-tablet"
-				style="margin-top:5px; clear:both;"
-			></div>
-			<div class="mobile-grid-35 grid-15 ">
-				<make-withdrawal></make-withdrawal>
-			</div>
+			<div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
+			<div class="mobile-grid-35 grid-15 "><make-withdrawal></make-withdrawal></div>
 			<div class="mobile-grid-65 grid-20">
-				<button
-					class="ui compact right floated violet button"
-					ng-click="transferEarnings()"
-				>
-					<i class="icon credit card amazon pay"></i> Transfer Earnings
-				</button>
+				<button class="ui compact right floated violet button" ng-click="transferEarnings()"><i class="icon credit card amazon pay"></i> Transfer Earnings</button>
 			</div>
-			<div
-				class="hide-on-desktop hide-on-tablet"
-				style="margin-top:5px; clear:both;"
-			></div>
+			<div class="hide-on-desktop hide-on-tablet" style="margin-top:5px; clear:both;"></div>
 
 			<div class="mobile-grid-50 grid-15">
-				<a
-					class="ui vertical blue compact button right floated"
-					href="/dashboard/fund-wallet"
-				>
-					<i class="icon credit card amazon pay"></i> Fund Wallet
-				</a>
+				<a class="ui vertical blue compact button right floated" href="/dashboard/fund-wallet"> <i class="icon credit card amazon pay"></i> Fund Wallet </a>
 			</div>
 		</div>
 	</div>
@@ -124,9 +101,7 @@
 	<footer ng-include src="'angular/views/partials/footer.html'"></footer>
 	<div class="ui tiny modal" id="notice" ng-if="userdetails.messages">
 		<div class="header">{{ userdetails.messages.subject }}</div>
-		<div class="header" style="border-bottom: none; padding-bottom: 0;">
-			Hello {{ userdetails.firstname }},
-		</div>
+		<div class="header" style="border-bottom: none; padding-bottom: 0;">Hello {{ userdetails.firstname }},</div>
 		<div class="image content" id="logo">
 			<div class="image"><img src="/img/logo.png" alt="" /></div>
 			<div class="description">{{ userdetails.messages.message }}</div>
@@ -136,9 +111,7 @@
 			Your buddies at FastPlay24
 		</h5>
 		<div class="actions">
-			<div class="ui red basic cancel button">
-				<i class="remove icon"></i>Close
-			</div>
+			<div class="ui red basic cancel button"><i class="remove icon"></i>Close</div>
 		</div>
 	</div>
 </div>
