@@ -33,7 +33,7 @@
 	.banner.ad.ui {
 		margin-top: -20px;
 		margin-bottom: 20px;
-		background-image: url('{{ env("ADS_IMAGE_MOBILE") }}');
+		background-image: url('{{ env("ADS_IMAGE_DESKTOP") }}');
 		background-position: center;
 		height: 100px;
 		width: 500px;
@@ -46,6 +46,8 @@
 	.banner.ad.ui a {
 		color: #fff;
 		text-decoration: none;
+		display: block;
+		height: 100%;
 	}
 
 	.banner.ad.ui .bkg {
@@ -244,7 +246,8 @@
 @else
 <section id="mid">
 	<div class="ui centered banner ad">
-		<div class="bkg"></div>
+		@if(env('ADS_BACKGROUND'))
+		<div class="bkg"></div>@endif
 		<a href="{{ env('ADS_LINK') }}" target="_blank">
 					@if (Agent::isMobile()) {!! env('ADS_TEXT_MOBILE') !!} @else {!! env('ADS_TEXT_DESKTOP') !!} @endif
 				</a>
