@@ -69,7 +69,7 @@ var url = `
               <td>{{ trans.created_at | timeAgo }}</td>
             </tr>
           </tbody>
-          <serv-side-nav url="'/api/get-all-transactions'" style="display:table-footer-group;"></serv-side-nav>
+          <serv-side-nav url="getUsersUrl" style="display:table-footer-group;" ng-if="getUsers"></serv-side-nav>
         </table>
         <div ng-show="loading" class="animate fade">
           <div class="ui segment"  style="min-height: 300px;">
@@ -195,9 +195,11 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
     link: (scope, element, attributes) => {
 
 		},
-    controller: ['$scope',  ($scope) => {
+    controller: ['$scope', '$timeout',  ($scope, $timeout) => {
 
-      $scope.transactionrecord = false;
+			$scope.transactionrecord = false;
+			$scope.getUsers = true;
+			$scope.getUsersUrl = '/api/get-all-transactions';
 
       $scope.markAsPaid = (transaction) => {
         $scope.loading = true;
@@ -213,22 +215,36 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
       };
 
       $scope.performDatabaseSearch = () => {
-        $scope.searching = true;
-        NProgress.start();
-        sendRequest.postRequest(route_root + '/api/database-search/transaction', 'pending')
-        .then(rsp => {
-          console.log(rsp);
-          $scope.data = rsp.data.details.data;
-          $scope.first_page_url = rsp.data.details.first_page_url;
-          $scope.last_page_url = rsp.data.details.last_page_url;
-          $scope.prev_page_url = rsp.data.details.prev_page_url;
-          $scope.next_page_url = rsp.data.details.next_page_url;
-          $scope.current_page = rsp.data.details.current_page;
-          $scope.total = rsp.data.details.total;
-          $scope.extras = rsp.data.extras;
-          $scope.searching = false;
-          NProgress.done();
-        });
+
+				$scope.searching = true
+				$scope.getUsers = false;
+				console.log($scope.getUsersUrl);
+
+					$scope.getUsersUrl = '/api/database-search/transaction?details=pending';
+					$timeout(() => {
+						$scope.getUsers = true;
+					}, 500);
+
+					console.log($scope.getUsersUrl);
+
+
+
+        // $scope.searching = true;
+        // NProgress.start();
+        // sendRequest.postRequest(route_root + '/api/database-search/transaction', 'pending')
+        // .then(rsp => {
+        //   console.log(rsp);
+        //   $scope.data = rsp.data.details.data;
+        //   $scope.first_page_url = rsp.data.details.first_page_url;
+        //   $scope.last_page_url = rsp.data.details.last_page_url;
+        //   $scope.prev_page_url = rsp.data.details.prev_page_url;
+        //   $scope.next_page_url = rsp.data.details.next_page_url;
+        //   $scope.current_page = rsp.data.details.current_page;
+        //   $scope.total = rsp.data.details.total;
+        //   $scope.extras = rsp.data.extras;
+        //   $scope.searching = false;
+        //   NProgress.done();
+        // });
       };
 
 

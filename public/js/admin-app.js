@@ -748,442 +748,451 @@ __webpack_require__("./resources/assets/js/angular/controllers/admin-controller.
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {admin.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  $scope.flipLeft = function () {
-    $('.shape').shape('flip left');
-  };
+	$scope.flipLeft = function () {
+		$('.shape').shape('flip left');
+	};
 
-  $scope.flipRight = function () {
-    $('.shape').shape('flip right');
-  };
+	$scope.flipRight = function () {
+		$('.shape').shape('flip right');
+	};
 
-  bootstrapAdminPage.dashboard($scope);
+	bootstrapAdminPage.dashboard($scope);
 }]);
 
 admin.controller('QuestionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  $scope.previewQuestion = function (q) {
-    $scope.particular_q = q.question;
-    $scope.particular_q_option1 = q.option_1;
-    $scope.particular_q_option2 = q.option_2;
-    $scope.particular_q_option3 = q.option_3;
-    $scope.particular_q_option4 = q.option_4;
-    $scope.particular_q_correct = q.correct_option;
+	$scope.previewQuestion = function (q) {
+		$scope.particular_q = q.question;
+		$scope.particular_q_option1 = q.option_1;
+		$scope.particular_q_option2 = q.option_2;
+		$scope.particular_q_option3 = q.option_3;
+		$scope.particular_q_option4 = q.option_4;
+		$scope.particular_q_correct = q.correct_option;
 
-    $('.ui.modal.showQuestion').modal({
-      blurring: true
-    }).modal('show');
-  };
+		$('.ui.modal.showQuestion').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.openModal = function (q) {
-    $scope.q = q;
+	$scope.openModal = function (q) {
+		$scope.q = q;
 
-    $('.ui.modal.editQuestion').modal({
-      blurring: true
-    }).modal('show');
-  };
+		$('.ui.modal.editQuestion').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.editQuestion = function () {
-    NProgress.start();
-    $scope.creating = true;
+	$scope.editQuestion = function () {
+		NProgress.start();
+		$scope.creating = true;
 
-    sendRequest.postRequest(route_root + '/api/edit-question', $scope.q).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.warning('Edited');
-        $scope.correct = null;
-        $scope.q = null;
-        $('.ui.modal.editQuestion').modal('hide');
-        $scope.creating = false;
-        NProgress.done();
-      }
-    });
-  };
+		sendRequest.postRequest(route_root + '/api/edit-question', $scope.q).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.warning('Edited');
+				$scope.correct = null;
+				$scope.q = null;
+				$('.ui.modal.editQuestion').modal('hide');
+				$scope.creating = false;
+				NProgress.done();
+			}
+		});
+	};
 
-  $scope.newQuestion = function () {
-    $('.ui.modal.createQuestion').modal({
-      blurring: true
-    }).modal('show');
-  };
+	$scope.newQuestion = function () {
+		$('.ui.modal.createQuestion').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.createQuestion = function () {
-    NProgress.start();
-    $scope.creating = true;
+	$scope.createQuestion = function () {
+		NProgress.start();
+		$scope.creating = true;
 
-    sendRequest.postRequest(route_root + '/api/create-question', $scope.q).then(function (rsp) {
-      if (rsp.status == 200) {
-        $('.ui.modal.createQuestion').modal('hide');
-        Notification.success('Created');
-        $scope.correct = null;
-        $scope.q = null;
-        console.log($scope.questions);
-        console.log(rsp.data.status);
-        $scope.questions.push(rsp.data.status);
-        NProgress.done();
-      } else if (rsp.status == 422) {
-        $scope.errs = rsp.data.errors;
-      }
-      $scope.creating = false;
-    });
-  };
+		sendRequest.postRequest(route_root + '/api/create-question', $scope.q).then(function (rsp) {
+			if (rsp.status == 200) {
+				$('.ui.modal.createQuestion').modal('hide');
+				Notification.success('Created');
+				$scope.correct = null;
+				$scope.q = null;
+				console.log($scope.questions);
+				console.log(rsp.data.status);
+				$scope.questions.push(rsp.data.status);
+				NProgress.done();
+			} else if (rsp.status == 422) {
+				$scope.errs = rsp.data.errors;
+			}
+			$scope.creating = false;
+		});
+	};
 
-  $scope.deleteQuestion = function (q) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/delete-question', q).then(function (rsp) {
-      console.log(rsp);
-      if (rsp.status == 200) {
-        Notification.error('Deleted');
-        $scope.correct = null;
-        $('.ui.modal.editQuestion').modal('hide');
-        var removed = $scope.questions.indexOf(q);
-        $scope.questions.splice(removed, 1);
-        NProgress.done();
-      }
-    });
-  };
+	$scope.deleteQuestion = function (q) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/delete-question', q).then(function (rsp) {
+			console.log(rsp);
+			if (rsp.status == 200) {
+				Notification.error('Deleted');
+				$scope.correct = null;
+				$('.ui.modal.editQuestion').modal('hide');
+				var removed = $scope.questions.indexOf(q);
+				$scope.questions.splice(removed, 1);
+				NProgress.done();
+			}
+		});
+	};
 
-  bootstrapAdminPage.questions($scope);
+	bootstrapAdminPage.questions($scope);
 }]);
 
 admin.controller('AdminsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  $scope.previewAdmin = function (q) {
-    $scope.particular_q = q.admin;
-    $scope.particular_q_option1 = q.option_1;
-    $scope.particular_q_option2 = q.option_2;
-    $scope.particular_q_option3 = q.option_3;
-    $scope.particular_q_option4 = q.option_4;
-    $scope.particular_q_correct = q.correct_option;
+	$scope.previewAdmin = function (q) {
+		$scope.particular_q = q.admin;
+		$scope.particular_q_option1 = q.option_1;
+		$scope.particular_q_option2 = q.option_2;
+		$scope.particular_q_option3 = q.option_3;
+		$scope.particular_q_option4 = q.option_4;
+		$scope.particular_q_correct = q.correct_option;
 
-    $('.ui.modal.showAdmin').modal({
-      blurring: true
-    }).modal('show');
-  };
+		$('.ui.modal.showAdmin').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.openModal = function (q) {
-    $scope.q = q;
+	$scope.openModal = function (q) {
+		$scope.q = q;
 
-    $('.ui.modal.editAdmin').modal({
-      blurring: true
-    }).modal('show');
-  };
+		$('.ui.modal.editAdmin').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.editAdmin = function () {
-    NProgress.start();
+	$scope.editAdmin = function () {
+		NProgress.start();
 
-    sendRequest.postRequest(route_root + '/api/edit-admin', $scope.q).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.warning('Edited');
-        $scope.correct = null;
-        $scope.q = null;
-        $('.ui.modal.editAdmin').modal('hide');
-        NProgress.done();
-      }
-    });
-  };
+		sendRequest.postRequest(route_root + '/api/edit-admin', $scope.q).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.warning('Edited');
+				$scope.correct = null;
+				$scope.q = null;
+				$('.ui.modal.editAdmin').modal('hide');
+				NProgress.done();
+			}
+		});
+	};
 
-  $scope.newAdmin = function () {
-    $('.ui.modal.createAdmin').modal({
-      blurring: true
-    }).modal('show');
-  };
+	$scope.newAdmin = function () {
+		$('.ui.modal.createAdmin').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  //
-  // $scope.createAdmin = () => {
-  //   NProgress.start();
-  //
-  //   sendRequest.postRequest(route_root + '/api/create-admin', $scope.q)
-  //               .then(rsp => {
-  //                 if (rsp.status == 200) {
-  //                   $('.ui.modal.createAdmin').modal('hide');
-  //                   Notification.success('Created');
-  //                   $scope.correct = null;
-  //                   $scope.q = null;
-  //                   console.log($scope.admins);
-  //                   console.log(rsp.data.status);
-  //                   $scope.admins.push(rsp.data.status);
-  //                   NProgress.done();
-  //
-  //                 }
-  //               });
-  // };
+	//
+	// $scope.createAdmin = () => {
+	//   NProgress.start();
+	//
+	//   sendRequest.postRequest(route_root + '/api/create-admin', $scope.q)
+	//               .then(rsp => {
+	//                 if (rsp.status == 200) {
+	//                   $('.ui.modal.createAdmin').modal('hide');
+	//                   Notification.success('Created');
+	//                   $scope.correct = null;
+	//                   $scope.q = null;
+	//                   console.log($scope.admins);
+	//                   console.log(rsp.data.status);
+	//                   $scope.admins.push(rsp.data.status);
+	//                   NProgress.done();
+	//
+	//                 }
+	//               });
+	// };
 
-  $scope.deleteAdmin = function (q) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/delete-admin', q).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.warning('Deleted');
-        var removed = $scope.admins.indexOf(q);
-        $scope.admins.splice(removed, 1);
-      } else if (rsp.status == 410) {
-        Notification.error(rsp.data.message);
-      }
-      NProgress.done();
-    });
-  };
+	$scope.deleteAdmin = function (q) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/delete-admin', q).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.warning('Deleted');
+				var removed = $scope.admins.indexOf(q);
+				$scope.admins.splice(removed, 1);
+			} else if (rsp.status == 410) {
+				Notification.error(rsp.data.message);
+			}
+			NProgress.done();
+		});
+	};
 
-  $scope.removeAdmin = function (q) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/remove-admin', q).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.success('Removed');
-        var removed = $scope.admins.indexOf(q);
-        $scope.admins.splice(removed, 1);
-      } else if (rsp.status == 410) {
-        Notification.error(rsp.data.message);
-      }
-      NProgress.done();
-    });
-  };
+	$scope.removeAdmin = function (q) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/remove-admin', q).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.success('Removed');
+				var removed = $scope.admins.indexOf(q);
+				$scope.admins.splice(removed, 1);
+			} else if (rsp.status == 410) {
+				Notification.error(rsp.data.message);
+			}
+			NProgress.done();
+		});
+	};
 
-  bootstrapAdminPage.admins($scope);
+	bootstrapAdminPage.admins($scope);
 }]);
 
-admin.controller('UsersController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
-  $scope.loading = true;
+admin.controller('UsersController', ['$scope', '$timeout', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, $timeout, Notification, sendRequest, bootstrapAdminPage) {
+	NProgress.start();
+	$scope.loading = true;
+	$scope.getUsersUrl = '/api/get-users-page-details';
+	$scope.getUsers = true;
 
-  $scope.previewUser = function (u) {
-    $scope.details = u;
+	$scope.previewUser = function (u) {
+		$scope.details = u;
 
-    $('.ui.modal.showUser').modal({
-      blurring: true
-    }).modal('show');
-  };
+		$('.ui.modal.showUser').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.creditUser = function (u) {
-    $scope.u = u;
-    $('.ui.modal.creditUser').modal({
-      blurring: true
-    }).modal('show');
-  };
+	$scope.creditUser = function (u) {
+		$scope.u = u;
+		$('.ui.modal.creditUser').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.openEditModal = function (u) {
-    $scope.u = u;
+	$scope.openEditModal = function (u) {
+		$scope.u = u;
 
-    $('.ui.modal.editUser').modal({
-      blurring: true
-    }).modal('show');
-  };
+		$('.ui.modal.editUser').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.editUser = function () {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/edit-user', $scope.u).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.warning('Edited');
-        $scope.correct = null;
-        $scope.u = null;
-        $('.ui.modal.editUser').modal('hide');
-        NProgress.done();
-      }
-    });
-  };
+	$scope.editUser = function () {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/edit-user', $scope.u).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.warning('Edited');
+				$scope.correct = null;
+				$scope.u = null;
+				$('.ui.modal.editUser').modal('hide');
+				NProgress.done();
+			}
+		});
+	};
 
-  $scope.newUser = function () {
-    $('.ui.modal.createUser').modal({
-      blurring: true
-    }).modal('show');
-  };
+	$scope.newUser = function () {
+		$('.ui.modal.createUser').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-  $scope.openReferralsModal = function (u) {
+	$scope.openReferralsModal = function (u) {
+		sendRequest.postRequest(route_root + '/api/get-user-referrals', u.id).then(function (rsp) {
+			if (rsp.status == 200) {
+				$scope.u = u;
+				$scope.referrals = rsp.data.referrals;
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+		});
 
-    sendRequest.postRequest(route_root + '/api/get-user-referrals', u.id).then(function (rsp) {
-      if (rsp.status == 200) {
-        $scope.u = u;
-        $scope.referrals = rsp.data.referrals;
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-    });
+		$('.ui.modal.userReferrals').modal({
+			blurring: true
+		}).modal('show');
+	};
 
-    $('.ui.modal.userReferrals').modal({
-      blurring: true
-    }).modal('show');
-  };
+	$scope.deleteUser = function (u) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/delete-user', u).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.warning('Deleted');
+				var removed = $scope.users.indexOf(u);
+				$scope.users.splice(removed, 1);
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+		});
+	};
 
-  $scope.deleteUser = function (u) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/delete-user', u).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.warning('Deleted');
-        var removed = $scope.users.indexOf(u);
-        $scope.users.splice(removed, 1);
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-    });
-  };
+	$scope.suspendUser = function (u) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/suspend-user', u).then(function (rsp) {
+			console.log(rsp);
+			if (rsp.status == 200) {
+				Notification.warning('Suspended');
+				u.useraccstatus = 'suspended';
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+		});
+	};
 
-  $scope.suspendUser = function (u) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/suspend-user', u).then(function (rsp) {
-      console.log(rsp);
-      if (rsp.status == 200) {
-        Notification.warning('Suspended');
-        u.useraccstatus = 'suspended';
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-    });
-  };
+	$scope.activateUser = function (u) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/activate-user', u).then(function (rsp) {
+			console.log(rsp);
+			if (rsp.status == 200) {
+				Notification.primary('Activated');
+				u.useraccstatus = 'active';
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+		});
+	};
 
-  $scope.activateUser = function (u) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/activate-user', u).then(function (rsp) {
-      console.log(rsp);
-      if (rsp.status == 200) {
-        Notification.primary('Activated');
-        u.useraccstatus = 'active';
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-    });
-  };
+	$scope.verifyUser = function (u) {
+		$scope.verifying = true;
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/verify-user', u).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.success('Verified');
+				u.verified = true;
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+			$scope.verifying = false;
+		});
+	};
 
-  $scope.verifyUser = function (u) {
-    $scope.verifying = true;
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/verify-user', u).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.success('Verified');
-        u.verified = true;
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-      $scope.verifying = false;
-    });
-  };
+	$scope.verifyAllUsers = function () {
+		$scope.verifying = true;
+		NProgress.start();
+		sendRequest.putRequest(route_root + '/api/verify-all-users').then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.success(rsp.data.status + ' users verified');
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+			$scope.verifying = false;
+		});
+	};
 
-  $scope.verifyAllUsers = function () {
-    $scope.verifying = true;
-    NProgress.start();
-    sendRequest.putRequest(route_root + '/api/verify-all-users').then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.success(rsp.data.status + ' users verified');
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-      $scope.verifying = false;
-    });
-  };
+	$scope.processCreditAddition = function (u) {
+		$scope.loading = true;
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/create-transaction', u).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification.success('Completed');
+				$('.ui.modal.creditUser').modal('hide');
+				u.units = null;
+			} else if (rsp.status == 403) {
+				Notification.error(rsp.data.status);
+			}
+			NProgress.done();
+			$scope.loading = false;
+		});
+	};
 
-  $scope.processCreditAddition = function (u) {
-    $scope.loading = true;
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/create-transaction', u).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification.success('Completed');
-        $('.ui.modal.creditUser').modal('hide');
-        u.units = null;
-      } else if (rsp.status == 403) {
-        Notification.error(rsp.data.status);
-      }
-      NProgress.done();
-      $scope.loading = false;
-    });
-  };
+	$scope.makeAdmin = function (u) {
+		NProgress.start();
+		sendRequest.postRequest(route_root + '/api/create-admin', u).then(function (rsp) {
+			if (rsp.status == 200) {
+				Notification('User made an admin');
+				var removed = $scope.users.indexOf(u);
+				$scope.users.splice(removed, 1);
+			} else if (rsp.status == 410) {
+				Notification.error(rsp.data.message);
+			}
+			NProgress.done();
+		});
+	};
 
-  $scope.makeAdmin = function (u) {
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/create-admin', u).then(function (rsp) {
-      if (rsp.status == 200) {
-        Notification('User made an admin');
-        var removed = $scope.users.indexOf(u);
-        $scope.users.splice(removed, 1);
-      } else if (rsp.status == 410) {
-        Notification.error(rsp.data.message);
-      }
-      NProgress.done();
-    });
-  };
+	$scope.performDatabaseSearch = function (u) {
+		$scope.searching = true;
+		$scope.getUsers = false;
+		$scope.getUsersUrl = '/api/database-search/user?details=' + $scope.searchPhrase;
+		$timeout(function () {
+			$scope.getUsers = true;
+		}, 500);
 
-  $scope.performDatabaseSearch = function (u) {
-    $scope.searching = true;
-    NProgress.start();
-    sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase).then(function (rsp) {
-      $scope.data = rsp.data.details.data;
-      $scope.first_page_url = rsp.data.details.first_page_url;
-      $scope.last_page_url = rsp.data.details.last_page_url;
-      $scope.prev_page_url = rsp.data.details.prev_page_url;
-      $scope.next_page_url = rsp.data.details.next_page_url;
-      $scope.current_page = rsp.data.details.current_page;
-      $scope.total = rsp.data.details.total;
-      $scope.extras = rsp.data.extras;
-      $scope.searching = false;
-      NProgress.done();
-    });
-  };
+		// NProgress.start()
+		// sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase).then(rsp => {
+		// 	console.log(rsp.data.details.total)
 
-  bootstrapAdminPage.users($scope);
+		// 	$scope.data = rsp.data.details.data
+		// 	$scope.first_page_url = rsp.data.details.first_page_url
+		// 	$scope.last_page_url = rsp.data.details.last_page_url
+		// 	$scope.prev_page_url = rsp.data.details.prev_page_url
+		// 	$scope.next_page_url = rsp.data.details.next_page_url
+		// 	$scope.current_page = rsp.data.details.current_page
+		// 	$scope.total = rsp.data.details.total
+		// 	$scope.extras = rsp.data.extras
+		// 	$scope.searching = false
+		// 	NProgress.done()
+		// })
+	};
+
+	bootstrapAdminPage.users($scope);
 }]);
 
 admin.controller('GamesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  $scope.active = 'liveSession';
+	$scope.active = 'liveSession';
 
-  bootstrapAdminPage.games($scope);
+	bootstrapAdminPage.games($scope);
 }]);
 
 admin.controller('TransactionsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  bootstrapAdminPage.transactions($scope);
+	bootstrapAdminPage.transactions($scope);
 }]);
 
 admin.controller('MessagesController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  bootstrapAdminPage.messages($scope);
+	bootstrapAdminPage.messages($scope);
 }]);
 
 admin.controller('EarningsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  $scope.active = 'allEarnings';
+	$scope.active = 'allEarnings';
 
-  bootstrapAdminPage.games($scope);
+	bootstrapAdminPage.games($scope);
 }]);
 
 admin.controller('SettingsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
-  NProgress.start();
+	NProgress.start();
 
-  $scope.updateDetails = function () {
-    $scope.loading = true;
-    sendRequest.postRequest('/user/update-user-details', $scope.userdetails).then(function (rsp) {
-      Notification.success({ message: 'Updated', positionX: 'center' });
-      $scope.loading = null;
-    });
-  };
+	$scope.updateDetails = function () {
+		$scope.loading = true;
+		sendRequest.postRequest('/user/update-user-details', $scope.userdetails).then(function (rsp) {
+			Notification.success({ message: 'Updated', positionX: 'center' });
+			$scope.loading = null;
+		});
+	};
 
-  $scope.updatePassword = function () {
-    if (!$scope.userdetails.old_password || !$scope.userdetails.password) {
-      Notification.error('Old and new password required');
-      return;
-    }
-    sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password).then(function (rsp) {
-      if (rsp.status == 423) {
-        Notification.error('Old password mismatch');
-      } else if (rsp.status == 200) {
-        if (rsp.data.status) {
-          console.log('here');
-          $scope.updateDetails();
-        }
-      }
-    });
-  };
+	$scope.updatePassword = function () {
+		if (!$scope.userdetails.old_password || !$scope.userdetails.password) {
+			Notification.error('Old and new password required');
+			return;
+		}
+		sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password).then(function (rsp) {
+			if (rsp.status == 423) {
+				Notification.error('Old password mismatch');
+			} else if (rsp.status == 200) {
+				if (rsp.data.status) {
+					console.log('here');
+					$scope.updateDetails();
+				}
+			}
+		});
+	};
 
-  bootstrapAdminPage.settings($scope);
+	bootstrapAdminPage.settings($scope);
 
-  NProgress.done();
+	NProgress.done();
 }]);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
@@ -2061,35 +2070,6 @@ angular.module('sendMessage', []).directive('sendMessage', ['Notification', 'sen
 /***/ "./resources/assets/js/angular/directives/servSideNav.js":
 /***/ (function(module, exports) {
 
-// This directive just repeats the category input fields and creates an empty isolate scope so that the model does not conflict on the parent scope
-
-// EXAMPLE uploadPostImage
-// <custom-file-upload dest="'u32/'" mdl="post.postImage" attr="postImage" altText="Post Image Upload"></custom-file-upload>
-
-// EXAMPLE templateUrl
-// <div class="form-group">
-//   <div class="col-sm-8">
-//     <div class="input-group">
-//       <custom-file-upload dest="'ShowCase/'" mdl="old.advertImage" attr="advertImage"></custom-file-upload>
-//       <span class="input-group-addon">
-//         <img ng-src="{{old.advertimg}}" alt="Advert Image" style="max-width:100px;">
-//       </span>
-//     </div>
-//   </div>
-//   <div class="col-sm-4">
-//     <div class="input-group">
-//       <input id="advertname" type="text" class="form-control" name="advertname" ng-model="old.advertname" placeholder="Name" ng-readonly="true">
-//       <span class="input-group-btn">
-//         <a ng-click="updateAdvert()" class="btn btn-success" ng-disabled="!old.advertImage">Update</a>
-//         <a ng-click="deleteAdvert()" class="btn btn-danger" ng-if="sidebar">Delete</a>
-//       </span>
-//     </div>
-//   </div>
-//   <div class="clearfix"></div>
-//   <br>
-//   <div class="divider-dashed"></div>
-// </div>
-
 
 var url = '\n<tfoot>\n  <style>\n    tfoot{\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n  </style>\n  {{ extras }}\n  <tr>\n    <th colspan="3">\n      <div class="ui right floated pagination menu">\n        <a class="icon item" ng-click="reveal(first_page_url)" ng-disabled="!first_page_url">\n          <i class="left chevron icon"></i>\n          <i class="left chevron icon"></i>\n          &nbsp;&nbsp;&nbsp; First Page\n        </a>\n        <a class="icon item" ng-click="reveal(prev_page_url)" ng-disabled="!prev_page_url">\n          <i class="left chevron icon"></i>\n          &nbsp;&nbsp;&nbsp; Previous Page\n        </a>\n        <a class="item">Current Page: {{ current_page }} of {{ last_page }}</a>\n        <a class="icon item"  ng-click="reveal(next_page_url)" ng-disabled="!next_page_url">\n          Next Page &nbsp;&nbsp;&nbsp;\n          <i class="right chevron icon"></i>\n        </a>\n        <a class="icon item"  ng-click="reveal(last_page_url)" ng-disabled="!last_page_url">\n          Last Page &nbsp;&nbsp;&nbsp;\n          <i class="right chevron icon"></i>\n          <i class="right chevron icon"></i>\n        </a>\n      </div>\n    </th>\n  </tr>\n</tfoot>\n';
 
@@ -2104,19 +2084,21 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
     replace: true,
     controller: ['$scope', function (scope) {
       NProgress.start();
-      scope.$parent.loading = true;
+      scope.$parent.$parent.loading = true;
 
       sendRequest.request(route_root + scope.url).then(function (rsp) {
-        scope.$parent.data = rsp.details.data;
+        scope.$parent.$parent.data = rsp.details.data;
         scope.first_page_url = rsp.details.first_page_url;
         scope.last_page_url = rsp.details.last_page_url;
         scope.prev_page_url = rsp.details.prev_page_url;
         scope.next_page_url = rsp.details.next_page_url;
         scope.current_page = rsp.details.current_page;
         scope.last_page = rsp.details.last_page;
-        scope.$parent.total = rsp.details.total;
-        scope.$parent.extras = rsp.extras;
-        scope.$parent.loading = false;
+        scope.$parent.$parent.total = rsp.details.total;
+        scope.$parent.$parent.extras = rsp.extras;
+        scope.$parent.$parent.loading = false;
+        scope.$parent.$parent.searching = false;
+
         NProgress.done();
       }, function (err) {
         Notification.error('Error retrieving data from server');
@@ -2125,18 +2107,19 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
       // Make a request to the server using the url provided from Laravel's paginate method
       scope.reveal = function (url) {
         NProgress.start();
-        scope.$parent.loading = true;
+        scope.$parent.$parent.loading = true;
 
         sendRequest.request(url).then(function (rsp) {
-          scope.$parent.data = rsp.details.data;
+          scope.$parent.$parent.data = rsp.details.data;
           scope.first_page_url = rsp.details.first_page_url;
           scope.last_page_url = rsp.details.last_page_url;
           scope.prev_page_url = rsp.details.prev_page_url;
           scope.next_page_url = rsp.details.next_page_url;
           scope.current_page = rsp.details.current_page;
-          scope.$parent.total = rsp.details.total;
-          scope.$parent.extras = rsp.extras;
-          scope.$parent.loading = false;
+          scope.$parent.$parent.total = rsp.details.total;
+          scope.$parent.$parent.extras = rsp.extras;
+          scope.$parent.$parent.loading = false;
+          scope.$parent.$parent.searching = false;
           NProgress.done();
         });
       };
@@ -2236,7 +2219,7 @@ angular.module('viewAllGames', []).directive('viewAllGames', ['sendRequest', fun
 /***/ "./resources/assets/js/angular/directives/viewAllTransactions.js":
 /***/ (function(module, exports) {
 
-var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Transactions\n            </div>\n          </div>\n      </div>\n      <br>\n      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">\n        <button ng-class="[\'ui green button\', {\'loading\':searching}]" ng-click="performDatabaseSearch(searchPhrase)">View All Pending Cashouts</button>\n        <div class="ui icon input">\n          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">\n          <i class="search icon"></i>\n        </div>\n      </div>\n\n\n      <div ng-show="!transactionrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Type</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Charges</th>\n              <th>Channel</th>\n              <th>Status</th>\n              <th>Request Date</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat="trans in data | filter : search" ng-class="[\'animate translate-in\', {\'negative\' : trans.trans_type == \'Admin Correction\'}]" ng-show="!loading">\n              <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }} {{ trans.ref_no[\'agent\'] ? \'by \' + trans.ref_no[\'agent\'][\'firstname\'] : null }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>\n              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>\n              <td ng-if="trans.amount < 0">\u20A6{{ trans.amount }}.00</td>\n              <td>{{ trans.charges | currency }}</td>\n              <td>{{ trans.channel }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status == \'pending\'">\n                  <div ng-class="[\'ui mini red button\', {\'loading\':loading}]" ng-click="markAsPaid(trans)">\n                    <i class="tags icon"></i> Mark as Paid\n                  </div>\n                  <a class="ui basic red left pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status != \'pending\'">\n                  <div class="ui mini basic blue button">\n                    <i class="thumbs up outline icon"></i>\n                  </div>\n                  <a class="ui basic left pointing blue label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== \'withdrawal\'">\n                  <a class="ui basic pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n              </td>\n              <td>{{ trans.created_at | timeAgo }}</td>\n            </tr>\n          </tbody>\n          <serv-side-nav url="\'/api/get-all-transactions\'" style="display:table-footer-group;"></serv-side-nav>\n        </table>\n        <div ng-show="loading" class="animate fade">\n          <div class="ui segment"  style="min-height: 300px;">\n            <div class="ui active inverted dimmer">\n              <div class="ui text loader">Loading</div>\n            </div>\n            <p></p>\n          </div>\n        </div>\n      </div>\n\n      <div ng-show="transactionrecord" class="grid-80 prefix-10">\n\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>Detail</th>\n              <th>Value</th>\n\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr>\n              <td>User Name</td>\n              <td>{{ trans_record.user.firstname }} {{ trans_record.user.lastname }} </td>\n            </tr>\n\n            <tr>\n              <td>Email</td>\n              <td>{{ trans_record.user.email }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Number</td>\n              <td>{{ trans_record.user.phone1 }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Network</td>\n              <td>{{ trans_record.user.network | uppercase }} </td>\n            </tr>\n\n            <tr>\n              <td>Bank</td>\n              <td>{{ trans_record.user.bank }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Number</td>\n              <td>{{ trans_record.user.acct_no }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Type</td>\n              <td>{{ trans_record.user.acct_type }} </td>\n            </tr>\n\n            <tr>\n              <td>Requested Amount</td>\n              <td>{{ trans_record.amount | currency }} </td>\n            </tr>\n\n            <tr>\n              <td>Request Type</td>\n              <td>\n                <span ng-if="trans_record.amount > 929 "> Cash </span>\n                <span ng-if="trans_record.amount <= 929 "> Recharge Card </span>\n              </td>\n            </tr>\n\n            <tr>\n              <td>Balance Units</td>\n              <td>{{ trans_record.user.available_units | currency }} </td>\n            </tr>\n\n            <tr>\n              <td>Total Purchsaed Units</td>\n              <td>{{ trans_record.user.units_purchased | currency }} </td>\n            </tr>\n\n            <tr>\n              <td>Twitter</td>\n              <td> <a ng-href="{{ \'https://\' + trans_record.user.twitter }}" target="_blank">{{ trans_record.user.twitter }}</a> </td>\n            </tr>\n\n            <tr>\n              <td>Telegram</td>\n              <td> <a ng-href="{{ trans_record.user.telegram }}">{{ trans_record.user.telegram }}</a> </td>\n            </tr>\n\n            <tr>\n              <td>Facebook</td>\n              <td> <a ng-href="{{ \'https://\' + trans_record.user.facebook }}" target="_blank">{{ trans_record.user.facebook }}</a> </td>\n            </tr>\n\n            <tr>\n              <td>Instagram</td>\n              <td> <a ng-href="{{ \'https://\' + trans_record.user.instagram }}" target="_blank">{{ trans_record.user.instagram }}</a> </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
+var url = '\n<section class="ui segment red"  id="content-context" style="max-height: 60vh; overflow: auto;">\n      <div class="ui segment compact left floated">\n        <div class="ui horizontal statistic">\n            <div class="value">\n              {{ total }}\n            </div>\n            <div class="label">\n              Transactions\n            </div>\n          </div>\n      </div>\n      <br>\n      <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">\n        <button ng-class="[\'ui green button\', {\'loading\':searching}]" ng-click="performDatabaseSearch(searchPhrase)">View All Pending Cashouts</button>\n        <div class="ui icon input">\n          <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">\n          <i class="search icon"></i>\n        </div>\n      </div>\n\n\n      <div ng-show="!transactionrecord">\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>S/N</th>\n              <th>Type</th>\n              <th>User</th>\n              <th>Amount</th>\n              <th>Charges</th>\n              <th>Channel</th>\n              <th>Status</th>\n              <th>Request Date</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat="trans in data | filter : search" ng-class="[\'animate translate-in\', {\'negative\' : trans.trans_type == \'Admin Correction\'}]" ng-show="!loading">\n              <td ng-click="viewTransactionRecord(trans)">{{ trans.id }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.trans_type }} {{ trans.ref_no[\'agent\'] ? \'by \' + trans.ref_no[\'agent\'][\'firstname\'] : null }}</td>\n              <td ng-click="viewTransactionRecord(trans)" title="click to view details">{{ trans.user.firstname }} {{ trans.user.lastname }}</td>\n              <td ng-if="trans.amount > 0">{{ trans.amount | currency }}</td>\n              <td ng-if="trans.amount < 0">\u20A6{{ trans.amount }}.00</td>\n              <td>{{ trans.charges | currency }}</td>\n              <td>{{ trans.channel }}</td>\n              <td>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status == \'pending\'">\n                  <div ng-class="[\'ui mini red button\', {\'loading\':loading}]" ng-click="markAsPaid(trans)">\n                    <i class="tags icon"></i> Mark as Paid\n                  </div>\n                  <a class="ui basic red left pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini labeled button" tabindex="-1" ng-if="trans.trans_type == \'withdrawal\' && trans.status != \'pending\'">\n                  <div class="ui mini basic blue button">\n                    <i class="thumbs up outline icon"></i>\n                  </div>\n                  <a class="ui basic left pointing blue label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n                <div class="ui mini left labeled button" tabindex="-1" ng-if="trans.trans_type !== \'withdrawal\'">\n                  <a class="ui basic pointing label">\n                    {{ trans.status }}\n                  </a>\n                </div>\n              </td>\n              <td>{{ trans.created_at | timeAgo }}</td>\n            </tr>\n          </tbody>\n          <serv-side-nav url="getUsersUrl" style="display:table-footer-group;" ng-if="getUsers"></serv-side-nav>\n        </table>\n        <div ng-show="loading" class="animate fade">\n          <div class="ui segment"  style="min-height: 300px;">\n            <div class="ui active inverted dimmer">\n              <div class="ui text loader">Loading</div>\n            </div>\n            <p></p>\n          </div>\n        </div>\n      </div>\n\n      <div ng-show="transactionrecord" class="grid-80 prefix-10">\n\n        <div class="ui teal buttons">\n          <button class="ui labeled icon button" ng-click="goBack()">\n            <i class="left chevron icon"></i>\n            Go Back\n          </button>\n        </div>\n        <table class="ui  striped celled table">\n          <thead>\n            <tr>\n              <th>Detail</th>\n              <th>Value</th>\n\n            </tr>\n          </thead>\n          <tbody>\n\n            <tr>\n              <td>User Name</td>\n              <td>{{ trans_record.user.firstname }} {{ trans_record.user.lastname }} </td>\n            </tr>\n\n            <tr>\n              <td>Email</td>\n              <td>{{ trans_record.user.email }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Number</td>\n              <td>{{ trans_record.user.phone1 }} </td>\n            </tr>\n\n            <tr>\n              <td>Phone Network</td>\n              <td>{{ trans_record.user.network | uppercase }} </td>\n            </tr>\n\n            <tr>\n              <td>Bank</td>\n              <td>{{ trans_record.user.bank }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Number</td>\n              <td>{{ trans_record.user.acct_no }} </td>\n            </tr>\n\n            <tr>\n              <td>Account Type</td>\n              <td>{{ trans_record.user.acct_type }} </td>\n            </tr>\n\n            <tr>\n              <td>Requested Amount</td>\n              <td>{{ trans_record.amount | currency }} </td>\n            </tr>\n\n            <tr>\n              <td>Request Type</td>\n              <td>\n                <span ng-if="trans_record.amount > 929 "> Cash </span>\n                <span ng-if="trans_record.amount <= 929 "> Recharge Card </span>\n              </td>\n            </tr>\n\n            <tr>\n              <td>Balance Units</td>\n              <td>{{ trans_record.user.available_units | currency }} </td>\n            </tr>\n\n            <tr>\n              <td>Total Purchsaed Units</td>\n              <td>{{ trans_record.user.units_purchased | currency }} </td>\n            </tr>\n\n            <tr>\n              <td>Twitter</td>\n              <td> <a ng-href="{{ \'https://\' + trans_record.user.twitter }}" target="_blank">{{ trans_record.user.twitter }}</a> </td>\n            </tr>\n\n            <tr>\n              <td>Telegram</td>\n              <td> <a ng-href="{{ trans_record.user.telegram }}">{{ trans_record.user.telegram }}</a> </td>\n            </tr>\n\n            <tr>\n              <td>Facebook</td>\n              <td> <a ng-href="{{ \'https://\' + trans_record.user.facebook }}" target="_blank">{{ trans_record.user.facebook }}</a> </td>\n            </tr>\n\n            <tr>\n              <td>Instagram</td>\n              <td> <a ng-href="{{ \'https://\' + trans_record.user.instagram }}" target="_blank">{{ trans_record.user.instagram }}</a> </td>\n            </tr>\n\n          </tbody>\n        </table>\n      </div>\n\n</section>\n\n';
 
 angular.module('displayTransactions', []).directive('displayTransactions', ['sendRequest', function (sendRequest) {
   return {
@@ -2245,9 +2228,11 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
     template: url,
     replace: true,
     link: function link(scope, element, attributes) {},
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$timeout', function ($scope, $timeout) {
 
       $scope.transactionrecord = false;
+      $scope.getUsers = true;
+      $scope.getUsersUrl = '/api/get-all-transactions';
 
       $scope.markAsPaid = function (transaction) {
         $scope.loading = true;
@@ -2261,21 +2246,34 @@ angular.module('displayTransactions', []).directive('displayTransactions', ['sen
       };
 
       $scope.performDatabaseSearch = function () {
+
         $scope.searching = true;
-        NProgress.start();
-        sendRequest.postRequest(route_root + '/api/database-search/transaction', 'pending').then(function (rsp) {
-          console.log(rsp);
-          $scope.data = rsp.data.details.data;
-          $scope.first_page_url = rsp.data.details.first_page_url;
-          $scope.last_page_url = rsp.data.details.last_page_url;
-          $scope.prev_page_url = rsp.data.details.prev_page_url;
-          $scope.next_page_url = rsp.data.details.next_page_url;
-          $scope.current_page = rsp.data.details.current_page;
-          $scope.total = rsp.data.details.total;
-          $scope.extras = rsp.data.extras;
-          $scope.searching = false;
-          NProgress.done();
-        });
+        $scope.getUsers = false;
+        console.log($scope.getUsersUrl);
+
+        $scope.getUsersUrl = '/api/database-search/transaction?details=pending';
+        $timeout(function () {
+          $scope.getUsers = true;
+        }, 500);
+
+        console.log($scope.getUsersUrl);
+
+        // $scope.searching = true;
+        // NProgress.start();
+        // sendRequest.postRequest(route_root + '/api/database-search/transaction', 'pending')
+        // .then(rsp => {
+        //   console.log(rsp);
+        //   $scope.data = rsp.data.details.data;
+        //   $scope.first_page_url = rsp.data.details.first_page_url;
+        //   $scope.last_page_url = rsp.data.details.last_page_url;
+        //   $scope.prev_page_url = rsp.data.details.prev_page_url;
+        //   $scope.next_page_url = rsp.data.details.next_page_url;
+        //   $scope.current_page = rsp.data.details.current_page;
+        //   $scope.total = rsp.data.details.total;
+        //   $scope.extras = rsp.data.extras;
+        //   $scope.searching = false;
+        //   NProgress.done();
+        // });
       };
 
       $scope.viewTransactionRecord = function (transaction) {

@@ -1,32 +1,3 @@
-// This directive just repeats the category input fields and creates an empty isolate scope so that the model does not conflict on the parent scope
-
-// EXAMPLE uploadPostImage
-// <custom-file-upload dest="'u32/'" mdl="post.postImage" attr="postImage" altText="Post Image Upload"></custom-file-upload>
-
-// EXAMPLE templateUrl
-// <div class="form-group">
-//   <div class="col-sm-8">
-//     <div class="input-group">
-//       <custom-file-upload dest="'ShowCase/'" mdl="old.advertImage" attr="advertImage"></custom-file-upload>
-//       <span class="input-group-addon">
-//         <img ng-src="{{old.advertimg}}" alt="Advert Image" style="max-width:100px;">
-//       </span>
-//     </div>
-//   </div>
-//   <div class="col-sm-4">
-//     <div class="input-group">
-//       <input id="advertname" type="text" class="form-control" name="advertname" ng-model="old.advertname" placeholder="Name" ng-readonly="true">
-//       <span class="input-group-btn">
-//         <a ng-click="updateAdvert()" class="btn btn-success" ng-disabled="!old.advertImage">Update</a>
-//         <a ng-click="deleteAdvert()" class="btn btn-danger" ng-if="sidebar">Delete</a>
-//       </span>
-//     </div>
-//   </div>
-//   <div class="clearfix"></div>
-//   <br>
-//   <div class="divider-dashed"></div>
-// </div>
-
 
 let url = `
 <tfoot>
@@ -77,20 +48,22 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
     replace: true,
     controller: ['$scope', function (scope) {
       NProgress.start();
-      scope.$parent.loading = true;
+      scope.$parent.$parent.loading = true;
 
       sendRequest.request(route_root + scope.url)
                 .then(function (rsp) {
-                    scope.$parent.data = rsp.details.data;
+                    scope.$parent.$parent.data = rsp.details.data;
                     scope.first_page_url = rsp.details.first_page_url;
                     scope.last_page_url = rsp.details.last_page_url;
                     scope.prev_page_url = rsp.details.prev_page_url;
                     scope.next_page_url = rsp.details.next_page_url;
                     scope.current_page = rsp.details.current_page;
                     scope.last_page = rsp.details.last_page;
-                    scope.$parent.total = rsp.details.total;
-                    scope.$parent.extras = rsp.extras;
-                    scope.$parent.loading = false;
+                    scope.$parent.$parent.total = rsp.details.total;
+                    scope.$parent.$parent.extras = rsp.extras;
+										scope.$parent.$parent.loading = false;
+										scope.$parent.$parent.searching = false;
+
                     NProgress.done();
                 },
               err => {
@@ -101,19 +74,20 @@ angular.module('servSideNav', []).directive('servSideNav', ['sendRequest', funct
       // Make a request to the server using the url provided from Laravel's paginate method
       scope.reveal = url => {
         NProgress.start();
-        scope.$parent.loading = true;
+        scope.$parent.$parent.loading = true;
 
         sendRequest.request(url)
                     .then(rsp => {
-                      scope.$parent.data = rsp.details.data;
+                      scope.$parent.$parent.data = rsp.details.data;
                       scope.first_page_url = rsp.details.first_page_url;
                       scope.last_page_url = rsp.details.last_page_url;
                       scope.prev_page_url = rsp.details.prev_page_url;
                       scope.next_page_url = rsp.details.next_page_url;
                       scope.current_page = rsp.details.current_page;
-                      scope.$parent.total = rsp.details.total;
-                      scope.$parent.extras = rsp.extras;
-                      scope.$parent.loading = false;
+                      scope.$parent.$parent.total = rsp.details.total;
+                      scope.$parent.$parent.extras = rsp.extras;
+                      scope.$parent.$parent.loading = false;
+                      scope.$parent.$parent.searching = false;
                       NProgress.done();
                     });
       };

@@ -117,7 +117,7 @@ class AdminController extends Controller
 
 			Route::put('/verify-all-users', $c . 'verifyAllUsers');
 
-			Route::post('/database-search/{resource}', $c . 'databaseSearch');
+			Route::any('/database-search/{resource}', $c . 'databaseSearch');
 
 			Route::post('/get-all-messages', $c . 'getAllMessages');
 
