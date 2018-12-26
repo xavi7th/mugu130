@@ -1,2 +1,3564 @@
-webpackJsonp([5],{"/FLi":function(t,e,n){n("fR0n"),t.exports="angularUtils.directives.dirPagination"},"18kA":function(t,e){angular.module("verifyAccount",[]).directive("verifyAccount",["Notification","sendRequest",function(t,e){return{restrict:"E",template:'\n<section id="verifyAccount" class="ui left floated horizontal  list">\n  <style>\n    .tooltip {\n      position: relative;\n      display: inline-block;\n      border-bottom: 1px dotted black;\n    }\n\n    .tooltip .tooltiptext {\n      visibility: hidden;\n      width: 120px;\n      background-color: black;\n      color: #fff;\n      text-align: center;\n      border-radius: 6px;\n      padding: 5px 0;\n\n      /* Position the tooltip */\n      position: absolute;\n      z-index: 1;\n    }\n\n    .tooltip:hover .tooltiptext {\n      visibility: visible;\n    }\n\n  </style>\n  <div class="ui circular green labels " ng-if="userdetails.verified" title="Verified Account" >\n    <a class="ui label tooltip">\n      <i class="check circle icon " style="margin: 0;"></i>\n      <span class="tooltiptext">Account verified</span>\n    </a>\n  </div>\n\n  <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMai()" ng-if="!userdetails.verified">\n  \x3c!--\n    <div class="ui red label right pointing" >\n      <i class="exclamation triangle icon"></i>\n    </div>\n    <a class="ui basic red label ng-binding tooltip">\n      Unverified\n      <span class="tooltiptext">Account not yet verified.</span>\n    </a>\n    --\x3e\n  </div>\n</section>\n',replace:!0,link:function(t,e,n){},controller:["$scope",function(n){n.sendVerificationMail=function(){t.warning({message:"Attempting to send verification email...",delay:2e3}),e.postRequest("/user/send-verification-mail",n.userdetails.email).then(function(e){422==e.status||408==e.status?t.error({message:e.data.message,delay:1500,replace:!0}):200==e.status&&e.data.message&&t.success({message:e.data.message,replace:!0})})}}]}}])},4:function(t,e,n){t.exports=n("JWPd")},"9l9E":function(t,e,n){var i,a,s;!function(o,r){"use strict";a=[n("/jXN"),n("PhVM")],void 0===(s="function"==typeof(i=r)?i.apply(e,a):i)||(t.exports=s)}(0,function(t,e){"use strict";t.module("oitozero.ngSweetAlert",[]).factory("SweetAlert",["$rootScope",function(t){return{swal:function(n,i,a){t.$evalAsync(function(){e(n,"function"==typeof i?function(e){t.$evalAsync(function(){i(e)})}:i,a)})},success:function(n,i){t.$evalAsync(function(){e(n,i,"success")})},error:function(n,i){t.$evalAsync(function(){e(n,i,"error")})},warning:function(n,i){t.$evalAsync(function(){e(n,i,"warning")})},info:function(n,i){t.$evalAsync(function(){e(n,i,"info")})},showInputError:function(n){t.$evalAsync(function(){e.showInputError(n)})},close:function(){t.$evalAsync(function(){e.close()})}}}])})},B0pA:function(t,e){angular.module("countdownTimer",[]).directive("countdownTimer",["$timeout","$compile",function(t,e){return{restrict:"E",replace:!0,transclude:!0,scope:{countdownAttr:"=countdown",onfinish:"&finish"},template:'<div><h1 class="time">{{ minutes }}:{{ seconds }}</h1><ng-transclude></ng-transclude></div>',link:function(t,e,n){var i=parseInt(t.countdownAttr,10);function a(){t.millis=0,i>0?(t.millis=1e3*i,i--):i<=0&&(t.stop(),t.onfinish()),t.seconds=function(t){if(t<10)return"0"+t;return t}(Math.floor(t.millis/1e3%60)),t.minutes=Math.floor(t.millis/6e4%60),t.hours=Math.floor(t.millis/36e5%24),t.days=Math.floor(t.millis/36e5/24),t.$apply()}function s(){t.intervalId&&(clearInterval(t.intervalId),t.intervalId=null)}t.stop=function(){t.stoppedTime=new Date,s(),t.$emit("timer-stopped",{intervalId:t.intervalId,millis:t.millis})},s(),t.intervalId=setInterval(a,1e3),e.on("$destroy",function(){s()})}}}])},BkSt:function(t,e){angular.module("range",[]).filter("range",function(){return function(t,e){console.log(e),e=parseInt(t);for(var n=0;n<e;n++)t.push(n);return t}})},Bkae:function(t,e,n){"use strict";angular.module("cacheBusting",[]).factory("cacheBusting",["$injector",function(t){return{request:function(t){return-1===t.url.indexOf("views")&&-1===t.url.indexOf("img")||(t.url=t.url+"?id="+window.version_number),t}}}]).config(["$httpProvider",function(t){t.interceptors.push("cacheBusting")}])},CWuJ:function(t,e){angular.module("buyUnits",[]).directive("buyUnits",["$timeout","Notification","sendRequest",function(t,e,n){return{restrict:"E",scope:{},template:'\n<section id="buyUnits" class="ui horizontal list">\n\n  <div id="form" class="ui segments animate fade" ng-show="makeDeposit == 1">\n\n    <div id="session-menu" class="ui one item menu">\n      <a class="item" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>\n    </div>\n\n    <div class="ui segment" style="padding-bottom: 30px;">\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="number" placeholder="Minimum: ₦500 | Maximum: ₦5,000" ng-model="requested_amount" ng-min="500" ng-max="5000" style="width: 270px;">\n          </div>\n          <div class="actions  flex-center row" >\n            <div ng-class="[\'ui green left button\', {\'disabled\': !requested_amount}]" ng-click="switch(2)">Pay Online</div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class="ui segments animate translate-in" ng-if="makeDeposit == 2" id="info-images">\n    <div class="ui segment">\n      <p><b>Amount:</b> {{ requested_amount | currency }}</p>\n      <p><b>Charge:</b> {{ fees | currency }}</p>\n      <p><b>Payment channel:</b> Paystack Limited</p>\n      <p><b>Payment Due:</b> {{ requested_amount + fees | currency }}</p>\n      <p><b>Status:</b> <span style="color:gold">Pending</span></p>\n    </div>\n    <div class="ui segment">\n      <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n      <div class="actions  flex-center row" >\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui red left button" ng-click="switch(1)">Go back</div>\n      </div>\n    </div>\n    <div class="ui secondary segment">\n      <p>\n        <img src="/img/paystack_preview.png" alt="" />\n      </p>\n    </div>\n  </div>\n\n\n</section>\n',replace:!0,controller:["$scope",function(e){e.amt_per_unit=1,e.makeDeposit=1,e.switch=function(n){e.fees=.017*e.requested_amount,e.requested_amount>2500&&(e.fees=.017*e.requested_amount+100),t(function(){e.makeDeposit=n},500)}}]}}])},E9F9:function(t,e,n){(function(t){angular.module("userProfile",[]).directive("userProfile",[function(){return{restrict:"E",template:'\n<section id="u_details">\n  <div class="grid-container">\n    <div class="grid-50">\n      <div class="content">\n        <h2 class="header" style="margin-bottom: 2px;">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="meta">\n            <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>\n          </div>\n\n        </div>\n        <div class="content" >\n\n        </div>\n        <div class="content" style="padding-bottom: 5px;">\n\n        </div>\n      </div>\n    </div>\n    <div class="grid-50">\n      <div class="content">\n        <button class="ui compact right floated violet button" ng-click="transferEarnings()">\n          <i class="icon credit card amazon pay"></i>\n          Transfer Earnings\n        </button>\n      </div>\n      <div class="content">\n        <make-withdrawal  style="margin-right: 3%; margin-bottom: 15px;"></make-withdrawal>\n      </div>\n      <div class="content" style="margin-bottom: 15px;">\n        <a class="ui vertical blue compact button right floated" href="/dashboard/fund-wallet" style="margin-right: 3%;">\n          <i class="icon credit card amazon pay"></i>\n          Fund Wallet\n        </a>\n      </div>\n    </div>\n  </div>\n</section>\n',replace:!0,link:function(t,e,n){},controller:["$scope","Notification","sendRequest",function(e,n,i){e.copy=function(){console.log(t("#refcode")),t("#hiddenref").val(t("#refcode").text()),t("#hiddenref").select(),document.execCommand("Copy"),n.primary("Referral code copied")},e.transferEarnings=function(){i.postRequest("user/transfer-earnings").then(function(t){200==t.status&&(1==t.data.status?n.success({message:"Earnings transferred to wallet",positionX:"center"}):"Insufficient"==t.data.status&&n.error({message:"No earnings to transfer",positionX:"center"})),i.getUserDetails("/user/get-user-details",!0).then(function(t){e.userdetails=t.userdetails}),i.getTotalEarnings("/user/get-total-earnings",!0).then(function(t){e.total_earnings=t.total_earnings})})}}]}}])}).call(e,n("7t+N"))},F2ul:function(t,e,n){(function(t){angular.module("sendMessage",[]).directive("sendMessage",["Notification","sendRequest",function(e,n){return{restrict:"E",scope:{msg:"="},template:'\n<div class="ui small basic green icon buttons right floated">\n  <button class="ui button active" ng-click="openModal()">\n    <ng-transclude></ng-transclude>\n  </button>\n  <div class="ui mini modal sendMessage transition hidden">\n      <div class="header">\n        Send a message\n      </div>\n      <div class="content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="text" placeholder="Message Subject" ng-model="m.subject">\n          </div>\n          <div class="field">\n            <textarea placeholder="Message goes here" ng-model="m.message" ></textarea>\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Bail\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !m.message || !m.subject}" ng-click="sendMessage()">\n          Send\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n    </div>\n</div>\n',replace:!0,transclude:!0,link:function(t,e,n){},controller:["$scope",function(i){i.openModal=function(){t(".ui.modal.sendMessage").modal({blurring:!0}).modal("show")},i.sendMessage=function(){n.postRequest("/user/send-message",i.m).then(function(t){t.data.status&&(e.primary("Message sent"),i.msg.read=!0,n.postRequest("/user/mark-message-as-read",i.msg),i.m=null)},function(t){e.error("Sending Failed")})}}]}}])}).call(e,n("7t+N"))},GbJa:function(t,e){angular.module("gameState",[]).directive("gameState",["$location","$route","Notification","$localStorage","sendRequest",function(t,e,n,i,a){return{restrict:"E",scope:{},template:'\n<div id="game">\n  <div id="card" class="ui segments" ng-if="game_state == \'loading\' && !transition">\n    \x3c!-- game load --\x3e\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Countdown to next game</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button>Next game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'waiting\' && !transition">\n    \x3c!-- game waiting --\x3e\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>\n    </div>\n\n    <div class="ui segment">\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score == null">\n        <div class="ui green button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic green left pointing label">\n          Awaiting results\n        </a>\n      </div>\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">\n        <div class="ui red button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic red left pointing label">\n          {{ user_score }} out of 10\n        </a>\n      </div>\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">\n        <div class="ui basic blue button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic left pointing blue label">\n        {{ user_score }} out of 10\n        </a>\n      </div>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'active\' && !transition">\n    \x3c!-- game active --\x3e\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #21BA45; color: #fff; font-size: 13px;">\n        <span>Game in progress</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button style="cursor: pointer; background-color: #21BA45;" ng-click="joinGame()" ng-disabled="transition">Join Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'paused\' && !transition">\n    \x3c!-- game paused --\x3e\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments">\n    <div class="content" style="padding-bottom: 5px;">\n      <div class="ui compact segment">\n        <div class="ui blue image label">\n          My referral link\n          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}</div>\n          <input type="text" ng-hide="true" id="hiddenref">\n        </div>\n        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">\n          <br />\n          <strong style="margin-right: 15px; color:#555!important;"">INVITE SOMEONE AND GET PAID:</strong>\n          <br />\n          <br />\n          <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}" target="_blank">\n            <i class="facebook f icon"></i>\n          </a>\n          <a class="ui twitter button icon" ng-href="https://twitter.com/intent/tweet?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Tweet" target="_blank">\n            <i class="twitter icon"></i>\n          </a>\n          <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later." title="Email">\n            <i class="envelope outline icon"></i>\n          </a>\n          <a class="ui green button icon" ng-href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp Share">\n              <i class="whatsapp icon"></i>\n            </a>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n',replace:!0,link:function(t,e,n){},controller:["$scope",function(s){s.transition=!0,!a.getData("user_score")&&angular.isUndefined(i.user_score)||(s.user_score=i.user_score),s.endGameReload=function(){s.transition=!0,alert("The game has ended"),a.postRequest("/user/end-exam",i.user_questions).then(function(e){delete i.user_questions,delete i.extra,delete i.options,422==e.status?(n.error({message:"No active game in progress",positionX:"center"}),t.path("/dashboard")):200==e.status&&e.data.status&&(a.storeData("user_score",e.data.user_score),i.user_score=e.data.user_score,t.path("/dashboard/display-results"))})},s.resumeGame=function(){s.transition=!0,a.postRequest("user/resume-game").then(function(){t.path("/dashboard/game-play")})},s.pageReload=function(){a.getGameState().then(function(t){s.game_state=t.game_state,s.game_timer=t.game_timer,s.total_examinees=t.total_examinees})},s.displayResults=function(){NProgress.start(),s.transition=!0,a.getGameState("/user/get-game-state").then(function(n){s.game_state=n.game_state,s.game_timer=n.game_timer,"loading"==n.game_state?t.path("/dashboard/display-results"):e.reload(),NProgress.done()})},s.joinGame=function(){s.transition=!0,NProgress.start(),delete i.user_score,delete i.extra,delete i.options,delete i.user_questions,a.postRequest("/user/join-game").then(function(e){422==e.status?n.error({message:"No active game in progress",positionX:"center"}):200==e.status?e.data.status&&(s.transition=!0,t.path("/dashboard/game-play")):402==e.status?(console.log(e),s.transition=!1,n.error({message:e.data.err_msg,positionX:"center"})):403==e.status&&(s.transition=!0,n.error({message:"Already in a game session.",positionX:"center"}),t.path("/dashboard/game-play"))}),NProgress.done()},a.getGameState().then(function(t){s.game_state=t.game_state,s.game_timer=t.game_timer,s.total_examinees=t.total_examinees,s.transition=!1})}]}}])},JWPd:function(t,e,n){n("/FLi"),n("9l9E"),dashboard=angular.module("dashboard",["ngRoute","ngAnimate","ngStorage","ui-notification","yaru22.angular-timeago","sendRequest","parseHTML","customFileChange","customFileUpload","inputCountValidator","countdownTimer","miniGameState","gameState","gamePlay","userProfile","range","buyUnits","sendMessage","makeWithdrawal","bootstrapPage","verifyAccount","payWithPaystack","promptPassword","cacheBusting","angularUtils.directives.dirPagination","viewTopTenPlayers","oitozero.ngSweetAlert"]),dashboard.run(["$rootScope","$window","Notification","sendRequest",function(t,e,n,i){t._=_,t.logout=function(){delete localStorage["game-user_score"],i.postRequest("/logout").then(function(t){200==t.status?(n.success({message:"Logout successful",positionX:"center"}),e.location.href="/login"):n.error({message:"Logout failed! Reload page.",positionX:"center"})})},t.$on("$routeChangeStart",function(e,n,a){i.getTotalEarnings("/user/get-total-earnings").then(function(e){t.total_earnings=e.total_earnings}),i.getUserDetails("/user/get-user-details").then(function(e){t.userdetails=e.userdetails})})}]),n("MD2E"),n("YU3V"),n("BkSt"),n("qmI2"),n("wPl/"),n("hiCx"),n("B0pA"),n("sovp"),n("GbJa"),n("ngMs"),n("CWuJ"),n("F2ul"),n("qnlB"),n("E9F9"),n("18kA"),n("wlNK"),n("rb9B"),n("Bkae"),n("inu2"),n("gIF2"),n("qOuZ")},MD2E:function(t,e){angular.module("parseHTML",[]).filter("trusted",["$sce",function(t){return function(e){return t.trustAsHtml(e)}}])},PhVM:function(t,e,n){var i;!function(a,s,o){var r,l,c,u,d,g,p=["error","warning","info","success"],m={title:"",text:"",type:null,allowOutsideClick:!1,showConfirmButton:!0,showCancelButton:!1,closeOnConfirm:!0,closeOnCancel:!0,confirmButtonText:"OK",confirmButtonColor:"#AEDEF4",cancelButtonText:"Cancel",imageUrl:null,imageSize:null,timer:null,customClass:"",html:!1,animation:!0,allowEscapeKey:!0},f=function(){var t=s.querySelector(".sweet-alert");return t||(R(),t=f()),t},v=function(){return s.querySelector(".sweet-overlay")},h=function(t,e){return new RegExp(" "+e+" ").test(" "+t.className+" ")},b=function(t,e){h(t,e)||(t.className+=" "+e)},y=function(t,e){var n=" "+t.className.replace(/[\t\r\n]/g," ")+" ";if(h(t,e)){for(;n.indexOf(" "+e+" ")>=0;)n=n.replace(" "+e+" "," ");t.className=n.replace(/^\s+|\s+$/g,"")}},_=function(t){var e=s.createElement("div");return e.appendChild(s.createTextNode(t)),e.innerHTML},w=function(t){t.style.opacity="",t.style.display="block"},q=function(t){if(t&&!t.length)return w(t);for(var e=0;e<t.length;++e)w(t[e])},x=function(t){t.style.opacity="",t.style.display="none"},k=function(t){if(t&&!t.length)return x(t);for(var e=0;e<t.length;++e)x(t[e])},P=function(t){t.style.left="-9999px",t.style.display="block";var e,n=t.clientHeight;return e="undefined"!=typeof getComputedStyle?parseInt(getComputedStyle(t).getPropertyValue("padding"),10):parseInt(t.currentStyle.padding),t.style.left="",t.style.display="none","-"+parseInt(n/2+e)+"px"},$=function(t,e){if(+t.style.opacity<1){e=e||16,t.style.opacity=0,t.style.display="block";var n=+new Date,i=function(){t.style.opacity=+t.style.opacity+(new Date-n)/100,n=+new Date,+t.style.opacity<1&&setTimeout(i,e)};i()}t.style.display="block"},C=function(t,e){e=e||16,t.style.opacity=1;var n=+new Date,i=function(){t.style.opacity=+t.style.opacity-(new Date-n)/100,n=+new Date,+t.style.opacity>0?setTimeout(i,e):t.style.display="none"};i()},S=function(t){if("function"==typeof MouseEvent){var e=new MouseEvent("click",{view:a,bubbles:!1,cancelable:!0});t.dispatchEvent(e)}else if(s.createEvent){var n=s.createEvent("MouseEvents");n.initEvent("click",!1,!1),t.dispatchEvent(n)}else s.createEventObject?t.fireEvent("onclick"):"function"==typeof t.onclick&&t.onclick()},N=function(t){"function"==typeof t.stopPropagation?(t.stopPropagation(),t.preventDefault()):a.event&&a.event.hasOwnProperty("cancelBubble")&&(a.event.cancelBubble=!0)},R=function(){var t=s.createElement("div");for(t.innerHTML='<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert" tabIndex="-1"><div class="sa-icon sa-error"><span class="sa-x-mark"><span class="sa-line sa-left"></span><span class="sa-line sa-right"></span></span></div><div class="sa-icon sa-warning"> <span class="sa-body"></span> <span class="sa-dot"></span> </div> <div class="sa-icon sa-info"></div> <div class="sa-icon sa-success"> <span class="sa-line sa-tip"></span> <span class="sa-line sa-long"></span> <div class="sa-placeholder"></div> <div class="sa-fix"></div> </div> <div class="sa-icon sa-custom"></div> <h2>Title</h2><p>Text</p><button class="cancel" tabIndex="2">Cancel</button><button class="confirm" tabIndex="1">OK</button></div>';t.firstChild;)s.body.appendChild(t.firstChild)};function A(t,e){(t=String(t).replace(/[^0-9a-f]/gi,"")).length<6&&(t=t[0]+t[0]+t[1]+t[1]+t[2]+t[2]),e=e||0;var n,i,a="#";for(i=0;i<3;i++)n=parseInt(t.substr(2*i,2),16),a+=("00"+(n=Math.round(Math.min(Math.max(0,n+n*e),255)).toString(16))).substr(n.length);return a}function E(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);return t}function T(t,e){var n,i=(n=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(e))?parseInt(n[1],16)+", "+parseInt(n[2],16)+", "+parseInt(n[3],16):null;t.style.boxShadow="0 0 2px rgba("+i+", 0.8), inset 0 0 0 1px rgba(0, 0, 0, 0.05)"}function I(t){a.console&&a.console.log("SweetAlert: "+t)}(d=g=function(){var t=arguments[0];function e(e){var n=t;return void 0!==n[e]?n[e]:m[e]}if(arguments[0]===o)return I("SweetAlert expects at least 1 attribute!"),!1;var n=E({},m);switch(typeof arguments[0]){case"string":n.title=arguments[0],n.text=arguments[1]||"",n.type=arguments[2]||"";break;case"object":if(arguments[0].title===o)return I('Missing "title" argument!'),!1;n.title=arguments[0].title;for(var i=["text","type","customClass","allowOutsideClick","showConfirmButton","showCancelButton","closeOnConfirm","closeOnCancel","timer","confirmButtonColor","cancelButtonText","imageUrl","imageSize","html","animation","allowEscapeKey"],g=i.length,w=0;w<g;w++){var x=i[w];n[x]=e(x)}n.confirmButtonText=n.showCancelButton?"Confirm":m.confirmButtonText,n.confirmButtonText=e("confirmButtonText"),n.doneFunction=arguments[1]||null;break;default:return I('Unexpected type of argument! Expected "string" or "object", got '+typeof arguments[0]),!1}!function(t){var e=f(),n=e.querySelector("h2"),i=e.querySelector("p"),s=e.querySelector("button.cancel"),o=e.querySelector("button.confirm");n.innerHTML=t.html?t.title:_(t.title).split("\n").join("<br>"),i.innerHTML=t.html?t.text:_(t.text||"").split("\n").join("<br>"),t.text&&q(i);if(t.customClass)b(e,t.customClass),e.setAttribute("data-custom-class",t.customClass);else{var r=e.getAttribute("data-custom-class");y(e,r),e.setAttribute("data-custom-class","")}if(k(e.querySelectorAll(".sa-icon")),t.type&&(!a.attachEvent||a.addEventListener)){for(var l=!1,c=0;c<p.length;c++)if(t.type===p[c]){l=!0;break}if(!l)return I("Unknown alert type: "+t.type),!1;var u=e.querySelector(".sa-icon.sa-"+t.type);switch(q(u),t.type){case"success":b(u,"animate"),b(u.querySelector(".sa-tip"),"animateSuccessTip"),b(u.querySelector(".sa-long"),"animateSuccessLong");break;case"error":b(u,"animateErrorIcon"),b(u.querySelector(".sa-x-mark"),"animateXMark");break;case"warning":b(u,"pulseWarning"),b(u.querySelector(".sa-body"),"pulseWarningIns"),b(u.querySelector(".sa-dot"),"pulseWarningIns")}}if(t.imageUrl){var d=e.querySelector(".sa-icon.sa-custom");d.style.backgroundImage="url("+t.imageUrl+")",q(d);var g=80,m=80;if(t.imageSize){var v=t.imageSize.toString().split("x"),h=v[0],w=v[1];h&&w?(g=h,m=w):I("Parameter imageSize expects value with format WIDTHxHEIGHT, got "+t.imageSize)}d.setAttribute("style",d.getAttribute("style")+"width:"+g+"px; height:"+m+"px")}e.setAttribute("data-has-cancel-button",t.showCancelButton),t.showCancelButton?s.style.display="inline-block":k(s);e.setAttribute("data-has-confirm-button",t.showConfirmButton),t.showConfirmButton?o.style.display="inline-block":k(o);t.cancelButtonText&&(s.innerHTML=_(t.cancelButtonText));t.confirmButtonText&&(o.innerHTML=_(t.confirmButtonText));o.style.backgroundColor=t.confirmButtonColor,T(o,t.confirmButtonColor),e.setAttribute("data-allow-ouside-click",t.allowOutsideClick);var x=!!t.doneFunction;e.setAttribute("data-has-done-function",x),t.animation?e.setAttribute("data-animation","pop"):e.setAttribute("data-animation","none");e.setAttribute("data-timer",t.timer)}(n),f().style.marginTop=P(f()),function(){var t=f();$(v(),10),q(t),b(t,"showSweetAlert"),y(t,"hideSweetAlert"),r=s.activeElement,t.querySelector("button.confirm").focus(),setTimeout(function(){b(t,"visible")},500);var e=t.getAttribute("data-timer");"null"!==e&&""!==e&&(t.timeout=setTimeout(function(){d.close()},e))}();for(var C=f(),R=function(t){var e=t||a.event,i=e.target||e.srcElement,s=-1!==i.className.indexOf("confirm"),o=h(C,"visible"),r=n.doneFunction&&"true"===C.getAttribute("data-has-done-function");switch(e.type){case"mouseover":s&&(i.style.backgroundColor=A(n.confirmButtonColor,-.04));break;case"mouseout":s&&(i.style.backgroundColor=n.confirmButtonColor);break;case"mousedown":s&&(i.style.backgroundColor=A(n.confirmButtonColor,-.14));break;case"mouseup":s&&(i.style.backgroundColor=A(n.confirmButtonColor,-.04));break;case"focus":var l=C.querySelector("button.confirm"),c=C.querySelector("button.cancel");s?c.style.boxShadow="none":l.style.boxShadow="none";break;case"click":if(s&&r&&o)n.doneFunction(!0),n.closeOnConfirm&&d.close();else if(r&&o){var u=String(n.doneFunction).replace(/\s/g,"");"function("===u.substring(0,9)&&")"!==u.substring(9,10)&&n.doneFunction(!1),n.closeOnCancel&&d.close()}else d.close()}},M=C.querySelectorAll("button"),D=0;D<M.length;D++)M[D].onclick=R,M[D].onmouseover=R,M[D].onmouseout=R,M[D].onmousedown=R,M[D].onfocus=R;l=s.onclick,s.onclick=function(t){var e=t||a.event,n=e.target||e.srcElement,i=C===n,s=function(t,e){for(var n=e.parentNode;null!==n;){if(n===t)return!0;n=n.parentNode}return!1}(C,n),o=h(C,"visible"),r="true"===C.getAttribute("data-allow-ouside-click");!i&&!s&&o&&r&&d.close()};var L=C.querySelector("button.confirm"),B=C.querySelector("button.cancel"),U=C.querySelectorAll("button[tabindex]");function O(t){var e=t||a.event,n=e.target||e.srcElement,i=e.relatedTarget;if(h(C,"visible")){var s=-1;if(null!==i){for(var o=0;o<U.length;o++)if(i===U[o]){s=o;break}-1===s&&n.focus()}else u=n}}c=a.onkeydown,a.onkeydown=function(t){var e=t||a.event,i=e.keyCode||e.which;if(-1!==[9,13,32,27].indexOf(i)){for(var s=e.target||e.srcElement,r=-1,l=0;l<U.length;l++)if(s===U[l]){r=l;break}9===i?(s=-1===r?L:r===U.length-1?U[0]:U[r+1],N(e),s.focus(),T(s,n.confirmButtonColor)):(s=13===i||32===i?-1===r?L:o:27===i&&!0===n.allowEscapeKey?B:o)!==o&&S(s,e)}},L.onblur=O,B.onblur=O,a.onfocus=function(){a.setTimeout(function(){u!==o&&(u.focus(),u=o)},0)}}).setDefaults=g.setDefaults=function(t){if(!t)throw new Error("userParams is required");if("object"!=typeof t)throw new Error("userParams has to be a object");E(m,t)},d.close=g.close=function(){var t=f();C(v(),5),C(t,5),y(t,"showSweetAlert"),b(t,"hideSweetAlert"),y(t,"visible");var e=t.querySelector(".sa-icon.sa-success");y(e,"animate"),y(e.querySelector(".sa-tip"),"animateSuccessTip"),y(e.querySelector(".sa-long"),"animateSuccessLong");var n=t.querySelector(".sa-icon.sa-error");y(n,"animateErrorIcon"),y(n.querySelector(".sa-x-mark"),"animateXMark");var i=t.querySelector(".sa-icon.sa-warning");y(i,"pulseWarning"),y(i.querySelector(".sa-body"),"pulseWarningIns"),y(i.querySelector(".sa-dot"),"pulseWarningIns"),a.onkeydown=c,s.onclick=l,r&&r.focus(),u=o,clearTimeout(t.timeout)},(i=function(){return d}.call(e,n,e,t))===o||(t.exports=i)}(window,document)},YU3V:function(t,e,n){(function(t){angular.module("sendRequest",[]).factory("sendRequest",["$http","$q","$localStorage",function(t,e,n){var i={};return{storeData:function(t,e){i[t]=e},getData:function(t){return i[t]},getUserDetails:function(t){var n=arguments.length>1&&void 0!==arguments[1]&&arguments[1],i=e.defer();if(n||!this.getData("userdetails")){var a=this;return this.postRequest(t).then(function(t){return a.storeData("userdetails",t.data),a.getData("userdetails")})}return i.resolve(this.getData("userdetails")),i.promise},getTotalEarnings:function(t){var n=arguments.length>1&&void 0!==arguments[1]&&arguments[1],i=e.defer();if(n||!this.getData("total_earnings")){var a=this;return this.postRequest(t).then(function(t){return a.storeData("total_earnings",t.data),a.getData("total_earnings")})}return i.resolve(this.getData("total_earnings")),i.promise},getBanks:function(t){var n=e.defer();if(!this.getData("banks_list")){var i=this;return this.postRequest(t).then(function(t){return i.storeData("banks_list",t.data),i.getData("banks_list")})}return n.resolve(this.getData("banks_list")),n.promise},getGameState:function(){return this.postRequest("/user/get-game-state").then(function(t){return t.data})},getUserQuestions:function(t){var i=arguments.length>1&&void 0!==arguments[1]&&arguments[1],a=e.defer();if(i&&(delete n.user_questions,delete n.extra,delete n.options),!n.user_questions){return this.postRequest(t).then(function(t){return n.user_questions=t.data.user_questions,n.user_questions})}return a.resolve(n.user_questions),a.promise},getCountriesStates:function(){var t=e.defer();if(!this.getData("countries_states")){var n=this;return this.postRequest("/api/get-countries-state").then(function(t){return n.storeData("countries_states",t.data),n.getData("countries_states")})}return t.resolve(this.getData("countries_states")),t.promise},processImageUpload:function(e,n,i){return NProgress.start(),t.post(e,{image:n,fn:i}).then(function(t){return NProgress.done(),t.data},function(t){console.log(t.statusText)})},postRequest:function(e,n){return t.post(e,{details:n}).then(function(t){return t},function(t){return 419==t.status||401==t.status?location.href="/login":403==t.status&&(location.href="/suspended"),console.log(t),t})},putRequest:function(e,n){return t.put(e,{details:n}).then(function(t){return t},function(t){return 419==t.status||401==t.status?location.href="/login":403==t.status&&(location.href="/suspended"),console.log(t),t})},request:function(e){return t.get(e).then(function(t){return t.data},function(t){419!=t.status&&401!=t.status||(location.href="/login"),console.log(t.statusText)})}}}]),angular.module("bootstrapPage",[]).factory("bootstrapPage",["$timeout","$location","Notification","sendRequest",function(e,n,i,a){return{dashboard:function(n){a.postRequest("/user/get-dashboard-page-details"),n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),t("#notice.ui.modal").modal({centered:!1,blurring:!0,onDeny:function(){return!0},onHide:function(){setTimeout(function(){t("#notice.ui.modal").remove()},1e3)},onApprove:function(){return!0}}).modal("show"),Echo.channel("exam_member_count").listen("ExamJoined",function(t){n.total_examinees=t.total_examinees})},1e3)}),n.$on("$destroy",function(){e(function(){Echo.leave("exam_member_count")},0)})},profile:function(n){a.postRequest("/user/get-profile-page-details").then(function(t){200==t.status&&(n.user_transactions=t.data.page_details.transactions,n.user_earnings=t.data.page_details.earnings,n.user_games=t.data.page_details.games,n.referrals=t.data.page_details.referrals)}),n.$on("$viewContentLoaded",function(){e(function(){t("#profile-menu .item").tab(),t(".dropdown_menu").dropdown()},500)})},settings:function(n){a.getBanks("/api/get-banks-list").then(function(t){n.banks=t.banks}),n.$on("$viewContentLoaded",function(){e(function(){t("#edit .item").tab(),t(".dropdown_menu").dropdown()},500)})},gameplay:function(n){a.getUserDetails("/user/get-user-details",!0).then(function(t){n.userdetails=t.userdetails}),n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),t(".ui.accordion").accordion(),Echo.channel("exam_member_count").listen("ExamJoined",function(t){n.total_examinees=t.total_examinees})},500)}),n.$on("$locationChangeStart",function(t){a.getData("prevent")||t.preventDefault(),e(function(){a.postRequest("/user/pause-game")},0)}),n.$on("$destroy",function(){e(function(){Echo.leave("exam_member_count")},0)})},results:function(s){a.postRequest("/user/get-exam-results").then(function(t){200==t.status&&(0==t.data.results&&(n.path("/dashboard"),i.error({message:"Error fetching results.",positionX:"center"})),"invalid"!=t.data?(s.results=t.data.results,s.user_questions=t.data.user_questions.user_questions,s.user_earning=_.parseInt(t.data.user_earning),s.max_winners=_.parseInt(t.data.max_winners),s.total_players=_.parseInt(t.data.total_players),s.total_prize_money=_.parseInt(t.data.total_prize_money)):(n.path("/dashboard"),i.error({message:"Insufficient users for game session. Units reversed",positionX:"center"})))}),s.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown()},500)})},messages:function(n){n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),t(".special.cards .image").dimmer({on:"hover"})},500)})},notices:function(n){n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown()},500)})}}}]),angular.module("bootstrapAdminPage",[]).factory("bootstrapAdminPage",["$timeout","$location","Notification","sendRequest",function(e,n,i,a){return{dashboard:function(n){a.postRequest(route_root+"/api/get-dashboard-page-details").then(function(t){200==t.status&&(n.details=t.data.details)}),n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),t(".shape").shape(),t("#profile-menu .item").tab(),NProgress.done()},500)}),n.$on("$destroy",function(){e(function(){},0)})},questions:function(n){n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),t(".shape").shape(),NProgress.done()},500)})},admins:function(n){a.postRequest(route_root+"/api/get-admins-page-details").then(function(t){200==t.status&&(n.admins=t.data.admins,NProgress.done())},function(t){i.error("Error retrieving admins from server")}),n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown()},500)}),n.$on("$destroy",function(){e(function(){},0)})},users:function(n){a.getBanks("/api/get-banks-list").then(function(t){n.banks=t.banks}),a.postRequest(route_root+"/api/get-unverified-users-count").then(function(t){n.unverified_users=t.data.unverified_users}),n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown()},500)}),n.$on("$destroy",function(){e(function(){},0)})},games:function(n){n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),NProgress.done()},500)}),n.$on("$destroy",function(){e(function(){},0)})},transactions:function(n){n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown(),t(".ui.sticky").sticky({context:"#content-context"})},500)}),n.$on("$destroy",function(){})},messages:function(n){n.$on("$viewContentLoaded",function(){e(function(){t(".dropdown_menu").dropdown()},500)}),n.$on("$destroy",function(){e(function(){},0)})},settings:function(n){a.getBanks("/api/get-banks-list").then(function(t){n.banks=t.banks}),n.$on("$viewContentLoaded",function(){e(function(){t("#edit .item").tab(),t(".dropdown_menu").dropdown()},500)})}}}])}).call(e,n("7t+N"))},fR0n:function(t,e){!function(){var t="__default";angular.module("angularUtils.directives.dirPagination",[]).directive("dirPaginate",["$compile","$parse","paginationService",function(e,n,i){return{terminal:!0,multiElement:!0,priority:100,compile:function(a,s){var o=s.dirPaginate,r=o.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/),l=/\|\s*itemsPerPage\s*:\s*(.*\(\s*\w*\)|([^\)]*?(?=\s+as\s+))|[^\)]*)/;if(null===r[2].match(l))throw"pagination directive: the 'itemsPerPage' filter must be set.";var c=r[2].replace(l,""),u=n(c);!function(t){angular.forEach(t,function(t){1===t.nodeType&&angular.element(t).attr("dir-paginate-no-compile",!0)})}(a);var d=s.paginationId||t;return i.registerInstance(d),function(a,s,r){var l=n(r.paginationId)(a)||r.paginationId||t;i.registerInstance(l);var c=function(e,n){var i=!!e.match(/(\|\s*itemsPerPage\s*:[^|]*:[^|]*)/);return n===t||i?e:e.replace(/(\|\s*itemsPerPage\s*:\s*[^|\s]*)/,"$1 : '"+n+"'")}(o,l);!function(t,e,n){t[0].hasAttribute("dir-paginate-start")||t[0].hasAttribute("data-dir-paginate-start")?(e.$set("ngRepeatStart",n),t.eq(t.length-1).attr("ng-repeat-end",!0)):e.$set("ngRepeat",n)}(s,r,c),function(t){angular.forEach(t,function(t){1===t.nodeType&&angular.element(t).removeAttr("dir-paginate-no-compile")}),t.eq(0).removeAttr("dir-paginate-start").removeAttr("dir-paginate").removeAttr("data-dir-paginate-start").removeAttr("data-dir-paginate"),t.eq(t.length-1).removeAttr("dir-paginate-end").removeAttr("data-dir-paginate-end")}(s);var d=e(s),g=function(t,e,i){var a;if(e.currentPage)a=n(e.currentPage);else{var s=(i+"__currentPage").replace(/\W/g,"_");t[s]=1,a=n(s)}return a}(a,r,l);i.setCurrentPageParser(l,g,a),void 0!==r.totalItems?(i.setAsyncModeTrue(l),a.$watch(function(){return n(r.totalItems)(a)},function(t){0<=t&&i.setCollectionLength(l,t)})):(i.setAsyncModeFalse(l),a.$watchCollection(function(){return u(a)},function(t){if(t){var e=t instanceof Array?t.length:Object.keys(t).length;i.setCollectionLength(l,e)}})),d(a)}}}}]).directive("dirPaginateNoCompile",function(){return{priority:5e3,terminal:!0}}).directive("dirPaginationControls",["paginationService","paginationTemplate",function(e,n){var i=/^\d+$/,a={restrict:"AE",scope:{maxSize:"=?",onPageChange:"&?",paginationId:"=?",autoHide:"=?"},link:function(n,a,s){var r=s.paginationId||t,l=n.paginationId||s.paginationId||t;if(!e.isRegistered(l)&&!e.isRegistered(r)){var c=l!==t?" (id: "+l+") ":" ";window.console&&console.warn("Pagination directive: the pagination controls"+c+"cannot be used without the corresponding pagination directive, which was not found at link time.")}n.maxSize||(n.maxSize=9);n.autoHide=void 0===n.autoHide||n.autoHide,n.directionLinks=!angular.isDefined(s.directionLinks)||n.$parent.$eval(s.directionLinks),n.boundaryLinks=!!angular.isDefined(s.boundaryLinks)&&n.$parent.$eval(s.boundaryLinks);var u=Math.max(n.maxSize,5);function d(t){if(e.isRegistered(l)&&m(t)){var i=n.pagination.current;n.pages=o(t,e.getCollectionLength(l),e.getItemsPerPage(l),u),n.pagination.current=t,p(),n.onPageChange&&n.onPageChange({newPageNumber:t,oldPageNumber:i})}}function g(){if(e.isRegistered(l)){var t=parseInt(e.getCurrentPage(l))||1;n.pages=o(t,e.getCollectionLength(l),e.getItemsPerPage(l),u),n.pagination.current=t,n.pagination.last=n.pages[n.pages.length-1],n.pagination.last<n.pagination.current?n.setCurrent(n.pagination.last):p()}}function p(){if(e.isRegistered(l)){var t=e.getCurrentPage(l),i=e.getItemsPerPage(l),a=e.getCollectionLength(l);n.range.lower=(t-1)*i+1,n.range.upper=Math.min(t*i,a),n.range.total=a}}function m(t){return i.test(t)&&0<t&&t<=n.pagination.last}n.pages=[],n.pagination={last:1,current:1},n.range={lower:1,upper:1,total:1},n.$watch("maxSize",function(t){t&&(u=Math.max(n.maxSize,5),g())}),n.$watch(function(){if(e.isRegistered(l))return(e.getCollectionLength(l)+1)*e.getItemsPerPage(l)},function(t){0<t&&g()}),n.$watch(function(){if(e.isRegistered(l))return e.getItemsPerPage(l)},function(t,e){t!=e&&void 0!==e&&d(n.pagination.current)}),n.$watch(function(){if(e.isRegistered(l))return e.getCurrentPage(l)},function(t,e){t!=e&&d(t)}),n.setCurrent=function(t){e.isRegistered(l)&&m(t)&&(t=parseInt(t,10),e.setCurrentPage(l,t))},n.tracker=function(t,e){return t+"_"+e}}},s=n.getString();void 0!==s?a.template=s:a.templateUrl=function(t,e){return e.templateUrl||n.getPath()};return a;function o(t,e,n,i){var a,s=[],o=Math.ceil(e/n),l=Math.ceil(i/2);a=t<=l?"start":o-l<t?"end":"middle";for(var c=i<o,u=1;u<=o&&u<=i;){var d=r(u,t,i,o),g=2===u&&("middle"===a||"end"===a),p=u===i-1&&("middle"===a||"start"===a);c&&(g||p)?s.push("..."):s.push(d),u++}return s}function r(t,e,n,i){var a=Math.ceil(n/2);return t===n?i:1===t?t:n<i?i-a<e?i-n+t:a<e?e-a+t:t:t}}]).filter("itemsPerPage",["paginationService",function(e){return function(n,i,a){if(void 0===a&&(a=t),!e.isRegistered(a))throw"pagination directive: the itemsPerPage id argument (id: "+a+") does not match a registered pagination-id.";var s,o;if(angular.isObject(n)){if(i=parseInt(i)||9999999999,o=e.isAsyncMode(a)?0:(e.getCurrentPage(a)-1)*i,s=o+i,e.setItemsPerPage(a,i),n instanceof Array)return n.slice(o,s);var r={};return angular.forEach(function(t){if(Object.keys)return Object.keys(t);var e=[];for(var n in t)t.hasOwnProperty(n)&&e.push(n);return e}(n).slice(o,s),function(t){r[t]=n[t]}),r}return n}}]).service("paginationService",function(){var t,e={};this.registerInstance=function(n){void 0===e[n]&&(e[n]={asyncMode:!1},t=n)},this.deregisterInstance=function(t){delete e[t]},this.isRegistered=function(t){return void 0!==e[t]},this.getLastInstanceId=function(){return t},this.setCurrentPageParser=function(t,n,i){e[t].currentPageParser=n,e[t].context=i},this.setCurrentPage=function(t,n){e[t].currentPageParser.assign(e[t].context,n)},this.getCurrentPage=function(t){var n=e[t].currentPageParser;return n?n(e[t].context):1},this.setItemsPerPage=function(t,n){e[t].itemsPerPage=n},this.getItemsPerPage=function(t){return e[t].itemsPerPage},this.setCollectionLength=function(t,n){e[t].collectionLength=n},this.getCollectionLength=function(t){return e[t].collectionLength},this.setAsyncModeTrue=function(t){e[t].asyncMode=!0},this.setAsyncModeFalse=function(t){e[t].asyncMode=!1},this.isAsyncMode=function(t){return e[t].asyncMode}}).provider("paginationTemplate",function(){var t,e="angularUtils.directives.dirPagination.template";this.setPath=function(t){e=t},this.setString=function(e){t=e},this.$get=function(){return{getPath:function(){return e},getString:function(){return t}}}}).run(["$templateCache",function(t){t.put("angularUtils.directives.dirPagination.template",'<ul class="pagination" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == \'...\' || ( ! autoHide && pages.length === 1 ) }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul>')}])}()},gIF2:function(t,e){dashboard.config(["$routeProvider","$locationProvider","$compileProvider","$localStorageProvider","NotificationProvider","timeAgoSettings","$provide",function(t,e,n,i,a,s,o){t.when("/dashboard",{templateUrl:"angular/views/dashboard/index.html",controller:"DashboardController"}).when("/register/success",{templateUrl:"angular/views/dashboard/register-success.html",controller:"DashboardController"}).when("/dashboard/withdrawal/success",{templateUrl:"angular/views/dashboard/withdrawal-instructions.html",controller:"WithdrawalController"}).when("/dashboard/profile",{templateUrl:"angular/views/dashboard/profile.html",controller:"ProfileController"}).when("/dashboard/messages",{templateUrl:"angular/views/dashboard/messages.html",controller:"MessageController"}).when("/dashboard/notices",{templateUrl:"angular/views/dashboard/notices.html",controller:"NoticeController"}).when("/dashboard/settings",{templateUrl:"angular/views/dashboard/settings.html",controller:"SettingsController"}).when("/dashboard/game-play",{templateUrl:"angular/views/dashboard/game-play.html",controller:"GamePlayController",resolve:{gameActive:["$location","sendRequest",function(t,e){return e.getGameState().then(function(e){if("active"==e.game_state)return e;t.path("/dashboard")})}]}}).when("/dashboard/display-results",{templateUrl:"angular/views/dashboard/display-results.html",controller:"DisplayResultsController",resolve:{gameActive:["$location","sendRequest",function(t,e){e.getGameState().then(function(e){"loading"!=e.game_state&&t.path("/dashboard")})}]}}).when("/dashboard/order-successful",{templateUrl:"angular/views/dashboard/order-successful.html",resolve:{activeTransaction:["$location","sendRequest",function(t,e){}]}}).when("/dashboard/fund-wallet",{templateUrl:"angular/views/dashboard/fund-wallet.html",controller:"FundWalletController"}).otherwise({redirectTo:"/dashboard"}),e.hashPrefix(""),e.html5Mode(!0),i.setKeyPrefix("game-"),s.allowFuture=!0,a.setOptions({delay:5e3,replaceMessage:!0,positionX:"center"}),o.decorator("$locale",["$delegate",function(t){return t.NUMBER_FORMATS={DECIMAL_SEP:".",GROUP_SEP:",",PATTERNS:[{minInt:1,minFrac:0,maxFrac:3,posPre:"",posSuf:"",negPre:"-",negSuf:"",gSize:3,lgSize:3},{minInt:1,minFrac:0,maxFrac:2,posPre:"¤",posSuf:"",negPre:"(¤",negSuf:")",gSize:3,lgSize:3}],CURRENCY_SYM:"₦"},t}]),n.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|sms|tel|whatsapp):/)}])},hiCx:function(t,e){var n=/^-?\d+$/;angular.module("inputCountValidator",[]).directive("count",function(){return{require:"ngModel",link:function(t,e,i,a){a.$validators.count=function(t,e){return!!a.$isEmpty(t)||e.length==i.count&&!!n.test(e)}}}})},inu2:function(t,e,n){(function(t){angular.module("viewTopTenPlayers",[]).directive("viewTopTenPlayers",["Notification","sendRequest",function(e,n){return{restrict:"A",scope:{game:"="},template:'\n<div ng-click="showPlayers()">\n  <ng-transclude></ng-transclude>\n  <div class="ui modal players{{game}} transition hidden">\n      <div class="header">\n        Top Winners\n      </div>\n      <div class="content flex-center">\n        <div class="actions  flex-center">\n          <div class="ui black left deny button">\n            Close\n          </div>\n        </div>\n        <table class="ui red fixed single line striped celled table" style="text-align: center;">\n          <thead>\n            <tr>\n              <th colspan="2">Game ID: {{ top_ten[0].game.id }}</th>\n              <th colspan="3">Number of Players: {{ top_ten[0].game.num_of_players }}</th>\n            </tr>\n          </thead>\n          <thead>\n            <tr>\n              <th>Name</th>\n              <th>Position</th>\n              <th>Score</th>\n              <th>Finish Time</th>\n              <th>Earning</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat="record in top_ten">\n              <th style="padding:5px 0;">{{ record.user.firstname }}</th>\n              <th style="padding:5px 0;">{{ record.position || \'N/A\' }}</th>\n              <th style="padding:5px 0;">{{ record.score }}</th>\n              <th style="padding:5px 0;">{{ record.ended_at }} </th>\n              <th style="padding:5px 0;">{{ record.earning }}</th>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n      </div>\n    </div>\n</div>\n',replace:!0,transclude:!0,link:function(t,e,n){},controller:["$scope",function(e){e.showPlayers=function(){t(".ui.modal.players"+e.game).modal({allowMultiple:!1,centered:!1,blurring:!0,onDeny:function(){return!0},onHide:function(){setTimeout(function(){},1e3)},onApprove:function(){return!0}}).modal("show"),n.request("user/get-exam-top-ten/"+e.game).then(function(t){e.top_ten=t.top_ten})}}]}}])}).call(e,n("7t+N"))},ngMs:function(t,e){angular.module("gamePlay",[]).directive("gamePlay",["$location","$localStorage","Notification","sendRequest",function(t,e,n,i){return{restrict:"E",template:'\n<section id="game-play">\n\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n\t}\n\t\n\n\t.questions{\n\t\tjustify-content: center;\n\t\tpadding: 50px 0;\n\t}\n\t.question__card{\n\t\tflex-basis: 80%;\n\t}\n\t.question__card__question h4{\n\t\ttext-transform: initial !important;\n\t\tline-height: 1.5em !important;\n\t\tfont-size: 1.2em !important;\n\t\tfont-weight: 100 !important;\n\t\tmargin-bottom: 26px !important;\n\t}\n\t.question__card__option{\n\t\tpadding-bottom:15px !important;\n\t}\n\t.question__card__option label{\n\t\tpadding-right: 15%;\n\t\ttext-align: left;\n\t\tpadding-left: 7rem !important;\n\t}\n\t.question__card__option input{\n\t\tmargin-left: 3rem !important;\n\t\twidth: 21rem !important;\n\t}\n\t.question__card__option label::before, .question__card__option label::after{\n\t\tmargin-left: 5%;\n\n\t}\n\t.question__actions{\n\t\tdisplay: flex;\n\t}\n\n\t.question__actions .buttons{\n\t\tflex: 1 1 auto;\n\t}\n\n\t.submit-button{\n\t\tmargin-top:15px !important;\n\t}\n\t.ui.pagination.menu .active.item{\n\t\tbackground-color:rgba(92, 243, 33, 0.27);\n\t}\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n  #game-play{\n    margin-top: -140px;\n\t}\n\t\n</style>\n\n\n\n  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item" style="padding: 0 20px !important;">\n          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()" id="timer"></countdown-timer>\n        </a>\n      </div>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui violet label" style="font-size: 13px;">\n        <span style="padding-right: 10px;">Active Gamers</span>\n        <i class="users icon"></i> {{ total_examinees }}\n      </div>\n    </div>\n\n\n    <div class="ui segment">\n      <h1 style="color: white; float: right;">Lifelines</h1>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item">\n          50/50\n          <div class="floating ui red label">1</div>\n        </a>\n        <a class="item" style="background:#21BA45; color: white;">\n          CHANGE QUESTION\n          <div class="floating ui teal label">1</div>\n        </a>\n      </div>\n    </div>\n  </div>\n\n\t<div class="grid-100">\n\t<div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">\n      <div class="ui active inverted dimmer">\n        <div class="ui large text loader">Loading questions...</div>\n      </div>\n    </div>\n\t<div class="ui green segment">\n\t\n\t\t<div class="ui cards questions">\n\t\t\t<div class="card question__card no-animate" ng-repeat="q in user_questions" ng-show="current_number == $index">\n\t\t\t\t<div class="content">\n\t\t\t\t\t<div class="header question__card__title">Question {{ $index + 1}}</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="content question__card__question">\n\t\t\t\t\t<h4 class="ui sub header dash_header question">\n\t\t\t\t\t\t{{ q.question.question }} \n\t\t\t\t\t</h4>\n\t\t\t\t\t\n\t\t\t\t\t<div class="ui small feed question__card__options">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_1">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_1 }}</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_2">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 2}}" ng-value="q.question.option_2" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_2 }}</label>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_3">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 3}}" ng-value="q.question.option_3" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_3 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_4">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 4}}" ng-value="q.question.option_4" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_4 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="extra content question__actions">\n\t\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t\t\t<button class="ui left labeled icon black button" ng-click="prev()"  ng-disabled="current_number == 0">\n\t\t\t\t\t\t\t\t<i class="left arrow icon"></i>\n\t\t\t\t\t\t\t\tPrevious\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui right labeled icon black button" ng-click="next()" ng-disabled="current_number == 9">\n\t\t\t\t\t\t\t\t<i class="right arrow icon"></i>\n\t\t\t\t\t\t\t\tNext\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t<button class="ui blue button submit-button" ng-click="submitExam()" ng-class="{\'loading\' : loading, \'disabled\': disabled}">Submit</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t\n\t\t\t\n\t\t\t<div class="ui right floated pagination menu">\n\t\t\t\t<a class="item" ng-class="{\'active\' : q.answered_option }" ng-click="setCurrent($index)"\n\t\t\t\t    ng-repeat="q in user_questions track by q.id" ng-if="$index < 10">{{ $index + 1 }}</a>\n      </div>\n\t\t\t\n\t\t</div>\n\t</div>\n</div>\n\n</section>\n\n',replace:!0,link:function(t,e,n){},controller:["$scope",function(a){a.lifelines=e,a.lifelines.extra=a.lifelines.extra||!1,a.lifelines.options=a.lifelines.options||!1,a.current_number=0,i.getUserQuestions("/user/get-user-questions").then(function(t){a.user_questions=t}),a.next=function(){a.current_number++},a.prev=function(){a.current_number--},a.setCurrent=function(t){a.current_number=t},a.submitExam=function(){a.loading=!0,i.storeData("prevent",!0),i.postRequest("/user/submit-exam",a.user_questions).then(function(s){delete e.user_questions,delete e.extra,delete e.options,422==s.status&&(n.error({message:"No active game in progress",positionX:"center"}),t.path("/dashboard")),416!=s.status?200==s.status&&s.data.status&&(i.storeData("user_score",s.data.user_score),e.user_score=s.data.user_score,t.path("/dashboard")):a.disabled=!0})},a.requestExtra=function(t){t.answered_option="skipped";var e=a.user_questions.indexOf(t);a.user_questions.splice(e,1),a.lifelines.extra=!0,a.user_questions.push(t)},a.requestOptions=function(t){i.postRequest("/user/question-remove-options",t.question.id).then(function(e){t.question=e.data}),a.lifelines.options=!0},a.displayResults=function(){i.storeData("prevent",!0),i.postRequest("/user/end-exam",a.user_questions).then(function(a){delete e.user_questions,delete e.extra,delete e.options,422==a.status?(n.error({message:"No active game in progress",positionX:"center"}),t.path("/dashboard")):200==a.status&&a.data.status&&(i.storeData("user_score",a.data.user_score),e.user_score=a.data.user_score,t.path("/dashboard/display-results"))})}}]}}])},qOuZ:function(t,e,n){(function(t){dashboard.controller("DashboardController",["$scope","Notification","sendRequest","bootstrapPage",function(t,e,n,i){NProgress.start(),t.hide=!0,t.transferEarnings=function(){n.postRequest("user/transfer-earnings").then(function(i){200==i.status&&(1==i.data.status?e.success({message:"Earnings transferred to wallet",positionX:"center"}):"Insufficient"==i.data.status&&e.error({message:"No earnings to transfer",positionX:"center"})),n.getUserDetails("/user/get-user-details",!0).then(function(e){t.userdetails=e.userdetails}),n.getTotalEarnings("/user/get-total-earnings",!0).then(function(e){t.total_earnings=e.total_earnings})})},t.sendMessage=function(){n.postRequest("/user/send-message",t.message).then(function(t){200==t.status&&NProgress.done()}),t.message=null},i.dashboard(t),NProgress.done()}]),dashboard.controller("WithdrawalController",["$scope","Notification","sendRequest","bootstrapPage",function(t,e,n,i){NProgress.start(),console.log(n.getData("tr_id")),n.postRequest("user/get-withdrawal-instructions-data",{id:n.getData("tr_id")}).then(function(e){200==e.status&&(t.amount=e.data.amount,t.total_amount=e.data.total_amount,t.time_joined=e.data.time_joined,t.refcode=e.data.refcode),n.storeData("tr_id",null)}),NProgress.done()}]),dashboard.controller("ProfileController",["$scope","$location","Notification","sendRequest","bootstrapPage",function(t,e,n,i,a){NProgress.start(),a.profile(t),t.viewShareInfo=function(t){console.log(t),i.storeData("tr_id",t),e.path("dashboard/withdrawal/success")},NProgress.done()}]),dashboard.controller("SettingsController",["$scope","Notification","sendRequest","bootstrapPage",function(t,e,n,i){NProgress.start(),t.updateDetails=function(){t.loading=!0,n.postRequest("/user/update-user-details",t.userdetails).then(function(n){422==n.status?e.error({message:"Invalid data",positionX:"center"}):e.success({message:"Updated",positionX:"center"}),t.loading=null})},t.updatePassword=function(){t.userdetails.old_password&&t.userdetails.password?n.postRequest("/user/confirm-user-password",t.userdetails.old_password).then(function(n){423==n.status?e.error("Old password mismatch"):200==n.status&&n.data.status&&(t.updateDetails(),t.logout())}):e.error("Old and new password required")},i.settings(t),NProgress.done()}]),dashboard.controller("GamePlayController",["$scope","Notification","sendRequest","bootstrapPage","gameActive",function(t,e,n,i,a){NProgress.start(),t.game_timer=a.game_timer,t.total_examinees=a.total_examinees,i.gameplay(t),NProgress.done()}]),dashboard.controller("DisplayResultsController",["$scope","bootstrapPage",function(t,e){NProgress.start(),e.results(t),NProgress.done()}]),dashboard.controller("MessageController",["$scope","bootstrapPage","sendRequest",function(t,e,n){NProgress.start(),t.markAsRead=function(t){t.read=!0,n.postRequest("/user/mark-message-as-read",t)},t.deleteMessage=function(e){n.postRequest("/user/delete-message",e).then(function(n){var i=t.userdetails.messages.indexOf(e);t.userdetails.messages.splice(i,1)})},e.messages(t),NProgress.done()}]),dashboard.controller("NoticeController",["$scope","bootstrapPage","sendRequest",function(t,e,n){NProgress.start(),t.markAsRead=function(t){t.read=!0,n.postRequest("/user/mark-notice-as-read",t)},t.deleteNotice=function(e){n.postRequest("/user/delete-notice",e).then(function(n){var i=t.userdetails.notices.indexOf(e);t.userdetails.notices.splice(i,1)})},e.notices(t),NProgress.done()}]),dashboard.controller("FundWalletController",["$scope","$timeout","sendRequest",function(e,n,i){NProgress.start(),i.request("user/get-all-agents").then(function(t){e.agents=t}),e.$on("$viewContentLoaded",function(){n(function(){t("#fund-account .item").tab()},500)}),NProgress.done()}])}).call(e,n("7t+N"))},qmI2:function(t,e){angular.module("customFileChange",[]).directive("fileChange",["$parse",function(t){return{require:"ngModel",restrict:"A",link:function(e,n,i,a){var s=t(i.fileChange);e.$watch(function(){return a.$viewValue},function(t){t||n.val("")}),n[0].addEventListener("change",function(t){var n=new FileReader;n.onload=function(n){e.$apply(function(){a.$setViewValue(n.target.result),s(e,{$event:t,files:t.target.files,data:n.target.result})})},n.readAsDataURL(t.target.files[0])},!1)}}}])},qnlB:function(t,e,n){(function(t){angular.module("makeWithdrawal",[]).directive("makeWithdrawal",["$timeout","$location","Notification","sendRequest",function(e,n,i,a){return{restrict:"E",scope:{},template:'\n<section id="makeWithdrawal" class="ui right floated horizontal  list">\n  <div class=" ui vertical animated orange compact button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="icon money bill alternate outline"></i></div>\n    <div class="visible content">\n      Cash Out\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal makeWithdrawal transition hidden">\n\n      <div class="ui icon mini message">\n        <i class="inbox icon"></i>\n        <div class="content">\n          <div class="header">\n            TRANSFER EARNINGS FIRST\n          </div>\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \'transfer earnings\' button. Otherwise proceed.</p>\n        </div>\n      </div>\n\n      <div class="header">\n        Enter an Amount\n      </div>\n      <div class="content flex-center">\n        <div class="ui form" id="input-field">\n          <div class="field">\n            <input type="number" placeholder="Min ₦1,000 | Max: ₦50, 000" ng-model="requested_amount" ng-max="withdrawal_max" ng-min="1000">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !requested_amount}" prompt-password="requestWithdrawal()">\n          Yep, proceed!\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n      <div class="image content" style="flex-direction:column;">\n        <div class="ui icon mini message positive">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> For withdrawals from ₦1,000 and above, a service fee of ₦200 will be charged. </p>\n            <p> While an additional service fee of ₦100 will be charged for every additional ₦1,000.</p>\n            <p> You cannot cashout between 5pm on Friday to 7:59am on Monday. Weekend rest is good you know.</p>\n          </div>\n        </div>\n        <div class="ui icon mini message negative">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> NB: If you do not receive the requested amount in your bank account within 72 hours after the time of request, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n',replace:!0,link:function(t,e,n){},controller:["$scope",function(s){s.openModal=function(){t(".ui.modal.makeWithdrawal").modal({centered:!1,blurring:!0,onDeny:function(){return!0},onHide:function(){setTimeout(function(){},1e3)},onApprove:function(){return!0}}).modal("show")},s.requestWithdrawal=function(){a.postRequest("/user/request-withdrawal",{amt:s.requested_amount}).then(function(t){422==t.status?i.error(t.data.message):200==t.status&&t.data.status&&(s.requested_amount<1e3?i.primary("Amount requested will be sent as airtime to "+s.$parent.userdetails.phone1):(a.storeData("withdraw",!0),n.path("dashboard/withdrawal/success"),i.primary({message:"Amount requested will be sent to account number ("+s.$parent.userdetails.acct_no+" - "+s.$parent.userdetails.bank+") within 72 hours",positionX:"center"})),s.$parent.userdetails.available_units=s.$parent.userdetails.available_units-s.requested_amount,s.requested_amount=null)})},e(function(){s.withdrawal_max=s.$parent.userdetails.available_units<5e4?s.$parent.userdetails.available_units:5e4},1e3),s.$on("$routeChangeStart",function(){e(function(){t(".ui.modal.makeWithdrawal").length>1&&t(".ui.modal.makeWithdrawal")[1].remove()},0)})}]}}])}).call(e,n("7t+N"))},rb9B:function(t,e){angular.module("promptPassword",[]).directive("promptPassword",["Notification","sendRequest",function(t,e){return{restrict:"A",transclude:!0,template:"<div ng-transclude></div>",link:function(n,i,a){var s=a.promptPassword;i.bind("click",function(i){var a=window.prompt("Enter your password");e.postRequest("/user/confirm-user-password",a).then(function(e){423==e.status?(t.error("Incorrect password"),n.$parent.logout()):200==e.status&&e.data.status&&n.$eval(s)})})}}}])},sovp:function(t,e){angular.module("miniGameState",[]).directive("miniGameState",["$location","Notification","$localStorage","sendRequest",function(t,e,n,i){return{restrict:"E",scope:{},template:'\n\n<div id="mini-game">\n<style>\n\n</style>\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'loading\'">\n    <div class="ui red button">\n      <i class="clock icon"></i> <ng-transclude></ng-transclude> Next Game\n    </div>\n    <a class="ui basic red left pointing label">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'active\'" ng-click="joinGame()">\n    <div class="ui green button">\n     <ng-transclude></ng-transclude>\n      <i class="gamepad icon"></i>Join Game\n    </div>\n    <a class="ui basic left pointing green label" ng-click="joinGame()">\n        <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n',replace:!0,transclude:!0,link:function(t,e,n){},controller:["$scope",function(a){!i.getData("user_score")&&angular.isUndefined(n.user_score)||(a.user_score=n.user_score),a.pageReload=function(){i.getGameState().then(function(t){a.game_state=t.game_state,a.game_timer=t.game_timer,a.total_examinees=t.total_examinees})},a.joinGame=function(){NProgress.start(),delete n.user_score,delete n.extra,delete n.options,delete n.user_questions,i.postRequest("/user/join-game").then(function(n){422==n.status?e.error({message:"No active game in progress",positionX:"center"}):200==n.status?n.data.status&&(a.game_state="transition",t.path("/dashboard/game-play")):402==n.status?e.error({message:"Insufficient credits to join game.",positionX:"center"}):403==n.status&&(a.game_state="transition",e.error({message:"Already in a game session.",positionX:"center"}),t.path("/dashboard/game-play"))}),NProgress.done()},i.getGameState().then(function(t){a.game_state=t.game_state,a.game_timer=t.game_timer,a.total_examinees=t.total_examinees})}]}}])},"wPl/":function(t,e){angular.module("customFileUpload",[]).directive("customFileUpload",["$localStorage","sendRequest",function(t,e){return{restrict:"E",scope:{dest:"=",mdl:"=",attr:"=",altText:"="},template:'\n<div>\n   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">\n   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">\n</div>\n\n',replace:!0,link:function(t,e,n){e.children('input[type="file"]').attr("id",n.attr),e.children('input[type="file"]').attr("name",n.attr),e.children("img").attr("alt",n.altText)},controller:["$scope",function(n){n.uploadImage=function(i,a){e.processImageUpload("/api/upload-image",n.mdl,n.dest,t.userToken).then(function(t){console.log(t),void 0==t.filename?console.error("Server Route Error"):(n.mdl=t.filename,n.$parent.filename=t.filename)})}}]}}])},wlNK:function(t,e){angular.module("payWithPaystack",[]).directive("payWithPaystack",["Notification","SweetAlert","sendRequest","CSRF_TOKEN",function(t,e,n,i){return{restrict:"E",template:'\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <form action="/dashboard/save-order-and-pay" method="POST">\n   <input type="hidden" name="amount" value="{{ requested_amount * 100 }}">\n   <input type="hidden" name="_token" value="{{ CSRF_TOKEN }}">\n   <button type="submit" ng-class="{\'ui purple right labeled icon button\': true, \'loading disabled\':loading}" id="pay-now" title="Pay now">\n     Pay Now\n     <i class="credit card outline icon"></i>\n   </button>\n  </form>\n\n</section>\n',replace:!0,link:function(t,e){var n=angular.element(document.createElement("script"));n.attr("charset","utf-8"),n.attr("src","https://js.paystack.co/v1/inline.js"),e.append(n),console.log(e)},controller:["$scope","$location",function(t,a){t.CSRF_TOKEN=i,t.saveOrderThenPayWithPaystack=function(){console.log(PAYSTACK_PUBLIC_KEY),t.loading=!0,e.swal({title:"Please wait.....",text:"Contacting Paystack payment gateway.",showCancelButton:!1,showConfirmButton:!1}),t.awardCredits().then(function(e){t.payWithPaystack()},function(t){e.swal("Error","Network Error. Please refresh the page and try again.","error")})},t.payWithPaystack=function(){console.log(PAYSTACK_PUBLIC_KEY);var i=.017*t.requested_amount;t.requested_amount>2500&&(i=.017*t.requested_amount+100);var s=_.random(676764765,544765545646456);PaystackPop.setup({key:PAYSTACK_PUBLIC_KEY,email:t.$root.userdetails.email,first_name:t.$root.userdetails.firstname,last_name:t.$root.userdetails.lastname,phone:t.$root.userdetails.phone1,amount:Math.ceil(100*(t.requested_amount+i)),metadata:{cartid:s,orderid:s,custom_fields:[{display_name:"Paid on",variable_name:"paid_on",value:"Website"},{display_name:"Paid via",variable_name:"paid_via",value:"Inline Popup"},{display_name:"User Details",variable_name:"user_details",value:t.$root.userdetails.firstname+" "+t.$root.userdetails.lastname+": "+t.$root.userdetails.phone1},{display_name:"User ID",variable_name:"user_id",value:t.$root.userdetails.id},{display_name:"Fees",variable_name:"fees",value:100*i}]},callback:function(i){e.swal({title:"Please wait.....",text:"We are attempting to acknowledge your payment.",icon:"info",showCancelButton:!1,showConfirmButton:!1}),n.postRequest("/user/credit-account?reference="+i.reference).then(function(i){200==i.status&&(i.data.verified?(n.storeData("activeTransaction",!0),e.swal("Success!","Transaction verified. Units added to account","success"),t.$root.userdetails.available_units+=t.requested_amount,t.requested_amount=null,a.path("/dashboard/order-successful")):e.swal("Notice!","Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.","warning"))})},onClose:function(){t.requested_amount=null,e.swal("Error!","Transaction cancelled by user","error"),location.reload()}}).openIframe()},t.awardCredits=function(){var e={amt:t.requested_amount,trans_type:"wallet funding",status:"pending"};return n.postRequest("/user/send-credit-account-request",e).then(function(t){if(200==t.status&&t.data.status)return!0})}}]}}])}},[4]);
+webpackJsonp([5],{
+
+/***/ "./node_modules/angular-sweetalert/SweetAlert.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+@fileOverview
+
+@toc
+
+*/
+
+(function (root, factory) {
+	"use strict";
+
+	/*global define*/
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("./node_modules/angular/index.js"), __webpack_require__("./node_modules/angular-sweetalert/node_modules/sweetalert/lib/sweet-alert.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));  // AMD
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = factory(require('angular'), require('sweetalert')); // Node
+	} else {
+		factory(root.angular, root.swal);					// Browser
+	}
+
+}(this, function (angular, swal) {
+	"use strict";
+
+	angular.module('oitozero.ngSweetAlert', [])
+		.factory('SweetAlert', [ '$rootScope', function ( $rootScope ) {
+			//public methods
+			var self = {
+
+				swal: function ( arg1, arg2, arg3 ) {
+					$rootScope.$evalAsync(function(){
+						if( typeof(arg2) === 'function' ) {
+							swal( arg1, function(isConfirm){
+								$rootScope.$evalAsync( function(){
+									arg2(isConfirm);
+								});
+							}, arg3 );
+						} else {
+							swal( arg1, arg2, arg3 );
+						}
+					});
+				},
+				success: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'success' );
+					});
+				},
+				error: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'error' );
+					});
+				},
+				warning: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'warning' );
+					});
+				},
+				info: function(title, message) {
+					$rootScope.$evalAsync(function(){
+						swal( title, message, 'info' );
+					});
+				},
+				showInputError: function(message) {
+					$rootScope.$evalAsync(function(){
+						swal.showInputError( message );
+					});
+				},
+				close: function() {
+					$rootScope.$evalAsync(function(){
+						swal.close();
+					});
+				}
+			};
+
+			return self;
+		}]);
+}));
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/angular-sweetalert/node_modules/sweetalert/lib/sweet-alert.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;// SweetAlert
+// 2014 (c) - Tristan Edwards
+// github.com/t4t5/sweetalert
+;(function(window, document, undefined) {
+
+  var modalClass   = '.sweet-alert',
+      overlayClass = '.sweet-overlay',
+      alertTypes   = ['error', 'warning', 'info', 'success'],
+      defaultParams = {
+        title: '',
+        text: '',
+        type: null,
+        allowOutsideClick: false,
+        showConfirmButton: true,
+        showCancelButton: false,
+        closeOnConfirm: true,
+        closeOnCancel: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#AEDEF4',
+        cancelButtonText: 'Cancel',
+        imageUrl: null,
+        imageSize: null,
+        timer: null,
+        customClass: '',
+        html: false,
+        animation: true,
+        allowEscapeKey: true
+      };
+
+
+  /*
+   * Manipulate DOM
+   */
+
+  var getModal = function() {
+      var $modal = document.querySelector(modalClass);
+
+      if (!$modal) {
+        sweetAlertInitialize();
+        $modal = getModal();
+      }
+
+      return $modal;
+    },
+    getOverlay = function() {
+      return document.querySelector(overlayClass);
+    },
+    hasClass = function(elem, className) {
+      return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+    },
+    addClass = function(elem, className) {
+      if (!hasClass(elem, className)) {
+        elem.className += ' ' + className;
+      }
+    },
+    removeClass = function(elem, className) {
+      var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
+      if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0) {
+          newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+      }
+    },
+    escapeHtml = function(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    },
+    _show = function(elem) {
+      elem.style.opacity = '';
+      elem.style.display = 'block';
+    },
+    show = function(elems) {
+      if (elems && !elems.length) {
+        return _show(elems);
+      }
+      for (var i = 0; i < elems.length; ++i) {
+        _show(elems[i]);
+      }
+    },
+    _hide = function(elem) {
+      elem.style.opacity = '';
+      elem.style.display = 'none';
+    },
+    hide = function(elems) {
+      if (elems && !elems.length) {
+        return _hide(elems);
+      }
+      for (var i = 0; i < elems.length; ++i) {
+        _hide(elems[i]);
+      }
+    },
+    isDescendant = function(parent, child) {
+      var node = child.parentNode;
+      while (node !== null) {
+        if (node === parent) {
+          return true;
+        }
+        node = node.parentNode;
+      }
+      return false;
+    },
+    getTopMargin = function(elem) {
+      elem.style.left = '-9999px';
+      elem.style.display = 'block';
+
+      var height = elem.clientHeight,
+          padding;
+      if (typeof getComputedStyle !== "undefined") { /* IE 8 */
+        padding = parseInt(getComputedStyle(elem).getPropertyValue('padding'), 10);
+      } else {
+        padding = parseInt(elem.currentStyle.padding);
+      }
+
+      elem.style.left = '';
+      elem.style.display = 'none';
+      return ('-' + parseInt(height / 2 + padding) + 'px');
+    },
+    fadeIn = function(elem, interval) {
+      if (+elem.style.opacity < 1) {
+        interval = interval || 16;
+        elem.style.opacity = 0;
+        elem.style.display = 'block';
+        var last = +new Date();
+        var tick = function() {
+          elem.style.opacity = +elem.style.opacity + (new Date() - last) / 100;
+          last = +new Date();
+
+          if (+elem.style.opacity < 1) {
+            setTimeout(tick, interval);
+          }
+        };
+        tick();
+      }
+      elem.style.display = 'block'; //fallback IE8
+    },
+    fadeOut = function(elem, interval) {
+      interval = interval || 16;
+      elem.style.opacity = 1;
+      var last = +new Date();
+      var tick = function() {
+        elem.style.opacity = +elem.style.opacity - (new Date() - last) / 100;
+        last = +new Date();
+
+        if (+elem.style.opacity > 0) {
+          setTimeout(tick, interval);
+        } else {
+          elem.style.display = 'none';
+        }
+      };
+      tick();
+    },
+    fireClick = function(node) {
+      // Taken from http://www.nonobtrusive.com/2011/11/29/programatically-fire-crossbrowser-click-event-with-javascript/
+      // Then fixed for today's Chrome browser.
+      if (typeof MouseEvent === 'function') {
+        // Up-to-date approach
+        var mevt = new MouseEvent('click', {
+          view: window,
+          bubbles: false,
+          cancelable: true
+        });
+        node.dispatchEvent(mevt);
+      } else if ( document.createEvent ) {
+        // Fallback
+        var evt = document.createEvent('MouseEvents');
+        evt.initEvent('click', false, false);
+        node.dispatchEvent(evt);
+      } else if( document.createEventObject ) {
+        node.fireEvent('onclick') ;
+      } else if (typeof node.onclick === 'function' ) {
+        node.onclick();
+      }
+    },
+    stopEventPropagation = function(e) {
+      // In particular, make sure the space bar doesn't scroll the main window.
+      if (typeof e.stopPropagation === 'function') {
+        e.stopPropagation();
+        e.preventDefault();
+      } else if (window.event && window.event.hasOwnProperty('cancelBubble')) {
+        window.event.cancelBubble = true;
+      }
+    };
+
+  // Remember state in cases where opening and handling a modal will fiddle with it.
+  var previousActiveElement,
+      previousDocumentClick,
+      previousWindowKeyDown,
+      lastFocusedButton;
+
+
+  /*
+   * Add modal + overlay to DOM
+   */
+
+  var sweetAlertInitialize = function() {
+    var sweetHTML = '<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert" tabIndex="-1"><div class="sa-icon sa-error"><span class="sa-x-mark"><span class="sa-line sa-left"></span><span class="sa-line sa-right"></span></span></div><div class="sa-icon sa-warning"> <span class="sa-body"></span> <span class="sa-dot"></span> </div> <div class="sa-icon sa-info"></div> <div class="sa-icon sa-success"> <span class="sa-line sa-tip"></span> <span class="sa-line sa-long"></span> <div class="sa-placeholder"></div> <div class="sa-fix"></div> </div> <div class="sa-icon sa-custom"></div> <h2>Title</h2><p>Text</p><button class="cancel" tabIndex="2">Cancel</button><button class="confirm" tabIndex="1">OK</button></div>',
+        sweetWrap = document.createElement('div');
+
+    sweetWrap.innerHTML = sweetHTML;
+
+    // Append elements to body
+    while (sweetWrap.firstChild) {
+      document.body.appendChild(sweetWrap.firstChild);
+    }
+  };
+
+
+  /*
+   * Global sweetAlert function
+   */
+  var sweetAlert, swal;
+  
+  sweetAlert = swal = function() {
+    var customizations = arguments[0];
+
+    /*
+     * Use argument if defined or default value from params object otherwise.
+     * Supports the case where a default value is boolean true and should be
+     * overridden by a corresponding explicit argument which is boolean false.
+     */
+    function argumentOrDefault(key) {
+      var args = customizations;
+
+      if (typeof args[key] !== 'undefined') {
+        return args[key];
+      } else {
+        return defaultParams[key];
+      }
+    }
+
+    if (arguments[0] === undefined) {
+      logStr('SweetAlert expects at least 1 attribute!');
+      return false;
+    }
+
+    var params = extend({}, defaultParams);
+
+    switch (typeof arguments[0]) {
+
+      // Ex: swal("Hello", "Just testing", "info");
+      case 'string':
+        params.title = arguments[0];
+        params.text  = arguments[1] || '';
+        params.type  = arguments[2] || '';
+
+        break;
+
+      // Ex: swal({title:"Hello", text: "Just testing", type: "info"});
+      case 'object':
+        if (arguments[0].title === undefined) {
+          logStr('Missing "title" argument!');
+          return false;
+        }
+
+        params.title = arguments[0].title;
+
+        var availableCustoms = [
+          'text',
+          'type',
+          'customClass',
+          'allowOutsideClick',
+          'showConfirmButton',
+          'showCancelButton',
+          'closeOnConfirm',
+          'closeOnCancel',
+          'timer',
+          'confirmButtonColor',
+          'cancelButtonText',
+          'imageUrl',
+          'imageSize',
+          'html',
+          'animation',
+          'allowEscapeKey'];
+
+        // It would be nice to just use .forEach here, but IE8... :(
+        var numCustoms = availableCustoms.length;
+        for (var customIndex = 0; customIndex < numCustoms; customIndex++) {
+          var customName = availableCustoms[customIndex];
+          params[customName] = argumentOrDefault(customName);
+        }
+
+        // Show "Confirm" instead of "OK" if cancel button is visible
+        params.confirmButtonText  = (params.showCancelButton) ? 'Confirm' : defaultParams.confirmButtonText;
+        params.confirmButtonText  = argumentOrDefault('confirmButtonText');
+
+        // Function to call when clicking on cancel/OK
+        params.doneFunction       = arguments[1] || null;
+
+        break;
+
+      default:
+        logStr('Unexpected type of argument! Expected "string" or "object", got ' + typeof arguments[0]);
+        return false;
+
+    }
+
+    setParameters(params);
+    fixVerticalPosition();
+    openModal();
+
+
+    // Modal interactions
+    var modal = getModal();
+
+    // Mouse interactions
+    var onButtonEvent = function(event) {
+      var e = event || window.event;
+      var target = e.target || e.srcElement,
+          targetedConfirm    = (target.className.indexOf("confirm") !== -1),
+          modalIsVisible     = hasClass(modal, 'visible'),
+          doneFunctionExists = (params.doneFunction && modal.getAttribute('data-has-done-function') === 'true');
+
+      switch (e.type) {
+        case ("mouseover"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.04);
+          }
+          break;
+        case ("mouseout"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = params.confirmButtonColor;
+          }
+          break;
+        case ("mousedown"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.14);
+          }
+          break;
+        case ("mouseup"):
+          if (targetedConfirm) {
+            target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.04);
+          }
+          break;
+        case ("focus"):
+          var $confirmButton = modal.querySelector('button.confirm'),
+              $cancelButton  = modal.querySelector('button.cancel');
+
+          if (targetedConfirm) {
+            $cancelButton.style.boxShadow = 'none';
+          } else {
+            $confirmButton.style.boxShadow = 'none';
+          }
+          break;
+        case ("click"):
+          if (targetedConfirm && doneFunctionExists && modalIsVisible) { // Clicked "confirm"
+
+            params.doneFunction(true);
+
+            if (params.closeOnConfirm) {
+              sweetAlert.close();
+            }
+          } else if (doneFunctionExists && modalIsVisible) { // Clicked "cancel"
+
+            // Check if callback function expects a parameter (to track cancel actions)
+            var functionAsStr          = String(params.doneFunction).replace(/\s/g, '');
+            var functionHandlesCancel  = functionAsStr.substring(0, 9) === "function(" && functionAsStr.substring(9, 10) !== ")";
+
+            if (functionHandlesCancel) {
+              params.doneFunction(false);
+            }
+
+            if (params.closeOnCancel) {
+              sweetAlert.close();
+            }
+          } else {
+            sweetAlert.close();
+          }
+
+          break;
+      }
+    };
+
+    var $buttons = modal.querySelectorAll('button');
+    for (var i = 0; i < $buttons.length; i++) {
+      $buttons[i].onclick     = onButtonEvent;
+      $buttons[i].onmouseover = onButtonEvent;
+      $buttons[i].onmouseout  = onButtonEvent;
+      $buttons[i].onmousedown = onButtonEvent;
+      //$buttons[i].onmouseup   = onButtonEvent;
+      $buttons[i].onfocus     = onButtonEvent;
+    }
+
+    // Remember the current document.onclick event.
+    previousDocumentClick = document.onclick;
+    document.onclick = function(event) {
+      var e = event || window.event;
+      var target = e.target || e.srcElement;
+
+      var clickedOnModal = (modal === target),
+          clickedOnModalChild = isDescendant(modal, target),
+          modalIsVisible = hasClass(modal, 'visible'),
+          outsideClickIsAllowed = modal.getAttribute('data-allow-ouside-click') === 'true';
+
+      if (!clickedOnModal && !clickedOnModalChild && modalIsVisible && outsideClickIsAllowed) {
+        sweetAlert.close();
+      }
+    };
+
+
+    // Keyboard interactions
+    var $okButton = modal.querySelector('button.confirm'),
+        $cancelButton = modal.querySelector('button.cancel'),
+        $modalButtons = modal.querySelectorAll('button[tabindex]');
+
+
+    function handleKeyDown(event) {
+      var e = event || window.event;
+      var keyCode = e.keyCode || e.which;
+
+      if ([9,13,32,27].indexOf(keyCode) === -1) {
+        // Don't do work on keys we don't care about.
+        return;
+      }
+
+      var $targetElement = e.target || e.srcElement;
+
+      var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
+      for (var i = 0; i < $modalButtons.length; i++) {
+        if ($targetElement === $modalButtons[i]) {
+          btnIndex = i;
+          break;
+        }
+      }
+
+      if (keyCode === 9) {
+        // TAB
+        if (btnIndex === -1) {
+          // No button focused. Jump to the confirm button.
+          $targetElement = $okButton;
+        } else {
+          // Cycle to the next button
+          if (btnIndex === $modalButtons.length - 1) {
+            $targetElement = $modalButtons[0];
+          } else {
+            $targetElement = $modalButtons[btnIndex + 1];
+          }
+        }
+
+        stopEventPropagation(e);
+        $targetElement.focus();
+        setFocusStyle($targetElement, params.confirmButtonColor); // TODO
+
+      } else {
+        if (keyCode === 13 || keyCode === 32) {
+            if (btnIndex === -1) {
+              // ENTER/SPACE clicked outside of a button.
+              $targetElement = $okButton;
+            } else {
+              // Do nothing - let the browser handle it.
+              $targetElement = undefined;
+            }
+        } else if (keyCode === 27 && params.allowEscapeKey === true) {
+          $targetElement = $cancelButton;
+        } else {
+          // Fallback - let the browser handle it.
+          $targetElement = undefined;
+        }
+
+        if ($targetElement !== undefined) {
+          fireClick($targetElement, e);
+        }
+      }
+    }
+
+    previousWindowKeyDown = window.onkeydown;
+
+    window.onkeydown = handleKeyDown;
+
+    function handleOnBlur(event) {
+      var e = event || window.event;
+      var $targetElement = e.target || e.srcElement,
+          $focusElement = e.relatedTarget,
+          modalIsVisible = hasClass(modal, 'visible');
+
+      if (modalIsVisible) {
+        var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
+
+        if ($focusElement !== null) {
+          // If we picked something in the DOM to focus to, let's see if it was a button.
+          for (var i = 0; i < $modalButtons.length; i++) {
+            if ($focusElement === $modalButtons[i]) {
+              btnIndex = i;
+              break;
+            }
+          }
+
+          if (btnIndex === -1) {
+            // Something in the dom, but not a visible button. Focus back on the button.
+            $targetElement.focus();
+          }
+        } else {
+          // Exiting the DOM (e.g. clicked in the URL bar);
+          lastFocusedButton = $targetElement;
+        }
+      }
+    }
+
+    $okButton.onblur = handleOnBlur;
+    $cancelButton.onblur = handleOnBlur;
+
+    window.onfocus = function() {
+      // When the user has focused away and focused back from the whole window.
+      window.setTimeout(function() {
+        // Put in a timeout to jump out of the event sequence. Calling focus() in the event
+        // sequence confuses things.
+        if (lastFocusedButton !== undefined) {
+          lastFocusedButton.focus();
+          lastFocusedButton = undefined;
+        }
+      }, 0);
+    };
+  };
+
+
+  /*
+   * Set default params for each popup
+   * @param {Object} userParams
+   */
+  sweetAlert.setDefaults = swal.setDefaults = function(userParams) {
+    if (!userParams) {
+      throw new Error('userParams is required');
+    }
+    if (typeof userParams !== 'object') {
+      throw new Error('userParams has to be a object');
+    }
+
+    extend(defaultParams, userParams);
+  };
+
+
+  /*
+   * Set type, text and actions on modal
+   */
+
+  function setParameters(params) {
+    var modal = getModal();
+
+    var $title = modal.querySelector('h2'),
+        $text = modal.querySelector('p'),
+        $cancelBtn = modal.querySelector('button.cancel'),
+        $confirmBtn = modal.querySelector('button.confirm');
+
+    // Title
+    $title.innerHTML = (params.html) ? params.title : escapeHtml(params.title).split("\n").join("<br>");
+
+    // Text
+    $text.innerHTML = (params.html) ? params.text : escapeHtml(params.text || '').split("\n").join("<br>");
+
+    if (params.text) {
+      show($text);
+    }
+
+    //Custom Class
+    if (params.customClass) {
+      addClass(modal, params.customClass);
+      modal.setAttribute('data-custom-class', params.customClass);
+    } else {
+      // Find previously set classes and remove them
+      var customClass = modal.getAttribute('data-custom-class');
+      removeClass(modal, customClass);
+      modal.setAttribute('data-custom-class', "");
+    }
+
+    // Icon
+    hide(modal.querySelectorAll('.sa-icon'));
+    if (params.type && !isIE8()) {
+      var validType = false;
+      for (var i = 0; i < alertTypes.length; i++) {
+        if (params.type === alertTypes[i]) {
+          validType = true;
+          break;
+        }
+      }
+      if (!validType) {
+        logStr('Unknown alert type: ' + params.type);
+        return false;
+      }
+      var $icon = modal.querySelector('.sa-icon.' + 'sa-' + params.type);
+      show($icon);
+
+      // Animate icon
+      switch (params.type) {
+        case "success":
+          addClass($icon, 'animate');
+          addClass($icon.querySelector('.sa-tip'), 'animateSuccessTip');
+          addClass($icon.querySelector('.sa-long'), 'animateSuccessLong');
+          break;
+        case "error":
+          addClass($icon, 'animateErrorIcon');
+          addClass($icon.querySelector('.sa-x-mark'), 'animateXMark');
+          break;
+        case "warning":
+          addClass($icon, 'pulseWarning');
+          addClass($icon.querySelector('.sa-body'), 'pulseWarningIns');
+          addClass($icon.querySelector('.sa-dot'), 'pulseWarningIns');
+          break;
+      }
+    }
+
+    // Custom image
+    if (params.imageUrl) {
+      var $customIcon = modal.querySelector('.sa-icon.sa-custom');
+
+      $customIcon.style.backgroundImage = 'url(' + params.imageUrl + ')';
+      show($customIcon);
+
+      var _imgWidth  = 80,
+          _imgHeight = 80;
+
+      if (params.imageSize) {
+        var dimensions = params.imageSize.toString().split('x');
+        var imgWidth  = dimensions[0];
+        var imgHeight = dimensions[1];
+
+        if (!imgWidth || !imgHeight) {
+          logStr("Parameter imageSize expects value with format WIDTHxHEIGHT, got " + params.imageSize);
+        } else {
+          _imgWidth  = imgWidth;
+          _imgHeight = imgHeight;
+        }
+      }
+      $customIcon.setAttribute('style', $customIcon.getAttribute('style') + 'width:' + _imgWidth + 'px; height:' + _imgHeight + 'px');
+    }
+
+    // Show cancel button?
+    modal.setAttribute('data-has-cancel-button', params.showCancelButton);
+    if (params.showCancelButton) {
+      $cancelBtn.style.display = 'inline-block';
+    } else {
+      hide($cancelBtn);
+    }
+
+    // Show confirm button?
+    modal.setAttribute('data-has-confirm-button', params.showConfirmButton);
+    if (params.showConfirmButton) {
+      $confirmBtn.style.display = 'inline-block';
+    } else {
+      hide($confirmBtn);
+    }
+
+    // Edit text on cancel and confirm buttons
+    if (params.cancelButtonText) {
+      $cancelBtn.innerHTML = escapeHtml(params.cancelButtonText);
+    }
+    if (params.confirmButtonText) {
+      $confirmBtn.innerHTML = escapeHtml(params.confirmButtonText);
+    }
+
+    // Set confirm button to selected background color
+    $confirmBtn.style.backgroundColor = params.confirmButtonColor;
+
+    // Set box-shadow to default focused button
+    setFocusStyle($confirmBtn, params.confirmButtonColor);
+
+    // Allow outside click?
+    modal.setAttribute('data-allow-ouside-click', params.allowOutsideClick);
+
+    // Done-function
+    var hasDoneFunction = (params.doneFunction) ? true : false;
+    modal.setAttribute('data-has-done-function', hasDoneFunction);
+
+    // Prevent modal from animating
+    if (!params.animation){
+      modal.setAttribute('data-animation', 'none');
+    } else{
+      modal.setAttribute('data-animation', 'pop');
+    }
+
+    // Close timer
+    modal.setAttribute('data-timer', params.timer);
+  }
+
+
+  /*
+   * Set hover, active and focus-states for buttons (source: http://www.sitepoint.com/javascript-generate-lighter-darker-color)
+   */
+
+  function colorLuminance(hex, lum) {
+    // Validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    }
+    lum = lum || 0;
+
+    // Convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+      c = parseInt(hex.substr(i*2,2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      rgb += ("00"+c).substr(c.length);
+    }
+
+    return rgb;
+  }
+
+  function extend(a, b){
+    for (var key in b) {
+      if (b.hasOwnProperty(key)) {
+        a[key] = b[key];
+      }
+    }
+
+    return a;
+  }
+
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) : null;
+  }
+
+  // Add box-shadow style to button (depending on its chosen bg-color)
+  function setFocusStyle($button, bgColor) {
+    var rgbColor = hexToRgb(bgColor);
+    $button.style.boxShadow = '0 0 2px rgba(' + rgbColor +', 0.8), inset 0 0 0 1px rgba(0, 0, 0, 0.05)';
+  }
+
+
+  // Animation when opening modal
+  function openModal() {
+    var modal = getModal();
+    fadeIn(getOverlay(), 10);
+    show(modal);
+    addClass(modal, 'showSweetAlert');
+    removeClass(modal, 'hideSweetAlert');
+
+    previousActiveElement = document.activeElement;
+    var $okButton = modal.querySelector('button.confirm');
+    $okButton.focus();
+
+    setTimeout(function() {
+      addClass(modal, 'visible');
+    }, 500);
+
+    var timer = modal.getAttribute('data-timer');
+
+    if (timer !== "null" && timer !== "") {
+      modal.timeout = setTimeout(function() {
+        sweetAlert.close();
+      }, timer);
+    }
+  }
+
+
+  // Aninmation when closing modal
+  sweetAlert.close = swal.close = function() {
+    var modal = getModal();
+    fadeOut(getOverlay(), 5);
+    fadeOut(modal, 5);
+    removeClass(modal, 'showSweetAlert');
+    addClass(modal, 'hideSweetAlert');
+    removeClass(modal, 'visible');
+
+
+    // Reset icon animations
+
+    var $successIcon = modal.querySelector('.sa-icon.sa-success');
+    removeClass($successIcon, 'animate');
+    removeClass($successIcon.querySelector('.sa-tip'), 'animateSuccessTip');
+    removeClass($successIcon.querySelector('.sa-long'), 'animateSuccessLong');
+
+    var $errorIcon = modal.querySelector('.sa-icon.sa-error');
+    removeClass($errorIcon, 'animateErrorIcon');
+    removeClass($errorIcon.querySelector('.sa-x-mark'), 'animateXMark');
+
+    var $warningIcon = modal.querySelector('.sa-icon.sa-warning');
+    removeClass($warningIcon, 'pulseWarning');
+    removeClass($warningIcon.querySelector('.sa-body'), 'pulseWarningIns');
+    removeClass($warningIcon.querySelector('.sa-dot'), 'pulseWarningIns');
+
+
+    // Reset the page to its previous state
+    window.onkeydown = previousWindowKeyDown;
+    document.onclick = previousDocumentClick;
+    if (previousActiveElement) {
+      previousActiveElement.focus();
+    }
+    lastFocusedButton = undefined;
+    clearTimeout(modal.timeout);
+  };
+
+
+  /*
+   * Set "margin-top"-property on modal based on its computed height
+   */
+
+  function fixVerticalPosition() {
+    var modal = getModal();
+
+    modal.style.marginTop = getTopMargin(getModal());
+  }
+
+  // If browser is Internet Explorer 8
+  function isIE8() {
+    if (window.attachEvent && !window.addEventListener) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // Error messages for developers
+  function logStr(string) {
+    if (window.console) { // IE...
+      window.console.log("SweetAlert: " + string);
+    }
+  }
+
+    if (true) {
+      !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() { return sweetAlert; }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof module !== 'undefined' && module.exports) {
+      module.exports = sweetAlert;
+    } else if (typeof window !== 'undefined') {
+      window.sweetAlert = window.swal = sweetAlert;
+    }
+
+})(window, document);
+
+
+/***/ }),
+
+/***/ "./node_modules/angular-utils-pagination/dirPagination.js":
+/***/ (function(module, exports) {
+
+/**
+ * dirPagination - AngularJS module for paginating (almost) anything.
+ *
+ *
+ * Credits
+ * =======
+ *
+ * Daniel Tabuenca: https://groups.google.com/d/msg/angular/an9QpzqIYiM/r8v-3W1X5vcJ
+ * for the idea on how to dynamically invoke the ng-repeat directive.
+ *
+ * I borrowed a couple of lines and a few attribute names from the AngularUI Bootstrap project:
+ * https://github.com/angular-ui/bootstrap/blob/master/src/pagination/pagination.js
+ *
+ * Copyright 2014 Michael Bromley <michael@michaelbromley.co.uk>
+ */
+
+(function() {
+
+    /**
+     * Config
+     */
+    var moduleName = 'angularUtils.directives.dirPagination';
+    var DEFAULT_ID = '__default';
+
+    /**
+     * Module
+     */
+    angular.module(moduleName, [])
+        .directive('dirPaginate', ['$compile', '$parse', 'paginationService', dirPaginateDirective])
+        .directive('dirPaginateNoCompile', noCompileDirective)
+        .directive('dirPaginationControls', ['paginationService', 'paginationTemplate', dirPaginationControlsDirective])
+        .filter('itemsPerPage', ['paginationService', itemsPerPageFilter])
+        .service('paginationService', paginationService)
+        .provider('paginationTemplate', paginationTemplateProvider)
+        .run(['$templateCache',dirPaginationControlsTemplateInstaller]);
+
+    function dirPaginateDirective($compile, $parse, paginationService) {
+
+        return  {
+            terminal: true,
+            multiElement: true,
+            priority: 100,
+            compile: dirPaginationCompileFn
+        };
+
+        function dirPaginationCompileFn(tElement, tAttrs){
+
+            var expression = tAttrs.dirPaginate;
+            // regex taken directly from https://github.com/angular/angular.js/blob/v1.4.x/src/ng/directive/ngRepeat.js#L339
+            var match = expression.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
+
+            var filterPattern = /\|\s*itemsPerPage\s*:\s*(.*\(\s*\w*\)|([^\)]*?(?=\s+as\s+))|[^\)]*)/;
+            if (match[2].match(filterPattern) === null) {
+                throw 'pagination directive: the \'itemsPerPage\' filter must be set.';
+            }
+            var itemsPerPageFilterRemoved = match[2].replace(filterPattern, '');
+            var collectionGetter = $parse(itemsPerPageFilterRemoved);
+
+            addNoCompileAttributes(tElement);
+
+            // If any value is specified for paginationId, we register the un-evaluated expression at this stage for the benefit of any
+            // dir-pagination-controls directives that may be looking for this ID.
+            var rawId = tAttrs.paginationId || DEFAULT_ID;
+            paginationService.registerInstance(rawId);
+
+            return function dirPaginationLinkFn(scope, element, attrs){
+
+                // Now that we have access to the `scope` we can interpolate any expression given in the paginationId attribute and
+                // potentially register a new ID if it evaluates to a different value than the rawId.
+                var paginationId = $parse(attrs.paginationId)(scope) || attrs.paginationId || DEFAULT_ID;
+                
+                // (TODO: this seems sound, but I'm reverting as many bug reports followed it's introduction in 0.11.0.
+                // Needs more investigation.)
+                // In case rawId != paginationId we deregister using rawId for the sake of general cleanliness
+                // before registering using paginationId
+                // paginationService.deregisterInstance(rawId);
+                paginationService.registerInstance(paginationId);
+
+                var repeatExpression = getRepeatExpression(expression, paginationId);
+                addNgRepeatToElement(element, attrs, repeatExpression);
+
+                removeTemporaryAttributes(element);
+                var compiled =  $compile(element);
+
+                var currentPageGetter = makeCurrentPageGetterFn(scope, attrs, paginationId);
+                paginationService.setCurrentPageParser(paginationId, currentPageGetter, scope);
+
+                if (typeof attrs.totalItems !== 'undefined') {
+                    paginationService.setAsyncModeTrue(paginationId);
+                    scope.$watch(function() {
+                        return $parse(attrs.totalItems)(scope);
+                    }, function (result) {
+                        if (0 <= result) {
+                            paginationService.setCollectionLength(paginationId, result);
+                        }
+                    });
+                } else {
+                    paginationService.setAsyncModeFalse(paginationId);
+                    scope.$watchCollection(function() {
+                        return collectionGetter(scope);
+                    }, function(collection) {
+                        if (collection) {
+                            var collectionLength = (collection instanceof Array) ? collection.length : Object.keys(collection).length;
+                            paginationService.setCollectionLength(paginationId, collectionLength);
+                        }
+                    });
+                }
+
+                // Delegate to the link function returned by the new compilation of the ng-repeat
+                compiled(scope);
+                 
+                // (TODO: Reverting this due to many bug reports in v 0.11.0. Needs investigation as the
+                // principle is sound)
+                // When the scope is destroyed, we make sure to remove the reference to it in paginationService
+                // so that it can be properly garbage collected
+                // scope.$on('$destroy', function destroyDirPagination() {
+                //     paginationService.deregisterInstance(paginationId);
+                // });
+            };
+        }
+
+        /**
+         * If a pagination id has been specified, we need to check that it is present as the second argument passed to
+         * the itemsPerPage filter. If it is not there, we add it and return the modified expression.
+         *
+         * @param expression
+         * @param paginationId
+         * @returns {*}
+         */
+        function getRepeatExpression(expression, paginationId) {
+            var repeatExpression,
+                idDefinedInFilter = !!expression.match(/(\|\s*itemsPerPage\s*:[^|]*:[^|]*)/);
+
+            if (paginationId !== DEFAULT_ID && !idDefinedInFilter) {
+                repeatExpression = expression.replace(/(\|\s*itemsPerPage\s*:\s*[^|\s]*)/, "$1 : '" + paginationId + "'");
+            } else {
+                repeatExpression = expression;
+            }
+
+            return repeatExpression;
+        }
+
+        /**
+         * Adds the ng-repeat directive to the element. In the case of multi-element (-start, -end) it adds the
+         * appropriate multi-element ng-repeat to the first and last element in the range.
+         * @param element
+         * @param attrs
+         * @param repeatExpression
+         */
+        function addNgRepeatToElement(element, attrs, repeatExpression) {
+            if (element[0].hasAttribute('dir-paginate-start') || element[0].hasAttribute('data-dir-paginate-start')) {
+                // using multiElement mode (dir-paginate-start, dir-paginate-end)
+                attrs.$set('ngRepeatStart', repeatExpression);
+                element.eq(element.length - 1).attr('ng-repeat-end', true);
+            } else {
+                attrs.$set('ngRepeat', repeatExpression);
+            }
+        }
+
+        /**
+         * Adds the dir-paginate-no-compile directive to each element in the tElement range.
+         * @param tElement
+         */
+        function addNoCompileAttributes(tElement) {
+            angular.forEach(tElement, function(el) {
+                if (el.nodeType === 1) {
+                    angular.element(el).attr('dir-paginate-no-compile', true);
+                }
+            });
+        }
+
+        /**
+         * Removes the variations on dir-paginate (data-, -start, -end) and the dir-paginate-no-compile directives.
+         * @param element
+         */
+        function removeTemporaryAttributes(element) {
+            angular.forEach(element, function(el) {
+                if (el.nodeType === 1) {
+                    angular.element(el).removeAttr('dir-paginate-no-compile');
+                }
+            });
+            element.eq(0).removeAttr('dir-paginate-start').removeAttr('dir-paginate').removeAttr('data-dir-paginate-start').removeAttr('data-dir-paginate');
+            element.eq(element.length - 1).removeAttr('dir-paginate-end').removeAttr('data-dir-paginate-end');
+        }
+
+        /**
+         * Creates a getter function for the current-page attribute, using the expression provided or a default value if
+         * no current-page expression was specified.
+         *
+         * @param scope
+         * @param attrs
+         * @param paginationId
+         * @returns {*}
+         */
+        function makeCurrentPageGetterFn(scope, attrs, paginationId) {
+            var currentPageGetter;
+            if (attrs.currentPage) {
+                currentPageGetter = $parse(attrs.currentPage);
+            } else {
+                // If the current-page attribute was not set, we'll make our own.
+                // Replace any non-alphanumeric characters which might confuse
+                // the $parse service and give unexpected results.
+                // See https://github.com/michaelbromley/angularUtils/issues/233
+                var defaultCurrentPage = (paginationId + '__currentPage').replace(/\W/g, '_');
+                scope[defaultCurrentPage] = 1;
+                currentPageGetter = $parse(defaultCurrentPage);
+            }
+            return currentPageGetter;
+        }
+    }
+
+    /**
+     * This is a helper directive that allows correct compilation when in multi-element mode (ie dir-paginate-start, dir-paginate-end).
+     * It is dynamically added to all elements in the dir-paginate compile function, and it prevents further compilation of
+     * any inner directives. It is then removed in the link function, and all inner directives are then manually compiled.
+     */
+    function noCompileDirective() {
+        return {
+            priority: 5000,
+            terminal: true
+        };
+    }
+
+    function dirPaginationControlsTemplateInstaller($templateCache) {
+        $templateCache.put('angularUtils.directives.dirPagination.template', '<ul class="pagination" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == \'...\' || ( ! autoHide && pages.length === 1 ) }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul>');
+    }
+
+    function dirPaginationControlsDirective(paginationService, paginationTemplate) {
+
+        var numberRegex = /^\d+$/;
+
+        var DDO = {
+            restrict: 'AE',
+            scope: {
+                maxSize: '=?',
+                onPageChange: '&?',
+                paginationId: '=?',
+                autoHide: '=?'
+            },
+            link: dirPaginationControlsLinkFn
+        };
+
+        // We need to check the paginationTemplate service to see whether a template path or
+        // string has been specified, and add the `template` or `templateUrl` property to
+        // the DDO as appropriate. The order of priority to decide which template to use is
+        // (highest priority first):
+        // 1. paginationTemplate.getString()
+        // 2. attrs.templateUrl
+        // 3. paginationTemplate.getPath()
+        var templateString = paginationTemplate.getString();
+        if (templateString !== undefined) {
+            DDO.template = templateString;
+        } else {
+            DDO.templateUrl = function(elem, attrs) {
+                return attrs.templateUrl || paginationTemplate.getPath();
+            };
+        }
+        return DDO;
+
+        function dirPaginationControlsLinkFn(scope, element, attrs) {
+
+            // rawId is the un-interpolated value of the pagination-id attribute. This is only important when the corresponding dir-paginate directive has
+            // not yet been linked (e.g. if it is inside an ng-if block), and in that case it prevents this controls directive from assuming that there is
+            // no corresponding dir-paginate directive and wrongly throwing an exception.
+            var rawId = attrs.paginationId ||  DEFAULT_ID;
+            var paginationId = scope.paginationId || attrs.paginationId ||  DEFAULT_ID;
+
+            if (!paginationService.isRegistered(paginationId) && !paginationService.isRegistered(rawId)) {
+                var idMessage = (paginationId !== DEFAULT_ID) ? ' (id: ' + paginationId + ') ' : ' ';
+                if (window.console) {
+                    console.warn('Pagination directive: the pagination controls' + idMessage + 'cannot be used without the corresponding pagination directive, which was not found at link time.');
+                }
+            }
+
+            if (!scope.maxSize) { scope.maxSize = 9; }
+            scope.autoHide = scope.autoHide === undefined ? true : scope.autoHide;
+            scope.directionLinks = angular.isDefined(attrs.directionLinks) ? scope.$parent.$eval(attrs.directionLinks) : true;
+            scope.boundaryLinks = angular.isDefined(attrs.boundaryLinks) ? scope.$parent.$eval(attrs.boundaryLinks) : false;
+
+            var paginationRange = Math.max(scope.maxSize, 5);
+            scope.pages = [];
+            scope.pagination = {
+                last: 1,
+                current: 1
+            };
+            scope.range = {
+                lower: 1,
+                upper: 1,
+                total: 1
+            };
+
+            scope.$watch('maxSize', function(val) {
+                if (val) {
+                    paginationRange = Math.max(scope.maxSize, 5);
+                    generatePagination();
+                }
+            });
+
+            scope.$watch(function() {
+                if (paginationService.isRegistered(paginationId)) {
+                    return (paginationService.getCollectionLength(paginationId) + 1) * paginationService.getItemsPerPage(paginationId);
+                }
+            }, function(length) {
+                if (0 < length) {
+                    generatePagination();
+                }
+            });
+
+            scope.$watch(function() {
+                if (paginationService.isRegistered(paginationId)) {
+                    return (paginationService.getItemsPerPage(paginationId));
+                }
+            }, function(current, previous) {
+                if (current != previous && typeof previous !== 'undefined') {
+                    goToPage(scope.pagination.current);
+                }
+            });
+
+            scope.$watch(function() {
+                if (paginationService.isRegistered(paginationId)) {
+                    return paginationService.getCurrentPage(paginationId);
+                }
+            }, function(currentPage, previousPage) {
+                if (currentPage != previousPage) {
+                    goToPage(currentPage);
+                }
+            });
+
+            scope.setCurrent = function(num) {
+                if (paginationService.isRegistered(paginationId) && isValidPageNumber(num)) {
+                    num = parseInt(num, 10);
+                    paginationService.setCurrentPage(paginationId, num);
+                }
+            };
+
+            /**
+             * Custom "track by" function which allows for duplicate "..." entries on long lists,
+             * yet fixes the problem of wrongly-highlighted links which happens when using
+             * "track by $index" - see https://github.com/michaelbromley/angularUtils/issues/153
+             * @param id
+             * @param index
+             * @returns {string}
+             */
+            scope.tracker = function(id, index) {
+                return id + '_' + index;
+            };
+
+            function goToPage(num) {
+                if (paginationService.isRegistered(paginationId) && isValidPageNumber(num)) {
+                    var oldPageNumber = scope.pagination.current;
+
+                    scope.pages = generatePagesArray(num, paginationService.getCollectionLength(paginationId), paginationService.getItemsPerPage(paginationId), paginationRange);
+                    scope.pagination.current = num;
+                    updateRangeValues();
+
+                    // if a callback has been set, then call it with the page number as the first argument
+                    // and the previous page number as a second argument
+                    if (scope.onPageChange) {
+                        scope.onPageChange({
+                            newPageNumber : num,
+                            oldPageNumber : oldPageNumber
+                        });
+                    }
+                }
+            }
+
+            function generatePagination() {
+                if (paginationService.isRegistered(paginationId)) {
+                    var page = parseInt(paginationService.getCurrentPage(paginationId)) || 1;
+                    scope.pages = generatePagesArray(page, paginationService.getCollectionLength(paginationId), paginationService.getItemsPerPage(paginationId), paginationRange);
+                    scope.pagination.current = page;
+                    scope.pagination.last = scope.pages[scope.pages.length - 1];
+                    if (scope.pagination.last < scope.pagination.current) {
+                        scope.setCurrent(scope.pagination.last);
+                    } else {
+                        updateRangeValues();
+                    }
+                }
+            }
+
+            /**
+             * This function updates the values (lower, upper, total) of the `scope.range` object, which can be used in the pagination
+             * template to display the current page range, e.g. "showing 21 - 40 of 144 results";
+             */
+            function updateRangeValues() {
+                if (paginationService.isRegistered(paginationId)) {
+                    var currentPage = paginationService.getCurrentPage(paginationId),
+                        itemsPerPage = paginationService.getItemsPerPage(paginationId),
+                        totalItems = paginationService.getCollectionLength(paginationId);
+
+                    scope.range.lower = (currentPage - 1) * itemsPerPage + 1;
+                    scope.range.upper = Math.min(currentPage * itemsPerPage, totalItems);
+                    scope.range.total = totalItems;
+                }
+            }
+            function isValidPageNumber(num) {
+                return (numberRegex.test(num) && (0 < num && num <= scope.pagination.last));
+            }
+        }
+
+        /**
+         * Generate an array of page numbers (or the '...' string) which is used in an ng-repeat to generate the
+         * links used in pagination
+         *
+         * @param currentPage
+         * @param rowsPerPage
+         * @param paginationRange
+         * @param collectionLength
+         * @returns {Array}
+         */
+        function generatePagesArray(currentPage, collectionLength, rowsPerPage, paginationRange) {
+            var pages = [];
+            var totalPages = Math.ceil(collectionLength / rowsPerPage);
+            var halfWay = Math.ceil(paginationRange / 2);
+            var position;
+
+            if (currentPage <= halfWay) {
+                position = 'start';
+            } else if (totalPages - halfWay < currentPage) {
+                position = 'end';
+            } else {
+                position = 'middle';
+            }
+
+            var ellipsesNeeded = paginationRange < totalPages;
+            var i = 1;
+            while (i <= totalPages && i <= paginationRange) {
+                var pageNumber = calculatePageNumber(i, currentPage, paginationRange, totalPages);
+
+                var openingEllipsesNeeded = (i === 2 && (position === 'middle' || position === 'end'));
+                var closingEllipsesNeeded = (i === paginationRange - 1 && (position === 'middle' || position === 'start'));
+                if (ellipsesNeeded && (openingEllipsesNeeded || closingEllipsesNeeded)) {
+                    pages.push('...');
+                } else {
+                    pages.push(pageNumber);
+                }
+                i ++;
+            }
+            return pages;
+        }
+
+        /**
+         * Given the position in the sequence of pagination links [i], figure out what page number corresponds to that position.
+         *
+         * @param i
+         * @param currentPage
+         * @param paginationRange
+         * @param totalPages
+         * @returns {*}
+         */
+        function calculatePageNumber(i, currentPage, paginationRange, totalPages) {
+            var halfWay = Math.ceil(paginationRange/2);
+            if (i === paginationRange) {
+                return totalPages;
+            } else if (i === 1) {
+                return i;
+            } else if (paginationRange < totalPages) {
+                if (totalPages - halfWay < currentPage) {
+                    return totalPages - paginationRange + i;
+                } else if (halfWay < currentPage) {
+                    return currentPage - halfWay + i;
+                } else {
+                    return i;
+                }
+            } else {
+                return i;
+            }
+        }
+    }
+
+    /**
+     * This filter slices the collection into pages based on the current page number and number of items per page.
+     * @param paginationService
+     * @returns {Function}
+     */
+    function itemsPerPageFilter(paginationService) {
+
+        return function(collection, itemsPerPage, paginationId) {
+            if (typeof (paginationId) === 'undefined') {
+                paginationId = DEFAULT_ID;
+            }
+            if (!paginationService.isRegistered(paginationId)) {
+                throw 'pagination directive: the itemsPerPage id argument (id: ' + paginationId + ') does not match a registered pagination-id.';
+            }
+            var end;
+            var start;
+            if (angular.isObject(collection)) {
+                itemsPerPage = parseInt(itemsPerPage) || 9999999999;
+                if (paginationService.isAsyncMode(paginationId)) {
+                    start = 0;
+                } else {
+                    start = (paginationService.getCurrentPage(paginationId) - 1) * itemsPerPage;
+                }
+                end = start + itemsPerPage;
+                paginationService.setItemsPerPage(paginationId, itemsPerPage);
+
+                if (collection instanceof Array) {
+                    // the array just needs to be sliced
+                    return collection.slice(start, end);
+                } else {
+                    // in the case of an object, we need to get an array of keys, slice that, then map back to
+                    // the original object.
+                    var slicedObject = {};
+                    angular.forEach(keys(collection).slice(start, end), function(key) {
+                        slicedObject[key] = collection[key];
+                    });
+                    return slicedObject;
+                }
+            } else {
+                return collection;
+            }
+        };
+    }
+
+    /**
+     * Shim for the Object.keys() method which does not exist in IE < 9
+     * @param obj
+     * @returns {Array}
+     */
+    function keys(obj) {
+        if (!Object.keys) {
+            var objKeys = [];
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    objKeys.push(i);
+                }
+            }
+            return objKeys;
+        } else {
+            return Object.keys(obj);
+        }
+    }
+
+    /**
+     * This service allows the various parts of the module to communicate and stay in sync.
+     */
+    function paginationService() {
+
+        var instances = {};
+        var lastRegisteredInstance;
+
+        this.registerInstance = function(instanceId) {
+            if (typeof instances[instanceId] === 'undefined') {
+                instances[instanceId] = {
+                    asyncMode: false
+                };
+                lastRegisteredInstance = instanceId;
+            }
+        };
+
+        this.deregisterInstance = function(instanceId) {
+            delete instances[instanceId];
+        };
+        
+        this.isRegistered = function(instanceId) {
+            return (typeof instances[instanceId] !== 'undefined');
+        };
+
+        this.getLastInstanceId = function() {
+            return lastRegisteredInstance;
+        };
+
+        this.setCurrentPageParser = function(instanceId, val, scope) {
+            instances[instanceId].currentPageParser = val;
+            instances[instanceId].context = scope;
+        };
+        this.setCurrentPage = function(instanceId, val) {
+            instances[instanceId].currentPageParser.assign(instances[instanceId].context, val);
+        };
+        this.getCurrentPage = function(instanceId) {
+            var parser = instances[instanceId].currentPageParser;
+            return parser ? parser(instances[instanceId].context) : 1;
+        };
+
+        this.setItemsPerPage = function(instanceId, val) {
+            instances[instanceId].itemsPerPage = val;
+        };
+        this.getItemsPerPage = function(instanceId) {
+            return instances[instanceId].itemsPerPage;
+        };
+
+        this.setCollectionLength = function(instanceId, val) {
+            instances[instanceId].collectionLength = val;
+        };
+        this.getCollectionLength = function(instanceId) {
+            return instances[instanceId].collectionLength;
+        };
+
+        this.setAsyncModeTrue = function(instanceId) {
+            instances[instanceId].asyncMode = true;
+        };
+
+        this.setAsyncModeFalse = function(instanceId) {
+            instances[instanceId].asyncMode = false;
+        };
+
+        this.isAsyncMode = function(instanceId) {
+            return instances[instanceId].asyncMode;
+        };
+    }
+
+    /**
+     * This provider allows global configuration of the template path used by the dir-pagination-controls directive.
+     */
+    function paginationTemplateProvider() {
+
+        var templatePath = 'angularUtils.directives.dirPagination.template';
+        var templateString;
+
+        /**
+         * Set a templateUrl to be used by all instances of <dir-pagination-controls>
+         * @param {String} path
+         */
+        this.setPath = function(path) {
+            templatePath = path;
+        };
+
+        /**
+         * Set a string of HTML to be used as a template by all instances
+         * of <dir-pagination-controls>. If both a path *and* a string have been set,
+         * the string takes precedence.
+         * @param {String} str
+         */
+        this.setString = function(str) {
+            templateString = str;
+        };
+
+        this.$get = function() {
+            return {
+                getPath: function() {
+                    return templatePath;
+                },
+                getString: function() {
+                    return templateString;
+                }
+            };
+        };
+    }
+})();
+
+
+/***/ }),
+
+/***/ "./node_modules/angular-utils-pagination/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("./node_modules/angular-utils-pagination/dirPagination.js");
+module.exports = 'angularUtils.directives.dirPagination';
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/controllers/dashboard-controller.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {dashboard.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  $scope.hide = true;
+
+  $scope.transferEarnings = function () {
+    sendRequest.postRequest('user/transfer-earnings').then(function (rsp) {
+      if (rsp.status == 200) {
+        if (rsp.data.status == true) {
+          Notification.success({ message: 'Earnings transferred to wallet', positionX: 'center' });
+        } else if (rsp.data.status == 'Insufficient') {
+          Notification.error({ message: 'No earnings to transfer', positionX: 'center' });
+        }
+      }
+
+      sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {
+        $scope.userdetails = rsp.userdetails;
+      });
+      sendRequest.getTotalEarnings('/user/get-total-earnings', true).then(function (rsp) {
+        $scope.total_earnings = rsp.total_earnings;
+      });
+    });
+  };
+
+  $scope.sendMessage = function () {
+    sendRequest.postRequest('/user/send-message', $scope.message).then(function (rsp) {
+      if (rsp.status == 200) {
+        NProgress.done();
+      }
+    });
+    $scope.message = null;
+  };
+
+  bootstrapPage.dashboard($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('WithdrawalController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  console.log(sendRequest.getData('tr_id'));
+
+  sendRequest.postRequest('user/get-withdrawal-instructions-data', { 'id': sendRequest.getData('tr_id') }).then(function (rsp) {
+    if (rsp.status == 200) {
+      $scope.amount = rsp.data.amount;
+      $scope.total_amount = rsp.data.total_amount;
+      $scope.time_joined = rsp.data.time_joined;
+      $scope.refcode = rsp.data.refcode;
+    }
+    sendRequest.storeData('tr_id', null);
+  });
+
+  NProgress.done();
+}]);
+
+dashboard.controller('ProfileController', ['$scope', '$location', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, $location, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  bootstrapPage.profile($scope);
+
+  $scope.viewShareInfo = function (id) {
+    console.log(id);
+    sendRequest.storeData('tr_id', id);
+    $location.path('dashboard/withdrawal/success');
+  };
+
+  NProgress.done();
+}]);
+
+dashboard.controller('SettingsController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', function ($scope, Notification, sendRequest, bootstrapPage) {
+  NProgress.start();
+
+  $scope.updateDetails = function () {
+    $scope.loading = true;
+    sendRequest.postRequest('/user/update-user-details', $scope.userdetails).then(function (rsp) {
+      if (rsp.status == 422) {
+        Notification.error({ message: 'Invalid data', positionX: 'center' });
+      } else {
+        Notification.success({ message: 'Updated', positionX: 'center' });
+      }
+      $scope.loading = null;
+    });
+  };
+
+  $scope.updatePassword = function () {
+    if (!$scope.userdetails.old_password || !$scope.userdetails.password) {
+      Notification.error('Old and new password required');
+      return;
+    }
+    sendRequest.postRequest('/user/confirm-user-password', $scope.userdetails.old_password).then(function (rsp) {
+      if (rsp.status == 423) {
+        Notification.error('Old password mismatch');
+      } else if (rsp.status == 200) {
+        if (rsp.data.status) {
+          $scope.updateDetails();
+          $scope.logout();
+        }
+      }
+    });
+  };
+
+  bootstrapPage.settings($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('GamePlayController', ['$scope', 'Notification', 'sendRequest', 'bootstrapPage', 'gameActive', function ($scope, Notification, sendRequest, bootstrapPage, gameActive) {
+  NProgress.start();
+
+  $scope.game_timer = gameActive.game_timer;
+  $scope.total_examinees = gameActive.total_examinees;
+
+  bootstrapPage.gameplay($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('DisplayResultsController', ['$scope', 'bootstrapPage', function ($scope, bootstrapPage) {
+  NProgress.start();
+
+  bootstrapPage.results($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('MessageController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest) {
+  NProgress.start();
+  // var hello = _.dropRightWhile($scope.userdetails.messages, ['read', true]).length;
+  // console.log(hello);
+
+  $scope.markAsRead = function (msg) {
+    msg.read = true;
+    sendRequest.postRequest('/user/mark-message-as-read', msg);
+  };
+  $scope.deleteMessage = function (msg) {
+    sendRequest.postRequest('/user/delete-message', msg).then(function (rsp) {
+      var removedMessage = $scope.userdetails.messages.indexOf(msg);
+      $scope.userdetails.messages.splice(removedMessage, 1);
+    });
+  };
+
+  bootstrapPage.messages($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('NoticeController', ['$scope', 'bootstrapPage', 'sendRequest', function ($scope, bootstrapPage, sendRequest) {
+  NProgress.start();
+
+  $scope.markAsRead = function (notice) {
+    notice.read = true;
+    sendRequest.postRequest('/user/mark-notice-as-read', notice);
+  };
+  $scope.deleteNotice = function (notice) {
+    sendRequest.postRequest('/user/delete-notice', notice).then(function (rsp) {
+      var removedNotice = $scope.userdetails.notices.indexOf(notice);
+      $scope.userdetails.notices.splice(removedNotice, 1);
+    });
+  };
+
+  bootstrapPage.notices($scope);
+
+  NProgress.done();
+}]);
+
+dashboard.controller('FundWalletController', ['$scope', '$timeout', 'sendRequest', function ($scope, $timeout, sendRequest) {
+  NProgress.start();
+
+  sendRequest.request('user/get-all-agents').then(function (rsp) {
+    $scope.agents = rsp;
+  });
+
+  $scope.$on('$viewContentLoaded', function () {
+    $timeout(function () {
+      $('#fund-account .item').tab();
+    }, 500);
+  });
+
+  NProgress.done();
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/buyUnits.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+var url = '\n<section id="buyUnits" class="ui horizontal list">\n\n  <div id="form" class="ui segments animate fade" ng-show="makeDeposit == 1">\n\n    <div id="session-menu" class="ui one item menu">\n      <a class="item" style="background-color: #03A9F4; color:#FFF;">PAY ONLINE</a>\n    </div>\n\n    <div class="ui segment" style="padding-bottom: 30px;">\n      <div class="image content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="number" placeholder="Minimum: \u20A6500 | Maximum: \u20A65,000" ng-model="requested_amount" ng-min="500" ng-max="5000" style="width: 270px;">\n          </div>\n          <div class="actions  flex-center row" >\n            <div ng-class="[\'ui green left button\', {\'disabled\': !requested_amount}]" ng-click="switch(2)">Pay Online</div>\n          </div>\n        </div>\n      </div>\n\n      <div class="ui segments" id="info-images">\n        <div class="ui segment">\n          <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n          <p></p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class="ui segments animate translate-in" ng-if="makeDeposit == 2" id="info-images">\n    <div class="ui segment">\n      <p><b>Amount:</b> {{ requested_amount | currency }}</p>\n      <p><b>Charge:</b> {{ fees | currency }}</p>\n      <p><b>Payment channel:</b> Paystack Limited</p>\n      <p><b>Payment Due:</b> {{ requested_amount + fees | currency }}</p>\n      <p><b>Status:</b> <span style="color:gold">Pending</span></p>\n    </div>\n    <div class="ui segment">\n      <p style="color:green"><i class="lock icon"></i>SSL Encryption Enabled</p>\n      <div class="actions  flex-center row" >\n        <pay-with-paystack></pay-with-paystack>\n        <div class="ui red left button" ng-click="switch(1)">Go back</div>\n      </div>\n    </div>\n    <div class="ui secondary segment">\n      <p>\n        <img src="/img/paystack_preview.png" alt="" />\n      </p>\n    </div>\n  </div>\n\n\n</section>\n';
+
+angular.module('buyUnits', []).directive('buyUnits', ['$timeout', 'Notification', 'sendRequest', function ($timeout, Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {},
+    template: url,
+    replace: true,
+    controller: ['$scope', function ($scope) {
+
+      $scope.amt_per_unit = 1;
+      $scope.makeDeposit = 1;
+
+      $scope.switch = function (num) {
+        $scope.fees = 0.017 * $scope.requested_amount;
+
+        if ($scope.requested_amount > 2500) {
+          $scope.fees = 0.017 * $scope.requested_amount + 100;
+        }
+        $timeout(function () {
+          $scope.makeDeposit = num;
+        }, 500);
+      };
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/cacheBusting.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('cacheBusting', []).factory('cacheBusting', ['$injector', function ($injector) {
+  return {
+    'request': function request(config) {
+      if (config.url.indexOf('views') !== -1 || config.url.indexOf('img') !== -1) {
+        config.url = config.url + '?id=' + window.version_number; // this variable is passed here from env file using @javascript
+      }
+      return config;
+    }
+  };
+}]).config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.interceptors.push('cacheBusting');
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/countdownTimer.js":
+/***/ (function(module, exports) {
+
+// This is a highly modified and specific version of the timer. For a more robust and better baseline see the timer setup in Evernote.
+// This is a directive that accepts countdown time in seconds and counts down those seconds till now.
+
+angular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$compile', function ($timeout, $compile) {
+
+	return {
+		restrict: 'E',
+		replace: true,
+		transclude: true,
+		scope: {
+			countdownAttr: '=countdown', //what unit? seconds
+			onfinish: '&finish'
+		},
+
+		template: '<div>' + '<h1 class="time">{{ minutes }}:' + '{{ seconds }}</h1>' + '<ng-transclude></ng-transclude>' + '</div>',
+
+		link: function link(scope, elem, attrs) {
+
+			//Properties
+			var countdown = parseInt(scope.countdownAttr, 10);
+
+			function tick() {
+
+				//The default time that the timer will be reset to after count down expires.
+				scope.millis = 0;
+
+				if (countdown > 0) {
+					scope.millis = countdown * 1000;
+					countdown--;
+				} else if (countdown <= 0) {
+					scope.stop();
+					// elem.children('h1').html('Time up!');
+					scope.onfinish();
+				}
+
+				scope.seconds = twoNumbers(Math.floor(scope.millis / 1000 % 60));
+				scope.minutes = Math.floor(scope.millis / (1000 * 60) % 60);
+				scope.hours = Math.floor(scope.millis / (1000 * 60 * 60) % 24);
+				scope.days = Math.floor(scope.millis / (1000 * 60 * 60) / 24);
+
+				scope.$apply();
+			}
+
+			function resetInterval() {
+				if (scope.intervalId) {
+					clearInterval(scope.intervalId);
+					scope.intervalId = null;
+				}
+			}
+
+			scope.stop = function () {
+				scope.stoppedTime = new Date();
+				resetInterval();
+				scope.$emit('timer-stopped', { intervalId: scope.intervalId, millis: scope.millis });
+			};
+
+			//if not used anywhere, make it a regular function so you don't pollute the scope
+			function start() {
+				resetInterval();
+				scope.intervalId = setInterval(tick, 1000); // make the interval fire every 1000ms = 1s
+			}
+
+			start(); //start timer automatically
+
+			function twoNumbers(num) {
+				if (num < 10) {
+					return '0' + num;
+				}
+
+				return num;
+			}
+			//Cleanup
+			elem.on('$destroy', function () {
+				resetInterval();
+			});
+		}
+	};
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/customFileChange.js":
+/***/ (function(module, exports) {
+
+//This directive saves the selected file details on the passed variables AND then aves the base64 version of the image on the model.
+// <input type="file" class="form-control" file-change="yourHandler($event, files)" ng-model="details.test3"/>
+//
+// $scope.yourHandler = function ($event, files) {
+//   console.log($event);
+//   console.log(files);
+//   // console.log(data);
+//   console.log($scope.details.test3);
+// };
+
+angular.module('customFileChange', []).directive('fileChange', ['$parse', function ($parse) {
+
+  return {
+    require: 'ngModel',
+    restrict: 'A',
+    link: function link($scope, element, attrs, ngModel) {
+
+      // Get the function provided in the file-change attribute.
+      // Note the attribute has become an angular expression,
+      // which is what we are parsing. The provided handler is
+      // wrapped up in an outer function (attrHandler) - we'll
+      // call the provided event handler inside the handler()
+      // function below.
+      var attrHandler = $parse(attrs['fileChange']);
+
+      // This is a wrapper handler which will be attached to the
+      // HTML change event.
+      var handler = function handler(e) {
+
+        // Execute the provided handler in the directive's scope.
+        // The files variable will be available for consumption
+        // by the event handler.
+        var reader = new FileReader();
+
+        reader.onload = function (et) {
+          $scope.$apply(function () {
+
+            // $scope.details.headerImage = et.target.result;
+            ngModel.$setViewValue(et.target.result);
+            attrHandler($scope, { $event: e, files: e.target.files, data: et.target.result });
+          });
+        };
+
+        reader.readAsDataURL(e.target.files[0]);
+      };
+      $scope.$watch(function () {
+        return ngModel.$viewValue;
+      }, function (value) {
+        if (!value) {
+          element.val("");
+        }
+      });
+      // Attach the handler to the HTML change event
+      element[0].addEventListener('change', handler, false);
+    }
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/customFileUpload.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <custom-file-upload dest="'u32/'" mdl="post.postImage" attr="postImage" altText="Post Image Upload"></custom-file-upload>
+
+// The mdl attribute is the model to use for the element and the attr is the name and the id to use. the dest folder is the folder to upload the image to in our storage directory
+// We use jQLite to set the id and the name attribute in the link method and we set the model and the destination folder in the controller
+
+// The attr attribute is used to set the name and the id attributes of the generated filefield from the template userdetails
+// The altText attr is used to set the alt attribut of the nested image used for displaying the uploaded image
+
+// // NOTE:
+
+// This directive requires the file change directive to be loaded. We use the file change directive to respond to when the user selects an image and then trigger the upload
+// This directive also requires the sendRequest directives
+// The directive passes the filename of the aved imnage on the server back to the model instance that was passed in
+
+
+// EXAMPLE templateUrl
+// <div>
+//   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">
+//   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">
+// </div>
+
+// EXAMPLE LARAVEL CONTROLLER TO HANDLE THE ROUTYE
+// public function handleImageUpload(){
+//
+//     // dump(request()->all());
+//
+//     $data = request('image');
+//     $foldername = request('fn');
+//
+//     list($type, $data) = explode(';', $data);
+//     list(, $data)      = explode(',', $data);
+//
+//     $data = base64_decode($data);
+//     $imageName = time().'.png';
+//     $hey = Storage::disk('public')->put($foldername.$imageName, $data);
+//
+//     return ['filename' => '/storage/'.$foldername.$imageName];
+//
+// }
+
+var url = '\n<div>\n   <img ng-if="mdl" ng-src="{{mdl}}" class="img-responsive" style="max-width:25%;">\n   <input type="file" class="form-control" file-change="uploadImage($event, files)" ng-model="mdl">\n</div>\n\n';
+
+angular.module('customFileUpload', []).directive('customFileUpload', ['$localStorage', 'sendRequest', function ($localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      dest: '=',
+      mdl: '=',
+      attr: '=',
+      altText: '='
+    },
+    template: url,
+    // templateUrl:'angular/directive-templates/customFileUploadTemplate.php',
+    replace: true,
+    link: function link(scope, element, attributes) {
+
+      // console.log(attributes); //literal string "{{some string}}", no interpolation
+      // console.log(element); //literal string "{{some string}}", no interpolation
+      // console.log(attributes.anotherParam); //literally "another string"
+      element.children('input[type="file"]').attr('id', attributes.attr);
+      element.children('input[type="file"]').attr('name', attributes.attr);
+      element.children('img').attr('alt', attributes.altText);
+      // attributes.$observe('myDirective', function(value){
+      // 	console.log(value);
+      // });
+      //
+      // attributes.$observe('anotherParam', function(value){
+      // 	console.log(value);
+      // });
+    },
+    controller: ['$scope', function ($scope) {
+      $scope.uploadImage = function ($event, files) {
+        sendRequest.processImageUpload('/api/upload-image', $scope.mdl, $scope.dest, $localStorage.userToken).then(function (data) {
+          console.log(data);
+          if (undefined == data.filename) {
+            console.error('Server Route Error');
+          } else {
+            $scope.mdl = data.filename;
+            $scope.$parent.filename = data.filename;
+            // Notification.success({ message: 'Upload Successful', positionX: 'center'});
+          }
+        });
+      };
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/gamePlay.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE
+// <game-play></game-play>
+
+var url = '\n<section id="game-play">\n\n\n<style>\n  #timer h1{\n    margin: 0 !important;\n\t}\n\t\n\n\t.questions{\n\t\tjustify-content: center;\n\t\tpadding: 50px 0;\n\t}\n\t.question__card{\n\t\tflex-basis: 80%;\n\t}\n\t.question__card__question h4{\n\t\ttext-transform: initial !important;\n\t\tline-height: 1.5em !important;\n\t\tfont-size: 1.2em !important;\n\t\tfont-weight: 100 !important;\n\t\tmargin-bottom: 26px !important;\n\t}\n\t.question__card__option{\n\t\tpadding-bottom:15px !important;\n\t}\n\t.question__card__option label{\n\t\tpadding-right: 15%;\n\t\ttext-align: left;\n\t\tpadding-left: 7rem !important;\n\t}\n\t.question__card__option input{\n\t\tmargin-left: 3rem !important;\n\t\twidth: 21rem !important;\n\t}\n\t.question__card__option label::before, .question__card__option label::after{\n\t\tmargin-left: 5%;\n\n\t}\n\t.question__actions{\n\t\tdisplay: flex;\n\t}\n\n\t.question__actions .buttons{\n\t\tflex: 1 1 auto;\n\t}\n\n\t.submit-button{\n\t\tmargin-top:15px !important;\n\t}\n\t.ui.pagination.menu .active.item{\n\t\tbackground-color:rgba(92, 243, 33, 0.27);\n\t}\n</style>\n<style media="(max-width:767px)">\n  #heading{\n    -webkit-flex-direction: column;-ms-flex-direction: column;flex-direction: column;\n  }\n  #game-play{\n    margin-top: -140px;\n\t}\n\t\n</style>\n\n\n\n  <div class="ui compact horizontal segments flex-center" style="background-color: rgba(255,255,255,0.6);" id="heading">\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item" style="padding: 0 20px !important;">\n          <i class="icon clock outline"></i> <countdown-timer countdown="game_timer" finish="displayResults()" id="timer"></countdown-timer>\n        </a>\n      </div>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui violet label" style="font-size: 13px;">\n        <span style="padding-right: 10px;">Active Gamers</span>\n        <i class="users icon"></i> {{ total_examinees }}\n      </div>\n    </div>\n\n\n    <div class="ui segment">\n      <h1 style="color: white; float: right;">Lifelines</h1>\n    </div>\n\n    <div class="ui segment">\n      <div class="ui compact menu">\n        <a class="item">\n          50/50\n          <div class="floating ui red label">1</div>\n        </a>\n        <a class="item" style="background:#21BA45; color: white;">\n          CHANGE QUESTION\n          <div class="floating ui teal label">1</div>\n        </a>\n      </div>\n    </div>\n  </div>\n\n\t<div class="grid-100">\n\t<div class="ui segment" style="min-height:60vh; margin-top: 5vh" ng-if="loading">\n      <div class="ui active inverted dimmer">\n        <div class="ui large text loader">Loading questions...</div>\n      </div>\n    </div>\n\t<div class="ui green segment">\n\t\n\t\t<div class="ui cards questions">\n\t\t\t<div class="card question__card no-animate" ng-repeat="q in user_questions" ng-show="current_number == $index">\n\t\t\t\t<div class="content">\n\t\t\t\t\t<div class="header question__card__title">Question {{ $index + 1}}</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="content question__card__question">\n\t\t\t\t\t<h4 class="ui sub header dash_header question">\n\t\t\t\t\t\t{{ q.question.question }} \n\t\t\t\t\t</h4>\n\t\t\t\t\t\n\t\t\t\t\t<div class="ui small feed question__card__options">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_1">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 1}}" ng-value="q.question.option_1" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_1" id="option1{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_1 }}</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_2">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 2}}" ng-value="q.question.option_2" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_2" id="option2{{$index}}">\n\t\t\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_2 }}</label>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_3">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 3}}" ng-value="q.question.option_3" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_3" id="option3{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_3 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class="event question__card__option">\n\t\t\t\t\t\t\t<div class="content">\n\t\t\t\t\t\t\t\t<div class="summary">\n\t\t\t\t\t\t\t\t<div class="ui slider checkbox" ng-if="q.question.option_4">\n\t\t\t\t\t\t\t\t\t\t<input type="radio" name="question{{$index + 4}}" ng-value="q.question.option_4" ng-model="q.answered_option" \n\t\t\t\t\t\t\t\t\t\t\t\t\t\tng-change="q.answered_option = q.question.option_4" id="option4{{$index}}">\n\t\t\t\t\t\t\t\t\t\t<label >{{ q.question.option_4 }}</label>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="extra content question__actions">\n\t\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t\t\t<button class="ui left labeled icon black button" ng-click="prev()"  ng-disabled="current_number == 0">\n\t\t\t\t\t\t\t\t<i class="left arrow icon"></i>\n\t\t\t\t\t\t\t\tPrevious\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui button" ng-click="requestOptions(q)" ng-disabled="lifelines.options">50/50</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui positive button" ng-click="requestExtra(q)" ng-disabled="lifelines.extra">CHANGE QUESTION</button>\n\t\t\t\t\t\t\t<div class="or"></div>\n\t\t\t\t\t\t\t<button class="ui right labeled icon black button" ng-click="next()" ng-disabled="current_number == 9">\n\t\t\t\t\t\t\t\t<i class="right arrow icon"></i>\n\t\t\t\t\t\t\t\tNext\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="ui buttons">\n\t\t\t\t\t<button class="ui blue button submit-button" ng-click="submitExam()" ng-class="{\'loading\' : loading, \'disabled\': disabled}">Submit</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t\n\t\t\t\n\t\t\t<div class="ui right floated pagination menu">\n\t\t\t\t<a class="item" ng-class="{\'active\' : q.answered_option }" ng-click="setCurrent($index)"\n\t\t\t\t    ng-repeat="q in user_questions track by q.id" ng-if="$index < 10">{{ $index + 1 }}</a>\n      </div>\n\t\t\t\n\t\t</div>\n\t</div>\n</div>\n\n</section>\n\n';
+
+angular.module('gamePlay', []).directive('gamePlay', ['$location', '$localStorage', 'Notification', 'sendRequest', function ($location, $localStorage, Notification, sendRequest) {
+	return {
+		restrict: 'E',
+		// templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+		template: url,
+		replace: true,
+		link: function link(scope, element, attributes) {},
+		controller: ['$scope', function ($scope) {
+			$scope.lifelines = $localStorage;
+			$scope.lifelines.extra = $scope.lifelines.extra || false;
+			$scope.lifelines.options = $scope.lifelines.options || false;
+			$scope.current_number = 0;
+
+			sendRequest.getUserQuestions('/user/get-user-questions').then(function (rsp) {
+				$scope.user_questions = rsp;
+			});
+
+			$scope.next = function () {
+				$scope.current_number++;
+			};
+
+			$scope.prev = function () {
+				$scope.current_number--;
+			};
+
+			$scope.setCurrent = function (n) {
+				$scope.current_number = n;
+			};
+
+			$scope.submitExam = function () {
+				$scope.loading = true;
+				sendRequest.storeData('prevent', true);
+
+				sendRequest.postRequest('/user/submit-exam', $scope.user_questions).then(function (rsp) {
+					delete $localStorage.user_questions;
+					delete $localStorage.extra;
+					delete $localStorage.options;
+
+					if (rsp.status == 422) {
+						Notification.error({
+							message: 'No active game in progress',
+							positionX: 'center'
+						});
+						$location.path('/dashboard');
+					}
+					if (rsp.status == 416) {
+						$scope.disabled = true;
+						return;
+					} else if (rsp.status == 200) {
+						if (rsp.data.status) {
+							sendRequest.storeData('user_score', rsp.data.user_score);
+							$localStorage.user_score = rsp.data.user_score;
+							$location.path('/dashboard');
+						}
+					}
+				});
+			};
+
+			$scope.requestExtra = function (q) {
+				q.answered_option = 'skipped';
+				var removedQuestion = $scope.user_questions.indexOf(q);
+				$scope.user_questions.splice(removedQuestion, 1);
+				$scope.lifelines.extra = true;
+
+				//Add it back to the array so that it gets sent to the server and marked as skipped.
+				//This way we can prevent it from showing up in the displayed results
+				$scope.user_questions.push(q);
+			};
+
+			$scope.requestOptions = function (q) {
+				sendRequest.postRequest('/user/question-remove-options', q.question.id).then(function (rsp) {
+					q.question = rsp.data;
+				});
+
+				$scope.lifelines.options = true;
+			};
+
+			$scope.displayResults = function () {
+				sendRequest.storeData('prevent', true);
+				sendRequest.postRequest('/user/end-exam', $scope.user_questions).then(function (rsp) {
+					delete $localStorage.user_questions;
+					delete $localStorage.extra;
+					delete $localStorage.options;
+
+					if (rsp.status == 422) {
+						Notification.error({
+							message: 'No active game in progress',
+							positionX: 'center'
+						});
+						$location.path('/dashboard');
+					} else if (rsp.status == 200) {
+						if (rsp.data.status) {
+							sendRequest.storeData('user_score', rsp.data.user_score);
+							$localStorage.user_score = rsp.data.user_score;
+							$location.path('/dashboard/display-results');
+						}
+					}
+				});
+			};
+		}]
+	};
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/gameState.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-state><game-state>
+
+
+var url = '\n<div id="game">\n  <div id="card" class="ui segments" ng-if="game_state == \'loading\' && !transition">\n    <!-- game load -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n        <span>Countdown to next game</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button>Next game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'waiting\' && !transition">\n    <!-- game waiting -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="displayResults()"></countdown-timer>\n    </div>\n\n    <div class="ui segment">\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score == null">\n        <div class="ui green button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic green left pointing label">\n          Awaiting results\n        </a>\n      </div>\n\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score < 10">\n        <div class="ui red button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic red left pointing label">\n          {{ user_score }} out of 10\n        </a>\n      </div>\n      <div class="ui labeled button" tabindex="-1" ng-if="user_score > 9">\n        <div class="ui basic blue button">\n          <i class="fork icon"></i> Score\n        </div>\n        <a class="ui basic left pointing blue label">\n        {{ user_score }} out of 10\n        </a>\n      </div>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'active\' && !transition">\n    <!-- game active -->\n    <div class="ui segment">\n      <div class="ui label" style="background-color: #21BA45; color: #fff; font-size: 13px;">\n        <span>Game in progress</span>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n      <button style="cursor: pointer; background-color: #21BA45;" ng-click="joinGame()" ng-disabled="transition">Join Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments" ng-if="game_state == \'paused\' && !transition">\n    <!-- game paused -->\n    <div class="ui segment">\n      <div class="ui horizontal list">\n        <div class="ui label" style="background-color: #0195d2; color: #fff; font-size: 13px;">\n          <span style="padding-right: 10px;">Active Gamers</span>\n          <i class="users icon"></i> {{ total_examinees }}\n        </div>\n      </div>\n    </div>\n    <div class="ui segment">\n      <countdown-timer countdown="game_timer" finish="endGameReload()"></countdown-timer>\n      <button style="cursor: pointer" ng-click="resumeGame()">Resume Game</button>\n    </div>\n  </div>\n\n  <div id="card" class="ui segments">\n    <div class="content" style="padding-bottom: 5px;">\n      <div class="ui compact segment">\n        <div class="ui blue image label">\n          My referral link\n          <div class="detail" id="refcode" ng-click="copy()" style="cursor: pointer;" title="Click to copy">https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}</div>\n          <input type="text" ng-hide="true" id="hiddenref">\n        </div>\n        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">\n          <br />\n          <strong style="margin-right: 15px; color:#555!important;"">INVITE SOMEONE AND GET PAID:</strong>\n          <br />\n          <br />\n          <a class="ui facebook icon button" href="https://www.facebook.com/sharer/sharer.php?u=https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }}" target="_blank">\n            <i class="facebook f icon"></i>\n          </a>\n          <a class="ui twitter button icon" ng-href="https://twitter.com/intent/tweet?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Tweet" target="_blank">\n            <i class="twitter icon"></i>\n          </a>\n          <a class="ui black button icon" href="mailto:?subject=Join FastPlay24&body=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later." title="Email">\n            <i class="envelope outline icon"></i>\n          </a>\n          <a class="ui green button icon" ng-href="whatsapp://send?text=Win up to N15, 000 in 10mins with just N35. Join @fastplay24 now. https://fastplay24.com/register/ref/{{ $parent.userdetails.refcode }} Thank me later. #fastplay24" title="Whatsapp Share">\n              <i class="whatsapp icon"></i>\n            </a>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n';
+
+angular.module('gameState', []).directive('gameState', ['$location', '$route', 'Notification', '$localStorage', 'sendRequest', function ($location, $route, Notification, $localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      // dest : '=',
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.transition = true;
+
+      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
+        $scope.user_score = $localStorage.user_score;
+      }
+
+      //when the game was paused, ends the user's incomplete game and displays the results
+      $scope.endGameReload = function () {
+        $scope.transition = true;
+        alert('The game has ended');
+        //Send a request to end the user's game and redirect to results display page
+        sendRequest.postRequest('/user/end-exam', $localStorage.user_questions).then(function (rsp) {
+          delete $localStorage.user_questions;
+          delete $localStorage.extra;
+          delete $localStorage.options;
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+            $location.path('/dashboard');
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              sendRequest.storeData('user_score', rsp.data.user_score);
+              $localStorage.user_score = rsp.data.user_score;
+              $location.path('/dashboard/display-results');
+            }
+          }
+        });
+      };
+
+      //when the game was paused, take the user back to the game
+      $scope.resumeGame = function () {
+        $scope.transition = true;
+
+        sendRequest.postRequest('user/resume-game').then(function () {
+          $location.path('/dashboard/game-play');
+        });
+
+        //Send a request to resume the game and set the session back to active
+
+        // $scope.displayResults();
+      };
+
+      // handle page reload on timer countdown so that the page can get the next thing from the server
+      $scope.pageReload = function () {
+        // location.reload();
+        sendRequest.getGameState().then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+          $scope.total_examinees = rsp.total_examinees;
+        });
+      };
+
+      // refresh the game state and then redirect to the display results page
+      $scope.displayResults = function () {
+        NProgress.start();
+        $scope.transition = true;
+
+        sendRequest.getGameState('/user/get-game-state').then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+
+          if (rsp.game_state == 'loading') {
+            $location.path('/dashboard/display-results');
+          } else {
+            // $location.url('/invalid');
+            $route.reload();
+          }
+          NProgress.done();
+        });
+      };
+
+      $scope.joinGame = function () {
+        $scope.transition = true;
+
+        NProgress.start();
+
+        delete $localStorage.user_score;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+        delete $localStorage.user_questions;
+
+        sendRequest.postRequest('/user/join-game').then(function (rsp) {
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              $scope.transition = true;
+              $location.path('/dashboard/game-play');
+            }
+          } else if (rsp.status == 402) {
+            console.log(rsp);
+            $scope.transition = false;
+            Notification.error({ message: rsp.data.err_msg, positionX: 'center' });
+          } else if (rsp.status == 403) {
+            $scope.transition = true;
+            Notification.error({ message: 'Already in a game session.', positionX: 'center' });
+            $location.path('/dashboard/game-play');
+          }
+        });
+
+        NProgress.done();
+      };
+
+      sendRequest.getGameState().then(function (rsp) {
+        $scope.game_state = rsp.game_state;
+        $scope.game_timer = rsp.game_timer;
+        $scope.total_examinees = rsp.total_examinees;
+        $scope.transition = false;
+      });
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/inputCountValidator.js":
+/***/ (function(module, exports) {
+
+//This directive is used for instance to validate whether the values entered into a numeric field == 10
+
+var INTEGER_REGEXP = /^-?\d+$/;
+angular.module('inputCountValidator', []).directive('count', function () {
+  return {
+    require: 'ngModel',
+    link: function link(scope, elm, attrs, ctrl) {
+      ctrl.$validators.count = function (modelValue, viewValue) {
+
+        if (ctrl.$isEmpty(modelValue)) {
+          // consider empty models to be valid
+          return true;
+        }
+
+        if (viewValue.length != attrs.count) {
+          // it is invalid
+          return false;
+        }
+
+        if (INTEGER_REGEXP.test(viewValue)) {
+          // it is valid
+          return true;
+        }
+
+        // it is invalid
+        return false;
+      };
+    }
+  };
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/makeWithdrawal.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+var url = '\n<section id="makeWithdrawal" class="ui right floated horizontal  list">\n  <div class=" ui vertical animated orange compact button" tabindex="-1" ng-click="openModal()">\n    <div class="hidden content"><i class="icon money bill alternate outline"></i></div>\n    <div class="visible content">\n      Cash Out\n    </div>\n  </div>\n\n\n  <div class="ui tiny modal makeWithdrawal transition hidden">\n\n      <div class="ui icon mini message">\n        <i class="inbox icon"></i>\n        <div class="content">\n          <div class="header">\n            TRANSFER EARNINGS FIRST\n          </div>\n          <p> To cashout your earnings, first transfer it to your wallet by clicking the \'transfer earnings\' button. Otherwise proceed.</p>\n        </div>\n      </div>\n\n      <div class="header">\n        Enter an Amount\n      </div>\n      <div class="content flex-center">\n        <div class="ui form" id="input-field">\n          <div class="field">\n            <input type="number" placeholder="Min \u20A61,000 | Max: \u20A650, 000" ng-model="requested_amount" ng-max="withdrawal_max" ng-min="1000">\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !requested_amount}" prompt-password="requestWithdrawal()">\n          Yep, proceed!\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n      <div class="image content" style="flex-direction:column;">\n        <div class="ui icon mini message positive">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> For withdrawals from \u20A61,000 and above, a service fee of \u20A6200 will be charged. </p>\n            <p> While an additional service fee of \u20A6100 will be charged for every additional \u20A61,000.</p>\n            <p> You cannot cashout between 5pm on Friday to 7:59am on Monday. Weekend rest is good you know.</p>\n          </div>\n        </div>\n        <div class="ui icon mini message negative">\n          <i class="inbox icon"></i>\n          <div class="content">\n            <div class="header">\n              NOTE:\n            </div>\n            <p> NB: If you do not receive the requested amount in your bank account within 72 hours after the time of request, kindly send an email to <a href="mailto:hello@fastplay24.com">hello@fastplay24.com</a>. </p>\n          </div>\n        </div>\n      </div>\n\n    </div>\n\n</section>\n';
+
+angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
+	return {
+		restrict: 'E',
+		scope: {
+			// dest : '=',
+			// mdl:'=',
+			// attr: '=',
+			// altText: '='
+		},
+		// templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+		template: url,
+		replace: true,
+		link: function link(scope, element, attributes) {},
+		controller: ['$scope', function ($scope) {
+			$scope.openModal = function () {
+				$('.ui.modal.makeWithdrawal').modal({
+					centered: false,
+					blurring: true,
+					onDeny: function onDeny() {
+						return true;
+					},
+					onHide: function onHide() {
+						var remove = function remove() {
+							// $('.ui.modal.makeWithdrawal').remove();
+						};
+						setTimeout(remove, 1000);
+						// return false;
+					},
+					onApprove: function onApprove() {
+						return true;
+					}
+				}).modal('show');
+			};
+
+			$scope.requestWithdrawal = function () {
+				sendRequest.postRequest('/user/request-withdrawal', {
+					amt: $scope.requested_amount
+				}).then(function (rsp) {
+					if (rsp.status == 422) {
+						Notification.error(rsp.data.message);
+					} else if (rsp.status == 200) {
+						if (rsp.data.status) {
+							if ($scope.requested_amount < 1000) {
+								Notification.primary('Amount requested will be sent as airtime to ' + $scope.$parent.userdetails.phone1);
+							} else {
+								sendRequest.storeData('withdraw', true);
+								$location.path('dashboard/withdrawal/success');
+								Notification.primary({
+									message: 'Amount requested will be sent to account number (' + $scope.$parent.userdetails.acct_no + ' - ' + $scope.$parent.userdetails.bank + ') within 72 hours',
+									positionX: 'center'
+								});
+							}
+
+							$scope.$parent.userdetails.available_units = $scope.$parent.userdetails.available_units - $scope.requested_amount;
+							$scope.requested_amount = null;
+						}
+					}
+				});
+			};
+
+			$timeout(function () {
+				//This prevent the dashboard from crashing on page load where the parent scope may not yet be ready
+				$scope.withdrawal_max = $scope.$parent.userdetails.available_units < 50000 ? $scope.$parent.userdetails.available_units : 50000;
+			}, 1000);
+
+			$scope.$on('$routeChangeStart', function () {
+				$timeout(function () {
+					if ($('.ui.modal.makeWithdrawal').length > 1) {
+						//remove extras
+						$('.ui.modal.makeWithdrawal')[1].remove();
+					}
+				}, 0);
+			});
+		}]
+	};
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/miniGameState.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-state><game-state>
+
+
+var url = '\n\n<div id="mini-game">\n<style>\n\n</style>\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'loading\'">\n    <div class="ui red button">\n      <i class="clock icon"></i> <ng-transclude></ng-transclude> Next Game\n    </div>\n    <a class="ui basic red left pointing label">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'active\'" ng-click="joinGame()">\n    <div class="ui green button">\n     <ng-transclude></ng-transclude>\n      <i class="gamepad icon"></i>Join Game\n    </div>\n    <a class="ui basic left pointing green label" ng-click="joinGame()">\n        <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n';
+
+angular.module('miniGameState', []).directive('miniGameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      // dest : '=',
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
+        $scope.user_score = $localStorage.user_score;
+      }
+
+      // handle page reload on timer countdown so that the page can get the next thing from the server
+      $scope.pageReload = function () {
+        // location.reload();
+        sendRequest.getGameState().then(function (rsp) {
+          $scope.game_state = rsp.game_state;
+          $scope.game_timer = rsp.game_timer;
+          $scope.total_examinees = rsp.total_examinees;
+        });
+      };
+
+      $scope.joinGame = function () {
+        NProgress.start();
+
+        delete $localStorage.user_score;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+        delete $localStorage.user_questions;
+
+        sendRequest.postRequest('/user/join-game').then(function (rsp) {
+
+          if (rsp.status == 422) {
+            Notification.error({ message: 'No active game in progress', positionX: 'center' });
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              $scope.game_state = 'transition';
+              $location.path('/dashboard/game-play');
+            }
+          } else if (rsp.status == 402) {
+            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });
+          } else if (rsp.status == 403) {
+            $scope.game_state = 'transition';
+            Notification.error({ message: 'Already in a game session.', positionX: 'center' });
+            $location.path('/dashboard/game-play');
+          }
+        });
+
+        NProgress.done();
+      };
+
+      sendRequest.getGameState().then(function (rsp) {
+        $scope.game_state = rsp.game_state;
+        $scope.game_timer = rsp.game_timer;
+        $scope.total_examinees = rsp.total_examinees;
+      });
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/payWithPaystack.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<section id="payWithPaystack" class="ui right floated horizontal list">\n  <form action="/dashboard/save-order-and-pay" method="POST">\n   <input type="hidden" name="amount" value="{{ requested_amount * 100 }}">\n   <input type="hidden" name="_token" value="{{ CSRF_TOKEN }}">\n   <button type="submit" ng-class="{\'ui purple right labeled icon button\': true, \'loading disabled\':loading}" id="pay-now" title="Pay now">\n     Pay Now\n     <i class="credit card outline icon"></i>\n   </button>\n  </form>\n\n</section>\n';
+
+angular.module('payWithPaystack', []).directive('payWithPaystack', ['Notification', 'SweetAlert', 'sendRequest', 'CSRF_TOKEN', function (Notification, SweetAlert, sendRequest, CSRF_TOKEN) {
+  return {
+    restrict: 'E',
+    template: url,
+    replace: true,
+    link: function link(scope, element) {
+      var scriptTag = angular.element(document.createElement('script'));
+      scriptTag.attr('charset', 'utf-8');
+      scriptTag.attr('src', 'https://js.paystack.co/v1/inline.js');
+      element.append(scriptTag);
+      console.log(element);
+    },
+    controller: ['$scope', '$location', function ($scope, $location) {
+
+      $scope.CSRF_TOKEN = CSRF_TOKEN;
+
+      $scope.saveOrderThenPayWithPaystack = function () {
+        console.log(PAYSTACK_PUBLIC_KEY);
+
+        $scope.loading = true;
+        SweetAlert.swal({
+          title: "Please wait.....",
+          text: "Contacting Paystack payment gateway.",
+          showCancelButton: false,
+          showConfirmButton: false
+        });
+        $scope.awardCredits().then(function (rsp) {
+          $scope.payWithPaystack();
+        }, function (err) {
+          SweetAlert.swal("Error", "Network Error. Please refresh the page and try again.", "error");
+        });
+      };
+
+      $scope.payWithPaystack = function () {
+        console.log(PAYSTACK_PUBLIC_KEY);
+        var fees = 0.017 * $scope.requested_amount;
+
+        if ($scope.requested_amount > 2500) {
+          fees = 0.017 * $scope.requested_amount + 100;
+        }
+
+        var orderid = _.random(676764765, 544765545646456);
+        var handler = PaystackPop.setup({
+          // This assumes you already created a constant named
+          // PAYSTACK_PUBLIC_KEY with your public key from the
+          // Paystack dashboard. You can as well just paste it
+          // instead of creating the constant
+          key: PAYSTACK_PUBLIC_KEY,
+          email: $scope.$root.userdetails.email,
+          first_name: $scope.$root.userdetails.firstname,
+          last_name: $scope.$root.userdetails.lastname,
+          phone: $scope.$root.userdetails.phone1,
+          amount: Math.ceil(($scope.requested_amount + fees) * 100),
+          // ref: orderid,
+          metadata: {
+            cartid: orderid,
+            orderid: orderid,
+            custom_fields: [// to be displayed on paystack transaction page and paystack email.
+            {
+              display_name: "Paid on",
+              variable_name: "paid_on",
+              value: 'Website'
+            }, {
+              display_name: "Paid via",
+              variable_name: "paid_via",
+              value: 'Inline Popup'
+            }, {
+              display_name: "User Details",
+              variable_name: "user_details",
+              value: $scope.$root.userdetails.firstname + ' ' + $scope.$root.userdetails.lastname + ': ' + $scope.$root.userdetails.phone1
+            }, {
+              display_name: "User ID",
+              variable_name: "user_id",
+              value: $scope.$root.userdetails.id
+            }, {
+              display_name: "Fees",
+              variable_name: "fees",
+              value: fees * 100
+            }]
+          },
+          callback: function callback(response) {
+            SweetAlert.swal({
+              title: "Please wait.....",
+              text: "We are attempting to acknowledge your payment.",
+              icon: 'info',
+              showCancelButton: false,
+              showConfirmButton: false
+            });
+
+            // post to server to verify transaction before giving value
+            sendRequest.postRequest('/user/credit-account?reference=' + response.reference).then(function (rsp) {
+              if (rsp.status == 200) {
+                if (rsp.data.verified) {
+
+                  sendRequest.storeData('activeTransaction', true);
+
+                  SweetAlert.swal('Success!', 'Transaction verified. Units added to account', 'success');
+
+                  $scope.$root.userdetails.available_units += $scope.requested_amount;
+                  $scope.requested_amount = null;
+                  $location.path('/dashboard/order-successful');
+                } else {
+                  SweetAlert.swal('Notice!', 'Automatic transction verification failed. Transaction will be manually verified and a sales rep will get in touch with you. Thank you.', 'warning');
+                }
+              }
+            });
+          },
+          onClose: function onClose() {
+            $scope.requested_amount = null;
+            SweetAlert.swal('Error!', 'Transaction cancelled by user', 'error');
+            // Notification.error('Transaction cancelled by user');
+            location.reload();
+          }
+        });
+        handler.openIframe();
+        // Notification.warning({message:'Contacting payment gate way. Please wait...', delay:20000, replaceMessage:true});
+      };
+
+      $scope.awardCredits = function () {
+
+        var data = {
+          'amt': $scope.requested_amount,
+          'trans_type': 'wallet funding',
+          'status': 'pending'
+        };
+
+        return sendRequest.postRequest('/user/send-credit-account-request', data).then(function (rsp) {
+          if (rsp.status == 200) {
+            if (rsp.data.status) {
+              return true;
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/promptPassword.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-play></game-play>
+// <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyUser(u)" ng-hide="u.verified">Verify</button>
+
+
+angular.module('promptPassword', []).directive('promptPassword', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'A',
+    transclude: true,
+    template: "<div ng-transclude></div>",
+    link: function link(scope, el, attrs) {
+
+      var msg = "Enter your password";
+      var clickAction = attrs.promptPassword;
+      el.bind('click', function (event) {
+        var pwd = window.prompt(msg);
+        sendRequest.postRequest('/user/confirm-user-password', pwd).then(function (rsp) {
+          if (rsp.status == 423) {
+            Notification.error('Incorrect password');
+            scope.$parent.logout();
+            // console.log(scope.$parent);
+          } else if (rsp.status == 200) {
+            if (rsp.data.status) {
+              scope.$eval(clickAction);
+            }
+          }
+        });
+      });
+    }
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/sendMessage.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<div class="ui small basic green icon buttons right floated">\n  <button class="ui button active" ng-click="openModal()">\n    <ng-transclude></ng-transclude>\n  </button>\n  <div class="ui mini modal sendMessage transition hidden">\n      <div class="header">\n        Send a message\n      </div>\n      <div class="content flex-center">\n        <div class="ui form">\n          <div class="field">\n            <input type="text" placeholder="Message Subject" ng-model="m.subject">\n          </div>\n          <div class="field">\n            <textarea placeholder="Message goes here" ng-model="m.message" ></textarea>\n          </div>\n        </div>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Bail\n        </div>\n        <div ng-class="{\'ui positive right labeled icon button\': true, \'disabled\': !m.message || !m.subject}" ng-click="sendMessage()">\n          Send\n          <i class="checkmark icon"></i>\n        </div>\n      </div>\n    </div>\n</div>\n';
+
+angular.module('sendMessage', []).directive('sendMessage', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    scope: {
+      msg: '='
+      // mdl:'=',
+      // attr: '=',
+      // altText: '='
+    },
+    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.openModal = function () {
+        $('.ui.modal.sendMessage').modal({
+          blurring: true
+        }).modal('show');
+      };
+
+      $scope.sendMessage = function () {
+        sendRequest.postRequest('/user/send-message', $scope.m).then(function (rsp) {
+          if (rsp.data.status) {
+            Notification.primary('Message sent');
+            $scope.msg.read = true;
+            sendRequest.postRequest('/user/mark-message-as-read', $scope.msg);
+            $scope.m = null;
+          }
+        }, function (err) {
+          Notification.error('Sending Failed');
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/userProfile.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {
+
+var url = '\n<section id="u_details">\n  <div class="grid-container">\n    <div class="grid-50">\n      <div class="content">\n        <h2 class="header" style="margin-bottom: 2px;">{{ userdetails.firstname }} {{ userdetails.lastname }}</h2>\n        <div class="content" style="padding-bottom: 5px;">\n          <div class="meta">\n            <span class="date">Joined {{ userdetails.created_at | timeAgo }}</span>\n          </div>\n\n        </div>\n        <div class="content" >\n\n        </div>\n        <div class="content" style="padding-bottom: 5px;">\n\n        </div>\n      </div>\n    </div>\n    <div class="grid-50">\n      <div class="content">\n        <button class="ui compact right floated violet button" ng-click="transferEarnings()">\n          <i class="icon credit card amazon pay"></i>\n          Transfer Earnings\n        </button>\n      </div>\n      <div class="content">\n        <make-withdrawal  style="margin-right: 3%; margin-bottom: 15px;"></make-withdrawal>\n      </div>\n      <div class="content" style="margin-bottom: 15px;">\n        <a class="ui vertical blue compact button right floated" href="/dashboard/fund-wallet" style="margin-right: 3%;">\n          <i class="icon credit card amazon pay"></i>\n          Fund Wallet\n        </a>\n      </div>\n    </div>\n  </div>\n</section>\n';
+
+angular.module('userProfile', []).directive('userProfile', [function () {
+  return {
+    restrict: 'E',
+    // templateUrl:'angular/directive-templates/userProfileTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', 'Notification', 'sendRequest', function ($scope, Notification, sendRequest) {
+
+      $scope.copy = function () {
+        console.log($('#refcode'));
+        $('#hiddenref').val($('#refcode').text());
+        $('#hiddenref').select();
+        document.execCommand('Copy');
+        Notification.primary('Referral code copied');
+      };
+
+      $scope.transferEarnings = function () {
+        sendRequest.postRequest('user/transfer-earnings').then(function (rsp) {
+          if (rsp.status == 200) {
+            if (rsp.data.status == true) {
+              Notification.success({ message: 'Earnings transferred to wallet', positionX: 'center' });
+            } else if (rsp.data.status == 'Insufficient') {
+              Notification.error({ message: 'No earnings to transfer', positionX: 'center' });
+            }
+          }
+
+          sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {
+            $scope.userdetails = rsp.userdetails;
+          });
+          sendRequest.getTotalEarnings('/user/get-total-earnings', true).then(function (rsp) {
+            $scope.total_earnings = rsp.total_earnings;
+          });
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/verifyAccount.js":
+/***/ (function(module, exports) {
+
+// EXAMPLE uploadPostImage
+// <game-play></game-play>
+
+
+var url = '\n<section id="verifyAccount" class="ui left floated horizontal  list">\n  <style>\n    .tooltip {\n      position: relative;\n      display: inline-block;\n      border-bottom: 1px dotted black;\n    }\n\n    .tooltip .tooltiptext {\n      visibility: hidden;\n      width: 120px;\n      background-color: black;\n      color: #fff;\n      text-align: center;\n      border-radius: 6px;\n      padding: 5px 0;\n\n      /* Position the tooltip */\n      position: absolute;\n      z-index: 1;\n    }\n\n    .tooltip:hover .tooltiptext {\n      visibility: visible;\n    }\n\n  </style>\n  <div class="ui circular green labels " ng-if="userdetails.verified" title="Verified Account" >\n    <a class="ui label tooltip">\n      <i class="check circle icon " style="margin: 0;"></i>\n      <span class="tooltiptext">Account verified</span>\n    </a>\n  </div>\n\n  <div class="ui labeled button" tabindex="-1" ng-click="sendVerificationMai()" ng-if="!userdetails.verified">\n  <!--\n    <div class="ui red label right pointing" >\n      <i class="exclamation triangle icon"></i>\n    </div>\n    <a class="ui basic red label ng-binding tooltip">\n      Unverified\n      <span class="tooltiptext">Account not yet verified.</span>\n    </a>\n    -->\n  </div>\n</section>\n';
+
+angular.module('verifyAccount', []).directive('verifyAccount', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'E',
+    // scope:{
+    //   // dest : '=',
+    //   // mdl:'=',
+    //   // attr: '=',
+    //   // altText: '='
+    // },
+    // templateUrl:'angular/directive-templates/gamePlayTemplate.php',
+    template: url,
+    replace: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.sendVerificationMail = function () {
+
+        Notification.warning({ message: 'Attempting to send verification email...', delay: 2000 });
+
+        sendRequest.postRequest('/user/send-verification-mail', $scope.userdetails.email).then(function (rsp) {
+          if (rsp.status == 422 || rsp.status == 408) {
+            Notification.error({ message: rsp.data.message, delay: 1500, replace: true });
+          } else if (rsp.status == 200) {
+            if (rsp.data.message) {
+              // Notification.success('Verification mail sent to ' + $scope.userdetails.email);
+              Notification.success({ message: rsp.data.message, replace: true });
+            }
+          }
+        });
+      };
+    }]
+  };
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/directives/viewTopTenPlayers.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var url = '\n<div ng-click="showPlayers()">\n  <ng-transclude></ng-transclude>\n  <div class="ui modal players{{game}} transition hidden">\n      <div class="header">\n        Top Winners\n      </div>\n      <div class="content flex-center">\n        <div class="actions  flex-center">\n          <div class="ui black left deny button">\n            Close\n          </div>\n        </div>\n        <table class="ui red fixed single line striped celled table" style="text-align: center;">\n          <thead>\n            <tr>\n              <th colspan="2">Game ID: {{ top_ten[0].game.id }}</th>\n              <th colspan="3">Number of Players: {{ top_ten[0].game.num_of_players }}</th>\n            </tr>\n          </thead>\n          <thead>\n            <tr>\n              <th>Name</th>\n              <th>Position</th>\n              <th>Score</th>\n              <th>Finish Time</th>\n              <th>Earning</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat="record in top_ten">\n              <th style="padding:5px 0;">{{ record.user.firstname }}</th>\n              <th style="padding:5px 0;">{{ record.position || \'N/A\' }}</th>\n              <th style="padding:5px 0;">{{ record.score }}</th>\n              <th style="padding:5px 0;">{{ record.ended_at }} </th>\n              <th style="padding:5px 0;">{{ record.earning }}</th>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n      <div class="actions  flex-center">\n        <div class="ui black left deny button">\n          Close\n        </div>\n      </div>\n    </div>\n</div>\n';
+
+angular.module('viewTopTenPlayers', []).directive('viewTopTenPlayers', ['Notification', 'sendRequest', function (Notification, sendRequest) {
+  return {
+    restrict: 'A',
+    scope: {
+      game: '='
+    },
+    template: url,
+    replace: true,
+    transclude: true,
+    link: function link(scope, element, attributes) {},
+    controller: ['$scope', function ($scope) {
+
+      $scope.showPlayers = function () {
+        $('.ui.modal.players' + $scope.game).modal({
+          allowMultiple: false,
+          centered: false,
+          blurring: true,
+          onDeny: function onDeny() {
+            return true;
+          },
+          onHide: function onHide() {
+            var remove = function remove() {};
+            setTimeout(remove, 1000);
+          },
+          onApprove: function onApprove() {
+            return true;
+          }
+        }).modal('show');
+        sendRequest.request('user/get-exam-top-ten/' + $scope.game).then(function (data) {
+          $scope.top_ten = data.top_ten;
+        });
+      };
+    }]
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/filters/parseHTML.js":
+/***/ (function(module, exports) {
+
+
+// SAMPLE USAGE
+// <td ng-bind-html="post.summary | trusted | truncate:200"></td>
+
+
+angular.module('parseHTML', []).filter('trusted', ['$sce', function ($sce) {
+	return function (stringToParse) {
+		return $sce.trustAsHtml(stringToParse);
+	};
+}]);
+
+// home.filter('trusted', ['$sce', function($sce) {
+//     var div = document.createElement('div');
+//     return function(text) {
+//         div.innerHTML = text;
+//         return $sce.trustAsHtml(div.textContent);
+//     };
+// }]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/filters/rangeFilter.js":
+/***/ (function(module, exports) {
+
+//n in _.range(1,16)
+//n in [] | range:20
+
+var app = angular.module('range', []);
+
+app.filter('range', function () {
+  return function (input, total) {
+    console.log(total);
+    total = parseInt(input);
+    for (var i = 0; i < total; i++) {
+      input.push(i);
+    }return input;
+  };
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/routes/dashboard-routes.js":
+/***/ (function(module, exports) {
+
+dashboard.config(['$routeProvider', '$locationProvider', '$compileProvider', '$localStorageProvider', 'NotificationProvider', 'timeAgoSettings', '$provide', function ($routeProvider, $locationProvider, $compileProvider, $localStorageProvider, NotificationProvider, timeAgoSettings, $provide) {
+
+  $routeProvider.when('/dashboard', {
+    templateUrl: 'angular/views/dashboard/index.html',
+    controller: 'DashboardController'
+  }).when('/register/success', {
+    templateUrl: 'angular/views/dashboard/register-success.html',
+    controller: 'DashboardController'
+  }).when('/dashboard/withdrawal/success', {
+    templateUrl: 'angular/views/dashboard/withdrawal-instructions.html',
+    controller: 'WithdrawalController'
+  }).when('/dashboard/profile', {
+    templateUrl: 'angular/views/dashboard/profile.html',
+    controller: 'ProfileController'
+  }).when('/dashboard/messages', {
+    templateUrl: 'angular/views/dashboard/messages.html',
+    controller: 'MessageController'
+  }).when('/dashboard/notices', {
+    templateUrl: 'angular/views/dashboard/notices.html',
+    controller: 'NoticeController'
+  }).when('/dashboard/settings', {
+    templateUrl: 'angular/views/dashboard/settings.html',
+    controller: 'SettingsController'
+  }).when('/dashboard/game-play', {
+    templateUrl: 'angular/views/dashboard/game-play.html',
+    controller: 'GamePlayController',
+    resolve: {
+      gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {
+        return sendRequest.getGameState().then(function (rsp) {
+          if (rsp.game_state != 'active') {
+            $location.path('/dashboard');
+          } else {
+            return rsp;
+          }
+        });
+      }]
+    }
+  }).when('/dashboard/display-results', {
+    templateUrl: 'angular/views/dashboard/display-results.html',
+    controller: 'DisplayResultsController',
+    resolve: {
+      gameActive: ['$location', 'sendRequest', function ($location, sendRequest) {
+        sendRequest.getGameState().then(function (rsp) {
+          if (rsp.game_state != 'loading') {
+            $location.path('/dashboard');
+          }
+        });
+      }]
+    }
+  }).when('/dashboard/order-successful', {
+    templateUrl: 'angular/views/dashboard/order-successful.html',
+    //  controller: 'DisplayResultsController',
+    resolve: {
+      activeTransaction: ['$location', 'sendRequest', function ($location, sendRequest) {
+        // if (!sendRequest.getData('activeTransaction')) {
+        //   $location.path('/dashboard/profile');
+        // }
+      }]
+    }
+  }).when('/dashboard/fund-wallet', {
+    templateUrl: 'angular/views/dashboard/fund-wallet.html',
+    controller: 'FundWalletController'
+  }).otherwise({
+    redirectTo: '/dashboard'
+  });
+
+  $locationProvider.hashPrefix('');
+  $locationProvider.html5Mode(true);
+  $localStorageProvider.setKeyPrefix('game-');
+  timeAgoSettings.allowFuture = true;
+  NotificationProvider.setOptions({
+    delay: 5000,
+    replaceMessage: true,
+    //  startTop: 20,
+    //  startRight: 10,
+    //  verticalSpacing: 20,
+    //  horizontalSpacing: 20,
+    positionX: 'center'
+    //  positionY: 'bottom'
+  });
+
+  $provide.decorator('$locale', ['$delegate', function ($delegate) {
+    $delegate.NUMBER_FORMATS = {
+      DECIMAL_SEP: '.',
+      GROUP_SEP: ',',
+      PATTERNS: [{ // Decimal Pattern
+        minInt: 1,
+        minFrac: 0,
+        maxFrac: 3,
+        posPre: '',
+        posSuf: '',
+        negPre: '-',
+        negSuf: '',
+        gSize: 3,
+        lgSize: 3
+      }, { //Currency Pattern
+        minInt: 1,
+        minFrac: 0,
+        maxFrac: 2,
+        posPre: '\xA4',
+        posSuf: '',
+        negPre: '(\xA4',
+        negSuf: ')',
+        gSize: 3,
+        lgSize: 3
+      }],
+      CURRENCY_SYM: '₦'
+    };
+    return $delegate;
+  }]);
+
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|sms|tel|whatsapp):/);
+}]);
+
+/***/ }),
+
+/***/ "./resources/assets/js/angular/services/services.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {angular.module('sendRequest', []).factory('sendRequest', ['$http', '$q', '$localStorage', function ($http, $q, $localStorage) {
+
+  var data = {};
+  return {
+    storeData: function storeData(key, value) {
+      data[key] = value;
+    },
+
+    getData: function getData(key) {
+      return data[key];
+    },
+
+    getUserDetails: function getUserDetails(url) {
+      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var deferred = $q.defer();
+
+      if (flushStore || !this.getData('userdetails')) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          _this.storeData('userdetails', rsp.data);
+          return _this.getData('userdetails');
+        });
+      }
+      deferred.resolve(this.getData('userdetails'));
+      return deferred.promise;
+    },
+
+    getTotalEarnings: function getTotalEarnings(url) {
+      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      var deferred = $q.defer();
+
+      if (flushStore || !this.getData('total_earnings')) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          _this.storeData('total_earnings', rsp.data);
+          return _this.getData('total_earnings');
+        });
+      }
+      deferred.resolve(this.getData('total_earnings'));
+      return deferred.promise;
+    },
+
+    getBanks: function getBanks(url) {
+      var deferred = $q.defer();
+
+      if (!this.getData('banks_list')) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          _this.storeData('banks_list', rsp.data);
+          return _this.getData('banks_list');
+        });
+      }
+      deferred.resolve(this.getData('banks_list'));
+      return deferred.promise;
+    },
+
+    getGameState: function getGameState() {
+      return this.postRequest('/user/get-game-state').then(function (rsp) {
+        return rsp.data;
+      });
+    },
+
+    getUserQuestions: function getUserQuestions(url) {
+      var flushStore = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      // using local storage so so that if he refreshes his browser during a game session, it will preserve his game state
+      var deferred = $q.defer();
+
+      if (flushStore) {
+        delete $localStorage.user_questions;
+        delete $localStorage.extra;
+        delete $localStorage.options;
+      }
+
+      if (!$localStorage.user_questions) {
+        var _this = this;
+        return this.postRequest(url).then(function (rsp) {
+          $localStorage.user_questions = rsp.data.user_questions;
+          return $localStorage.user_questions;
+        });
+      }
+      deferred.resolve($localStorage.user_questions);
+      return deferred.promise;
+    },
+
+    getCountriesStates: function getCountriesStates() {
+      var deferred = $q.defer();
+
+      if (!this.getData('countries_states')) {
+        var _this = this;
+        return this.postRequest('/api/get-countries-state').then(function (rsp) {
+          _this.storeData('countries_states', rsp.data);
+          return _this.getData('countries_states');
+        });
+      }
+      deferred.resolve(this.getData('countries_states'));
+      return deferred.promise;
+    },
+
+    processImageUpload: function processImageUpload(url, data, foldername) {
+      //Handle image changes
+      NProgress.start();
+
+      // send the image to the server as base64 data
+      return $http.post(url, { image: data, fn: foldername }).then(function (response) {
+        NProgress.done();
+        return response.data;
+      }, function (err) {
+        console.log(err.statusText);
+      });
+    },
+
+    postRequest: function postRequest(url, data) {
+
+      return $http.post(url, { details: data }).then(function (response) {
+        return response;
+      }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        } else if (err.status == 403) {
+          location.href = '/suspended';
+        }
+        console.log(err);
+        return err;
+      });
+    },
+
+    putRequest: function putRequest(url, data) {
+
+      return $http.put(url, { details: data }).then(function (response) {
+        return response;
+      }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        } else if (err.status == 403) {
+          location.href = '/suspended';
+        }
+        console.log(err);
+        return err;
+      });
+    },
+
+    request: function request(url) {
+      var data = [];
+      return $http.get(url).then(function (response) {
+        return response.data;
+      }, function (err) {
+        if (err.status == 419 || err.status == 401) {
+          location.href = '/login';
+        }
+        console.log(err.statusText);
+      });
+    }
+  };
+}]);
+
+angular.module('bootstrapPage', []).factory('bootstrapPage', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
+  return {
+    dashboard: function dashboard(scope) {
+
+      sendRequest.postRequest('/user/get-dashboard-page-details');
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('#notice.ui.modal').modal({
+            centered: false,
+            blurring: true,
+            onDeny: function onDeny() {
+              return true;
+            },
+            onHide: function onHide() {
+              var remove = function remove() {
+                $('#notice.ui.modal').remove();
+              };
+              setTimeout(remove, 1000);
+              // return false;
+            },
+            onApprove: function onApprove() {
+              return true;
+            }
+          }).modal('show');
+
+          Echo.channel('exam_member_count').listen('ExamJoined', function (e) {
+            scope.total_examinees = e.total_examinees;
+          });
+        }, 1000);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {
+          Echo.leave('exam_member_count');
+        }, 0);
+      });
+    },
+    profile: function profile(scope) {
+      sendRequest.postRequest('/user/get-profile-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.user_transactions = rsp.data.page_details.transactions;
+          scope.user_earnings = rsp.data.page_details.earnings;
+          scope.user_games = rsp.data.page_details.games;
+          scope.referrals = rsp.data.page_details.referrals;
+        }
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('#profile-menu .item').tab();
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    },
+    settings: function settings(scope) {
+      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
+        scope.banks = rsp.banks;
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('#edit .item').tab();
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    },
+    gameplay: function gameplay(scope) {
+      sendRequest.getUserDetails('/user/get-user-details', true).then(function (rsp) {
+        scope.userdetails = rsp.userdetails;
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.ui.accordion').accordion();
+
+          Echo.channel('exam_member_count').listen('ExamJoined', function (e) {
+            scope.total_examinees = e.total_examinees;
+          });
+        }, 500);
+      });
+      scope.$on('$locationChangeStart', function (e) {
+        if (!sendRequest.getData('prevent')) {
+          e.preventDefault();
+        }
+        $timeout(function () {
+          sendRequest.postRequest('/user/pause-game');
+        }, 0);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {
+          Echo.leave('exam_member_count');
+        }, 0);
+      });
+    },
+    results: function results(scope) {
+      sendRequest.postRequest('/user/get-exam-results').then(function (rsp) {
+        if (rsp.status == 200) {
+          if (rsp.data.results == false) {
+            $location.path('/dashboard');
+            Notification.error({ message: 'Error fetching results.', positionX: 'center' });
+          }
+          if (rsp.data != 'invalid') {
+            scope.results = rsp.data.results;
+            scope.user_questions = rsp.data.user_questions.user_questions;
+            scope.user_earning = _.parseInt(rsp.data.user_earning);
+            scope.max_winners = _.parseInt(rsp.data.max_winners);
+            scope.total_players = _.parseInt(rsp.data.total_players);
+            scope.total_prize_money = _.parseInt(rsp.data.total_prize_money);
+          } else {
+            $location.path('/dashboard');
+            Notification.error({ message: 'Insufficient users for game session. Units reversed', positionX: 'center' });
+          }
+        }
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    },
+    messages: function messages(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.special.cards .image').dimmer({
+            on: 'hover'
+          });
+        }, 500);
+      });
+    },
+    notices: function notices(scope) {
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    }
+  };
+}]);
+
+angular.module('bootstrapAdminPage', []).factory('bootstrapAdminPage', ['$timeout', '$location', 'Notification', 'sendRequest', function ($timeout, $location, Notification, sendRequest) {
+  return {
+    dashboard: function dashboard(scope) {
+
+      sendRequest.postRequest(route_root + '/api/get-dashboard-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.details = rsp.data.details;
+        }
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.shape').shape();
+          $('#profile-menu .item').tab();
+          NProgress.done();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    questions: function questions(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.shape').shape();
+          NProgress.done();
+        }, 500);
+      });
+    },
+
+    admins: function admins(scope) {
+
+      sendRequest.postRequest(route_root + '/api/get-admins-page-details').then(function (rsp) {
+        if (rsp.status == 200) {
+          scope.admins = rsp.data.admins;
+          NProgress.done();
+        }
+      }, function (err) {
+        Notification.error('Error retrieving admins from server');
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    users: function users(scope) {
+      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
+        scope.banks = rsp.banks;
+      });
+      sendRequest.postRequest(route_root + '/api/get-unverified-users-count').then(function (rsp) {
+        scope.unverified_users = rsp.data.unverified_users;
+      });
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    games: function games(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          // $('.ui.sticky')
+          // .sticky({
+          //   context: '#content-context'
+          // });
+          NProgress.done();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    transactions: function transactions(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+          $('.ui.sticky').sticky({
+            context: '#content-context'
+          });
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        // $timeout(function () {
+        // }, 0);
+      });
+    },
+
+    messages: function messages(scope) {
+
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+      scope.$on('$destroy', function () {
+        $timeout(function () {}, 0);
+      });
+    },
+
+    settings: function settings(scope) {
+      sendRequest.getBanks('/api/get-banks-list').then(function (rsp) {
+        scope.banks = rsp.banks;
+      });
+      scope.$on('$viewContentLoaded', function () {
+        $timeout(function () {
+          $('#edit .item').tab();
+          $('.dropdown_menu').dropdown();
+        }, 500);
+      });
+    }
+  };
+}]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/assets/js/dashboard-app.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("./node_modules/angular-utils-pagination/index.js");
+__webpack_require__("./node_modules/angular-sweetalert/SweetAlert.js");
+
+dashboard = angular.module('dashboard', ['ngRoute', 'ngAnimate', 'ngStorage', 'ui-notification', 'yaru22.angular-timeago', 'sendRequest', 'parseHTML', 'customFileChange', 'customFileUpload', 'inputCountValidator', 'countdownTimer', 'miniGameState', 'gameState', 'gamePlay', 'userProfile', 'range', 'buyUnits', 'sendMessage', 'makeWithdrawal', 'bootstrapPage', 'verifyAccount', 'payWithPaystack', 'promptPassword', 'cacheBusting', 'angularUtils.directives.dirPagination', 'viewTopTenPlayers', 'oitozero.ngSweetAlert']);
+
+dashboard.run(['$rootScope', '$window', 'Notification', 'sendRequest', function ($rootScope, $window, Notification, sendRequest) {
+
+  $rootScope._ = _;
+  $rootScope.logout = function () {
+    delete localStorage['game-user_score'];
+    sendRequest.postRequest('/logout').then(function (response) {
+      if (response.status == 200) {
+        Notification.success({ message: 'Logout successful', positionX: 'center' });
+        $window.location.href = '/login';
+      } else {
+        Notification.error({ message: 'Logout failed! Reload page.', positionX: 'center' });
+      }
+    });
+  };
+
+  $rootScope.$on("$routeChangeStart", function (event, next, current) {
+    sendRequest.getTotalEarnings('/user/get-total-earnings').then(function (rsp) {
+      $rootScope.total_earnings = rsp.total_earnings;
+    });
+    sendRequest.getUserDetails('/user/get-user-details').then(function (rsp) {
+      $rootScope.userdetails = rsp.userdetails;
+    });
+  });
+
+  // $rootScope.markAsRead = function(msg) {
+  //  sendRequest.postRequest('api/user/mark-as-read', msg);
+  // };
+}]);
+
+__webpack_require__("./resources/assets/js/angular/filters/parseHTML.js");
+__webpack_require__("./resources/assets/js/angular/services/services.js");
+//
+__webpack_require__("./resources/assets/js/angular/filters/rangeFilter.js");
+//
+__webpack_require__("./resources/assets/js/angular/directives/customFileChange.js");
+__webpack_require__("./resources/assets/js/angular/directives/customFileUpload.js");
+__webpack_require__("./resources/assets/js/angular/directives/inputCountValidator.js");
+__webpack_require__("./resources/assets/js/angular/directives/countdownTimer.js");
+__webpack_require__("./resources/assets/js/angular/directives/miniGameState.js");
+__webpack_require__("./resources/assets/js/angular/directives/gameState.js");
+__webpack_require__("./resources/assets/js/angular/directives/gamePlay.js");
+__webpack_require__("./resources/assets/js/angular/directives/buyUnits.js");
+__webpack_require__("./resources/assets/js/angular/directives/sendMessage.js");
+__webpack_require__("./resources/assets/js/angular/directives/makeWithdrawal.js");
+__webpack_require__("./resources/assets/js/angular/directives/userProfile.js");
+__webpack_require__("./resources/assets/js/angular/directives/verifyAccount.js");
+__webpack_require__("./resources/assets/js/angular/directives/payWithPaystack.js");
+__webpack_require__("./resources/assets/js/angular/directives/promptPassword.js");
+__webpack_require__("./resources/assets/js/angular/directives/cacheBusting.js");
+__webpack_require__("./resources/assets/js/angular/directives/viewTopTenPlayers.js");
+//
+//
+// require('./angular/directives/ngRepeatFinishedCallback');
+//
+
+
+__webpack_require__("./resources/assets/js/angular/routes/dashboard-routes.js");
+
+__webpack_require__("./resources/assets/js/angular/controllers/dashboard-controller.js");
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./resources/assets/js/dashboard-app.js");
+
+
+/***/ })
+
+},[4]);
 //# sourceMappingURL=dashboard-app.js.map
