@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -48,6 +49,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+			if ($exception instanceof TokenMismatchException) {
+				if ($request->ajax()) {
+					return response()->json('Expired token', 500);
+				}
+				return redirect()
+					->back()
+					->withInput($request->except('password'))
+					->withErrors(['Your page was opened for too long, the validation token has expired. Please try again']);
+			}
         return parent::render($request, $exception);
     }
 }
