@@ -131,7 +131,7 @@ class AdminController extends Controller
 
 			Route::get('/get-earnings-by-users-page-details', $c . 'getEarningsByUsersPageDetails');
 
-			Route::get('/get-all-admin-earnings', $c . 'getAllAdminEarnings');
+			Route::get('/get-all-admin-earnings', $c . 'getAllAdminEarnings')->middleware('earnings.admin.transfer');
 
 			Route::post('/withdraw-admin-earnings', $c . 'withdrawAdminEarnings');
 

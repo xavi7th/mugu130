@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \App\Http\Middleware\Verified::class,
         'suspended' => \App\Http\Middleware\Suspend::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        'users' => \App\Http\Middleware\Users::class,
+				'users' => \App\Http\Middleware\Users::class,
+				'earnings.admin.transfer' => \App\Http\Middleware\TransferAdminEarnings::class
     ];
 }
