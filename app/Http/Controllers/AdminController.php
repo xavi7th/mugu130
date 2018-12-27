@@ -105,6 +105,8 @@ class AdminController extends Controller
 
 			Route::post('/get-unverified-users-count', $c . 'getUnverifiedUsersCount');
 
+			Route::get('/get-suspended-users', $c . 'getSuspendedUsers');
+
 			Route::post('/edit-user', $c . 'editUser');
 
 			Route::post('/delete-user', $c . 'deleteUser');
@@ -525,6 +527,13 @@ class AdminController extends Controller
 	{
 		return [
 			'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', Role::user_id())->latest()->paginate(env('ROWS_PER_PAGE'))
+		];
+	}
+
+	public function getSuspendedUsers()
+	{
+		return [
+			'details' => User::with(['untransferred_earnings', 'referrals'])->where('role_id', Role::user_id())->where('useraccstatus', 'suspended')->latest()->paginate(env('ROWS_PER_PAGE'))
 		];
 	}
 
