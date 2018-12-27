@@ -1113,22 +1113,6 @@ admin.controller('UsersController', ['$scope', '$timeout', 'Notification', 'send
 		$timeout(function () {
 			$scope.getUsers = true;
 		}, 500);
-
-		// NProgress.start()
-		// sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase).then(rsp => {
-		// 	console.log(rsp.data.details.total)
-
-		// 	$scope.data = rsp.data.details.data
-		// 	$scope.first_page_url = rsp.data.details.first_page_url
-		// 	$scope.last_page_url = rsp.data.details.last_page_url
-		// 	$scope.prev_page_url = rsp.data.details.prev_page_url
-		// 	$scope.next_page_url = rsp.data.details.next_page_url
-		// 	$scope.current_page = rsp.data.details.current_page
-		// 	$scope.total = rsp.data.details.total
-		// 	$scope.extras = rsp.data.extras
-		// 	$scope.searching = false
-		// 	NProgress.done()
-		// })
 	};
 
 	$scope.getSuspendedUsers = function (u) {
@@ -1138,22 +1122,15 @@ admin.controller('UsersController', ['$scope', '$timeout', 'Notification', 'send
 		$timeout(function () {
 			$scope.getUsers = true;
 		}, 500);
+	};
 
-		// NProgress.start()
-		// sendRequest.postRequest(route_root + '/api/database-search/user', $scope.searchPhrase).then(rsp => {
-		// 	console.log(rsp.data.details.total)
-
-		// 	$scope.data = rsp.data.details.data
-		// 	$scope.first_page_url = rsp.data.details.first_page_url
-		// 	$scope.last_page_url = rsp.data.details.last_page_url
-		// 	$scope.prev_page_url = rsp.data.details.prev_page_url
-		// 	$scope.next_page_url = rsp.data.details.next_page_url
-		// 	$scope.current_page = rsp.data.details.current_page
-		// 	$scope.total = rsp.data.details.total
-		// 	$scope.extras = rsp.data.extras
-		// 	$scope.searching = false
-		// 	NProgress.done()
-		// })
+	$scope.getTopUsers = function (u) {
+		$scope.searching = true;
+		$scope.getUsers = false;
+		$scope.getUsersUrl = '/api/get-top-users';
+		$timeout(function () {
+			$scope.getUsers = true;
+		}, 500);
 	};
 
 	bootstrapAdminPage.users($scope);

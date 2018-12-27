@@ -24,6 +24,7 @@
               <div class="label">
                 <button ng-class="['ui purple button', {'loading':verifying}]" confirm-action="verifyAllUsers()" class="ui purple button">Verify {{ unverified_users }} users</button>
                 <button ng-class="['ui brown button', {'loading':verifying}]" ng-click="getSuspendedUsers()" class="ui brown button">View all suspended accounts</button>
+                <button ng-class="['ui orange button', {'loading':verifying}]" ng-click="getTopUsers()" class="ui orange button">View top users</button>
               </div>
             </div>
         </div>
