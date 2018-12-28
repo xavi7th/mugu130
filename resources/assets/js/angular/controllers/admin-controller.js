@@ -20,11 +20,14 @@ admin.controller('DashboardController', [
 
 admin.controller('QuestionsController', [
 	'$scope',
+	'$timeout',
 	'Notification',
 	'sendRequest',
 	'bootstrapAdminPage',
-	function($scope, Notification, sendRequest, bootstrapAdminPage) {
+	function($scope, $timeout, Notification, sendRequest, bootstrapAdminPage) {
 		NProgress.start()
+		$scope.getQuestionsUrl = '/api/get-questions-page-details'
+		$scope.getQuestions = true
 
 		$scope.previewQuestion = q => {
 			$scope.particular_q = q.question
@@ -109,6 +112,15 @@ admin.controller('QuestionsController', [
 					NProgress.done()
 				}
 			})
+		}
+
+		$scope.performDatabaseSearch = u => {
+			$scope.searching = true
+			$scope.getQuestions = false
+			$scope.getQuestionsUrl = '/api/database-search/questions?details=' + $scope.searchPhrase
+			$timeout(() => {
+				$scope.getQuestions = true
+			}, 500)
 		}
 
 		bootstrapAdminPage.questions($scope)

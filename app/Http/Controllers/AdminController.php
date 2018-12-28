@@ -583,6 +583,19 @@ class AdminController extends Controller
 					->paginate(env('ROWS_PER_PAGE'));
 				break;
 
+			case 'questions':
+				$results = Question::latest()->where('question', 'like', '%' . $searchPhrase . '%')
+					->orWhere('option_1', 'like', '%' . $searchPhrase . '%')
+					->orWhere('option_2', 'like', '%' . $searchPhrase . '%')
+					->orWhere('option_3', 'like', '%' . $searchPhrase . '%')
+					->orWhere('option_4', 'like', '%' . $searchPhrase . '%')
+					->paginate(env('ROWS_PER_PAGE'));
+
+				$data = $results->getCollection();
+				$data->makeVisible('correct_option');
+				$results->setCollection($data);
+				break;
+
 			case 'transaction':
 
 				if ($searchPhrase == 'pending') {
