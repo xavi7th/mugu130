@@ -1,121 +1,121 @@
 <div id="main-controller" style="background: #fff;">
+	<style>
+		html,
+		body {
+			background-color: #fff;
+			color: #636b6f;
+			font-family: 'Raleway', sans-serif;
+			font-weight: 100;
+			height: 100vh;
+			margin: 0;
+		}
 
-  <style>
-    html, body {
-        background-color: #fff;
-        color: #636b6f;
-        font-family: 'Raleway', sans-serif;
-        font-weight: 100;
-        height: 100vh;
-        margin: 0;
-    }
+		.full-height {
+			min-height: calc(100vh - 125px);
+		}
 
-    .full-height {
-        min-height: calc(100vh - 125px);
-    }
+		.flex-center {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
 
-    .flex-center {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
+		.position-ref {
+			position: relative;
+		}
 
-    .position-ref {
-        position: relative;
-    }
+		.content {
+			text-align: center;
+		}
 
-    .content {
-        text-align: center;
-    }
+		.title {
+			font-size: 3em;
+			padding: 10px;
+		}
 
-    .title {
-        font-size: 3em;
-        padding: 10px;
-    }
+		.message {
+			font-size: 1.4em;
+			padding: 5px;
+		}
 
-    .message {
-        font-size: 1.4em;
-        padding: 5px;
-    }
+		.m0 {
+			margin: 0 !important;
+		}
 
-    .m0{
-      margin: 0 !important;
-    }
+		.tal {
+			text-align: left !important;
+		}
 
+		.al {
+			align-self: left;
+		}
 
-    .tal{
-      text-align: left !important;
-    }
+		img.image {
+			margin-top: 45px;
+		}
+	</style>
 
-    .al{
-      align-self: left;
-    }
+	<ng-include src="'angular/views/partials/menu.html'"></ng-include>
 
-    img.image{
-      margin-top: 45px;
-    }
+	<div class="grid-container">
+		<div class="grid-80 push-10">
+			<div class="position-ref full-height">
+				<div class="ui basic segment flex-center ">
+					<img class="ui centered tiny image" src="/img/tick-512.png" />
+					<h1 class="content title">Cashout Request Sent!!!</h1>
+					<p class="message">What's up {{ userdetails.firstname }}. Your cashout request has been sent. Please follow these instructions to successfully receive your money;</p>
+					<p>Note that you will be charged ₦200 for this transaction.</p>
+					<p class="message" style="text-align: center;">
+						<img src="/storage`/instagram-post.jpg" alt="" style="max-width: 50%; display: block; margin: 15px auto;" /> <a class="ui green button" href="/download-image" target="_self">Download</a>
+					</p>
 
-  </style>
+					<p class="message">
+						Download this picture and post it on our <a href="https://t.me/joinchat/I5ozhhI1kWkQQYja-__-6w" target="_blank">Telegram Forum</a>, your Facebook, Twitter and Instagram accounts, using
+						this caption;
+					</p>
 
-  <ng-include src="'angular/views/partials/menu.html'"></ng-include>
+					<div class="message" style="font-style: italic; max-width:100%;">
+						<p>Sup Guys,</p>
+						<p>I just cashed {{ amount | currency }} on @fastplay24.</p>
+						<p ng-if="total_amount > 0">
+							I have cashed a total of {{ total_amount | currency }} b4 this {{ amount | currency }} since I joined #FastPlay24, {{ time_joined }}. I'll post my alert soon.
+						</p>
+						<p>
+							My ref; <a href="https://fastplay24.com/register/ref/{{ refcode }}" style="word-wrap: break-word;">https://fastplay24.com/register/ref/{{ refcode }}</a
+							>{{ ref_link }}. You too could win up to {{ '15000' | currency }} in 10 minutes.
+						</p>
+						<p>Cheers.</p>
+						<p>{{ userdetails.firstname }}</p>
+					</div>
 
-  <div class="grid-container">
-    <div class="grid-80 push-10">
-      <div class="position-ref full-height">
+					<p>
+						<b>NOTE</b>: <br />
+						<li>
+							You must also post your bank alert on Facebook, Twitter and Instagram (using the following caption; I don get alert @fastplay24 #fastplay24 #fastplay24pays) as soon as you receive
+							payment. If you don't you won't be paid the next time you want to Cashout.
+						</li>
+						<li>
+							You must be an active member of our <a href="https://t.me/joinchat/I5ozhhI1kWkQQYja-__-6w" target="_blank">Telegram Forum</a> and also be following us on
+							<a href="https://web.facebook.com/fastplay24" target="_blank">Facebook</a>, <a href="https://twitter.com/fastplay24" target="_blank">Twitter</a> and
+							<a href="https://instagram.com/fastplay24" target="_blank">Instagram</a> to cashout.
+						</li>
+						<li>Do not delete any of your Cashout posts on your wall. If you do you won't be paid the next time you want to Cashout.</li>
+						<li>Put your referral link on the website section of your instagram profile.</li>
+						<li>Ensure that you turn off privacy settings on your social media accounts, so that we can see your posts.</li>
+					</p>
 
-        <div class="ui basic segment flex-center ">
-          <img class="ui centered tiny image" src="/img/tick-512.png">
-          <h1 class="content title">Cashout Request Sent!!!</h1>
-          <p class="message">What's up {{ userdetails.firstname }}. Your cashout request has been sent. Please follow these instructions to successfully receive your money;</p>
+					<p class="message">Thank you for joining FastPlay24.</p>
 
-          <p  class="message" style="text-align: center;">
-            <img src="/storage`/instagram-post.jpg" alt="" style="max-width: 50%; display: block; margin: 15px auto;">
-            <a class="ui green button" href="/download-image" target="_self">Download</a>
-          </p>
+					<p class="message m0 al">
+						Cheers, <br />
+						Your buddies at FastPlay24
+					</p>
+					<a href="/dashboard" class="huge ui blue button"> Back to dashboard </a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-          <p class="message">
-            Download this picture and post it on our <a href="https://t.me/joinchat/I5ozhhI1kWkQQYja-__-6w" target="_blank">Telegram Forum</a>, your Facebook, Twitter and Instagram accounts, using this caption;
-          </p>
-
-          <div class="message" style="font-style: italic; max-width:100%;">
-            <p>Sup Guys,</p>
-            <p>I just cashed {{ amount | currency }} on @fastplay24.</p>
-            <p ng-if="total_amount > 0">I have cashed a total of {{ total_amount | currency }} b4 this {{ amount | currency }} since I joined #FastPlay24, {{ time_joined }}. I'll post my alert soon.</p>
-            <p>My ref; <a href="https://fastplay24.com/register/ref/{{ refcode }}" style="word-wrap: break-word;">https://fastplay24.com/register/ref/{{ refcode }}</a>{{ ref_link }}. You too could win up to {{ '15000' | currency }} in 10 minutes.</p>
-            <p>Cheers.</p>
-            <p>{{ userdetails.firstname }}</p>
-          </div>
-
-          <p>
-            <b>NOTE</b>: <br>
-            <li>You must also post your bank alert on Facebook, Twitter and Instagram (using the following caption; I don get alert @fastplay24 #fastplay24 #fastplay24pays) as soon as you receive payment. If you don't you won't be paid the next time you want to Cashout.</li>
-            <li>You must be an active member of our
-              <a href="https://t.me/joinchat/I5ozhhI1kWkQQYja-__-6w" target="_blank">Telegram Forum</a> and also be following us on
-              <a href="https://web.facebook.com/fastplay24" target="_blank">Facebook</a>,
-              <a href="https://twitter.com/fastplay24" target="_blank">Twitter</a> and
-              <a href="https://instagram.com/fastplay24" target="_blank">Instagram</a> to cashout.
-            </li>
-            <li>Do not delete any of your Cashout posts on your wall. If you do you won't be paid the next time you want to Cashout.</li>
-            <li>Put your referral link on the website section of your instagram profile.</li>
-            <li>Ensure that you turn off privacy settings on your social media accounts, so that we can see your posts.</li>
-          </p>
-
-          <p class="message">Thank you for joining FastPlay24.</p>
-
-          <p class="message m0 al">
-            Cheers, <br>
-            Your buddies at FastPlay24
-          </p>
-          <a href="/dashboard" class="huge ui blue button">
-            Back to dashboard
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <footer ng-include src="'angular/views/partials/footer.html'"></footer>
-
+	<footer ng-include src="'angular/views/partials/footer.html'"></footer>
 </div>
