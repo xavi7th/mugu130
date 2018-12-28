@@ -12,7 +12,8 @@ var url = `
       </div>
       <br>
       <div class="ui search flex-center" style="justify-content:flex-end; margin-bottom: 15px;">
-        <button ng-class="['ui green button', {'loading':searching}]" ng-click="performDatabaseSearch(searchPhrase)">View All Pending Cashouts</button>
+        <button ng-class="['ui green button', {'loading':searching}]" ng-click="performDatabaseSearch('pending')">View All Pending Cashouts</button>
+        <button ng-class="['ui blue button', {'loading':searching}]" ng-click="performDatabaseSearch('approved')">View All Approved Cashouts</button>
         <div class="ui icon input">
           <input class="prompt" type="text" placeholder="Search transactions..." ng-model="search">
           <i class="search icon"></i>
@@ -183,86 +184,68 @@ var url = `
 
 </section>
 
-`;
+`
 
+angular.module('displayTransactions', []).directive('displayTransactions', [
+	'sendRequest',
+	function(sendRequest) {
+		return {
+			restrict: 'E',
+			// templateUrl:'angular/directive-templates/transactionPlayTemplate.php',
+			template: url,
+			replace: true,
+			link: (scope, element, attributes) => {},
+			controller: [
+				'$scope',
+				'$timeout',
+				($scope, $timeout) => {
+					$scope.transactionrecord = false
+					$scope.getUsers = true
+					$scope.getUsersUrl = '/api/get-all-transactions'
 
-angular.module('displayTransactions', []).directive('displayTransactions', ['sendRequest', function (sendRequest) {
-  return {
-    restrict: 'E',
-    // templateUrl:'angular/directive-templates/transactionPlayTemplate.php',
-    template:url,
-    replace: true,
-    link: (scope, element, attributes) => {
+					$scope.markAsPaid = transaction => {
+						$scope.loading = true
+						sendRequest.postRequest(route_root + '/api/mark-transaction-as-paid', transaction).then(rsp => {
+							if (rsp.status == 200) {
+								transaction.status = 'Completed'
+								$scope.transactions_records = rsp.data.transactions_records
+								$scope.loading = false
+							}
+						})
+					}
 
-		},
-    controller: ['$scope', '$timeout',  ($scope, $timeout) => {
+					$scope.performDatabaseSearch = searchPhrase => {
+						$scope.searching = true
+						$scope.getUsers = false
+						console.log($scope.getUsersUrl)
+						if (searchPhrase == 'pending') {
+							$scope.getUsersUrl = '/api/database-search/transaction?details=pending'
+						} else if (searchPhrase == 'approved') {
+							$scope.getUsersUrl = '/api/database-search/transaction?details=approved'
+						}
 
-			$scope.transactionrecord = false;
-			$scope.getUsers = true;
-			$scope.getUsersUrl = '/api/get-all-transactions';
+						$timeout(() => {
+							$scope.getUsers = true
+						}, 500)
 
-      $scope.markAsPaid = (transaction) => {
-        $scope.loading = true;
-        sendRequest.postRequest(route_root + '/api/mark-transaction-as-paid', transaction)
-                    .then( rsp => {
-                      if (rsp.status == 200) {
-                        transaction.status = 'Completed';
-                        $scope.transactions_records = rsp.data.transactions_records;
-                        $scope.loading = false;
+						console.log($scope.getUsersUrl)
+					}
 
-                      }
-                    });
-      };
+					$scope.viewTransactionRecord = transaction => {
+						if (transaction.trans_type != 'withdrawal') {
+							return
+						}
+						$scope.trans_record = transaction
+						$scope.transactionrecord = true
+						// $scope.$parent.active = 'transactionRecord';
+					}
 
-      $scope.performDatabaseSearch = () => {
-
-				$scope.searching = true
-				$scope.getUsers = false;
-				console.log($scope.getUsersUrl);
-
-					$scope.getUsersUrl = '/api/database-search/transaction?details=pending';
-					$timeout(() => {
-						$scope.getUsers = true;
-					}, 500);
-
-					console.log($scope.getUsersUrl);
-
-
-
-        // $scope.searching = true;
-        // NProgress.start();
-        // sendRequest.postRequest(route_root + '/api/database-search/transaction', 'pending')
-        // .then(rsp => {
-        //   console.log(rsp);
-        //   $scope.data = rsp.data.details.data;
-        //   $scope.first_page_url = rsp.data.details.first_page_url;
-        //   $scope.last_page_url = rsp.data.details.last_page_url;
-        //   $scope.prev_page_url = rsp.data.details.prev_page_url;
-        //   $scope.next_page_url = rsp.data.details.next_page_url;
-        //   $scope.current_page = rsp.data.details.current_page;
-        //   $scope.total = rsp.data.details.total;
-        //   $scope.extras = rsp.data.extras;
-        //   $scope.searching = false;
-        //   NProgress.done();
-        // });
-      };
-
-
-      $scope.viewTransactionRecord = (transaction) => {
-        if (transaction.trans_type != 'withdrawal') {
-          return;
-        }
-        $scope.trans_record = transaction;
-        $scope.transactionrecord = true;
-        // $scope.$parent.active = 'transactionRecord';
-      };
-
-      $scope.goBack = () => {
-        $scope.transactionrecord = false;
-        // $scope.$parent.active = 'allTransactions';
-
-      };
-
-    }]
-  };
-}]);
+					$scope.goBack = () => {
+						$scope.transactionrecord = false
+						// $scope.$parent.active = 'allTransactions';
+					}
+				},
+			],
+		}
+	},
+])

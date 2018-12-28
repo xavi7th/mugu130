@@ -430,6 +430,15 @@ admin.controller('UsersController', [
 			}, 500)
 		}
 
+		$scope.getTopEarners = u => {
+			$scope.searching = true
+			$scope.getUsers = false
+			$scope.getUsersUrl = '/api/get-top-earners'
+			$timeout(() => {
+				$scope.getUsers = true
+			}, 500)
+		}
+
 		bootstrapAdminPage.users($scope)
 	},
 ])

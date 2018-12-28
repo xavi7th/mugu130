@@ -109,6 +109,8 @@ class AdminController extends Controller
 
 			Route::get('/get-top-users', $c . 'getTopUsers');
 
+			Route::get('/get-top-earners', $c . 'getTopEarners');
+
 			Route::post('/edit-user', $c . 'editUser');
 
 			Route::post('/delete-user', $c . 'deleteUser');
@@ -546,6 +548,14 @@ class AdminController extends Controller
 		];
 	}
 
+	public function getTopEarners()
+	{
+		$topearners = Earning::groupBy('user_id')->get();
+		return [
+			'details' => $topearners
+		];
+	}
+
 	public function updateUserDetails()
 	{
 
@@ -574,7 +584,12 @@ class AdminController extends Controller
 				break;
 
 			case 'transaction':
-				$results = Transaction::pendingCashouts();
+
+				if ($searchPhrase == 'pending') {
+					$results = Transaction::pendingCashouts();
+				} elseif ($searchPhrase == 'approved') {
+					$results = Transaction::approvedCashouts();
+				}
 				break;
 
 			default:
