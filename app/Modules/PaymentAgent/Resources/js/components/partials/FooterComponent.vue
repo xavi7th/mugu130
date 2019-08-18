@@ -3,7 +3,7 @@
     <div class="grid-container ">
       <div class="grid-100">
         <div class="ui right floated celled horizontal list">
-          <a class="item" target="_self" href="#">© 2018 FastPlay24 &amp; Tcom </a> <span class="deg">·</span>
+          <a class="item" target="_self" href="#">© 2018-2019 FastPlay24 &reg; </a> <span class="deg">·</span>
           <a class="item" target="_blank" href="/terms-and-conditions">Terms</a> <span class="deg">·</span>
           <a class="item" target="_blank" href="/privacy">Privacy</a> <span class="deg">·</span>
           <a class="item" target="_self" href="/frequently-asked-questions">Help &amp; FAQs</a> <span class="deg">·</span>
@@ -21,8 +21,7 @@
 </template>
 
 <script>
-export default {
-}
+  export default {};
 </script>
 
 <style lang="css">

@@ -477,6 +477,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				body,
 				table,
 				td,
@@ -521,6 +522,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				.mcnCartContainer,
 				.mcnCaptionTopContent,
 				.mcnRecContentContainer,
@@ -557,6 +559,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				.mcnCaptionLeftContentOuter .mcnTextContent,
 				.mcnCaptionRightContentOuter .mcnTextContent {
 					padding-top: 9px !important;
@@ -565,6 +568,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				.mcnImageCardTopImageContent,
 				.mcnCaptionBottomContent:last-child .mcnCaptionBottomImageContent,
 				.mcnCaptionBlockInner .mcnCaptionTopContent:last-child .mcnTextContent {
@@ -597,6 +601,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				.mcnTextContent,
 				.mcnBoxedTextContentColumn {
 					padding-right: 18px !important;
@@ -606,6 +611,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				.mcnImageCardLeftImageContent,
 				.mcnImageCardRightImageContent {
 					padding-right: 18px !important;
@@ -624,6 +630,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section heading 1
@@ -639,6 +646,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section heading 2
@@ -654,6 +662,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section heading 3
@@ -669,6 +678,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section heading 4
@@ -684,6 +694,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section Boxed Text
@@ -700,6 +711,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section Preheader Visibility
@@ -713,6 +725,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section Preheader Text
@@ -729,6 +742,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section Header Text
@@ -745,6 +759,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section Body Text
@@ -761,6 +776,7 @@
 			}
 
 			@media only screen and (max-width: 480px) {
+
 				/*
 				@@tab Mobile Styles
 				@@section footer text
@@ -795,17 +811,25 @@
 												<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
 													<tr>
 														<td valign="top" class="headerContainer" style="padding-top:15px; padding-bottom:10px;">
-															<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+															<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock"
+																style="min-width:100%;">
 																<tbody class="mcnImageBlockOuter">
 																	<tr>
 																		<td valign="top" style="padding:0px" class="mcnImageBlockInner">
-																			<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+																			<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0"
+																				class="mcnImageContentContainer" style="min-width:100%;">
 																				<tbody>
 																					<tr>
-																						<td class="mcnImageContent" valign="top" style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;">
+																						<td class="mcnImageContent" valign="top"
+																							style="padding-right: 0px; padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
-																							<a href="http://fastplay24.com/about" title="About Us" class="" target="_blank">
-																								<img align="center" alt="" src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png" width="100" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnRetinaImage">
+																							<a href="http://fastplay24.com/about" title="About Us" class=""
+																								target="_blank">
+																								<img align="center" alt=""
+																									src="https://gallery.mailchimp.com/11b6ce7696b6319eba143c1d6/images/24a5b5ba-5692-46fc-9f24-219f615bd7d5.png"
+																									width="100"
+																									style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;"
+																									class="mcnRetinaImage">
 																							</a>
 
 																						</td>
@@ -829,7 +853,8 @@
 								<td align="center" valign="top">
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
 										<tr>
-											<td align="center" valign="top" style="padding-top:10px; padding-right:10px; padding-bottom:5px; padding-left:10px;">
+											<td align="center" valign="top"
+												style="padding-top:10px; padding-right:10px; padding-bottom:5px; padding-left:10px;">
 												<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
 													<tr>
 														<td align="center" valign="top">
@@ -839,16 +864,20 @@
 
 																		{{-- HEADER --}}
 
-																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock"
+																			style="min-width:100%;">
 																			<tbody class="mcnTextBlockOuter">
 																				<tr>
 																					<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
 
-																						<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+																						<table align="left" border="0" cellpadding="0" cellspacing="0"
+																							style="max-width:100%; min-width:100%;" width="100%"
+																							class="mcnTextContentContainer">
 																							<tbody>
 																								<tr>
 
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
 																										<h1><span style="color:#0099ff">Credit Alert</span></h1>
 
@@ -862,17 +891,23 @@
 																			</tbody>
 																		</table>
 
-																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
+																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock"
+																			style="min-width:100%;">
 																			<tbody class="mcnImageBlockOuter">
 																				<tr>
 																					<td valign="top" style="padding:9px" class="mcnImageBlockInner">
-																						<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="min-width:100%;">
+																						<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0"
+																							class="mcnImageContentContainer" style="min-width:100%;">
 																							<tbody>
 																								<tr>
-																									<td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
+																									<td class="mcnImageContent" valign="top"
+																										style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
 
 
-																										<img align="center" alt="" src="{{ asset('img/tick-512.png') }}" width="120" style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+																										<img align="center" alt="" src="{{ asset('img/tick-512.png') }}"
+																											width="120"
+																											style="max-width:200px; padding-bottom: 0; display: inline !important; vertical-align: bottom;"
+																											class="mcnImage">
 
 
 																									</td>
@@ -884,64 +919,95 @@
 																			</tbody>
 																		</table>
 
-																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+																		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock"
+																			style="min-width:100%;">
 																			<tbody class="mcnTextBlockOuter">
 																				<tr>
 																					<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
 
-																						<table align="left" border="0" cellpadding="0" cellspacing="0" style="margin-left:10%; max-width:80%; min-width:80%;" width="100%" class="mcnTextContentContainer">
+																						<table align="left" border="0" cellpadding="0" cellspacing="0"
+																							style="margin-left:10%; max-width:80%; min-width:80%;" width="100%"
+																							class="mcnTextContentContainer">
 																							<tbody>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										<h1 style="text-align: left;">Hello {{ Auth::user()->firstname }},</h1>
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										<h1 style="text-align: left;">Hello {{ Auth::user()->firstname }},
+																										</h1>
 																									</td>
 																								</tr>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 																										<p>Your payment has been processed.</p>
 																									</td>
 																								</tr>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 																										<p>Below are the details:</p>
 																									</td>
 																								</tr>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																										<ul class="mcnTextContent" style="background-color: #eee; list-style:none; padding: 25px;">
-																											<li>Amount: <strong> ₦{{ number_format(($amt - $fees), 2) }}</strong></li>
-																											<li>Transaction Charges: <strong> ₦{{ number_format($fees, 2) }}</strong></li>
-																											<li>Total Amount: <strong> ₦{{ number_format($amt, 2) }}</strong></li>
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										<ul class="mcnTextContent"
+																											style="background-color: #eee; list-style:none; padding: 25px;">
+																											<li>Amount: <strong>
+																													₦{{ number_format(($amt - $fees), 2) }}</strong></li>
+																											<li>Transaction Charges: <strong>
+																													₦{{ number_format($fees, 2) }}</strong></li>
+																											<li>Total Amount: <strong> ₦{{ number_format($amt, 2) }}</strong>
+																											</li>
 																											<li>Type: <strong> {{ $trans_type }}</strong></li>
 																											<li>Transaction ID: <strong> {{ str_random(15) }}</strong></li>
 																											<li>Status: <strong> Transaction Successful</strong></li>
-																											<li>New balance: <strong> ₦{{ number_format($user_balance, 2) }}</strong></li>
+																											<li>New balance: <strong>
+																													₦{{ number_format($user_balance, 2) }}</strong></li>
 																											<li>Date and Time: <strong> {{ now() }}</strong></li>
 																										</ul>
 																									</td>
 																								</tr>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																											{{-- <p>Please note that a VAT of 5% has been deducted from the payment we received.</p> --}}
-																											<p>Please, do notify us if you encountered any problem or need any assistance with your transaction.</p>
-																											<p>If you think there is an error with this feedback, kindly send an email to <a href="mailto:hello@fastplay24.com ">hello@fastplay24.com </a> to help us resolve the issue.</p>
-																											<p>Thank you for using FastPlay24.</p>
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										{{-- <p>Please note that a VAT of 5% has been deducted from the payment we received.</p> --}}
+																										<p>Please, do notify us if you encountered any problem or need any
+																											assistance with your transaction.</p>
+																										<p>If you think there is an error with this feedback, kindly send an
+																											email to <a
+																												href="mailto:hello@fastplay24.com ">hello@fastplay24.com </a> to
+																											help us resolve the issue.</p>
+																										<p>Thank you for using FastPlay24.</p>
 																									</td>
 																								</tr>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-																											<p>Cheers,</p>
-																											<p>FastPlay24 Billing Team</p>
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																										<p>Cheers,</p>
+																										<p>FastPlay24 Billing Team</p>
 																									</td>
 																								</tr>
 																								<tr>
-																									<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																									<td valign="top" class="mcnTextContent"
+																										style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 																										{{-- <h2>Think - Play - Win </h2> --}}
 																										<h6 style="font-style: italic;">
-																											<strong style="text-transform: uppercase; font-style: normal;">Disclaimer:</strong> <br>
-																												This is a mandatory/unmonitored email channel.  Please do not reply.  If you have any enquiries or complaints, shoot a note to hello@fastplay24.com and someone will contact you shortly.
-																												Do not disclose your login details, online banking login or account information to anyone. No one at FastPlay24 or our parent company, Tcom Wireless Nigeria will request such information from you.
-																												Please, you should never pay money or provide any form of incentive to any individual that claims to be a FastPlay24 agent or an employee of our parent company, Tcom Wireless in order to redeem your prices.  All payments are processed directly by us and users are notified via our official channels.
+																											<strong
+																												style="text-transform: uppercase; font-style: normal;">Disclaimer:</strong>
+																											<br>
+																											This is a mandatory/unmonitored email channel. Please do not
+																											reply. If you have any enquiries or complaints, shoot a note to
+																											hello@fastplay24.com and someone will contact you shortly.
+																											Do not disclose your login details, online banking login or
+																											account information to anyone. No one at FastPlay24 or our parent
+																											company, Tcom Wireless Nigeria will request such information from
+																											you.
+																											Please, you should never pay money or provide any form of
+																											incentive to any individual that claims to be a FastPlay24 agent
+																											or an employee of our parent company, Tcom Wireless in order to
+																											redeem your prices. All payments are processed directly by us and
+																											users are notified via our official channels.
 																										</h6>
 																									</td>
 																								</tr>
@@ -961,7 +1027,8 @@
 													</tr>
 													<tr>
 														<td align="center" valign="top">
-															<img src="https://gallery.mailchimp.com/27aac8a65e64c994c4416d6b8/images/couponshadow.png" height="20" width="600" class="mcnImage" style="display:block; max-width:560px;">
+															<img src="https://gallery.mailchimp.com/27aac8a65e64c994c4416d6b8/images/couponshadow.png"
+																height="20" width="600" class="mcnImage" style="display:block; max-width:560px;">
 														</td>
 													</tr>
 												</table>
@@ -979,18 +1046,22 @@
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
 										<tr>
 											<td align="center" valign="top">
-												<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
+												<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock"
+													style="min-width:100%;">
 													<tbody class="mcnFollowBlockOuter">
 														<tr>
 															<td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
-																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
+																<table border="0" cellpadding="0" cellspacing="0" width="100%"
+																	class="mcnFollowContentContainer" style="min-width:100%;">
 																	<tbody>
 																		<tr>
 																			<td align="center" style="padding-left:9px;padding-right:9px;">
-																				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
+																				<table border="0" cellpadding="0" cellspacing="0" width="100%"
+																					style="min-width:100%;" class="mcnFollowContent">
 																					<tbody>
 																						<tr>
-																							<td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
+																							<td align="center" valign="top"
+																								style="padding-top:9px; padding-right:9px; padding-left:9px;">
 																								<table align="center" border="0" cellpadding="0" cellspacing="0">
 																									<tbody>
 																										<tr>
@@ -998,20 +1069,31 @@
 
 
 
-																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																												<table align="left" border="0" cellpadding="0" cellspacing="0"
+																													style="display:inline;">
 																													<tbody>
 																														<tr>
-																															<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
-																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																															<td valign="top"
+																																style="padding-right:10px; padding-bottom:9px;"
+																																class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0"
+																																	width="100%" class="mcnFollowContentItem">
 																																	<tbody>
 																																		<tr>
-																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																			<td align="left" valign="middle"
+																																				style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0"
+																																					cellspacing="0" width="">
 																																					<tbody>
 																																						<tr>
 
-																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="{{ env('APP_TWITTER_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							<td align="center" valign="middle"
+																																								width="24" class="mcnFollowIconContent">
+																																								<a href="{{ env('APP_TWITTER_LINK') }}"
+																																									target="_blank"><img
+																																										src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-twitter-48.png"
+																																										style="display:block;" height="24"
+																																										width="24" class=""></a>
 																																							</td>
 
 
@@ -1029,20 +1111,31 @@
 
 
 
-																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																												<table align="left" border="0" cellpadding="0" cellspacing="0"
+																													style="display:inline;">
 																													<tbody>
 																														<tr>
-																															<td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
-																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																															<td valign="top"
+																																style="padding-right:10px; padding-bottom:9px;"
+																																class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0"
+																																	width="100%" class="mcnFollowContentItem">
 																																	<tbody>
 																																		<tr>
-																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																			<td align="left" valign="middle"
+																																				style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0"
+																																					cellspacing="0" width="">
 																																					<tbody>
 																																						<tr>
 
-																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="{{ env('APP_FACEBOOK_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							<td align="center" valign="middle"
+																																								width="24" class="mcnFollowIconContent">
+																																								<a href="{{ env('APP_FACEBOOK_LINK') }}"
+																																									target="_blank"><img
+																																										src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-facebook-48.png"
+																																										style="display:block;" height="24"
+																																										width="24" class=""></a>
 																																							</td>
 
 
@@ -1059,20 +1152,31 @@
 																												</table>
 
 
-																												<table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
+																												<table align="left" border="0" cellpadding="0" cellspacing="0"
+																													style="display:inline;">
 																													<tbody>
 																														<tr>
-																															<td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
-																																<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
+																															<td valign="top"
+																																style="padding-right:0; padding-bottom:9px;"
+																																class="mcnFollowContentItemContainer">
+																																<table border="0" cellpadding="0" cellspacing="0"
+																																	width="100%" class="mcnFollowContentItem">
 																																	<tbody>
 																																		<tr>
-																																			<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-																																				<table align="left" border="0" cellpadding="0" cellspacing="0" width="">
+																																			<td align="left" valign="middle"
+																																				style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																				<table align="left" border="0" cellpadding="0"
+																																					cellspacing="0" width="">
 																																					<tbody>
 																																						<tr>
 
-																																							<td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-																																								<a href="{{ env('APP_INSTAGRAM_LINK') }}" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-instagram-48.png" style="display:block;" height="24" width="24" class=""></a>
+																																							<td align="center" valign="middle"
+																																								width="24" class="mcnFollowIconContent">
+																																								<a href="{{ env('APP_INSTAGRAM_LINK') }}"
+																																									target="_blank"><img
+																																										src="https://cdn-images.mailchimp.com/icons/social-block-v2/light-instagram-48.png"
+																																										style="display:block;" height="24"
+																																										width="24" class=""></a>
 																																							</td>
 
 
@@ -1108,18 +1212,22 @@
 												<table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
 													<tr>
 														<td valign="top" class="footerContainer" style="padding-top:10px; padding-bottom:10px;">
-															<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
+															<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock"
+																style="min-width:100%;">
 																<tbody class="mcnTextBlockOuter">
 																	<tr>
 																		<td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
 
-																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+																			<table align="left" border="0" cellpadding="0" cellspacing="0"
+																				style="max-width:100%; min-width:100%;" width="100%"
+																				class="mcnTextContentContainer">
 																				<tbody>
 																					<tr>
 
-																						<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+																						<td valign="top" class="mcnTextContent"
+																							style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-																							<em>Copyright© 2018 FastPlay24 &amp; Tcom, All rights reserved.</em><br>
+																							<em>Copyright 2018-2019 FastPlay24 &reg;, All rights reserved.</em><br>
 																							<br>
 																							<br>
 																							<strong>Our mailing address is:</strong><br> hello@fastplay24.com
