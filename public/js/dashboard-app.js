@@ -1831,7 +1831,7 @@ angular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$
 			onfinish: '&finish'
 		},
 
-		template: '<div>' + '<h1 class="time">{{ minutes }}:' + '{{ seconds }}</h1>' + '<ng-transclude></ng-transclude>' + '</div>',
+		template: '<div>' + '<h1 class="time"><b ng-if="hours > 0">{{ hours }}:</b>' + '<b>{{ minutes }}:</b>' + '{{ seconds }}</h1>' + '<ng-transclude></ng-transclude>' + '</div>',
 
 		link: function link(scope, elem, attrs) {
 
@@ -1853,8 +1853,8 @@ angular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$
 				}
 
 				scope.seconds = twoNumbers(Math.floor(scope.millis / 1000 % 60));
-				scope.minutes = Math.floor(scope.millis / (1000 * 60) % 60);
-				scope.hours = Math.floor(scope.millis / (1000 * 60 * 60) % 24);
+				scope.minutes = twoNumbers(Math.floor(scope.millis / (1000 * 60) % 60));
+				scope.hours = twoNumbers(Math.floor(scope.millis / (1000 * 60 * 60) % 24));
 				scope.days = Math.floor(scope.millis / (1000 * 60 * 60) / 24);
 
 				scope.$apply();
@@ -1870,7 +1870,10 @@ angular.module('countdownTimer', []).directive('countdownTimer', ['$timeout', '$
 			scope.stop = function () {
 				scope.stoppedTime = new Date();
 				resetInterval();
-				scope.$emit('timer-stopped', { intervalId: scope.intervalId, millis: scope.millis });
+				scope.$emit('timer-stopped', {
+					intervalId: scope.intervalId,
+					millis: scope.millis
+				});
 			};
 
 			//if not used anywhere, make it a regular function so you don't pollute the scope
