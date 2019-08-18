@@ -749,15 +749,6 @@ __webpack_require__("./resources/assets/js/angular/controllers/admin-controller.
 
 /* WEBPACK VAR INJECTION */(function($) {admin.controller('DashboardController', ['$scope', 'Notification', 'sendRequest', 'bootstrapAdminPage', function ($scope, Notification, sendRequest, bootstrapAdminPage) {
 	NProgress.start();
-
-	$scope.flipLeft = function () {
-		$('.shape').shape('flip left');
-	};
-
-	$scope.flipRight = function () {
-		$('.shape').shape('flip right');
-	};
-
 	bootstrapAdminPage.dashboard($scope);
 }]);
 

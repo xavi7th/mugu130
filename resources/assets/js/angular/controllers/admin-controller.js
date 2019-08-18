@@ -5,15 +5,6 @@ admin.controller('DashboardController', [
 	'bootstrapAdminPage',
 	function($scope, Notification, sendRequest, bootstrapAdminPage) {
 		NProgress.start()
-
-		$scope.flipLeft = () => {
-			$('.shape').shape('flip left')
-		}
-
-		$scope.flipRight = () => {
-			$('.shape').shape('flip right')
-		}
-
 		bootstrapAdminPage.dashboard($scope)
 	},
 ])

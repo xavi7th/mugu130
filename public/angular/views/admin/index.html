@@ -216,6 +216,30 @@
                 <td>Num of Offline Funding</td>
                 <td>{{ details.total_number_of_offline_wallet_fundings }}</td>
               </tr>
+              <tr>
+                <td>Top Withdrawer</td>
+                <td>{{ details.top_withdrawer.user.firstname }} {{ details.top_withdrawer.user.lastname }} ({{ details.top_withdrawer.user.email }}): {{ details.top_withdrawer.withdrawal_count }} times ({{ details.top_withdrawer.withdrawal_amount | currency }})</td>
+              </tr>
+              <tr>
+                <td>Total wallet funding for previous month</td>
+                <td>{{ details.sum_of_last_month_wallet_funding.user.funding_count }} times ({{ details.sum_of_last_month_wallet_funding.user.funding_amount | currency }})</td>
+              </tr>
+              <tr>
+                <td>Total wallet funding for current month</td>
+                <td>{{ details.sum_of_this_month_wallet_funding.user.funding_count }} times ({{ details.sum_of_this_month_wallet_funding.user.funding_amount | currency }})</td>
+              </tr>
+              <tr>
+                <td>Total wallet funding for yesterday</td>
+                <td>{{ details.sum_of_yesterday_wallet_funding.user.funding_count }} times ({{ details.sum_of_yesterday_wallet_funding.user.funding_amount | currency }})</td>
+              </tr>
+              <tr>
+                <td>Total wallet funding for today</td>
+                <td>{{ details.sum_of_today_wallet_funding.user.funding_count }} times ({{ details.sum_of_today_wallet_funding.user.funding_amount | currency }})</td>
+              </tr>
+              <tr>
+                <td>Total withdrawal for previous month</td>
+                <td>{{ details.sum_of_today_wallet_funding.user.funding_count }} times ({{ details.sum_of_today_wallet_funding.user.funding_amount | currency }})</td>
+              </tr>
 
             </tbody>
           </table>

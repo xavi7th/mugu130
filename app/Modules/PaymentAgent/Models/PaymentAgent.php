@@ -3,7 +3,7 @@
 namespace App\Modules\PaymentAgent\Models;
 
 use App\User;
-use App\Modules\PaymentAgent\Models\PaymentAgentTransactions;
+use App\Modules\PaymentAgent\Models\PaymentAgentTransaction;
 use App\Earning;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +16,7 @@ class PaymentAgent extends User
     protected $guarded = ['total_user_fundings', 'total_untransferred_earnings', 'agent_transactions'];
 
     public function agent_transactions(){
-      return $this->hasMany(PaymentAgentTransactions::class)->latest();
+      return $this->hasMany(PaymentAgentTransaction::class)->latest();
     }
 
     public function getTotalUserFundingsAttribute(){

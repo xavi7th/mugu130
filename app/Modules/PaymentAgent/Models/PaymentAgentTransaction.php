@@ -5,7 +5,7 @@ namespace App\Modules\PaymentAgent\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class PaymentAgentTransactions extends Model
+class PaymentAgentTransaction extends Model
 {
     protected $guarded = [];
     // protected $appends = [

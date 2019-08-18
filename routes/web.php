@@ -306,7 +306,7 @@ Route::middleware(['before'])->group(function () {
 		DB::commit();
 
 		$results = DemoGameSession::where('session_id', session('demo_id'))->get();
-    // $results = $results->concat(generateDemoUsers($firstprice, $max_winners, $count == 10));
+		// $results = $results->concat(generateDemoUsers($firstprice, $max_winners, $count == 10));
 
 		return [
 			'status' => true,
