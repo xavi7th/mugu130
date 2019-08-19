@@ -77,14 +77,14 @@ class DashboardController extends Controller
 		Route::post('/dashboard/save-order-and-pay', function () {
 
 			/***** THE PaystackCharge file is in my models and autoloaded by composer files option in composer.json  *******/
-        // you can configure to use default charge (1.5% with a additional 100ngn if above 2500)
-        // or a negotiated charge
+			// you can configure to use default charge (1.5% with a additional 100ngn if above 2500)
+			// or a negotiated charge
 			$pc = new PaystackCharge(0.017, 10000, 250000, 1000000000); // 1.5% with a additional 100ngn if above 2500ngn - 10Mngn charge cap (essentially infinite)
 			$amount = $pc->add_for_kobo(request('amount')) . "\n";
 
 			DB::beginTransaction();
 
-          //create deposit transcation record
+			//create deposit transcation record
 			$transaction = Auth::user()->transactions()->create([
 				'amount' => request('amount') / 100,
 				'charges' => ((intval($amount) - intval(request('amount'))) / 100),
@@ -94,14 +94,14 @@ class DashboardController extends Controller
 			]);
 
 
-        // Get this from https://github.com/yabacon/paystack-class
-        // The PAYSTACK CLASS IS IN MY MODELS and autlooaded with files object in composer.json
+			// Get this from https://github.com/yabacon/paystack-class
+			// The PAYSTACK CLASS IS IN MY MODELS and autlooaded with files object in composer.json
 
 			$paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
-        // dd($transaction->ref_no['value']);
+			// dd($transaction->ref_no['value']);
 
-        //Initialise a call to paystack to authorize the payment. Sample response below
-        /*
+			//Initialise a call to paystack to authorize the payment. Sample response below
+			/*
 
             Array[1][
               {
@@ -116,8 +116,8 @@ class DashboardController extends Controller
             ]
 
 			 */
-        // the code below throws an exception if there was a problem completing the request,
-        // else returns an object created from the json response
+			// the code below throws an exception if there was a problem completing the request,
+			// else returns an object created from the json response
 			try {
 				$trx = $paystack->transaction->initialize(
 					[
@@ -167,33 +167,32 @@ class DashboardController extends Controller
 				}
 			}
 
-        // status should be true if there was a successful call
+			// status should be true if there was a successful call
 			if (!$trx->status) {
 				abort(502, 'A node in the communication replied with ' . $trx->message . '. Please try again.');
 			}
 
-        //Since the transaction has been authorised, commit the trasnaction record
+			//Since the transaction has been authorised, commit the trasnaction record
 			DB::commit();
 
-        // full sample initialize response is here: https://developers.paystack.co/docs/initialize-a-transaction
-        // An authorsied URL where this transaction will be processed. The paystack form for the user to enter his details is at this URL.
-        // This is a sample of the URL "https://checkout.paystack.com/exqcbnbjltzfdyz",
-        // From this URL, paystack sends a JSON data for events, posted to your webhook url when a transaction is successful
-        // on your account in the webhook's domain. Your webhook has to be a publicly available url which doesn't redirect.
-        // The webhook URL is where you handle the charge.sucess event
+			// full sample initialize response is here: https://developers.paystack.co/docs/initialize-a-transaction
+			// An authorsied URL where this transaction will be processed. The paystack form for the user to enter his details is at this URL.
+			// This is a sample of the URL "https://checkout.paystack.com/exqcbnbjltzfdyz",
+			// From this URL, paystack sends a JSON data for events, posted to your webhook url when a transaction is successful
+			// on your account in the webhook's domain. Your webhook has to be a publicly available url which doesn't redirect.
+			// The webhook URL is where you handle the charge.sucess event
 
-        // return $trx->data->authorization_url;
-        // Get the user to click link to start payment or simply redirect to the url generated
+			// return $trx->data->authorization_url;
+			// Get the user to click link to start payment or simply redirect to the url generated
 
 			session(['activeTransaction' => true]);
 
 			return redirect($trx->data->authorization_url);
-
 		})->middleware('auth', 'suspended', 'before', 'users');
 
 		Route::any('/dashboard/paystack-web-hook', function () {
 
-        // Retrieve the request's body
+			// Retrieve the request's body
 			$body = @file_get_contents("php://input");
 			$signature = (isset($_SERVER['HTTP_X_PAYSTACK_SIGNATURE']) ? $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] : '');
 
@@ -206,33 +205,33 @@ class DashboardController extends Controller
 			exit;
 
 
-        /* It is a good idea to log all events received. Add code *
+			/* It is a good idea to log all events received. Add code *
 			 * here to log the signature and body to db or file       */
 
 			if (!$signature) {
-            // only a post with paystack signature header gets our attention
+				// only a post with paystack signature header gets our attention
 				exit();
 			}
 
 			define('PAYSTACK_SECRET_KEY', 'sk_xxxx_xxxxxx');
-        // confirm the event's signature
+			// confirm the event's signature
 			if ($signature !== hash_hmac('sha512', $body, PAYSTACK_SECRET_KEY)) {
-          // silently forget this ever happened
+				// silently forget this ever happened
 				exit();
 			}
 
 			http_response_code(200);
-        // parse event (which is json string) as object
-        // Give value to your customer but don't give any output
-        // Remember that this is a call from Paystack's servers and
-        // Your customer is not seeing the response here at all
+			// parse event (which is json string) as object
+			// Give value to your customer but don't give any output
+			// Remember that this is a call from Paystack's servers and
+			// Your customer is not seeing the response here at all
 			$event = json_decode($body);
 			switch ($event->event) {
-            // charge.success
+					// charge.success
 				case 'charge.success':
-                // TIP: you may still verify the transaction
-            		// before giving value.
-                /*
+					// TIP: you may still verify the transaction
+					// before giving value.
+					/*
                   {
                     "event": "charge.success",
                     "data": {
@@ -297,40 +296,39 @@ class DashboardController extends Controller
 					break;
 			}
 			exit();
-
 		});
 
 		Route::get('/dashboard/verify-wallet-funding-transaction', function () {
 
-        // Confirm that reference has not already gotten value
-        // This would have happened most times if you handle the charge.success event.
-        // If it has already gotten value by your records, you may call
-        // perform_success()
+			// Confirm that reference has not already gotten value
+			// This would have happened most times if you handle the charge.success event.
+			// If it has already gotten value by your records, you may call
+			// perform_success()
 
 			$paystack = new Paystack(env('PAYSTACK_SECRET_KEY'));
 
-        // the code below throws an exception if there was a problem completing the request,
-        // else returns an object created from the json response
+			// the code below throws an exception if there was a problem completing the request,
+			// else returns an object created from the json response
 			$trx = $paystack->transaction->verify(
 				[
 					'reference' => $_GET['reference']
 				]
 			);
 
-        //Save the reansaction details from Paystack whether positive or negative
+			//Save the reansaction details from Paystack whether positive or negative
 			Transaction::find($trx->data->metadata->transaction_id)->update([
 				'paystack_response' => json_encode($trx)
 			]);
 
-        // status should be true if there was a successful call
+			// status should be true if there was a successful call
 			if (!$trx->status) {
 				abort(502, 'A node in the communication replied with ' . $trx->message . '. Please try again.');
 			}
 
-        // full sample verify response is here: https://developers.paystack.co/docs/verifying-transactions
+			// full sample verify response is here: https://developers.paystack.co/docs/verifying-transactions
 			if ('success' == $trx->data->status) {
-        	//TODO: Maybe use trx info including metadata and a session info to confirm that cartid
-          // matches the one for which we accepted payment
+				//TODO: Maybe use trx info including metadata and a session info to confirm that cartid
+				// matches the one for which we accepted payment
 				try {
 					DB::beginTransaction();
 					Transaction::find($trx->data->metadata->transaction_id)->update([
@@ -341,15 +339,14 @@ class DashboardController extends Controller
 
 					$rsp = TransactionalMail::sendCreditMail(($trx->data->amount / 100), ($trx->data->metadata->amount_the_user_was_charged / 100), 'wallet funding', Auth::user()->available_units);
 					if (is_array($rsp)) {
-              // If response is an array it means Mail not sent
-              // Handle it somehow
-              // return response()->json(['message' => $rsp['message'] ], $rsp['status']);
+						// If response is an array it means Mail not sent
+						// Handle it somehow
+						// return response()->json(['message' => $rsp['message'] ], $rsp['status']);
 					}
-
 				} catch (\Exception $e) {
-            //Send the admin an error message that someone trien to perform an operationa nd there was an error
+					//Send the admin an error message that someone trien to perform an operationa nd there was an error
 
-            //send the user a notification that something went wrong but support has been notified
+					//send the user a notification that something went wrong but support has been notified
 				}
 
 				return redirect()->route('wallet-funding-successful');
@@ -357,7 +354,6 @@ class DashboardController extends Controller
 			}
 
 			abort(502, 'A node in the encountered an error. Please try again.');
-
 		})->name('verify-paystack-transaction');
 
 		Route::get('/dashboard/order-successful', function () {
@@ -368,11 +364,9 @@ class DashboardController extends Controller
 			} else {
 				return redirect()->route('dashboard');
 			}
-
 		})->name('wallet-funding-successful');
 
 		Route::view('/dashboard/{subcat?}', 'dashboard')->where('subcat', '(.*)')->name('dashboard')->middleware('auth', 'suspended', 'before', 'users');
-
 	}
 
 	public static function API_Routes()
@@ -390,7 +384,6 @@ class DashboardController extends Controller
 					'time_joined' => Auth::user()->created_at->diffForHumans(),
 					'refcode' => Auth::user()->refcode,
 				];
-
 			} else {
 				return [
 					'amount' => Transaction::find(request()->input('details.id'))['amount'],
@@ -475,37 +468,63 @@ class DashboardController extends Controller
 			'game_state' => session('GAME_STATE'), //active, waiting (for the game to end and show result), paused, loading
 			'total_examinees' => $exam_records,
 		];
-
 	}
 
 	public function joinGame()
 	{
 
-      // return ['hh' => Auth::user()->earnings_today()->sum('amount') < env('MAX_ACCEPTABLE_DAILY_EARNING')] ;
+		// return ['hh' => Auth::user()->earnings_today()->sum('amount')];
+		// return ['hh' => ];
 
-		if (Auth::user()->earnings_today()->sum('amount') >= env('MAX_ACCEPTABLE_DAILY_EARNING')) {
-			return response()->json(['err_msg' => 'DAILY LIMIT EXCEEDED!!! <br> Please wait until tomorrow'], 402);
+		/**
+		 * Check if user's account is frozen for gameplay
+		 */
+		if (Auth::user()->DOB) {
+			if (now()->lte(Auth::user()->DOB)) {
+				/**
+				 * If he's still within the 3-day ban period
+				 */
+				return response()->json(['err_msg' => env('FROZEN_PLAY_ACCOUNT_MESSAGE') . 'Please wait until ' . Auth::user()->DOB], 402);
+			} else {
+				/**
+				 * Unfreeze his account
+				 */
+				Auth::user()->DOB = null;
+				Auth::user()->save();
+			}
 		}
 
-      //check user balance
+		if (Auth::user()->earnings_today()->sum('amount') >= env('MAX_ACCEPTABLE_DAILY_EARNING')) {
+
+			/**
+			 * Set a freeze date for the user's account
+			 * !The user will no longer be able to join a game until this date
+			 */
+			Auth::user()->DOB = now()->addDays(env('PLAY_ACCOUNT_FREEZE_DAYS'));
+			Auth::user()->save();
+
+			return response()->json(['err_msg' => env('FROZEN_PLAY_ACCOUNT_MESSAGE') . 'Please wait until ' . Auth::user()->DOB], 402);
+		}
+
+		//check user balance
 		if (Auth::user()->available_units < env('GAME_CREDITS')) {
 			return response()->json(['err_msg' => 'INSUFFICIENT FUNDS!!! <br> Kindly fund your wallet to join game'], 402);
 		}
 
-      // Get id of the current active on-going game
+		// Get id of the current active on-going game
 		$game_id = optional(Game::active(false))->id;
 
 		if (!$game_id) {
 			return response()->json(['status' => false], 422);
 		}
 
-      // Add the user to that current game using the game->id
+		// Add the user to that current game using the game->id
 		if ($game_id > 0) {
 			if (Auth::user()->activeGames) {
 				return response()->json(['status' => 'user already has an active game'], 403);
 			} else {
 
-          // COUNT THE NUM OF EXAMINEES CURRENTLY
+				// COUNT THE NUM OF EXAMINEES CURRENTLY
 				$total_examinees = UserGameSession::where('game_id', $game_id)->count('id');
 
 				DB::beginTransaction();
@@ -522,20 +541,18 @@ class DashboardController extends Controller
 					event(new ExamJoined(++$total_examinees));
 					event(new NewMemberJoined($new_session));
 				} catch (BroadcastException $e) {
-              // echo 'broadcast Exception';
-              //send admin a message that pusher was unavailable. The idea is so that he will know whether to continue to rely on pusher
-              // IDEA: use a directrive that polls the app every 5secs to use a cached query to retrieve the num of users
+					// echo 'broadcast Exception';
+					//send admin a message that pusher was unavailable. The idea is so that he will know whether to continue to rely on pusher
+					// IDEA: use a directrive that polls the app every 5secs to use a cached query to retrieve the num of users
 				} catch (Exception $e) {
-              // echo 'general exception';
+					// echo 'general exception';
 				}
 
 				DB::commit();
-
 			}
 
 			return ['status' => true];
 		}
-
 	}
 
 	public function pauseGame()
@@ -546,7 +563,6 @@ class DashboardController extends Controller
 			return 'game paused';
 		}
 		return 'user has ended his exam';
-
 	}
 
 	public function resumeGame()
@@ -563,14 +579,14 @@ class DashboardController extends Controller
 	{
 
 
-      // return Auth::user()->activeGames;
+		// return Auth::user()->activeGames;
 
 		$exam = request('details');
 
-      // Get id of the current active on-going game
+		// Get id of the current active on-going game
 		$game_id = Game::where('status', true)->value('id');
 
-      //loop through the answers and mark them and send to DB
+		//loop through the answers and mark them and send to DB
 		DB::beginTransaction();
 		$count = 0;
 		foreach ($exam as $key => $value) {
@@ -592,7 +608,7 @@ class DashboardController extends Controller
 			Auth::user()->activeGames->payment_status = 'malpractice';
 			Auth::user()->activeGames->save();
 
-          //Send Admin a message that a user is suspected
+			//Send Admin a message that a user is suspected
 			Message::userSuspended('Malpractice');
 
 			// Auth::logout();
@@ -611,27 +627,27 @@ class DashboardController extends Controller
 		session(['GAME_STATE' => 'waiting']);
 
 
-      //change the game state to waiting if timer is not up yet
+		//change the game state to waiting if timer is not up yet
 		return [
 			'status' => true,
 			'user_score' => $count
 		];
 
-      // return game state
+		// return game state
 
 	}
 
 	public function endExam()
 	{
 
-      // return dd(Auth::user()->lastGame);
+		// return dd(Auth::user()->lastGame);
 
 		$exam = request('details');
 
-      // Get id of the current active on-going game
+		// Get id of the current active on-going game
 		$game_id = Game::where('status', true)->value('id');
 
-      //loop through the answers and mark them and send to DB
+		//loop through the answers and mark them and send to DB
 		DB::beginTransaction();
 		$count = 0;
 		foreach ($exam as $key => $value) {
@@ -653,7 +669,7 @@ class DashboardController extends Controller
 			Auth::user()->lastGame->score = 0;
 			Auth::user()->lastGame->save();
 
-          //Send Admin a message that a user has been suspended
+			//Send Admin a message that a user has been suspended
 			Message::userSuspended('Malpractice');
 
 			// Auth::logout();
@@ -671,14 +687,13 @@ class DashboardController extends Controller
 		DB::commit();
 
 		return ['status' => true, 'user_score' => $count];
-
 	}
 
 	public function getExamResults()
 	{
 
 		if (Auth::user()->lastGame->payment_status == 'nullified') {
-        //return invalid to inform the user
+			//return invalid to inform the user
 			return 'invalid';
 		}
 
@@ -693,7 +708,6 @@ class DashboardController extends Controller
 			'user_questions' => Auth::user()->load('user_questions.question'),
 			'top_ten' => UserGameSession::with(['user:id,firstname'])->where('game_id', $game->id)->orderBy('score')->take(10)->get(['score', 'earning', 'user_id'])->unique('score')
 		];
-
 	}
 
 	public function getExamTopTen($game_id)
@@ -702,17 +716,16 @@ class DashboardController extends Controller
 		return [
 			'top_ten' => UserGameSession::with(['user:id,firstname', 'game:id,num_of_players'])->where('game_id', $game_id)->where('earning', '!=', env('BASIC_PARTICIPATION_REWARD'))->orderBy('position', 'asc')->take(10)->get(['score', 'earning', 'position', 'user_id', 'created_at', 'ended_at', 'game_id'])->unique('position')
 		];
-
 	}
 
 	public function questionRemoveOptions()
 	{
 
-      // dd(Question::find(request('details')));
+		// dd(Question::find(request('details')));
 		$question = Question::find(request('details'));
 
 		$j = 0;
-		for ($i = 0; $i < 4; ) {
+		for ($i = 0; $i < 4;) {
 
 			if ($question->{'option_' . ++$i} !== $question->correct_option) {
 				if ($j > 1) {
@@ -724,13 +737,12 @@ class DashboardController extends Controller
 		}
 
 		return $question;
-
 	}
 
 	public function getTotalEarnings()
 	{
 
-        //return the results ordered by position
+		//return the results ordered by position
 
 		if (Auth::user()->isAdmin()) {
 			$earnings = Earning::where('user_id', Role::admin_id())->where('transferred', 0)->sum('amount');
@@ -741,13 +753,12 @@ class DashboardController extends Controller
 		return [
 			'total_earnings' => $earnings,
 		];
-
 	}
 
 	public function transferEarnings()
 	{
 		Cache::flush();
-      //if there is, add the sum to the available_units
+		//if there is, add the sum to the available_units
 		if (!Auth::user()->totalEarnings()->where('transferred', false)->sum('amount')) {
 			return [
 				'status' => 'Insufficient',
@@ -764,11 +775,10 @@ class DashboardController extends Controller
 
 		DB::commit();
 
-        //return the results ordered by position
+		//return the results ordered by position
 		return [
 			'status' => true,
 		];
-
 	}
 
 	public function getUserQuestions()
@@ -781,10 +791,10 @@ class DashboardController extends Controller
 	public function requestWithdrawal()
 	{
 
-      // return [now()->endOfDay()];
+		// return [now()->endOfDay()];
 
 		if (!Auth::user()->withdrawals_today->isEmpty()) {
-        //The user has withdrawn money today before
+			//The user has withdrawn money today before
 			return response()->json(['message' => 'DAILY CASHOUT LIMIT EXCEEDED!!! <br> Please wait until tomorrow.'], 422);
 		}
 
@@ -816,18 +826,18 @@ MESSAGE;
 			$amount = request()->input('details.amt') - $fee;
 		} else {
 			$fee = ((floor(request()->input('details.amt') / env('WITHDRAWAL_BOUNDARY_AMOUNT')) * env('TRANSACTION_FEE_INCREMENT')) + (env('TRANSACTION_FEE')));
-        // _dd(floor(request()->input('details.amt')/env('WITHDRAWAL_BOUNDARY_AMOUNT')));
+			// _dd(floor(request()->input('details.amt')/env('WITHDRAWAL_BOUNDARY_AMOUNT')));
 			$amount = request()->input('details.amt') - $fee;
 		}
 
 		DB::beginTransaction();
 
-        //remove the units from his acc so that he cannot use it meanwhile
+		//remove the units from his acc so that he cannot use it meanwhile
 		Auth::user()->debitAccount($amount, $fee);
 
 		DB::commit();
 
-      // $rsp = TransactionalMail::sendDebitRequestedMail(request()->input('details.amt'));
+		// $rsp = TransactionalMail::sendDebitRequestedMail(request()->input('details.amt'));
 
 		return [
 			'status' => true
@@ -865,7 +875,6 @@ MESSAGE;
 		return [
 			'status' => true,
 		];
-
 	}
 
 	public function getUserDetails()
@@ -890,7 +899,7 @@ MESSAGE;
 	public function updateUserDetails()
 	{
 
-      // return request();
+		// return request();
 		$this->validate(request(), [
 			'details.email' => 'required',
 		]);
@@ -912,7 +921,7 @@ MESSAGE;
 
 	public function sendMessage()
 	{
-      // return  request()->all();
+		// return  request()->all();
 		if (!request()->isJson()) {
 			$rsp = TransactionalMail::sendVisitorMessage();
 
@@ -938,7 +947,7 @@ MESSAGE;
 
 	public function resendVerificationMail()
 	{
-      // $rsp = TransactionalMail::resendVerificationMail();
+		// $rsp = TransactionalMail::resendVerificationMail();
 
 		if (is_array($rsp)) {
 			return response()->json(['message' => $rsp['message']], $rsp['status']);

@@ -60,11 +60,11 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $dates = [
-		'created_at', 'expectedghdate', 'phdate'
+		'created_at', 'expectedghdate', 'phdate', 'DOB'
 	];
 
 	protected $casts = [
-         // 'acct_no' => 'double',
+		// 'acct_no' => 'double',
 		'verified' => 'boolean',
 		'available_units' => 'double',
 		'units_purchased' => 'double',
@@ -193,7 +193,7 @@ class User extends Authenticatable
 
 	public function lastGame()
 	{
-      // dd(Game::last());
+		// dd(Game::last());
 		$last_game = Game::last();
 		return $this->hasOne(UserGameSession::class)->where('game_id', optional($last_game)->id);
 	}
@@ -210,6 +210,13 @@ class User extends Authenticatable
 
 	public function earnings_today()
 	{
+		/**
+		 * Mock sum of earning amounts
+		 */
+		// return collect([
+		// 	['amount' => 400],
+		// 	['amount' => 300]
+		// ]);
 		return $this->hasMany(Earning::class)->daily();
 	}
 
@@ -222,18 +229,18 @@ class User extends Authenticatable
 	{
 		$active_game = Game::active(false);
 
-      //check for active game
+		//check for active game
 		if (!$active_game) {
 			return false;
 		}
-      //delete previous questions
-      //check if he has active questions in the current exam
+		//delete previous questions
+		//check if he has active questions in the current exam
 		else {
 			Auth::user()->user_questions()->where('game_id', '!=', $active_game->id)->delete();
 			$user_questions = Auth::user()->user_questions()->with('question')->where('game_id', $active_game->id)->get();
 		}
 
-      //populate 11 quuestions into the user_questions table for the user
+		//populate 11 quuestions into the user_questions table for the user
 
 		if ($user_questions->isEmpty()) {
 			Auth::user()->generateQuestions($active_game->id);
@@ -241,24 +248,24 @@ class User extends Authenticatable
 		}
 
 
-      //return 10 plus the id of the bonus question
-      //OR
-      //return the 11 and hide the last one
+		//return 10 plus the id of the bonus question
+		//OR
+		//return the 11 and hide the last one
 		return $user_questions;
 
 
-      //either send the answers along,
-      //OR
-      // Validate the answers only after choosing
+		//either send the answers along,
+		//OR
+		// Validate the answers only after choosing
 	}
 
 	public function generateQuestions($game_id)
 	{
 
-      //Read 11 questions
+		//Read 11 questions
 		$questions = Question::inRandomOrder()->take(11)->get(['id', 'correct_option']);
 
-      //create it in User qusetion db
+		//create it in User qusetion db
 
 		foreach ($questions as $question) {
 			$user_questions[] = [
@@ -272,12 +279,11 @@ class User extends Authenticatable
 		}
 
 		return UserQuestion::insert($user_questions);
-
 	}
 
 	public function updateUserDetails()
 	{
-      // return  request()->all() ;
+		// return  request()->all() ;
 		if (Auth::user()->isAdmin()) {
 			DB::beginTransaction();
 			Auth::user()->update(array_only(request()->input('details'), ['email', 'password']));
@@ -290,7 +296,6 @@ class User extends Authenticatable
 		DB::commit();
 
 		return true;
-
 	}
 
 	public function addEarning($gid, $amt)
@@ -298,7 +303,7 @@ class User extends Authenticatable
 		$this->earnings()->create([
 			'amount' => $amt,
 			'game_id' => $gid,
-        // 'transferred' => Auth::user()->id
+			// 'transferred' => Auth::user()->id
 		]);
 	}
 
@@ -333,7 +338,7 @@ class User extends Authenticatable
 	public function debitAccount($amount, $fee)
 	{
 
-      //add a withdrawal request to transactions table
+		//add a withdrawal request to transactions table
 		Auth::user()->transactions()->create([
 			'amount' => $amount,
 			'charges' => $fee,
@@ -341,7 +346,7 @@ class User extends Authenticatable
 			'status' => 'pending',
 		]);
 
-      //add a notice for the user
+		//add a notice for the user
 
 		$this->available_units = $this->available_units - $amount - $fee;
 		$this->save();
@@ -351,7 +356,7 @@ class User extends Authenticatable
 
 	public function sendMessage()
 	{
-      // return request()->all();
+		// return request()->all();
 		DB::beginTransaction();
 		Message::create([
 			'sender_id' => Auth::id(),
@@ -363,7 +368,6 @@ class User extends Authenticatable
 		DB::commit();
 
 		return true;
-
 	}
 
 	public function notices()
@@ -424,5 +428,4 @@ class User extends Authenticatable
 	{
 		return TransactionalMail::passwordResetMail($this, $token);
 	}
-
 }
