@@ -25,6 +25,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
+        $this->call(EarningsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(DemoQuestionsTableSeeder::class);
+        $this->call(GamesTableSeeder::class);
+        $this->call(QuestionsTableSeeder::class);
+        $this->call(ReferralsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(TransactionsTableSeeder::class);
+        $this->call(UserGameSessionsTableSeeder::class);
+        $this->call(UserQuestionsTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
     }
 }
 
@@ -40,7 +51,18 @@ class DatabaseSeeder extends Seeder
 //        $users = User::all()->all();
 //        for($i=0; $i < 20; $i++){
 //          $users[] = User::find(1);
-//        }
+//            $this->call(EarningsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(DemoQuestionsTableSeeder::class);
+        $this->call(GamesTableSeeder::class);
+        $this->call(QuestionsTableSeeder::class);
+        $this->call(ReferralsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(TransactionsTableSeeder::class);
+        $this->call(UserGameSessionsTableSeeder::class);
+        $this->call(UserQuestionsTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
+    }
 //
 //        foreach(range(1,500) as $index){
 //            $u = $faker->optional($weight = 0.4, $default = 0)->randomElement($users);
@@ -60,5 +82,16 @@ class DatabaseSeeder extends Seeder
 // {
 //   factory(App\User::class, 2)->create()->each(function($u) {
 //     $u->issues()->save(factory(App\Issues::class)->make());
-//   });
+//       $this->call(EarningsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(DemoQuestionsTableSeeder::class);
+        $this->call(GamesTableSeeder::class);
+        $this->call(QuestionsTableSeeder::class);
+        $this->call(ReferralsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(TransactionsTableSeeder::class);
+        $this->call(UserGameSessionsTableSeeder::class);
+        $this->call(UserQuestionsTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
+    });
 // }
