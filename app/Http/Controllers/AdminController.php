@@ -145,7 +145,6 @@ class AdminController extends Controller
 			Route::get('/get-all-user-earnings', $c . 'getAllUserEarnings');
 
 			Route::get('/get-all-game-earnings', $c . 'getAllGameEarnings');
-
 		});
 
 		Route::get('/{subcat?}', $c . 'showDashboard')
@@ -155,7 +154,7 @@ class AdminController extends Controller
 
 	public function showDashboard()
 	{
-        // Cache::flush();
+		// Cache::flush();
 
 		if (!Auth::user()->isAdmin()) {
 			return redirect()->route('dashboard');
@@ -165,7 +164,7 @@ class AdminController extends Controller
 
 	public function getDashboardPageDetails()
 	{
-      // Cache::flush();
+		// Cache::flush();
 		return [
 			'details' => [
 				'active_subscribers' => (int)User::where('available_units', '>', 35)->count(),
@@ -189,14 +188,14 @@ class AdminController extends Controller
 				'sum_of_this_month_withdrawal' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->select(DB::raw('count(amount) as funding_count, sum(amount) as funding_amount'))->get(),
 				'sum_of_yesterday_withdrawal' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->whereDay('created_at', now()->subDay()->day)->whereYear('created_at', now()->year)->select(DB::raw('count(amount) as funding_count, sum(amount) as funding_amount'))->get(),
 				'sum_of_today_withdrawal' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->whereDay('created_at', now()->day)->whereYear('created_at', now()->year)->select(DB::raw('count(amount) as funding_count, sum(amount) as funding_amount'))->get(),
-				'top_player' => UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
-				'top_player_last_month' => UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereMonth('created_at', now()->subMonth()->month)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
-				'top_player_this_month' => UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
-				'top_player_yesterday' => UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereDay('created_at', now()->subDay()->day)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
-				'top_player_today' => UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereDay('created_at', now()->day)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
-				'top_winner' => UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first()->load(['user']),
+				'top_player' => optional(UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first())->load(['user']),
+				'top_player_last_month' => optional(UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereMonth('created_at', now()->subMonth()->month)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first())->load(['user']),
+				'top_player_this_month' => optional(UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first())->load(['user']),
+				'top_player_yesterday' => optional(UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereDay('created_at', now()->subDay()->day)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first())->load(['user']),
+				'top_player_today' => optional(UserGameSession::groupBy('user_id')->orderBy('games_count', 'desc')->whereDay('created_at', now()->day)->whereYear('created_at', now()->year)->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first())->load(['user']),
+				'top_winner' => optional(UserGameSession::groupBy('user_id')->orderBy('user_earnings', 'desc')->select('user_id', DB::raw('count(user_id) as games_count'), DB::raw('sum(earning) as user_earnings'))->first())->load(['user']),
 				'top_referrer' => Referral::select(DB::raw('count(referral_id) as referral_count, user_id'))->groupBy('user_id')->orderBy('referral_count', 'DESC')->first()->load(['user']),
-				'top_withdrawer' => Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->select(DB::raw('count(user_id) as withdrawal_count, sum(amount) as withdrawal_amount, user_id'))->groupBy('user_id')->orderBy('withdrawal_count', 'DESC')->first()->load(['user:id,email,firstname,lastname']),
+				'top_withdrawer' => optional(Transaction::where('trans_type', 'withdrawal')->where('status', 'completed')->select(DB::raw('count(user_id) as withdrawal_count, sum(amount) as withdrawal_amount, user_id'))->groupBy('user_id')->orderBy('withdrawal_count', 'DESC')->first())->load(['user:id,email,firstname,lastname']),
 				'top_referrer' => Referral::groupBy('user_id')->orderBy('referrals_count', 'desc')->select('user_id', DB::raw('count(user_id) as referrals_count'))->first()->load(['user:id,firstname,lastname,email']),
 				'total_payment_agent_transactions' => PaymentAgentTransaction::where('status', 'completed')->select(DB::raw('count(amount) as transactions_count, sum(amount) as transactions_amount'))->get(),
 				'total_payment_agent_last_month_transactions' => PaymentAgentTransaction::where('status', 'completed')->whereMonth('created_at', now()->subMonth()->month)->whereYear('created_at', now()->year)->select(DB::raw('count(amount) as transactions_count, sum(amount) as transactions_amount'))->get(),
@@ -339,7 +338,6 @@ class AdminController extends Controller
 		} else {
 			return response()->json(['message' => 'Last Admin not deletable'], 410);
 		}
-
 	}
 
 	public function createAdmin()
@@ -458,7 +456,7 @@ class AdminController extends Controller
 
 	public function createTransaction()
 	{
-      // return request()->all();
+		// return request()->all();
 
 		$user = User::find(request()->input('details.id'));
 
@@ -484,7 +482,7 @@ class AdminController extends Controller
 
 	public function markTransactionAsPaid()
 	{
-      // return request()->input('details');
+		// return request()->input('details');
 		$user = User::find(request()->input('details.user.id'));
 		TransactionalMail::sendWithdrawalProcessedMail($user, request()->input('details.amount'), request()->input('details.trans_type'), request()->input('details.charges'), request()->input('details.amount') + request()->input('details.charges'));
 		return [
@@ -509,7 +507,7 @@ class AdminController extends Controller
 
 	public function editUser()
 	{
-      // return request()->all();
+		// return request()->all();
 		$this->validate(request(), [
 			'details.email' => 'required'
 		]);
@@ -555,7 +553,7 @@ class AdminController extends Controller
 		$user->verified = true;
 		$user->save();
 
-      // TransactionalMail::sendWelcomeMail($user->firstname, $user->email);
+		// TransactionalMail::sendWelcomeMail($user->firstname, $user->email);
 
 		return [
 			'status' => true
@@ -612,7 +610,7 @@ class AdminController extends Controller
 
 	public function databaseSearch($resource)
 	{
-      // return $resource;
+		// return $resource;
 		$searchPhrase = request()->input('details');
 		$results = [];
 
@@ -777,5 +775,4 @@ class AdminController extends Controller
 			'earnings' => Earning::with('user')->where('game_id', request()->input('game'))->where('user_id', '!=', Role::admin_id())->get()
 		];
 	}
-
 }

@@ -13,9 +13,12 @@
 				<button class="ui orange button" ng-click="newQuestion()">New Question</button>
 				<div class="clear"></div>
 				<div class="ui search flex-center" style="justify-content:flex-end">
-					<div ng-class="['ui icon input action', {'loading': searching, 'error' : !searchPhrase || searchField.$invalid}]">
-						<input class="prompt" type="text" placeholder="Search questions..." ng-model="searchPhrase" ng-minlength="3" name="searchField" /> <i class="search icon"></i>
-						<button class="ui green button" ng-click="performDatabaseSearch(searchPhrase)" ng-disabled="!searchPhrase || searchField.$invalid"></button>
+					<div
+						ng-class="['ui icon input action', {'loading': searching, 'error' : !searchPhrase || searchField.$invalid}]">
+						<input class="prompt" type="text" placeholder="Search questions..." ng-model="searchPhrase" ng-minlength="3"
+							name="searchField" /> <i class="search icon"></i>
+						<button class="ui green button" ng-click="performDatabaseSearch(searchPhrase)"
+							ng-disabled="!searchPhrase || searchField.$invalid"></button>
 					</div>
 				</div>
 				<br />
@@ -34,7 +37,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="q in data | filter : search" class="animate translate-in" ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
+							<tr ng-repeat="q in data | filter : search" class="animate translate-in"
+								ng-class="{'negative': transaction.trans_type == 'withdrawal'}">
 								<td>{{ q.id }}</td>
 								<td>
 									<span style="cursor:pointer;" ng-click="previewQuestion(q)">{{ q.question | limitTo: 100 }}</span>
@@ -96,11 +100,13 @@
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
 								<div class="ui fitted toggle checkbox">
-									<input type="radio" name="correct" ng-click="q.correct_option = q.option_1" ng-selected="q.correct_option == q.option_1" /> <label> </label>
+									<input type="radio" name="correct" ng-click="q.correct_option = q.option_1"
+										ng-checked="q.correct_option == q.option_1" /> <label> </label>
 								</div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_1" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_1"
+								ng-required></textarea></div>
 					</div>
 				</div>
 				<div class="field">
@@ -108,10 +114,13 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_2" ng-selected="q.correct_option == q.option_2" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_2" ng-checked="q.correct_option == q.option_2" />
+									<label></label></div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_2" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_2"
+								ng-required></textarea></div>
 					</div>
 				</div>
 				<div class="field">
@@ -119,10 +128,13 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_3" ng-selected="q.correct_option == q.option_3" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_3" ng-checked="q.correct_option == q.option_3" />
+									<label></label></div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_3" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_3"
+								ng-required></textarea></div>
 					</div>
 				</div>
 				<div class="field">
@@ -130,15 +142,20 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_4" ng-selected="q.correct_option == q.option_4" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_4" ng-checked="q.correct_option == q.option_4" />
+									<label></label></div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_4" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_4"
+								ng-required></textarea></div>
 					</div>
 				</div>
-				<div class="field"><label>Correct Option</label> <textarea rows="2" ng-model="q.correct_option" ng-readonly="true" ng-required></textarea></div>
+				<div class="field"><label>Correct Option</label> <textarea rows="2" ng-model="q.correct_option"
+						ng-readonly="true" ng-required></textarea></div>
 				<div class="field">
-					<button ng-class="['ui submit positive button', {'loading': creating}]" ng-disabled="edit.$invalid">Submit</button>
+					<button ng-class="['ui submit positive button', {'loading': creating}]"
+						ng-disabled="edit.$invalid">Submit</button>
 					<div class="ui negative button" ng-click="q = null">Reset</div>
 					<div class="ui negative button" ng-click="closeModal()">Cancel</div>
 				</div>
@@ -164,10 +181,12 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_1" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_1" /> <label></label></div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_1" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_1"
+								ng-required></textarea></div>
 					</div>
 				</div>
 				<div class="field">
@@ -175,10 +194,12 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_2" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_2" /> <label></label></div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_2" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_2"
+								ng-required></textarea></div>
 					</div>
 				</div>
 				<div class="field">
@@ -186,10 +207,12 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_3" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_3" /> <label></label></div>
 							</div>
 						</div>
-						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_3" ng-required></textarea></div>
+						<div class="ui segment" style="flex-basis:100% !important;"><textarea rows="2" ng-model="q.option_3"
+								ng-required></textarea></div>
 					</div>
 				</div>
 				<div class="field">
@@ -197,20 +220,24 @@
 					<div class="ui horizontal segments">
 						<div class="ui segment">
 							<div class="ui left floated compact segment">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_4" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_4" /> <label></label></div>
 							</div>
 						</div>
 						<div class="ui segment" style="flex-basis:100% !important;">
 							<div class="ui left floated compact segment" style="display:none">
-								<div class="ui fitted toggle checkbox"><input type="radio" name="correct" ng-click="q.correct_option = q.option_4" /> <label></label></div>
+								<div class="ui fitted toggle checkbox"><input type="radio" name="correct"
+										ng-click="q.correct_option = q.option_4" /> <label></label></div>
 							</div>
 							<textarea rows="2" ng-model="q.option_4" ng-required></textarea>
 						</div>
 					</div>
 				</div>
-				<div class="field"><label>Correct Option</label> <textarea rows="2" ng-model="q.correct_option" ng-readonly="true" ng-required></textarea></div>
+				<div class="field"><label>Correct Option</label> <textarea rows="2" ng-model="q.correct_option"
+						ng-readonly="true" ng-required></textarea></div>
 				<div class="field">
-					<button ng-class="['ui submit positive button', {'loading' : creating}]" ng-disabled="edit.$invalid">Submit</button>
+					<button ng-class="['ui submit positive button', {'loading' : creating}]"
+						ng-disabled="edit.$invalid">Submit</button>
 					<div class="ui negative button" ng-click="q = null">Reset</div>
 					<div class="ui negative button" ng-click="closeModal()">Cancel</div>
 				</div>
