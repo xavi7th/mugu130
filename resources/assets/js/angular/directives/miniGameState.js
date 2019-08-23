@@ -11,7 +11,7 @@ var url = `
 
   <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'loading'">
     <div class="ui red button">
-      <i class = "clock icon" > </i> <ng-transclude>Next Game</ng - transclude >
+       <ng-transclude> <i class = "clock icon" > </i> Next Game</ng-transclude>
     </div>
     <a class="ui basic red left pointing label">
       <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>
@@ -21,8 +21,8 @@ var url = `
 
   <div class="ui labeled button" tabindex="-1" ng-if="game_state == 'active'" ng-click="joinGame()">
     <div class="ui green button">
-     <ng-transclude></ng-transclude>
-      <i class="gamepad icon"></i>Join Game
+     <ng-transclude><i class="gamepad icon"></i>Join Game</ng-transclude>
+
     </div>
     <a class="ui basic left pointing green label" ng-click="joinGame()">
         <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>

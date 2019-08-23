@@ -435,7 +435,7 @@
 						<td>COUNT DOWN</td>
 						<td>
 							<mini-game-state class="mini count-down">
-								:
+								<i class="clock icon"> </i>
 							</mini-game-state>
 						</td>
 					</tr>
@@ -456,7 +456,7 @@
 						<td>ENDS IN</td>
 						<td>
 							<mini-game-state class="mini count-down">
-								.
+								<i class="gamepad icon"></i>
 							</mini-game-state>
 						</td>
 					</tr>
