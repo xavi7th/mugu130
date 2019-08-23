@@ -2441,74 +2441,83 @@ angular.module('makeWithdrawal', []).directive('makeWithdrawal', ['$timeout', '$
 // <game-state><game-state>
 
 
-var url = '\n\n<div id="mini-game">\n<style>\n\n</style>\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'loading\'">\n    <div class="ui red button">\n      <i class="clock icon"></i> <ng-transclude></ng-transclude> Next Game\n    </div>\n    <a class="ui basic red left pointing label">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'active\'" ng-click="joinGame()">\n    <div class="ui green button">\n     <ng-transclude></ng-transclude>\n      <i class="gamepad icon"></i>Join Game\n    </div>\n    <a class="ui basic left pointing green label" ng-click="joinGame()">\n        <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n';
+var url = '\n\n<div id="mini-game">\n<style>\n\n</style>\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'loading\'">\n    <div class="ui red button">\n      <i class = "clock icon" > </i> <ng-transclude>Next Game</ng - transclude >\n    </div>\n    <a class="ui basic red left pointing label">\n      <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n\n  <div class="ui labeled button" tabindex="-1" ng-if="game_state == \'active\'" ng-click="joinGame()">\n    <div class="ui green button">\n     <ng-transclude></ng-transclude>\n      <i class="gamepad icon"></i>Join Game\n    </div>\n    <a class="ui basic left pointing green label" ng-click="joinGame()">\n        <countdown-timer countdown="game_timer" finish="pageReload()"></countdown-timer>\n    </a>\n  </div>\n\n';
 
 angular.module('miniGameState', []).directive('miniGameState', ['$location', 'Notification', '$localStorage', 'sendRequest', function ($location, Notification, $localStorage, sendRequest) {
-  return {
-    restrict: 'E',
-    scope: {
-      // dest : '=',
-      // mdl:'=',
-      // attr: '=',
-      // altText: '='
-    },
-    // templateUrl:'angular/directive-templates/gameStateTemplate.php',
-    template: url,
-    replace: true,
-    transclude: true,
-    link: function link(scope, element, attributes) {},
-    controller: ['$scope', function ($scope) {
+	return {
+		restrict: 'E',
+		scope: {
+			// dest : '=',
+			// mdl:'=',
+			// attr: '=',
+			// altText: '='
+		},
+		// templateUrl:'angular/directive-templates/gameStateTemplate.php',
+		template: url,
+		replace: true,
+		transclude: true,
+		link: function link(scope, element, attributes) {},
+		controller: ['$scope', function ($scope) {
 
-      if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
-        $scope.user_score = $localStorage.user_score;
-      }
+			if (sendRequest.getData('user_score') || !angular.isUndefined($localStorage.user_score)) {
+				$scope.user_score = $localStorage.user_score;
+			}
 
-      // handle page reload on timer countdown so that the page can get the next thing from the server
-      $scope.pageReload = function () {
-        // location.reload();
-        sendRequest.getGameState().then(function (rsp) {
-          $scope.game_state = rsp.game_state;
-          $scope.game_timer = rsp.game_timer;
-          $scope.total_examinees = rsp.total_examinees;
-        });
-      };
+			// handle page reload on timer countdown so that the page can get the next thing from the server
+			$scope.pageReload = function () {
+				// location.reload();
+				sendRequest.getGameState().then(function (rsp) {
+					$scope.game_state = rsp.game_state;
+					$scope.game_timer = rsp.game_timer;
+					$scope.total_examinees = rsp.total_examinees;
+				});
+			};
 
-      $scope.joinGame = function () {
-        NProgress.start();
+			$scope.joinGame = function () {
+				NProgress.start();
 
-        delete $localStorage.user_score;
-        delete $localStorage.extra;
-        delete $localStorage.options;
-        delete $localStorage.user_questions;
+				delete $localStorage.user_score;
+				delete $localStorage.extra;
+				delete $localStorage.options;
+				delete $localStorage.user_questions;
 
-        sendRequest.postRequest('/user/join-game').then(function (rsp) {
+				sendRequest.postRequest('/user/join-game').then(function (rsp) {
 
-          if (rsp.status == 422) {
-            Notification.error({ message: 'No active game in progress', positionX: 'center' });
-          } else if (rsp.status == 200) {
-            if (rsp.data.status) {
-              $scope.game_state = 'transition';
-              $location.path('/dashboard/game-play');
-            }
-          } else if (rsp.status == 402) {
-            Notification.error({ message: 'Insufficient credits to join game.', positionX: 'center' });
-          } else if (rsp.status == 403) {
-            $scope.game_state = 'transition';
-            Notification.error({ message: 'Already in a game session.', positionX: 'center' });
-            $location.path('/dashboard/game-play');
-          }
-        });
+					if (rsp.status == 422) {
+						Notification.error({
+							message: 'No active game in progress',
+							positionX: 'center'
+						});
+					} else if (rsp.status == 200) {
+						if (rsp.data.status) {
+							$scope.game_state = 'transition';
+							$location.path('/dashboard/game-play');
+						}
+					} else if (rsp.status == 402) {
+						Notification.error({
+							message: 'Insufficient credits to join game.',
+							positionX: 'center'
+						});
+					} else if (rsp.status == 403) {
+						$scope.game_state = 'transition';
+						Notification.error({
+							message: 'Already in a game session.',
+							positionX: 'center'
+						});
+						$location.path('/dashboard/game-play');
+					}
+				});
 
-        NProgress.done();
-      };
+				NProgress.done();
+			};
 
-      sendRequest.getGameState().then(function (rsp) {
-        $scope.game_state = rsp.game_state;
-        $scope.game_timer = rsp.game_timer;
-        $scope.total_examinees = rsp.total_examinees;
-      });
-    }]
-  };
+			sendRequest.getGameState().then(function (rsp) {
+				$scope.game_state = rsp.game_state;
+				$scope.game_timer = rsp.game_timer;
+				$scope.total_examinees = rsp.total_examinees;
+			});
+		}]
+	};
 }]);
 
 /***/ }),
