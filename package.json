@@ -49,6 +49,7 @@
 		"postcss-fixes": "^2.0.1",
 		"pusher-js": "^4.3.1",
 		"sweetalert": "^2.1.2",
+		"sweetalert2": "^8.15.3",
 		"textangular": "^1.5.16",
 		"tls": "0.0.1",
 		"vee-validate": "^2.1.3",
